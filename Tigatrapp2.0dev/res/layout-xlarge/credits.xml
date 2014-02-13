@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Tigatrapp
+ * Copyright (C) 2013  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
+ * Contact: tigatrapp@ceab.csic.es
+ * 
+ * This file is part of Tigatrapp.
+ * 
+ * Tigatrapp is free software: you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation, either version 3 of the License, or (at 
+ * your option) any later version.
+ * 
+ * Tigatrapp is distributed in the hope that it will be useful, but 
+ * WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along 
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+    
+            <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+    
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:orientation="vertical" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dip"
+            android:layout_marginLeft="20dip"
+            android:text="@string/funded_by"
+            android:textColor="@color/light_yellow"
+            android:textSize="40sp" />
+
+        <ImageView
+            android:id="@+id/fecytImage"
+            android:layout_width="wrap_content"
+            android:layout_height="200dip"
+            android:layout_gravity="center"
+            android:contentDescription="@string/fecyt_CD"
+            android:src="@drawable/fecyt_long" />
+
+        <ImageView
+            android:id="@+id/dipsalutImage"
+            android:layout_width="wrap_content"
+            android:layout_height="100dip"
+            android:layout_gravity="center"
+            android:contentDescription="@string/dipsalut_CD"
+            android:gravity="center"
+            android:padding="1dip"
+            android:src="@drawable/logo_dipsalut" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dip"
+            android:layout_marginLeft="20dip"
+            android:layout_marginTop="160dip"
+            android:text="@string/supported_by"
+            android:textColor="@color/light_yellow"
+            android:textSize="40sp" />
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/ceabImage"
+                android:layout_width="wrap_content"
+                android:layout_height="100dip"
+                android:layout_gravity="center"
+                android:contentDescription="@string/ceab_CD"
+                android:gravity="center"
+                android:padding="0dip"
+                android:src="@drawable/logo_ceab_csic" />
+
+            <ImageView
+                android:id="@+id/scmImage"
+                android:layout_width="wrap_content"
+                android:layout_height="90dip"
+                android:layout_gravity="center"
+                android:contentDescription="@string/scm_CD"
+                android:gravity="center"
+                android:padding="3dip"
+                android:src="@drawable/logo_scm" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/imageCredit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dip"
+            android:layout_marginLeft="20dip"
+            android:layout_marginTop="50dip"
+            android:text="@string/photo_credit"
+            android:textColor="@color/light_yellow"
+            android:textSize="40sp" />
+
+        <TextView
+            android:id="@+id/fontCredit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="50dip"
+            android:layout_marginLeft="20dip"
+            android:text="@string/font_credit"
+            android:textColor="@color/light_yellow"
+            android:textSize="40sp" />
+
+        <TextView
+            android:id="@+id/shortAbout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="40dip"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+    </LinearLayout>
+</ScrollView>
+    <ImageView
+        android:id="@+id/movelabBanner"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/movelab_banner_CD"
+        android:padding="5dp"
+        android:src="@drawable/logo_movelab_web" />
+
+</RelativeLayout>

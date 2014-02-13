@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Tigatrapp
+ * Copyright (C) 2013  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
+ * Contact: tigatrapp@ceab.csic.es
+ * 
+ * This file is part of Tigatrapp.
+ * 
+ * Tigatrapp is free software: you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation, either version 3 of the License, or (at 
+ * your option) any later version.
+ * 
+ * Tigatrapp is distributed in the hope that it will be useful, but 
+ * WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along 
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="ceab.movlab.tigre"
+    android:versionCode="17"
+    android:versionName="v1.03" >
+
+    <uses-sdk
+        android:minSdkVersion="4"
+        android:targetSdkVersion="17" />
+
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.BATTERY_STATS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+
+    <uses-feature android:name="android.hardware.camera" />
+
+    <application
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name" >
+        <uses-library android:name="com.google.android.maps" />
+
+        <activity android:name="ceab.movlab.tigre.ReportTool" >
+        </activity>
+        <activity android:name="ceab.movlab.tigre.WebMap" >
+        </activity>
+        <activity android:name="ceab.movlab.tigre.GPLCat" >
+        </activity>
+        <activity android:name="ceab.movlab.tigre.Splash" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="ceab.movlab.tigre.Switchboard"
+            android:allowTaskReparenting="true" >
+        </activity>
+                <activity android:name="ceab.movlab.tigre.Activation" >
+        </activity>
+        
+        <activity android:name="ceab.movlab.tigre.DriverStartActivity" >
+        </activity>
+        <activity android:name="ceab.movlab.tigre.DriverMapActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Switchboard" />
+        </activity>
+        <activity android:name="ceab.movlab.tigre.ViewDataActivity" android:hardwareAccelerated="false">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Switchboard" />
+        </activity>
+        <activity android:name="ceab.movlab.tigre.PhotoGallery" >
+        </activity>
+        <activity android:name="ceab.movlab.tigre.MapSelector" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ReportTool" />
+        </activity>
+        <activity
+            android:name="ceab.movlab.tigre.Credits"
+            android:allowTaskReparenting="true" >
+        </activity>
+        <activity
+            android:name="ceab.movlab.tigre.About"
+            android:allowTaskReparenting="true" >
+        </activity>
+        <activity android:name="ceab.movlab.tigre.GPLView" >
+        </activity>
+        <activity android:name="ceab.movlab.tigre.LGPLView" >
+        </activity>
+        <activity android:name="ceab.movlab.tigre.CreditsDetail" >
+        </activity>
+
+        <receiver android:name="ceab.movlab.tigre.TigerBroadcastReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.LAUNCHER" />
+                <action android:name="ceab.movlab.tigre.SCHEDULE_SERVICE" />
+                <action android:name="ceab.movlab.tigre.UNSCHEDULE_SERVICE" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name="ceab.movlab.tigre.PowerSensor" >
+            <intent-filter>
+                <action android:name="android.intent.action.BATTERY_CHANGED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.POWER_CONNECTED" />
+                <action android:name="android.intent.action.POWER_DISCONNECTED" />
+                <action android:name="android.intent.action.LAUNCHER" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name="ceab.movlab.tigre.FixGet" />
+        <service android:name="ceab.movlab.tigre.FileUploader" />
+
+        <provider
+            android:name="ceab.movlab.tigre.ContentProviderTracks"
+            android:authorities="ceab.movlab.tigre.providers.tigertracksprovider"
+            android:enabled="true"
+            android:exported="false" >
+        </provider>
+        <provider
+            android:name="ceab.movlab.tigre.ContentProviderReports"
+            android:authorities="ceab.movlab.tigre.providers.tigerreportsprovider"
+            android:enabled="true"
+            android:exported="false" >
+        </provider>
+        <provider
+            android:name="ceab.movlab.tigre.ContentProviderTrips"
+            android:authorities="ceab.movlab.tigre.providers.tigertripsprovider"
+            android:enabled="true"
+            android:exported="false" >
+        </provider>
+    </application>
+
+</manifest>

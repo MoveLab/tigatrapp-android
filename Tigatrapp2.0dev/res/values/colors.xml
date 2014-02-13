@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Tigatrapp
+ * Copyright (C) 2013  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
+ * Contact: tigatrapp@ceab.csic.es
+ * 
+ * This file is part of Tigatrapp.
+ * 
+ * Tigatrapp is free software: you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation, either version 3 of the License, or (at 
+ * your option) any later version.
+ * 
+ * Tigatrapp is distributed in the hope that it will be useful, but 
+ * WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along 
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<resources>
+
+    <color name="TopHeadings">#D77546</color>
+    <color name="red">#FF0000</color>
+    <color name="light_green">#97F497</color>
+    <color name="discolor">#F7E89E</color>
+    <color name="light_yellow">#F7E89E</color>
+    <color name="dark_yellow">#F7D00E</color>
+    <color name="white">#FFFFFF</color>
+    <color name="blue">#0066FF</color>
+    <color name="light_orange">#FF9900</color>
+    <color name="dark_green">#006600</color>
+    <color name="black">#000000</color>
+    <color name="light_grey">#EFEFA2</color>
+    <color name="dark_grey">#313433</color>
+    <color name="brown">#000000</color>
+    <color name="green_glow">#5500ff00</color>
+    <color name="orange_glow">#55ffff00</color>
+    <color name="blue_glow">#9975d8ff</color>
+    
+</resources>

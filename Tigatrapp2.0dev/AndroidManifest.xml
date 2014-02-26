@@ -64,16 +64,7 @@
             android:name="ceab.movlab.tigre.Switchboard"
             android:allowTaskReparenting="true" >
         </activity>
-                <activity android:name="ceab.movlab.tigre.Activation" >
-        </activity>
         
-        <activity android:name="ceab.movlab.tigre.DriverStartActivity" >
-        </activity>
-        <activity android:name="ceab.movlab.tigre.DriverMapActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Switchboard" />
-        </activity>
         <activity android:name="ceab.movlab.tigre.ViewDataActivity" android:hardwareAccelerated="false">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -107,15 +98,6 @@
                 <action android:name="android.intent.action.LAUNCHER" />
                 <action android:name="ceab.movlab.tigre.SCHEDULE_SERVICE" />
                 <action android:name="ceab.movlab.tigre.UNSCHEDULE_SERVICE" />
-            </intent-filter>
-        </receiver>
-        <receiver android:name="ceab.movlab.tigre.PowerSensor" >
-            <intent-filter>
-                <action android:name="android.intent.action.BATTERY_CHANGED" />
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-                <action android:name="android.intent.action.POWER_CONNECTED" />
-                <action android:name="android.intent.action.POWER_DISCONNECTED" />
-                <action android:name="android.intent.action.LAUNCHER" />
             </intent-filter>
         </receiver>
 

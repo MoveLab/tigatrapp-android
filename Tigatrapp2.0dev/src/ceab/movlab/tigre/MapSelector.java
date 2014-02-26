@@ -271,6 +271,8 @@ public class MapSelector extends MapActivity {
 		@Override
 		public boolean onTap(GeoPoint p, MapView mapview) {
 
+			removeLocationUpdate("gps");
+			removeLocationUpdate("network");
 			selectedPoint = new GeoPoint(p.getLatitudeE6(), p.getLongitudeE6());
 			return true;
 

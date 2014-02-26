@@ -49,7 +49,6 @@ import android.widget.TextView;
 public class Switchboard extends Activity {
 
 	private TextView mTFB;
-	private TextView mTDB;
 	private TextView mainPhoto;
 	private TextView mWMB;
 	private ImageView mWebSiteButton;
@@ -72,7 +71,6 @@ public class Switchboard extends Activity {
 		mVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
 
 		mTFB = (TextView) findViewById(R.id.tigerfinder_button);
-		mTDB = (TextView) findViewById(R.id.tigerdriver_button);
 
 		screenSize = getResources().getConfiguration().screenLayout
 				& Configuration.SCREENLAYOUT_SIZE_MASK;
@@ -117,46 +115,6 @@ public class Switchboard extends Activity {
 			}
 		});
 
-		mTDB.setOnTouchListener(new OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View v, MotionEvent e) {
-
-				if (e.getAction() == MotionEvent.ACTION_DOWN) {
-					mTDB.setBackgroundDrawable(getResources().getDrawable(
-							R.drawable.orange_oval_pressed));
-					mTDB.setPadding(15, 15, 15, 15);
-					mTDB.setTextColor(getResources().getColor(
-							R.color.orange_glow));
-					mVib.vibrate(50);
-
-				}
-				if (e.getAction() == MotionEvent.ACTION_UP) {
-					mTDB.setBackgroundDrawable(getResources().getDrawable(
-							R.drawable.orange_oval));
-					mTDB.setPadding(15, 15, 15, 15);
-					mTDB.setTextColor(getResources().getColor(R.color.black));
-					mVib.vibrate(50);
-
-				}
-				return false;
-			}
-
-		});
-
-		mTDB.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-
-				// create an intent object and tell it where to go
-				Intent i = new Intent(Switchboard.this,
-						DriverStartActivity.class);
-				// start the intent
-				startActivity(i);
-
-			}
-		});
 
 		mWMB = (TextView) findViewById(R.id.dataMapButton);
 		mWMB.setOnTouchListener(new OnTouchListener() {
@@ -279,10 +237,6 @@ public class Switchboard extends Activity {
 	@Override
 	protected void onResume() {
 
-		if (!PropertyHolder.isActivated()) {
-			startActivity(new Intent(Switchboard.this, Activation.class));
-			finish();
-		}
 
 		
 		super.onResume();

@@ -68,10 +68,6 @@ public class Splash extends Activity {
 			PropertyHolder.setUserId(userId);
 		}
 
-		if (!PropertyHolder.isActivated()) {
-			startActivity(new Intent(Splash.this, Activation.class));
-			finish();
-		}
 
 		if (PropertyHolder.isServiceOn()) {
 

@@ -147,17 +147,17 @@ public class Util {
 	/**
 	 * Server URLs for uploads.
 	 */
-	public static final String URL_TIGERFINDER = "http://tce.ceab.csic.es/tigatrapp/tigerfinderDONOTDELETEasdasdlkjlkj.php";
+	public static final String URL_TIGERFINDER = "http://tce.ceab.csic.es/tigatrapp/tigerfinder2.0Dev.php";
 
-	public static final String URL_TIGERDRIVER = "http://tce.ceab.csic.es/tigatrapp/tigerdriverDONOTDELETE2129nwekwe03n.php";
+	public static final String URL_TIGERDRIVER = "xxx";
 
-	public static final String URL_ACTIVATION = "http://tce.ceab.csic.es/tigatrapp/appDownload/phoneActivation.php";
+	public static final String URL_ACTIVATION = "xxx";
 
-	public static final String URL_DELETE_TRIP = "http://tce.ceab.csic.es/tigatrapp/deleteTrip.php";
+	public static final String URL_DELETE_TRIP = "xxx";
 
-	public static final String URL_SAVE_TRIP = "http://tce.ceab.csic.es/tigatrapp/saveTrip.php";
+	public static final String URL_SAVE_TRIP = "xxx";
 
-	public static final String URL_TIGERDRIVER_JSON = "http://tce.ceab.csic.es/tigatrapp/tigerDriverJSON.php";
+	public static final String URL_TIGERDRIVER_JSON = "xxx";
 
 	/**
 	 * Extension to append to all files saved for uploading.

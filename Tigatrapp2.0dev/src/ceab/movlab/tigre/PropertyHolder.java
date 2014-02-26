@@ -129,15 +129,6 @@ public class PropertyHolder {
 		editor.commit();
 	}
 
-	
-	public static boolean isActivated() {
-		return sharedPreferences.getBoolean("ACTIVATED", false);
-	}
-
-	public static void setActivated(boolean _activated) {
-		editor.putBoolean("ACTIVATED", _activated);
-		editor.commit();
-	}
 
 	
 	public static String getTripId() {

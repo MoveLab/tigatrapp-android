@@ -623,92 +623,7 @@ public class ViewDataActivity extends MapActivity {
 		protected Boolean doInBackground(Context... context) {
 
 			ContentResolver cr = getContentResolver();
-			Cursor c = cr.query(Trips.CONTENT_URI, Trips.KEYS_ALL, null, null,
-					Trips.KEY_ROWID + " ASC");
-
-			if (c != null) {
-				if (c.moveToFirst()) {
-
-					int tripidCol = c.getColumnIndexOrThrow(Trips.KEY_TRIPID);
-					while (!c.isAfterLast()) {
-						tripids.add(c.getString(tripidCol));
-						c.moveToNext();
-					}
-				}
-				c.close();
-			}
-
-			int nTrips = tripids.size();
-
-			if (nTrips > 0) {
-				tripResults = new TripsArray(nTrips);
-
-				int tripN = 0;
-				for (String tripid : tripids) {
-
-					final String selectionString = Fixes.KEY_TRIPID + " = '"
-							+ tripid + "' AND " + Fixes.KEY_DISPLAY + " = "
-							+ Fixes.DISPLAY_TRUE;
-
-					c = cr.query(Fixes.CONTENT_URI, Fixes.KEYS_LATLONACCTIMES,
-							selectionString, null, null);
-
-					if (c.moveToFirst()) {
-
-						int latCol = c
-								.getColumnIndexOrThrow(Fixes.KEY_LATITUDE);
-						int lonCol = c
-								.getColumnIndexOrThrow(Fixes.KEY_LONGITUDE);
-						int accCol = c
-								.getColumnIndexOrThrow(Fixes.KEY_ACCURACY);
-						int idCol = c.getColumnIndexOrThrow(Fixes.KEY_ROWID);
-						int timeCol = c
-								.getColumnIndexOrThrow(Fixes.KEY_TIMELONG);
-						int sdtimeCol = c
-								.getColumnIndexOrThrow(Fixes.KEY_STATION_DEPARTURE_TIMELONG);
-
-						nFixes = c.getCount();
-
-						// float lastAcc = 0;
-
-						int currentRecord = 0;
-
-						while (!c.isAfterLast()) {
-							myProgress = (int) (((currentRecord + 1) / (float) nFixes) * 100);
-							publishProgress(myProgress);
-
-							// Escape early if cancel() is called
-							if (isCancelled())
-								break;
-
-							// First grabbing double values of lat lon and time
-							Double lat = c.getDouble(latCol);
-							Double lon = c.getDouble(lonCol);
-							float acc = c.getFloat(accCol);
-							long entryTime = c.getLong(timeCol);
-							long exitTime = c.getLong(sdtimeCol);
-
-							Double geoLat = lat * 1E6;
-							Double geoLon = lon * 1E6;
-
-							tripResults.mpal[tripN].al.add(new MapPoint(geoLat
-									.intValue(), geoLon.intValue(), acc,
-									entryTime, exitTime, MapPoint.ICON_NORMAL));
-
-							c.moveToNext();
-
-							currentRecord++;
-						}
-					}
-					c.close();
-
-					tripN++;
-				}
-			}
-
-			// now the reports
-
-			c = cr.query(Reports.CONTENT_URI, Reports.KEYS_ALL, null, null,
+			Cursor c = cr.query(Reports.CONTENT_URI, Reports.KEYS_ALL, null, null,
 					null);
 
 			if (c.moveToFirst()) {
@@ -788,14 +703,6 @@ public class ViewDataActivity extends MapActivity {
 		protected void onPostExecute(Boolean result) {
 
 			if (result) {
-
-				if (tripResults != null && tripResults.mpal.length > 0) {
-
-					for (MapPointArrayList p : tripResults.mpal) {
-						mTrips.add(p.al);
-
-					}
-				}
 
 				if (overlaylist != null && overlaylist.size() > 0) {
 					for (OverlayItem oli : overlaylist) {

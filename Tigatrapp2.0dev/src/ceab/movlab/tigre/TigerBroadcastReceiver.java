@@ -162,10 +162,12 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 				System.currentTimeMillis());
 		notification.flags |= Notification.FLAG_NO_CLEAR;
 		notification.flags |= Notification.FLAG_ONGOING_EVENT;
-		Intent intent = new Intent(context, DriverMapActivity.class);
+		
+		// for now, directing back to switchboard since activity is out...
+		Intent intent = new Intent(context, Switchboard.class);
 
 		TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-		stackBuilder.addParentStack(DriverMapActivity.class);
+		stackBuilder.addParentStack(Switchboard.class);
 		stackBuilder.addNextIntent(intent);
 		PendingIntent pendingIntent = stackBuilder.getPendingIntent(0,
 				PendingIntent.FLAG_CANCEL_CURRENT);

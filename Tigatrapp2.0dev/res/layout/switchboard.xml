@@ -57,20 +57,6 @@
             android:text="@string/tigerfinder_button_switchboard"
             android:textColor="@color/black"
             android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/tigerdriver_button"
-            android:layout_width="140dip"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginLeft="10dip"
-            android:background="@drawable/orange_oval"
-            android:clickable="true"
-            android:gravity="center"
-            android:padding="15dip"
-            android:text="@string/tigerdriver_button_switchboard"
-            android:textColor="@color/black"
-            android:textSize="16sp" />
     </LinearLayout>
 
     <LinearLayout

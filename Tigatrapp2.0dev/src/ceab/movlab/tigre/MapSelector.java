@@ -269,6 +269,16 @@ public class MapSelector extends MapActivity {
 		}
 
 		@Override
+		public boolean onTouchEvent(MotionEvent evt, MapView mapView) {
+			super.onTouchEvent(evt, mapView);
+			removeLocationUpdate("gps");
+			removeLocationUpdate("network");
+			return false;
+
+		}
+
+		
+		@Override
 		public boolean onTap(GeoPoint p, MapView mapview) {
 
 			removeLocationUpdate("gps");

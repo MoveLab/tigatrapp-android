@@ -17,7 +17,7 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -45,14 +45,12 @@
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
-        android:label="@string/app_name" >
+        android:label="@string/app_name"
+        android:theme="@style/DarkThemeSelector" >
         <uses-library android:name="com.google.android.maps" />
 
-        <activity android:name="ceab.movlab.tigre.ReportToolAdults" >
+        <activity android:name="ceab.movlab.tigre.ReportTool" >
         </activity>
-        <activity android:name="ceab.movlab.tigre.ReportToolSites" >
-        </activity>
-        
         <activity android:name="ceab.movlab.tigre.WebMap" >
         </activity>
         <activity android:name="ceab.movlab.tigre.GPLCat" >
@@ -73,10 +71,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Switchboard" />
-        </activity>
-        <activity android:name="ceab.movlab.tigre.ViewMapReportsSites" >
-        </activity>
-        <activity android:name="ceab.movlab.tigre.ViewMapReportsAdults" >
         </activity>
         <activity android:name="ceab.movlab.tigre.PhotoGallery" >
         </activity>

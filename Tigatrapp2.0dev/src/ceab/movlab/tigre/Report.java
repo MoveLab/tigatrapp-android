@@ -47,13 +47,13 @@ import ceab.movlab.tigre.ContentProviderContractReports.Reports;
  */
 public class Report {
 
-	int TYPE_MISSING = -1;
-	int TYPE_ADULT = 0;
-	int TYPE_BREEDING_SITE = 1;
+	public static int TYPE_MISSING = -1;
+	public static int TYPE_ADULT = 0;
+	public static int TYPE_BREEDING_SITE = 1;
 
-	int LOCATION_CHOICE_MISSING = -1;
-	int LOCATION_CHOICE_CURRENT = 0;
-	int LOCATION_CHOICE_SELECTED = 1;
+	public static int LOCATION_CHOICE_MISSING = -1;
+	public static int LOCATION_CHOICE_CURRENT = 0;
+	public static int LOCATION_CHOICE_SELECTED = 1;
 
 	String userId;
 	String reportId;

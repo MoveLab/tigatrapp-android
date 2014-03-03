@@ -32,9 +32,11 @@
     <string name="dataMap_CD">Les meves dades</string>
 
     <!-- Report Adult -->
+    <string name="report_title_site">New Mosquito Report</string>
 
 
     <!-- Report Site -->
+    <string name="report_title_adult">New Breeding Site Report</string>
 
 
     <!-- Map -->

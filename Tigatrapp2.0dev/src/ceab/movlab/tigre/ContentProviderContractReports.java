@@ -139,7 +139,7 @@ public class ContentProviderContractReports {
 		public static final String KEY_MAILING = "mailing";
 		public static final String KEY_UPLOADED = "uploaded";
 		public static final String KEY_SERVER_TIMESTAMP = "server_timestamp";
-		public static final String KEY_DELETE_REPORT = "delete";
+		public static final String KEY_DELETE_REPORT = "delete_report";
 		public static final String KEY_LATEST_VERSION = "latest_version";
 
 		/**

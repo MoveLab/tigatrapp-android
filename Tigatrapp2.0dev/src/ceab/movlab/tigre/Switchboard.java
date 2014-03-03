@@ -81,7 +81,6 @@ public class Switchboard extends Activity {
 			PropertyHolder.setUserId(userId);
 		}
 
-
 		if (PropertyHolder.isServiceOn()) {
 
 			// Make sure fixes are being scheduled
@@ -96,7 +95,6 @@ public class Switchboard extends Activity {
 
 		}
 
-		
 		lang = PropertyHolder.getLanguage();
 		Locale myLocale = new Locale(lang);
 		Resources res = getResources();
@@ -116,33 +114,45 @@ public class Switchboard extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				
+
 				AlertDialog.Builder dialog = new AlertDialog.Builder(context);
 				dialog.setTitle("Report");
 				dialog.setMessage("Create new report or edit an existing one?");
 				dialog.setCancelable(true);
-				dialog.setPositiveButton("Create", new DialogInterface.OnClickListener(){
-					@Override
-					public void onClick(DialogInterface d, int arg1) {
-						Intent i = new Intent(Switchboard.this, ReportToolAdults.class);
-						startActivity(i);
-					};	
-				});
-				dialog.setNeutralButton("Edit", new DialogInterface.OnClickListener(){
-					@Override
-					public void onClick(DialogInterface d, int arg1) {
-						Intent i = new Intent(Switchboard.this, ViewMapReportsAdults.class);
-						startActivity(i);
-					};	
-				});
+				dialog.setPositiveButton("Create",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface d, int arg1) {
+								Intent i = new Intent(Switchboard.this,
+										ReportTool.class);
+								Bundle b = new Bundle();
+								b.putInt("type", Report.TYPE_ADULT);
+								i.putExtras(b);
+								startActivity(i);
+							};
+						});
+				dialog.setNeutralButton("Edit",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface d, int arg1) {
+								Intent i = new Intent(Switchboard.this,
+										ViewDataActivity.class);
+								Bundle b = new Bundle();
+								b.putInt("type", Report.TYPE_ADULT);
+								i.putExtras(b);
 
-				dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
-					@Override
-					public void onClick(DialogInterface d, int arg1) {
-						d.cancel();
-					};	
-				});
-								
+								startActivity(i);
+							};
+						});
+
+				dialog.setNegativeButton("Cancel",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface d, int arg1) {
+								d.cancel();
+							};
+						});
+
 				dialog.show();
 
 			}
@@ -158,34 +168,44 @@ public class Switchboard extends Activity {
 				dialog.setTitle("Report");
 				dialog.setMessage("Create new report or edit an existing one?");
 				dialog.setCancelable(true);
-				dialog.setPositiveButton("Create", new DialogInterface.OnClickListener(){
-					@Override
-					public void onClick(DialogInterface d, int arg1) {
-						Intent i = new Intent(Switchboard.this, ReportToolSites.class);
-						startActivity(i);
-					};	
-				});
-				dialog.setNeutralButton("Edit", new DialogInterface.OnClickListener(){
-					@Override
-					public void onClick(DialogInterface d, int arg1) {
-						Intent i = new Intent(Switchboard.this, ViewMapReportsSites.class);
-						startActivity(i);
-					};	
-				});
+				dialog.setPositiveButton("Create",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface d, int arg1) {
+								Intent i = new Intent(Switchboard.this,
+										ReportTool.class);
+								Bundle b = new Bundle();
+								b.putInt("type", Report.TYPE_BREEDING_SITE);
+								i.putExtras(b);
+								startActivity(i);
+							};
+						});
+				dialog.setNeutralButton("Edit",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface d, int arg1) {
+								Intent i = new Intent(Switchboard.this,
+										ViewDataActivity.class);
+								Bundle b = new Bundle();
+								b.putInt("type", Report.TYPE_BREEDING_SITE);
+								// i.putExtras(b);
+								startActivity(i);
+							};
+						});
 
-				dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
-					@Override
-					public void onClick(DialogInterface d, int arg1) {
-						d.cancel();
-					};	
-				});
-								
+				dialog.setNegativeButton("Cancel",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface d, int arg1) {
+								d.cancel();
+							};
+						});
+
 				dialog.show();
 
 			}
 		});
 
-		
 		mapButton = (Button) findViewById(R.id.dataMapButton);
 		mapButton.setOnClickListener(new View.OnClickListener() {
 
@@ -215,16 +235,12 @@ public class Switchboard extends Activity {
 		Animation animationSlow = new AlphaAnimation(0.0f, 1.0f);
 		animationSlow.setDuration(2000);
 
-
 		logo.startAnimation(animationSlow);
 		reportButtonAdult.startAnimation(animation);
 		reportButtonSite.startAnimation(animation);
 		mapButton.startAnimation(animation);
 		galleryButton.startAnimation(animation);
-		
-	
 
-		
 	}
 
 	@Override
@@ -268,7 +284,6 @@ public class Switchboard extends Activity {
 		menu.add(0, RSS_FEED, Menu.NONE, "RSS Feed");
 		menu.add(0, SHARE_APP, Menu.NONE, "share app");
 		menu.add(0, HELP, Menu.NONE, "help");
-		
 
 		return true;
 

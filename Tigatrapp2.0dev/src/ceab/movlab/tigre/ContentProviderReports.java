@@ -51,7 +51,7 @@ public class ContentProviderReports extends ContentProvider {
 	private static final String DATABASE_NAME = "reportsDB";
 
 	/** The database version */
-	private static final int DATABASE_VERSION = 5;
+	private static final int DATABASE_VERSION = 7;
 
 	/** The location fix table name; currently "reportsTable" */
 	private static final String DATABASE_TABLE = "reportsTable";
@@ -63,10 +63,11 @@ public class ContentProviderReports extends ContentProvider {
 
 	/** The SQL command to create the reportsTable */
 	private static final String DATABASE_CREATE = "create table reportsTable ("
-			+ Reports.KEY_ROW_ID + TYPE_INTEGER + " primary key autoincrement"
-			+ Reports.KEY_USER_ID + TYPE_TEXT + COMMA + Reports.KEY_REPORT_ID
-			+ TYPE_TEXT + COMMA + Reports.KEY_REPORT_VERSION + TYPE_INTEGER
-			+ COMMA + Reports.KEY_REPORT_TIME + TYPE_INTEGER + COMMA
+			+ Reports.KEY_ROW_ID + TYPE_INTEGER + " primary key autoincrement" + COMMA
+			+ Reports.KEY_USER_ID + TYPE_TEXT + COMMA 
+			+ Reports.KEY_REPORT_ID + TYPE_TEXT + COMMA 
+			+ Reports.KEY_REPORT_VERSION + TYPE_INTEGER + COMMA 
+			+ Reports.KEY_REPORT_TIME + TYPE_INTEGER + COMMA
 			+ Reports.KEY_VERSION_TIME + TYPE_INTEGER + COMMA
 			+ Reports.KEY_TYPE + TYPE_INTEGER + COMMA
 			+ Reports.KEY_CONFIRMATION + TYPE_INTEGER + COMMA
@@ -75,15 +76,13 @@ public class ContentProviderReports extends ContentProvider {
 			+ Reports.KEY_CURRENT_LOCATION_LAT + TYPE_REAL + COMMA
 			+ Reports.KEY_SELECTED_LOCATION_LON + TYPE_REAL + COMMA
 			+ Reports.KEY_SELECTED_LOCATION_LAT + TYPE_REAL + COMMA
-			+ Reports.KEY_PHOTO_ATTACHED + TYPE_INTEGER + COMMA + Reports.KEY_NOTE
-			+ TYPE_TEXT + COMMA + Reports.KEY_MAILING + TYPE_INTEGER + COMMA
+			+ Reports.KEY_PHOTO_ATTACHED + TYPE_INTEGER + COMMA 
+			+ Reports.KEY_NOTE + TYPE_TEXT + COMMA 
+			+ Reports.KEY_MAILING + TYPE_INTEGER + COMMA
 			+ Reports.KEY_UPLOADED + TYPE_INTEGER + COMMA
 			+ Reports.KEY_SERVER_TIMESTAMP + TYPE_INTEGER + COMMA
 			+ Reports.KEY_DELETE_REPORT + TYPE_INTEGER + COMMA
-			+ Reports.KEY_LATEST_VERSION + TYPE_INTEGER + COMMA
-			+ "PRIMARY KEY (" + Reports.KEY_USER_ID + COMMA
-			+ Reports.KEY_REPORT_ID + COMMA + Reports.KEY_REPORT_VERSION
-			+ "));";
+			+ Reports.KEY_LATEST_VERSION + TYPE_INTEGER + ");";
 
 	private DatabaseHelper mDbHelper;
 

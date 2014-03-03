@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Tigatrapp
+ * Copyright (C) 2013, 2014  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
+ * Contact: tigatrapp@ceab.csic.es
+ * 
+ * This file is part of Tigatrapp.
+ * 
+ * Tigatrapp is free software: you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation, either version 3 of the License, or (at 
+ * your option) any later version.
+ * 
+ * Tigatrapp is distributed in the hope that it will be useful, but 
+ * WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along 
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/DarkThemeSelector"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="20dip"
+        android:paddingRight="20dip" >
+
+        <TextView
+            android:id="@+id/reportTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="6dip"
+            android:layout_marginTop="5dip"
+            android:gravity="center"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@color/white" />
+
+        <RelativeLayout
+            android:id="@+id/reportConfirmationRow"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true" >
+
+            <CheckBox
+                android:id="@+id/reportConfirmationCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Taxonomy*" />
+
+            <ImageView
+                android:id="@+id/reportConfirmationButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_action_about" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@color/white" />
+
+        <CheckBox
+            android:id="@+id/reportLocationCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Location*" />
+
+        <RadioGroup
+            android:id="@+id/whereFoundRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="vertical" >
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal" >
+
+                <RadioButton
+                    android:id="@+id/whereRadioButtonHere"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dip"
+                    android:text="Current" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" >
+
+                <RadioButton
+                    android:id="@+id/whereRadioButtonOtherPlace"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dip"
+                    android:text="Choose on map" />
+
+                <ImageView
+                    android:id="@+id/reportSelectMaphButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_action_map" />
+            </RelativeLayout>
+        </RadioGroup>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@color/white" />
+
+        <RelativeLayout
+            android:id="@+id/reportPhotoRow"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <CheckBox
+                android:id="@+id/reportPhotoCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="Photo(s)" />
+
+            <ImageView
+                android:id="@+id/reportPhotoAttachButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_action_camera" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@color/white" />
+
+        <RelativeLayout
+            android:id="@+id/reportNoteRow"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <CheckBox
+                android:id="@+id/reportNoteCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Note attached" />
+
+            <ImageView
+                android:id="@+id/reportNoteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_action_edit" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@color/white" />
+
+        <RelativeLayout
+            android:id="@+id/reportMailingRow"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <CheckBox
+                android:id="@+id/reportMailingCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mailing specimen" />
+
+            <ImageView
+                android:id="@+id/reportMailingButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_action_email" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@color/white" />
+
+        <ImageButton
+            android:id="@+id/buttonReportSubmit"
+            android:layout_width="70dip"
+            android:layout_height="70dip"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dip"
+            android:contentDescription="@string/button_submit_CD"
+            android:hapticFeedbackEnabled="true"
+            android:padding="0dip"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:id="@+id/locationLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/submit" />
+    </LinearLayout>
+
+</ScrollView>

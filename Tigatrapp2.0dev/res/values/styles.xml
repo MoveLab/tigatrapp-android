@@ -22,8 +22,8 @@
 
 <resources>
 
-    <style name="AppTheme" parent="android:Theme.Light" />
+    <style name="LightThemeSelector" parent="android:Theme.Light" />
 
-    <style name="DarkTheme" parent="android:Theme"></style>
+    <style name="DarkThemeSelector" parent="android:Theme"></style>
 
 </resources>

@@ -47,17 +47,13 @@
     <EditText
         android:id="@+id/noteEditText"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="200dip"
         android:ems="10"
         android:hint="@string/type_here" >
 
         <requestFocus />
     </EditText>
 
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:background="@drawable/divider_gradient" />
 
     <Button
         android:id="@+id/addNoteOKButton"

@@ -1,6 +1,6 @@
 /*
  * Tigatrapp
- * Copyright (C) 2013  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
+ * Copyright (C) 2013, 2014  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
  * Contact: tigatrapp@ceab.csic.es
  * 
  * This file is part of Tigatrapp.
@@ -36,13 +36,12 @@ import ceab.movlab.tigre.ContentProviderContractTracks.Fixes;
 
 public class ContentProviderValuesTracks {
 
-	public static ContentValues createFix(String tripid, float accuracy,
+	public static ContentValues createFix(float accuracy,
 			double altitude, double latitude, double longitude,
 			String provider, long time, int power_level,
 			long station_departure_timelong, int display) {
 		Date usertime = new Date(time);
 		ContentValues initialValues = new ContentValues();
-		initialValues.put(Fixes.KEY_TRIPID, tripid);
 		initialValues.put(Fixes.KEY_ACCURACY, (double) accuracy);
 		initialValues.put(Fixes.KEY_ALTITUDE, (double) altitude);
 		initialValues.put(Fixes.KEY_LATITUDE, (double) latitude);
@@ -59,9 +58,9 @@ public class ContentProviderValuesTracks {
 		return initialValues;
 	}
 
-	public static ContentValues createFix(String tripid, Location loc,
+	public static ContentValues createFix(Location loc,
 			int power_level, long station_departure_timelong, int display) {
-		return createFix(tripid, loc.getAccuracy(), loc.getAltitude(),
+		return createFix( loc.getAccuracy(), loc.getAltitude(),
 				loc.getLatitude(), loc.getLongitude(), loc.getProvider(),
 				loc.getTime(), power_level, station_departure_timelong, display);
 	}

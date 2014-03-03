@@ -1,6 +1,6 @@
 /*
  * Tigatrapp
- * Copyright (C) 2013  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
+ * Copyright (C) 2013, 2014  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
  * Contact: tigatrapp@ceab.csic.es
  * 
  * This file is part of Tigatrapp.
@@ -432,9 +432,8 @@ public class FixGet extends Service {
 			PropertyHolder.init(context);
 		ContentResolver cr = getContentResolver();
 		float dist = -1;
-		Cursor c = cr.query(Fixes.CONTENT_URI, Fixes.KEYS_LATLON,
-				Fixes.KEY_TRIPID + " = '" + PropertyHolder.getTripId() + "'",
-				null, null);
+		Cursor c = cr.query(Fixes.CONTENT_URI, Fixes.KEYS_LATLON, null, null,
+				null);
 		int id = -1;
 		if (c.moveToLast()) {
 			int latCol = c.getColumnIndexOrThrow(Fixes.KEY_LATITUDE);
@@ -453,7 +452,7 @@ public class FixGet extends Service {
 			// if the person
 			// stays in same 50 m radius.).
 			cr.insert(Fixes.CONTENT_URI, ContentProviderValuesTracks.createFix(
-					PropertyHolder.getTripId(), location,
+					location,
 					Util.getBatteryLevel(context), location.getTime(),
 					Fixes.DISPLAY_TRUE));
 			announceFix(location, true);
@@ -471,7 +470,7 @@ public class FixGet extends Service {
 			// displayed on the user map, so as to avoid too many points on the
 			// map)
 			cr.insert(Fixes.CONTENT_URI, ContentProviderValuesTracks.createFix(
-					PropertyHolder.getTripId(), location,
+					location,
 					Util.getBatteryLevel(context), location.getTime(),
 					Fixes.DISPLAY_FALSE));
 

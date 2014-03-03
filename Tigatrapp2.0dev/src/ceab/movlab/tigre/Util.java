@@ -1,6 +1,6 @@
 /*
  * Tigatrapp
- * Copyright (C) 2013  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
+ * Copyright (C) 2013, 2014  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
  * Contact: tigatrapp@ceab.csic.es
  * 
  * This file is part of Tigatrapp.
@@ -81,6 +81,7 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -90,12 +91,14 @@ import javax.crypto.NoSuchPaddingException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.os.BatteryManager;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -147,7 +150,9 @@ public class Util {
 	/**
 	 * Server URLs for uploads.
 	 */
-	public static final String URL_TIGERFINDER = "http://tce.ceab.csic.es/tigatrapp/tigerfinder2.0Dev.php";
+	public static final String URL_TIGERFINDER = "http://tce.ceab.csic.es/tigaDev2/tigerfinder2.0Dev.php";
+
+	public static final String URL_DELETE_REPORT = "http://tce.ceab.csic.es/tigaDev2/tigerfinderdeleterep2.0Dev.php";
 
 	public static final String URL_TIGERDRIVER = "xxx";
 
@@ -588,6 +593,9 @@ public class Util {
 	}
 
 	public static void overrideFonts(final Context context, final View v) {
+		
+		// turning this off for now
+		/*
 		try {
 			if (v instanceof ViewGroup) {
 				ViewGroup vg = (ViewGroup) v;
@@ -599,11 +607,12 @@ public class Util {
 
 			} else if (v instanceof TextView) {
 				((TextView) v).setTypeface(Typeface.createFromAsset(
-						context.getAssets(), "fonts/AnnaBeta-Regular_2.ttf"));
+						context.getAssets(), "fonts/RobotoCondensed-Regular.ttf"));
 			}
 
 		} catch (Exception e) {
 		}
+		*/
 	}
 
 	/**

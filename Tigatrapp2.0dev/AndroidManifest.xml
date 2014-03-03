@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
  * Tigatrapp
- * Copyright (C) 2013  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
+ * Copyright (C) 2013, 2014  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
  * Contact: tigatrapp@ceab.csic.es
  * 
  * This file is part of Tigatrapp.
@@ -17,7 +17,7 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -27,7 +27,7 @@
 
     <uses-sdk
         android:minSdkVersion="4"
-        android:targetSdkVersion="17" />
+        android:targetSdkVersion="19" />
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -43,17 +43,24 @@
     <uses-feature android:name="android.hardware.camera" />
 
     <application
+        android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
         <uses-library android:name="com.google.android.maps" />
 
-        <activity android:name="ceab.movlab.tigre.ReportTool" >
+        <activity android:name="ceab.movlab.tigre.ReportToolAdults" >
         </activity>
+        <activity android:name="ceab.movlab.tigre.ReportToolSites" >
+        </activity>
+        
         <activity android:name="ceab.movlab.tigre.WebMap" >
         </activity>
         <activity android:name="ceab.movlab.tigre.GPLCat" >
         </activity>
-        <activity android:name="ceab.movlab.tigre.Splash" >
+        <activity
+            android:name="ceab.movlab.tigre.Switchboard"
+            android:allowTaskReparenting="true"
+            android:launchMode="singleInstance" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -61,14 +68,15 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="ceab.movlab.tigre.Switchboard"
-            android:allowTaskReparenting="true" >
-        </activity>
-        
-        <activity android:name="ceab.movlab.tigre.ViewDataActivity" android:hardwareAccelerated="false">
+            android:name="ceab.movlab.tigre.ViewDataActivity"
+            android:hardwareAccelerated="false" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Switchboard" />
+        </activity>
+        <activity android:name="ceab.movlab.tigre.ViewMapReportsSites" >
+        </activity>
+        <activity android:name="ceab.movlab.tigre.ViewMapReportsAdults" >
         </activity>
         <activity android:name="ceab.movlab.tigre.PhotoGallery" >
         </activity>
@@ -117,8 +125,8 @@
             android:exported="false" >
         </provider>
         <provider
-            android:name="ceab.movlab.tigre.ContentProviderTrips"
-            android:authorities="ceab.movlab.tigre.providers.tigertripsprovider"
+            android:name="ceab.movlab.tigre.ContentProviderPhotos"
+            android:authorities="ceab.movlab.tigre.providers.tigerphotosprovider"
             android:enabled="true"
             android:exported="false" >
         </provider>

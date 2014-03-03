@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
  * Tigatrapp
- * Copyright (C) 2013  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
+ * Copyright (C) 2013, 2014  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
  * Contact: tigatrapp@ceab.csic.es
  * 
  * This file is part of Tigatrapp.
@@ -17,20 +17,41 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
-     <string name="saved">Viatge guardat.</string>
- 
+    <!-- DO NOT TRANSLATE  -->
+     <string name="internal_message_id" translatable="false">csic.ceab.movelab.tigatrapp</string>
+    
+    
+    <!-- Switchboard -->
+    <string name="switchboard_report_button_adult">Reportar un mosquit</string>
+    <string name="switchboard_report_button_site">Reportar un lloc</string>
+    <string name="data_map_button">Les meves dades</string>
+    <string name="dataMap_CD">Les meves dades</string>
+
+    <!-- Report Adult -->
+
+
+    <!-- Report Site -->
+
+
+    <!-- Map -->
+
+
+    <!-- Menu -->
+
+    <string name="visit_website">Visita la pàgina web</string>
+    <string name="menu_toggle_language">Español</string>
+
+    <!-- Misc -->
+
+    <string name="saved">Viatge guardat.</string>
     <string name="font_credit">Ús de la tipografia Anna en parts de l’App Tigatrapp (www.annavives.com)</string>
     <string name="photo_credit_gallery">Fotografia de R. Eritja (www.eritja.com)</string>
     <string name="photo_credit">Fotografies de R. Eritja (www.eritja.com)</string>
-    <string name="visit_website">Visita la pàgina web</string>
     <string name="refresh">Actualitza</string>
-    <string name="data_map_button">Les meves dades</string>
-    <string name="dataMap_CD">Les meves dades</string>
-    <string name="internal_message_id" translatable="false">csic.ceab.movelab.tigatrapp</string>
     <string name="nolocnogps_alert">No s\'ha pogut detectar la teva posició perquè ni el GPS ni la ubicació per xarxa mòbil i/o Wi-Fi estan activats. Activa\'ls o senyala la posició al mapa.</string>
     <string name="progtitle_report">Enviant</string>
     <string name="progtitle_trip_saving">Enviant</string>
@@ -49,7 +70,6 @@
     <string name="offline_activation">Sense connexió a internet. Connecta\'t i torna-ho a provar.</string>
     <string name="save_trip">Acaba i envia</string>
     <string name="delete_trip">Acaba i esborra</string>
-    <string name="web_map_button">Mapa del mosquit</string>
     <string name="activated">Clau d\'activació correcte. Gràcies per participar!</string>
     <string name="activation_text">Introduir clau d\'activació</string>
     <string name="about">Informació</string>
@@ -151,8 +171,6 @@
     <string name="tiger_head_diagram_CD">Diagrama d\'un mosquit tigre</string>
     <string name="tiger_legs_diagram_CD">Diagrama de l\'abdomen i les potes d\'un mosquit tigre</string>
     <string name="tiger_thorax_diagram_CD">Diagrama del cap i del tòrax d\'un mosquit tigre</string>
-    <string name="tigerdriver_button_switchboard">Tigre \nviatge</string>
-    <string name="tigerfinder_button_switchboard">Tigre \ntroballa</string>
     <string name="time_label">Time and Date: </string>
     <string name="title_activity_splash">Splash</string>
     <string name="title_activity_switchboard">Switchboard</string>

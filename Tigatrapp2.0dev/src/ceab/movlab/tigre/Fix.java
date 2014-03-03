@@ -1,6 +1,6 @@
 /*
  * Tigatrapp
- * Copyright (C) 2013  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
+ * Copyright (C) 2013, 2014  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
  * Contact: tigatrapp@ceab.csic.es
  * 
  * This file is part of Tigatrapp.
@@ -54,7 +54,6 @@ import android.util.Log;
  */
 public class Fix {
 
-	String tripid;
 	double lat;
 	double lng;
 	double alt;
@@ -63,10 +62,9 @@ public class Fix {
 	long time;
 	int pow;
 
-	Fix(String _tripid, double _lat, double _lng, double _alt, float _acc,
-			String _prov, long _time, int _pow) {
+	Fix(double _lat, double _lng, double _alt, float _acc, String _prov,
+			long _time, int _pow) {
 
-		tripid = _tripid;
 		lat = _lat;
 		lng = _lng;
 		alt = _alt;
@@ -85,7 +83,6 @@ public class Fix {
 		JSONObject object = new JSONObject();
 		try {
 			object.put("userid", PropertyHolder.getUserId());
-			object.put("tripid", this.tripid);
 			object.put("lat", String.valueOf(this.lat));
 			object.put("lng", String.valueOf(this.lng));
 			object.put("alt", String.valueOf(this.alt));
@@ -103,17 +100,15 @@ public class Fix {
 	public String makeFileName(Context context) {
 
 		PropertyHolder.init(context);
-		return PropertyHolder.getUserId() + "_" + this.tripid + "_"
-				+ Util.fileNameDate(this.time);
+		return PropertyHolder.getUserId() + "_" + Util.fileNameDate(this.time);
 	}
 
 	public byte[] encryptFix(Context context) {
 
 		byte[] result = null;
 
-		String thisFix = this.tripid + "," + this.lat + "," + this.lng + ","
-				+ this.alt + "," + this.acc + "," + this.prov + "," + this.time +","
-				+ this.pow;
+		String thisFix = this.lat + "," + this.lng + "," + this.alt + ","
+				+ this.acc + "," + this.prov + "," + this.time + "," + this.pow;
 
 		try {
 			result = Util.encryptRSA(context, thisFix.getBytes("UTF-8"));

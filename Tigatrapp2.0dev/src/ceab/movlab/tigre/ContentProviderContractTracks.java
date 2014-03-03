@@ -1,6 +1,6 @@
 /*
  * Tigatrapp
- * Copyright (C) 2013  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
+ * Copyright (C) 2013, 2014  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
  * Contact: tigatrapp@ceab.csic.es
  * 
  * This file is part of Tigatrapp.
@@ -46,7 +46,6 @@ public class ContentProviderContractTracks {
 		public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.movlabtigre.fixes";
 
 		public static final String KEY_ROWID = "_id";
-		public static final String KEY_TRIPID = "tripid";
 		public static final String KEY_ACCURACY = "accuracy";
 		public static final String KEY_ALTITUDE = "altitude";
 		public static final String KEY_LATITUDE = "latitude";
@@ -61,37 +60,32 @@ public class ContentProviderContractTracks {
 
 		public static final int DISPLAY_TRUE = 1;
 		public static final int DISPLAY_FALSE = 0;
-		
+
 		public static final String DB_CREATE_STATEMENT = "create table "
-				+ ContentProviderTracks.DATABASE_TABLE + " ( " + 
-				KEY_ROWID + " integer primary key autoincrement, " + 
-				KEY_TRIPID + " text, " + 
-				KEY_ACCURACY + " real, " + 
-				KEY_ALTITUDE + "  real, " + 
-				KEY_LATITUDE + " real, " + 
-				KEY_LONGITUDE + " real, " + 
-				KEY_PROVIDER + " text, " + 
-				KEY_TIMELONG + " long,  " + 
-				KEY_TIMESTAMP + " text not null, " +
-				KEY_POWER_LEVEL + " integer," + 
-				KEY_STATION_DEPARTURE_TIMELONG + " long, " +
-				KEY_DISPLAY + " integer, " +
-				KEY_UPLOADED + " integer);";
+				+ ContentProviderTracks.DATABASE_TABLE + " ( " + KEY_ROWID
+				+ " integer primary key autoincrement, " + KEY_ACCURACY
+				+ " real, " + KEY_ALTITUDE + "  real, " + KEY_LATITUDE
+				+ " real, " + KEY_LONGITUDE + " real, " + KEY_PROVIDER
+				+ " text, " + KEY_TIMELONG + " long,  " + KEY_TIMESTAMP
+				+ " text not null, " + KEY_POWER_LEVEL + " integer,"
+				+ KEY_STATION_DEPARTURE_TIMELONG + " long, " + KEY_DISPLAY
+				+ " integer, " + KEY_UPLOADED + " integer);";
 
 		/** The names of all the fields contained in the location tracks table */
-		public static final String[] KEYS_ALL = { KEY_ROWID, KEY_TRIPID,
-				KEY_ACCURACY, KEY_ALTITUDE, KEY_LATITUDE, KEY_LONGITUDE, KEY_PROVIDER,
+		public static final String[] KEYS_ALL = { KEY_ROWID, KEY_ACCURACY,
+				KEY_ALTITUDE, KEY_LATITUDE, KEY_LONGITUDE, KEY_PROVIDER,
 				KEY_TIMELONG, KEY_TIMESTAMP, KEY_POWER_LEVEL,
 				KEY_STATION_DEPARTURE_TIMELONG, KEY_DISPLAY, KEY_UPLOADED };
 
-		public static final String[] KEYS_LATLON = { KEY_ROWID, KEY_TRIPID, KEY_LATITUDE, KEY_LONGITUDE };
+		public static final String[] KEYS_LATLON = { KEY_ROWID, KEY_LATITUDE,
+				KEY_LONGITUDE };
 
-		public static final String[] KEYS_LATLONACC = { KEY_ROWID, KEY_TRIPID,
+		public static final String[] KEYS_LATLONACC = { KEY_ROWID,
 				KEY_LATITUDE, KEY_LONGITUDE, KEY_ACCURACY };
 
 		public static final String[] KEYS_LATLONACCTIMES = { KEY_ROWID,
-				KEY_TRIPID, KEY_LATITUDE, KEY_LONGITUDE, KEY_ACCURACY,
-				KEY_TIMELONG, KEY_STATION_DEPARTURE_TIMELONG };
+				KEY_LATITUDE, KEY_LONGITUDE, KEY_ACCURACY, KEY_TIMELONG,
+				KEY_STATION_DEPARTURE_TIMELONG };
 
 	}
 

@@ -1,6 +1,6 @@
 /*
  * Tigatrapp
- * Copyright (C) 2013  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
+ * Copyright (C) 2013, 2014  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
  * Contact: tigatrapp@ceab.csic.es
  * 
  * This file is part of Tigatrapp.
@@ -73,15 +73,12 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import ceab.movlab.tigre.ContentProviderContractReports.Reports;
-import ceab.movlab.tigre.ContentProviderContractTracks.Fixes;
-import ceab.movlab.tigre.ContentProviderContractTrips.Trips;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
-import com.google.android.maps.OverlayItem;
 
 /**
  * Allows user to view their own data in a map (from the database on their phone
@@ -92,22 +89,17 @@ import com.google.android.maps.OverlayItem;
  * 
  */
 public class ViewDataActivity extends MapActivity {
-	String TAG = "DriverMapActivity";
-	private TextView mReceiversOffWarning;
-	private TextView tripRecordingText;
-	private LinearLayout stopTripArea;
 
 	boolean loadingData;
 
-	private MapView mapView;
+	public static MapView mapView;
 	private MapController myMapController;
 	private List<Overlay> mapOverlays;
 	GeoPoint nCenter;
 	GeoPoint currentCenter;
 
-	ImageButton mSTB;
 
-	boolean satToggle;
+	static boolean satToggle;
 
 	int BORDER_COLOR_MAP = 0xee4D2EFF;
 	int FILL_COLOR_MAP = 0x554D2EFF;
@@ -125,9 +117,9 @@ public class ViewDataActivity extends MapActivity {
 
 	ArrayList<MapPoint> mPoints;
 
-	ArrayList<ArrayList<MapPoint>> mTrips;
+	static ArrayList<ArrayList<MapPoint>> mTrips;
 
-	ArrayList<OverlayItem> mOverlaylist;
+	ArrayList<MyOverlayItem> mOverlaylist;
 
 	final Context context = this;
 
@@ -153,21 +145,11 @@ public class ViewDataActivity extends MapActivity {
 
 		mPoints = new ArrayList<MapPoint>();
 		mTrips = new ArrayList<ArrayList<MapPoint>>();
-		mOverlaylist = new ArrayList<OverlayItem>();
+		mOverlaylist = new ArrayList<MyOverlayItem>();
 
 		progressbar = (ProgressBar) findViewById(R.id.mapProgressbar);
 		progressbar.setProgress(0);
 
-		mReceiversOffWarning = (TextView) findViewById(R.id.receiversOffWarning);
-		mReceiversOffWarning.setVisibility(View.INVISIBLE);
-		tripRecordingText = (TextView) findViewById(R.id.tripRecordingText);
-		tripRecordingText.setVisibility(View.INVISIBLE);
-		stopTripArea = (LinearLayout) findViewById(R.id.stop_trip_area);
-		stopTripArea.setVisibility(View.INVISIBLE);
-
-		mSTB = (ImageButton) findViewById(R.id.button_stop_trip);
-
-		mSTB.setVisibility(View.INVISIBLE);
 
 	}
 
@@ -273,7 +255,7 @@ public class ViewDataActivity extends MapActivity {
 	/*
 	 * Draw selected locations on map. Returns true if drawn; false otherwise.
 	 */
-	private boolean drawFixes(ArrayList<OverlayItem> overlaylist,
+	public boolean drawFixes(ArrayList<MyOverlayItem> overlaylist,
 			ArrayList<ArrayList<MapPoint>> tripdata, boolean sat,
 			boolean clearMapOverlays, boolean recenter) {
 
@@ -323,7 +305,7 @@ public class ViewDataActivity extends MapActivity {
 					R.drawable.report_icon_yellow);
 			MyItemizedOverlay itemizedoverlay = new MyItemizedOverlay(drawable,
 					this);
-			for (OverlayItem oli : overlaylist) {
+			for (MyOverlayItem oli : overlaylist) {
 				itemizedoverlay.addOverlay(oli);
 				
 				if(currentCenter == null){
@@ -610,7 +592,7 @@ public class ViewDataActivity extends MapActivity {
 
 		ArrayList<String> tripids = new ArrayList<String>();
 
-		ArrayList<OverlayItem> overlaylist = new ArrayList<OverlayItem>();
+		ArrayList<MyOverlayItem> overlaylist = new ArrayList<MyOverlayItem>();
 
 		GeoPoint center;
 
@@ -630,61 +612,59 @@ public class ViewDataActivity extends MapActivity {
 
 				while (!c.isAfterLast()) {
 
-					int reportIDCol = c
-							.getColumnIndexOrThrow(Reports.KEY_REPORTID);
-					int reporttimeCol = c
-							.getColumnIndexOrThrow(Reports.KEY_REPORTTIME);
-					int q1_sizecolorCol = c
-							.getColumnIndexOrThrow(Reports.KEY_Q1_SIZECOLOR);
-					int q2_abdomenlegsCol = c
-							.getColumnIndexOrThrow(Reports.KEY_Q2_ABDOMENLEGS);
-					int q3_headthoraxCol = c
-							.getColumnIndexOrThrow(Reports.KEY_Q3_HEADTHORAX);
-					int herethereCol = c
-							.getColumnIndexOrThrow(Reports.KEY_HERETHERE);
-					int here_lngCol = c
-							.getColumnIndexOrThrow(Reports.KEY_HERE_LNG);
-					int here_latCol = c
-							.getColumnIndexOrThrow(Reports.KEY_HERE_LAT);
-					int other_lngCol = c
-							.getColumnIndexOrThrow(Reports.KEY_OTHER_LNG);
-					int other_latCol = c
-							.getColumnIndexOrThrow(Reports.KEY_OTHER_LAT);
-					int here_lng_jCol = c
-							.getColumnIndexOrThrow(Reports.KEY_HERE_LNG_J);
-					int here_lat_jCol = c
-							.getColumnIndexOrThrow(Reports.KEY_HERE_LAT_J);
-					int other_lng_jCol = c
-							.getColumnIndexOrThrow(Reports.KEY_OTHER_LNG_J);
-					int other_lat_jCol = c
-							.getColumnIndexOrThrow(Reports.KEY_OTHER_LAT_J);
-					int noteCol = c.getColumnIndexOrThrow(Reports.KEY_NOTE);
-					int mailingCol = c
-							.getColumnIndexOrThrow(Reports.KEY_MAILING);
-					int photo_attachedCol = c
-							.getColumnIndexOrThrow(Reports.KEY_PHOTO_ATTACHED);
-					int photo_uriCol = c
-							.getColumnIndexOrThrow(Reports.KEY_PHOTOURI);
+					int deleteReportCol = c.
+							getColumnIndexOrThrow(Reports.KEY_DELETE_REPORT);
+					
+					if(c.getInt(deleteReportCol)==0){
+					
+						int rowIdCol = c.getColumnIndexOrThrow(Reports.KEY_ROW_ID);
+						int userIdCol = c.getColumnIndexOrThrow(Reports.KEY_USER_ID);
+						int reportIdCol = c.getColumnIndexOrThrow(Reports.KEY_REPORT_ID);
+						int reportTimeCol = c
+								.getColumnIndexOrThrow(Reports.KEY_REPORT_TIME);
+						int reportVersionCol = c
+								.getColumnIndexOrThrow(Reports.KEY_REPORT_VERSION);
+						int typeCol = c.getColumnIndexOrThrow(Reports.KEY_TYPE);
+						int confirmationCol = c
+								.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION);
+						int locationChoiceCol = c
+								.getColumnIndexOrThrow(Reports.KEY_LOCATION_CHOICE);
+						int currentLocationLonCol = c
+								.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LON);
+						int currentLocationLatCol = c
+								.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LAT);
+						int selectedLocationLonCol = c
+								.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LON);
+						int selectedLocationLatCol = c
+								.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LAT);
+						int noteCol = c.getColumnIndexOrThrow(Reports.KEY_NOTE);
+						int mailingCol = c.getColumnIndexOrThrow(Reports.KEY_MAILING);
+						int photoAttachedCol = c
+								.getColumnIndexOrThrow(Reports.KEY_PHOTO_ATTACHED);
+						int uploadedCol = c.getColumnIndexOrThrow(Reports.KEY_UPLOADED);
+						int serverTimestampCol = c
+								.getColumnIndexOrThrow(Reports.KEY_SERVER_TIMESTAMP);
+						int latestVersionCol = c
+								.getColumnIndexOrThrow(Reports.KEY_LATEST_VERSION);
 
-					int rowIDCol = c.getColumnIndexOrThrow(Reports.KEY_ROWID);
-
-					String herethere = c.getString(herethereCol);
+					int locationChoice = c.getInt(locationChoiceCol);
 
 					Double geoLat = c
-							.getDouble(herethere.equals("there") ? other_latCol
-									: here_latCol) * 1E6;
-					Double geoLng = c
-							.getDouble(herethere.equals("there") ? other_lngCol
-									: here_lngCol) * 1E6;
+							.getDouble(locationChoice==1 ? selectedLocationLatCol
+									: currentLocationLatCol) * 1E6;
+					Double geoLon = c
+							.getDouble(locationChoice==1 ? selectedLocationLonCol
+									: currentLocationLonCol) * 1E6;
 
 					GeoPoint point = new GeoPoint(geoLat.intValue(),
-							geoLng.intValue());
+							geoLon.intValue());
 
-					OverlayItem overlayitem = new OverlayItem(point,
-							"Tigre troballa: codi " + c.getString(reportIDCol),
-							Util.userDate(new Date(c.getLong(reporttimeCol))));
+					MyOverlayItem overlayitem = new MyOverlayItem(point,
+							"Tigre troballa: codi " + c.getString(reportIdCol),
+							Util.userDate(new Date(c.getLong(reportTimeCol))), 
+							c.getString(reportIdCol));
 					overlaylist.add(overlayitem);
-
+					}
 					c.moveToNext();
 
 				}
@@ -705,7 +685,7 @@ public class ViewDataActivity extends MapActivity {
 			if (result) {
 
 				if (overlaylist != null && overlaylist.size() > 0) {
-					for (OverlayItem oli : overlaylist) {
+					for (MyOverlayItem oli : overlaylist) {
 						mOverlaylist.add(oli);
 					}
 				}
@@ -747,4 +727,9 @@ public class ViewDataActivity extends MapActivity {
 		}
 	}
 
+	public void reDrawFixes(ArrayList<MyOverlayItem> overlaylist){
+			drawFixes(overlaylist, mTrips, satToggle, true, true);
+	}
+	
+	
 }

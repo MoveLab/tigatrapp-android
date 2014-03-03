@@ -1,6 +1,6 @@
 /*
  * Tigatrapp
- * Copyright (C) 2013  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
+ * Copyright (C) 2013, 2014  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
  * Contact: tigatrapp@ceab.csic.es
  * 
  * This file is part of Tigatrapp.
@@ -98,7 +98,6 @@ public class ContentProviderTracks extends ContentProvider {
 
 		fixesProjectionMap = new HashMap<String, String>();
 		fixesProjectionMap.put(Fixes.KEY_ROWID, Fixes.KEY_ROWID);
-		fixesProjectionMap.put(Fixes.KEY_TRIPID, Fixes.KEY_TRIPID);
 		fixesProjectionMap.put(Fixes.KEY_ACCURACY, Fixes.KEY_ACCURACY);
 		fixesProjectionMap.put(Fixes.KEY_ALTITUDE, Fixes.KEY_ALTITUDE);
 		fixesProjectionMap.put(Fixes.KEY_LATITUDE, Fixes.KEY_LATITUDE);

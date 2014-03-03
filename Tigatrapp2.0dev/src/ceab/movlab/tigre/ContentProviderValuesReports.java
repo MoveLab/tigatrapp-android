@@ -1,6 +1,6 @@
 /*
  * Tigatrapp
- * Copyright (C) 2013  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
+ * Copyright (C) 2013, 2014  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
  * Contact: tigatrapp@ceab.csic.es
  * 
  * This file is part of Tigatrapp.
@@ -42,68 +42,63 @@ public class ContentProviderValuesReports {
 		// Log.e(TAG, "we are in the createFix part of the DB adapter...");
 
 		ContentValues initialValues = new ContentValues();
-		
-		if(rep.here_lat != null)
-		initialValues.put(Reports.KEY_HERE_LAT, Float.valueOf(rep.here_lat).floatValue());
-		
-		if(rep.here_lat_j != null) 
-		initialValues.put(Reports.KEY_HERE_LAT_J, 
-				Float.valueOf(rep.here_lat_j).floatValue());
-		
-		if(rep.here_lng != null) 
-		initialValues.put(Reports.KEY_HERE_LNG,
-				Float.valueOf(rep.here_lng).floatValue());
-		
-		if(rep.here_lng_j != null)
-		initialValues.put(Reports.KEY_HERE_LNG_J,
-				 Float.valueOf(rep.here_lng_j).floatValue());
-		
-		if(rep.herethere!=null)
-		initialValues.put(Reports.KEY_HERETHERE, rep.herethere);
-		
-		if(rep.mailing!=null)
-		initialValues.put(Reports.KEY_MAILING, rep.mailing);
-	
-		if(rep.note!=null)
+
+
+		if (rep.userId != null)
+			;
+		initialValues.put(Reports.KEY_USER_ID, rep.userId);
+
+		if (rep.reportId != null)
+			;
+		initialValues.put(Reports.KEY_REPORT_ID, rep.reportId);
+
+		initialValues.put(Reports.KEY_REPORT_VERSION, rep.reportVersion);
+
+		initialValues.put(Reports.KEY_REPORT_TIME, rep.reportTime);
+
+		initialValues.put(Reports.KEY_VERSION_TIME, rep.versionTime);
+
+		initialValues.put(Reports.KEY_TYPE, rep.type);
+
+		initialValues.put(Reports.KEY_CONFIRMATION, rep.confirmation);
+
+		initialValues.put(Reports.KEY_LOCATION_CHOICE, rep.locationChoice);
+
+		if (rep.currentLocationLat != null)
+			;
+		initialValues.put(Reports.KEY_CURRENT_LOCATION_LAT,
+				rep.currentLocationLat);
+
+		if (rep.currentLocationLon != null)
+			;
+		initialValues.put(Reports.KEY_CURRENT_LOCATION_LON,
+				rep.currentLocationLon);
+
+		if (rep.selectedLocationLat != null)
+			;
+		initialValues.put(Reports.KEY_SELECTED_LOCATION_LAT,
+				rep.selectedLocationLat);
+
+		if (rep.selectedLocationLon != null)
+			;
+		initialValues.put(Reports.KEY_SELECTED_LOCATION_LON,
+				rep.selectedLocationLon);
+
+		initialValues.put(Reports.KEY_PHOTO_ATTACHED, rep.photoAttached);
+
+		if (rep.note != null)
+			;
 		initialValues.put(Reports.KEY_NOTE, rep.note);
-		
-		if(rep.other_lat!=null)
-		initialValues.put(Reports.KEY_OTHER_LAT,  Float.valueOf(rep.other_lat).floatValue());
 
-		if(rep.other_lat_j!=null)
-		initialValues.put(Reports.KEY_OTHER_LAT_J,
-				 Float.valueOf(rep.other_lat_j)
-						.floatValue());
-		
-		if(rep.other_lng!=null)
-		initialValues.put(Reports.KEY_OTHER_LNG, rep.other_lng == null ? null
-				: Float.valueOf(rep.other_lng).floatValue());
+		initialValues.put(Reports.KEY_MAILING, rep.mailing);
 
-		if(rep.other_lng_j!=null)
-		initialValues.put(Reports.KEY_OTHER_LNG_J,
-				rep.other_lng_j == null ? null : Float.valueOf(rep.other_lng_j)
-						.floatValue());
-		
-		if(rep.photo_attached!=null)
-		initialValues.put(Reports.KEY_PHOTO_ATTACHED, rep.photo_attached);
-		
-		if(rep.q1_sizecolor!=null)			
-		initialValues.put(Reports.KEY_Q1_SIZECOLOR, rep.q1_sizecolor);
-		
-		if(rep.q2_abdomenlegs!=null)			
-		initialValues.put(Reports.KEY_Q2_ABDOMENLEGS, rep.q2_abdomenlegs);
+		initialValues.put(Reports.KEY_UPLOADED, rep.uploaded);
 
-		if(rep.q3_headthorax!=null)
-		initialValues.put(Reports.KEY_Q3_HEADTHORAX, rep.q3_headthorax);
-		
-		initialValues.put(Reports.KEY_REPORTTIME, rep.reporttime);
-		
-		initialValues.put(Reports.KEY_REPORTID, rep.reportID);
+		initialValues.put(Reports.KEY_SERVER_TIMESTAMP, rep.serverTimestamp);
 
-		if(rep.photo_uri!=null)
-		initialValues.put(Reports.KEY_PHOTOURI, rep.photo_uri);
+		initialValues.put(Reports.KEY_DELETE_REPORT, rep.deleteReport);
 
-		initialValues.put(Reports.KEY_UPLOADED, 0);
+		initialValues.put(Reports.KEY_LATEST_VERSION, rep.latestVersion);
 
 		return initialValues;
 	}

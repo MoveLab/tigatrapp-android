@@ -24,11 +24,19 @@ package ceab.movlab.tigre;
 import java.util.ArrayList;
 
 import android.app.AlertDialog;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.database.Cursor;
 import android.graphics.drawable.Drawable;
+import android.view.View;
+import android.view.View.OnClickListener;
+import ceab.movlab.tigre.ContentProviderContractReports.Reports;
 
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.OverlayItem;
+
 
 /**
  * Overlay for map view
@@ -38,7 +46,9 @@ import com.google.android.maps.OverlayItem;
  */
 public class MyItemizedOverlay extends ItemizedOverlay {
 	Context mContext;
-	private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
+	int thisItem; 
+	
+	private ArrayList<MyOverlayItem> mOverlays = new ArrayList<MyOverlayItem>();
 
 	public MyItemizedOverlay(Drawable defaultMarker, Context context) {
 		super(boundCenterBottom(defaultMarker));
@@ -58,15 +68,48 @@ public class MyItemizedOverlay extends ItemizedOverlay {
 
 	@Override
 	protected boolean onTap(int index) {
-		OverlayItem item = mOverlays.get(index);
+		thisItem = index;
+		final MyOverlayItem item = mOverlays.get(index);
 		AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
 		dialog.setTitle(item.getTitle());
 		dialog.setMessage(item.getSnippet());
+		dialog.setCancelable(true);
+		dialog.setNegativeButton("cancel", new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface d, int arg1) {
+				d.cancel();
+			};	
+		});
+		
+		DialogInterface.OnClickListener ocl = new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface arg0, int arg1) {
+				String thisReportId = item.getReportId();
+
+				mOverlays.remove(thisItem);
+				ViewDataActivity.mapView.invalidate();
+				Util.toast(mContext, "Report "+thisReportId+" deleted.");
+				
+				ContentResolver cr = mContext.getContentResolver();				
+				ContentValues cv = new ContentValues();
+				String sc = Reports.KEY_REPORT_ID + " = '"
+						+ thisReportId + "'"; 
+				cv.put(Reports.KEY_DELETE_REPORT, 1);
+				cr.update(Reports.CONTENT_URI, cv, sc, null);
+				
+				//TODO sync deletion to server
+				
+				setLastFocusedIndex(-1);
+				populate();
+			};	
+		};
+		
+		dialog.setPositiveButton("delete", ocl);
 		dialog.show();
 		return true;
 	}
 
-	public void addOverlay(OverlayItem overlay) {
+	public void addOverlay(MyOverlayItem overlay) {
 		mOverlays.add(overlay);
 	}
 

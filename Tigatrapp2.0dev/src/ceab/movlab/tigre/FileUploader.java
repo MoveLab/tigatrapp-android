@@ -1,6 +1,6 @@
 /*
  * Tigatrapp
- * Copyright (C) 2013  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
+ * Copyright (C) 2013, 2014  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
  * Contact: tigatrapp@ceab.csic.es
  * 
  * This file is part of Tigatrapp.
@@ -68,7 +68,6 @@ import android.database.Cursor;
 import android.os.IBinder;
 import ceab.movlab.tigre.ContentProviderContractReports.Reports;
 import ceab.movlab.tigre.ContentProviderContractTracks.Fixes;
-import ceab.movlab.tigre.ContentProviderContractTrips.Trips;
 
 /**
  * Uploads files to the server.
@@ -142,17 +141,15 @@ public class FileUploader extends Service {
 			int powIndex = c.getColumnIndexOrThrow(Fixes.KEY_POWER_LEVEL);
 			int provIndex = c.getColumnIndexOrThrow(Fixes.KEY_PROVIDER);
 			int timeIndex = c.getColumnIndexOrThrow(Fixes.KEY_TIMELONG);
-			int tripidIndex = c.getColumnIndexOrThrow(Fixes.KEY_TRIPID);
 
 			while (!c.isAfterLast()) {
 
 				int thisId = c.getInt(idIndex);
 
-				Fix thisFix = new Fix(c.getString(tripidIndex),
-						c.getDouble(latIndex), c.getDouble(lngIndex),
-						c.getDouble(altIndex), c.getFloat(accIndex),
-						c.getString(provIndex), c.getLong(timeIndex),
-						c.getInt(powIndex));
+				Fix thisFix = new Fix(c.getDouble(latIndex),
+						c.getDouble(lngIndex), c.getDouble(altIndex),
+						c.getFloat(accIndex), c.getString(provIndex),
+						c.getLong(timeIndex), c.getInt(powIndex));
 
 				if (thisFix.upload(context)) {
 
@@ -175,49 +172,6 @@ public class FileUploader extends Service {
 
 			c.close();
 
-			// now trips
-			c = cr.query(Trips.CONTENT_URI, Trips.KEYS_ALL, Trips.KEY_UPLOADED
-					+ " = 0", null, null);
-
-			if (!c.moveToFirst()) {
-				c.close();
-				tripUploadsNeeded = false;
-			}
-
-			idIndex = c.getColumnIndexOrThrow(Trips.KEY_ROWID);
-			tripidIndex = c.getColumnIndexOrThrow(Trips.KEY_TRIPID);
-			int delIndex = c.getColumnIndexOrThrow(Trips.KEY_DELETE_TRIP);
-			int traIndex = c
-					.getColumnIndexOrThrow(Trips.KEY_TRANSPORTED_MOSQUITO);
-			int tigIndex = c.getColumnIndexOrThrow(Trips.KEY_MOSQUITO_IS_TIGER);
-			int stIndex = c.getColumnIndexOrThrow(Trips.KEY_START_TIME);
-			int etIndex = c.getColumnIndexOrThrow(Trips.KEY_END_TIME);
-
-			while (!c.isAfterLast()) {
-
-				int thisId = c.getInt(idIndex);
-
-				Trip thisTrip = new Trip(c.getString(tripidIndex),
-						c.getInt(delIndex), c.getString(traIndex),
-						c.getString(tigIndex), c.getLong(stIndex),
-						c.getLong(etIndex));
-
-				if (thisTrip.upload(context)) {
-
-					ContentValues cv = new ContentValues();
-					String sc = Trips.KEY_ROWID + " = "
-							+ String.valueOf(thisId);
-					cv.put(Trips.KEY_UPLOADED, 1);
-					cr.update(Trips.CONTENT_URI, cv, sc, null);
-
-				}
-
-				c.moveToNext();
-
-			}
-
-			c.close();
-
 			// now reports
 			c = cr.query(Reports.CONTENT_URI, Reports.KEYS_ALL,
 					Reports.KEY_UPLOADED + " = 0", null, null);
@@ -227,54 +181,59 @@ public class FileUploader extends Service {
 				reportUploadsNeeded = false;
 			}
 
-			int reportIDCol = c.getColumnIndexOrThrow(Reports.KEY_REPORTID);
-			int reporttimeCol = c.getColumnIndexOrThrow(Reports.KEY_REPORTTIME);
-			int q1_sizecolorCol = c
-					.getColumnIndexOrThrow(Reports.KEY_Q1_SIZECOLOR);
-			int q2_abdomenlegsCol = c
-					.getColumnIndexOrThrow(Reports.KEY_Q2_ABDOMENLEGS);
-			int q3_headthoraxCol = c
-					.getColumnIndexOrThrow(Reports.KEY_Q3_HEADTHORAX);
-			int herethereCol = c.getColumnIndexOrThrow(Reports.KEY_HERETHERE);
-			int here_lngCol = c.getColumnIndexOrThrow(Reports.KEY_HERE_LNG);
-			int here_latCol = c.getColumnIndexOrThrow(Reports.KEY_HERE_LAT);
-			int other_lngCol = c.getColumnIndexOrThrow(Reports.KEY_OTHER_LNG);
-			int other_latCol = c.getColumnIndexOrThrow(Reports.KEY_OTHER_LAT);
-			int here_lng_jCol = c.getColumnIndexOrThrow(Reports.KEY_HERE_LNG_J);
-			int here_lat_jCol = c.getColumnIndexOrThrow(Reports.KEY_HERE_LAT_J);
-			int other_lng_jCol = c
-					.getColumnIndexOrThrow(Reports.KEY_OTHER_LNG_J);
-			int other_lat_jCol = c
-					.getColumnIndexOrThrow(Reports.KEY_OTHER_LAT_J);
+			int rowIdCol = c.getColumnIndexOrThrow(Reports.KEY_ROW_ID);
+			int userIdCol = c.getColumnIndexOrThrow(Reports.KEY_USER_ID);
+			int reportIdCol = c.getColumnIndexOrThrow(Reports.KEY_REPORT_ID);
+			int reportTimeCol = c
+					.getColumnIndexOrThrow(Reports.KEY_REPORT_TIME);
+			int reportVersionCol = c
+					.getColumnIndexOrThrow(Reports.KEY_REPORT_VERSION);
+			int typeCol = c.getColumnIndexOrThrow(Reports.KEY_TYPE);
+			int confirmationCol = c
+					.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION);
+			int locationChoiceCol = c
+					.getColumnIndexOrThrow(Reports.KEY_LOCATION_CHOICE);
+			int currentLocationLonCol = c
+					.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LON);
+			int currentLocationLatCol = c
+					.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LAT);
+			int selectedLocationLonCol = c
+					.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LON);
+			int selectedLocationLatCol = c
+					.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LAT);
 			int noteCol = c.getColumnIndexOrThrow(Reports.KEY_NOTE);
 			int mailingCol = c.getColumnIndexOrThrow(Reports.KEY_MAILING);
-			int photo_attachedCol = c
+			int photoAttachedCol = c
 					.getColumnIndexOrThrow(Reports.KEY_PHOTO_ATTACHED);
-			int photo_uriCol = c.getColumnIndexOrThrow(Reports.KEY_PHOTOURI);
-
-			int rowIDCol = c.getColumnIndexOrThrow(Reports.KEY_ROWID);
+			int uploadedCol = c.getColumnIndexOrThrow(Reports.KEY_UPLOADED);
+			int serverTimestampCol = c
+					.getColumnIndexOrThrow(Reports.KEY_SERVER_TIMESTAMP);
+			int deleteReportCol = c
+					.getColumnIndexOrThrow(Reports.KEY_DELETE_REPORT);
+			int latestVersionCol = c
+					.getColumnIndexOrThrow(Reports.KEY_LATEST_VERSION);
 
 			while (!c.isAfterLast()) {
 
-				Report report = new Report(c.getString(reportIDCol),
-						c.getLong(reporttimeCol), c.getString(q1_sizecolorCol),
-						c.getString(q2_abdomenlegsCol),
-						c.getString(q3_headthoraxCol),
-						c.getString(herethereCol), c.getString(here_lngCol),
-						c.getString(here_latCol), c.getString(other_lngCol),
-						c.getString(other_latCol), c.getString(here_lng_jCol),
-						c.getString(here_lat_jCol),
-						c.getString(other_lng_jCol),
-						c.getString(other_lat_jCol), c.getString(noteCol),
-						c.getString(mailingCol),
-						c.getString(photo_attachedCol),
-						c.getString(photo_uriCol));
+				Report report = new Report(c.getString(userIdCol),
+						c.getString(reportIdCol), c.getInt(reportVersionCol),
+						c.getLong(reportTimeCol), c.getInt(typeCol),
+						c.getString(confirmationCol),
+						c.getInt(locationChoiceCol),
+						c.getFloat(currentLocationLatCol),
+						c.getFloat(currentLocationLonCol),
+						c.getFloat(selectedLocationLatCol),
+						c.getFloat(selectedLocationLonCol),
+						c.getInt(photoAttachedCol), c.getString(noteCol),
+						c.getInt(mailingCol), c.getInt(uploadedCol),
+						c.getLong(serverTimestampCol),
+						c.getInt(deleteReportCol), c.getInt(latestVersionCol));
 
 				if (report.upload(context)) {
 
 					// mark record as uploaded
 					ContentValues cv = new ContentValues();
-					String sc = Reports.KEY_ROWID + " = " + c.getInt(rowIDCol);
+					String sc = Reports.KEY_ROW_ID + " = " + c.getInt(rowIdCol);
 					cv.put(Reports.KEY_UPLOADED, 1);
 					cr.update(Reports.CONTENT_URI, cv, sc, null);
 

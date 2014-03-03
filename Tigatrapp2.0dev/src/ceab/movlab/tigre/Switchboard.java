@@ -1,6 +1,6 @@
 /*
  * Tigatrapp
- * Copyright (C) 2013  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
+ * Copyright (C) 2013, 2014  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
  * Contact: tigatrapp@ceab.csic.es
  * 
  * This file is part of Tigatrapp.
@@ -21,23 +21,35 @@
 
 package ceab.movlab.tigre;
 
+import java.util.Locale;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.UUID;
 
+import ceab.movlab.tigre.ContentProviderContractReports.Reports;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Vibrator;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
-import android.view.MotionEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 /**
  * Main menu screen for app.
@@ -48,102 +60,134 @@ import android.widget.TextView;
 
 public class Switchboard extends Activity {
 
-	private TextView mTFB;
-	private TextView mainPhoto;
-	private TextView mWMB;
-	private ImageView mWebSiteButton;
+	private Button reportButtonAdult;
+	private Button reportButtonSite;
+	private Button galleryButton;
+	private Button mapButton;
 	final Context context = this;
-	Vibrator mVib;
-	Timer myTimer;
-	TimerTask myTimerTask;
-
-	int screenSize;
+	private TimerTask delayTask;
+	private Timer myTimer;
+	AnimationDrawable ad;
+	String lang;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.switchboard);
 
 		PropertyHolder.init(context);
 
+		if (PropertyHolder.getUserId() == null) {
+			String userId = UUID.randomUUID().toString();
+			PropertyHolder.setUserId(userId);
+		}
+
+
+		if (PropertyHolder.isServiceOn()) {
+
+			// Make sure fixes are being scheduled
+			// Stop service if it is currently running
+			Intent stopFixGet = new Intent(Switchboard.this, FixGet.class);
+			stopService(stopFixGet);
+			// now schedule
+			Intent scheduleService = new Intent(
+					"ceab.movlab.tigre.SCHEDULE_SERVICE");
+			context.sendBroadcast(scheduleService);
+			startService(scheduleService);
+
+		}
+
+		
+		lang = PropertyHolder.getLanguage();
+		Locale myLocale = new Locale(lang);
+		Resources res = getResources();
+		DisplayMetrics dm = res.getDisplayMetrics();
+		Configuration conf = res.getConfiguration();
+		conf.locale = myLocale;
+		res.updateConfiguration(conf, dm);
+
+		setContentView(R.layout.switchboard);
+
 		Util.overrideFonts(this, findViewById(android.R.id.content));
 
-		mVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
+		ImageView logo = (ImageView) findViewById(R.id.splashLogo);
 
-		mTFB = (TextView) findViewById(R.id.tigerfinder_button);
-
-		screenSize = getResources().getConfiguration().screenLayout
-				& Configuration.SCREENLAYOUT_SIZE_MASK;
-
-		mTFB.setOnTouchListener(new OnTouchListener() {
+		reportButtonAdult = (Button) findViewById(R.id.reportButtonAdult);
+		reportButtonAdult.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public boolean onTouch(View v, MotionEvent e) {
+			public void onClick(View v) {
+				
+				AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+				dialog.setTitle("Report");
+				dialog.setMessage("Create new report or edit an existing one?");
+				dialog.setCancelable(true);
+				dialog.setPositiveButton("Create", new DialogInterface.OnClickListener(){
+					@Override
+					public void onClick(DialogInterface d, int arg1) {
+						Intent i = new Intent(Switchboard.this, ReportToolAdults.class);
+						startActivity(i);
+					};	
+				});
+				dialog.setNeutralButton("Edit", new DialogInterface.OnClickListener(){
+					@Override
+					public void onClick(DialogInterface d, int arg1) {
+						Intent i = new Intent(Switchboard.this, ViewMapReportsAdults.class);
+						startActivity(i);
+					};	
+				});
 
-				if (e.getAction() == MotionEvent.ACTION_DOWN) {
-					mTFB.setBackgroundDrawable(getResources().getDrawable(
-							R.drawable.orange_oval_pressed));
-					mTFB.setPadding(15, 15, 15, 15);
-					mTFB.setTextColor(getResources().getColor(
-							R.color.orange_glow));
-					mVib.vibrate(50);
+				dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+					@Override
+					public void onClick(DialogInterface d, int arg1) {
+						d.cancel();
+					};	
+				});
+								
+				dialog.show();
 
-				}
-				if (e.getAction() == MotionEvent.ACTION_UP) {
-					mTFB.setBackgroundDrawable(getResources().getDrawable(
-							R.drawable.orange_oval));
-					mTFB.setPadding(15, 15, 15, 15);
-					mTFB.setTextColor(getResources().getColor(R.color.black));
-					mVib.vibrate(50);
-
-				}
-				return false;
 			}
-
 		});
 
-		mTFB.setOnClickListener(new View.OnClickListener() {
+		reportButtonSite = (Button) findViewById(R.id.reportButtonSite);
+		reportButtonSite.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
 
-				// create an intent object and tell it where to go
-				Intent i = new Intent(Switchboard.this, ReportTool.class);
-				// start the intent
-				startActivity(i);
+				AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+				dialog.setTitle("Report");
+				dialog.setMessage("Create new report or edit an existing one?");
+				dialog.setCancelable(true);
+				dialog.setPositiveButton("Create", new DialogInterface.OnClickListener(){
+					@Override
+					public void onClick(DialogInterface d, int arg1) {
+						Intent i = new Intent(Switchboard.this, ReportToolSites.class);
+						startActivity(i);
+					};	
+				});
+				dialog.setNeutralButton("Edit", new DialogInterface.OnClickListener(){
+					@Override
+					public void onClick(DialogInterface d, int arg1) {
+						Intent i = new Intent(Switchboard.this, ViewMapReportsSites.class);
+						startActivity(i);
+					};	
+				});
+
+				dialog.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+					@Override
+					public void onClick(DialogInterface d, int arg1) {
+						d.cancel();
+					};	
+				});
+								
+				dialog.show();
 
 			}
 		});
 
-
-		mWMB = (TextView) findViewById(R.id.dataMapButton);
-		mWMB.setOnTouchListener(new OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View v, MotionEvent e) {
-
-				if (e.getAction() == MotionEvent.ACTION_DOWN) {
-					mWMB.setBackgroundDrawable(getResources().getDrawable(
-							R.drawable.blue_rectangle_pressed));
-					mWMB.setPadding(10, 10, 10, 10);
-					mWMB.setTextColor(getResources()
-							.getColor(R.color.blue_glow));
-
-					mVib.vibrate(50);
-
-				}
-				if (e.getAction() == MotionEvent.ACTION_UP) {
-					mWMB.setBackgroundDrawable(getResources().getDrawable(
-							R.drawable.blue_rectangle));
-					mWMB.setPadding(10, 10, 10, 10);
-					mWMB.setTextColor(getResources().getColor(R.color.white));
-					mVib.vibrate(50);
-				}
-				return false;
-			}
-
-		});
-		mWMB.setOnClickListener(new View.OnClickListener() {
+		
+		mapButton = (Button) findViewById(R.id.dataMapButton);
+		mapButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -154,74 +198,8 @@ public class Switchboard extends Activity {
 			}
 		});
 
-		mWebSiteButton = (ImageView) findViewById(R.id.webSiteButton);
-
-		mWebSiteButton.setOnTouchListener(new OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View v, MotionEvent e) {
-
-				if (e.getAction() == MotionEvent.ACTION_DOWN) {
-					mWebSiteButton.setBackgroundDrawable(getResources()
-							.getDrawable(R.drawable.grey_rectangle_pressed));
-					mWebSiteButton.setPadding(10, 0, 10, 0);
-					mVib.vibrate(50);
-
-				}
-				if (e.getAction() == MotionEvent.ACTION_UP) {
-					mWebSiteButton.setBackgroundDrawable(getResources()
-							.getDrawable(R.drawable.grey_rectangle));
-					mWebSiteButton.setPadding(10, 0, 10, 0);
-					mVib.vibrate(50);
-				}
-				return false;
-			}
-
-		});
-
-		mWebSiteButton.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-
-				// Intent i = new Intent(Switchboard.this, WebMap.class);
-				// startActivity(i);
-
-				String url = "http://atrapaeltigre.com";
-				Intent i = new Intent(Intent.ACTION_VIEW);
-				i.setData(Uri.parse(url));
-				startActivity(i);
-			}
-		});
-
-		mainPhoto = (TextView) findViewById(R.id.reportMainPic);
-		mainPhoto.setOnTouchListener(new OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View v, MotionEvent e) {
-
-				if (e.getAction() == MotionEvent.ACTION_DOWN) {
-					mainPhoto.setBackgroundDrawable(getResources().getDrawable(
-							R.drawable.blue_rectangle_pressed));
-					mainPhoto.setPadding(10, 10, 10, 10);
-					mainPhoto.setTextColor(getResources().getColor(
-							R.color.blue_glow));
-
-					mVib.vibrate(50);
-
-				}
-				if (e.getAction() == MotionEvent.ACTION_UP) {
-					mainPhoto.setBackgroundDrawable(getResources().getDrawable(
-							R.drawable.blue_rectangle));
-					mainPhoto.setPadding(10, 10, 10, 10);
-					mainPhoto.setTextColor(getResources().getColor(
-							R.color.white));
-					mVib.vibrate(50);
-				}
-				return false;
-			}
-
-		});
-		mainPhoto.setOnClickListener(new View.OnClickListener() {
+		galleryButton = (Button) findViewById(R.id.reportMainPic);
+		galleryButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -232,13 +210,26 @@ public class Switchboard extends Activity {
 			}
 		});
 
+		Animation animation = new AlphaAnimation(0.0f, 1.0f);
+		animation.setDuration(500);
+		Animation animationSlow = new AlphaAnimation(0.0f, 1.0f);
+		animationSlow.setDuration(2000);
+
+
+		logo.startAnimation(animationSlow);
+		reportButtonAdult.startAnimation(animation);
+		reportButtonSite.startAnimation(animation);
+		mapButton.startAnimation(animation);
+		galleryButton.startAnimation(animation);
+		
+	
+
+		
 	}
 
 	@Override
 	protected void onResume() {
 
-
-		
 		super.onResume();
 	}
 
@@ -260,6 +251,66 @@ public class Switchboard extends Activity {
 		}
 
 		return super.onKeyDown(keyCode, event);
+	}
+
+	static final private int TOGGLE_LANGUAGE = Menu.FIRST;
+	static final private int MAIN_WEBSITE = Menu.FIRST + 1;
+	static final private int RSS_FEED = Menu.FIRST + 2;
+	static final private int SHARE_APP = Menu.FIRST + 3;
+	static final private int HELP = Menu.FIRST + 4;
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+
+		menu.add(0, TOGGLE_LANGUAGE, Menu.NONE, R.string.menu_toggle_language);
+		menu.add(0, MAIN_WEBSITE, Menu.NONE, R.string.visit_website);
+		menu.add(0, RSS_FEED, Menu.NONE, "RSS Feed");
+		menu.add(0, SHARE_APP, Menu.NONE, "share app");
+		menu.add(0, HELP, Menu.NONE, "help");
+		
+
+		return true;
+
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		super.onOptionsItemSelected(item);
+
+		switch (item.getItemId()) {
+		case (TOGGLE_LANGUAGE): {
+
+			lang = PropertyHolder.getLanguage() == "ca" ? "es" : "ca";
+			PropertyHolder.setLanguage(lang);
+			setLocale(lang);
+
+			return true;
+		}
+
+		case (MAIN_WEBSITE): {
+
+			String url = "http://atrapaeltigre.com";
+			Intent i = new Intent(Intent.ACTION_VIEW);
+			i.setData(Uri.parse(url));
+			startActivity(i);
+			return true;
+		}
+
+		}
+		return false;
+	}
+
+	public void setLocale(String lang) {
+
+		Locale myLocale = new Locale(lang);
+		Resources res = getResources();
+		DisplayMetrics dm = res.getDisplayMetrics();
+		Configuration conf = res.getConfiguration();
+		conf.locale = myLocale;
+		res.updateConfiguration(conf, dm);
+		finish();
+		startActivity(getIntent());
 	}
 
 }

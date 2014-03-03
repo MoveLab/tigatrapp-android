@@ -1,6 +1,6 @@
 /*
  * Tigatrapp
- * Copyright (C) 2013  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
+ * Copyright (C) 2013, 2014  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
  * Contact: tigatrapp@ceab.csic.es
  * 
  * This file is part of Tigatrapp.
@@ -56,21 +56,34 @@ public class ContentProviderReports extends ContentProvider {
 	/** The location fix table name; currently "reportsTable" */
 	private static final String DATABASE_TABLE = "reportsTable";
 
+	private static final String COMMA = ",";
+	private static final String TYPE_TEXT = " TEXT";
+	private static final String TYPE_INTEGER = " INTEGER";
+	private static final String TYPE_REAL = " REAL";
+
 	/** The SQL command to create the reportsTable */
 	private static final String DATABASE_CREATE = "create table reportsTable ("
-			+ Reports.KEY_ROWID + " integer primary key autoincrement,"
-			+ Reports.KEY_REPORTID + " text," + Reports.KEY_REPORTTIME
-			+ " long," + Reports.KEY_Q1_SIZECOLOR + " text,"
-			+ Reports.KEY_Q2_ABDOMENLEGS + " text," + Reports.KEY_Q3_HEADTHORAX
-			+ " text," + Reports.KEY_HERETHERE + " text,"
-			+ Reports.KEY_HERE_LNG + " float," + Reports.KEY_HERE_LAT
-			+ " float," + Reports.KEY_OTHER_LNG + " float,"
-			+ Reports.KEY_OTHER_LAT + " float," + Reports.KEY_HERE_LNG_J
-			+ " float," + Reports.KEY_HERE_LAT_J + " float,"  + Reports.KEY_OTHER_LNG_J
-			+ " float," + Reports.KEY_OTHER_LAT_J + " float," + Reports.KEY_NOTE
-			+ " text," + Reports.KEY_MAILING + " text,"
-			+ Reports.KEY_PHOTO_ATTACHED + " text," + Reports.KEY_PHOTOURI
-			+ " text," + Reports.KEY_UPLOADED + " integer);";
+			+ Reports.KEY_ROW_ID + TYPE_INTEGER + " primary key autoincrement"
+			+ Reports.KEY_USER_ID + TYPE_TEXT + COMMA + Reports.KEY_REPORT_ID
+			+ TYPE_TEXT + COMMA + Reports.KEY_REPORT_VERSION + TYPE_INTEGER
+			+ COMMA + Reports.KEY_REPORT_TIME + TYPE_INTEGER + COMMA
+			+ Reports.KEY_VERSION_TIME + TYPE_INTEGER + COMMA
+			+ Reports.KEY_TYPE + TYPE_INTEGER + COMMA
+			+ Reports.KEY_CONFIRMATION + TYPE_INTEGER + COMMA
+			+ Reports.KEY_LOCATION_CHOICE + TYPE_INTEGER + COMMA
+			+ Reports.KEY_CURRENT_LOCATION_LON + TYPE_REAL + COMMA
+			+ Reports.KEY_CURRENT_LOCATION_LAT + TYPE_REAL + COMMA
+			+ Reports.KEY_SELECTED_LOCATION_LON + TYPE_REAL + COMMA
+			+ Reports.KEY_SELECTED_LOCATION_LAT + TYPE_REAL + COMMA
+			+ Reports.KEY_PHOTO_ATTACHED + TYPE_INTEGER + COMMA + Reports.KEY_NOTE
+			+ TYPE_TEXT + COMMA + Reports.KEY_MAILING + TYPE_INTEGER + COMMA
+			+ Reports.KEY_UPLOADED + TYPE_INTEGER + COMMA
+			+ Reports.KEY_SERVER_TIMESTAMP + TYPE_INTEGER + COMMA
+			+ Reports.KEY_DELETE_REPORT + TYPE_INTEGER + COMMA
+			+ Reports.KEY_LATEST_VERSION + TYPE_INTEGER + COMMA
+			+ "PRIMARY KEY (" + Reports.KEY_USER_ID + COMMA
+			+ Reports.KEY_REPORT_ID + COMMA + Reports.KEY_REPORT_VERSION
+			+ "));";
 
 	private DatabaseHelper mDbHelper;
 
@@ -79,7 +92,8 @@ public class ContentProviderReports extends ContentProvider {
 	private static final UriMatcher sUriMatcher;
 
 	private static final int REPORTS = 1;
-	private static final int REPORT_ID = 2;
+	private static final int ROW_ID = 2;
+	private static final int REPORT_ID = 3;
 
 	private static HashMap<String, String> reportsProjectionMap;
 
@@ -99,8 +113,9 @@ public class ContentProviderReports extends ContentProvider {
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		//	Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
-		//			+ newVersion + ", which will destroy all old data");
+			// Log.w(TAG, "Upgrading database from version " + oldVersion +
+			// " to "
+			// + newVersion + ", which will destroy all old data");
 			db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
 			onCreate(db);
 		}
@@ -109,42 +124,43 @@ public class ContentProviderReports extends ContentProvider {
 	static {
 		sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 		sUriMatcher.addURI(AUTHORITY, DATABASE_TABLE, REPORTS);
+		sUriMatcher.addURI(AUTHORITY, DATABASE_TABLE + "/#", ROW_ID);
 		sUriMatcher.addURI(AUTHORITY, DATABASE_TABLE + "/#", REPORT_ID);
 
 		reportsProjectionMap = new HashMap<String, String>();
-		reportsProjectionMap.put(Reports.KEY_ROWID, Reports.KEY_ROWID);
-		reportsProjectionMap.put(Reports.KEY_HERE_LAT, Reports.KEY_HERE_LAT);
-		reportsProjectionMap
-				.put(Reports.KEY_HERE_LAT_J, Reports.KEY_HERE_LAT_J);
-		reportsProjectionMap.put(Reports.KEY_HERE_LNG, Reports.KEY_HERE_LNG);
-		reportsProjectionMap
-				.put(Reports.KEY_HERE_LNG_J, Reports.KEY_HERE_LNG_J);
-		reportsProjectionMap.put(Reports.KEY_HERETHERE, Reports.KEY_HERETHERE);
-		reportsProjectionMap.put(Reports.KEY_MAILING, Reports.KEY_MAILING);
-		reportsProjectionMap.put(Reports.KEY_NOTE, Reports.KEY_NOTE);
-		reportsProjectionMap.put(Reports.KEY_OTHER_LAT, Reports.KEY_OTHER_LAT);
-		reportsProjectionMap.put(Reports.KEY_OTHER_LAT_J,
-				Reports.KEY_OTHER_LAT_J);
-		reportsProjectionMap.put(Reports.KEY_OTHER_LNG, Reports.KEY_OTHER_LNG);
-		reportsProjectionMap.put(Reports.KEY_OTHER_LNG_J,
-				Reports.KEY_OTHER_LNG_J);
+		reportsProjectionMap.put(Reports.KEY_ROW_ID, Reports.KEY_ROW_ID);
+		reportsProjectionMap.put(Reports.KEY_USER_ID, Reports.KEY_USER_ID);
+		reportsProjectionMap.put(Reports.KEY_REPORT_ID, Reports.KEY_REPORT_ID);
+		reportsProjectionMap.put(Reports.KEY_REPORT_VERSION,
+				Reports.KEY_REPORT_VERSION);
+		reportsProjectionMap.put(Reports.KEY_REPORT_TIME,
+				Reports.KEY_REPORT_TIME);
+		reportsProjectionMap.put(Reports.KEY_VERSION_TIME,
+				Reports.KEY_VERSION_TIME);
+		reportsProjectionMap.put(Reports.KEY_TYPE, Reports.KEY_TYPE);
+		reportsProjectionMap.put(Reports.KEY_CONFIRMATION,
+				Reports.KEY_CONFIRMATION);
+		reportsProjectionMap.put(Reports.KEY_LOCATION_CHOICE,
+				Reports.KEY_LOCATION_CHOICE);
+		reportsProjectionMap.put(Reports.KEY_CURRENT_LOCATION_LON,
+				Reports.KEY_CURRENT_LOCATION_LON);
+		reportsProjectionMap.put(Reports.KEY_CURRENT_LOCATION_LAT,
+				Reports.KEY_CURRENT_LOCATION_LAT);
+		reportsProjectionMap.put(Reports.KEY_SELECTED_LOCATION_LON,
+				Reports.KEY_SELECTED_LOCATION_LON);
+		reportsProjectionMap.put(Reports.KEY_SELECTED_LOCATION_LAT,
+				Reports.KEY_SELECTED_LOCATION_LAT);
 		reportsProjectionMap.put(Reports.KEY_PHOTO_ATTACHED,
 				Reports.KEY_PHOTO_ATTACHED);
-		reportsProjectionMap.put(Reports.KEY_Q1_SIZECOLOR,
-				Reports.KEY_Q1_SIZECOLOR);
-		reportsProjectionMap.put(Reports.KEY_Q2_ABDOMENLEGS,
-				Reports.KEY_Q2_ABDOMENLEGS);
-		reportsProjectionMap.put(Reports.KEY_Q3_HEADTHORAX,
-				Reports.KEY_Q3_HEADTHORAX);
-		reportsProjectionMap
-				.put(Reports.KEY_REPORTTIME, Reports.KEY_REPORTTIME);
-		reportsProjectionMap
-		.put(Reports.KEY_PHOTOURI, Reports.KEY_PHOTOURI);
-		reportsProjectionMap
-		.put(Reports.KEY_REPORTID, Reports.KEY_REPORTID);
-		reportsProjectionMap
-		.put(Reports.KEY_UPLOADED, Reports.KEY_UPLOADED);
-
+		reportsProjectionMap.put(Reports.KEY_NOTE, Reports.KEY_NOTE);
+		reportsProjectionMap.put(Reports.KEY_MAILING, Reports.KEY_MAILING);
+		reportsProjectionMap.put(Reports.KEY_UPLOADED, Reports.KEY_UPLOADED);
+		reportsProjectionMap.put(Reports.KEY_SERVER_TIMESTAMP,
+				Reports.KEY_SERVER_TIMESTAMP);
+		reportsProjectionMap.put(Reports.KEY_DELETE_REPORT,
+				Reports.KEY_DELETE_REPORT);
+		reportsProjectionMap.put(Reports.KEY_LATEST_VERSION,
+				Reports.KEY_LATEST_VERSION);
 	}
 
 	@Override
@@ -153,8 +169,11 @@ public class ContentProviderReports extends ContentProvider {
 		switch (sUriMatcher.match(uri)) {
 		case REPORTS:
 			break;
-		case REPORT_ID:
+		case ROW_ID:
 			where = where + "_id = " + uri.getLastPathSegment();
+			break;
+		case REPORT_ID:
+			where = where + "report_id = " + uri.getLastPathSegment();
 			break;
 		default:
 			throw new IllegalArgumentException("Unknown URI " + uri);
@@ -191,7 +210,8 @@ public class ContentProviderReports extends ContentProvider {
 		SQLiteDatabase db = mDbHelper.getWritableDatabase();
 		long rowId = db.insert(DATABASE_TABLE, null, values);
 		if (rowId > 0) {
-			Uri noteUri = ContentUris.withAppendedId(Reports.CONTENT_URI, rowId);
+			Uri noteUri = ContentUris
+					.withAppendedId(Reports.CONTENT_URI, rowId);
 			getContext().getContentResolver().notifyChange(noteUri, null);
 			return noteUri;
 		}
@@ -215,9 +235,13 @@ public class ContentProviderReports extends ContentProvider {
 		switch (sUriMatcher.match(uri)) {
 		case REPORTS:
 			break;
-		case REPORT_ID:
+		case ROW_ID:
 			selection = selection + "_id = " + uri.getLastPathSegment();
 			break;
+		case REPORT_ID:
+			selection = selection + "report_id = " + uri.getLastPathSegment();
+			break;
+
 		default:
 			throw new IllegalArgumentException("Unknown URI " + uri);
 		}

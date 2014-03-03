@@ -1,6 +1,6 @@
 /*
  * Tigatrapp
- * Copyright (C) 2013  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
+ * Copyright (C) 2013, 2014  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
  * Contact: tigatrapp@ceab.csic.es
  * 
  * This file is part of Tigatrapp.
@@ -110,6 +110,16 @@ public class PropertyHolder {
 	}
 
 
+	public static String getLanguage() {
+		return sharedPreferences.getString("LANGUAGE", "ca");
+	}
+
+	public static void setLanguage(String lang) {
+		editor.putString("LANGUAGE", lang);
+		editor.commit();
+	}
+
+	
 	public static long tripStartTime() {
 		return sharedPreferences.getLong("TRIP_START_TIME", 0);
 	}
@@ -131,15 +141,6 @@ public class PropertyHolder {
 
 
 	
-	public static String getTripId() {
-		return sharedPreferences.getString("TRIP_ID", null);
-	}
-
-	public static void setTripId(String _tripId) {
-		editor.putString("TRIP_ID", _tripId);
-		editor.commit();
-	}
-
 	public static void setIntro(boolean intro) {
 		editor.putBoolean("INTRO", intro);
 		editor.commit();

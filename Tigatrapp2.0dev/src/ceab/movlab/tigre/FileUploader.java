@@ -59,6 +59,8 @@
 
 package ceab.movlab.tigre;
 
+import java.util.ArrayList;
+
 import android.app.Service;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -227,7 +229,8 @@ public class FileUploader extends Service {
 						c.getInt(photoAttachedCol), c.getString(noteCol),
 						c.getInt(mailingCol), c.getInt(uploadedCol),
 						c.getLong(serverTimestampCol),
-						c.getInt(deleteReportCol), c.getInt(latestVersionCol));
+						c.getInt(deleteReportCol), c.getInt(latestVersionCol),
+						new ArrayList<Photo>());
 
 				if (report.upload(context)) {
 

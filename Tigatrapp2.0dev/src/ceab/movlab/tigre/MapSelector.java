@@ -55,6 +55,8 @@ import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -86,6 +88,8 @@ public class MapSelector extends MapActivity {
 	MapOverlay mainOverlay;
 	private List<Overlay> mapOverlays;
 
+	static boolean satToggle;
+
 	Context context;
 
 	Button mOKB;
@@ -108,6 +112,9 @@ public class MapSelector extends MapActivity {
 
 		mapView = (MapView) findViewById(R.id.mapview);
 		mapView.setBuiltInZoomControls(true);
+		satToggle = true;
+		mapView.setSatellite(satToggle);
+
 
 		myMapController = mapView.getController();
 		myMapController.setCenter(Util.CEAB_COORDINATES);
@@ -235,6 +242,35 @@ public class MapSelector extends MapActivity {
 		super.onPause();
 	}
 
+	static final private int TOGGLE_VIEW = Menu.FIRST + 2;
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+
+		menu.add(0, TOGGLE_VIEW, Menu.NONE, R.string.menu_toggle_view);
+
+		return true;
+
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		super.onOptionsItemSelected(item);
+
+		switch (item.getItemId()) {
+		case (TOGGLE_VIEW): {
+			satToggle = !satToggle;
+			mapView.setSatellite(satToggle);
+
+			return true;
+		}
+		}
+		return false;
+	}
+
+
+	
 	class MapOverlay extends Overlay {
 
 		private Bitmap fixPin;

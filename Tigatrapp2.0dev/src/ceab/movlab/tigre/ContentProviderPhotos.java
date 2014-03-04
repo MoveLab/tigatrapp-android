@@ -34,7 +34,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
-import ceab.movlab.tigre.ContentProviderContractPhotos.Photos;
+import ceab.movlab.tigre.ContentProviderContractPhotos.TigaPhotos;
 
 /**
  * Content provider for managing photo data.
@@ -62,12 +62,12 @@ public class ContentProviderPhotos extends ContentProvider {
 
 	/** The SQL command to create the photosTable */
 	private static final String DATABASE_CREATE = "create table photosTable ("
-			+ Photos.KEY_ROW_ID + TYPE_INTEGER + " primary key autoincrement"
-			+ COMMA + Photos.KEY_REPORT_ROW_ID + TYPE_INTEGER + COMMA
-			+ Photos.KEY_PHOTO_URI + TYPE_TEXT + COMMA + Photos.KEY_PHOTO_TIME
-			+ TYPE_INTEGER + COMMA + Photos.KEY_UPLOADED + TYPE_INTEGER + COMMA
-			+ Photos.KEY_DELETE_PHOTO + TYPE_INTEGER + COMMA
-			+ Photos.KEY_SERVER_TIMESTAMP + TYPE_INTEGER + ");";
+			+ TigaPhotos.KEY_ROW_ID + TYPE_INTEGER + " primary key autoincrement"
+			+ COMMA + TigaPhotos.KEY_REPORT_ROW_ID + TYPE_INTEGER + COMMA
+			+ TigaPhotos.KEY_PHOTO_URI + TYPE_TEXT + COMMA + TigaPhotos.KEY_PHOTO_TIME
+			+ TYPE_INTEGER + COMMA + TigaPhotos.KEY_UPLOADED + TYPE_INTEGER + COMMA
+			+ TigaPhotos.KEY_DELETE_PHOTO + TYPE_INTEGER + COMMA
+			+ TigaPhotos.KEY_SERVER_TIMESTAMP + TYPE_INTEGER + ");";
 
 	private DatabaseHelper mDbHelper;
 
@@ -110,16 +110,16 @@ public class ContentProviderPhotos extends ContentProvider {
 		sUriMatcher.addURI(AUTHORITY, DATABASE_TABLE + "/#", ROW_ID);
 
 		photosProjectionMap = new HashMap<String, String>();
-		photosProjectionMap.put(Photos.KEY_ROW_ID, Photos.KEY_ROW_ID);
-		photosProjectionMap.put(Photos.KEY_REPORT_ROW_ID,
-				Photos.KEY_REPORT_ROW_ID);
-		photosProjectionMap.put(Photos.KEY_PHOTO_URI, Photos.KEY_PHOTO_URI);
-		photosProjectionMap.put(Photos.KEY_PHOTO_TIME, Photos.KEY_PHOTO_TIME);
-		photosProjectionMap.put(Photos.KEY_UPLOADED, Photos.KEY_UPLOADED);
-		photosProjectionMap.put(Photos.KEY_SERVER_TIMESTAMP,
-				Photos.KEY_SERVER_TIMESTAMP);
-		photosProjectionMap.put(Photos.KEY_DELETE_PHOTO,
-				Photos.KEY_DELETE_PHOTO);
+		photosProjectionMap.put(TigaPhotos.KEY_ROW_ID, TigaPhotos.KEY_ROW_ID);
+		photosProjectionMap.put(TigaPhotos.KEY_REPORT_ROW_ID,
+				TigaPhotos.KEY_REPORT_ROW_ID);
+		photosProjectionMap.put(TigaPhotos.KEY_PHOTO_URI, TigaPhotos.KEY_PHOTO_URI);
+		photosProjectionMap.put(TigaPhotos.KEY_PHOTO_TIME, TigaPhotos.KEY_PHOTO_TIME);
+		photosProjectionMap.put(TigaPhotos.KEY_UPLOADED, TigaPhotos.KEY_UPLOADED);
+		photosProjectionMap.put(TigaPhotos.KEY_SERVER_TIMESTAMP,
+				TigaPhotos.KEY_SERVER_TIMESTAMP);
+		photosProjectionMap.put(TigaPhotos.KEY_DELETE_PHOTO,
+				TigaPhotos.KEY_DELETE_PHOTO);
 
 	}
 
@@ -145,7 +145,7 @@ public class ContentProviderPhotos extends ContentProvider {
 	public String getType(Uri uri) {
 		switch (sUriMatcher.match(uri)) {
 		case PHOTOS:
-			return Photos.CONTENT_TYPE;
+			return TigaPhotos.CONTENT_TYPE;
 		default:
 			throw new IllegalArgumentException("Unknown URI " + uri);
 		}
@@ -167,7 +167,7 @@ public class ContentProviderPhotos extends ContentProvider {
 		SQLiteDatabase db = mDbHelper.getWritableDatabase();
 		long rowId = db.insert(DATABASE_TABLE, null, values);
 		if (rowId > 0) {
-			Uri noteUri = ContentUris.withAppendedId(Photos.CONTENT_URI, rowId);
+			Uri noteUri = ContentUris.withAppendedId(TigaPhotos.CONTENT_URI, rowId);
 			getContext().getContentResolver().notifyChange(noteUri, null);
 			return noteUri;
 		}

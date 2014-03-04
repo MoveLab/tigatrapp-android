@@ -26,6 +26,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -36,8 +37,6 @@ import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
 
 import android.content.Context;
-import android.database.Cursor;
-import ceab.movlab.tigre.ContentProviderContractReports.Reports;
 
 /**
  * Defines map point objects used in DriverMapActivity.
@@ -47,11 +46,13 @@ import ceab.movlab.tigre.ContentProviderContractReports.Reports;
  */
 public class Report {
 
-	public static int TYPE_MISSING = -1;
+	public static int MISSING = -1;
+	public static int NO = 0;
+	public static int YES = 1;
+
 	public static int TYPE_ADULT = 0;
 	public static int TYPE_BREEDING_SITE = 1;
 
-	public static int LOCATION_CHOICE_MISSING = -1;
 	public static int LOCATION_CHOICE_CURRENT = 0;
 	public static int LOCATION_CHOICE_SELECTED = 1;
 
@@ -75,12 +76,15 @@ public class Report {
 	int deleteReport;
 	int latestVersion;
 
+	ArrayList<Photo> photos;
+
 	Report(String userId, String reportId, int reportVersion, long reportTime,
 			int type, String confirmation, int locationChoice,
 			float currentLocationLat, float currentLocationLon,
 			float selectedLocationLat, float selectedLocationLon,
 			int photoAttached, String note, int mailing, int uploaded,
-			long serverTimestamp, int deleteReport, int latestVersion) {
+			long serverTimestamp, int deleteReport, int latestVersion,
+			ArrayList<Photo> photos) {
 
 		this.reportId = reportId;
 		this.userId = userId;
@@ -93,14 +97,37 @@ public class Report {
 		this.currentLocationLon = currentLocationLon;
 		this.selectedLocationLat = selectedLocationLat;
 		this.selectedLocationLon = selectedLocationLon;
-		this.photoAttached = photoAttached;
+		this.photoAttached = NO;
 		this.note = note;
 		this.mailing = mailing;
 		this.uploaded = uploaded;
 		this.serverTimestamp = serverTimestamp;
 		this.deleteReport = deleteReport;
 		this.latestVersion = latestVersion;
+		this.photos = photos;
 
+	}
+
+	Report(int type, String userId) {
+		this.reportId = null;
+		this.userId = userId;
+		this.reportVersion = 0;
+		this.reportTime = MISSING;
+		this.type = type;
+		this.confirmation = null;
+		this.locationChoice = MISSING;
+		this.currentLocationLat = null;
+		this.currentLocationLon = null;
+		this.selectedLocationLat = null;
+		this.selectedLocationLon = null;
+		this.photoAttached = NO;
+		this.note = null;
+		this.mailing = NO;
+		this.uploaded = NO;
+		this.serverTimestamp = -1;
+		this.deleteReport = NO;
+		this.latestVersion = YES;
+		this.photos = new ArrayList<Photo>();
 	}
 
 	public void clear() {
@@ -123,6 +150,14 @@ public class Report {
 		serverTimestamp = -1;
 		deleteReport = 0;
 		latestVersion = 0;
+		photos.clear();
+
+	}
+
+	public String[] listPhotos() {
+
+		String[] result = this.photos.toArray(new String[this.photos.size()]);
+		return result;
 
 	}
 

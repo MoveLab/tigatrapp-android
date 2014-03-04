@@ -146,7 +146,7 @@ public class ContentProviderContractReports {
 		 * Vector of all the fields contained in the reports table, to be used
 		 * for quickly grabbing them all.
 		 */
-		public static final String[] KEYS_ALL = { KEY_USER_ID, KEY_REPORT_ID,
+		public static final String[] KEYS_ALL = { KEY_ROW_ID, KEY_USER_ID, KEY_REPORT_ID,
 				KEY_REPORT_VERSION, KEY_REPORT_TIME, KEY_VERSION_TIME,
 				KEY_TYPE, KEY_CONFIRMATION, KEY_LOCATION_CHOICE,
 				KEY_CURRENT_LOCATION_LON, KEY_CURRENT_LOCATION_LAT,

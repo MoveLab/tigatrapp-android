@@ -34,6 +34,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.util.Log;
 import ceab.movlab.tigre.ContentProviderContractReports.Reports;
 
 /**
@@ -63,7 +64,7 @@ public class ContentProviderReports extends ContentProvider {
 
 	/** The SQL command to create the reportsTable */
 	private static final String DATABASE_CREATE = "create table reportsTable ("
-			+ Reports.KEY_ROW_ID + TYPE_INTEGER + " primary key autoincrement" + COMMA
+			+ Reports.KEY_ROW_ID + " integer primary key autoincrement" + COMMA
 			+ Reports.KEY_USER_ID + TYPE_TEXT + COMMA 
 			+ Reports.KEY_REPORT_ID + TYPE_TEXT + COMMA 
 			+ Reports.KEY_REPORT_VERSION + TYPE_INTEGER + COMMA 
@@ -108,6 +109,8 @@ public class ContentProviderReports extends ContentProvider {
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			db.execSQL(DATABASE_CREATE);
+			
+			Log.e(TAG, "DB create: " + DATABASE_CREATE);
 		}
 
 		@Override

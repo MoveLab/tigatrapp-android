@@ -60,10 +60,10 @@ import android.widget.ImageView;
 
 public class Switchboard extends Activity {
 
-	private Button reportButtonAdult;
-	private Button reportButtonSite;
-	private Button galleryButton;
-	private Button mapButton;
+	private ImageView reportButtonAdult;
+	private ImageView reportButtonSite;
+	private ImageView galleryButton;
+	private ImageView mapButton;
 	final Context context = this;
 	private TimerTask delayTask;
 	private Timer myTimer;
@@ -109,7 +109,7 @@ public class Switchboard extends Activity {
 
 		ImageView logo = (ImageView) findViewById(R.id.splashLogo);
 
-		reportButtonAdult = (Button) findViewById(R.id.reportButtonAdult);
+		reportButtonAdult = (ImageView) findViewById(R.id.reportButtonAdult);
 		reportButtonAdult.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -158,7 +158,7 @@ public class Switchboard extends Activity {
 			}
 		});
 
-		reportButtonSite = (Button) findViewById(R.id.reportButtonSite);
+		reportButtonSite = (ImageView) findViewById(R.id.reportButtonSite);
 		reportButtonSite.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -206,7 +206,7 @@ public class Switchboard extends Activity {
 			}
 		});
 
-		mapButton = (Button) findViewById(R.id.dataMapButton);
+		mapButton = (ImageView) findViewById(R.id.dataMapButton);
 		mapButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -218,7 +218,7 @@ public class Switchboard extends Activity {
 			}
 		});
 
-		galleryButton = (Button) findViewById(R.id.reportMainPic);
+		galleryButton = (ImageView) findViewById(R.id.reportMainPic);
 		galleryButton.setOnClickListener(new View.OnClickListener() {
 
 			@Override

@@ -36,8 +36,8 @@ public class ContentProviderContractPhotos {
 	public ContentProviderContractPhotos() {
 	}
 
-	public static final class Photos implements BaseColumns {
-		private Photos() {
+	public static final class TigaPhotos implements BaseColumns {
+		private TigaPhotos() {
 		}
 
 		public static final Uri CONTENT_URI = Uri.parse("content://"

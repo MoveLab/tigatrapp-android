@@ -64,7 +64,9 @@
     <string name="menu_toggle_language">Español</string>
 
     <!-- Misc -->
-
+    <string name="help">Ajuda</string>
+    
+    
     <string name="saved">Viatge guardat.</string>
     <string name="font_credit">Ús de la tipografia Anna en parts de l’App Tigatrapp (www.annavives.com)</string>
     <string name="photo_credit_gallery">Fotografia de R. Eritja (www.eritja.com)</string>
@@ -119,14 +121,14 @@
     <string name="GPL">Veure GPL</string>
     <string name="gpl_heading">GPL</string>
     <string name="haveyoufound">Has trobat un mosquit tigre?</string>
-    <string name="q2_abdomenlegs">Té ratlles blanques a l\'abdomen i a les potes?</string>
+    <string name="confirmation_q3_abdomenlegs">Té ratlles blanques a l\'abdomen i a les potes?</string>
     <string name="q2_abdomenlegs_text">El mosquit tigre té ratlles blanques a l\'abdomen i a les potes.</string>
     <string name="q2_abdomenlegs_title">Abdomen i Potes</string>
     <string name="here">Aquí</string>
     <string name="identifying_mosquitoes_title">Respon els 3 Tigre principis</string>
     <string name="lat_label">Latitud: </string>
     <string name="latblank">"Lat:         "</string>
-    <string name="q1_sizecolor">És petit i negre amb ratlles blanques?</string>
+    <string name="confirmation_q1_adult_sizecolor">És petit i negre amb ratlles blanques?</string>
     <string name="q1_sizecolor_text">El mosquit tigre és petit i negre amb ratlles blanques.</string>
     <string name="q1_sizecolor_title">Mida i color</string>
     <string name="letssee">Comprova-ho!</string>
@@ -179,7 +181,7 @@
     <string name="stop_trip_q">Acabar Viatge?</string>
     <string name="submit">Envia</string>
     <string name="supported_by">Amb el suport de:</string>
-    <string name="q3_headthorax">Té una ratlla blanca al cap i al tòrax?</string>
+    <string name="confirmation_q2_adult_headthorax">Té una ratlla blanca al cap i al tòrax?</string>
     <string name="q3_headthorax_text">El mosquit tigre té una ratlla blanca al cap i al tòrax.</string>
     <string name="q3_headthorax_title">Cap i Tòrax</string>
     <string name="tigatrapp_is_recording_your_trip">Tigatrapp està gravant el teu viatge</string>

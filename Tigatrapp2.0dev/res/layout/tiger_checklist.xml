@@ -41,14 +41,14 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dip"
-            android:background="@drawable/divider_gradient" />
+            android:background="@color/white" />
 
         <TextView
-            android:id="@+id/q1_sizecolor_box"
+            android:id="@+id/confirmationQ1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dip"
-            android:text="@string/q1_sizecolor"
+            android:text="@string/confirmation_q1_adult_sizecolor"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <LinearLayout
@@ -57,7 +57,7 @@
             android:orientation="horizontal" >
 
             <RadioGroup
-                android:id="@+id/q1_sizecolor_RadioGroup"
+                android:id="@+id/confirmationQ1RadioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dip"
@@ -65,21 +65,49 @@
                 android:orientation="vertical" >
 
                 <RadioButton
-                    android:id="@+id/q1_sizecolor_RadioButtonYes"
+                    android:id="@+id/confirmationQ1RadioGroupButton1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/yes"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <RadioButton
-                    android:id="@+id/q1_sizecolor_RadioButtonNo"
+                    android:id="@+id/confirmationQ1RadioGroupButton2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/no"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <RadioButton
-                    android:id="@+id/q1_sizecolor_RadioButtonDontKnow"
+                    android:id="@+id/confirmationQ1RadioGroupButton3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dontknow"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <RadioButton
+                    android:id="@+id/confirmationQ1RadioGroupButton4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dontknow"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <RadioButton
+                    android:id="@+id/confirmationQ1RadioGroupButton5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dontknow"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <RadioButton
+                    android:id="@+id/confirmationQ1RadioGroupButton6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dontknow"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <RadioButton
+                    android:id="@+id/confirmationQ1RadioGroupButton7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/dontknow"
@@ -95,7 +123,7 @@
                 android:orientation="vertical" >
 
                 <ImageButton
-                    android:id="@+id/q1_sizecolor_helpButton"
+                    android:id="@+id/confirmationQ1HelpButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:clickable="true"
@@ -104,7 +132,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ajuda"
+                    android:text="@string/help"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </LinearLayout>
         </LinearLayout>
@@ -112,14 +140,14 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dip"
-            android:background="@drawable/divider_gradient" />
+            android:background="@color/white" />
 
         <TextView
-            android:id="@+id/q3_headthorax_box"
+            android:id="@+id/confirmationQ2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dip"
-            android:text="@string/q3_headthorax"
+            android:text="@string/confirmation_q2_adult_headthorax"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <LinearLayout
@@ -128,7 +156,7 @@
             android:orientation="horizontal" >
 
             <RadioGroup
-                android:id="@+id/q3_headthorax_RadioGroup"
+                android:id="@+id/confirmationQ2RadioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dip"
@@ -136,21 +164,21 @@
                 android:orientation="vertical" >
 
                 <RadioButton
-                    android:id="@+id/q3_headthorax_RadioButtonYes"
+                    android:id="@+id/confirmationQ2RadioGroupButton1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/yes"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <RadioButton
-                    android:id="@+id/q3_headthorax_RadioButtonNo"
+                    android:id="@+id/confirmationQ2RadioGroupButton2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/no"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <RadioButton
-                    android:id="@+id/q3_headthorax_RadioButtonDontKnow"
+                    android:id="@+id/confirmationQ2RadioGroupButton3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/dontknow"
@@ -166,7 +194,7 @@
                 android:orientation="vertical" >
 
                 <ImageButton
-                    android:id="@+id/q3_headthorax_helpButton"
+                    android:id="@+id/confirmationQ2HelpButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:clickable="true"
@@ -175,7 +203,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ajuda"
+                    android:text="@string/help"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </LinearLayout>
         </LinearLayout>
@@ -183,23 +211,24 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dip"
-            android:background="@drawable/divider_gradient" />
+            android:background="@color/white" />
 
         <TextView
-            android:id="@+id/q2_abdomenlegs_box"
+            android:id="@+id/confirmationQ3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dip"
-            android:text="@string/q2_abdomenlegs"
+            android:text="@string/confirmation_q3_abdomenlegs"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <LinearLayout
+            android:id="@+id/confirmationQ3View"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:orientation="horizontal" >
 
             <RadioGroup
-                android:id="@+id/q2_abdomenlegs_RadioGroup"
+                android:id="@+id/confirmationQ3RadioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dip"
@@ -207,21 +236,21 @@
                 android:orientation="vertical" >
 
                 <RadioButton
-                    android:id="@+id/q2_abdomenlegs_RadioButtonYes"
+                    android:id="@+id/confirmationQ3RadioGroupButton1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/yes"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <RadioButton
-                    android:id="@+id/q2_abdomenlegs_RadioButtonNo"
+                    android:id="@+id/confirmationQ3RadioGroupButton2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/no"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <RadioButton
-                    android:id="@+id/q2_abdomenlegs_RadioButtonDontKnow"
+                    android:id="@+id/confirmationQ3RadioGroupButton3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/dontknow"
@@ -237,7 +266,7 @@
                 android:orientation="vertical" >
 
                 <ImageButton
-                    android:id="@+id/q2_abdomenlegs_helpButton"
+                    android:id="@+id/confirmationQ3HelpButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:clickable="true"
@@ -246,7 +275,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Ajuda"
+                    android:text="@string/help"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </LinearLayout>
         </LinearLayout>
@@ -254,10 +283,76 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dip"
-            android:background="@drawable/divider_gradient" />
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/confirmationQ4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dip"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <LinearLayout
+            android:id="@+id/confirmationQ4View"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal" >
+
+            <RadioGroup
+                android:id="@+id/confirmationQ4RadioGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dip"
+                android:layout_marginRight="10dip"
+                android:orientation="vertical" >
+
+                <RadioButton
+                    android:id="@+id/confirmationQ4RadioGroupButton1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yes"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <RadioButton
+                    android:id="@+id/confirmationQ4RadioGroupButton2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <RadioButton
+                    android:id="@+id/confirmationQ4RadioGroupButton3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/dontknow"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </RadioGroup>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="60dp"
+                android:gravity="center"
+                android:orientation="vertical" >
+
+                <ImageButton
+                    android:id="@+id/confirmationQ4HelpButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    android:src="@drawable/ic_launcher" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/help"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </LinearLayout>
+        </LinearLayout>
 
         <Button
-            android:id="@+id/checklistButtonOK"
+            android:id="@+id/confirmationButtonOK"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

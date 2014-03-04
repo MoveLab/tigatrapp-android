@@ -44,12 +44,10 @@ public class ContentProviderValuesReports {
 		ContentValues initialValues = new ContentValues();
 
 
-		if (rep.userId != null)
-			;
+		if (rep.userId != null);
 		initialValues.put(Reports.KEY_USER_ID, rep.userId);
 
-		if (rep.reportId != null)
-			;
+		if (rep.reportId != null);
 		initialValues.put(Reports.KEY_REPORT_ID, rep.reportId);
 
 		initialValues.put(Reports.KEY_REPORT_VERSION, rep.reportVersion);
@@ -64,30 +62,25 @@ public class ContentProviderValuesReports {
 
 		initialValues.put(Reports.KEY_LOCATION_CHOICE, rep.locationChoice);
 
-		if (rep.currentLocationLat != null)
-			;
+		if (rep.currentLocationLat != null);
 		initialValues.put(Reports.KEY_CURRENT_LOCATION_LAT,
 				rep.currentLocationLat);
 
-		if (rep.currentLocationLon != null)
-			;
+		if (rep.currentLocationLon != null);
 		initialValues.put(Reports.KEY_CURRENT_LOCATION_LON,
 				rep.currentLocationLon);
 
-		if (rep.selectedLocationLat != null)
-			;
+		if (rep.selectedLocationLat != null);
 		initialValues.put(Reports.KEY_SELECTED_LOCATION_LAT,
 				rep.selectedLocationLat);
 
-		if (rep.selectedLocationLon != null)
-			;
+		if (rep.selectedLocationLon != null);
 		initialValues.put(Reports.KEY_SELECTED_LOCATION_LON,
 				rep.selectedLocationLon);
 
 		initialValues.put(Reports.KEY_PHOTO_ATTACHED, rep.photoAttached);
 
-		if (rep.note != null)
-			;
+		if (rep.note != null);
 		initialValues.put(Reports.KEY_NOTE, rep.note);
 
 		initialValues.put(Reports.KEY_MAILING, rep.mailing);

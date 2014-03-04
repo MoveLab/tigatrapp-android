@@ -22,7 +22,7 @@
 package ceab.movlab.tigre;
 
 import android.content.ContentValues;
-import ceab.movlab.tigre.ContentProviderContractPhotos.Photos;
+import ceab.movlab.tigre.ContentProviderContractPhotos.TigaPhotos;
 
 /**
  * Creates content values from location fix data.
@@ -41,22 +41,22 @@ public class ContentProviderValuesPhotos {
 
 		ContentValues initialValues = new ContentValues();
 
-		initialValues.put(Photos.KEY_REPORT_ROW_ID, ph.reportRowID);
+		initialValues.put(TigaPhotos.KEY_REPORT_ROW_ID, ph.reportRowID);
 
 		if (ph.photoUri != null)
-			initialValues.put(Photos.KEY_PHOTO_URI, ph.photoUri);
+			initialValues.put(TigaPhotos.KEY_PHOTO_URI, ph.photoUri);
 
-		initialValues.put(Photos.KEY_PHOTO_TIME, ph.photoTime);
+		initialValues.put(TigaPhotos.KEY_PHOTO_TIME, ph.photoTime);
 
-		initialValues.put(Photos.KEY_UPLOADED, ph.uploaded);
+		initialValues.put(TigaPhotos.KEY_UPLOADED, ph.uploaded);
 
-		initialValues.put(Photos.KEY_UPLOADED, ph.uploaded);
+		initialValues.put(TigaPhotos.KEY_UPLOADED, ph.uploaded);
 
-		initialValues.put(Photos.KEY_SERVER_TIMESTAMP, ph.serverTimestamp);
+		initialValues.put(TigaPhotos.KEY_SERVER_TIMESTAMP, ph.serverTimestamp);
 
-		initialValues.put(Photos.KEY_DELETE_PHOTO, ph.deletePhoto);
+		initialValues.put(TigaPhotos.KEY_DELETE_PHOTO, ph.deletePhoto);
 
-		initialValues.put(Photos.KEY_UPLOADED, 0);
+		initialValues.put(TigaPhotos.KEY_UPLOADED, 0);
 
 		return initialValues;
 	}

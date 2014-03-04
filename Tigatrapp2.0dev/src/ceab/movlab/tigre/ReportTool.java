@@ -29,10 +29,12 @@ import java.util.Locale;
 import java.util.Random;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
@@ -51,21 +53,22 @@ import android.provider.MediaStore;
 import android.text.Html;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import ceab.movlab.tigre.ContentProviderContractPhotos.TigaPhotos;
 import ceab.movlab.tigre.ContentProviderContractReports.Reports;
-
-import com.google.android.maps.GeoPoint;
 
 /**
  * Activity for identifying and reporting tiger mosquitoes.
@@ -81,20 +84,12 @@ public class ReportTool extends Activity {
 	private boolean gpsAvailable;
 	private boolean networkLocationAvailable;
 
+	private Report thisReport;
+
 	LocationManager locationManager;
 	LocationListener locationListener1;
 	LocationListener locationListener2;
 	Location currentLocation;
-
-	double selectedLat = -1;
-	double selectedLon = -1;
-
-	String time = "";
-	boolean mailingSpecimen = false;
-	String legs = "";
-	String stripe = "";
-	String size = "";
-	String note = "";
 
 	int type = -1;
 	int locationChoice = -1;
@@ -102,25 +97,15 @@ public class ReportTool extends Activity {
 	int LOCATION_CHOICE_CURRENT = 0;
 	int LOCATION_CHOICE_MISSING = -1;
 
-	File root;
-	File directory;
-	String photoFileName = "";
 
-	String reportID = "";
-	String responses = "";
 	final Context context = this;
-
-	String message;
-
-	boolean photoAttached = false;
-	boolean specAttached = false;
-	boolean noteAttached = false;
-	boolean checklistDone = false;
 
 	TextView reportTitle;
 
 	RelativeLayout reportConfirmationRow;
 	RelativeLayout reportLocationRow;
+	RelativeLayout reportCurrentLocationRow;
+	RelativeLayout reportSelectedLocationRow;
 	RelativeLayout reportPhotoRow;
 	RelativeLayout reportNoteRow;
 	RelativeLayout reportMailingRow;
@@ -133,6 +118,7 @@ public class ReportTool extends Activity {
 
 	ImageView reportPhotoAttachImage;
 	ImageView reportConfirmationImage;
+	ImageView reportCurrentLocationImage;
 	ImageView reportMapImage;
 	ImageView reportNoteImage;
 	ImageView reportMailingImge;
@@ -141,17 +127,17 @@ public class ReportTool extends Activity {
 
 	RadioGroup locationRadioGroup;
 
-	int doneColor;
-
 	String lang;
+
+	String message;
 
 	public static final int REQUEST_CODE_PHOTO = 1;
 	public static final int REQUEST_CODE_MAPSELECTOR = 2;
+	public static final int REQUEST_CODE_ATTACHED_PHOTOS = 3;
 
 	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
-
 		lang = PropertyHolder.getLanguage();
 		Locale myLocale = new Locale(lang);
 		Resources res = getResources();
@@ -163,46 +149,54 @@ public class ReportTool extends Activity {
 		Bundle b = getIntent().getExtras();
 		type = b.getInt("type");
 
+		thisReport = new Report(type, PropertyHolder.getUserId());
+
 		setContentView(R.layout.report);
 
 		reportTitle = (TextView) findViewById(R.id.reportTitle);
-		reportTitle.setText(getResources().getText(
-				type==Report.TYPE_BREEDING_SITE ?
-						R.string.report_title_site : R.string.report_title_adult));
-
 		reportConfirmationRow = (RelativeLayout) findViewById(R.id.reportConfirmationRow);
+		reportLocationRow = (RelativeLayout) findViewById(R.id.reportLocationRow);
+		reportCurrentLocationRow = (RelativeLayout) findViewById(R.id.reportCurrentLocationRow);
+		reportSelectedLocationRow = (RelativeLayout) findViewById(R.id.reportSelectedLocationRow);
+		reportPhotoRow = (RelativeLayout) findViewById(R.id.reportPhotoRow);
+		reportNoteRow = (RelativeLayout) findViewById(R.id.reportNoteRow);
 		reportMailingRow = (RelativeLayout) findViewById(R.id.reportMailingRow);
-		reportMailingRow.setVisibility(
-				type==Report.TYPE_BREEDING_SITE ?
-						View.GONE : View.VISIBLE);
-		
+		reportConfirmationCheck = (CheckBox) findViewById(R.id.reportConfirmationCheck);
+		reportLocationCheck = (CheckBox) findViewById(R.id.reportLocationCheck);
+		reportPhotoCheck = (CheckBox) findViewById(R.id.reportPhotoCheck);
+		reportNoteCheck = (CheckBox) findViewById(R.id.reportNoteCheck);
+		reportMailingCheck = (CheckBox) findViewById(R.id.reportMailingCheck);
+		locationRadioGroup = (RadioGroup) findViewById(R.id.whereFoundRadioGroup);
+		reportCurrentLocationImage = (ImageView) findViewById(R.id.reportCurrentLocationImage);
+
+		reportTitle.setText(getResources().getText(
+				type == Report.TYPE_BREEDING_SITE ? R.string.report_title_site
+						: R.string.report_title_adult));
+
+		reportMailingRow
+				.setVisibility(type == Report.TYPE_BREEDING_SITE ? View.GONE
+						: View.VISIBLE);
+
 		Util.overrideFonts(this, findViewById(android.R.id.content));
 
 		if (icicle != null) {
-			photoAttached = icicle.getBoolean("photoAttached");
-			noteAttached = icicle.getBoolean("noteAttached");
-			specAttached = icicle.getBoolean("specAttached");
-			checklistDone = icicle.getBoolean("checklistDone");
-			reportID = icicle.getString("reportID");
-			size = icicle.getString("size");
-			legs = icicle.getString("legs");
-			stripe = icicle.getString("stripe");
-			locationChoice = icicle.getInt("locationChoice");
-			note = icicle.getString("note");
-			mailingSpecimen = icicle.getBoolean("mailingSpecimen");
-			photoFileName = icicle.getString("photoFileName");
-			selectedLat = icicle.getDouble("selectedLat");
-			selectedLon = icicle.getDouble("selectedLon");
-
+			thisReport.reportId = icicle.getString("reportId");
+			thisReport.confirmation = icicle.getString("confirmation");
+			thisReport.locationChoice = icicle.getInt("locationChoice");
+			thisReport.currentLocationLat = icicle
+					.getFloat("currentLocationLat");
+			thisReport.currentLocationLon = icicle
+					.getFloat("currentLocationLon");
+			thisReport.selectedLocationLat = icicle
+					.getFloat("selectedLocationLat");
+			thisReport.selectedLocationLon = icicle
+					.getFloat("selectedLocationLon");
+			thisReport.photoAttached = icicle.getInt("photoAttached");
+			thisReport.note = icicle.getString("note");
+			thisReport.mailing = icicle.getInt("mailing");
 		}
 
-		root = Environment.getExternalStorageDirectory();
-
-		directory = new File(root, getResources().getString(
-				R.string.app_directory));
-		directory.mkdirs();
-
-		if (reportID == "") {
+		if (thisReport.reportId == null) {
 			Random mRandom = new Random();
 
 			// I am removing potentially confusing characters 0, o, and O
@@ -232,334 +226,120 @@ public class ReportTool extends Activity {
 			 * probabilities would need to be recaclulated...
 			 */
 
-			reportID = digits[mRandom.nextInt(58)]
+			thisReport.reportId = digits[mRandom.nextInt(58)]
 					+ digits[mRandom.nextInt(58)] + digits[mRandom.nextInt(58)]
 					+ digits[mRandom.nextInt(58)];
 		}
-		// TODO set up date and time pickers so that the form actually pulls the
-		// times that have been set
 
-		// TextView mReportID = (TextView) findViewById(R.id.reportID);
-		// mReportID.setText("Report ID: " + reportID);
-
-		locationRadioGroup = (RadioGroup) findViewById(R.id.whereFoundRadioGroup);
-		locationRadioGroup.check(R.id.whereRadioButtonHere);
-
-		RadioButton sameLocButton = (RadioButton) findViewById(R.id.whereRadioButtonHere);
-		RadioButton otherLocButton = (RadioButton) findViewById(R.id.whereRadioButtonOtherPlace);
-
-		reportPhotoCheck = (CheckBox) findViewById(R.id.reportPhotoCheck);
-		reportPhotoCheck.setChecked(photoAttached);
-
-		reportPhotoCheck.setOnClickListener(new View.OnClickListener() {
-
+		OnClickListener ocl = new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				switch (v.getId()) {
+				case (R.id.reportConfirmationRow): {
+					buildConfirmationDialog(type);
+					return;
+				}
+				case (R.id.reportLocationRow): {
+					if (!reportLocationCheck.isChecked())
+						Util.toast(context,
+								"Please select 'Current' or 'Choose on map' below.");
+					return;
+				}
 
-				if (isIntentAvailable(context, MediaStore.ACTION_IMAGE_CAPTURE)) {
-					dispatchTakePictureIntent(REQUEST_CODE_PHOTO);
+				case (R.id.reportCurrentLocationRow): {
+
+					if (currentLocation == null) {
+						if (locationManager
+								.isProviderEnabled(LocationManager.GPS_PROVIDER)
+								|| locationManager
+										.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+
+							buildLocationAlert(getResources().getString(
+									R.string.nolocation_alert_report));
+						} else {
+							buildLocationAlert(getResources().getString(
+									R.string.nolocnogps_alert));
+						}
+					} else {
+
+						locationRadioGroup.check(R.id.whereRadioButtonHere);
+						reportLocationCheck.setChecked(true);
+						thisReport.currentLocationLat = (float) currentLocation
+								.getLatitude();
+
+						Util.toast(
+								context,
+								"Added current location.\n\nLat: "
+										+ String.format("%.5g%n",
+												currentLocation.getLatitude())
+										+ "\nLon: "
+										+ String.format("%.5g%n",
+												currentLocation.getLongitude()));
+					}
+
+					return;
+				}
+
+				case (R.id.reportSelectedLocationRow): {
+					Intent i = new Intent(ReportTool.this, MapSelector.class);
+					startActivityForResult(i, REQUEST_CODE_MAPSELECTOR);
+					return;
+				}
+				case (R.id.reportPhotoRow): {
+					Intent i = new Intent(ReportTool.this, AttachedPhotos.class);
+					Bundle b = new Bundle();
+					b.putStringArray("photoArray", thisReport.listPhotos());
+					startActivityForResult(i, REQUEST_CODE_ATTACHED_PHOTOS);
+
+					return;
+				}
+				case (R.id.reportNoteRow): {
+					buildReportNoteDialog();
+					return;
+				}
+				case (R.id.reportMailingRow): {
+					buildMailingDialog();
+					return;
+				}
+
 				}
 			}
-
-		});
-
-		reportPhotoAttachImage = (ImageView) findViewById(R.id.reportPhotoAttachButton);
-		reportPhotoAttachImage.setOnClickListener(new View.OnClickListener() {
-
-			String m_chosen;
-
-			@Override
-			public void onClick(View v) {
-
-				SimpleFileDialog FolderChooseDialog = new SimpleFileDialog(
-						ReportTool.this, "FolderChoose",
-						new SimpleFileDialog.SimpleFileDialogListener() {
-							@Override
-							public void onChosenDir(String chosenDir) {
-								// The code in this function will be executed
-								// when the dialog OK button is pushed
-								m_chosen = chosenDir;
-							}
-						});
-
-				FolderChooseDialog.chooseFile_or_Dir();
-
-			}
-
-		});
-
-		reportNoteCheck = (CheckBox) findViewById(R.id.reportNoteCheck);
-		reportNoteCheck.setChecked(noteAttached);
-
-		reportNoteCheck.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-
-				final Dialog dialog = new Dialog(context);
-				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-				dialog.setContentView(R.layout.add_note);
-				Util.overrideFonts(context,
-						dialog.findViewById(android.R.id.content));
-
-				Button okB = (Button) dialog.findViewById(R.id.addNoteOKButton);
-				// if button is clicked, close the custom dialog
-				okB.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-
-						EditText noteText = (EditText) dialog
-								.findViewById(R.id.noteEditText);
-						note = noteText.getText().toString();
-
-						if (note.length() > 0) {
-							reportNoteCheck.setChecked(true);
-							noteAttached = true;
-						} else {
-							reportNoteCheck.setChecked(false);
-						}
-						dialog.dismiss();
-					}
-				});
-
-				dialog.show();
-
-			}
-
-		});
-
-		reportMailingCheck = (CheckBox) findViewById(R.id.reportMailingCheck);
-		reportMailingCheck.setChecked(specAttached);
-
-		reportMailingCheck.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				final Dialog dialog = new Dialog(context);
-				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-				dialog.setContentView(R.layout.send_specimen);
-				Util.overrideFonts(context,
-						dialog.findViewById(android.R.id.content));
-
-				Button okB = (Button) dialog
-						.findViewById(R.id.sendSpecimenOKButton);
-				// if button is clicked, close the custom dialog
-				okB.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						RadioGroup mSpecYN = (RadioGroup) dialog
-								.findViewById(R.id.specRadioGroup);
-
-						int specId = mSpecYN.getCheckedRadioButtonId();
-						if (specId == R.id.specRadioButtonYes) {
-							mailingSpecimen = true;
-							reportMailingCheck.setChecked(true);
-							specAttached = true;
-						}
-						if (specId == R.id.specRadioButtonNo) {
-							mailingSpecimen = false;
-							reportMailingCheck.setChecked(false);
-							specAttached = false;
-						}
-
-						dialog.dismiss();
-					}
-				});
-
-				dialog.show();
-
-			}
-
-		});
-
-		reportConfirmationCheck = (CheckBox) findViewById(R.id.reportConfirmationCheck);
-		reportConfirmationCheck.setChecked(checklistDone);
-
-		reportConfirmationCheck.setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				final Dialog dialog = new Dialog(context);
-				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-				dialog.setContentView(R.layout.tiger_checklist);
-
-				Util.overrideFonts(context,
-						dialog.findViewById(android.R.id.content));
-
-				TextView title = (TextView) dialog.findViewById(R.id.title);
-				title.setText(getResources().getString(
-						R.string.identifying_mosquitoes_title));
-
-				final RadioButton legsQBRBYes;
-				legsQBRBYes = (RadioButton) dialog
-						.findViewById(R.id.q2_abdomenlegs_RadioButtonYes);
-
-				final RadioButton legsQBRBNo;
-				legsQBRBNo = (RadioButton) dialog
-						.findViewById(R.id.q2_abdomenlegs_RadioButtonNo);
-				final RadioButton sizeRadioButtonYes;
-
-				sizeRadioButtonYes = (RadioButton) dialog
-						.findViewById(R.id.q1_sizecolor_RadioButtonYes);
-
-				final RadioButton sizeRadioButtonNo;
-
-				sizeRadioButtonNo = (RadioButton) dialog
-						.findViewById(R.id.q1_sizecolor_RadioButtonNo);
-
-				final RadioButton stripeRadioButtonYes;
-
-				stripeRadioButtonYes = (RadioButton) dialog
-						.findViewById(R.id.q3_headthorax_RadioButtonYes);
-
-				final RadioButton stripeRadioButtonNo;
-
-				stripeRadioButtonNo = (RadioButton) dialog
-						.findViewById(R.id.q3_headthorax_RadioButtonNo);
-
-				final ImageButton q2legsQB = (ImageButton) dialog
-						.findViewById(R.id.q2_abdomenlegs_helpButton);
-				final ImageButton q3stripeQB = (ImageButton) dialog
-						.findViewById(R.id.q3_headthorax_helpButton);
-				final ImageButton q1sizeQB = (ImageButton) dialog
-						.findViewById(R.id.q1_sizecolor_helpButton);
-
-				q1sizeQB.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						final Dialog dialog = new Dialog(context);
-						dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-						dialog.setContentView(R.layout.check_help);
-
-						Util.overrideFonts(context,
-								dialog.findViewById(android.R.id.content));
-
-						TextView mText = (TextView) dialog
-								.findViewById(R.id.checkHelpText);
-						mText.setText(getResources().getString(
-								R.string.q1_sizecolor_text));
-						final ImageView mImage = (ImageView) dialog
-								.findViewById(R.id.checkHelpImage);
-						mImage.setImageResource(R.drawable.m);
-
-						dialog.show();
-					}
-				});
-
-				q3stripeQB.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View arg0) {
-						final Dialog dialog = new Dialog(context);
-						dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-						dialog.setContentView(R.layout.check_help);
-						Util.overrideFonts(context,
-								dialog.findViewById(android.R.id.content));
-
-						TextView mText = (TextView) dialog
-								.findViewById(R.id.checkHelpText);
-						mText.setText(getResources().getString(
-								R.string.q3_headthorax_text));
-						final ImageView mImage = (ImageView) dialog
-								.findViewById(R.id.checkHelpImage);
-						mImage.setImageResource(R.drawable.n);
-
-						dialog.show();
-					}
-				});
-
-				q2legsQB.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-
-						final Dialog dialog = new Dialog(context);
-						dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-						dialog.setContentView(R.layout.check_help);
-						Util.overrideFonts(context,
-								dialog.findViewById(android.R.id.content));
-
-						TextView mText = (TextView) dialog
-								.findViewById(R.id.checkHelpText);
-						mText.setText(getResources().getString(
-								R.string.q2_abdomenlegs_text));
-						final ImageView mImage = (ImageView) dialog
-								.findViewById(R.id.checkHelpImage);
-						mImage.setImageResource(R.drawable.o);
-
-						dialog.show();
-					}
-				});
-
-				Button okB = (Button) dialog
-						.findViewById(R.id.checklistButtonOK);
-				// if button is clicked, close the custom dialog
-				okB.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-
-						int id;
-
-						RadioGroup mLegsYN = (RadioGroup) dialog
-								.findViewById(R.id.q2_abdomenlegs_RadioGroup);
-						id = mLegsYN.getCheckedRadioButtonId();
-						if (id == R.id.q2_abdomenlegs_RadioButtonYes) {
-							legs = "si";
-						}
-						if (id == R.id.q2_abdomenlegs_RadioButtonNo) {
-							legs = "no";
-						}
-						if (id == R.id.q2_abdomenlegs_RadioButtonDontKnow) {
-							legs = "nose";
-						}
-
-						RadioGroup mStripeYN = (RadioGroup) dialog
-								.findViewById(R.id.q3_headthorax_RadioGroup);
-						id = mStripeYN.getCheckedRadioButtonId();
-						if (id == R.id.q3_headthorax_RadioButtonYes) {
-							stripe = "si";
-						}
-						if (id == R.id.q3_headthorax_RadioButtonNo) {
-							stripe = "no";
-						}
-						if (id == R.id.q3_headthorax_RadioButtonDontKnow) {
-							stripe = "nose";
-						}
-
-						RadioGroup mSizeYN = (RadioGroup) dialog
-								.findViewById(R.id.q1_sizecolor_RadioGroup);
-						id = mSizeYN.getCheckedRadioButtonId();
-						if (id == R.id.q1_sizecolor_RadioButtonYes) {
-							size = "si";
-						}
-						if (id == R.id.q1_sizecolor_RadioButtonNo) {
-							size = "no";
-						}
-						if (id == R.id.q1_sizecolor_RadioButtonDontKnow) {
-							size = "nose";
-						}
-
-						if (size.equals("si") || stripe.equals("si")
-								|| legs.equals("si")) {
-							reportConfirmationCheck.setChecked(true);
-							checklistDone = true;
-						} else {
-							reportConfirmationCheck.setChecked(false);
-							checklistDone = false;
-						}
-						dialog.dismiss();
-					}
-				});
-
-				dialog.show();
-
-			}
-
-		});
+		};
+
+		reportConfirmationRow.setOnClickListener(ocl);
+		reportLocationRow.setOnClickListener(ocl);
+		reportCurrentLocationRow.setOnClickListener(ocl);
+		reportSelectedLocationRow.setOnClickListener(ocl);
+		reportPhotoRow.setOnClickListener(ocl);
+		reportNoteRow.setOnClickListener(ocl);
+		reportMailingRow.setOnClickListener(ocl);
+
+		reportConfirmationCheck.setChecked(thisReport.confirmation != null);
+
+		if (thisReport.locationChoice == Report.LOCATION_CHOICE_CURRENT)
+			locationRadioGroup.check(R.id.whereRadioButtonHere);
+		else if (thisReport.locationChoice == Report.LOCATION_CHOICE_SELECTED)
+			locationRadioGroup.check(R.id.whereRadioButtonOtherPlace);
+
+		reportLocationCheck
+				.setChecked(thisReport.locationChoice != Report.MISSING);
+		reportPhotoCheck.setChecked(thisReport.photoAttached == Report.YES);
+		reportNoteCheck.setChecked(thisReport.note != null);
+		reportMailingCheck.setChecked(thisReport.mailing == Report.YES);
+
+		if (currentLocation == null) {
+			reportCurrentLocationImage.setBackgroundDrawable(getResources()
+					.getDrawable(R.drawable.ic_action_location_searching));
+			Animation blink = new AlphaAnimation(0.0f, 1.0f);
+			blink.setDuration(300);
+			blink.setStartOffset(20);
+			blink.setRepeatMode(Animation.REVERSE);
+			blink.setRepeatCount(Animation.INFINITE);
+			reportCurrentLocationImage.startAnimation(blink);
+		} else {
+			reportCurrentLocationImage.setBackgroundDrawable(getResources()
+					.getDrawable(R.drawable.ic_action_location_found));
+		}
 
 		mSendRep = (ImageButton) findViewById(R.id.buttonReportSubmit);
 
@@ -569,7 +349,7 @@ public class ReportTool extends Activity {
 			public void onClick(View v) {
 
 				if (currentLocation == null
-						&& (selectedLat == -1 || selectedLon == -1)) {
+						&& (thisReport.selectedLocationLat == Report.MISSING || thisReport.selectedLocationLon == Report.MISSING)) {
 
 					if (locationManager == null) {
 						locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -589,7 +369,7 @@ public class ReportTool extends Activity {
 
 				} else {
 
-					if (mailingSpecimen) {
+					if (thisReport.mailing == Report.YES) {
 
 						message = getResources().getString(
 								R.string.mail_message)
@@ -639,6 +419,11 @@ public class ReportTool extends Activity {
 
 					currentLocation = location;
 
+					reportCurrentLocationImage.clearAnimation();
+					reportCurrentLocationImage
+							.setBackgroundDrawable(getResources().getDrawable(
+									R.drawable.ic_action_location_found));
+
 				}
 
 				if (location.getAccuracy() < 100) {
@@ -687,20 +472,27 @@ public class ReportTool extends Activity {
 	@Override
 	protected void onSaveInstanceState(Bundle icicle) {
 		super.onSaveInstanceState(icicle);
-		icicle.putBoolean("photoAttached", photoAttached);
-		icicle.putBoolean("noteAttached", noteAttached);
-		icicle.putBoolean("specAttached", specAttached);
-		icicle.putBoolean("checklistDone", checklistDone);
-		icicle.putString("reportID", reportID);
-		icicle.putString("size", size);
-		icicle.putString("legs", legs);
-		icicle.putString("stripe", stripe);
-		icicle.putInt("locationChoice", locationChoice);
-		icicle.putString("note", note);
-		icicle.putBoolean("mailingSpecimen", mailingSpecimen);
-		icicle.putString("photoFileName", photoFileName);
-		icicle.putDouble("selectedLat", selectedLat);
-		icicle.putDouble("selectedLon", selectedLon);
+		icicle.putString("reportId", thisReport.reportId);
+		icicle.putString("confirmation", thisReport.confirmation);
+		icicle.putInt("locationChoice", thisReport.locationChoice);
+
+		if (thisReport.selectedLocationLat != null)
+			icicle.putFloat("selectedLocationLat",
+					thisReport.selectedLocationLat);
+
+		if (thisReport.selectedLocationLon != null)
+			icicle.putFloat("selectedLocationLon",
+					thisReport.selectedLocationLon);
+
+		if (thisReport.currentLocationLat != null)
+			icicle.putFloat("currentLocationLat", thisReport.currentLocationLat);
+
+		if (thisReport.currentLocationLon != null)
+			icicle.putFloat("currentLocationLon", thisReport.currentLocationLon);
+
+		icicle.putInt("photoAttached", thisReport.photoAttached);
+		icicle.putString("note", thisReport.note);
+		icicle.putInt("mailing", thisReport.mailing);
 
 	}
 
@@ -778,7 +570,7 @@ public class ReportTool extends Activity {
 
 		TextView reportIdText = (TextView) dialog
 				.findViewById(R.id.reportIdText);
-		reportIdText.setText(reportID);
+		reportIdText.setText(thisReport.reportId);
 
 		TextView mText = (TextView) dialog.findViewById(R.id.alertText);
 		mText.setText(Html.fromHtml(message));
@@ -820,6 +612,7 @@ public class ReportTool extends Activity {
 				 */
 				// uploadReport(thisReport, Util.SERVER);
 
+				thisReport.reportTime = System.currentTimeMillis();
 				new ReportUploadTask().execute(context);
 
 				dialog.cancel();
@@ -838,36 +631,6 @@ public class ReportTool extends Activity {
 		dialog.show();
 	}
 
-	private void dispatchTakePictureIntent(int actionCode) {
-		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
-		try {
-			SimpleDateFormat dateFormat = new SimpleDateFormat(
-					"yyyy-MM-dd_HH-mm-ss");
-			Date date = new Date();
-			String stringDate = dateFormat.format(date);
-			photoFileName = getResources().getString(
-					R.string.saved_image_prefix)
-					+ stringDate + ".jpg";
-
-			Uri photoUri = Uri.fromFile(new File(directory, photoFileName));
-			takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-
-		} catch (Exception e) {
-			Log.e("ReportTool", "photo exception: " + e);
-		}
-
-		startActivityForResult(takePictureIntent, actionCode);
-
-	}
-
-	public static boolean isIntentAvailable(Context context, String action) {
-		final PackageManager packageManager = context.getPackageManager();
-		final Intent intent = new Intent(action);
-		List<ResolveInfo> list = packageManager.queryIntentActivities(intent,
-				PackageManager.MATCH_DEFAULT_ONLY);
-		return list.size() > 0;
-	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -876,10 +639,10 @@ public class ReportTool extends Activity {
 
 			if (resultCode == RESULT_OK) {
 				reportPhotoCheck.setChecked(true);
-				photoAttached = true;
+				thisReport.photoAttached = Report.YES;
 			} else {
 				reportPhotoCheck.setChecked(false);
-				photoAttached = false;
+				thisReport.photoAttached = Report.NO;
 			}
 			break;
 
@@ -887,20 +650,25 @@ public class ReportTool extends Activity {
 
 		case (REQUEST_CODE_MAPSELECTOR): {
 
-			selectedLat = -1;
-			selectedLon = -1;
+			thisReport.selectedLocationLat = null;
+			thisReport.selectedLocationLon = null;
 
 			if (data != null) {
-				selectedLat = data.getDoubleExtra(MapSelector.LAT, -1);
-				selectedLon = data.getDoubleExtra(MapSelector.LON, -1);
+				double slat = data.getDoubleExtra(MapSelector.LAT, -1);
+				double slon = data.getDoubleExtra(MapSelector.LON, -1);
+
+				thisReport.selectedLocationLat = slat == -1 ? null : Float
+						.valueOf(String.valueOf(slat));
+				thisReport.selectedLocationLon = slon == -1 ? null : Float
+						.valueOf(String.valueOf(slon));
+
 			}
-			if (resultCode == RESULT_OK && selectedLat != -1
-					&& selectedLon != -1) {
+			if (resultCode == RESULT_OK
+					&& thisReport.selectedLocationLat != null
+					&& thisReport.selectedLocationLon != null) {
 				locationRadioGroup.check(R.id.whereRadioButtonOtherPlace);
-				locationChoice = LOCATION_CHOICE_SELECTED;
-			} else {
-				locationRadioGroup.check(R.id.whereRadioButtonHere);
-				locationChoice = LOCATION_CHOICE_CURRENT;
+				reportLocationCheck.setChecked(true);
+				thisReport.locationChoice = LOCATION_CHOICE_SELECTED;
 			}
 			break;
 		}
@@ -913,8 +681,6 @@ public class ReportTool extends Activity {
 		ProgressDialog prog;
 
 		int myProgress;
-
-		Report newReport;
 
 		int resultFlag;
 
@@ -937,41 +703,7 @@ public class ReportTool extends Activity {
 			prog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 			prog.show();
 
-			GeoPoint thisP = null;
-			GeoPoint thisPj = null;
-			if (currentLocation != null) {
-				thisP = new GeoPoint(
-						(int) (currentLocation.getLatitude() * 1E6),
-						(int) (currentLocation.getLongitude() * 1E6));
-
-			}
-			GeoPoint thatP = null;
-			GeoPoint thatPj = null;
-			if (selectedLat != -1 && selectedLon != -1) {
-				thatP = new GeoPoint((int) (selectedLat * 1E6),
-						(int) (selectedLon * 1E6));
-			}
-
 			myProgress = 0;
-
-			String purip = "";
-
-			if (photoFileName != null) {
-				Uri puri = Uri.fromFile(new File(directory, photoFileName));
-				purip = puri.getPath();
-			}
-
-			newReport = new Report(PropertyHolder.getUserId(), reportID, 0,
-					System.currentTimeMillis(), 0, size + legs + stripe,
-					locationChoice, thisP == null ? null : new Float(
-							thisP.getLongitudeE6() / 1E6), thisP == null ? null
-							: new Float(thisP.getLatitudeE6() / 1E6),
-					thatP == null ? null : new Float(
-							thatP.getLongitudeE6() / 1E6), thatP == null ? null
-							: new Float(thatP.getLatitudeE6() / 1E6),
-
-					photoAttached ? 1 : 0, note, mailingSpecimen ? 1 : 0, 0,
-					-1, 0, 1);
 
 		}
 
@@ -981,7 +713,14 @@ public class ReportTool extends Activity {
 			ContentResolver cr = getContentResolver();
 			Uri dbUri = Reports.CONTENT_URI;
 			cr.insert(dbUri,
-					ContentProviderValuesReports.createReport(newReport));
+					ContentProviderValuesReports.createReport(thisReport));
+
+			dbUri = TigaPhotos.CONTENT_URI;
+
+			for (Photo thisPhoto : thisReport.photos) {
+				cr.insert(dbUri,
+						ContentProviderValuesPhotos.createPhoto(thisPhoto));
+			}
 
 			if (!Util.privateMode) {
 
@@ -993,7 +732,7 @@ public class ReportTool extends Activity {
 
 				}
 
-				if (newReport.upload(context[0]))
+				if (thisReport.upload(context[0]))
 					resultFlag = SUCCESS;
 				else
 					resultFlag = UPLOAD_ERROR;
@@ -1019,9 +758,8 @@ public class ReportTool extends Activity {
 						getResources().getString(
 								R.string.report_sent_confirmation));
 
-				newReport.clear();
+				thisReport.clear();
 				clearFields();
-
 				finish();
 
 			} else {
@@ -1046,7 +784,7 @@ public class ReportTool extends Activity {
 					buildCustomAlert(getResources().getString(
 							R.string.upload_error_report));
 
-					newReport.clear();
+					thisReport.clear();
 					clearFields();
 
 				}
@@ -1055,7 +793,7 @@ public class ReportTool extends Activity {
 					buildCustomAlert(getResources().getString(
 							R.string.report_sent_confirmation));
 
-					newReport.clear();
+					thisReport.clear();
 					clearFields();
 
 				}
@@ -1067,23 +805,222 @@ public class ReportTool extends Activity {
 	public void clearFields() {
 
 		currentLocation = null;
-		selectedLat = -1;
-		selectedLon = -1;
-		time = "";
-		mailingSpecimen = false;
-		legs = "";
-		stripe = "";
-		size = "";
-		note = "";
 		locationChoice = -1;
-		photoFileName = "";
-		reportID = "";
-		responses = "";
 		message = null;
-		photoAttached = false;
-		specAttached = false;
-		noteAttached = false;
-		checklistDone = false;
+
+	}
+
+	public void buildReportNoteDialog() {
+		final Dialog dialog = new Dialog(context);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+		dialog.setContentView(R.layout.add_note);
+		Util.overrideFonts(context, dialog.findViewById(android.R.id.content));
+
+		Button okB = (Button) dialog.findViewById(R.id.addNoteOKButton);
+		// if button is clicked, close the custom dialog
+		okB.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+				EditText noteText = (EditText) dialog
+						.findViewById(R.id.noteEditText);
+				thisReport.note = noteText.getText().toString();
+
+				if (thisReport.note.length() > 0) {
+					reportNoteCheck.setChecked(true);
+				} else {
+					reportNoteCheck.setChecked(false);
+				}
+				dialog.dismiss();
+			}
+		});
+		dialog.show();
+	}
+
+
+	public void buildMailingDialog() {
+		final Dialog dialog = new Dialog(context);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+		dialog.setContentView(R.layout.send_specimen);
+		Util.overrideFonts(context, dialog.findViewById(android.R.id.content));
+
+		Button okB = (Button) dialog.findViewById(R.id.sendSpecimenOKButton);
+		// if button is clicked, close the custom dialog
+		okB.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				RadioGroup mSpecYN = (RadioGroup) dialog
+						.findViewById(R.id.specRadioGroup);
+
+				int specId = mSpecYN.getCheckedRadioButtonId();
+				if (specId == R.id.specRadioButtonYes) {
+					thisReport.mailing = Report.YES;
+					reportMailingCheck.setChecked(true);
+				}
+				if (specId == R.id.specRadioButtonNo) {
+					thisReport.mailing = Report.NO;
+					reportMailingCheck.setChecked(false);
+				}
+
+				dialog.dismiss();
+			}
+		});
+
+		dialog.show();
+
+	}
+
+	public void buildConfirmationDialog(int type) {
+		final Dialog dialog = new Dialog(context);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.tiger_checklist);
+		Util.overrideFonts(context, dialog.findViewById(android.R.id.content));
+
+		TextView title = (TextView) dialog.findViewById(R.id.title);
+		title.setText(getResources().getString(
+				R.string.identifying_mosquitoes_title));
+
+		final ImageButton q2legsQB = (ImageButton) dialog
+				.findViewById(R.id.confirmationQ3HelpButton);
+		final ImageButton q3stripeQB = (ImageButton) dialog
+				.findViewById(R.id.confirmationQ2HelpButton);
+		final ImageButton q1sizeQB = (ImageButton) dialog
+				.findViewById(R.id.confirmationQ1HelpButton);
+
+		q1sizeQB.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				final Dialog dialog = new Dialog(context);
+				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+				dialog.setContentView(R.layout.check_help);
+
+				Util.overrideFonts(context,
+						dialog.findViewById(android.R.id.content));
+
+				TextView mText = (TextView) dialog
+						.findViewById(R.id.checkHelpText);
+				mText.setText(getResources().getString(
+						R.string.q1_sizecolor_text));
+				final ImageView mImage = (ImageView) dialog
+						.findViewById(R.id.checkHelpImage);
+				mImage.setImageResource(R.drawable.m);
+
+				dialog.show();
+			}
+		});
+
+		q3stripeQB.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				final Dialog dialog = new Dialog(context);
+				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+				dialog.setContentView(R.layout.check_help);
+				Util.overrideFonts(context,
+						dialog.findViewById(android.R.id.content));
+
+				TextView mText = (TextView) dialog
+						.findViewById(R.id.checkHelpText);
+				mText.setText(getResources().getString(
+						R.string.q3_headthorax_text));
+				final ImageView mImage = (ImageView) dialog
+						.findViewById(R.id.checkHelpImage);
+				mImage.setImageResource(R.drawable.n);
+
+				dialog.show();
+			}
+		});
+
+		q2legsQB.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+				final Dialog dialog = new Dialog(context);
+				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+				dialog.setContentView(R.layout.check_help);
+				Util.overrideFonts(context,
+						dialog.findViewById(android.R.id.content));
+
+				TextView mText = (TextView) dialog
+						.findViewById(R.id.checkHelpText);
+				mText.setText(getResources().getString(
+						R.string.q2_abdomenlegs_text));
+				final ImageView mImage = (ImageView) dialog
+						.findViewById(R.id.checkHelpImage);
+				mImage.setImageResource(R.drawable.o);
+
+				dialog.show();
+			}
+		});
+
+		Button okB = (Button) dialog.findViewById(R.id.confirmationButtonOK);
+		// if button is clicked, close the custom dialog
+		okB.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+				int id;
+				int q1response = 0;
+				int q2response = 0;
+				int q3response = 0;
+
+				RadioGroup mLegsYN = (RadioGroup) dialog
+						.findViewById(R.id.confirmationQ3RadioGroup);
+				id = mLegsYN.getCheckedRadioButtonId();
+				if (id == R.id.confirmationQ3RadioGroupButton1) {
+					q3response = 1;
+				}
+				if (id == R.id.confirmationQ3RadioGroupButton2) {
+					q3response = 2;
+				}
+				if (id == R.id.confirmationQ3RadioGroupButton3) {
+					q3response = 3;
+				}
+
+				RadioGroup mStripeYN = (RadioGroup) dialog
+						.findViewById(R.id.confirmationQ2RadioGroup);
+				id = mStripeYN.getCheckedRadioButtonId();
+				if (id == R.id.confirmationQ2RadioGroupButton1) {
+					q2response = 1;
+				}
+				if (id == R.id.confirmationQ2RadioGroupButton2) {
+					q2response = 2;
+				}
+				if (id == R.id.confirmationQ2RadioGroupButton3) {
+					q2response = 3;
+				}
+
+				RadioGroup mSizeYN = (RadioGroup) dialog
+						.findViewById(R.id.confirmationQ1RadioGroup);
+				id = mSizeYN.getCheckedRadioButtonId();
+				if (id == R.id.confirmationQ1RadioGroupButton1) {
+					q1response = 1;
+				}
+				if (id == R.id.confirmationQ1RadioGroupButton2) {
+					q1response = 2;
+				}
+				if (id == R.id.confirmationQ1RadioGroupButton3) {
+					q1response = 3;
+				}
+
+				thisReport.confirmation = String.valueOf(q1response)
+						+ String.valueOf(q2response)
+						+ String.valueOf(q3response);
+
+				if (q1response == 1 || +q2response == 1 || +q3response == 1) {
+					reportConfirmationCheck.setChecked(true);
+				} else {
+					reportConfirmationCheck.setChecked(false);
+				}
+				dialog.dismiss();
+			}
+		});
+
+		dialog.show();
 
 	}
 
@@ -1239,6 +1176,47 @@ public class ReportTool extends Activity {
 		res.updateConfiguration(conf, dm);
 		Intent refresh = new Intent(this, ReportTool.class);
 		startActivity(refresh);
+	}
+
+	public void buildLeaveReportWarning() {
+
+		AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+		dialog.setTitle("Exit?");
+		dialog.setMessage("This report has not been saved. Are you sure you want to exit?");
+		dialog.setCancelable(true);
+		dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface d, int arg1) {
+
+				Intent i = new Intent(ReportTool.this, Switchboard.class);
+				startActivity(i);
+				finish();
+
+			}
+
+		});
+
+		dialog.setNegativeButton("Cancel",
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface d, int arg1) {
+						d.cancel();
+					};
+				});
+
+		dialog.show();
+
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+
+			buildLeaveReportWarning();
+			return true;
+		}
+
+		return super.onKeyDown(keyCode, event);
 	}
 
 }

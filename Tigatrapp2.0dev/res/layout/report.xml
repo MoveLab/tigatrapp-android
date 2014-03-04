@@ -22,6 +22,7 @@
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/reportView"
     style="@style/DarkThemeSelector"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -53,12 +54,15 @@
             android:id="@+id/reportConfirmationRow"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:clickable="true" >
+            android:background="@drawable/selectorcolors"
+            android:clickable="true"
+            android:focusable="true" >
 
             <CheckBox
                 android:id="@+id/reportConfirmationCheck"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:clickable="false"
                 android:text="Taxonomy*" />
 
             <ImageView
@@ -67,6 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:clickable="false"
                 android:src="@drawable/ic_action_about" />
         </RelativeLayout>
 
@@ -75,22 +80,41 @@
             android:layout_height="1dip"
             android:background="@color/white" />
 
-        <CheckBox
-            android:id="@+id/reportLocationCheck"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/reportLocationRow"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="Location*" />
+            android:clickable="true"
+            android:orientation="horizontal" >
+
+            <CheckBox
+                android:id="@+id/reportLocationCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:text="Location*" />
+        </RelativeLayout>
 
         <RadioGroup
             android:id="@+id/whereFoundRadioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:clickable="false"
             android:orientation="vertical" >
 
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:layout_marginLeft="50dip"
+                android:background="@color/white" />
+
             <RelativeLayout
+                android:id="@+id/reportCurrentLocationRow"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/selectorcolors"
+                android:clickable="true"
                 android:orientation="horizontal" >
 
                 <RadioButton
@@ -98,18 +122,40 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="50dip"
+                    android:checked="false"
+                    android:clickable="false"
                     android:text="Current" />
+
+                <ImageView
+                    android:id="@+id/reportCurrentLocationImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:clickable="false"
+                    android:src="@drawable/ic_action_location_searching" />
             </RelativeLayout>
 
-            <RelativeLayout
+            <View
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="1dip"
+                android:layout_marginLeft="50dip"
+                android:background="@color/white" />
+
+            <RelativeLayout
+                android:id="@+id/reportSelectedLocationRow"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selectorcolors"
+                android:clickable="true" >
 
                 <RadioButton
                     android:id="@+id/whereRadioButtonOtherPlace"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="50dip"
+                    android:checked="false"
+                    android:clickable="false"
                     android:text="Choose on map" />
 
                 <ImageView
@@ -118,6 +164,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:clickable="false"
                     android:src="@drawable/ic_action_map" />
             </RelativeLayout>
         </RadioGroup>
@@ -130,13 +177,16 @@
         <RelativeLayout
             android:id="@+id/reportPhotoRow"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:background="@drawable/selectorcolors"
+            android:clickable="true" >
 
             <CheckBox
                 android:id="@+id/reportPhotoCheck"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+                android:clickable="false"
                 android:text="Photo(s)" />
 
             <ImageView
@@ -145,6 +195,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:clickable="false"
                 android:src="@drawable/ic_action_camera" />
         </RelativeLayout>
 
@@ -156,12 +207,15 @@
         <RelativeLayout
             android:id="@+id/reportNoteRow"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:background="@drawable/selectorcolors"
+            android:clickable="true" >
 
             <CheckBox
                 android:id="@+id/reportNoteCheck"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:clickable="false"
                 android:text="Note attached" />
 
             <ImageView
@@ -170,6 +224,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:clickable="false"
                 android:src="@drawable/ic_action_edit" />
         </RelativeLayout>
 
@@ -181,12 +236,15 @@
         <RelativeLayout
             android:id="@+id/reportMailingRow"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:background="@drawable/selectorcolors"
+            android:clickable="true" >
 
             <CheckBox
                 android:id="@+id/reportMailingCheck"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:clickable="false"
                 android:text="Mailing specimen" />
 
             <ImageView
@@ -195,6 +253,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:clickable="false"
                 android:src="@drawable/ic_action_email" />
         </RelativeLayout>
 

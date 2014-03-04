@@ -31,48 +31,6 @@
         android:apiKey="0NDxn9JY-jp0dcEjrEfFTOni70OCYHVJbZ6HvCQ"
         android:clickable="true" />
 
-    <TextView
-        android:id="@+id/tripRecordingText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/black_border_on_grey"
-        android:padding="5dip"
-        android:text="@string/recording"
-        android:textColor="@color/red" />
-
-    <TextView
-        android:id="@+id/receiversOffWarning"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/black_border_on_grey"
-        android:padding="5dip"
-        android:text="@string/noGPSnoNet"
-        android:textColor="@color/red" />
-
-    <LinearLayout
-        android:id="@+id/stop_trip_area"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="10dip"
-        android:layout_marginRight="10dip"
-        android:background="@drawable/black_border_on_grey"
-        android:orientation="vertical"
-        android:padding="8dp" >
-
-        <ImageButton
-            android:id="@+id/button_stop_trip"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@drawable/blue_rectangle"
-            android:contentDescription="@string/stop_trip_button_CD"
-            android:src="@drawable/stop_sign" />
-    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/mapProgressbar"

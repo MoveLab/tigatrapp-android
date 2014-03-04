@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -20,6 +21,7 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -32,6 +34,8 @@ public class AttachedPhotos extends ListActivity {
 	File directory;
 	String photoFileName = "";
 	ArrayAdapter<String> adapter;
+	Report tempReport;
+	Uri photoUri;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,31 +43,77 @@ public class AttachedPhotos extends ListActivity {
 
 		setContentView(R.layout.attached_photos);
 
-		thesePhotos = new ArrayList<String>();
-
 		root = Environment.getExternalStorageDirectory();
 		directory = new File(root, getResources().getString(
 				R.string.app_directory));
 		directory.mkdirs();
 
-		Bundle b = getIntent().getExtras();
-		if (b != null && b.getStringArray("photoArray") != null) {
-			String[] photoArray = b.getStringArray("photoArray");
+		Intent incoming = getIntent();
 
-			for (String photo : photoArray) {
-				thesePhotos.add(photo);
-			}
+		tempReport = new Report(
+				incoming.getStringExtra(ReportTool.EXTRA_REPORT_ID));
 
-		}
+		tempReport.reassemblePhotos(
+				incoming.getStringArrayExtra(ReportTool.EXTRA_PHOTO_URI_ARRAY),
+				incoming.getLongArrayExtra(ReportTool.EXTRA_PHOTO_TIME_ARRAY));
+
+		thesePhotos = new ArrayList<String>(Arrays.asList(tempReport
+				.photoUris2Array()));
 
 		adapter = new ArrayAdapter<String>(this, R.layout.list_item,
 				thesePhotos);
 
 		setListAdapter(adapter);
 
+		getListView().setOnItemClickListener(
+				new AdapterView.OnItemClickListener() {
+
+					@Override
+					public void onItemClick(AdapterView<?> parent,
+							final View view, int position, long id) {
+						final String item = (String) parent
+								.getItemAtPosition(position);
+						final int pos = position;
+						final AlertDialog.Builder dialog = new AlertDialog.Builder(
+								context);
+						dialog.setTitle("Remove Attachment");
+						dialog.setMessage("Remove " + item
+								+ " from this report?");
+						dialog.setCancelable(true);
+						dialog.setPositiveButton("Remove",
+								new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface d,
+											int arg1) {
+										thesePhotos.remove(pos);
+										adapter.notifyDataSetChanged();
+										tempReport.photos.remove(pos);
+
+										d.dismiss();
+									}
+
+								});
+
+						dialog.setNegativeButton("Cancel",
+								new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface d,
+											int arg1) {
+										d.cancel();
+									};
+								});
+
+						dialog.show();
+
+					}
+
+				});
+
 		Button takePhotoButton = (Button) findViewById(R.id.takePhotoButton);
 
 		Button attachFileButton = (Button) findViewById(R.id.attachFileButton);
+
+		Button okButton = (Button) findViewById(R.id.okButton);
 
 		Button cancelButton = (Button) findViewById(R.id.cancelButton);
 
@@ -83,9 +133,12 @@ public class AttachedPhotos extends ListActivity {
 								// The code in this function will be executed
 								// when the dialog OK button is pushed
 								m_chosen = chosenDir;
-								Util.toast(context, "Attaching: " + m_chosen);
 								thesePhotos.add(m_chosen);
 								adapter.notifyDataSetChanged();
+								tempReport.photos.add(new Photo(
+										tempReport.reportId, m_chosen,
+										Report.MISSING, Report.NO,
+										Report.MISSING, Report.NO));
 
 							}
 
@@ -106,9 +159,25 @@ public class AttachedPhotos extends ListActivity {
 			@Override
 			public void onClick(View v) {
 				if (isIntentAvailable(context, MediaStore.ACTION_IMAGE_CAPTURE)) {
-					dispatchTakePictureIntent(1);
+					dispatchTakePictureIntent(ReportTool.REQUEST_CODE_TAKE_PHOTO);
 				}
 
+			};
+		});
+
+		okButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				Intent dataForReport = new Intent();
+
+				dataForReport.putExtra(ReportTool.EXTRA_PHOTO_URI_ARRAY,
+						tempReport.photoUris2Array());
+				dataForReport.putExtra(ReportTool.EXTRA_PHOTO_TIME_ARRAY,
+						tempReport.photoTimes2Array());
+				setResult(RESULT_OK, dataForReport);
+				finish();
 			};
 		});
 
@@ -139,11 +208,8 @@ public class AttachedPhotos extends ListActivity {
 					R.string.saved_image_prefix)
 					+ stringDate + ".jpg";
 
-			Uri photoUri = Uri.fromFile(new File(directory, photoFileName));
+			photoUri = Uri.fromFile(new File(directory, photoFileName));
 			takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-
-			thesePhotos.add(photoUri.getPath());
-			adapter.notifyDataSetChanged();
 
 		} catch (Exception e) {
 			Log.e("ReportTool", "photo exception: " + e);
@@ -161,4 +227,26 @@ public class AttachedPhotos extends ListActivity {
 		return list.size() > 0;
 	}
 
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+		switch (requestCode) {
+
+		case (ReportTool.REQUEST_CODE_TAKE_PHOTO): {
+
+			if (resultCode == RESULT_OK && photoUri != null) {
+
+				thesePhotos.add(photoUri.getPath());
+				adapter.notifyDataSetChanged();
+				tempReport.photos.add(new Photo(tempReport.reportId, photoUri
+						.getPath(), System.currentTimeMillis(), Report.NO,
+						Report.MISSING, Report.NO));
+
+			}
+			break;
+
+		}
+
+		}
+
+	}
 }

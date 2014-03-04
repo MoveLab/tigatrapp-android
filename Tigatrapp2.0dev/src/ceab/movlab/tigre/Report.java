@@ -130,6 +130,29 @@ public class Report {
 		this.photos = new ArrayList<Photo>();
 	}
 
+	Report(String reportId) {
+		this.reportId = reportId;
+		this.userId = null;
+		this.reportVersion = MISSING;
+		this.reportTime = MISSING;
+		this.type = MISSING;
+		this.confirmation = null;
+		this.locationChoice = MISSING;
+		this.currentLocationLat = null;
+		this.currentLocationLon = null;
+		this.selectedLocationLat = null;
+		this.selectedLocationLon = null;
+		this.photoAttached = MISSING;
+		this.note = null;
+		this.mailing = MISSING;
+		this.uploaded = MISSING;
+		this.serverTimestamp = MISSING;
+		this.deleteReport = MISSING;
+		this.latestVersion = MISSING;
+		this.photos = new ArrayList<Photo>();
+	}
+
+	
 	public void clear() {
 
 		reportId = null;
@@ -154,11 +177,53 @@ public class Report {
 
 	}
 
-	public String[] listPhotos() {
+	public long[] photoTimes2Array() {
 
-		String[] result = this.photos.toArray(new String[this.photos.size()]);
+		long[] result = new long[this.photos.size()];
+
+		int i = 0;
+		for (Photo p : this.photos) {
+			result[i] = p.photoTime;
+			i++;
+		}
 		return result;
+	}
 
+	public String[] photoUris2Array() {
+
+		String[] result = new String[this.photos.size()];
+
+		int i = 0;
+		for (Photo p : this.photos) {
+			result[i] = p.photoUri;
+			i++;
+		}
+		return result;
+	}
+
+	public void reassemblePhotos(String[] uriArray, long[] timeArray) {
+
+		if (uriArray.length == timeArray.length) {
+			this.photos.clear();
+
+			for (int i = 0; i < uriArray.length; i++) {
+				this.photos.add(new Photo(this.reportId, uriArray[i],
+						timeArray[i], 0, -1, 0));
+			}
+		}
+	}
+
+	public void addPhotosFromArrayList(String reportId,
+			ArrayList<String> photoArrayList) {
+		/*
+		 * this.photos.clear(); for(String photo : photoArrayList){
+		 * this.photos.add(new Photo())
+		 * 
+		 * Photo(String _reportRowID, String _photoUri, long _photoTime, int
+		 * _uploaded, int _serverTimestamp, int _deletePhoto) {
+		 * 
+		 * }
+		 */
 	}
 
 	public boolean upload(Context context) {

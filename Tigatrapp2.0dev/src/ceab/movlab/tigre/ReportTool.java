@@ -21,10 +21,8 @@
 
 package ceab.movlab.tigre;
 
-import java.io.File;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Locale;
 import java.util.Random;
 
@@ -36,8 +34,6 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.location.Location;
@@ -48,11 +44,8 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.text.Html;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -97,7 +90,6 @@ public class ReportTool extends Activity {
 	int LOCATION_CHOICE_CURRENT = 0;
 	int LOCATION_CHOICE_MISSING = -1;
 
-
 	final Context context = this;
 
 	TextView reportTitle;
@@ -123,6 +115,8 @@ public class ReportTool extends Activity {
 	ImageView reportNoteImage;
 	ImageView reportMailingImge;
 
+	TextView photoCount;
+
 	ImageButton mSendRep;
 
 	RadioGroup locationRadioGroup;
@@ -131,9 +125,13 @@ public class ReportTool extends Activity {
 
 	String message;
 
-	public static final int REQUEST_CODE_PHOTO = 1;
+	public static final int REQUEST_CODE_TAKE_PHOTO = 1;
 	public static final int REQUEST_CODE_MAPSELECTOR = 2;
 	public static final int REQUEST_CODE_ATTACHED_PHOTOS = 3;
+
+	public static final String EXTRA_PHOTO_URI_ARRAY = "photoUriArray";
+	public static final String EXTRA_PHOTO_TIME_ARRAY = "photoTimeArray";
+	public static final String EXTRA_REPORT_ID = "reportId";
 
 	@Override
 	public void onCreate(Bundle icicle) {
@@ -164,6 +162,7 @@ public class ReportTool extends Activity {
 		reportConfirmationCheck = (CheckBox) findViewById(R.id.reportConfirmationCheck);
 		reportLocationCheck = (CheckBox) findViewById(R.id.reportLocationCheck);
 		reportPhotoCheck = (CheckBox) findViewById(R.id.reportPhotoCheck);
+		photoCount = (TextView) findViewById(R.id.photoCount);
 		reportNoteCheck = (CheckBox) findViewById(R.id.reportNoteCheck);
 		reportMailingCheck = (CheckBox) findViewById(R.id.reportMailingCheck);
 		locationRadioGroup = (RadioGroup) findViewById(R.id.whereFoundRadioGroup);
@@ -194,6 +193,9 @@ public class ReportTool extends Activity {
 			thisReport.photoAttached = icicle.getInt("photoAttached");
 			thisReport.note = icicle.getString("note");
 			thisReport.mailing = icicle.getInt("mailing");
+			thisReport.reassemblePhotos(
+					icicle.getStringArray(EXTRA_PHOTO_URI_ARRAY),
+					icicle.getLongArray(EXTRA_PHOTO_TIME_ARRAY));
 		}
 
 		if (thisReport.reportId == null) {
@@ -287,8 +289,11 @@ public class ReportTool extends Activity {
 				}
 				case (R.id.reportPhotoRow): {
 					Intent i = new Intent(ReportTool.this, AttachedPhotos.class);
-					Bundle b = new Bundle();
-					b.putStringArray("photoArray", thisReport.listPhotos());
+					i.putExtra(EXTRA_PHOTO_URI_ARRAY,
+							thisReport.photoUris2Array());
+					i.putExtra(EXTRA_PHOTO_TIME_ARRAY,
+							thisReport.photoTimes2Array());
+					i.putExtra(EXTRA_REPORT_ID, thisReport.reportId);
 					startActivityForResult(i, REQUEST_CODE_ATTACHED_PHOTOS);
 
 					return;
@@ -323,7 +328,17 @@ public class ReportTool extends Activity {
 
 		reportLocationCheck
 				.setChecked(thisReport.locationChoice != Report.MISSING);
-		reportPhotoCheck.setChecked(thisReport.photoAttached == Report.YES);
+
+		if (thisReport.photos.size() > 0) {
+			photoCount.setVisibility(View.VISIBLE);
+			photoCount.setText(String.valueOf(thisReport.photos.size()));
+			reportPhotoCheck.setChecked(true);
+			thisReport.photoAttached = Report.YES;
+		} else {
+			photoCount.setVisibility(View.GONE);
+			reportPhotoCheck.setChecked(false);
+			thisReport.photoAttached = Report.NO;
+		}
 		reportNoteCheck.setChecked(thisReport.note != null);
 		reportMailingCheck.setChecked(thisReport.mailing == Report.YES);
 
@@ -349,7 +364,7 @@ public class ReportTool extends Activity {
 			public void onClick(View v) {
 
 				if (currentLocation == null
-						&& (thisReport.selectedLocationLat == Report.MISSING || thisReport.selectedLocationLon == Report.MISSING)) {
+						&& (thisReport.selectedLocationLat == null || thisReport.selectedLocationLon == null)) {
 
 					if (locationManager == null) {
 						locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -494,6 +509,11 @@ public class ReportTool extends Activity {
 		icicle.putString("note", thisReport.note);
 		icicle.putInt("mailing", thisReport.mailing);
 
+		icicle.putStringArray(EXTRA_PHOTO_URI_ARRAY,
+				thisReport.photoUris2Array());
+		icicle.putLongArray(EXTRA_PHOTO_TIME_ARRAY,
+				thisReport.photoTimes2Array());
+
 	}
 
 	@Override
@@ -631,19 +651,31 @@ public class ReportTool extends Activity {
 		dialog.show();
 	}
 
-
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
 		switch (requestCode) {
-		case (REQUEST_CODE_PHOTO): {
+
+		case (REQUEST_CODE_ATTACHED_PHOTOS): {
 
 			if (resultCode == RESULT_OK) {
-				reportPhotoCheck.setChecked(true);
-				thisReport.photoAttached = Report.YES;
-			} else {
-				reportPhotoCheck.setChecked(false);
-				thisReport.photoAttached = Report.NO;
+
+				thisReport.reassemblePhotos(
+						data.getStringArrayExtra(EXTRA_PHOTO_URI_ARRAY),
+						data.getLongArrayExtra(EXTRA_PHOTO_TIME_ARRAY));
+
+				if (thisReport.photos.size() > 0) {
+					photoCount.setVisibility(View.VISIBLE);
+					photoCount
+							.setText(String.valueOf(thisReport.photos.size()));
+					reportPhotoCheck.setChecked(true);
+					thisReport.photoAttached = Report.YES;
+				} else {
+					photoCount.setVisibility(View.GONE);
+					reportPhotoCheck.setChecked(false);
+					thisReport.photoAttached = Report.NO;
+				}
 			}
+
 			break;
 
 		}
@@ -837,7 +869,6 @@ public class ReportTool extends Activity {
 		});
 		dialog.show();
 	}
-
 
 	public void buildMailingDialog() {
 		final Dialog dialog = new Dialog(context);

@@ -64,6 +64,7 @@ public class Photo {
 		deletePhoto = _deletePhoto;
 	}
 
+	
 	public void clear() {
 
 		reportRowID = null;

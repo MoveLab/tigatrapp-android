@@ -35,6 +35,14 @@
         android:visibility="gone"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
+    
+    <Button
+        android:id="@+id/addNoteOKButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/ok" />
+    
     <TextView
         android:id="@+id/addNoteLabel"
         android:layout_width="wrap_content"
@@ -48,18 +56,12 @@
         android:id="@+id/noteEditText"
         android:layout_width="fill_parent"
         android:layout_height="200dip"
+        android:gravity="top"
         android:ems="10"
         android:hint="@string/type_here" >
 
         <requestFocus />
     </EditText>
 
-
-    <Button
-        android:id="@+id/addNoteOKButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/ok" />
 
 </LinearLayout>

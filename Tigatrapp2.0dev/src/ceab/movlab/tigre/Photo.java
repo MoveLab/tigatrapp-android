@@ -46,33 +46,52 @@ import android.content.Context;
  */
 public class Photo {
 
-	String reportRowID;
+	String userId;
+	String reportId;
+	int reportVersion;
 	String photoUri;
 	long photoTime;
 	int uploaded;
 	int serverTimestamp;
 	int deletePhoto;
 
-	Photo(String _reportRowID, String _photoUri, long _photoTime,
-			int _uploaded, int _serverTimestamp, int _deletePhoto) {
+	Photo(String reportId, int reportVersion, String photoUri, long photoTime,
+			int uploaded, int serverTimestamp, int deletePhoto) {
 
-		reportRowID = _reportRowID;
-		photoUri = _photoUri;
-		photoTime = _photoTime;
-		uploaded = _uploaded;
-		serverTimestamp = _serverTimestamp;
-		deletePhoto = _deletePhoto;
+		this.userId = PropertyHolder.getUserId();
+		this.reportId = reportId;
+		this.reportVersion = reportVersion;
+		this.photoUri = photoUri;
+		this.photoTime = photoTime;
+		this.uploaded = uploaded;
+		this.serverTimestamp = serverTimestamp;
+		this.deletePhoto = deletePhoto;
+	}
+
+
+	Photo(String userId, String reportId, int reportVersion, String photoUri, long photoTime,
+			int uploaded, int serverTimestamp, int deletePhoto) {
+
+		this.userId = userId;
+		this.reportId = reportId;
+		this.reportVersion = reportVersion;
+		this.photoUri = photoUri;
+		this.photoTime = photoTime;
+		this.uploaded = uploaded;
+		this.serverTimestamp = serverTimestamp;
+		this.deletePhoto = deletePhoto;
 	}
 
 	
 	public void clear() {
 
-		reportRowID = null;
-		photoUri = null;
-		photoTime = -1;
-		uploaded = 0;
-		serverTimestamp = -1;
-		deletePhoto = 0;
+		this.reportId = null;
+		this.reportVersion = Report.MISSING;
+		this.photoUri = null;
+		this.photoTime = Report.MISSING;
+		this.uploaded = Report.NO;
+		this.serverTimestamp = Report.MISSING;
+		this.deletePhoto = Report.NO;
 
 	}
 

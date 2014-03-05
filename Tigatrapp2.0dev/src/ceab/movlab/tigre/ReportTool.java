@@ -22,7 +22,6 @@
 package ceab.movlab.tigre;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Locale;
 import java.util.Random;
 
@@ -36,6 +35,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -52,6 +52,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -59,6 +60,8 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import ceab.movlab.tigre.ContentProviderContractPhotos.TigaPhotos;
 import ceab.movlab.tigre.ContentProviderContractReports.Reports;
@@ -77,6 +80,8 @@ public class ReportTool extends Activity {
 	private boolean gpsAvailable;
 	private boolean networkLocationAvailable;
 
+	private boolean editing;
+
 	private Report thisReport;
 
 	LocationManager locationManager;
@@ -91,6 +96,8 @@ public class ReportTool extends Activity {
 	int LOCATION_CHOICE_MISSING = -1;
 
 	final Context context = this;
+
+	ScrollView reportScroll;
 
 	TextView reportTitle;
 
@@ -119,6 +126,8 @@ public class ReportTool extends Activity {
 
 	ImageButton mSendRep;
 
+	TextView reportSubmitButtonLabel;
+
 	RadioGroup locationRadioGroup;
 
 	String lang;
@@ -132,6 +141,7 @@ public class ReportTool extends Activity {
 	public static final String EXTRA_PHOTO_URI_ARRAY = "photoUriArray";
 	public static final String EXTRA_PHOTO_TIME_ARRAY = "photoTimeArray";
 	public static final String EXTRA_REPORT_ID = "reportId";
+	public static final String EXTRA_REPORT_VERSION = "reportVersions";
 
 	@Override
 	public void onCreate(Bundle icicle) {
@@ -146,11 +156,122 @@ public class ReportTool extends Activity {
 
 		Bundle b = getIntent().getExtras();
 		type = b.getInt("type");
+		editing = b.containsKey("reportId");
 
-		thisReport = new Report(type, PropertyHolder.getUserId());
+		if (editing) {
+
+			ContentResolver cr = getContentResolver();
+			String sc = Reports.KEY_REPORT_ID + " = '"
+					+ b.getString("reportId") + "'";
+
+			Cursor c = cr.query(Reports.CONTENT_URI, Reports.KEYS_ALL, sc,
+					null, Reports.KEY_REPORT_VERSION + " ASC");
+
+			if (c.moveToLast()) {
+
+				int rowIdCol = c.getColumnIndexOrThrow(Reports.KEY_ROW_ID);
+				int userIdCol = c.getColumnIndexOrThrow(Reports.KEY_USER_ID);
+				int reportIdCol = c
+						.getColumnIndexOrThrow(Reports.KEY_REPORT_ID);
+				int reportTimeCol = c
+						.getColumnIndexOrThrow(Reports.KEY_REPORT_TIME);
+				int reportVersionCol = c
+						.getColumnIndexOrThrow(Reports.KEY_REPORT_VERSION);
+				int typeCol = c.getColumnIndexOrThrow(Reports.KEY_TYPE);
+				int confirmationCol = c
+						.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION);
+				int locationChoiceCol = c
+						.getColumnIndexOrThrow(Reports.KEY_LOCATION_CHOICE);
+				int currentLocationLonCol = c
+						.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LON);
+				int currentLocationLatCol = c
+						.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LAT);
+				int selectedLocationLonCol = c
+						.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LON);
+				int selectedLocationLatCol = c
+						.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LAT);
+				int noteCol = c.getColumnIndexOrThrow(Reports.KEY_NOTE);
+				int mailingCol = c.getColumnIndexOrThrow(Reports.KEY_MAILING);
+				int photoAttachedCol = c
+						.getColumnIndexOrThrow(Reports.KEY_PHOTO_ATTACHED);
+				int uploadedCol = c.getColumnIndexOrThrow(Reports.KEY_UPLOADED);
+				int serverTimestampCol = c
+						.getColumnIndexOrThrow(Reports.KEY_SERVER_TIMESTAMP);
+				int deleteReportCol = c
+						.getColumnIndexOrThrow(Reports.KEY_DELETE_REPORT);
+				int latestVersionCol = c
+						.getColumnIndexOrThrow(Reports.KEY_LATEST_VERSION);
+
+				Util.toast(
+						context,
+						c.getString(reportIdCol) + " "
+								+ c.getInt(reportVersionCol));
+
+				// note that we increment the version number here
+				thisReport = new Report(c.getString(userIdCol),
+						c.getString(reportIdCol),
+						c.getInt(reportVersionCol) + 1,
+						c.getLong(reportTimeCol), c.getInt(typeCol),
+						c.getString(confirmationCol),
+						c.getInt(locationChoiceCol),
+						c.getFloat(currentLocationLatCol),
+						c.getFloat(currentLocationLonCol),
+						c.getFloat(selectedLocationLatCol),
+						c.getFloat(selectedLocationLonCol),
+						c.getInt(photoAttachedCol), c.getString(noteCol),
+						c.getInt(mailingCol), c.getInt(uploadedCol),
+						c.getLong(serverTimestampCol),
+						c.getInt(deleteReportCol), c.getInt(latestVersionCol),
+						new ArrayList<Photo>());
+
+			}
+			c.close();
+
+			// note that here I am subtracting 1 from the version since it is
+			// already incremented. Perhaps there is a less confusing way to
+			// organize
+			// this.
+			sc = TigaPhotos.KEY_REPORT_ID + " = '" + thisReport.reportId
+					+ "' AND " + TigaPhotos.KEY_REPORT_VERSION + " = "
+					+ (thisReport.reportVersion - 1) + " AND "
+					+ TigaPhotos.KEY_USER_ID + " = '" + thisReport.userId + "'";
+
+			c = cr.query(TigaPhotos.CONTENT_URI, TigaPhotos.KEYS_ALL, sc, null,
+					null);
+
+			if (c.moveToLast()) {
+
+				int rowIdCol = c.getColumnIndexOrThrow(TigaPhotos.KEY_ROW_ID);
+				int userIdCol = c.getColumnIndexOrThrow(TigaPhotos.KEY_USER_ID);
+				int reportIdCol = c
+						.getColumnIndexOrThrow(TigaPhotos.KEY_REPORT_ID);
+				int reportVersionCol = c
+						.getColumnIndexOrThrow(TigaPhotos.KEY_REPORT_VERSION);
+				int photoUriCol = c
+						.getColumnIndexOrThrow(TigaPhotos.KEY_PHOTO_URI);
+				int photoTimeCol = c
+						.getColumnIndexOrThrow(TigaPhotos.KEY_PHOTO_TIME);
+
+				while (!c.isAfterLast()) {
+
+					thisReport.photos.add(new Photo(c.getString(reportIdCol), c
+							.getInt(reportVersionCol),
+							c.getString(photoUriCol), c.getLong(photoTimeCol),
+							Report.NO, Report.MISSING, Report.NO));
+
+					c.moveToNext();
+				}
+
+			}
+			c.close();
+
+		} else {
+			thisReport = new Report(type, PropertyHolder.getUserId());
+		}
 
 		setContentView(R.layout.report);
 
+		reportScroll = (ScrollView) findViewById(R.id.reportView);
 		reportTitle = (TextView) findViewById(R.id.reportTitle);
 		reportConfirmationRow = (RelativeLayout) findViewById(R.id.reportConfirmationRow);
 		reportLocationRow = (RelativeLayout) findViewById(R.id.reportLocationRow);
@@ -168,10 +289,20 @@ public class ReportTool extends Activity {
 		locationRadioGroup = (RadioGroup) findViewById(R.id.whereFoundRadioGroup);
 		reportCurrentLocationImage = (ImageView) findViewById(R.id.reportCurrentLocationImage);
 
-		reportTitle.setText(getResources().getText(
-				type == Report.TYPE_BREEDING_SITE ? R.string.report_title_site
-						: R.string.report_title_adult));
+		reportSubmitButtonLabel = (TextView) findViewById(R.id.reportSubmitButtonLabel);
 
+		if (editing) {
+			reportTitle.setText("Edit Report " + thisReport.reportId
+					+ " created on " + Util.iso8601(thisReport.reportTime));
+
+			reportSubmitButtonLabel.setText("Update");
+		} else {
+			reportTitle
+					.setText(getResources()
+							.getText(
+									type == Report.TYPE_BREEDING_SITE ? R.string.report_title_site
+											: R.string.report_title_adult));
+		}
 		reportMailingRow
 				.setVisibility(type == Report.TYPE_BREEDING_SITE ? View.GONE
 						: View.VISIBLE);
@@ -294,6 +425,7 @@ public class ReportTool extends Activity {
 					i.putExtra(EXTRA_PHOTO_TIME_ARRAY,
 							thisReport.photoTimes2Array());
 					i.putExtra(EXTRA_REPORT_ID, thisReport.reportId);
+					i.putExtra(EXTRA_REPORT_VERSION, thisReport.reportVersion);
 					startActivityForResult(i, REQUEST_CODE_ATTACHED_PHOTOS);
 
 					return;
@@ -849,14 +981,18 @@ public class ReportTool extends Activity {
 		dialog.setContentView(R.layout.add_note);
 		Util.overrideFonts(context, dialog.findViewById(android.R.id.content));
 
+		final EditText noteText = (EditText) dialog
+				.findViewById(R.id.noteEditText);
+
+		if (thisReport.note != null && thisReport.note.length() > 0)
+			noteText.setText(thisReport.note);
+
 		Button okB = (Button) dialog.findViewById(R.id.addNoteOKButton);
 		// if button is clicked, close the custom dialog
 		okB.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 
-				EditText noteText = (EditText) dialog
-						.findViewById(R.id.noteEditText);
 				thisReport.note = noteText.getText().toString();
 
 				if (thisReport.note.length() > 0) {
@@ -910,17 +1046,47 @@ public class ReportTool extends Activity {
 		Util.overrideFonts(context, dialog.findViewById(android.R.id.content));
 
 		TextView title = (TextView) dialog.findViewById(R.id.title);
-		title.setText(getResources().getString(
-				R.string.identifying_mosquitoes_title));
+		title.setText(getResources()
+				.getString(
+						type == Report.TYPE_ADULT ? R.string.identifying_mosquitoes_title
+								: R.string.identifying_breeding_site_title));
 
-		final ImageButton q2legsQB = (ImageButton) dialog
-				.findViewById(R.id.confirmationQ3HelpButton);
-		final ImageButton q3stripeQB = (ImageButton) dialog
-				.findViewById(R.id.confirmationQ2HelpButton);
-		final ImageButton q1sizeQB = (ImageButton) dialog
+		final ImageButton helpButton1 = (ImageButton) dialog
 				.findViewById(R.id.confirmationQ1HelpButton);
+		final ImageButton helpButton2 = (ImageButton) dialog
+				.findViewById(R.id.confirmationQ2HelpButton);
+		final ImageButton helpButton3 = (ImageButton) dialog
+				.findViewById(R.id.confirmationQ3HelpButton);
+		final ImageButton helpButton4 = (ImageButton) dialog
+				.findViewById(R.id.confirmationQ4HelpButton);
 
-		q1sizeQB.setOnClickListener(new OnClickListener() {
+		if (type == Report.TYPE_BREEDING_SITE) {
+			helpButton1.setVisibility(View.GONE);
+			helpButton2.setVisibility(View.GONE);
+			helpButton3.setVisibility(View.GONE);
+
+			dialog.findViewById(R.id.confirmationQ1RadioGroup).setVisibility(
+					View.GONE);
+
+			final Spinner confirmationQ1Spinner = 
+					(Spinner) findViewById(R.id.confirmationQ1Spinner);
+			ArrayAdapter<CharSequence> confirmationQ1SpinnerAdapter = ArrayAdapter
+					.createFromResource(this,
+							R.array.confirmation_q1_site_array,
+							android.R.layout.simple_spinner_item);
+			confirmationQ1SpinnerAdapter
+					.setDropDownViewResource(R.layout.multiline_spinner_dropdown_item);
+			confirmationQ1Spinner.setAdapter(confirmationQ1SpinnerAdapter);
+
+			String confQ1SpinnerSelection = String.valueOf(confirmationQ1Spinner
+					.getSelectedItemPosition());
+		} else {
+			dialog.findViewById(R.id.confirmationQ4).setVisibility(View.GONE);
+			dialog.findViewById(R.id.confirmationQ4View).setVisibility(
+					View.GONE);
+		}
+
+		helpButton1.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
 				final Dialog dialog = new Dialog(context);
@@ -943,7 +1109,7 @@ public class ReportTool extends Activity {
 			}
 		});
 
-		q3stripeQB.setOnClickListener(new OnClickListener() {
+		helpButton2.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
 				final Dialog dialog = new Dialog(context);
@@ -965,7 +1131,7 @@ public class ReportTool extends Activity {
 			}
 		});
 
-		q2legsQB.setOnClickListener(new OnClickListener() {
+		helpButton3.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 

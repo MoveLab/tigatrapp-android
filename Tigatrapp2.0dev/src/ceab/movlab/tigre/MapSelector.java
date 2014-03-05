@@ -123,7 +123,6 @@ public class MapSelector extends MapActivity {
 
 		mOKB = (Button) findViewById(R.id.selectWhereOk);
 		mCancelB = (Button) findViewById(R.id.selectWhereCancel);
-		mVib = (Vibrator) this.getSystemService(VIBRATOR_SERVICE);
 
 	}
 
@@ -147,25 +146,6 @@ public class MapSelector extends MapActivity {
 		mapOverlays.add(mainOverlay);
 		mapView.postInvalidate();
 
-		mOKB.setOnTouchListener(new OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View v, MotionEvent e) {
-
-				if (e.getAction() == MotionEvent.ACTION_DOWN) {
-
-					mVib.vibrate(50);
-
-				}
-				if (e.getAction() == MotionEvent.ACTION_UP) {
-
-					mVib.vibrate(50);
-
-				}
-				return false;
-			}
-		});
-
 		mOKB.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -185,24 +165,6 @@ public class MapSelector extends MapActivity {
 
 		});
 
-		mOKB.setOnTouchListener(new OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View v, MotionEvent e) {
-
-				if (e.getAction() == MotionEvent.ACTION_DOWN) {
-
-					mVib.vibrate(50);
-
-				}
-				if (e.getAction() == MotionEvent.ACTION_UP) {
-
-					mVib.vibrate(50);
-
-				}
-				return false;
-			}
-		});
 
 		mCancelB.setOnClickListener(new OnClickListener() {
 			@Override

@@ -56,13 +56,20 @@
             android:layout_height="fill_parent"
             android:orientation="horizontal" >
 
+            <Spinner 
+                android:id="@+id/confirmationQ1Spinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
+            
             <RadioGroup
                 android:id="@+id/confirmationQ1RadioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dip"
-                android:layout_marginRight="10dip"
-                android:orientation="vertical" >
+                android:layout_marginLeft="10dip"
+                android:orientation="vertical"
+                >
 
                 <RadioButton
                     android:id="@+id/confirmationQ1RadioGroupButton1"
@@ -85,33 +92,6 @@
                     android:text="@string/dontknow"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                <RadioButton
-                    android:id="@+id/confirmationQ1RadioGroupButton4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dontknow"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <RadioButton
-                    android:id="@+id/confirmationQ1RadioGroupButton5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dontknow"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <RadioButton
-                    android:id="@+id/confirmationQ1RadioGroupButton6"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dontknow"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <RadioButton
-                    android:id="@+id/confirmationQ1RadioGroupButton7"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dontknow"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
             </RadioGroup>
 
             <LinearLayout

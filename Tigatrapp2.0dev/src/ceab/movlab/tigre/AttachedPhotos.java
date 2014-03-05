@@ -51,11 +51,41 @@ public class AttachedPhotos extends ListActivity {
 		Intent incoming = getIntent();
 
 		tempReport = new Report(
-				incoming.getStringExtra(ReportTool.EXTRA_REPORT_ID));
+				incoming.getStringExtra(ReportTool.EXTRA_REPORT_ID),
+				incoming.getIntExtra(ReportTool.EXTRA_REPORT_VERSION,
+						Report.MISSING));
 
 		tempReport.reassemblePhotos(
 				incoming.getStringArrayExtra(ReportTool.EXTRA_PHOTO_URI_ARRAY),
 				incoming.getLongArrayExtra(ReportTool.EXTRA_PHOTO_TIME_ARRAY));
+
+		if (savedInstanceState != null) {
+			tempReport.reportId = savedInstanceState.getString("reportId");
+			tempReport.confirmation = savedInstanceState
+					.getString("confirmation");
+			tempReport.locationChoice = savedInstanceState
+					.getInt("locationChoice");
+			tempReport.currentLocationLat = savedInstanceState
+					.getFloat("currentLocationLat");
+			tempReport.currentLocationLon = savedInstanceState
+					.getFloat("currentLocationLon");
+			tempReport.selectedLocationLat = savedInstanceState
+					.getFloat("selectedLocationLat");
+			tempReport.selectedLocationLon = savedInstanceState
+					.getFloat("selectedLocationLon");
+			tempReport.photoAttached = savedInstanceState
+					.getInt("photoAttached");
+			tempReport.note = savedInstanceState.getString("note");
+			tempReport.mailing = savedInstanceState.getInt("mailing");
+			tempReport.reassemblePhotos(savedInstanceState
+					.getStringArray(ReportTool.EXTRA_PHOTO_URI_ARRAY),
+					savedInstanceState
+							.getLongArray(ReportTool.EXTRA_PHOTO_TIME_ARRAY));
+
+			photoUri = Uri.fromFile(new File(savedInstanceState
+					.getString("photoUri")));
+
+		}
 
 		thesePhotos = new ArrayList<String>(Arrays.asList(tempReport
 				.photoUris2Array()));
@@ -136,7 +166,8 @@ public class AttachedPhotos extends ListActivity {
 								thesePhotos.add(m_chosen);
 								adapter.notifyDataSetChanged();
 								tempReport.photos.add(new Photo(
-										tempReport.reportId, m_chosen,
+										tempReport.reportId,
+										tempReport.reportVersion, m_chosen,
 										Report.MISSING, Report.NO,
 										Report.MISSING, Report.NO));
 
@@ -192,6 +223,39 @@ public class AttachedPhotos extends ListActivity {
 	}
 
 	@Override
+	protected void onSaveInstanceState(Bundle icicle) {
+		super.onSaveInstanceState(icicle);
+		icicle.putString("reportId", tempReport.reportId);
+		icicle.putString("confirmation", tempReport.confirmation);
+		icicle.putInt("locationChoice", tempReport.locationChoice);
+
+		if (tempReport.selectedLocationLat != null)
+			icicle.putFloat("selectedLocationLat",
+					tempReport.selectedLocationLat);
+
+		if (tempReport.selectedLocationLon != null)
+			icicle.putFloat("selectedLocationLon",
+					tempReport.selectedLocationLon);
+
+		if (tempReport.currentLocationLat != null)
+			icicle.putFloat("currentLocationLat", tempReport.currentLocationLat);
+
+		if (tempReport.currentLocationLon != null)
+			icicle.putFloat("currentLocationLon", tempReport.currentLocationLon);
+
+		icicle.putInt("photoAttached", tempReport.photoAttached);
+		icicle.putString("note", tempReport.note);
+		icicle.putInt("mailing", tempReport.mailing);
+
+		icicle.putStringArray(ReportTool.EXTRA_PHOTO_URI_ARRAY,
+				tempReport.photoUris2Array());
+		icicle.putLongArray(ReportTool.EXTRA_PHOTO_TIME_ARRAY,
+				tempReport.photoTimes2Array());
+		icicle.putString("photoUri", photoUri.getPath());
+
+	}
+
+	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		// Do something when a list item is clicked
 	}
@@ -237,8 +301,9 @@ public class AttachedPhotos extends ListActivity {
 
 				thesePhotos.add(photoUri.getPath());
 				adapter.notifyDataSetChanged();
-				tempReport.photos.add(new Photo(tempReport.reportId, photoUri
-						.getPath(), System.currentTimeMillis(), Report.NO,
+				tempReport.photos.add(new Photo(tempReport.reportId,
+						tempReport.reportVersion, photoUri.getPath(), System
+								.currentTimeMillis(), Report.NO,
 						Report.MISSING, Report.NO));
 
 			}

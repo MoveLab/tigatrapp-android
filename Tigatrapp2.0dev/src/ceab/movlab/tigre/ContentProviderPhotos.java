@@ -62,10 +62,13 @@ public class ContentProviderPhotos extends ContentProvider {
 
 	/** The SQL command to create the photosTable */
 	private static final String DATABASE_CREATE = "create table photosTable ("
-			+ TigaPhotos.KEY_ROW_ID + TYPE_INTEGER + " primary key autoincrement"
-			+ COMMA + TigaPhotos.KEY_REPORT_ROW_ID + TYPE_INTEGER + COMMA
-			+ TigaPhotos.KEY_PHOTO_URI + TYPE_TEXT + COMMA + TigaPhotos.KEY_PHOTO_TIME
-			+ TYPE_INTEGER + COMMA + TigaPhotos.KEY_UPLOADED + TYPE_INTEGER + COMMA
+			+ TigaPhotos.KEY_ROW_ID + TYPE_INTEGER
+			+ " primary key autoincrement" + COMMA + TigaPhotos.KEY_USER_ID
+			+ TYPE_TEXT + COMMA + TigaPhotos.KEY_REPORT_ID + TYPE_INTEGER
+			+ COMMA + TigaPhotos.KEY_REPORT_VERSION + TYPE_INTEGER + COMMA
+			+ TigaPhotos.KEY_PHOTO_URI + TYPE_TEXT + COMMA
+			+ TigaPhotos.KEY_PHOTO_TIME + TYPE_INTEGER + COMMA
+			+ TigaPhotos.KEY_UPLOADED + TYPE_INTEGER + COMMA
 			+ TigaPhotos.KEY_DELETE_PHOTO + TYPE_INTEGER + COMMA
 			+ TigaPhotos.KEY_SERVER_TIMESTAMP + TYPE_INTEGER + ");";
 
@@ -111,11 +114,17 @@ public class ContentProviderPhotos extends ContentProvider {
 
 		photosProjectionMap = new HashMap<String, String>();
 		photosProjectionMap.put(TigaPhotos.KEY_ROW_ID, TigaPhotos.KEY_ROW_ID);
-		photosProjectionMap.put(TigaPhotos.KEY_REPORT_ROW_ID,
-				TigaPhotos.KEY_REPORT_ROW_ID);
-		photosProjectionMap.put(TigaPhotos.KEY_PHOTO_URI, TigaPhotos.KEY_PHOTO_URI);
-		photosProjectionMap.put(TigaPhotos.KEY_PHOTO_TIME, TigaPhotos.KEY_PHOTO_TIME);
-		photosProjectionMap.put(TigaPhotos.KEY_UPLOADED, TigaPhotos.KEY_UPLOADED);
+		photosProjectionMap.put(TigaPhotos.KEY_USER_ID, TigaPhotos.KEY_USER_ID);
+		photosProjectionMap.put(TigaPhotos.KEY_REPORT_ID,
+				TigaPhotos.KEY_REPORT_ID);
+		photosProjectionMap.put(TigaPhotos.KEY_REPORT_VERSION,
+				TigaPhotos.KEY_REPORT_VERSION);
+		photosProjectionMap.put(TigaPhotos.KEY_PHOTO_URI,
+				TigaPhotos.KEY_PHOTO_URI);
+		photosProjectionMap.put(TigaPhotos.KEY_PHOTO_TIME,
+				TigaPhotos.KEY_PHOTO_TIME);
+		photosProjectionMap.put(TigaPhotos.KEY_UPLOADED,
+				TigaPhotos.KEY_UPLOADED);
 		photosProjectionMap.put(TigaPhotos.KEY_SERVER_TIMESTAMP,
 				TigaPhotos.KEY_SERVER_TIMESTAMP);
 		photosProjectionMap.put(TigaPhotos.KEY_DELETE_PHOTO,
@@ -167,7 +176,8 @@ public class ContentProviderPhotos extends ContentProvider {
 		SQLiteDatabase db = mDbHelper.getWritableDatabase();
 		long rowId = db.insert(DATABASE_TABLE, null, values);
 		if (rowId > 0) {
-			Uri noteUri = ContentUris.withAppendedId(TigaPhotos.CONTENT_URI, rowId);
+			Uri noteUri = ContentUris.withAppendedId(TigaPhotos.CONTENT_URI,
+					rowId);
 			getContext().getContentResolver().notifyChange(noteUri, null);
 			return noteUri;
 		}

@@ -28,10 +28,8 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.database.Cursor;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.view.View;
-import android.view.View.OnClickListener;
 import ceab.movlab.tigre.ContentProviderContractReports.Reports;
 
 import com.google.android.maps.ItemizedOverlay;
@@ -78,6 +76,17 @@ public class MyItemizedOverlay extends ItemizedOverlay {
 			@Override
 			public void onClick(DialogInterface d, int arg1) {
 				d.cancel();
+			};	
+		});
+		dialog.setNeutralButton("edit", new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface d, int arg1) {
+				Intent i = new Intent(mContext,
+						ReportTool.class);;
+				i.putExtra("type", item.getType());
+				i.putExtra("reportId", item.getReportId());
+				mContext.startActivity(i);
+
 			};	
 		});
 		

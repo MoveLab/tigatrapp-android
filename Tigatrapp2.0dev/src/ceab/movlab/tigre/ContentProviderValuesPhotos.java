@@ -41,8 +41,12 @@ public class ContentProviderValuesPhotos {
 
 		ContentValues initialValues = new ContentValues();
 
-		initialValues.put(TigaPhotos.KEY_REPORT_ROW_ID, ph.reportRowID);
+		initialValues.put(TigaPhotos.KEY_USER_ID, ph.userId);
 
+		initialValues.put(TigaPhotos.KEY_REPORT_ID, ph.reportId);
+
+		initialValues.put(TigaPhotos.KEY_REPORT_VERSION, ph.reportVersion);
+		
 		if (ph.photoUri != null)
 			initialValues.put(TigaPhotos.KEY_PHOTO_URI, ph.photoUri);
 

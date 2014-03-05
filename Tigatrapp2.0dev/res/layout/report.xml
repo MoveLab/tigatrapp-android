@@ -191,15 +191,15 @@
 
             <TextView
                 android:id="@+id/photoCount"
-                android:padding="5dip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/reportPhotoAttachButton"
                 android:background="@drawable/white_border"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="0"/>
-            
+                android:padding="5dip"
+                android:text="0"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+
             <ImageView
                 android:id="@+id/reportPhotoAttachButton"
                 android:layout_width="wrap_content"
@@ -286,7 +286,7 @@
             android:src="@drawable/ic_launcher" />
 
         <TextView
-            android:id="@+id/locationLabel"
+            android:id="@+id/reportSubmitButtonLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

@@ -46,7 +46,9 @@ public class ContentProviderContractPhotos {
 		public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.movlabtigre.photos";
 
 		public static final String KEY_ROW_ID = "_id";
-		public static final String KEY_REPORT_ROW_ID = "report_row_id";
+		public static final String KEY_USER_ID = "user_id";
+		public static final String KEY_REPORT_ID = "report_id";
+		public static final String KEY_REPORT_VERSION = "report_version";
 		public static final String KEY_PHOTO_URI = "photo_uri";
 		public static final String KEY_PHOTO_TIME = "photo_time";
 		public static final String KEY_UPLOADED = "uploaded";
@@ -54,9 +56,9 @@ public class ContentProviderContractPhotos {
 		public static final String KEY_SERVER_TIMESTAMP = "server_timestamp";
 
 		/** The names of all the fields contained in the reports table */
-		public static final String[] KEYS_ALL = { KEY_ROW_ID,
-				KEY_REPORT_ROW_ID, KEY_PHOTO_URI, KEY_PHOTO_TIME, KEY_UPLOADED,
-				KEY_DELETE_PHOTO, KEY_SERVER_TIMESTAMP };
+		public static final String[] KEYS_ALL = { KEY_ROW_ID, KEY_USER_ID, KEY_REPORT_ID,
+				KEY_REPORT_VERSION, KEY_PHOTO_URI, KEY_PHOTO_TIME,
+				KEY_UPLOADED, KEY_DELETE_PHOTO, KEY_SERVER_TIMESTAMP };
 
 	}
 

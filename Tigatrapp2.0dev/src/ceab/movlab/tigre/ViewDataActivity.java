@@ -662,7 +662,7 @@ public class ViewDataActivity extends MapActivity {
 					MyOverlayItem overlayitem = new MyOverlayItem(point,
 							"Tigre troballa: codi " + c.getString(reportIdCol),
 							Util.userDate(new Date(c.getLong(reportTimeCol))), 
-							c.getString(reportIdCol));
+							c.getString(reportIdCol), c.getInt(typeCol));
 					overlaylist.add(overlayitem);
 					}
 					c.moveToNext();

@@ -17,28 +17,35 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
-    <!-- DO NOT TRANSLATE  -->
-     <string name="internal_message_id" translatable="false">csic.ceab.movelab.tigatrapp</string>
-    
-    
+    <!-- DO NOT TRANSLATE -->
+    <string name="internal_message_id" translatable="false">csic.ceab.movelab.tigatrapp</string>
+
     <!-- Switchboard -->
     <string name="switchboard_report_button_adult">Reportar un mosquit</string>
     <string name="switchboard_report_button_site">Reportar un lloc</string>
     <string name="data_map_button">Les meves dades</string>
     <string name="dataMap_CD">Les meves dades</string>
-        
-    
+
     <!-- Report Adult -->
     <string name="report_title_site">New Mosquito Report</string>
 
-
     <!-- Report Site -->
     <string name="report_title_adult">New Breeding Site Report</string>
+    <string name="identifying_breeding_site_title">Breeding Site Checklist</string>
 
+    <string-array name="confirmation_q1_site_array">
+        <item>embornal</item>
+        <item>font</item>
+        <item>basse</item>
+        <item> artificial</item>
+        <item>bidons</item>
+        <item>pous</item>
+        <item>altres</item>
+    </string-array>
 
     <!-- Map -->
 
@@ -50,7 +57,6 @@
 
     <!-- Misc -->
     <string name="help">Ajuda</string>
-
     <string name="saved">Viatge guardat.</string>
     <string name="font_credit">Ús de la tipografia Anna en parts de l’App Tigatrapp (www.annavives.com)</string>
     <string name="photo_credit_gallery">Fotografia de R. Eritja (www.eritja.com)</string>

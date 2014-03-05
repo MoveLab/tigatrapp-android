@@ -130,10 +130,10 @@ public class Report {
 		this.photos = new ArrayList<Photo>();
 	}
 
-	Report(String reportId) {
+	Report(String reportId, int reportVersion) {
 		this.reportId = reportId;
 		this.userId = null;
-		this.reportVersion = MISSING;
+		this.reportVersion = reportVersion;
 		this.reportTime = MISSING;
 		this.type = MISSING;
 		this.confirmation = null;
@@ -152,7 +152,6 @@ public class Report {
 		this.photos = new ArrayList<Photo>();
 	}
 
-	
 	public void clear() {
 
 		reportId = null;
@@ -207,8 +206,8 @@ public class Report {
 			this.photos.clear();
 
 			for (int i = 0; i < uriArray.length; i++) {
-				this.photos.add(new Photo(this.reportId, uriArray[i],
-						timeArray[i], 0, -1, 0));
+				this.photos.add(new Photo(this.reportId, this.reportVersion,
+						uriArray[i], timeArray[i], 0, -1, 0));
 			}
 		}
 	}

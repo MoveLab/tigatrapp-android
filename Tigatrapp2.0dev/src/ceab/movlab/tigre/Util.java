@@ -88,7 +88,10 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
@@ -101,6 +104,8 @@ import android.net.NetworkInfo;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -116,8 +121,9 @@ import com.google.android.maps.GeoPoint;
  */
 public class Util {
 
-	public final static GeoPoint CEAB_COORDINATES = new GeoPoint(41686600, 2799600);
-	
+	public final static GeoPoint CEAB_COORDINATES = new GeoPoint(41686600,
+			2799600);
+
 	public final static boolean testingMode = false;
 
 	public final static String MESSAGE_FIX_RECORDED = ".NEW_FIX_RECORDED";
@@ -190,9 +196,9 @@ public class Util {
 	// Use the distance one would cover at walking speed capped at 80 (which is
 	// standard city block size)
 	public static int getMinDist(Context context) {
-		
+
 		PropertyHolder.init(context);
-		
+
 		int fixIntervalSeconds = (int) ((int) PropertyHolder.getAlarmInterval() / (int) SECONDS);
 
 		int expectedWalkingDistanceMeters = (int) (WALKING_SPEED * fixIntervalSeconds) / 100;
@@ -394,6 +400,30 @@ public class Util {
 		t.show();
 	}
 
+	public static void showHelp(Context context, String message, int image) {
+		final Dialog dialog = new Dialog(context);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.check_help);
+		Util.overrideFonts(context, dialog.findViewById(android.R.id.content));
+		TextView mText = (TextView) dialog.findViewById(R.id.checkHelpText);
+		mText.setText(message);
+		final ImageView mImage = (ImageView) dialog
+				.findViewById(R.id.checkHelpImage);
+		mImage.setImageResource(image);
+		dialog.show();
+	}
+
+	public static void showHelp(Context context, String message) {
+		final Dialog dialog = new Dialog(context);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.check_help);
+		Util.overrideFonts(context, dialog.findViewById(android.R.id.content));
+		TextView mText = (TextView) dialog.findViewById(R.id.checkHelpText);
+		mText.setText(message);
+		dialog.setCanceledOnTouchOutside(true);
+		dialog.show();
+	}
+
 	/**
 	 * Encrypt a byte array using RSA. Relies on the public key file stored in
 	 * the raw folder (which is not included in the public source code).
@@ -593,26 +623,20 @@ public class Util {
 	}
 
 	public static void overrideFonts(final Context context, final View v) {
-		
+
 		// turning this off for now
 		/*
-		try {
-			if (v instanceof ViewGroup) {
-				ViewGroup vg = (ViewGroup) v;
-
-				for (int i = 0; i < vg.getChildCount(); i++) {
-					View child = vg.getChildAt(i);
-					overrideFonts(context, child);
-				}
-
-			} else if (v instanceof TextView) {
-				((TextView) v).setTypeface(Typeface.createFromAsset(
-						context.getAssets(), "fonts/RobotoCondensed-Regular.ttf"));
-			}
-
-		} catch (Exception e) {
-		}
-		*/
+		 * try { if (v instanceof ViewGroup) { ViewGroup vg = (ViewGroup) v;
+		 * 
+		 * for (int i = 0; i < vg.getChildCount(); i++) { View child =
+		 * vg.getChildAt(i); overrideFonts(context, child); }
+		 * 
+		 * } else if (v instanceof TextView) { ((TextView)
+		 * v).setTypeface(Typeface.createFromAsset( context.getAssets(),
+		 * "fonts/RobotoCondensed-Regular.ttf")); }
+		 * 
+		 * } catch (Exception e) { }
+		 */
 	}
 
 	/**
@@ -740,18 +764,19 @@ public class Util {
 	}
 
 	public static int getBatteryLevel(Context context) {
-	    Intent batteryIntent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
-	    int level = batteryIntent.getIntExtra("level", -1);
-	    int scale = batteryIntent.getIntExtra("scale", -1);
+		Intent batteryIntent = context.registerReceiver(null, new IntentFilter(
+				Intent.ACTION_BATTERY_CHANGED));
+		int level = batteryIntent.getIntExtra("level", -1);
+		int scale = batteryIntent.getIntExtra("scale", -1);
 
-	    // Error checking that probably isn't needed but I added just in case.
-	    if(level == -1 || scale == -1) {
-	        return -1;
-	    }
+		// Error checking that probably isn't needed but I added just in case.
+		if (level == -1 || scale == -1) {
+			return -1;
+		}
 
 		int powerLevel = (int) Math.round(level * 100.0 / scale);
 
-	    return powerLevel; 
+		return powerLevel;
 	}
-	
+
 }

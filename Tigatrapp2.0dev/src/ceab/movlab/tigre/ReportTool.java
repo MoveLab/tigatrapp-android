@@ -22,8 +22,14 @@
 package ceab.movlab.tigre;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Random;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -52,7 +58,6 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -61,7 +66,7 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
-import android.widget.Spinner;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import ceab.movlab.tigre.ContentProviderContractPhotos.TigaPhotos;
 import ceab.movlab.tigre.ContentProviderContractReports.Reports;
@@ -369,7 +374,20 @@ public class ReportTool extends Activity {
 			public void onClick(View v) {
 				switch (v.getId()) {
 				case (R.id.reportConfirmationRow): {
-					buildConfirmationDialog(type);
+					// buildConfirmationDialog(type);
+
+					Intent i = new Intent(ReportTool.this, TaskActivity.class);
+					/*
+					 * i.putExtra(EXTRA_PHOTO_URI_ARRAY,
+					 * thisReport.photoUris2Array());
+					 * i.putExtra(EXTRA_PHOTO_TIME_ARRAY,
+					 * thisReport.photoTimes2Array());
+					 * i.putExtra(EXTRA_REPORT_ID, thisReport.reportId);
+					 * i.putExtra(EXTRA_REPORT_VERSION,
+					 * thisReport.reportVersion); startActivityForResult(i,
+					 * REQUEST_CODE_ATTACHED_PHOTOS);
+					 */
+					startActivity(i);
 					return;
 				}
 				case (R.id.reportLocationRow): {
@@ -1068,18 +1086,21 @@ public class ReportTool extends Activity {
 			dialog.findViewById(R.id.confirmationQ1RadioGroup).setVisibility(
 					View.GONE);
 
-			final Spinner confirmationQ1Spinner = 
-					(Spinner) findViewById(R.id.confirmationQ1Spinner);
-			ArrayAdapter<CharSequence> confirmationQ1SpinnerAdapter = ArrayAdapter
-					.createFromResource(this,
-							R.array.confirmation_q1_site_array,
-							android.R.layout.simple_spinner_item);
-			confirmationQ1SpinnerAdapter
-					.setDropDownViewResource(R.layout.multiline_spinner_dropdown_item);
-			confirmationQ1Spinner.setAdapter(confirmationQ1SpinnerAdapter);
-
-			String confQ1SpinnerSelection = String.valueOf(confirmationQ1Spinner
-					.getSelectedItemPosition());
+			/*
+			 * final Spinner confirmationQ1Spinner = (Spinner)
+			 * findViewById(R.id.confirmationQ1Spinner);
+			 * ArrayAdapter<CharSequence> confirmationQ1SpinnerAdapter =
+			 * ArrayAdapter .createFromResource(this,
+			 * R.array.confirmation_q1_site_array,
+			 * android.R.layout.simple_spinner_item);
+			 * confirmationQ1SpinnerAdapter
+			 * .setDropDownViewResource(R.layout.multiline_spinner_dropdown_item
+			 * );
+			 * confirmationQ1Spinner.setAdapter(confirmationQ1SpinnerAdapter);
+			 * 
+			 * String confQ1SpinnerSelection =
+			 * String.valueOf(confirmationQ1Spinner .getSelectedItemPosition());
+			 */
 		} else {
 			dialog.findViewById(R.id.confirmationQ4).setVisibility(View.GONE);
 			dialog.findViewById(R.id.confirmationQ4View).setVisibility(
@@ -1405,15 +1426,12 @@ public class ReportTool extends Activity {
 
 	}
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-
-			buildLeaveReportWarning();
-			return true;
-		}
-
-		return super.onKeyDown(keyCode, event);
-	}
-
+	/*
+	 * @Override public boolean onKeyDown(int keyCode, KeyEvent event) { if
+	 * (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+	 * 
+	 * buildLeaveReportWarning(); return true; }
+	 * 
+	 * return super.onKeyDown(keyCode, event); }
+	 */
 }

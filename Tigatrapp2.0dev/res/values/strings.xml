@@ -31,10 +31,12 @@
     <string name="dataMap_CD">Les meves dades</string>
 
     <!-- Report Adult -->
-    <string name="report_title_site">New Mosquito Report</string>
+    <string name="report_title_adult">New Mosquito Report</string>
+
 
     <!-- Report Site -->
-    <string name="report_title_adult">New Breeding Site Report</string>
+        <string name="report_title_site">New Breeding Site Report</string>
+    
     <string name="identifying_breeding_site_title">Breeding Site Checklist</string>
 
     <string-array name="confirmation_q1_site_array">

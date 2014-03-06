@@ -6,49 +6,34 @@
 
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content" 
+                    android:padding="5dip"
+        >
 
         <ImageView
             android:id="@+id/helpIcon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:contentDescription="TODO"
+            android:layout_centerVertical="true"
+            android:contentDescription="Help icon"
             android:src="@drawable/ic_action_about" />
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/itemText"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/helpIcon"
-            android:text="Title"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:text="Text"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
     </RelativeLayout>
 
-    <TextView
-        android:id="@+id/details"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="Details"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
-
-        <ImageView
-            android:id="@+id/imageView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:background="@drawable/white_border"
-            android:src="@drawable/ic_launcher"
-            android:visibility="gone" />
-    </RelativeLayout>
 
     <Spinner
-        android:id="@+id/responseOptions"
+        android:id="@+id/itemChoices"
+        android:layout_marginLeft="15dip"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:ellipsize="marquee" />

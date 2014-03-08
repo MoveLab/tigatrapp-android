@@ -81,29 +81,24 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
-import android.app.AlertDialog;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.database.Cursor;
-import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -777,6 +772,18 @@ public class Util {
 		int powerLevel = (int) Math.round(level * 100.0 / scale);
 
 		return powerLevel;
+	}
+
+	public static String getString(JSONObject jsonObject, String key) {
+		String result = "";
+		if (jsonObject.has(key)) {
+			try {
+				result = jsonObject.getString(key);
+			} catch (JSONException e) {
+				// do nothing
+			}
+		}
+		return result;
 	}
 
 }

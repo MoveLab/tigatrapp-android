@@ -22,14 +22,11 @@
 package ceab.movlab.tigre;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Date;
 import java.util.Locale;
-import java.util.Map;
 import java.util.Random;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -52,7 +49,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Html;
 import android.util.DisplayMetrics;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -66,10 +62,10 @@ import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import ceab.movlab.tigre.ContentProviderContractPhotos.TigaPhotos;
 import ceab.movlab.tigre.ContentProviderContractReports.Reports;
+import ceab.movlab.tigre.ContentProviderContractTasks.Tasks;
 
 /**
  * Activity for identifying and reporting tiger mosquitoes.
@@ -142,6 +138,7 @@ public class ReportTool extends Activity {
 	public static final int REQUEST_CODE_TAKE_PHOTO = 1;
 	public static final int REQUEST_CODE_MAPSELECTOR = 2;
 	public static final int REQUEST_CODE_ATTACHED_PHOTOS = 3;
+	public static final int REQUEST_CODE_REPORT_RESPONSES = 4;
 
 	public static final String EXTRA_PHOTO_URI_ARRAY = "photoUriArray";
 	public static final String EXTRA_PHOTO_TIME_ARRAY = "photoTimeArray";
@@ -298,7 +295,8 @@ public class ReportTool extends Activity {
 
 		if (editing) {
 			reportTitle.setText("Edit Report " + thisReport.reportId
-					+ " created on " + Util.iso8601(thisReport.reportTime));
+					+ " created on "
+					+ Util.userDate(new Date((thisReport.reportTime))));
 
 			reportSubmitButtonLabel.setText("Update");
 		} else {
@@ -374,21 +372,41 @@ public class ReportTool extends Activity {
 			public void onClick(View v) {
 				switch (v.getId()) {
 				case (R.id.reportConfirmationRow): {
-					// buildConfirmationDialog(type);
 
-					Intent i = new Intent(ReportTool.this, TaskActivity.class);
-					/*
-					 * i.putExtra(EXTRA_PHOTO_URI_ARRAY,
-					 * thisReport.photoUris2Array());
-					 * i.putExtra(EXTRA_PHOTO_TIME_ARRAY,
-					 * thisReport.photoTimes2Array());
-					 * i.putExtra(EXTRA_REPORT_ID, thisReport.reportId);
-					 * i.putExtra(EXTRA_REPORT_VERSION,
-					 * thisReport.reportVersion); startActivityForResult(i,
-					 * REQUEST_CODE_ATTACHED_PHOTOS);
-					 */
-					startActivity(i);
-					return;
+					if (type == Report.TYPE_ADULT) {
+						// buildConfirmationDialog(type);
+						
+						Intent i = new Intent(ReportTool.this,
+								TaskActivity.class);
+						try {
+							i.putExtra(
+									Tasks.KEY_TASK_JSON,
+									TaskModel.makeAdultConfirmation(context).getString(
+											Tasks.KEY_TASK_JSON));
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						startActivityForResult(i,
+								REQUEST_CODE_REPORT_RESPONSES);
+
+						return;
+					} else {
+						Intent i = new Intent(ReportTool.this,
+								TaskActivity.class);
+						try {
+							i.putExtra(
+									Tasks.KEY_TASK_JSON,
+									TaskModel.makeSiteConfirmation().getString(
+											Tasks.KEY_TASK_JSON));
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						startActivityForResult(i,
+								REQUEST_CODE_REPORT_RESPONSES);
+						return;
+					}
 				}
 				case (R.id.reportLocationRow): {
 					if (!reportLocationCheck.isChecked())
@@ -854,6 +872,17 @@ public class ReportTool extends Activity {
 			}
 			break;
 		}
+
+		case (REQUEST_CODE_REPORT_RESPONSES): {
+			if (resultCode == RESULT_OK) {
+				if (data.hasExtra(Tasks.KEY_RESPONSES_JSON)) {
+					String responses = data
+							.getStringExtra(Tasks.KEY_RESPONSES_JSON);
+					// TODO change reports databse so all responses are stored
+					// as json strings. Store this response... upload.
+				}
+			}
+		}
 		}
 
 	}
@@ -1048,13 +1077,10 @@ public class ReportTool extends Activity {
 					thisReport.mailing = Report.NO;
 					reportMailingCheck.setChecked(false);
 				}
-
 				dialog.dismiss();
 			}
 		});
-
 		dialog.show();
-
 	}
 
 	public void buildConfirmationDialog(int type) {
@@ -1062,62 +1088,24 @@ public class ReportTool extends Activity {
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.tiger_checklist);
 		Util.overrideFonts(context, dialog.findViewById(android.R.id.content));
-
 		TextView title = (TextView) dialog.findViewById(R.id.title);
-		title.setText(getResources()
-				.getString(
-						type == Report.TYPE_ADULT ? R.string.identifying_mosquitoes_title
-								: R.string.identifying_breeding_site_title));
-
+		title.setText(getResources().getString(
+				R.string.identifying_mosquitoes_title));
 		final ImageButton helpButton1 = (ImageButton) dialog
 				.findViewById(R.id.confirmationQ1HelpButton);
 		final ImageButton helpButton2 = (ImageButton) dialog
 				.findViewById(R.id.confirmationQ2HelpButton);
 		final ImageButton helpButton3 = (ImageButton) dialog
 				.findViewById(R.id.confirmationQ3HelpButton);
-		final ImageButton helpButton4 = (ImageButton) dialog
-				.findViewById(R.id.confirmationQ4HelpButton);
-
-		if (type == Report.TYPE_BREEDING_SITE) {
-			helpButton1.setVisibility(View.GONE);
-			helpButton2.setVisibility(View.GONE);
-			helpButton3.setVisibility(View.GONE);
-
-			dialog.findViewById(R.id.confirmationQ1RadioGroup).setVisibility(
-					View.GONE);
-
-			/*
-			 * final Spinner confirmationQ1Spinner = (Spinner)
-			 * findViewById(R.id.confirmationQ1Spinner);
-			 * ArrayAdapter<CharSequence> confirmationQ1SpinnerAdapter =
-			 * ArrayAdapter .createFromResource(this,
-			 * R.array.confirmation_q1_site_array,
-			 * android.R.layout.simple_spinner_item);
-			 * confirmationQ1SpinnerAdapter
-			 * .setDropDownViewResource(R.layout.multiline_spinner_dropdown_item
-			 * );
-			 * confirmationQ1Spinner.setAdapter(confirmationQ1SpinnerAdapter);
-			 * 
-			 * String confQ1SpinnerSelection =
-			 * String.valueOf(confirmationQ1Spinner .getSelectedItemPosition());
-			 */
-		} else {
-			dialog.findViewById(R.id.confirmationQ4).setVisibility(View.GONE);
-			dialog.findViewById(R.id.confirmationQ4View).setVisibility(
-					View.GONE);
-		}
 
 		helpButton1.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
 				final Dialog dialog = new Dialog(context);
 				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 				dialog.setContentView(R.layout.check_help);
-
 				Util.overrideFonts(context,
 						dialog.findViewById(android.R.id.content));
-
 				TextView mText = (TextView) dialog
 						.findViewById(R.id.checkHelpText);
 				mText.setText(getResources().getString(
@@ -1125,7 +1113,6 @@ public class ReportTool extends Activity {
 				final ImageView mImage = (ImageView) dialog
 						.findViewById(R.id.checkHelpImage);
 				mImage.setImageResource(R.drawable.m);
-
 				dialog.show();
 			}
 		});
@@ -1135,11 +1122,9 @@ public class ReportTool extends Activity {
 			public void onClick(View arg0) {
 				final Dialog dialog = new Dialog(context);
 				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 				dialog.setContentView(R.layout.check_help);
 				Util.overrideFonts(context,
 						dialog.findViewById(android.R.id.content));
-
 				TextView mText = (TextView) dialog
 						.findViewById(R.id.checkHelpText);
 				mText.setText(getResources().getString(
@@ -1147,7 +1132,6 @@ public class ReportTool extends Activity {
 				final ImageView mImage = (ImageView) dialog
 						.findViewById(R.id.checkHelpImage);
 				mImage.setImageResource(R.drawable.n);
-
 				dialog.show();
 			}
 		});

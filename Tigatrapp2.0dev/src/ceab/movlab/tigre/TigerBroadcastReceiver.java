@@ -74,6 +74,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.SystemClock;
 import android.support.v4.app.TaskStackBuilder;
+import android.util.Log;
+import ceab.movlab.tigre.ContentProviderContractTasks.Tasks;
 
 /**
  * Triggers and stops location fixes at set intervals; also sends notification
@@ -86,11 +88,17 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 	public static final String STOP_FIXGET_MESSAGE = "ceab.movlab.tigre.STOP_FIXGET_MESSAGE";
 	public static final String LONGSTOP_FIXGET_MESSAGE = "ceab.movlab.tigre.LONGSTOP_FIXGET_MESSAGE";
 
+	public static final String TIGER_TASK_MESSAGE = "ceab.movlab.tigre.TIGER_TASK_MESSAGE";
+	public static final String TIGER_TASK_CLEAR = "ceab.movlab.tigre.TIGER_TASK_CLEAR";
+
+	public static final String DATA_SYNC_MESSAGE = "ceab.movlab.tigre.DATE_SYNC_MESSAGE";
+
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		PropertyHolder.init(context);
-	
+
 		String action = intent.getAction();
+
 		AlarmManager startFixGetAlarm = (AlarmManager) context
 				.getSystemService(Context.ALARM_SERVICE);
 		Intent intent2FixGet = new Intent(context, FixGet.class);
@@ -109,6 +117,12 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 		PendingIntent pendingFixGetStop = PendingIntent.getBroadcast(context,
 				0, intent2StopFixGet, 0);
 
+		AlarmManager dataSyncAlarm = (AlarmManager) context
+				.getSystemService(Context.ALARM_SERVICE);
+		Intent intent2syncData = new Intent(STOP_FIXGET_MESSAGE);
+		PendingIntent pendingDataSync = PendingIntent.getBroadcast(context, 0,
+				intent2StopFixGet, 0);
+
 		if (action.contains("tigre.UNSCHEDULE")) {
 			startFixGetAlarm.cancel(pendingIntent2FixGet);
 			PropertyHolder.setServiceOn(false);
@@ -123,7 +137,7 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 					+ Util.LISTENER_WINDOW, alarmInterval, pendingFixGetStop);
 			Util.countingFrom = triggerTime;
 			PropertyHolder.setServiceOn(true);
-			createNotification(context);
+			// createNotification(context);
 
 		} else if (action.contains("tigre.UPLOADS_NEEDED")) {
 			PropertyHolder.uploadsNeeded(true);
@@ -149,23 +163,34 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 						"ceab.movlab.tigre.UPLOADS_NEEDED");
 				context.sendBroadcast(intent2broadcast);
 			}
+		} else if (action.contains(TIGER_TASK_MESSAGE)) {
+
+			final String taskTitle = intent
+					.getStringExtra(Tasks.KEY_TASK_HEADING);
+			createNotification(context, taskTitle);
+	
+				} else if (action.contains(TIGER_TASK_CLEAR)) {
+
+			cancelNotification(context);
+	
 		} else {
 			// do nothing
 		}
 	}
 
-	public void createNotification(Context context) {
+	// TODO finish data syncing part
+
+	public void createNotification(Context context, String taskTitle) {
 		NotificationManager notificationManager = (NotificationManager) context
 				.getSystemService(Context.NOTIFICATION_SERVICE);
 		Notification notification = new Notification(R.drawable.notification,
-				context.getResources().getString(R.string.recording_trip),
-				System.currentTimeMillis());
-		notification.flags |= Notification.FLAG_NO_CLEAR;
-		notification.flags |= Notification.FLAG_ONGOING_EVENT;
-		
-		// for now, directing back to switchboard since activity is out...
-		Intent intent = new Intent(context, Switchboard.class);
+				"New Tiger Task!", System.currentTimeMillis());
+		// notification.flags |= Notification.FLAG_NO_CLEAR;
+		// notification.flags |= Notification.FLAG_ONGOING_EVENT;
 
+		Intent intent = new Intent(context, ListPendingTasks.class);
+
+		// not sure if we still need this
 		TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
 		stackBuilder.addParentStack(Switchboard.class);
 		stackBuilder.addNextIntent(intent);
@@ -174,11 +199,7 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 
 		// PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
 		// intent, PendingIntent.FLAG_CANCEL_CURRENT);
-		notification.setLatestEventInfo(
-				context,
-				context.getResources().getString(R.string.tigatrapp_recording),
-				context.getResources().getString(
-						R.string.tigatrapp_is_recording_your_trip),
+		notification.setLatestEventInfo(context, "New Tiger Task", taskTitle,
 				pendingIntent);
 		notificationManager.notify(0, notification);
 

@@ -56,20 +56,13 @@
             android:layout_height="fill_parent"
             android:orientation="horizontal" >
 
-            <Spinner 
-                android:id="@+id/confirmationQ1Spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:visibility="gone"/>
-            
             <RadioGroup
                 android:id="@+id/confirmationQ1RadioGroup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dip"
                 android:layout_marginLeft="10dip"
-                android:orientation="vertical"
-                >
+                android:orientation="vertical" >
 
                 <RadioButton
                     android:id="@+id/confirmationQ1RadioGroupButton1"
@@ -91,7 +84,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/dontknow"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
-
             </RadioGroup>
 
             <LinearLayout
@@ -264,72 +256,6 @@
             android:layout_width="fill_parent"
             android:layout_height="1dip"
             android:background="@color/white" />
-
-        <TextView
-            android:id="@+id/confirmationQ4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dip"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
-
-        <LinearLayout
-            android:id="@+id/confirmationQ4View"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:orientation="horizontal" >
-
-            <RadioGroup
-                android:id="@+id/confirmationQ4RadioGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="20dip"
-                android:layout_marginRight="10dip"
-                android:orientation="vertical" >
-
-                <RadioButton
-                    android:id="@+id/confirmationQ4RadioGroupButton1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/yes"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <RadioButton
-                    android:id="@+id/confirmationQ4RadioGroupButton2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/no"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <RadioButton
-                    android:id="@+id/confirmationQ4RadioGroupButton3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/dontknow"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-            </RadioGroup>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_marginBottom="20dp"
-                android:layout_marginLeft="60dp"
-                android:gravity="center"
-                android:orientation="vertical" >
-
-                <ImageButton
-                    android:id="@+id/confirmationQ4HelpButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:clickable="true"
-                    android:src="@drawable/ic_launcher" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/help"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-            </LinearLayout>
-        </LinearLayout>
 
         <Button
             android:id="@+id/confirmationButtonOK"

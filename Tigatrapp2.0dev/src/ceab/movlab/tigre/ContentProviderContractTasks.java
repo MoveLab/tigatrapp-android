@@ -47,14 +47,25 @@ public class ContentProviderContractTasks {
 
 		public static final String KEY_ROW_ID = "_id";
 		public static final String KEY_TASK_ID = "task_id";
-		public static final String KEY_DATE = "date";
-		public static final String KEY_EXPIRATION_DATE = "expiration_date";
+		public static final String KEY_TASK_HEADING = "task_title";
+		public static final String KEY_TASK_SHORT_DESCRIPTION = "task_short_description";
+		public static final String KEY_DATE = "date"; // long, unix time
+		public static final String KEY_EXPIRATION_DATE = "expiration_date"; // long, unix time
 		public static final String KEY_TASK_JSON = "task_json";
-		public static final String KEY_DONE = "done";
+		public static final String KEY_DONE = "done"; // int 0=no, 1=yes
+		public static final String KEY_RESPONSES_JSON = "responses"; // text
+		public static final String KEY_UPLOADED = "uploaded"; // int 0=no, 1=yes
 
 		/** The names of all the fields contained in the reports table */
 		public static final String[] KEYS_ALL = { KEY_ROW_ID, KEY_TASK_ID,
-				KEY_DATE, KEY_EXPIRATION_DATE, KEY_TASK_JSON, KEY_DONE };
+				KEY_TASK_HEADING, KEY_TASK_SHORT_DESCRIPTION, KEY_DATE,
+				KEY_EXPIRATION_DATE, KEY_TASK_JSON, KEY_DONE,
+				KEY_RESPONSES_JSON, KEY_UPLOADED };
+
+		public static final String[] KEYS_TASKS_LIST = { KEY_ROW_ID, KEY_TASK_HEADING,
+				KEY_TASK_SHORT_DESCRIPTION, KEY_DATE, KEY_TASK_JSON};
+
+		public static final String[] KEYS_DONE = { KEY_ROW_ID, KEY_DONE, KEY_EXPIRATION_DATE};
 
 	}
 

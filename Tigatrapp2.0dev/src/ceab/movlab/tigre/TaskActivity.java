@@ -8,13 +8,26 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.content.res.Resources.NotFoundException;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import ceab.movlab.tigre.ContentProviderContractTasks.Tasks;
 
 public class TaskActivity extends Activity {
 	Context context = this;
@@ -22,6 +35,11 @@ public class TaskActivity extends Activity {
 	ListView lv;
 	TextView taskTitle;
 	TextView taskDetail;
+	LinearLayout taskHeader;
+	ImageView helpIcon;
+	Button buttonLeft;
+	Button buttonRight;
+	public JSONObject responses;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -34,35 +52,340 @@ public class TaskActivity extends Activity {
 		conf.locale = myLocale;
 		res.updateConfiguration(conf, dm);
 
-		setContentView(R.layout.survey);
+		setContentView(R.layout.task);
+		View header = getLayoutInflater().inflate(R.layout.task_head, null);
+		View footer = getLayoutInflater().inflate(R.layout.task_foot, null);
+		lv = (ListView) findViewById(R.id.listview);
+		lv.addHeaderView(header);
+		lv.addFooterView(footer);
+
 		Util.overrideFonts(this, findViewById(android.R.id.content));
+
+		responses = new JSONObject();
 
 		taskTitle = (TextView) findViewById(R.id.taskTitle);
 		taskDetail = (TextView) findViewById(R.id.taskDetail);
-
-		lv = (ListView) findViewById(R.id.listview);
+		helpIcon = (ImageView) findViewById(R.id.helpIcon);
+		taskHeader = (LinearLayout) findViewById(R.id.header);
+		buttonLeft = (Button) findViewById(R.id.buttonLeft);
+		buttonRight = (Button) findViewById(R.id.buttonRight);
 
 		ArrayList<TaskItemModel> list = new ArrayList<TaskItemModel>();
 
+		final Bundle b = getIntent().getExtras();
+		String taskJson = b.getString(Tasks.KEY_TASK_JSON);
+
 		try {
+			final JSONObject thisTask;
+			thisTask = new JSONObject(taskJson);
 
-			JSONObject thisTask = TaskModel.makeSampleTask();
-			taskTitle.setText(thisTask.getString(TaskModel.KEY_TASK_TITLE));
-			taskDetail.setText(thisTask.getString(TaskModel.KEY_TASK_DETAIL));
+			if (thisTask.has(TaskModel.KEY_TASK_TITLE))
+				taskTitle.setText(Util.getString(thisTask,
+						TaskModel.KEY_TASK_TITLE));
+			else
+				taskTitle.setVisibility(View.GONE);
 
-			JSONArray theseItems = thisTask
-					.getJSONArray(TaskModel.KEY_TASK_ITEMS);
-			for (int i = 0; i < theseItems.length(); i++) {
-				list.add(new TaskItemModel(theseItems.getJSONObject(i)));
+			if (thisTask.has(TaskModel.KEY_TASK_DETAIL))
+				taskDetail.setText(Util.getString(thisTask,
+						TaskModel.KEY_TASK_DETAIL));
+			else
+				taskDetail.setVisibility(View.GONE);
+			if (thisTask.has(TaskModel.KEY_TASK_HELP)) {
+				final String helpText = thisTask
+						.getString(TaskModel.KEY_TASK_HELP);
+				helpIcon.setVisibility(View.VISIBLE);
+				taskHeader.setOnLongClickListener(new OnLongClickListener() {
+					@Override
+					public boolean onLongClick(View v) {
+						Util.showHelp(context, helpText);
+						return true;
+					}
+				});
+			} else
+				helpIcon.setVisibility(View.GONE);
+
+			if (thisTask.has(TaskModel.KEY_TASK_ITEMS)) {
+				JSONArray theseItems;
+				theseItems = thisTask.getJSONArray(TaskModel.KEY_TASK_ITEMS);
+				for (int i = 0; i < theseItems.length(); i++) {
+					list.add(new TaskItemModel(theseItems.getJSONObject(i)));
+				}
+
+				final TaskAdapter adapter = new TaskAdapter(this, list, res);
+				lv.setAdapter(adapter);
+
+			}
+			/************ BUTTON ACTION SWITCH **************/
+
+			switch (thisTask.getInt(TaskModel.KEY_TASK_BUTTON_LEFT_ACTION)) {
+			case (TaskModel.TASK_CONFIGURATION_SIMPLE): {
+				buttonLeft.setVisibility(View.GONE);
+				buttonRight.setText(getResources().getString(R.string.ok));
+				buttonRight.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						ContentResolver cr = getContentResolver();
+						ContentValues cv = new ContentValues();
+						int rowId = b.getInt(Tasks.KEY_ROW_ID);
+						String sc = Tasks.KEY_ROW_ID + " = " + rowId;
+						if (responses.length() > 0) {
+							cv.put(Tasks.KEY_RESPONSES_JSON,
+									responses.toString());
+						}
+						cv.put(Tasks.KEY_DONE, 1);
+						cr.update(Tasks.CONTENT_URI, cv, sc, null);
+
+						Cursor c = cr.query(Tasks.CONTENT_URI, Tasks.KEYS_DONE,
+								Tasks.KEY_DONE + " = " + "0 AND "
+										+ Tasks.KEY_EXPIRATION_DATE + " <="
+										+ System.currentTimeMillis(), null,
+								null);
+
+						if (c.getCount() == 0) {
+							Intent i = new Intent(
+									TigerBroadcastReceiver.TIGER_TASK_CLEAR);
+							context.sendBroadcast(i);
+						}
+						finish();
+					}
+				});
+			}
+			case (TaskModel.TASK_CONFIGURATION_SURVEY_TASK): {
+
+				buttonLeft.setText("Submit");
+				buttonLeft.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+
+						ContentResolver cr = getContentResolver();
+						ContentValues cv = new ContentValues();
+						int rowId = b.getInt(Tasks.KEY_ROW_ID);
+						String sc = Tasks.KEY_ROW_ID + " = " + rowId;
+						if (responses.length() > 0) {
+							cv.put(Tasks.KEY_RESPONSES_JSON,
+									responses.toString());
+						}
+						cv.put(Tasks.KEY_DONE, 1);
+						cr.update(Tasks.CONTENT_URI, cv, sc, null);
+
+						Cursor c = cr.query(Tasks.CONTENT_URI, Tasks.KEYS_DONE,
+								Tasks.KEY_DONE + " = " + "0 AND "
+										+ Tasks.KEY_EXPIRATION_DATE + " <="
+										+ System.currentTimeMillis(), null,
+								null);
+
+						if (c.getCount() == 0) {
+							Intent i = new Intent(
+									TigerBroadcastReceiver.TIGER_TASK_CLEAR);
+							context.sendBroadcast(i);
+						}
+
+						// TODO
+						/*
+						 * upload
+						 */
+						Util.toast(context,
+								"Uploading responses: " + responses.toString());
+
+						finish();
+
+						// TODO mark task as completed and/or delete from
+						// phone's database
+
+					}
+				});
+
+				buttonRight.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						finish();
+					}
+				});
+
+				break;
+
 			}
 
-			TaskAdapter adapter = new TaskAdapter(this, list, res);
-			lv.setAdapter(adapter);
+			case (TaskModel.TASK_CONFIGURATION_ADULT_TASK): {
 
+				buttonLeft.setText("Start Report");
+				buttonLeft.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+
+						Intent i = new Intent(TaskActivity.this,
+								ReportTool.class);
+						Bundle b = new Bundle();
+						b.putInt("type", Report.TYPE_ADULT);
+						i.putExtras(b);
+						startActivity(i);
+						finish();
+
+						// TODO mark task as completed and/or delete from
+						// phone's database
+
+					}
+				});
+
+				buttonRight.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						finish();
+					}
+				});
+
+				break;
+
+			}
+			case (TaskModel.TASK_CONFIGURATION_SITE_TASK): {
+
+				buttonLeft.setText("Start Report");
+				buttonLeft.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+
+						Intent i = new Intent(TaskActivity.this,
+								ReportTool.class);
+						Bundle b = new Bundle();
+						b.putInt("type", Report.TYPE_BREEDING_SITE);
+						i.putExtras(b);
+						startActivity(i);
+
+						finish();
+
+						// TODO mark task as completed and/or delete from
+						// phone's database
+
+					}
+				});
+				buttonRight.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						finish();
+					}
+				});
+
+				break;
+
+			}
+
+			case (TaskModel.TASK_CONFIGURATION_WEBLINK): {
+
+				buttonLeft.setText("Go to website");
+				buttonLeft.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						try {
+
+							String url;
+							url = thisTask
+									.getString(TaskModel.KEY_TASK_BUTTON_LEFT_URL);
+
+							ContentResolver cr = getContentResolver();
+							ContentValues cv = new ContentValues();
+							int rowId = b.getInt(Tasks.KEY_ROW_ID);
+							String sc = Tasks.KEY_ROW_ID + " = " + rowId;
+							if (responses.length() > 0) {
+								cv.put(Tasks.KEY_RESPONSES_JSON,
+										responses.toString());
+							}
+							cv.put(Tasks.KEY_DONE, 1);
+							cr.update(Tasks.CONTENT_URI, cv, sc, null);
+
+							Cursor c = cr.query(Tasks.CONTENT_URI,
+									Tasks.KEYS_DONE, Tasks.KEY_DONE + " = "
+											+ "0 AND "
+											+ Tasks.KEY_EXPIRATION_DATE + " <="
+											+ System.currentTimeMillis(), null,
+									null);
+
+							if (c.getCount() == 0) {
+								Intent i = new Intent(
+										TigerBroadcastReceiver.TIGER_TASK_CLEAR);
+								context.sendBroadcast(i);
+							}
+
+							Intent i = new Intent(Intent.ACTION_VIEW);
+							i.setData(Uri.parse(url));
+							startActivity(i);
+
+						} catch (JSONException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
+						finish();
+
+					}
+				});
+
+				buttonRight.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						finish();
+					}
+				});
+
+				break;
+
+			}
+
+			case (TaskModel.TASK_CONFIGURATION_REPORT_SITE): {
+
+				buttonLeft.setVisibility(View.GONE);
+				buttonRight.setText(getResources().getString(R.string.ok));
+				buttonRight.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Intent dataForReport = new Intent();
+						if (responses.length() > 0) {
+							dataForReport.putExtra(Tasks.KEY_RESPONSES_JSON,
+									responses.toString());
+						}
+						setResult(RESULT_OK, dataForReport);
+						finish();
+					}
+				});
+
+				break;
+
+			}
+			
+			case (TaskModel.TASK_CONFIGURATION_REPORT_ADULT): {
+
+				buttonLeft.setVisibility(View.GONE);
+				buttonRight.setText(getResources().getString(R.string.ok));
+				buttonRight.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Intent dataForReport = new Intent();
+						if (responses.length() > 0) {
+							dataForReport.putExtra(Tasks.KEY_RESPONSES_JSON,
+									responses.toString());
+						}
+						setResult(RESULT_OK, dataForReport);
+						finish();
+					}
+				});
+
+				break;
+
+			}
+
+			}
+		} catch (NotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
 
+	}
 }

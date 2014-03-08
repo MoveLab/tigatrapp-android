@@ -40,26 +40,28 @@ public class ContentProviderValuesTasks {
 	 * Creates content values from photo data.
 	 * 
 	 */
-	public static ContentValues createTask(JSONObject task) {
+	public static ContentValues createTask(String _task) {
 
 		ContentValues initialValues = new ContentValues();
 
 		try {
+			JSONObject task = new JSONObject(_task);
+
 			initialValues.put(Tasks.KEY_TASK_ID,
 					task.getString(Tasks.KEY_TASK_ID));
-			initialValues.put(Tasks.KEY_DATE, task.getString(Tasks.KEY_DATE));
+			initialValues.put(Tasks.KEY_TASK_HEADING, task.getString(Tasks.KEY_TASK_HEADING));
+			initialValues.put(Tasks.KEY_TASK_SHORT_DESCRIPTION, task.getString(Tasks.KEY_TASK_SHORT_DESCRIPTION));
+			initialValues.put(Tasks.KEY_DATE, Long.parseLong(task.getString(Tasks.KEY_DATE)));
 			initialValues.put(Tasks.KEY_EXPIRATION_DATE,
-					task.getString(Tasks.KEY_EXPIRATION_DATE));
+					Long.parseLong(task.getString(Tasks.KEY_EXPIRATION_DATE)));
 			initialValues.put(Tasks.KEY_TASK_JSON,
 					task.getString(Tasks.KEY_TASK_JSON));
-			initialValues.put(Tasks.KEY_DONE, task.getString(Tasks.KEY_DONE));
-
+			initialValues.put(Tasks.KEY_DONE, 0);
+			initialValues.put(Tasks.KEY_UPLOADED, 0);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		return initialValues;
 	}
-
 }

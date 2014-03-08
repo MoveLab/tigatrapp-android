@@ -2,6 +2,9 @@ package ceab.movlab.tigre;
 
 import java.util.ArrayList;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -9,7 +12,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
@@ -70,12 +76,12 @@ public class TaskAdapter extends BaseAdapter implements OnClickListener {
 	public View getView(int position, View convertView, ViewGroup parent) {
 
 		View vi = convertView;
-		ViewHolder holder;
+		final ViewHolder holder;
 
 		if (convertView == null) {
 
 			/****** Inflate tabitem.xml file for each row ( Defined below ) *******/
-			vi = inflater.inflate(R.layout.survey_item, null);
+			vi = inflater.inflate(R.layout.task_item, null);
 
 			/****** View Holder Object to contain tabitem.xml file elements ******/
 
@@ -101,21 +107,56 @@ public class TaskAdapter extends BaseAdapter implements OnClickListener {
 
 			holder.itemText.setText(tempValues.getItemText());
 
-			if(tempValues.getItemHelp() == "")
+			if (tempValues.getItemHelp() == null)
 				holder.helpIcon.setVisibility(View.GONE);
-			
+
 			ArrayAdapter<String> choicesAdapter = new ArrayAdapter<String>(
 					activity, android.R.layout.simple_spinner_item,
 					tempValues.getItemChoices());
 			choicesAdapter
 					.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
+			holder.itemChoices.setTag(tempValues.getItemId());
 			holder.itemChoices.setAdapter(choicesAdapter);
 
-			
-			
+			holder.itemChoices
+					.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+						@Override
+						public void onItemSelected(AdapterView<?> arg0,
+								View arg1, int arg2, long arg3) {
+
+							try {
+								JSONObject thisResponse = new JSONObject();
+								thisResponse.put(TaskItemModel.KEY_ITEM_TEXT,
+										holder.itemText.getText());
+
+								thisResponse.put(
+										TaskItemModel.KEY_ITEM_RESPONSE, String
+												.valueOf(holder.itemChoices
+														.getSelectedItem()));
+
+								TaskActivity ta = (TaskActivity) activity;
+								ta.responses.put(String
+										.valueOf(holder.itemChoices.getTag()),
+										thisResponse);
+							} catch (JSONException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+						}
+
+						@Override
+						public void onNothingSelected(AdapterView<?> arg0) {
+							// TODO Auto-generated method stub
+
+						}
+
+					});
+
 			/******** Set Item Click Listner for LayoutInflater for each row *******/
 
-			vi.setOnClickListener(new OnItemClickListener(position));
+			vi.setOnLongClickListener(new OnItemLongClickListener(position));
 		}
 		return vi;
 	}
@@ -126,26 +167,25 @@ public class TaskAdapter extends BaseAdapter implements OnClickListener {
 	}
 
 	/********* Called when Item click in ListView ************/
-	private class OnItemClickListener implements OnClickListener {
+	private class OnItemLongClickListener implements OnLongClickListener {
 		private int mPosition;
 
-		OnItemClickListener(int position) {
+		OnItemLongClickListener(int position) {
 			mPosition = position;
 		}
 
 		@Override
-		public void onClick(View arg0) {
-			
+		public boolean onLongClick(View arg0) {
+
 			TaskItemModel thisTask = (TaskItemModel) data.get(mPosition);
-			
-			Util.showHelp(activity, thisTask.getItemHelp());
-			
-			// TODO
-			/*
-			 * Survey sct = (Survey) activity;
-			 * 
-			 * sct.onItemClick(mPosition);
-			 */
+
+			if (thisTask.getItemHelpImage() != -1) {
+				Util.showHelp(activity, thisTask.getItemHelp(),
+						thisTask.getItemHelpImage());
+			} else
+				Util.showHelp(activity, thisTask.getItemHelp());
+
+			return true;
 		}
 	}
 }

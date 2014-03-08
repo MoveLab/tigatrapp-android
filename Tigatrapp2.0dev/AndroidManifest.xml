@@ -17,7 +17,7 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -49,6 +49,8 @@
         android:theme="@style/DarkThemeSelector" >
         <uses-library android:name="com.google.android.maps" />
 
+        <activity android:name="ceab.movlab.tigre.ListPendingTasks" >
+        </activity>
         <activity android:name="ceab.movlab.tigre.TaskActivity" >
         </activity>
         <activity android:name="ceab.movlab.tigre.AttachedPhotos" >
@@ -104,20 +106,21 @@
                 <action android:name="android.intent.action.LAUNCHER" />
                 <action android:name="ceab.movlab.tigre.SCHEDULE_SERVICE" />
                 <action android:name="ceab.movlab.tigre.UNSCHEDULE_SERVICE" />
+                <action android:name="ceab.movlab.tigre.TIGER_TASK_MESSAGE" />
+                <action android:name="ceab.movlab.tigre.TIGER_TASK_CLEAR" />               
+                <action android:name="ceab.movlab.tigre.DATA_SYNC_MESSAGE" />
             </intent-filter>
         </receiver>
 
         <service android:name="ceab.movlab.tigre.FixGet" />
         <service android:name="ceab.movlab.tigre.FileUploader" />
 
-        
-                <provider
+        <provider
             android:name="ceab.movlab.tigre.ContentProviderTasks"
             android:authorities="ceab.movlab.tigre.providers.tigertasksprovider"
             android:enabled="true"
             android:exported="false" >
         </provider>
-        
         <provider
             android:name="ceab.movlab.tigre.ContentProviderTracks"
             android:authorities="ceab.movlab.tigre.providers.tigertracksprovider"

@@ -64,10 +64,12 @@ public class ContentProviderTasks extends ContentProvider {
 	private static final String DATABASE_CREATE = "create table "
 			+ DATABASE_TABLE + " (" + Tasks.KEY_ROW_ID + TYPE_INTEGER
 			+ " primary key autoincrement" + COMMA + Tasks.KEY_TASK_ID
-			+ TYPE_TEXT + COMMA + Tasks.KEY_DATE + TYPE_INTEGER + COMMA
-			+ Tasks.KEY_EXPIRATION_DATE + TYPE_INTEGER + COMMA
-			+ Tasks.KEY_TASK_JSON + TYPE_TEXT + COMMA + Tasks.KEY_DONE
-			+ TYPE_INTEGER + ");";
+			+ TYPE_TEXT + COMMA + Tasks.KEY_TASK_HEADING + TYPE_TEXT + COMMA
+			+ Tasks.KEY_TASK_SHORT_DESCRIPTION + TYPE_TEXT + COMMA
+			+ Tasks.KEY_DATE + TYPE_INTEGER + COMMA + Tasks.KEY_EXPIRATION_DATE
+			+ TYPE_INTEGER + COMMA + Tasks.KEY_TASK_JSON + TYPE_TEXT + COMMA
+			+ Tasks.KEY_DONE + TYPE_INTEGER + Tasks.KEY_RESPONSES_JSON
+			+ TYPE_TEXT + COMMA + Tasks.KEY_UPLOADED + TYPE_INTEGER + ");";
 
 	private DatabaseHelper mDbHelper;
 
@@ -108,14 +110,22 @@ public class ContentProviderTasks extends ContentProvider {
 		sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 		sUriMatcher.addURI(AUTHORITY, DATABASE_TABLE, TASKS);
 		sUriMatcher.addURI(AUTHORITY, DATABASE_TABLE + "/#", ROW_ID);
-		
+
 		tasksProjectionMap = new HashMap<String, String>();
 		tasksProjectionMap.put(Tasks.KEY_ROW_ID, Tasks.KEY_ROW_ID);
 		tasksProjectionMap.put(Tasks.KEY_TASK_ID, Tasks.KEY_TASK_ID);
+		tasksProjectionMap.put(Tasks.KEY_TASK_HEADING, Tasks.KEY_TASK_HEADING);
+		tasksProjectionMap.put(Tasks.KEY_TASK_SHORT_DESCRIPTION,
+				Tasks.KEY_TASK_SHORT_DESCRIPTION);
+
 		tasksProjectionMap.put(Tasks.KEY_DATE, Tasks.KEY_DATE);
-		tasksProjectionMap.put(Tasks.KEY_EXPIRATION_DATE, Tasks.KEY_EXPIRATION_DATE);
+		tasksProjectionMap.put(Tasks.KEY_EXPIRATION_DATE,
+				Tasks.KEY_EXPIRATION_DATE);
 		tasksProjectionMap.put(Tasks.KEY_TASK_JSON, Tasks.KEY_TASK_JSON);
 		tasksProjectionMap.put(Tasks.KEY_DONE, Tasks.KEY_DONE);
+		tasksProjectionMap.put(Tasks.KEY_RESPONSES_JSON,
+				Tasks.KEY_RESPONSES_JSON);
+		tasksProjectionMap.put(Tasks.KEY_UPLOADED, Tasks.KEY_UPLOADED);
 
 	}
 
@@ -163,8 +173,7 @@ public class ContentProviderTasks extends ContentProvider {
 		SQLiteDatabase db = mDbHelper.getWritableDatabase();
 		long rowId = db.insert(DATABASE_TABLE, null, values);
 		if (rowId > 0) {
-			Uri noteUri = ContentUris.withAppendedId(Tasks.CONTENT_URI,
-					rowId);
+			Uri noteUri = ContentUris.withAppendedId(Tasks.CONTENT_URI, rowId);
 			getContext().getContentResolver().notifyChange(noteUri, null);
 			return noteUri;
 		}

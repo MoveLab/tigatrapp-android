@@ -63,7 +63,6 @@
  *		SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. * 
  */
 
-
 package ceab.movlab.tigre;
 
 import android.content.Context;
@@ -76,10 +75,10 @@ import android.content.SharedPreferences.Editor;
  * essential for determining states, such as whether the user has completed the
  * consent and registration stage.
  * <p>
- * Dependencies: DriverMapActivity.java, TigerBroadcastReceiver.java, Consent.java, Data.java,
- * FileUploader.java, FixGet.java, Help.java, Registration.java,
- * ReviewConsent.java, Settings.java, SplashScree.java, Util.java,
- * Withdraw.java, Withdrawlock.java
+ * Dependencies: DriverMapActivity.java, TigerBroadcastReceiver.java,
+ * Consent.java, Data.java, FileUploader.java, FixGet.java, Help.java,
+ * Registration.java, ReviewConsent.java, Settings.java, SplashScree.java,
+ * Util.java, Withdraw.java, Withdrawlock.java
  * 
  * @author Necati E. Ozgencil
  * @author John R.B. Palmer
@@ -109,6 +108,32 @@ public class PropertyHolder {
 		editor.commit();
 	}
 
+	public static int getNSiteReports() {
+		return sharedPreferences.getInt("N_SITE_REPORTS", 0);
+	}
+
+	public static void setNSiteReports(int n) {
+		editor.putInt("N_SITE_REPORTS", n);
+		editor.commit();
+	}
+
+	public static int getNAdultReports() {
+		return sharedPreferences.getInt("N_ADULT_REPORTS", 0);
+	}
+
+	public static void setNAdultReports(int n) {
+		editor.putInt("N_ADULT_REPORTS", n);
+		editor.commit();
+	}
+
+	public static boolean getMailingOption() {
+		return sharedPreferences.getBoolean("MAILING_OPTION", false);
+	}
+
+	public static void setMailingOption(boolean m) {
+		editor.putBoolean("MAILING_OPTION", m);
+		editor.commit();
+	}
 
 	public static String getLanguage() {
 		return sharedPreferences.getString("LANGUAGE", "ca");
@@ -119,7 +144,6 @@ public class PropertyHolder {
 		editor.commit();
 	}
 
-	
 	public static long tripStartTime() {
 		return sharedPreferences.getLong("TRIP_START_TIME", 0);
 	}
@@ -129,7 +153,6 @@ public class PropertyHolder {
 		editor.commit();
 	}
 
-	
 	public static boolean uploadsNeeded() {
 		return sharedPreferences.getBoolean("UPLOADS_NEEDED", false);
 	}
@@ -139,8 +162,6 @@ public class PropertyHolder {
 		editor.commit();
 	}
 
-
-	
 	public static void setIntro(boolean intro) {
 		editor.putBoolean("INTRO", intro);
 		editor.commit();
@@ -163,8 +184,6 @@ public class PropertyHolder {
 		}
 		return interval;
 	}
-
-
 
 	/**
 	 * Checks if alarm service is scheduled to run the FixGet service/if the
@@ -192,12 +211,13 @@ public class PropertyHolder {
 	}
 
 	/**
-	 * Checks if a user is currently logged in to the DriverMapActivity application. Returns a
-	 * default value of <code>false</code> if the IS_REGISTERED flag has not
-	 * been explicitly set previously.
+	 * Checks if a user is currently logged in to the DriverMapActivity
+	 * application. Returns a default value of <code>false</code> if the
+	 * IS_REGISTERED flag has not been explicitly set previously.
 	 * 
-	 * @return <code>true</code> if a user is currently logged in to the DriverMapActivity
-	 *         application, <code>false</code> if no user is logged in.
+	 * @return <code>true</code> if a user is currently logged in to the
+	 *         DriverMapActivity application, <code>false</code> if no user is
+	 *         logged in.
 	 */
 	public static boolean isRegistered() {
 		return sharedPreferences.getBoolean("IS_REGISTERED", false);
@@ -258,7 +278,5 @@ public class PropertyHolder {
 		editor.putString("PK", _pk);
 		editor.commit();
 	}
-
-
 
 }

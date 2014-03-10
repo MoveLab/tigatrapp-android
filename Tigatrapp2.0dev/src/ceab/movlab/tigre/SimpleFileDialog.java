@@ -26,6 +26,7 @@ package ceab.movlab.tigre;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -223,7 +224,15 @@ public class SimpleFileDialog
 				else if (Select_type == FileSave || Select_type == FileOpen)
 				{
 					// Add file names to the list if we are doing a file save or file open operation
+					
+					
+					// Adding filter for iMAGES
+					
+					String ext = Util.getExtension(file);
+					String[] imageExtensions = {"jpg", "jpeg", "png", "gif"};
+					if(Arrays.asList(imageExtensions).contains(ext)){
 					dirs.add( file.getName() );
+					}
 				}
 			}
 		}

@@ -35,6 +35,9 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.BasicHttpEntity;
 import org.apache.http.impl.client.BasicResponseHandler;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.Context;
 
@@ -211,7 +214,40 @@ public class Report {
 			}
 		}
 	}
+	
+	
+	public JSONArray photoUris2JsonArray() {
 
+		JSONArray result = new JSONArray();
+
+		for (Photo p : this.photos) {
+			result.put(p.photoUri);
+		}
+		return result;
+	}
+
+
+	public JSONArray photos2JsonArray() {
+
+		JSONArray result = new JSONArray();
+
+		for (Photo p : this.photos) {
+			JSONObject jo = new JSONObject();
+			try {
+				jo.put("uri",p.photoUri);
+				jo.put("time", p.photoTime);
+			result.put(jo);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+		return result;
+	}
+
+
+	
 	public void addPhotosFromArrayList(String reportId,
 			ArrayList<String> photoArrayList) {
 		/*

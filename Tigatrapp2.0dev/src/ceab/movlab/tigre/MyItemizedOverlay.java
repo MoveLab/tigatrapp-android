@@ -21,20 +21,37 @@
 
 package ceab.movlab.tigre;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 
-import android.app.AlertDialog;
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.BaseAdapter;
+import android.widget.Button;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 import ceab.movlab.tigre.ContentProviderContractReports.Reports;
 
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.OverlayItem;
-
 
 /**
  * Overlay for map view
@@ -44,8 +61,8 @@ import com.google.android.maps.OverlayItem;
  */
 public class MyItemizedOverlay extends ItemizedOverlay {
 	Context mContext;
-	int thisItem; 
-	
+	int thisItem;
+
 	private ArrayList<MyOverlayItem> mOverlays = new ArrayList<MyOverlayItem>();
 
 	public MyItemizedOverlay(Drawable defaultMarker, Context context) {
@@ -68,62 +85,132 @@ public class MyItemizedOverlay extends ItemizedOverlay {
 	protected boolean onTap(int index) {
 		thisItem = index;
 		final MyOverlayItem item = mOverlays.get(index);
-		AlertDialog.Builder dialog = new AlertDialog.Builder(mContext);
-		dialog.setTitle(item.getTitle());
-		dialog.setMessage(item.getSnippet());
+		final Dialog dialog = new Dialog(mContext);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.map_item_info);
+		Util.overrideFonts(mContext, dialog.findViewById(android.R.id.content));
+
+		JSONArray jsonPhotosTry = new JSONArray();
+		if (item.photoUris != null) {
+			try {
+				jsonPhotosTry = new JSONArray(item.photoUris);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
+		final JSONArray jsonPhotos = jsonPhotosTry;
+
+		GridView gridview = (GridView) dialog.findViewById(R.id.gridview);
+		gridview.setAdapter(new PhotoGridAdapter(mContext, jsonPhotos));
+
+		gridview.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View v,
+					int position, long id) {
+
+				Uri thisUri;
+				if (jsonPhotos.length() > 0) {
+					try {
+						thisUri = Uri.parse(jsonPhotos.getString(position));
+						final Dialog dialog = new Dialog(mContext);
+						dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+						dialog.setContentView(R.layout.photo_view);
+						ImageView iv = (ImageView) dialog
+								.findViewById(R.id.photoView);
+						//TODO find better way of choosing max pixel size  -- based on screen
+						iv.setImageBitmap(Util.getSmallerBitmap(new File(jsonPhotos.getString(position)),
+								mContext, 300));
+						iv.setOnClickListener(new View.OnClickListener() {
+							public void onClick(View View3) {
+								dialog.dismiss();
+							}
+						});
+						dialog.setCanceledOnTouchOutside(true);
+						dialog.setCancelable(true);
+						dialog.show();
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+
+			}
+		});
+
 		dialog.setCancelable(true);
-		dialog.setNegativeButton("cancel", new DialogInterface.OnClickListener(){
-			@Override
-			public void onClick(DialogInterface d, int arg1) {
-				d.cancel();
-			};	
-		});
-		dialog.setNeutralButton("edit", new DialogInterface.OnClickListener(){
-			@Override
-			public void onClick(DialogInterface d, int arg1) {
-				Intent i = new Intent(mContext,
-						ReportTool.class);;
-				i.putExtra("type", item.getType());
-				i.putExtra("reportId", item.getReportId());
-				mContext.startActivity(i);
 
-			};	
-		});
-		
-		DialogInterface.OnClickListener ocl = new DialogInterface.OnClickListener(){
-			@Override
-			public void onClick(DialogInterface arg0, int arg1) {
-				String thisReportId = item.getReportId();
+		((TextView) dialog.findViewById(R.id.title)).setText(item.getTitle());
+		;
+		((TextView) dialog.findViewById(R.id.noteText)).setText(item
+				.getSnippet());
+		;
 
-				mOverlays.remove(thisItem);
-				ViewDataActivity.mapView.invalidate();
-				Util.toast(mContext, "Report "+thisReportId+" deleted.");
-				
-				ContentResolver cr = mContext.getContentResolver();				
-				ContentValues cv = new ContentValues();
-				String sc = Reports.KEY_REPORT_ID + " = '"
-						+ thisReportId + "'"; 
-				cv.put(Reports.KEY_DELETE_REPORT, 1);
-				cr.update(Reports.CONTENT_URI, cv, sc, null);
-				
-				//TODO sync deletion to server
-				
-				setLastFocusedIndex(-1);
-				populate();
-			};	
-		};
-		
-		dialog.setPositiveButton("delete", ocl);
+		((Button) dialog.findViewById(R.id.buttonDelete))
+				.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						String thisReportId = item.getReportId();
+
+						mOverlays.remove(thisItem);
+						ViewDataActivity.mapView.invalidate();
+						Util.toast(mContext, "Report deleted.");
+
+						ContentResolver cr = mContext.getContentResolver();
+						ContentValues cv = new ContentValues();
+						String sc = Reports.KEY_REPORT_ID + " = '"
+								+ thisReportId + "'";
+						cv.put(Reports.KEY_DELETE_REPORT, 1);
+						cr.update(Reports.CONTENT_URI, cv, sc, null);
+
+						// TODO sync deletion to server
+
+						setLastFocusedIndex(-1);
+						populate();
+						dialog.dismiss();
+
+					};
+				});
+
+		((Button) dialog.findViewById(R.id.buttonEdit))
+				.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						Intent i = new Intent(mContext, ReportTool.class);
+						;
+						i.putExtra("type", item.getType());
+						i.putExtra("reportId", item.getReportId());
+						mContext.startActivity(i);
+						dialog.dismiss();
+					};
+				});
+
+		((Button) dialog.findViewById(R.id.buttonCancel))
+				.setOnClickListener(new OnClickListener() {
+					@Override
+					public void onClick(View v) {
+						dialog.dismiss();
+					};
+				});
 		dialog.show();
 		return true;
 	}
 
 	public void addOverlay(MyOverlayItem overlay) {
 		mOverlays.add(overlay);
+
 	}
 
 	public void populateNow() {
 		populate();
 	}
+
 
 }

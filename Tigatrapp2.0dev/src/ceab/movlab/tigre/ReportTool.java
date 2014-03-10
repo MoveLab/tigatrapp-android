@@ -875,12 +875,16 @@ public class ReportTool extends Activity {
 
 		case (REQUEST_CODE_REPORT_RESPONSES): {
 			if (resultCode == RESULT_OK) {
+				
+				reportConfirmationCheck.setChecked(true);
 				if (data.hasExtra(Tasks.KEY_RESPONSES_JSON)) {
 					String responses = data
 							.getStringExtra(Tasks.KEY_RESPONSES_JSON);
 					// TODO change reports databse so all responses are stored
 					// as json strings. Store this response... upload.
 				}
+			} else{
+				reportConfirmationCheck.setChecked(false);							
 			}
 		}
 		}

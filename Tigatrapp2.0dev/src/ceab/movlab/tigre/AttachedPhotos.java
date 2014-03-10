@@ -1,14 +1,20 @@
 package ceab.movlab.tigre;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.ListActivity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,21 +27,28 @@ import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
+import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.ListView;
 
-public class AttachedPhotos extends ListActivity {
+public class AttachedPhotos extends Activity {
 
 	Context context = this;
 	ArrayList<String> thesePhotos;
 	File root;
 	File directory;
 	String photoFileName = "";
-	ArrayAdapter<String> adapter;
+	PhotoGridAdapter adapter;
 	Report tempReport;
 	Uri photoUri;
+	GridView gridview;
+
+	JSONArray jsonPhotos;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -90,54 +103,96 @@ public class AttachedPhotos extends ListActivity {
 		thesePhotos = new ArrayList<String>(Arrays.asList(tempReport
 				.photoUris2Array()));
 
-		adapter = new ArrayAdapter<String>(this, R.layout.list_item,
-				thesePhotos);
+		jsonPhotos = Util.StringArrayList2JsonArray(thesePhotos);
 
-		setListAdapter(adapter);
+		adapter = new PhotoGridAdapter(context, jsonPhotos);
 
-		getListView().setOnItemClickListener(
-				new AdapterView.OnItemClickListener() {
+		gridview = (GridView) findViewById(R.id.gridview);
+		gridview.setAdapter(adapter);
 
-					@Override
-					public void onItemClick(AdapterView<?> parent,
-							final View view, int position, long id) {
-						final String item = (String) parent
-								.getItemAtPosition(position);
-						final int pos = position;
-						final AlertDialog.Builder dialog = new AlertDialog.Builder(
-								context);
-						dialog.setTitle("Remove Attachment");
-						dialog.setMessage("Remove " + item
-								+ " from this report?");
+		gridview.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View v,
+					int position, long id) {
+
+				if (jsonPhotos.length() > 0) {
+					try {
+						final Dialog dialog = new Dialog(context);
+						dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+						dialog.setContentView(R.layout.photo_view);
+						ImageView iv = (ImageView) dialog
+								.findViewById(R.id.photoView);
+						//TODO find better way of choosing max pixel size  -- based on screen
+						iv.setImageBitmap(Util.getSmallerBitmap(new File(jsonPhotos.getString(position)),
+								context, 300));
+						iv.setOnClickListener(new View.OnClickListener() {
+							public void onClick(View View3) {
+								dialog.dismiss();
+							}
+						});
+						dialog.setCanceledOnTouchOutside(true);
 						dialog.setCancelable(true);
-						dialog.setPositiveButton("Remove",
-								new DialogInterface.OnClickListener() {
-									@Override
-									public void onClick(DialogInterface d,
-											int arg1) {
-										thesePhotos.remove(pos);
-										adapter.notifyDataSetChanged();
-										tempReport.photos.remove(pos);
-
-										d.dismiss();
-									}
-
-								});
-
-						dialog.setNegativeButton("Cancel",
-								new DialogInterface.OnClickListener() {
-									@Override
-									public void onClick(DialogInterface d,
-											int arg1) {
-										d.cancel();
-									};
-								});
-
 						dialog.show();
-
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (FileNotFoundException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
+				}
 
-				});
+			}
+		});
+
+		gridview.setOnItemLongClickListener(new OnItemLongClickListener() {
+			public boolean onItemLongClick(AdapterView<?> parent, View v,
+					int position, long id) {
+
+				final String item = (String) parent.getItemAtPosition(position);
+				final int pos = position;
+				final AlertDialog.Builder dialog = new AlertDialog.Builder(
+						context);
+				dialog.setTitle("Remove Attachment");
+				dialog.setMessage("Remove this photo" + item
+						+ " from this report?");
+				dialog.setCancelable(true);
+				dialog.setPositiveButton("Remove",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface d, int arg1) {
+								thesePhotos.remove(pos);
+								jsonPhotos = Util
+										.StringArrayList2JsonArray(thesePhotos);
+								// I realize this is ugly, but it is the
+								// quickest fix right now to get the grid
+								// updated...
+
+								adapter = new PhotoGridAdapter(context,
+										jsonPhotos);
+								gridview.setAdapter(adapter);
+								tempReport.photos.remove(pos);
+
+								d.dismiss();
+							}
+
+						});
+
+				dialog.setNegativeButton("Cancel",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface d, int arg1) {
+								d.cancel();
+							};
+						});
+
+				dialog.show();
+
+				return true;
+			}
+		});
 
 		Button takePhotoButton = (Button) findViewById(R.id.takePhotoButton);
 
@@ -164,7 +219,14 @@ public class AttachedPhotos extends ListActivity {
 								// when the dialog OK button is pushed
 								m_chosen = chosenDir;
 								thesePhotos.add(m_chosen);
-								adapter.notifyDataSetChanged();
+								jsonPhotos = Util
+										.StringArrayList2JsonArray(thesePhotos);
+								// I realize this is ugly, but it is the
+								// quickest fix right now to get the grid
+								// updated...
+								adapter = new PhotoGridAdapter(context,
+										jsonPhotos);
+								gridview.setAdapter(adapter);
 								tempReport.photos.add(new Photo(
 										tempReport.reportId,
 										tempReport.reportVersion, m_chosen,
@@ -223,6 +285,19 @@ public class AttachedPhotos extends ListActivity {
 	}
 
 	@Override
+	protected void onPause() {
+		int count = gridview.getCount();
+		for (int i = 0; i < count; i++) {
+			ImageView v = (ImageView) gridview.getChildAt(i);
+			if (v != null) {
+				if (v.getDrawable() != null)
+					v.getDrawable().setCallback(null);
+			}
+		}
+		super.onPause();
+	}
+
+	@Override
 	protected void onSaveInstanceState(Bundle icicle) {
 		super.onSaveInstanceState(icicle);
 		icicle.putString("reportId", tempReport.reportId);
@@ -253,11 +328,6 @@ public class AttachedPhotos extends ListActivity {
 				tempReport.photoTimes2Array());
 		icicle.putString("photoUri", photoUri.getPath());
 
-	}
-
-	@Override
-	public void onListItemClick(ListView l, View v, int position, long id) {
-		// Do something when a list item is clicked
 	}
 
 	private void dispatchTakePictureIntent(int actionCode) {
@@ -300,7 +370,14 @@ public class AttachedPhotos extends ListActivity {
 			if (resultCode == RESULT_OK && photoUri != null) {
 
 				thesePhotos.add(photoUri.getPath());
-				adapter.notifyDataSetChanged();
+				jsonPhotos = Util.StringArrayList2JsonArray(thesePhotos);
+
+				// I realize this is ugly, but it is the
+				// quickest fix right now to get the grid
+				// updated...
+				adapter = new PhotoGridAdapter(context, jsonPhotos);
+				gridview.setAdapter(adapter);
+
 				tempReport.photos.add(new Photo(tempReport.reportId,
 						tempReport.reportVersion, photoUri.getPath(), System
 								.currentTimeMillis(), Report.NO,

@@ -65,10 +65,9 @@ public class ContentProviderReports extends ContentProvider {
 	/** The SQL command to create the reportsTable */
 	private static final String DATABASE_CREATE = "create table reportsTable ("
 			+ Reports.KEY_ROW_ID + " integer primary key autoincrement" + COMMA
-			+ Reports.KEY_USER_ID + TYPE_TEXT + COMMA 
-			+ Reports.KEY_REPORT_ID + TYPE_TEXT + COMMA 
-			+ Reports.KEY_REPORT_VERSION + TYPE_INTEGER + COMMA 
-			+ Reports.KEY_REPORT_TIME + TYPE_INTEGER + COMMA
+			+ Reports.KEY_USER_ID + TYPE_TEXT + COMMA + Reports.KEY_REPORT_ID
+			+ TYPE_TEXT + COMMA + Reports.KEY_REPORT_VERSION + TYPE_INTEGER
+			+ COMMA + Reports.KEY_REPORT_TIME + TYPE_INTEGER + COMMA
 			+ Reports.KEY_VERSION_TIME + TYPE_INTEGER + COMMA
 			+ Reports.KEY_TYPE + TYPE_INTEGER + COMMA
 			+ Reports.KEY_CONFIRMATION + TYPE_INTEGER + COMMA
@@ -77,9 +76,9 @@ public class ContentProviderReports extends ContentProvider {
 			+ Reports.KEY_CURRENT_LOCATION_LAT + TYPE_REAL + COMMA
 			+ Reports.KEY_SELECTED_LOCATION_LON + TYPE_REAL + COMMA
 			+ Reports.KEY_SELECTED_LOCATION_LAT + TYPE_REAL + COMMA
-			+ Reports.KEY_PHOTO_ATTACHED + TYPE_INTEGER + COMMA 
-			+ Reports.KEY_NOTE + TYPE_TEXT + COMMA 
-			+ Reports.KEY_MAILING + TYPE_INTEGER + COMMA
+			+ Reports.KEY_PHOTO_ATTACHED + TYPE_INTEGER + COMMA
+			+ Reports.KEY_PHOTO_URIS + TYPE_TEXT + COMMA + Reports.KEY_NOTE
+			+ TYPE_TEXT + COMMA + Reports.KEY_MAILING + TYPE_INTEGER + COMMA
 			+ Reports.KEY_UPLOADED + TYPE_INTEGER + COMMA
 			+ Reports.KEY_SERVER_TIMESTAMP + TYPE_INTEGER + COMMA
 			+ Reports.KEY_DELETE_REPORT + TYPE_INTEGER + COMMA
@@ -109,7 +108,7 @@ public class ContentProviderReports extends ContentProvider {
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			db.execSQL(DATABASE_CREATE);
-			
+
 			Log.e(TAG, "DB create: " + DATABASE_CREATE);
 		}
 
@@ -154,6 +153,8 @@ public class ContentProviderReports extends ContentProvider {
 				Reports.KEY_SELECTED_LOCATION_LAT);
 		reportsProjectionMap.put(Reports.KEY_PHOTO_ATTACHED,
 				Reports.KEY_PHOTO_ATTACHED);
+		reportsProjectionMap
+				.put(Reports.KEY_PHOTO_URIS, Reports.KEY_PHOTO_URIS);
 		reportsProjectionMap.put(Reports.KEY_NOTE, Reports.KEY_NOTE);
 		reportsProjectionMap.put(Reports.KEY_MAILING, Reports.KEY_MAILING);
 		reportsProjectionMap.put(Reports.KEY_UPLOADED, Reports.KEY_UPLOADED);

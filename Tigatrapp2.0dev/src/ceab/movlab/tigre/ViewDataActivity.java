@@ -98,26 +98,15 @@ public class ViewDataActivity extends MapActivity {
 	GeoPoint nCenter;
 	GeoPoint currentCenter;
 
-
 	static boolean satToggle;
 
-	int BORDER_COLOR_MAP = 0xee4D2EFF;
-	int FILL_COLOR_MAP = 0x554D2EFF;
+	int ADULT_COLOR = 0xffd95f02;
 
-	int BORDER_COLOR_SAT = 0xeeD9FCFF;
-	int FILL_COLOR_SAT = 0xbbD9FCFF;
-
-	int[] PATHCOLORS = { 0xffDD1E2F, 0xffEBB035, 0xff06A2CB, 0xff218559,
-			0xffff0000, 0xff00ff00, 0xff0000ff, 0xff00ffff, 0xffff00ff,
-			0xffffff00 };
-
-	boolean drawConfidenceCircles = false;
+	int SITE_COLOR = 0xff7570b3;
 
 	ProgressBar progressbar;
 
-	ArrayList<MapPoint> mPoints;
-
-	static ArrayList<ArrayList<MapPoint>> mTrips;
+	ArrayList<GeoPoint> mPoints;
 
 	ArrayList<MyOverlayItem> mOverlaylist;
 
@@ -143,13 +132,11 @@ public class ViewDataActivity extends MapActivity {
 
 		// pauseToggle = !PropertyHolder.isServiceOn();
 
-		mPoints = new ArrayList<MapPoint>();
-		mTrips = new ArrayList<ArrayList<MapPoint>>();
+		mPoints = new ArrayList<GeoPoint>();
 		mOverlaylist = new ArrayList<MyOverlayItem>();
 
 		progressbar = (ProgressBar) findViewById(R.id.mapProgressbar);
 		progressbar.setProgress(0);
-
 
 	}
 
@@ -201,7 +188,6 @@ public class ViewDataActivity extends MapActivity {
 	}
 
 	static final private int TOGGLE_VIEW = Menu.FIRST + 2;
-	static final private int TOGGLE_CCS = Menu.FIRST + 3;
 	static final private int SAVE_MAP = Menu.FIRST + 4;
 	static final private int SHARE_MAP = Menu.FIRST + 5;
 
@@ -210,7 +196,6 @@ public class ViewDataActivity extends MapActivity {
 		super.onCreateOptionsMenu(menu);
 
 		menu.add(0, TOGGLE_VIEW, Menu.NONE, R.string.menu_toggle_view);
-		menu.add(0, TOGGLE_CCS, Menu.NONE, R.string.menu_toggle_ccs);
 		menu.add(0, SAVE_MAP, Menu.NONE, R.string.menu_map_save);
 		menu.add(0, SHARE_MAP, Menu.NONE, R.string.menu_map_share);
 
@@ -226,14 +211,6 @@ public class ViewDataActivity extends MapActivity {
 		case (TOGGLE_VIEW): {
 			satToggle = !satToggle;
 			mapView.setSatellite(satToggle);
-
-			return true;
-		}
-		case (TOGGLE_CCS): {
-
-			drawConfidenceCircles = !drawConfidenceCircles;
-
-			drawFixes(mOverlaylist, mTrips, satToggle, true, true);
 
 			return true;
 		}
@@ -255,9 +232,11 @@ public class ViewDataActivity extends MapActivity {
 	/*
 	 * Draw selected locations on map. Returns true if drawn; false otherwise.
 	 */
-	public boolean drawFixes(ArrayList<MyOverlayItem> overlaylist,
-			ArrayList<ArrayList<MapPoint>> tripdata, boolean sat,
-			boolean clearMapOverlays, boolean recenter) {
+	public boolean drawFixes(ArrayList<MyOverlayItem> myAdultReports,
+			ArrayList<MyOverlayItem> mySiteReports,
+			ArrayList<GeoPoint> othersAdultReports,
+			ArrayList<GeoPoint> othersSiteReports, boolean clearMapOverlays,
+			boolean recenter) {
 
 		// get mapview overlays
 		mapOverlays = mapView.getOverlays();
@@ -266,61 +245,41 @@ public class ViewDataActivity extends MapActivity {
 		if (clearMapOverlays)
 			mapOverlays.clear();
 
-		if (tripdata != null && tripdata.size() > 0) {
-
-			int tripN = 0;
-			for (ArrayList<MapPoint> data : tripdata) {
-
-				if (data != null && data.size() > 0) {
-
-					int nData = data.size();
-
-					// turn data into array
-					MapPoint[] dataArray = new MapPoint[nData];
-
-					int i = 0;
-					for (MapPoint p : data) {
-						dataArray[i] = p.copy();
-						i++;
-					}
-
-					// set colors depending on satellite background
-					int BC = sat ? BORDER_COLOR_SAT : BORDER_COLOR_MAP;
-					int FC = sat ? FILL_COLOR_SAT : FILL_COLOR_MAP;
-
-					mapOverlays.add(new MapOverlay(BC, FC, PATHCOLORS[tripN
-							% PATHCOLORS.length], dataArray));
-
-					currentCenter = new GeoPoint(dataArray[nData - 1].lat,
-							dataArray[nData - 1].lon);
-				}
-				tripN++;
-
-			}
-
+		if (othersAdultReports != null && othersAdultReports.size() > 0) {
+			mapOverlays.add(new MapOverlay(ADULT_COLOR,
+					othersAdultReports.toArray(new GeoPoint[othersAdultReports.size()])));
+		}
+		if (othersSiteReports != null && othersSiteReports.size() > 0) {
+			mapOverlays.add(new MapOverlay(SITE_COLOR,
+					othersSiteReports.toArray(new GeoPoint[othersSiteReports.size()])));
 		}
 
-		if (overlaylist != null && overlaylist.size() > 0) {
+		if (myAdultReports != null && myAdultReports.size() > 0) {
 			Drawable drawable = this.getResources().getDrawable(
 					R.drawable.report_icon_yellow);
 			MyItemizedOverlay itemizedoverlay = new MyItemizedOverlay(drawable,
 					this);
-			for (MyOverlayItem oli : overlaylist) {
+			for (MyOverlayItem oli : myAdultReports) {
 				itemizedoverlay.addOverlay(oli);
-				
-				if(currentCenter == null){
-					currentCenter = oli.getPoint();
-				}
 			}
-
 			itemizedoverlay.populateNow();
 			mapOverlays.add(itemizedoverlay);
-
 		}
-		
+
+		if (mySiteReports != null && mySiteReports.size() > 0) {
+			Drawable drawable = this.getResources().getDrawable(
+					R.drawable.new_fix_pin);
+			MyItemizedOverlay itemizedoverlay = new MyItemizedOverlay(drawable,
+					this);
+			for (MyOverlayItem oli : mySiteReports) {
+				itemizedoverlay.addOverlay(oli);
+			}
+			itemizedoverlay.populateNow();
+			mapOverlays.add(itemizedoverlay);
+		}
+
 		if (recenter && currentCenter != null)
 			myMapController.animateTo(currentCenter);
-
 
 		mapView.postInvalidate();
 
@@ -420,164 +379,60 @@ public class ViewDataActivity extends MapActivity {
 	}
 
 	class MapOverlay extends Overlay {
-
-		private Paint mPaintBorder;
-		private Paint mPaintFill;
-
-		private Paint mPaintPath;
 		private Paint mPaintPoint;
 		private Paint mPaintPointBorder;
 		private Paint mPaintPointDot;
+		private GeoPoint[] pointsToDraw;
 
-		private Bitmap normalfixPin;
-		private Bitmap currentfixPin;
-		private Bitmap startfixPin;
-
-		private MapPoint[] pointsToDraw;
-		private MapPoint[] pointsToDrawNormalIcons;
-
-		MapOverlay(int border, int fill, int pathcolor, MapPoint[] points) {
-			mPaintBorder = new Paint();
-			mPaintBorder.setStyle(Paint.Style.STROKE);
-			mPaintBorder.setAntiAlias(true);
-			mPaintBorder.setColor(border);
-			mPaintFill = new Paint();
-			mPaintFill.setStyle(Paint.Style.FILL);
-			mPaintFill.setColor(fill);
-
-			mPaintPath = new Paint();
-			mPaintPath.setStyle(Paint.Style.STROKE);
-			mPaintPath.setStrokeWidth(4);
-			mPaintPath.setShadowLayer(6, 3, 3, 0xff000000);
-			mPaintPath.setColor(pathcolor);
-			mPaintPath.setAntiAlias(true);
-
+		MapOverlay(int color, GeoPoint[] points) {
 			mPaintPoint = new Paint();
 			mPaintPoint.setStyle(Paint.Style.FILL);
 			mPaintPoint.setShadowLayer(6, 3, 3, 0xff000000);
-			mPaintPoint.setColor(pathcolor);
+			mPaintPoint.setColor(color);
 			mPaintPoint.setAntiAlias(true);
-
 			mPaintPointBorder = new Paint();
 			mPaintPointBorder.setStyle(Paint.Style.STROKE);
 			mPaintPointBorder.setColor(Color.BLACK);
 			mPaintPointBorder.setAntiAlias(true);
-
 			mPaintPointDot = new Paint();
 			mPaintPointDot.setStyle(Paint.Style.FILL);
 			mPaintPointDot.setColor(Color.BLACK);
 			mPaintPointDot.setAntiAlias(true);
-
-			normalfixPin = BitmapFactory.decodeResource(getResources(),
-					R.drawable.old_fix_pin);
-
-			currentfixPin = BitmapFactory.decodeResource(getResources(),
-					R.drawable.new_fix_pin);
-
-			startfixPin = BitmapFactory.decodeResource(getResources(),
-					R.drawable.start_pin);
-
 			this.setPointsToDraw(points);
 		}
 
-		public void setPointsToDraw(MapPoint[] points) {
+		public void setPointsToDraw(GeoPoint[] points) {
 			pointsToDraw = points;
-
-			if (points != null && points.length > 2) {
-
-				pointsToDrawNormalIcons = new MapPoint[points.length - 2];
-
-				for (int i = 1; i < (points.length - 1); i++) {
-					pointsToDrawNormalIcons[i - 1] = points[i];
-				}
-
-			}
-
 		}
 
-		public MapPoint[] getPointsToDraw() {
+		public GeoPoint[] getPointsToDraw() {
 			return pointsToDraw;
 		}
 
 		@Override
 		public void draw(Canvas canvas, MapView mapView, boolean shadow) {
 			super.draw(canvas, mapView, shadow);
-
 			if (shadow || pointsToDraw == null || pointsToDraw.length == 0)
 				return;
-
-			// first draw path
-			Path path = new Path();
-
-			MapPoint p0 = pointsToDraw[0];
-			Point screenPt0 = new Point();
-			GeoPoint pointToDraw0 = new GeoPoint(p0.lat, p0.lon);
-			mapView.getProjection().toPixels(pointToDraw0, screenPt0);
-
-			path.moveTo(screenPt0.x, screenPt0.y);
-
-			for (MapPoint p : pointsToDraw) {
+			for (GeoPoint p : pointsToDraw) {
 				// convert point to pixels
 				Point screenPts = new Point();
-				GeoPoint pointToDraw = new GeoPoint(p.lat, p.lon);
+				GeoPoint pointToDraw = new GeoPoint(p.getLatitudeE6(),
+						p.getLongitudeE6());
 				mapView.getProjection().toPixels(pointToDraw, screenPts);
-				path.lineTo(screenPts.x, screenPts.y);
-				int pointradius = (int) mapView.getProjection()
+				int pointRadius = (int) mapView.getProjection()
 						.metersToEquatorPixels(5);
-				canvas.drawCircle(screenPts.x, screenPts.y, pointradius,
+				int dotRadius = (int) mapView.getProjection()
+						.metersToEquatorPixels(2);
+				canvas.drawCircle(screenPts.x, screenPts.y, pointRadius,
 						mPaintPoint);
-
-				if (drawConfidenceCircles) {
-
-					int radius = (int) mapView.getProjection()
-							.metersToEquatorPixels(p.acc);
-					canvas.drawCircle(screenPts.x, screenPts.y, radius,
-							mPaintBorder);
-					canvas.drawCircle(screenPts.x, screenPts.y, radius,
-							mPaintFill);
-
-				}
-
-			}
-
-			canvas.drawPath(path, mPaintPath);
-
-			// draw start and stop points as unique dots
-
-			int ssPointRadius = 6;
-			int ssDotRadius = 2;
-
-			MapPoint sp = pointsToDraw[0];
-			Point screenPtsSp = new Point();
-			GeoPoint pointToDrawSp = new GeoPoint(sp.lat, sp.lon);
-			mapView.getProjection().toPixels(pointToDrawSp, screenPtsSp);
-
-			canvas.drawCircle(screenPtsSp.x, screenPtsSp.y, ssPointRadius,
-					mPaintPoint);
-			canvas.drawCircle(screenPtsSp.x, screenPtsSp.y, ssPointRadius,
-					mPaintPointBorder);
-			canvas.drawCircle(screenPtsSp.x, screenPtsSp.y, ssDotRadius,
-					mPaintPointDot);
-
-			// if there is more than one point, draw the current point as unique
-			// icon
-			if (pointsToDraw.length > 1) {
-				MapPoint cp = pointsToDraw[pointsToDraw.length - 1];
-				Point screenPtsCp = new Point();
-				GeoPoint pointToDrawCp = new GeoPoint(cp.lat, cp.lon);
-				mapView.getProjection().toPixels(pointToDrawCp, screenPtsCp);
-				canvas.drawCircle(screenPtsCp.x, screenPtsCp.y, ssPointRadius,
-						mPaintPoint);
-				canvas.drawCircle(screenPtsCp.x, screenPtsCp.y, ssPointRadius,
+				canvas.drawCircle(screenPts.x, screenPts.y, pointRadius,
 						mPaintPointBorder);
-				canvas.drawCircle(screenPtsCp.x, screenPtsCp.y, ssDotRadius,
+				canvas.drawCircle(screenPts.x, screenPts.y, dotRadius,
 						mPaintPointDot);
-
 			}
-
 			return;
 		}
-
 	}
 
 	public class DataGrabberTask extends AsyncTask<Context, Integer, Boolean> {
@@ -586,13 +441,10 @@ public class ViewDataActivity extends MapActivity {
 
 		int nFixes;
 
-		ArrayList<MapPoint> results = new ArrayList<MapPoint>();
-
-		TripsArray tripResults;
-
-		ArrayList<String> tripids = new ArrayList<String>();
-
-		ArrayList<MyOverlayItem> overlaylist = new ArrayList<MyOverlayItem>();
+		ArrayList<MyOverlayItem> myAdultOverlaylist = new ArrayList<MyOverlayItem>();
+		ArrayList<MyOverlayItem> mySiteOverlaylist = new ArrayList<MyOverlayItem>();
+		ArrayList<GeoPoint> othersAdultReports = new ArrayList<GeoPoint>();
+		ArrayList<GeoPoint> othersSiteReports = new ArrayList<GeoPoint>();
 
 		GeoPoint center;
 
@@ -605,75 +457,88 @@ public class ViewDataActivity extends MapActivity {
 		protected Boolean doInBackground(Context... context) {
 
 			ContentResolver cr = getContentResolver();
-			Cursor c = cr.query(Reports.CONTENT_URI, Reports.KEYS_ALL, null, null,
-					null);
+			Cursor c = cr.query(Reports.CONTENT_URI, Reports.KEYS_ALL, null,
+					null, null);
 
 			if (c.moveToFirst()) {
+				int deleteReportCol = c
+						.getColumnIndexOrThrow(Reports.KEY_DELETE_REPORT);
+				int latestVersionCol = c
+						.getColumnIndexOrThrow(Reports.KEY_LATEST_VERSION);
+				int rowIdCol = c.getColumnIndexOrThrow(Reports.KEY_ROW_ID);
+				int userIdCol = c.getColumnIndexOrThrow(Reports.KEY_USER_ID);
+				int reportIdCol = c
+						.getColumnIndexOrThrow(Reports.KEY_REPORT_ID);
+				int reportTimeCol = c
+						.getColumnIndexOrThrow(Reports.KEY_REPORT_TIME);
+				int reportVersionCol = c
+						.getColumnIndexOrThrow(Reports.KEY_REPORT_VERSION);
+				int typeCol = c.getColumnIndexOrThrow(Reports.KEY_TYPE);
+				int confirmationCol = c
+						.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION);
+				int locationChoiceCol = c
+						.getColumnIndexOrThrow(Reports.KEY_LOCATION_CHOICE);
+				int currentLocationLonCol = c
+						.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LON);
+				int currentLocationLatCol = c
+						.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LAT);
+				int selectedLocationLonCol = c
+						.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LON);
+				int selectedLocationLatCol = c
+						.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LAT);
+				int noteCol = c.getColumnIndexOrThrow(Reports.KEY_NOTE);
+				int mailingCol = c.getColumnIndexOrThrow(Reports.KEY_MAILING);
+				int photoAttachedCol = c
+						.getColumnIndexOrThrow(Reports.KEY_PHOTO_ATTACHED);
+				int photoUrisCol = c
+						.getColumnIndexOrThrow(Reports.KEY_PHOTO_URIS);
+				int uploadedCol = c.getColumnIndexOrThrow(Reports.KEY_UPLOADED);
+				int serverTimestampCol = c
+						.getColumnIndexOrThrow(Reports.KEY_SERVER_TIMESTAMP);
+				int locationChoice = c.getInt(locationChoiceCol);
 
 				while (!c.isAfterLast()) {
 
-					int deleteReportCol = c.
-							getColumnIndexOrThrow(Reports.KEY_DELETE_REPORT);
-					
-					if(c.getInt(deleteReportCol)==0){
-					
-						int rowIdCol = c.getColumnIndexOrThrow(Reports.KEY_ROW_ID);
-						int userIdCol = c.getColumnIndexOrThrow(Reports.KEY_USER_ID);
-						int reportIdCol = c.getColumnIndexOrThrow(Reports.KEY_REPORT_ID);
-						int reportTimeCol = c
-								.getColumnIndexOrThrow(Reports.KEY_REPORT_TIME);
-						int reportVersionCol = c
-								.getColumnIndexOrThrow(Reports.KEY_REPORT_VERSION);
-						int typeCol = c.getColumnIndexOrThrow(Reports.KEY_TYPE);
-						int confirmationCol = c
-								.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION);
-						int locationChoiceCol = c
-								.getColumnIndexOrThrow(Reports.KEY_LOCATION_CHOICE);
-						int currentLocationLonCol = c
-								.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LON);
-						int currentLocationLatCol = c
-								.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LAT);
-						int selectedLocationLonCol = c
-								.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LON);
-						int selectedLocationLatCol = c
-								.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LAT);
-						int noteCol = c.getColumnIndexOrThrow(Reports.KEY_NOTE);
-						int mailingCol = c.getColumnIndexOrThrow(Reports.KEY_MAILING);
-						int photoAttachedCol = c
-								.getColumnIndexOrThrow(Reports.KEY_PHOTO_ATTACHED);
-						int uploadedCol = c.getColumnIndexOrThrow(Reports.KEY_UPLOADED);
-						int serverTimestampCol = c
-								.getColumnIndexOrThrow(Reports.KEY_SERVER_TIMESTAMP);
-						int latestVersionCol = c
-								.getColumnIndexOrThrow(Reports.KEY_LATEST_VERSION);
+					if (c.getInt(deleteReportCol) == 0
+							&& c.getInt(latestVersionCol) == 1) {
+						Double geoLat = c
+								.getDouble(locationChoice == Report.LOCATION_CHOICE_SELECTED ? selectedLocationLatCol
+										: currentLocationLatCol) * 1E6;
+						Double geoLon = c
+								.getDouble(locationChoice == Report.LOCATION_CHOICE_SELECTED ? selectedLocationLonCol
+										: currentLocationLonCol) * 1E6;
+						GeoPoint point = new GeoPoint(geoLat.intValue(),
+								geoLon.intValue());
 
-					int locationChoice = c.getInt(locationChoiceCol);
+						final int thisType = c.getInt(typeCol);
 
-					Double geoLat = c
-							.getDouble(locationChoice==1 ? selectedLocationLatCol
-									: currentLocationLatCol) * 1E6;
-					Double geoLon = c
-							.getDouble(locationChoice==1 ? selectedLocationLonCol
-									: currentLocationLonCol) * 1E6;
-
-					GeoPoint point = new GeoPoint(geoLat.intValue(),
-							geoLon.intValue());
-
-					MyOverlayItem overlayitem = new MyOverlayItem(point,
-							"Tigre troballa: codi " + c.getString(reportIdCol),
-							Util.userDate(new Date(c.getLong(reportTimeCol))), 
-							c.getString(reportIdCol), c.getInt(typeCol));
-					overlaylist.add(overlayitem);
+						if (c.getString(userIdCol).equals(PropertyHolder
+								.getUserId())) {
+							MyOverlayItem overlayitem = new MyOverlayItem(
+									point,
+									(thisType == Report.TYPE_ADULT ? "Adult Report"
+											: "Breeding Site Report")
+											+ "\n"
+											+ Util.userDate(new Date(c
+													.getLong(reportTimeCol))),
+									c.getString(noteCol),
+									c.getString(reportIdCol), c.getInt(typeCol), c.getString(photoUrisCol));
+							if (thisType == Report.TYPE_ADULT)
+								myAdultOverlaylist.add(overlayitem);
+							else
+								mySiteOverlaylist.add(overlayitem);
+						} else {
+							if (thisType == Report.TYPE_ADULT)
+								othersAdultReports.add(point);
+							else
+								othersSiteReports.add(point);
+						}
 					}
 					c.moveToNext();
-
 				}
-
 			}
 			c.close();
-
 			return true;
-
 		}
 
 		protected void onProgressUpdate(Integer... progress) {
@@ -681,55 +546,14 @@ public class ViewDataActivity extends MapActivity {
 		}
 
 		protected void onPostExecute(Boolean result) {
-
 			if (result) {
-
-				if (overlaylist != null && overlaylist.size() > 0) {
-					for (MyOverlayItem oli : overlaylist) {
-						mOverlaylist.add(oli);
-					}
-				}
-				drawFixes(mOverlaylist, mTrips, satToggle, true, true);
-
+				drawFixes(myAdultOverlaylist, mySiteOverlaylist,
+						othersAdultReports, othersSiteReports, true, true);
 			}
-
 			progressbar.setVisibility(View.INVISIBLE);
-
 			loadingData = false;
-
 		}
 
 	}
 
-	public class MapPointArrayList {
-
-		ArrayList<MapPoint> al;
-
-		public MapPointArrayList() {
-
-			al = new ArrayList<MapPoint>();
-		}
-
-	}
-
-	public class TripsArray {
-
-		MapPointArrayList[] mpal;
-
-		public TripsArray(int size) {
-
-			mpal = new MapPointArrayList[size];
-
-			for (int i = 0; i < size; i++) {
-				mpal[i] = new MapPointArrayList();
-			}
-
-		}
-	}
-
-	public void reDrawFixes(ArrayList<MyOverlayItem> overlaylist){
-			drawFixes(overlaylist, mTrips, satToggle, true, true);
-	}
-	
-	
 }

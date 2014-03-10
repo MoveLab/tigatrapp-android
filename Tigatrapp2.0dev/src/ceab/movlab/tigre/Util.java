@@ -69,6 +69,9 @@ import java.io.BufferedInputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -80,6 +83,7 @@ import java.security.PublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.crypto.BadPaddingException;
@@ -87,6 +91,7 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -95,6 +100,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -405,6 +412,7 @@ public class Util {
 		final ImageView mImage = (ImageView) dialog
 				.findViewById(R.id.checkHelpImage);
 		mImage.setImageResource(image);
+		dialog.setCanceledOnTouchOutside(true);
 		dialog.show();
 	}
 
@@ -784,6 +792,66 @@ public class Util {
 			}
 		}
 		return result;
+	}
+
+	public static JSONArray StringArrayList2JsonArray(
+			ArrayList<String> arrayList) {
+		JSONArray result = new JSONArray();
+		for (String e : arrayList) {
+			result.put(e);
+		}
+		return result;
+	}
+
+	public static String getExtension(File f) {
+		String ext = null;
+		String s = f.getName();
+		int i = s.lastIndexOf('.');
+
+		if (i > 0 && i < s.length() - 1) {
+			ext = s.substring(i + 1).toLowerCase();
+		}
+		return ext;
+	}
+
+	public static Bitmap getSmallerBitmap(File file, Context context,
+			int pixelSize) throws FileNotFoundException, IOException {
+		
+		
+		FileInputStream input = new FileInputStream(file);
+
+		BitmapFactory.Options onlyBoundsOptions = new BitmapFactory.Options();
+		onlyBoundsOptions.inJustDecodeBounds = true;
+		onlyBoundsOptions.inDither = true;// optional
+		onlyBoundsOptions.inPreferredConfig = Bitmap.Config.ARGB_8888;// optional
+		BitmapFactory.decodeStream(input, null, onlyBoundsOptions);
+		input.close();
+		if ((onlyBoundsOptions.outWidth == -1)
+				|| (onlyBoundsOptions.outHeight == -1))
+			return null;
+
+		int originalSize = (onlyBoundsOptions.outHeight > onlyBoundsOptions.outWidth) ? onlyBoundsOptions.outHeight
+				: onlyBoundsOptions.outWidth;
+
+		double ratio = (originalSize > pixelSize) ? (originalSize / pixelSize)
+				: 1.0;
+
+		BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
+		bitmapOptions.inSampleSize = getPowerOfTwoForSampleRatio(ratio);
+		bitmapOptions.inDither = true;// optional
+		bitmapOptions.inPreferredConfig = Bitmap.Config.ARGB_8888;// optional
+		input = new FileInputStream(file);
+		Bitmap bitmap = BitmapFactory.decodeStream(input, null, bitmapOptions);
+		input.close();
+		return bitmap;
+	}
+
+	private static int getPowerOfTwoForSampleRatio(double ratio) {
+		int k = Integer.highestOneBit((int) Math.floor(ratio));
+		if (k == 0)
+			return 1;
+		else
+			return k;
 	}
 
 }

@@ -37,6 +37,7 @@
         android:background="@color/white" />
 
     <ScrollView
+        android:id="@+id/noteScroll"
         android:layout_width="fill_parent"
         android:layout_height="0dip"
         android:layout_weight="1" >

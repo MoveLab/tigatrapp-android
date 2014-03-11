@@ -38,16 +38,14 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 import ceab.movlab.tigre.ContentProviderContractReports.Reports;
 
 import com.google.android.maps.ItemizedOverlay;
@@ -118,9 +116,10 @@ public class MyItemizedOverlay extends ItemizedOverlay {
 						dialog.setContentView(R.layout.photo_view);
 						ImageView iv = (ImageView) dialog
 								.findViewById(R.id.photoView);
-						//TODO find better way of choosing max pixel size  -- based on screen
-						iv.setImageBitmap(Util.getSmallerBitmap(new File(jsonPhotos.getString(position)),
-								mContext, 300));
+						// TODO find better way of choosing max pixel size --
+						// based on screen
+						iv.setImageBitmap(Util.getSmallerBitmap(new File(
+								jsonPhotos.getString(position)), mContext, 300));
 						iv.setOnClickListener(new View.OnClickListener() {
 							public void onClick(View View3) {
 								dialog.dismiss();
@@ -147,10 +146,14 @@ public class MyItemizedOverlay extends ItemizedOverlay {
 		dialog.setCancelable(true);
 
 		((TextView) dialog.findViewById(R.id.title)).setText(item.getTitle());
-		;
-		((TextView) dialog.findViewById(R.id.noteText)).setText(item
-				.getSnippet());
-		;
+
+		if (item.getSnippet() != null && item.getSnippet().length() > 0) {
+			((TextView) dialog.findViewById(R.id.noteText)).setText(item
+					.getSnippet());
+		} else {
+			((ScrollView) dialog.findViewById(R.id.noteScroll))
+					.setVisibility(View.GONE);
+		}
 
 		((Button) dialog.findViewById(R.id.buttonDelete))
 				.setOnClickListener(new OnClickListener() {
@@ -184,7 +187,7 @@ public class MyItemizedOverlay extends ItemizedOverlay {
 					@Override
 					public void onClick(View v) {
 						Intent i = new Intent(mContext, ReportTool.class);
-						;
+						
 						i.putExtra("type", item.getType());
 						i.putExtra("reportId", item.getReportId());
 						mContext.startActivity(i);
@@ -211,6 +214,5 @@ public class MyItemizedOverlay extends ItemizedOverlay {
 	public void populateNow() {
 		populate();
 	}
-
 
 }

@@ -101,8 +101,8 @@ public class ViewDataActivity extends MapActivity {
 
 	int SITE_COLOR = 0xff7570b3;
 
-	LayerDrawable siteMarker;
-	LayerDrawable adultMarker;
+	MarkerDrawable siteMarker;
+	MarkerDrawable adultMarker;
 
 	ProgressBar progressbar;
 
@@ -138,33 +138,9 @@ public class ViewDataActivity extends MapActivity {
 		progressbar = (ProgressBar) findViewById(R.id.mapProgressbar);
 		progressbar.setProgress(0);
 
+		adultMarker = new MarkerDrawable(context, ADULT_COLOR);
+		siteMarker = new MarkerDrawable(context, SITE_COLOR);
 
-		ShapeDrawable adultMarkerBorder = new ShapeDrawable(new OvalShape());
-		adultMarkerBorder.getPaint().setColor(Color.BLACK);
-		adultMarkerBorder.getPaint().setStyle(Paint.Style.FILL);;
-		adultMarkerBorder.setBounds(0, 0, 10, 10);
-		ShapeDrawable adultMarkerFill = new ShapeDrawable(new OvalShape());
-		adultMarkerFill.getPaint().setColor(ADULT_COLOR);
-		adultMarkerFill.getPaint().setStyle(Paint.Style.FILL);;
-		adultMarkerFill.setBounds(0, 0, 10, 10);
-
-		Drawable[] ad = {adultMarkerFill, adultMarkerBorder};
-		adultMarker = new LayerDrawable(ad);
-
-		ShapeDrawable siteMarkerBorder = new ShapeDrawable(new OvalShape());
-		siteMarkerBorder.getPaint().setColor(Color.BLACK);
-		siteMarkerBorder.getPaint().setStyle(Paint.Style.FILL);;
-		siteMarkerBorder.setBounds(0, 0, 10, 10);
-		ShapeDrawable siteMarkerFill = new ShapeDrawable(new OvalShape());
-		siteMarkerFill.getPaint().setColor(SITE_COLOR);
-		siteMarkerFill.getPaint().setStyle(Paint.Style.FILL);;
-		siteMarkerFill.setBounds(0, 0, 10, 10);
-
-		Drawable[] sd = {adultMarkerFill, adultMarkerBorder};
-		siteMarker = new LayerDrawable(ad);
-
-		
-		
 	}
 
 	@Override

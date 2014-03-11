@@ -102,9 +102,16 @@ import android.content.IntentFilter;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
@@ -854,4 +861,41 @@ public class Util {
 			return k;
 	}
 
+	  public static LayerDrawable createMarker(int color){  
+		  		  
+			ShapeDrawable border = new ShapeDrawable(new OvalShape());
+			border.getPaint().setColor(Color.BLACK);
+			border.getPaint().setStyle(Paint.Style.STROKE);;
+			border.setBounds(0, 0, 80, 80);
+			ShapeDrawable fill = new ShapeDrawable(new OvalShape());
+			fill.getPaint().setColor(Color.BLACK);
+			fill.getPaint().setStyle(Paint.Style.FILL);;
+			fill.setBounds(0, 0, 80, 80);
+			Drawable drawableArray[] = new Drawable[]{fill, border};
+		     LayerDrawable layerDraw = new LayerDrawable(drawableArray);  
+		//     layerDraw.setLayerInset(0, 15, 15, 0, 0);//set offset of first layer  
+		 //    layerDraw.setLayerInset(1,40,40,0,0);//set offset for second layer  
+		     return layerDraw;  
+		   }  
+
+
+	  public static Drawable createMarker2(int color){  
+		  		  
+			ShapeDrawable border = new ShapeDrawable(new OvalShape());
+			border.getPaint().setColor(Color.BLACK);
+			border.getPaint().setStyle(Paint.Style.STROKE);;
+			border.setBounds(0, 0, 80, 80);
+			ShapeDrawable fill = new ShapeDrawable(new OvalShape());
+			fill.getPaint().setColor(Color.BLACK);
+			fill.getPaint().setStyle(Paint.Style.FILL);;
+			fill.setBounds(0, 0, 80, 80);
+			Drawable drawableArray[] = new Drawable[]{fill, border};
+		     LayerDrawable layerDraw = new LayerDrawable(drawableArray);  
+		     layerDraw.setBounds(0,0,80,80);
+		//     layerDraw.setLayerInset(0, 15, 15, 0, 0);//set offset of first layer  
+		 //    layerDraw.setLayerInset(1,40,40,0,0);//set offset for second layer  
+		     return fill;  
+		   }  
+
+	  
 }

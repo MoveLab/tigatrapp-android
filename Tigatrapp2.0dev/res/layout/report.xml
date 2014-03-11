@@ -135,7 +135,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:clickable="false"
-                    android:src="@drawable/ic_action_location_searching" />
+                    android:src="@drawable/ic_action_location_off" />
             </RelativeLayout>
 
             <View

@@ -208,10 +208,6 @@ public class ReportTool extends Activity {
 				int latestVersionCol = c
 						.getColumnIndexOrThrow(Reports.KEY_LATEST_VERSION);
 
-				Util.toast(
-						context,
-						c.getString(reportIdCol) + " "
-								+ c.getInt(reportVersionCol));
 
 				// note that we increment the version number here
 				thisReport = new Report(c.getString(userIdCol),
@@ -299,8 +295,7 @@ public class ReportTool extends Activity {
 		reportSubmitButtonLabel = (TextView) findViewById(R.id.reportSubmitButtonLabel);
 
 		if (editing) {
-			reportTitle.setText("Edit Report " + thisReport.reportId
-					+ " created on "
+			reportTitle.setText("Edit " + (type==Report.TYPE_BREEDING_SITE?"Site":"Adult")+ " Report" +  "\n" + "created on "
 					+ Util.userDate(new Date((thisReport.reportTime))));
 
 			reportSubmitButtonLabel.setText("Update");
@@ -517,29 +512,6 @@ public class ReportTool extends Activity {
 		reportNoteCheck.setChecked(thisReport.note != null);
 		reportMailingCheck.setChecked(thisReport.mailing == Report.YES);
 
-		if (currentLocation == null) {
-
-			if (!gpsAvailable && !networkLocationAvailable) {
-
-				reportCurrentLocationImage.setBackgroundDrawable(getResources()
-						.getDrawable(R.drawable.ic_action_location_off));
-
-			} else {
-
-				reportCurrentLocationImage.setBackgroundDrawable(getResources()
-						.getDrawable(R.drawable.ic_action_location_searching));
-				Animation blink = new AlphaAnimation(0.0f, 1.0f);
-				blink.setDuration(300);
-				blink.setStartOffset(20);
-				blink.setRepeatMode(Animation.REVERSE);
-				blink.setRepeatCount(Animation.INFINITE);
-				reportCurrentLocationImage.startAnimation(blink);
-			}
-		} else {
-			reportCurrentLocationImage.setBackgroundDrawable(getResources()
-					.getDrawable(R.drawable.ic_action_location_found));
-		}
-
 		mSendRep = (ImageButton) findViewById(R.id.buttonReportSubmit);
 
 		mSendRep.setOnClickListener(new View.OnClickListener() {
@@ -729,10 +701,29 @@ public class ReportTool extends Activity {
 			networkLocationAvailable = true;
 		}
 
-		// if (!gpsAvailable && !networkLocationAvailable) {
-		// buildAlertMessageNoGpsNoNet(getResources().getString(
-		// R.string.noGPSnoNetAlert));
-		// }
+		if (currentLocation == null) {
+
+			if (!gpsAvailable && !networkLocationAvailable) {
+
+				reportCurrentLocationImage.setBackgroundDrawable(getResources()
+						.getDrawable(R.drawable.ic_action_location_off));
+
+			} else {
+
+				reportCurrentLocationImage.setBackgroundDrawable(getResources()
+						.getDrawable(R.drawable.ic_action_location_searching));
+				Animation blink = new AlphaAnimation(0.0f, 1.0f);
+				blink.setDuration(300);
+				blink.setStartOffset(20);
+				blink.setRepeatMode(Animation.REVERSE);
+				blink.setRepeatCount(Animation.INFINITE);
+				reportCurrentLocationImage.startAnimation(blink);
+			}
+		} else {
+			reportCurrentLocationImage.setBackgroundDrawable(getResources()
+					.getDrawable(R.drawable.ic_action_location_found));
+		}
+
 		super.onResume();
 	}
 

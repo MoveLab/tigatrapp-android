@@ -1,22 +1,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/buttons"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="10dip" >
+    android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/buttonLeft"
-        android:layout_width="0dp"
+    <LinearLayout
+        android:id="@+id/buttons"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="Left Button" />
+        android:orientation="horizontal"
+        android:paddingBottom="10dip"
+        android:paddingLeft="10dip"
+        android:paddingRight="10dip"
+        android:paddingTop="16dip" >
 
-    <Button
-        android:id="@+id/buttonRight"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="@string/cancel" />
+        <Button
+            android:id="@+id/buttonLeft"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Left Button" />
+
+        <Button
+            android:id="@+id/buttonRight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/cancel" />
+    </LinearLayout>
 
 </LinearLayout>

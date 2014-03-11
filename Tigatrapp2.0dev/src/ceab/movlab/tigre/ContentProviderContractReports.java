@@ -126,9 +126,13 @@ public class ContentProviderContractReports {
 
 		/**
 		 * The <code>confirmation</code> field contains the users responses to
-		 * the confirmation questions for the given report type.
+		 * the confirmation questions for the given report type. This should be JSON formatted string
 		 */
 		public static final String KEY_CONFIRMATION = "confirmation";
+		
+		public static final String KEY_CONFIRMATION_CODE = "confirmation_code";
+		
+		
 		public static final String KEY_LOCATION_CHOICE = "location_choice";
 		public static final String KEY_CURRENT_LOCATION_LON = "current_location_lon";
 		public static final String KEY_CURRENT_LOCATION_LAT = "current_location_lat";
@@ -149,7 +153,7 @@ public class ContentProviderContractReports {
 		 */
 		public static final String[] KEYS_ALL = { KEY_ROW_ID, KEY_USER_ID, KEY_REPORT_ID,
 				KEY_REPORT_VERSION, KEY_REPORT_TIME, KEY_VERSION_TIME,
-				KEY_TYPE, KEY_CONFIRMATION, KEY_LOCATION_CHOICE,
+				KEY_TYPE, KEY_CONFIRMATION, KEY_CONFIRMATION_CODE, KEY_LOCATION_CHOICE,
 				KEY_CURRENT_LOCATION_LON, KEY_CURRENT_LOCATION_LAT,
 				KEY_SELECTED_LOCATION_LON, KEY_SELECTED_LOCATION_LAT,
 				KEY_PHOTO_ATTACHED,KEY_PHOTO_URIS, KEY_NOTE, KEY_MAILING,

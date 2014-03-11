@@ -3,7 +3,7 @@
 
     <!-- "shadow" -->
     <item>
-        <shape android:shape="rectangle" >
+        <shape android:shape="oval" >
            <solid android:color="#000000"/>
            
             <stroke android:antialias="true" />

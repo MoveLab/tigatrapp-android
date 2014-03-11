@@ -74,6 +74,7 @@ public class ListPendingTasks extends FragmentActivity implements
 				String taskJson = c.getString(c
 						.getColumnIndexOrThrow(Tasks.KEY_TASK_JSON));
 				int rowId = c.getInt(c.getColumnIndexOrThrow(Tasks.KEY_ROW_ID));
+				
 				Intent i = new Intent(ListPendingTasks.this, TaskActivity.class);
 				i.putExtra(Tasks.KEY_TASK_JSON, taskJson);
 				i.putExtra(Tasks.KEY_ROW_ID, rowId);
@@ -104,6 +105,7 @@ public class ListPendingTasks extends FragmentActivity implements
 										+ " = " + rowId, null);
 								
 								
+								
 							}
 						});
 				dialog.setNegativeButton("Cancel",
@@ -118,6 +120,14 @@ public class ListPendingTasks extends FragmentActivity implements
 			}
 		});
 	}
+	
+	@Override
+	protected void onResume() {
+
+		adapter.notifyDataSetChanged();
+		super.onResume();
+	}
+
 
 	public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
 

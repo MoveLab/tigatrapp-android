@@ -62,7 +62,7 @@ public class TaskItemModel {
 				String[] itemChoicesTemp = new String[itemChoicesJson.length() + 1];
 				// Making the first row blank so that Spinner default is no
 				// selection
-				itemChoicesTemp[0] = " ";
+				itemChoicesTemp[0] = "";
 				for (int i = 0; i < itemChoicesJson.length(); i++) {
 					itemChoicesTemp[i + 1] = itemChoicesJson.getString(i);
 				}

@@ -17,7 +17,7 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
@@ -33,12 +33,9 @@
     <!-- Report Adult -->
     <string name="report_title_adult">New Mosquito Report</string>
 
-
     <!-- Report Site -->
-        <string name="report_title_site">New Breeding Site Report</string>
-    
+    <string name="report_title_site">New Breeding Site Report</string>
     <string name="identifying_breeding_site_title">Breeding Site Checklist</string>
-
     <string-array name="confirmation_q1_site_array">
         <item>embornal</item>
         <item>font</item>

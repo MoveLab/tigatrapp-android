@@ -54,13 +54,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -68,10 +69,7 @@ import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import ceab.movlab.tigre.ContentProviderContractReports.Reports;
 
 import com.google.android.maps.GeoPoint;
@@ -95,7 +93,6 @@ public class ViewDataActivity extends MapActivity {
 	public static MapView mapView;
 	private MapController myMapController;
 	private List<Overlay> mapOverlays;
-	GeoPoint nCenter;
 	GeoPoint currentCenter;
 
 	static boolean satToggle;
@@ -103,6 +100,9 @@ public class ViewDataActivity extends MapActivity {
 	int ADULT_COLOR = 0xffd95f02;
 
 	int SITE_COLOR = 0xff7570b3;
+
+	LayerDrawable siteMarker;
+	LayerDrawable adultMarker;
 
 	ProgressBar progressbar;
 
@@ -138,6 +138,33 @@ public class ViewDataActivity extends MapActivity {
 		progressbar = (ProgressBar) findViewById(R.id.mapProgressbar);
 		progressbar.setProgress(0);
 
+
+		ShapeDrawable adultMarkerBorder = new ShapeDrawable(new OvalShape());
+		adultMarkerBorder.getPaint().setColor(Color.BLACK);
+		adultMarkerBorder.getPaint().setStyle(Paint.Style.FILL);;
+		adultMarkerBorder.setBounds(0, 0, 10, 10);
+		ShapeDrawable adultMarkerFill = new ShapeDrawable(new OvalShape());
+		adultMarkerFill.getPaint().setColor(ADULT_COLOR);
+		adultMarkerFill.getPaint().setStyle(Paint.Style.FILL);;
+		adultMarkerFill.setBounds(0, 0, 10, 10);
+
+		Drawable[] ad = {adultMarkerFill, adultMarkerBorder};
+		adultMarker = new LayerDrawable(ad);
+
+		ShapeDrawable siteMarkerBorder = new ShapeDrawable(new OvalShape());
+		siteMarkerBorder.getPaint().setColor(Color.BLACK);
+		siteMarkerBorder.getPaint().setStyle(Paint.Style.FILL);;
+		siteMarkerBorder.setBounds(0, 0, 10, 10);
+		ShapeDrawable siteMarkerFill = new ShapeDrawable(new OvalShape());
+		siteMarkerFill.getPaint().setColor(SITE_COLOR);
+		siteMarkerFill.getPaint().setStyle(Paint.Style.FILL);;
+		siteMarkerFill.setBounds(0, 0, 10, 10);
+
+		Drawable[] sd = {adultMarkerFill, adultMarkerBorder};
+		siteMarker = new LayerDrawable(ad);
+
+		
+		
 	}
 
 	@Override
@@ -246,19 +273,19 @@ public class ViewDataActivity extends MapActivity {
 			mapOverlays.clear();
 
 		if (othersAdultReports != null && othersAdultReports.size() > 0) {
-			mapOverlays.add(new MapOverlay(ADULT_COLOR,
-					othersAdultReports.toArray(new GeoPoint[othersAdultReports.size()])));
+			mapOverlays.add(new MapOverlay(ADULT_COLOR, othersAdultReports
+					.toArray(new GeoPoint[othersAdultReports.size()])));
 		}
 		if (othersSiteReports != null && othersSiteReports.size() > 0) {
-			mapOverlays.add(new MapOverlay(SITE_COLOR,
-					othersSiteReports.toArray(new GeoPoint[othersSiteReports.size()])));
+			mapOverlays.add(new MapOverlay(SITE_COLOR, othersSiteReports
+					.toArray(new GeoPoint[othersSiteReports.size()])));
 		}
 
 		if (myAdultReports != null && myAdultReports.size() > 0) {
-			Drawable drawable = this.getResources().getDrawable(
-					R.drawable.report_icon_yellow);
-			MyItemizedOverlay itemizedoverlay = new MyItemizedOverlay(drawable,
-					this);
+			// Drawable drawable = this.getResources().getDrawable(
+			// R.drawable.report_icon_yellow);
+			MyItemizedOverlay itemizedoverlay = new MyItemizedOverlay(
+					adultMarker, this);
 			for (MyOverlayItem oli : myAdultReports) {
 				itemizedoverlay.addOverlay(oli);
 			}
@@ -267,10 +294,10 @@ public class ViewDataActivity extends MapActivity {
 		}
 
 		if (mySiteReports != null && mySiteReports.size() > 0) {
-			Drawable drawable = this.getResources().getDrawable(
-					R.drawable.new_fix_pin);
-			MyItemizedOverlay itemizedoverlay = new MyItemizedOverlay(drawable,
-					this);
+			// Drawable drawable = this.getResources().getDrawable(
+			// R.drawable.new_fix_pin);
+			MyItemizedOverlay itemizedoverlay = new MyItemizedOverlay(
+					siteMarker, this);
 			for (MyOverlayItem oli : mySiteReports) {
 				itemizedoverlay.addOverlay(oli);
 			}
@@ -512,8 +539,8 @@ public class ViewDataActivity extends MapActivity {
 
 						final int thisType = c.getInt(typeCol);
 
-						if (c.getString(userIdCol).equals(PropertyHolder
-								.getUserId())) {
+						if (c.getString(userIdCol).equals(
+								PropertyHolder.getUserId())) {
 							MyOverlayItem overlayitem = new MyOverlayItem(
 									point,
 									(thisType == Report.TYPE_ADULT ? "Adult Report"
@@ -522,7 +549,10 @@ public class ViewDataActivity extends MapActivity {
 											+ Util.userDate(new Date(c
 													.getLong(reportTimeCol))),
 									c.getString(noteCol),
-									c.getString(reportIdCol), c.getInt(typeCol), c.getString(photoUrisCol));
+									c.getString(reportIdCol),
+									c.getInt(typeCol),
+									c.getString(photoUrisCol));
+							currentCenter = point;
 							if (thisType == Report.TYPE_ADULT)
 								myAdultOverlaylist.add(overlayitem);
 							else

@@ -63,6 +63,9 @@ public class ContentProviderValuesReports {
 
 		initialValues.put(Reports.KEY_CONFIRMATION, rep.confirmation);
 
+		initialValues.put(Reports.KEY_CONFIRMATION_CODE, rep.confirmationCode);
+
+		
 		initialValues.put(Reports.KEY_LOCATION_CHOICE, rep.locationChoice);
 
 		if (rep.currentLocationLat != null)

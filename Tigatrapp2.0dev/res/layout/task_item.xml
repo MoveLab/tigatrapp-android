@@ -34,7 +34,8 @@
         android:id="@+id/itemChoices"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dip"
+        android:layout_marginTop="8dip"
+        android:layout_marginBottom="8dip"
         android:ellipsize="marquee" />
 
 </LinearLayout>

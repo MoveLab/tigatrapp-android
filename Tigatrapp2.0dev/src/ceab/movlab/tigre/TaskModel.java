@@ -36,9 +36,6 @@ public class TaskModel {
 
 		JSONObject task = new JSONObject();
 		JSONObject taskJson = new JSONObject();
-		JSONArray items = new JSONArray();
-		JSONObject item1 = new JSONObject();
-		JSONObject item2 = new JSONObject();
 
 		try {
 

@@ -1,6 +1,7 @@
 package ceab.movlab.tigre;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Locale;
 
 import org.json.JSONArray;
@@ -27,6 +28,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import ceab.movlab.tigre.ContentProviderContractReports.Reports;
 import ceab.movlab.tigre.ContentProviderContractTasks.Tasks;
 
 public class TaskActivity extends Activity {
@@ -110,14 +112,17 @@ public class TaskActivity extends Activity {
 				for (int i = 0; i < theseItems.length(); i++) {
 					list.add(new TaskItemModel(theseItems.getJSONObject(i)));
 				}
-
-				final TaskAdapter adapter = new TaskAdapter(this, list, res);
-				lv.setAdapter(adapter);
-
+			} else {
+				lv.setDivider(getResources().getDrawable(
+						R.drawable.divider_invisible));
 			}
+			final TaskAdapter adapter = new TaskAdapter(this, list, res);
+			lv.setAdapter(adapter);
+
 			/************ BUTTON ACTION SWITCH **************/
 
 			switch (thisTask.getInt(TaskModel.KEY_TASK_BUTTON_LEFT_ACTION)) {
+
 			case (TaskModel.TASK_CONFIGURATION_SIMPLE): {
 				buttonLeft.setVisibility(View.GONE);
 				buttonRight.setText(getResources().getString(R.string.ok));
@@ -149,6 +154,9 @@ public class TaskActivity extends Activity {
 						finish();
 					}
 				});
+
+				break;
+
 			}
 			case (TaskModel.TASK_CONFIGURATION_SURVEY_TASK): {
 
@@ -346,8 +354,27 @@ public class TaskActivity extends Activity {
 						if (responses.length() > 0) {
 							dataForReport.putExtra(Tasks.KEY_RESPONSES_JSON,
 									responses.toString());
+
+							Iterator<String> iter = responses.keys();
+							while (iter.hasNext()) {
+								String key = iter.next();
+								try {
+									JSONObject thisItem = responses
+											.getJSONObject(key);
+									if (thisItem.getString(
+											TaskItemModel.KEY_ITEM_RESPONSE)
+											.length() > 0) {
+										dataForReport.putExtra(Reports.KEY_CONFIRMATION_CODE, Report.CONFIRMATION_CODE_POSITIVE);
+										setResult(RESULT_OK, dataForReport);
+										break;
+									}
+								} catch (JSONException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+
 						}
-						setResult(RESULT_OK, dataForReport);
 						finish();
 					}
 				});
@@ -355,7 +382,7 @@ public class TaskActivity extends Activity {
 				break;
 
 			}
-			
+
 			case (TaskModel.TASK_CONFIGURATION_REPORT_ADULT): {
 
 				buttonLeft.setVisibility(View.GONE);
@@ -368,8 +395,28 @@ public class TaskActivity extends Activity {
 						if (responses.length() > 0) {
 							dataForReport.putExtra(Tasks.KEY_RESPONSES_JSON,
 									responses.toString());
+
+							Iterator<String> iter = responses.keys();
+							while (iter.hasNext()) {
+								String key = iter.next();
+								try {
+									JSONObject thisItem = responses
+											.getJSONObject(key);
+									// This is a bit ugly -- should figure out a better way,
+									// but I am doing it for now to save time
+									if (thisItem.getString(TaskItemModel.KEY_ITEM_RESPONSE)
+											.equals(getResources().getString(R.string.yes))) {
+										dataForReport.putExtra(Reports.KEY_CONFIRMATION_CODE, Report.CONFIRMATION_CODE_POSITIVE);
+										setResult(RESULT_OK, dataForReport);
+										break;
+									}
+								} catch (JSONException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
+
 						}
-						setResult(RESULT_OK, dataForReport);
 						finish();
 					}
 				});

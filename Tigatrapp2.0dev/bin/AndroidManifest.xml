@@ -57,8 +57,6 @@
         </activity>
         <activity android:name="ceab.movlab.tigre.ReportTool" >
         </activity>
-        <activity android:name="ceab.movlab.tigre.WebMap" >
-        </activity>
         <activity android:name="ceab.movlab.tigre.GPLCat" >
         </activity>
         <activity

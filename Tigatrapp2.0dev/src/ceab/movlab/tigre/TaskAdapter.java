@@ -80,6 +80,7 @@ public class TaskAdapter extends BaseAdapter implements OnClickListener {
 
 		if (convertView == null) {
 
+
 			/****** Inflate tabitem.xml file for each row ( Defined below ) *******/
 			vi = inflater.inflate(R.layout.task_item, null);
 
@@ -96,7 +97,9 @@ public class TaskAdapter extends BaseAdapter implements OnClickListener {
 			holder = (ViewHolder) vi.getTag();
 
 		if (data.size() <= 0) {
-			holder.itemText.setText("No Tasks");
+			holder.itemText.setVisibility(View.GONE);
+			holder.helpIcon.setVisibility(View.GONE);
+			holder.itemChoices.setVisibility(View.GONE);
 
 		} else {
 			/***** Get each Model object from Arraylist ********/

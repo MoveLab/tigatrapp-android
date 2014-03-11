@@ -68,7 +68,7 @@ public class ContentProviderTasks extends ContentProvider {
 			+ Tasks.KEY_TASK_SHORT_DESCRIPTION + TYPE_TEXT + COMMA
 			+ Tasks.KEY_DATE + TYPE_INTEGER + COMMA + Tasks.KEY_EXPIRATION_DATE
 			+ TYPE_INTEGER + COMMA + Tasks.KEY_TASK_JSON + TYPE_TEXT + COMMA
-			+ Tasks.KEY_DONE + TYPE_INTEGER + Tasks.KEY_RESPONSES_JSON
+			+ Tasks.KEY_DONE + TYPE_INTEGER + COMMA + Tasks.KEY_RESPONSES_JSON
 			+ TYPE_TEXT + COMMA + Tasks.KEY_UPLOADED + TYPE_INTEGER + ");";
 
 	private DatabaseHelper mDbHelper;

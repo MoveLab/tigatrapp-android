@@ -11,7 +11,9 @@
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/helpIcon"
             android:text="Pending Tasks"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textColor="@color/light_orange"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:padding="10dip" />
 
     <View
         android:layout_width="fill_parent"

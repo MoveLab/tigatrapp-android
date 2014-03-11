@@ -23,10 +23,12 @@ package ceab.movlab.tigre;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.Locale;
 import java.util.Random;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -121,7 +123,7 @@ public class ReportTool extends Activity {
 	ImageView reportCurrentLocationImage;
 	ImageView reportMapImage;
 	ImageView reportNoteImage;
-	ImageView reportMailingImge;
+	ImageView reportMailingImage;
 
 	TextView photoCount;
 
@@ -182,6 +184,8 @@ public class ReportTool extends Activity {
 				int typeCol = c.getColumnIndexOrThrow(Reports.KEY_TYPE);
 				int confirmationCol = c
 						.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION);
+				int confirmationCodeCol = c
+						.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION_CODE);
 				int locationChoiceCol = c
 						.getColumnIndexOrThrow(Reports.KEY_LOCATION_CHOICE);
 				int currentLocationLonCol = c
@@ -215,6 +219,7 @@ public class ReportTool extends Activity {
 						c.getInt(reportVersionCol) + 1,
 						c.getLong(reportTimeCol), c.getInt(typeCol),
 						c.getString(confirmationCol),
+						c.getInt(confirmationCodeCol),
 						c.getInt(locationChoiceCol),
 						c.getFloat(currentLocationLatCol),
 						c.getFloat(currentLocationLonCol),
@@ -306,15 +311,17 @@ public class ReportTool extends Activity {
 									type == Report.TYPE_BREEDING_SITE ? R.string.report_title_site
 											: R.string.report_title_adult));
 		}
+
 		reportMailingRow
-				.setVisibility(type == Report.TYPE_BREEDING_SITE ? View.GONE
-						: View.VISIBLE);
+				.setVisibility(PropertyHolder.getMailingOption() ? View.VISIBLE
+						: View.GONE);
 
 		Util.overrideFonts(this, findViewById(android.R.id.content));
 
 		if (icicle != null) {
 			thisReport.reportId = icicle.getString("reportId");
 			thisReport.confirmation = icicle.getString("confirmation");
+			thisReport.confirmationCode = icicle.getInt("confirmation_code");
 			thisReport.locationChoice = icicle.getInt("locationChoice");
 			thisReport.currentLocationLat = icicle
 					.getFloat("currentLocationLat");
@@ -375,20 +382,18 @@ public class ReportTool extends Activity {
 
 					if (type == Report.TYPE_ADULT) {
 						// buildConfirmationDialog(type);
-						
+
 						Intent i = new Intent(ReportTool.this,
 								TaskActivity.class);
 						try {
-							i.putExtra(
-									Tasks.KEY_TASK_JSON,
-									TaskModel.makeAdultConfirmation(context).getString(
-											Tasks.KEY_TASK_JSON));
+							i.putExtra(Tasks.KEY_TASK_JSON,
+									TaskModel.makeAdultConfirmation(context)
+											.getString(Tasks.KEY_TASK_JSON));
 						} catch (JSONException e) {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						startActivityForResult(i,
-								REQUEST_CODE_REPORT_RESPONSES);
+						startActivityForResult(i, REQUEST_CODE_REPORT_RESPONSES);
 
 						return;
 					} else {
@@ -403,8 +408,7 @@ public class ReportTool extends Activity {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-						startActivityForResult(i,
-								REQUEST_CODE_REPORT_RESPONSES);
+						startActivityForResult(i, REQUEST_CODE_REPORT_RESPONSES);
 						return;
 					}
 				}
@@ -425,6 +429,9 @@ public class ReportTool extends Activity {
 
 							buildLocationAlert(getResources().getString(
 									R.string.nolocation_alert_report));
+						} else if (!gpsAvailable && !networkLocationAvailable) {
+							buildAlertMessageNoGpsNoNet(getResources()
+									.getString(R.string.noGPSnoNetAlert));
 						} else {
 							buildLocationAlert(getResources().getString(
 									R.string.nolocnogps_alert));
@@ -487,7 +494,7 @@ public class ReportTool extends Activity {
 		reportNoteRow.setOnClickListener(ocl);
 		reportMailingRow.setOnClickListener(ocl);
 
-		reportConfirmationCheck.setChecked(thisReport.confirmation != null);
+		reportConfirmationCheck.setChecked(thisReport.confirmationCode > 0);
 
 		if (thisReport.locationChoice == Report.LOCATION_CHOICE_CURRENT)
 			locationRadioGroup.check(R.id.whereRadioButtonHere);
@@ -511,14 +518,23 @@ public class ReportTool extends Activity {
 		reportMailingCheck.setChecked(thisReport.mailing == Report.YES);
 
 		if (currentLocation == null) {
-			reportCurrentLocationImage.setBackgroundDrawable(getResources()
-					.getDrawable(R.drawable.ic_action_location_searching));
-			Animation blink = new AlphaAnimation(0.0f, 1.0f);
-			blink.setDuration(300);
-			blink.setStartOffset(20);
-			blink.setRepeatMode(Animation.REVERSE);
-			blink.setRepeatCount(Animation.INFINITE);
-			reportCurrentLocationImage.startAnimation(blink);
+
+			if (!gpsAvailable && !networkLocationAvailable) {
+
+				reportCurrentLocationImage.setBackgroundDrawable(getResources()
+						.getDrawable(R.drawable.ic_action_location_off));
+
+			} else {
+
+				reportCurrentLocationImage.setBackgroundDrawable(getResources()
+						.getDrawable(R.drawable.ic_action_location_searching));
+				Animation blink = new AlphaAnimation(0.0f, 1.0f);
+				blink.setDuration(300);
+				blink.setStartOffset(20);
+				blink.setRepeatMode(Animation.REVERSE);
+				blink.setRepeatCount(Animation.INFINITE);
+				reportCurrentLocationImage.startAnimation(blink);
+			}
 		} else {
 			reportCurrentLocationImage.setBackgroundDrawable(getResources()
 					.getDrawable(R.drawable.ic_action_location_found));
@@ -549,6 +565,13 @@ public class ReportTool extends Activity {
 						buildLocationAlert(getResources().getString(
 								R.string.nolocnogps_alert));
 					}
+
+				} else if (!reportConfirmationCheck.isChecked()
+						|| !reportLocationCheck.isChecked()) {
+
+					Util.toast(
+							context,
+							"Please complete the checklist and specify a location before sending your report.");
 
 				} else {
 
@@ -657,6 +680,7 @@ public class ReportTool extends Activity {
 		super.onSaveInstanceState(icicle);
 		icicle.putString("reportId", thisReport.reportId);
 		icicle.putString("confirmation", thisReport.confirmation);
+		icicle.putInt("confirmation_code", thisReport.confirmationCode);
 		icicle.putInt("locationChoice", thisReport.locationChoice);
 
 		if (thisReport.selectedLocationLat != null)
@@ -705,10 +729,10 @@ public class ReportTool extends Activity {
 			networkLocationAvailable = true;
 		}
 
-		if (!gpsAvailable && !networkLocationAvailable) {
-			buildAlertMessageNoGpsNoNet(getResources().getString(
-					R.string.noGPSnoNetAlert));
-		}
+		// if (!gpsAvailable && !networkLocationAvailable) {
+		// buildAlertMessageNoGpsNoNet(getResources().getString(
+		// R.string.noGPSnoNetAlert));
+		// }
 		super.onResume();
 	}
 
@@ -756,10 +780,17 @@ public class ReportTool extends Activity {
 
 		dialog.setContentView(R.layout.mail_message_alert);
 
+		TextView reportIdTitle = (TextView) dialog
+				.findViewById(R.id.yourIdIsText);
 		TextView reportIdText = (TextView) dialog
 				.findViewById(R.id.reportIdText);
-		reportIdText.setText(thisReport.reportId);
 
+		if (thisReport.mailing == Report.YES) {
+			reportIdText.setText(thisReport.reportId);
+		} else {
+			reportIdTitle.setVisibility(View.GONE);
+			reportIdText.setVisibility(View.GONE);
+		}
 		TextView mText = (TextView) dialog.findViewById(R.id.alertText);
 		mText.setText(Html.fromHtml(message));
 		mText.setPadding(10, 10, 10, 10);
@@ -874,17 +905,25 @@ public class ReportTool extends Activity {
 		}
 
 		case (REQUEST_CODE_REPORT_RESPONSES): {
+			reportConfirmationCheck.setChecked(false);
 			if (resultCode == RESULT_OK) {
-				
-				reportConfirmationCheck.setChecked(true);
+
 				if (data.hasExtra(Tasks.KEY_RESPONSES_JSON)) {
 					String responses = data
 							.getStringExtra(Tasks.KEY_RESPONSES_JSON);
-					// TODO change reports databse so all responses are stored
-					// as json strings. Store this response... upload.
+					thisReport.confirmation = responses;
 				}
-			} else{
-				reportConfirmationCheck.setChecked(false);							
+				if (data.hasExtra(Reports.KEY_CONFIRMATION_CODE)) {
+					thisReport.confirmationCode = data.getIntExtra(
+							Reports.KEY_CONFIRMATION_CODE,
+							Report.CONFIRMATION_CODE_POSITIVE);
+					if (thisReport.confirmationCode > 0) {
+						reportConfirmationCheck.setChecked(true);
+					}
+				}
+			} else {
+
+				// TODO
 			}
 		}
 		}

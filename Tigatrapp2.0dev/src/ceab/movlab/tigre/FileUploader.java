@@ -193,6 +193,8 @@ public class FileUploader extends Service {
 			int typeCol = c.getColumnIndexOrThrow(Reports.KEY_TYPE);
 			int confirmationCol = c
 					.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION);
+			int confirmationCodeCol = c
+					.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION_CODE);
 			int locationChoiceCol = c
 					.getColumnIndexOrThrow(Reports.KEY_LOCATION_CHOICE);
 			int currentLocationLonCol = c
@@ -221,6 +223,7 @@ public class FileUploader extends Service {
 						c.getString(reportIdCol), c.getInt(reportVersionCol),
 						c.getLong(reportTimeCol), c.getInt(typeCol),
 						c.getString(confirmationCol),
+						c.getInt(confirmationCodeCol),
 						c.getInt(locationChoiceCol),
 						c.getFloat(currentLocationLatCol),
 						c.getFloat(currentLocationLonCol),

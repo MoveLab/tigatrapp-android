@@ -42,6 +42,8 @@
             android:layout_gravity="center"
             android:layout_marginBottom="6dip"
             android:layout_marginTop="5dip"
+            android:textColor="@color/discolor"
+            android:text="Report"
             android:gravity="center"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -63,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false"
-                android:text="Taxonomy*" />
+                android:text="Checklist*" />
 
             <ImageView
                 android:id="@+id/reportConfirmationButton"

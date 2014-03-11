@@ -70,7 +70,8 @@ public class ContentProviderReports extends ContentProvider {
 			+ COMMA + Reports.KEY_REPORT_TIME + TYPE_INTEGER + COMMA
 			+ Reports.KEY_VERSION_TIME + TYPE_INTEGER + COMMA
 			+ Reports.KEY_TYPE + TYPE_INTEGER + COMMA
-			+ Reports.KEY_CONFIRMATION + TYPE_INTEGER + COMMA
+			+ Reports.KEY_CONFIRMATION + TYPE_TEXT + COMMA
+			+ Reports.KEY_CONFIRMATION_CODE + TYPE_INTEGER + COMMA
 			+ Reports.KEY_LOCATION_CHOICE + TYPE_INTEGER + COMMA
 			+ Reports.KEY_CURRENT_LOCATION_LON + TYPE_REAL + COMMA
 			+ Reports.KEY_CURRENT_LOCATION_LAT + TYPE_REAL + COMMA
@@ -141,6 +142,8 @@ public class ContentProviderReports extends ContentProvider {
 		reportsProjectionMap.put(Reports.KEY_TYPE, Reports.KEY_TYPE);
 		reportsProjectionMap.put(Reports.KEY_CONFIRMATION,
 				Reports.KEY_CONFIRMATION);
+		reportsProjectionMap.put(Reports.KEY_CONFIRMATION_CODE,
+				Reports.KEY_CONFIRMATION_CODE);
 		reportsProjectionMap.put(Reports.KEY_LOCATION_CHOICE,
 				Reports.KEY_LOCATION_CHOICE);
 		reportsProjectionMap.put(Reports.KEY_CURRENT_LOCATION_LON,

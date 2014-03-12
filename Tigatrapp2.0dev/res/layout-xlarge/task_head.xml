@@ -1,0 +1,55 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/header"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selectorcolors"
+    android:clickable="true"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="6dip"
+        android:paddingLeft="5dip"
+        android:paddingRight="11dip"
+        android:paddingTop="6dip" >
+
+        <ImageView
+            android:id="@+id/helpIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:contentDescription="Help icon"
+            android:src="@drawable/ic_action_about"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/taskTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toLeftOf="@+id/helpIcon"
+            android:text="Task Title"
+            android:textSize="70sp"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/light_orange" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/taskDetail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="5dip"
+        android:paddingLeft="5dip"
+        android:paddingRight="5dip"
+        android:textSize="30sp"
+        android:text="Task Detail"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:layout_marginTop="10dip"
+        android:background="@color/white" />
+
+</LinearLayout>

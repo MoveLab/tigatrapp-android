@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Tigatrapp
+ * Copyright (C) 2013, 2014  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
+ * Contact: tigatrapp@ceab.csic.es
+ * 
+ * This file is part of Tigatrapp.
+ * 
+ * Tigatrapp is free software: you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation, either version 3 of the License, or (at 
+ * your option) any later version.
+ * 
+ * Tigatrapp is distributed in the hope that it will be useful, but 
+ * WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along 
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/reportView"
+    style="@style/DarkThemeSelector"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="200dip"
+        android:paddingRight="200dip" >
+
+        <TextView
+            android:id="@+id/reportTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="6dip"
+            android:layout_marginTop="5dip"
+            android:gravity="center"
+            android:text="Report"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/discolor"
+            android:textSize="40sp" />
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@color/white" />
+
+        <RelativeLayout
+            android:id="@+id/reportConfirmationRow"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selectorcolors"
+            android:clickable="true"
+            android:focusable="true"
+            android:paddingBottom="20dip"
+            android:paddingTop="20dip" >
+
+            <CheckBox
+                android:id="@+id/reportConfirmationCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:text="Checklist*"
+                android:textSize="30sp" />
+
+            <ImageView
+                android:id="@+id/reportConfirmationButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:clickable="false"
+                android:src="@drawable/ic_action_accept" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@color/white" />
+
+        <RelativeLayout
+            android:id="@+id/reportLocationRow"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:orientation="horizontal"
+            android:paddingBottom="20dip"
+            android:paddingTop="20dip" >
+
+            <CheckBox
+                android:id="@+id/reportLocationCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:text="Location*"
+                android:textSize="30sp" />
+        </RelativeLayout>
+
+        <RadioGroup
+            android:id="@+id/whereFoundRadioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:clickable="false"
+            android:orientation="vertical" >
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:layout_marginLeft="50dip"
+                android:background="@color/white" />
+
+            <RelativeLayout
+                android:id="@+id/reportCurrentLocationRow"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selectorcolors"
+                android:clickable="true"
+                android:orientation="horizontal"
+                android:paddingBottom="20dip"
+                android:paddingTop="20dip" >
+
+                <RadioButton
+                    android:id="@+id/whereRadioButtonHere"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dip"
+                    android:checked="false"
+                    android:clickable="false"
+                    android:text="Current"
+                    android:textSize="30sp" />
+
+                <ImageView
+                    android:id="@+id/reportCurrentLocationImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:clickable="false"
+                    android:src="@drawable/ic_action_location_searching" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:layout_marginLeft="50dip"
+                android:background="@color/white" />
+
+            <RelativeLayout
+                android:id="@+id/reportSelectedLocationRow"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selectorcolors"
+                android:clickable="true"
+                android:paddingBottom="20dip"
+                android:paddingTop="20dip" >
+
+                <RadioButton
+                    android:id="@+id/whereRadioButtonOtherPlace"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="50dip"
+                    android:checked="false"
+                    android:clickable="false"
+                    android:text="Choose on map"
+                    android:textSize="30sp" />
+
+                <ImageView
+                    android:id="@+id/reportSelectMaphButton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:clickable="false"
+                    android:src="@drawable/ic_action_map" />
+            </RelativeLayout>
+        </RadioGroup>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@color/white" />
+
+        <RelativeLayout
+            android:id="@+id/reportPhotoRow"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selectorcolors"
+            android:clickable="true"
+            android:paddingBottom="20dip"
+            android:paddingTop="20dip" >
+
+            <CheckBox
+                android:id="@+id/reportPhotoCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:clickable="false"
+                android:text="Photo(s)"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/photoCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/reportPhotoAttachButton"
+                android:background="@drawable/white_border"
+                android:padding="5dip"
+                android:text="0"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textSize="30sp" />
+
+            <ImageView
+                android:id="@+id/reportPhotoAttachButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:clickable="false"
+                android:src="@drawable/ic_action_camera" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@color/white" />
+
+        <RelativeLayout
+            android:id="@+id/reportNoteRow"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selectorcolors"
+            android:clickable="true"
+            android:paddingBottom="20dip"
+            android:paddingTop="20dip" >
+
+            <CheckBox
+                android:id="@+id/reportNoteCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:text="Note"
+                android:textSize="30sp" />
+
+            <ImageView
+                android:id="@+id/reportNoteButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:clickable="false"
+                android:src="@drawable/ic_action_edit" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@color/white" />
+
+        <RelativeLayout
+            android:id="@+id/reportMailingRow"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selectorcolors"
+            android:clickable="true"
+            android:paddingBottom="20dip"
+            android:paddingTop="20dip" >
+
+            <CheckBox
+                android:id="@+id/reportMailingCheck"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:text="Mailing specimen"
+                android:textSize="30sp" />
+
+            <ImageView
+                android:id="@+id/reportMailingButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:clickable="false"
+                android:src="@drawable/ic_action_email" />
+        </RelativeLayout>
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@color/white" />
+
+        <Button
+            android:id="@+id/buttonReportSubmit"
+            android:layout_width="wrap_content"
+            android:layout_height="100dip"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dip"
+            android:contentDescription="@string/button_submit_CD"
+            android:hapticFeedbackEnabled="true"
+            android:minWidth="100dip"
+            android:padding="20dip"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_launcher"
+            android:text="@string/submit"
+            android:textSize="30sp" />
+    </LinearLayout>
+
+</ScrollView>

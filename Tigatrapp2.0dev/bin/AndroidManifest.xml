@@ -17,13 +17,13 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ceab.movlab.tigre"
-    android:versionCode="17"
-    android:versionName="v1.03" >
+    package="ceab.movelab.tigerapp"
+    android:versionCode="18"
+    android:versionName="v2dev" >
 
     <uses-sdk
         android:minSdkVersion="4"
@@ -49,18 +49,28 @@
         android:theme="@style/DarkThemeSelector" >
         <uses-library android:name="com.google.android.maps" />
 
-        <activity android:name="ceab.movlab.tigre.ListPendingTasks" >
+        <activity android:name="ceab.movlab.tigerapp.ViewReportsChecklistTab" >
         </activity>
-        <activity android:name="ceab.movlab.tigre.TaskActivity" >
+        <activity android:name="ceab.movlab.tigerapp.ViewReportsPhotosTab" >
         </activity>
-        <activity android:name="ceab.movlab.tigre.AttachedPhotos" >
-        </activity>
-        <activity android:name="ceab.movlab.tigre.ReportTool" >
-        </activity>
-        <activity android:name="ceab.movlab.tigre.GPLCat" >
+        <activity android:name="ceab.movlab.tigerapp.ViewReportsNotesTab" >
         </activity>
         <activity
-            android:name="ceab.movlab.tigre.Switchboard"
+            android:name="ceab.movlab.tigerapp.ViewReportsTab"
+            android:theme="@android:style/Theme.Dialog" >
+        </activity>
+        <activity android:name="ceab.movlab.tigerapp.ListPendingTasks" >
+        </activity>
+        <activity android:name="ceab.movlab.tigerapp.TaskActivity" >
+        </activity>
+        <activity android:name="ceab.movlab.tigerapp.AttachedPhotos" >
+        </activity>
+        <activity android:name="ceab.movlab.tigerapp.ReportTool" >
+        </activity>
+        <activity android:name="ceab.movlab.tigerapp.GPLCat" >
+        </activity>
+        <activity
+            android:name="ceab.movlab.tigerapp.Switchboard"
             android:allowTaskReparenting="true"
             android:launchMode="singleInstance" >
             <intent-filter>
@@ -70,70 +80,77 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="ceab.movlab.tigre.ViewDataActivity"
+            android:name="ceab.movlab.tigerapp.ViewDataActivity"
             android:hardwareAccelerated="false" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Switchboard" />
         </activity>
-        <activity android:name="ceab.movlab.tigre.PhotoGallery" >
+        <activity android:name="ceab.movlab.tigerapp.PhotoGallery" >
         </activity>
-        <activity android:name="ceab.movlab.tigre.MapSelector" >
+        <activity android:name="ceab.movlab.tigerapp.MapSelector" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ReportTool" />
         </activity>
         <activity
-            android:name="ceab.movlab.tigre.Credits"
+            android:name="ceab.movlab.tigerapp.Credits"
             android:allowTaskReparenting="true" >
         </activity>
         <activity
-            android:name="ceab.movlab.tigre.About"
+            android:name="ceab.movlab.tigerapp.About"
             android:allowTaskReparenting="true" >
         </activity>
-        <activity android:name="ceab.movlab.tigre.GPLView" >
+        <activity android:name="ceab.movlab.tigerapp.GPLView" >
         </activity>
-        <activity android:name="ceab.movlab.tigre.LGPLView" >
+        <activity android:name="ceab.movlab.tigerapp.LGPLView" >
         </activity>
-        <activity android:name="ceab.movlab.tigre.CreditsDetail" >
+        <activity android:name="ceab.movlab.tigerapp.CreditsDetail" >
+        </activity>
+        <activity
+            android:name="ceab.movlab.tigerapp.RSSActivity"
+            android:parentActivityName="Switchboard" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="Switchboard" />
         </activity>
 
-        <receiver android:name="ceab.movlab.tigre.TigerBroadcastReceiver" >
+        <receiver android:name="ceab.movlab.tigerapp.TigerBroadcastReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.LAUNCHER" />
-                <action android:name="ceab.movlab.tigre.SCHEDULE_SERVICE" />
-                <action android:name="ceab.movlab.tigre.UNSCHEDULE_SERVICE" />
-                <action android:name="ceab.movlab.tigre.TIGER_TASK_MESSAGE" />
-                <action android:name="ceab.movlab.tigre.TIGER_TASK_CLEAR" />               
-                <action android:name="ceab.movlab.tigre.DATA_SYNC_MESSAGE" />
+                <action android:name="ceab.movelab.tigerapp.SCHEDULE_SERVICE" />
+                <action android:name="ceab.movelab.tigerapp.UNSCHEDULE_SERVICE" />
+                <action android:name="ceab.movelab.tigerapp.TIGER_TASK_MESSAGE" />
+                <action android:name="ceab.movelab.tigerapp.TIGER_TASK_CLEAR" />
+                <action android:name="ceab.movelab.tigerapp.DATA_SYNC_MESSAGE" />
             </intent-filter>
         </receiver>
 
-        <service android:name="ceab.movlab.tigre.FixGet" />
-        <service android:name="ceab.movlab.tigre.FileUploader" />
+        <service android:name="ceab.movlab.tigerapp.FixGet" />
+        <service android:name="ceab.movlab.tigerapp.FileUploader" />
 
         <provider
-            android:name="ceab.movlab.tigre.ContentProviderTasks"
-            android:authorities="ceab.movlab.tigre.providers.tigertasksprovider"
+            android:name="ceab.movlab.tigerapp.ContentProviderTasks"
+            android:authorities="ceab.movelab.tigerapp.providers.tigertasksprovider"
             android:enabled="true"
             android:exported="false" >
         </provider>
         <provider
-            android:name="ceab.movlab.tigre.ContentProviderTracks"
-            android:authorities="ceab.movlab.tigre.providers.tigertracksprovider"
+            android:name="ceab.movlab.tigerapp.ContentProviderTracks"
+            android:authorities="ceab.movelab.tigerapp.providers.tigertracksprovider"
             android:enabled="true"
             android:exported="false" >
         </provider>
         <provider
-            android:name="ceab.movlab.tigre.ContentProviderReports"
-            android:authorities="ceab.movlab.tigre.providers.tigerreportsprovider"
+            android:name="ceab.movlab.tigerapp.ContentProviderReports"
+            android:authorities="ceab.movelab.tigerapp.providers.tigerreportsprovider"
             android:enabled="true"
             android:exported="false" >
         </provider>
         <provider
-            android:name="ceab.movlab.tigre.ContentProviderPhotos"
-            android:authorities="ceab.movlab.tigre.providers.tigerphotosprovider"
+            android:name="ceab.movlab.tigerapp.ContentProviderPhotos"
+            android:authorities="ceab.movelab.tigerapp.providers.tigerphotosprovider"
             android:enabled="true"
             android:exported="false" >
         </provider>

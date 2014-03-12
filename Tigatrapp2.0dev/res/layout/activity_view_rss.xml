@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/rssViewTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:padding="5dip"
+        android:text="Latest from TigaTrapp!"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="@color/light_orange" />
+
+    <View
+        android:id="@+id/titleLine"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:layout_below="@+id/rssViewTitle"
+        android:layout_marginTop="5dip"
+        android:background="@color/white" />
+
+    <ProgressBar
+        android:id="@+id/rssProgress"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" />
+
+        <TextView
+        android:id="@+id/offlineWarning"
+        android:layout_width="wrap_content"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true" 
+        android:text="No internet connection.\n\nTo view the feed, please connect to the internet and select 'refresh' from the menu."/>
+    
+    <ListView
+        android:id="@+id/rsslist"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/titleLine" >
+    </ListView>
+
+</RelativeLayout>

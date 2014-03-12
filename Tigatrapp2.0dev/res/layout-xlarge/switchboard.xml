@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Tigatrapp
+ * Copyright (C) 2013, 2014  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
+ * Contact: tigatrapp@ceab.csic.es
+ * 
+ * This file is part of Tigatrapp.
+ * 
+ * Tigatrapp is free software: you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation, either version 3 of the License, or (at 
+ * your option) any later version.
+ * 
+ * Tigatrapp is distributed in the hope that it will be useful, but 
+ * WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along 
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/LightThemeSelector"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white" >
+
+    <ImageView
+        android:id="@+id/splashLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:src="@drawable/tigerlogo" />
+
+    <ImageView
+        android:id="@+id/reportMainPic"
+        android:layout_width="300dip"
+        android:layout_height="300dip"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="50dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/selectorcolors_light"
+        android:contentDescription="@string/reportGallery_CD"
+        android:gravity="center_vertical|center_horizontal"
+        android:padding="10dip"
+        android:scaleType="center"
+        android:src="@drawable/switchboard_icon_gallery_large" />
+
+    <ImageView
+        android:id="@+id/dataMapButton"
+        android:layout_width="300dip"
+        android:layout_height="300dip"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/reportMainPic"
+        android:layout_marginLeft="20dp"
+        android:background="@drawable/selectorcolors_light"
+        android:contentDescription="@string/dataMap_CD"
+        android:gravity="center_vertical|center_horizontal"
+        android:padding="10dip"
+        android:scaleType="center"
+        android:src="@drawable/switchboard_icon_map_large" />
+
+    <ImageView
+        android:id="@+id/reportButtonSite"
+        android:layout_width="300dip"
+        android:layout_height="300dip"
+        android:layout_alignLeft="@+id/dataMapButton"
+        android:layout_alignTop="@+id/reportButtonAdult"
+        android:background="@drawable/selectorcolors_light"
+        android:gravity="center_vertical|center_horizontal"
+        android:padding="10dip"
+        android:scaleType="center"
+        android:src="@drawable/switchboard_icon_breeding_site_large" />
+
+    <ImageView
+        android:id="@+id/reportButtonAdult"
+        android:layout_width="300dip"
+        android:layout_height="300dip"
+        android:layout_alignLeft="@+id/reportMainPic"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="50dp"
+        android:background="@drawable/selectorcolors_light"
+        android:gravity="center_vertical|center_horizontal"
+        android:padding="10dip"
+        android:scaleType="center"
+        android:src="@drawable/switchboard_icon_adult_large" />
+
+</RelativeLayout>

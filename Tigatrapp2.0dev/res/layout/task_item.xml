@@ -4,15 +4,15 @@
     android:background="@drawable/selectorcolors"
     android:clickable="true"
     android:orientation="vertical"
-    android:paddingBottom="10dip"
+    android:paddingBottom="5dip"
     android:paddingLeft="6dip"
     android:paddingRight="6dip"
-    android:paddingTop="10dip" >
+    android:paddingTop="5dip" >
 
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:padding="5dip" >
+        android:padding="2dip" >
 
         <ImageView
             android:id="@+id/helpIcon"
@@ -37,8 +37,8 @@
         android:id="@+id/itemChoices"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dip"
-        android:layout_marginTop="8dip"
+        android:layout_marginBottom="5dip"
+        android:layout_marginTop="5dip"
         android:ellipsize="marquee"
         android:prompt="@string/spinner_prompt" />
 

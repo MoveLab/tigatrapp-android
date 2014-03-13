@@ -71,9 +71,14 @@ public class Switchboard extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		if(!PropertyHolder.isInit())
+		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
-		
+
+		if (!PropertyHolder.hasConsented()) {
+			Intent i2c = new Intent(Switchboard.this, Consent.class);
+			startActivity(i2c);
+			finish();
+		}
 
 		if (PropertyHolder.getUserId() == null) {
 			String userId = UUID.randomUUID().toString();
@@ -172,14 +177,12 @@ public class Switchboard extends Activity {
 		mapButton.startAnimation(animation);
 		galleryButton.startAnimation(animation);
 
-		
-		
 		// Stop service if running and restart it
 		Intent i = new Intent(Switchboard.this, FixGet.class);
 		stopService(i);
 		i = new Intent(TigerBroadcastReceiver.START_FIXGET_MESSAGE);
 		context.sendBroadcast(i);
-		startService(i);		
+		startService(i);
 	}
 
 	@Override
@@ -199,8 +202,6 @@ public class Switchboard extends Activity {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
 
 			// do something on back.
-			Intent i = new Intent(this, Credits.class);
-			startActivity(i);
 			finish();
 			return true;
 		}
@@ -216,26 +217,26 @@ public class Switchboard extends Activity {
 	static final private int LIST_TASKS = Menu.FIRST + 5;
 	static final private int TEST_TASK_NOTIFICATION0 = Menu.FIRST + 6;
 	static final private int TEST_TASK_NOTIFICATION1 = Menu.FIRST + 7;
-	static final private int TEST_TASK_NOTIFICATION2 = Menu.FIRST + 8;
-	static final private int TEST_TASK_NOTIFICATION3 = Menu.FIRST + 9;
 	static final private int TEST_TASK_NOTIFICATION4 = Menu.FIRST + 10;
 	static final private int RSS_FEED_MOVELAB = Menu.FIRST + 11;
+	static final private int ABOUT = Menu.FIRST + 12;
+	static final private int WEBMAP = Menu.FIRST + 13;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 		menu.add(0, TOGGLE_LANGUAGE, Menu.NONE, R.string.menu_toggle_language);
+		menu.add(0, WEBMAP, Menu.NONE, "Webmap");
 		menu.add(0, MAIN_WEBSITE, Menu.NONE, R.string.visit_website);
 		menu.add(0, RSS_FEED_ATRAPAELTIGRE, Menu.NONE, "Tigatrapp News");
 		menu.add(0, RSS_FEED_MOVELAB, Menu.NONE, "MoveLab News");
 		menu.add(0, SHARE_APP, Menu.NONE, "share app");
-		menu.add(0, HELP, Menu.NONE, "help");
 		menu.add(0, LIST_TASKS, Menu.NONE, "List Pending Tasks");
+		menu.add(0, HELP, Menu.NONE, "help");
+		menu.add(0, ABOUT, Menu.NONE, "about");
 		menu.add(0, TEST_TASK_NOTIFICATION0, Menu.NONE, "Test task type 0");
 		menu.add(0, TEST_TASK_NOTIFICATION1, Menu.NONE, "Test task type 1");
-		menu.add(0, TEST_TASK_NOTIFICATION2, Menu.NONE, "Test task type 2");
-		menu.add(0, TEST_TASK_NOTIFICATION3, Menu.NONE, "Test task type 3");
-		menu.add(0, TEST_TASK_NOTIFICATION4, Menu.NONE, "Test task type 4");
+		menu.add(0, TEST_TASK_NOTIFICATION4, Menu.NONE, "Test task type 2");
 		return true;
 	}
 
@@ -250,6 +251,15 @@ public class Switchboard extends Activity {
 			PropertyHolder.setLanguage(lang);
 			setLocale(lang);
 
+			return true;
+		}
+
+		case (WEBMAP): {
+
+			String url = "http://tce.ceab.csic.es/tigatrapp/TigatrappMap.html";
+			Intent i = new Intent(Intent.ACTION_VIEW);
+			i.setData(Uri.parse(url));
+			startActivity(i);
 			return true;
 		}
 
@@ -289,7 +299,44 @@ public class Switchboard extends Activity {
 			Intent i = new Intent(Switchboard.this, ListPendingTasks.class);
 			startActivity(i);
 			return true;
+		}
 
+		case (HELP): {
+
+			Intent i = new Intent(Switchboard.this, Help.class);
+			startActivity(i);
+			return true;
+		}
+
+		case (ABOUT): {
+
+			Intent i = new Intent(Switchboard.this, Credits.class);
+			startActivity(i);
+			return true;
+		}
+
+		case (SHARE_APP): {
+			Intent shareIntent = new Intent(Intent.ACTION_SEND);
+
+			// set the type
+			shareIntent.setType("text/plain");
+
+			// add a subject
+			shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
+					"Tigatrapp");
+
+			// build the body of the message to be shared
+			String shareMessage = "Check out Tigtrapp at <http://atrapaeltigre.com>!";
+
+			// add the message
+			shareIntent.putExtra(android.content.Intent.EXTRA_TEXT,
+					shareMessage);
+
+			// start the chooser for sharing
+			startActivity(Intent.createChooser(shareIntent, getResources()
+					.getText(R.string.share_with)));
+
+			return true;
 		}
 
 		case (TEST_TASK_NOTIFICATION0): {
@@ -315,36 +362,6 @@ public class Switchboard extends Activity {
 						.toString());
 				intent.putExtra(Tasks.KEY_TASK_HEADING, TaskModel
 						.makeDemoTask1().getString(Tasks.KEY_TASK_HEADING));
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			context.sendBroadcast(intent);
-			return true;
-		}
-		case (TEST_TASK_NOTIFICATION2): {
-			Intent intent = new Intent(
-					TigerBroadcastReceiver.TIGER_TASK_MESSAGE);
-			try {
-				TaskModel.storeTask(context, TaskModel.makeDemoTask2()
-						.toString());
-				intent.putExtra(Tasks.KEY_TASK_HEADING, TaskModel
-						.makeDemoTask2().getString(Tasks.KEY_TASK_HEADING));
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			context.sendBroadcast(intent);
-			return true;
-		}
-		case (TEST_TASK_NOTIFICATION3): {
-			Intent intent = new Intent(
-					TigerBroadcastReceiver.TIGER_TASK_MESSAGE);
-			try {
-				TaskModel.storeTask(context, TaskModel.makeDemoTask3()
-						.toString());
-				intent.putExtra(Tasks.KEY_TASK_HEADING, TaskModel
-						.makeDemoTask3().getString(Tasks.KEY_TASK_HEADING));
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

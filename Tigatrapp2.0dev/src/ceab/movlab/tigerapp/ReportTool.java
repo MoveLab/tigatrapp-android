@@ -110,20 +110,17 @@ public class ReportTool extends Activity {
 	RelativeLayout reportSelectedLocationRow;
 	RelativeLayout reportPhotoRow;
 	RelativeLayout reportNoteRow;
-	RelativeLayout reportMailingRow;
 
 	CheckBox reportConfirmationCheck;
 	CheckBox reportLocationCheck;
 	CheckBox reportPhotoCheck;
 	CheckBox reportNoteCheck;
-	CheckBox reportMailingCheck;
 
 	ImageView reportPhotoAttachImage;
 	ImageView reportConfirmationImage;
 	ImageView reportCurrentLocationImage;
 	ImageView reportMapImage;
 	ImageView reportNoteImage;
-	ImageView reportMailingImage;
 
 	TextView photoCount;
 
@@ -200,7 +197,6 @@ public class ReportTool extends Activity {
 				int selectedLocationLatCol = c
 						.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LAT);
 				int noteCol = c.getColumnIndexOrThrow(Reports.KEY_NOTE);
-				int mailingCol = c.getColumnIndexOrThrow(Reports.KEY_MAILING);
 				int photoAttachedCol = c
 						.getColumnIndexOrThrow(Reports.KEY_PHOTO_ATTACHED);
 				int photoUrisCol = c
@@ -227,8 +223,8 @@ public class ReportTool extends Activity {
 						c.getFloat(selectedLocationLatCol),
 						c.getFloat(selectedLocationLonCol),
 						c.getInt(photoAttachedCol), c.getString(photoUrisCol),
-						c.getString(noteCol), c.getInt(mailingCol),
-						c.getInt(uploadedCol), c.getLong(serverTimestampCol),
+						c.getString(noteCol), c.getInt(uploadedCol),
+						c.getLong(serverTimestampCol),
 						c.getInt(deleteReportCol), c.getInt(latestVersionCol));
 
 				Log.e("RT1", thisReport.printAllValues());
@@ -288,13 +284,11 @@ public class ReportTool extends Activity {
 		reportSelectedLocationRow = (RelativeLayout) findViewById(R.id.reportSelectedLocationRow);
 		reportPhotoRow = (RelativeLayout) findViewById(R.id.reportPhotoRow);
 		reportNoteRow = (RelativeLayout) findViewById(R.id.reportNoteRow);
-		reportMailingRow = (RelativeLayout) findViewById(R.id.reportMailingRow);
 		reportConfirmationCheck = (CheckBox) findViewById(R.id.reportConfirmationCheck);
 		reportLocationCheck = (CheckBox) findViewById(R.id.reportLocationCheck);
 		reportPhotoCheck = (CheckBox) findViewById(R.id.reportPhotoCheck);
 		photoCount = (TextView) findViewById(R.id.photoCount);
 		reportNoteCheck = (CheckBox) findViewById(R.id.reportNoteCheck);
-		reportMailingCheck = (CheckBox) findViewById(R.id.reportMailingCheck);
 		locationRadioGroup = (RadioGroup) findViewById(R.id.whereFoundRadioGroup);
 		reportCurrentLocationImage = (ImageView) findViewById(R.id.reportCurrentLocationImage);
 		buttonReportSubmit = (Button) findViewById(R.id.buttonReportSubmit);
@@ -314,10 +308,6 @@ public class ReportTool extends Activity {
 											: R.string.report_title_adult));
 		}
 
-		reportMailingRow
-				.setVisibility(PropertyHolder.getMailingOption() ? View.VISIBLE
-						: View.GONE);
-
 		Util.overrideFonts(this, findViewById(android.R.id.content));
 
 		if (icicle != null) {
@@ -325,17 +315,20 @@ public class ReportTool extends Activity {
 			thisReport.confirmation = icicle.getString("confirmation");
 			thisReport.confirmationCode = icicle.getInt("confirmation_code");
 			thisReport.locationChoice = icicle.getInt("locationChoice");
-			thisReport.currentLocationLat = icicle
-					.getFloat("currentLocationLat");
-			thisReport.currentLocationLon = icicle
-					.getFloat("currentLocationLon");
-			thisReport.selectedLocationLat = icicle
-					.getFloat("selectedLocationLat");
-			thisReport.selectedLocationLon = icicle
-					.getFloat("selectedLocationLon");
+			if (icicle.containsKey("currentLocationLat"))
+				thisReport.currentLocationLat = icicle
+						.getFloat("currentLocationLat");
+			if (icicle.containsKey("currentLocationLon"))
+				thisReport.currentLocationLon = icicle
+						.getFloat("currentLocationLon");
+			if (icicle.containsKey("selectedLocationLat"))
+				thisReport.selectedLocationLat = icicle
+						.getFloat("selectedLocationLat");
+			if (icicle.containsKey("selectedLocationLon"))
+				thisReport.selectedLocationLon = icicle
+						.getFloat("selectedLocationLon");
 			thisReport.photoAttached = icicle.getInt("photoAttached");
 			thisReport.note = icicle.getString("note");
-			thisReport.mailing = icicle.getInt("mailing");
 			thisReport.setPhotoUris(icicle.getString(Reports.KEY_PHOTO_URIS));
 		}
 
@@ -467,10 +460,6 @@ public class ReportTool extends Activity {
 					buildReportNoteDialog();
 					return;
 				}
-				case (R.id.reportMailingRow): {
-					buildMailingDialog();
-					return;
-				}
 
 				}
 			}
@@ -482,7 +471,6 @@ public class ReportTool extends Activity {
 		reportSelectedLocationRow.setOnClickListener(ocl);
 		reportPhotoRow.setOnClickListener(ocl);
 		reportNoteRow.setOnClickListener(ocl);
-		reportMailingRow.setOnClickListener(ocl);
 
 		reportConfirmationCheck.setChecked(thisReport.confirmationCode > 0);
 
@@ -507,8 +495,6 @@ public class ReportTool extends Activity {
 			thisReport.photoAttached = Report.NO;
 		}
 		reportNoteCheck.setChecked(thisReport.note != null);
-		reportMailingCheck.setChecked(thisReport.mailing == Report.YES);
-
 		buttonReportSubmit.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -542,26 +528,7 @@ public class ReportTool extends Activity {
 
 				} else {
 
-					if (thisReport.mailing == Report.YES) {
-
-						message = getResources().getString(
-								R.string.mail_message)
-								+ "<br/><br/>"
-								+ getResources().getString(R.string.movelab)
-								+ "<br/>"
-								+ getResources().getString(
-										R.string.movelab_address1)
-								+ "<br/>"
-								+ getResources().getString(
-										R.string.movelab_address2)
-								+ "<br/><br/>"
-								+ getResources()
-										.getString(R.string.report_sent);
-
-					} else {
-						message = getResources()
-								.getString(R.string.report_sent);
-					}
+					message = getResources().getString(R.string.report_sent);
 					buildMailMessage(message);
 
 				}
@@ -667,7 +634,6 @@ public class ReportTool extends Activity {
 
 		icicle.putInt("photoAttached", thisReport.photoAttached);
 		icicle.putString("note", thisReport.note);
-		icicle.putInt("mailing", thisReport.mailing);
 
 		icicle.putString(Reports.KEY_PHOTO_URIS,
 				thisReport.photoUrisJson.toString());
@@ -772,12 +738,9 @@ public class ReportTool extends Activity {
 		TextView reportIdText = (TextView) dialog
 				.findViewById(R.id.reportIdText);
 
-		if (thisReport.mailing == Report.YES) {
-			reportIdText.setText(thisReport.reportId);
-		} else {
-			reportIdTitle.setVisibility(View.GONE);
-			reportIdText.setVisibility(View.GONE);
-		}
+		reportIdTitle.setVisibility(View.GONE);
+		reportIdText.setVisibility(View.GONE);
+
 		TextView mText = (TextView) dialog.findViewById(R.id.alertText);
 		mText.setText(Html.fromHtml(message));
 		mText.setPadding(10, 10, 10, 10);
@@ -1095,36 +1058,6 @@ public class ReportTool extends Activity {
 					reportNoteCheck.setChecked(true);
 				} else {
 					reportNoteCheck.setChecked(false);
-				}
-				dialog.dismiss();
-			}
-		});
-		dialog.show();
-	}
-
-	public void buildMailingDialog() {
-		final Dialog dialog = new Dialog(context);
-		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-		dialog.setContentView(R.layout.send_specimen);
-		Util.overrideFonts(context, dialog.findViewById(android.R.id.content));
-
-		Button okB = (Button) dialog.findViewById(R.id.sendSpecimenOKButton);
-		// if button is clicked, close the custom dialog
-		okB.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				RadioGroup mSpecYN = (RadioGroup) dialog
-						.findViewById(R.id.specRadioGroup);
-
-				int specId = mSpecYN.getCheckedRadioButtonId();
-				if (specId == R.id.specRadioButtonYes) {
-					thisReport.mailing = Report.YES;
-					reportMailingCheck.setChecked(true);
-				}
-				if (specId == R.id.specRadioButtonNo) {
-					thisReport.mailing = Report.NO;
-					reportMailingCheck.setChecked(false);
 				}
 				dialog.dismiss();
 			}

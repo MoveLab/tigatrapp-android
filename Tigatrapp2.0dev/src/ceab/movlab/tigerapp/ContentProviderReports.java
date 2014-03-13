@@ -79,8 +79,7 @@ public class ContentProviderReports extends ContentProvider {
 			+ Reports.KEY_SELECTED_LOCATION_LAT + TYPE_REAL + COMMA
 			+ Reports.KEY_PHOTO_ATTACHED + TYPE_INTEGER + COMMA
 			+ Reports.KEY_PHOTO_URIS + TYPE_TEXT + COMMA + Reports.KEY_NOTE
-			+ TYPE_TEXT + COMMA + Reports.KEY_MAILING + TYPE_INTEGER + COMMA
-			+ Reports.KEY_UPLOADED + TYPE_INTEGER + COMMA
+			+ TYPE_TEXT + COMMA + Reports.KEY_UPLOADED + TYPE_INTEGER + COMMA
 			+ Reports.KEY_SERVER_TIMESTAMP + TYPE_INTEGER + COMMA
 			+ Reports.KEY_DELETE_REPORT + TYPE_INTEGER + COMMA
 			+ Reports.KEY_LATEST_VERSION + TYPE_INTEGER + ");";
@@ -110,7 +109,6 @@ public class ContentProviderReports extends ContentProvider {
 		public void onCreate(SQLiteDatabase db) {
 			db.execSQL(DATABASE_CREATE);
 
-		
 		}
 
 		@Override
@@ -159,7 +157,6 @@ public class ContentProviderReports extends ContentProvider {
 		reportsProjectionMap
 				.put(Reports.KEY_PHOTO_URIS, Reports.KEY_PHOTO_URIS);
 		reportsProjectionMap.put(Reports.KEY_NOTE, Reports.KEY_NOTE);
-		reportsProjectionMap.put(Reports.KEY_MAILING, Reports.KEY_MAILING);
 		reportsProjectionMap.put(Reports.KEY_UPLOADED, Reports.KEY_UPLOADED);
 		reportsProjectionMap.put(Reports.KEY_SERVER_TIMESTAMP,
 				Reports.KEY_SERVER_TIMESTAMP);

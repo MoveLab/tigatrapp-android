@@ -84,7 +84,6 @@ public class Report {
 	JSONArray photoUrisJson;
 	// ArrayList<Photo> photos;
 	String note;
-	int mailing;
 	int uploaded;
 	long serverTimestamp;
 	int deleteReport;
@@ -95,7 +94,7 @@ public class Report {
 			int locationChoice, float currentLocationLat,
 			float currentLocationLon, float selectedLocationLat,
 			float selectedLocationLon, int photoAttached,
-			String photoUrisString, String note, int mailing, int uploaded,
+			String photoUrisString, String note, int uploaded,
 			long serverTimestamp, int deleteReport, int latestVersion) {
 
 		this.photoUrisJson = new JSONArray();
@@ -124,7 +123,6 @@ public class Report {
 		}
 
 		this.note = note;
-		this.mailing = mailing;
 		this.uploaded = uploaded;
 		this.serverTimestamp = serverTimestamp;
 		this.deleteReport = deleteReport;
@@ -148,7 +146,6 @@ public class Report {
 		this.photoAttached = NO;
 		this.photoUrisJson = new JSONArray();
 		this.note = null;
-		this.mailing = NO;
 		this.uploaded = NO;
 		this.serverTimestamp = -1;
 		this.deleteReport = NO;
@@ -171,7 +168,6 @@ public class Report {
 		this.photoAttached = MISSING;
 		this.photoUrisJson = new JSONArray();
 		this.note = null;
-		this.mailing = MISSING;
 		this.uploaded = MISSING;
 		this.serverTimestamp = MISSING;
 		this.deleteReport = MISSING;
@@ -187,8 +183,8 @@ public class Report {
 				+ currentLocationLat + "\n" + currentLocationLon + "\n"
 				+ selectedLocationLat + "\n" + selectedLocationLon + "\n"
 				+ photoAttached + "\n" + photoUrisJson.toString() + "\n" + note
-				+ "\n" + mailing + "\n" + uploaded + "\n" + serverTimestamp
-				+ "\n" + deleteReport + "\n" + latestVersion;
+				+ "\n" + uploaded + "\n" + serverTimestamp + "\n"
+				+ deleteReport + "\n" + latestVersion;
 
 		return result;
 
@@ -211,7 +207,6 @@ public class Report {
 		photoAttached = 0;
 		this.photoUrisJson = new JSONArray();
 		note = null;
-		mailing = 0;
 		uploaded = 0;
 		serverTimestamp = -1;
 		deleteReport = 0;

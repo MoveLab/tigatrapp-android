@@ -43,7 +43,7 @@ public class ContentProviderContractTracks {
 		public static final Uri CONTENT_URI = Uri.parse("content://"
 				+ ContentProviderTracks.AUTHORITY + "/tracksTable");
 
-		public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.movlabtigre.fixes";
+		public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.movlabtiger.fixes";
 
 		public static final String KEY_ROWID = "_id";
 		public static final String KEY_ACCURACY = "accuracy";

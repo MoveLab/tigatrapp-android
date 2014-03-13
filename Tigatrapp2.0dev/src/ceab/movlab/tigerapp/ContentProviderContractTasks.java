@@ -43,7 +43,7 @@ public class ContentProviderContractTasks {
 		public static final Uri CONTENT_URI = Uri.parse("content://"
 				+ ContentProviderTasks.AUTHORITY + "/tasksTable");
 
-		public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.movlabtigre.tasks";
+		public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.movlabtiger.tasks";
 
 		public static final String KEY_ROW_ID = "_id";
 		public static final String KEY_TASK_ID = "task_id";

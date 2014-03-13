@@ -206,7 +206,6 @@ public class FileUploader extends Service {
 			int selectedLocationLatCol = c
 					.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LAT);
 			int noteCol = c.getColumnIndexOrThrow(Reports.KEY_NOTE);
-			int mailingCol = c.getColumnIndexOrThrow(Reports.KEY_MAILING);
 			int photoAttachedCol = c
 					.getColumnIndexOrThrow(Reports.KEY_PHOTO_ATTACHED);
 
@@ -233,8 +232,8 @@ public class FileUploader extends Service {
 						c.getFloat(selectedLocationLatCol),
 						c.getFloat(selectedLocationLonCol),
 						c.getInt(photoAttachedCol), c.getString(photoUrisCol),
-						c.getString(noteCol), c.getInt(mailingCol),
-						c.getInt(uploadedCol), c.getLong(serverTimestampCol),
+						c.getString(noteCol), c.getInt(uploadedCol),
+						c.getLong(serverTimestampCol),
 						c.getInt(deleteReportCol), c.getInt(latestVersionCol));
 
 				if (report.upload(context)) {

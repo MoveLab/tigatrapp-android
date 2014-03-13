@@ -117,9 +117,9 @@ public class ViewDataActivity extends MapActivity {
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
 
-		if(!PropertyHolder.isInit())
+		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
-		
+
 		setContentView(R.layout.map_layout);
 
 		Util.overrideFonts(this, findViewById(android.R.id.content));
@@ -464,7 +464,8 @@ public class ViewDataActivity extends MapActivity {
 		protected Boolean doInBackground(Context... context) {
 
 			ContentResolver cr = getContentResolver();
-			String sc = Reports.KEY_DELETE_REPORT + " = 0 AND " + Reports.KEY_LATEST_VERSION + " = 1";
+			String sc = Reports.KEY_DELETE_REPORT + " = 0 AND "
+					+ Reports.KEY_LATEST_VERSION + " = 1";
 			Cursor c = cr.query(Reports.CONTENT_URI, Reports.KEYS_ALL, sc,
 					null, null);
 
@@ -495,7 +496,6 @@ public class ViewDataActivity extends MapActivity {
 				int selectedLocationLatCol = c
 						.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LAT);
 				int noteCol = c.getColumnIndexOrThrow(Reports.KEY_NOTE);
-				int mailingCol = c.getColumnIndexOrThrow(Reports.KEY_MAILING);
 				int photoAttachedCol = c
 						.getColumnIndexOrThrow(Reports.KEY_PHOTO_ATTACHED);
 				int photoUrisCol = c
@@ -507,42 +507,40 @@ public class ViewDataActivity extends MapActivity {
 
 				while (!c.isAfterLast()) {
 
-						Double geoLat = c
-								.getDouble(locationChoice == Report.LOCATION_CHOICE_SELECTED ? selectedLocationLatCol
-										: currentLocationLatCol) * 1E6;
-						Double geoLon = c
-								.getDouble(locationChoice == Report.LOCATION_CHOICE_SELECTED ? selectedLocationLonCol
-										: currentLocationLonCol) * 1E6;
-						GeoPoint point = new GeoPoint(geoLat.intValue(),
-								geoLon.intValue());
+					Double geoLat = c
+							.getDouble(locationChoice == Report.LOCATION_CHOICE_SELECTED ? selectedLocationLatCol
+									: currentLocationLatCol) * 1E6;
+					Double geoLon = c
+							.getDouble(locationChoice == Report.LOCATION_CHOICE_SELECTED ? selectedLocationLonCol
+									: currentLocationLonCol) * 1E6;
+					GeoPoint point = new GeoPoint(geoLat.intValue(),
+							geoLon.intValue());
 
-						final int thisType = c.getInt(typeCol);
+					final int thisType = c.getInt(typeCol);
 
-						if (c.getString(userIdCol).equals(
-								PropertyHolder.getUserId())) {
-							MyOverlayItem overlayitem = new MyOverlayItem(
-									point,
-									(thisType == Report.TYPE_ADULT ? "Adult Report"
-											: "Breeding Site Report")
-											+ "\n"
-											+ Util.userDate(new Date(c
-													.getLong(reportTimeCol))),
-									c.getString(noteCol),
-									c.getString(reportIdCol),
-									c.getInt(typeCol),
-									c.getString(photoUrisCol), c.getString(confirmationCol));
-							currentCenter = point;
-							if (thisType == Report.TYPE_ADULT)
-								myAdultOverlaylist.add(overlayitem);
-							else
-								mySiteOverlaylist.add(overlayitem);
-						} else {
-							if (thisType == Report.TYPE_ADULT)
-								othersAdultReports.add(point);
-							else
-								othersSiteReports.add(point);
-						}
-					
+					if (c.getString(userIdCol).equals(
+							PropertyHolder.getUserId())) {
+						MyOverlayItem overlayitem = new MyOverlayItem(point,
+								(thisType == Report.TYPE_ADULT ? "Adult Report"
+										: "Breeding Site Report")
+										+ "\n"
+										+ Util.userDate(new Date(c
+												.getLong(reportTimeCol))),
+								c.getString(noteCol), c.getString(reportIdCol),
+								c.getInt(typeCol), c.getString(photoUrisCol),
+								c.getString(confirmationCol));
+						currentCenter = point;
+						if (thisType == Report.TYPE_ADULT)
+							myAdultOverlaylist.add(overlayitem);
+						else
+							mySiteOverlaylist.add(overlayitem);
+					} else {
+						if (thisType == Report.TYPE_ADULT)
+							othersAdultReports.add(point);
+						else
+							othersSiteReports.add(point);
+					}
+
 					c.moveToNext();
 				}
 			}

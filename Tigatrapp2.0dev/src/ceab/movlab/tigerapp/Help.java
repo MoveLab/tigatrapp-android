@@ -24,7 +24,6 @@ public class Help extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		super.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		setContentView(R.layout.webview);
 
 		myWebView = (WebView) findViewById(R.id.webview);

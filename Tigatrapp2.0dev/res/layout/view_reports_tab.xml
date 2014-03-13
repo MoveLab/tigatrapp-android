@@ -5,7 +5,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-        <TextView
+    <TextView
         android:id="@+id/title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -13,8 +13,14 @@
         android:gravity="center"
         android:text="Title"
         android:textAppearance="?android:attr/textAppearanceLarge" />
-    
-    
+
+    <View
+        android:id="@+id/buttonLine"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:layout_above="@+id/buttons"
+        android:background="@color/white" />
+
     <LinearLayout
         android:id="@+id/buttons"
         android:layout_width="match_parent"
@@ -28,29 +34,29 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Delete" />
+            android:text="Delete Report" />
 
         <Button
             android:id="@+id/buttonEdit"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Edit" />
+            android:text="Edit Report" />
 
         <Button
             android:id="@+id/buttonCancel"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Cancel" />
+            android:text="Return to Map" />
     </LinearLayout>
 
     <TabHost
         android:id="@android:id/tabhost"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@+id/buttons" 
-        android:layout_below="@+id/title">
+        android:layout_above="@+id/buttonLine"
+        android:layout_below="@+id/title" >
 
         <LinearLayout
             android:layout_width="fill_parent"

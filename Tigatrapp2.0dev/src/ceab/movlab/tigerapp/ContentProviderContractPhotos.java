@@ -43,7 +43,7 @@ public class ContentProviderContractPhotos {
 		public static final Uri CONTENT_URI = Uri.parse("content://"
 				+ ContentProviderPhotos.AUTHORITY + "/photosTable");
 
-		public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.movlabtigre.photos";
+		public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.movlabtiger.photos";
 
 		public static final String KEY_ROW_ID = "_id";
 		public static final String KEY_USER_ID = "user_id";

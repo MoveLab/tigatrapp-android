@@ -91,7 +91,6 @@ public class ContentProviderValuesReports {
 		if (rep.note != null)
 			initialValues.put(Reports.KEY_NOTE, rep.note);
 
-		initialValues.put(Reports.KEY_MAILING, rep.mailing);
 
 		initialValues.put(Reports.KEY_UPLOADED, rep.uploaded);
 

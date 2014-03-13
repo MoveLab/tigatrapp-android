@@ -139,33 +139,6 @@ public class PropertyHolder {
 	}
 
 	
-	public static int getNSiteReports() {
-		return sharedPreferences.getInt("N_SITE_REPORTS", 0);
-	}
-
-	public static void setNSiteReports(int n) {
-		editor.putInt("N_SITE_REPORTS", n);
-		editor.commit();
-	}
-
-	public static int getNAdultReports() {
-		return sharedPreferences.getInt("N_ADULT_REPORTS", 0);
-	}
-
-	public static void setNAdultReports(int n) {
-		editor.putInt("N_ADULT_REPORTS", n);
-		editor.commit();
-	}
-
-	public static boolean getMailingOption() {
-		return sharedPreferences.getBoolean("MAILING_OPTION", false);
-	}
-
-	public static void setMailingOption(boolean m) {
-		editor.putBoolean("MAILING_OPTION", m);
-		editor.commit();
-	}
-
 	public static String getLanguage() {
 		return sharedPreferences.getString("LANGUAGE", "ca");
 	}

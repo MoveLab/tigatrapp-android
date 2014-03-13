@@ -55,7 +55,7 @@ public class ContentProviderContractReports {
 		/**
 		 * The content type.
 		 */
-		public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.movlabtigre.reports";
+		public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.movlabtiger.reports";
 
 		/**
 		 * The <code>row_id</code> field serves as the primary key for this
@@ -141,7 +141,6 @@ public class ContentProviderContractReports {
 		public static final String KEY_PHOTO_ATTACHED = "photo_attached";
 		public static final String KEY_PHOTO_URIS = "photo_uris";		
 		public static final String KEY_NOTE = "note";
-		public static final String KEY_MAILING = "mailing";
 		public static final String KEY_UPLOADED = "uploaded";
 		public static final String KEY_SERVER_TIMESTAMP = "server_timestamp";
 		public static final String KEY_DELETE_REPORT = "delete_report";
@@ -156,7 +155,7 @@ public class ContentProviderContractReports {
 				KEY_TYPE, KEY_CONFIRMATION, KEY_CONFIRMATION_CODE, KEY_LOCATION_CHOICE,
 				KEY_CURRENT_LOCATION_LON, KEY_CURRENT_LOCATION_LAT,
 				KEY_SELECTED_LOCATION_LON, KEY_SELECTED_LOCATION_LAT,
-				KEY_PHOTO_ATTACHED,KEY_PHOTO_URIS, KEY_NOTE, KEY_MAILING,
+				KEY_PHOTO_ATTACHED,KEY_PHOTO_URIS, KEY_NOTE, 
 				KEY_UPLOADED, KEY_SERVER_TIMESTAMP, KEY_DELETE_REPORT,
 				KEY_LATEST_VERSION };
 

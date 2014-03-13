@@ -124,17 +124,16 @@ public class TaskAdapter extends BaseAdapter implements OnClickListener {
 
 			holder.itemId = tempValues.getItemId();
 			holder.itemChoices.setAdapter(choicesAdapter);
-			
+
 			Log.d("TAd1", holder.itemId);
 			Log.d("TAd2", holder.itemChoices.toString());
 
-
 			int responsePos = tempValues.getItemResponsePosition();
-			Log.d("TAd3", "" +responsePos);
+			Log.d("TAd3", "" + responsePos);
 
 			if (responsePos >= 0) {
 				holder.itemChoices.setSelection(responsePos);
-				Log.d("TAd4", ""+holder.itemChoices.getSelectedItemPosition());
+				Log.d("TAd4", "" + holder.itemChoices.getSelectedItemPosition());
 
 			}
 
@@ -146,7 +145,11 @@ public class TaskAdapter extends BaseAdapter implements OnClickListener {
 								View arg1, int arg2, long arg3) {
 
 							try {
+
 								JSONObject thisResponse = new JSONObject();
+
+								thisResponse.put(TaskItemModel.KEY_ITEM_ID,
+										holder.itemId);
 
 								thisResponse.put(TaskItemModel.KEY_ITEM_TEXT,
 										holder.itemText.getText());

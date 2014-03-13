@@ -246,7 +246,6 @@ public class TaskModel {
 		JSONObject item1 = new JSONObject();
 		JSONObject item2 = new JSONObject();
 		JSONObject item3 = new JSONObject();
-		JSONObject item4 = new JSONObject();
 
 		try {
 
@@ -257,7 +256,7 @@ public class TaskModel {
 			task.put(Tasks.KEY_DATE, -1);
 			task.put(Tasks.KEY_EXPIRATION_DATE, -1);
 
-			taskJson.put(KEY_TASK_TITLE, "Breeding Site Confirmation");
+			taskJson.put(KEY_TASK_TITLE, "Site Checklist");
 			taskJson.put(
 					KEY_TASK_HELP,
 					"Potential breeding sites are small recipients or public "
@@ -281,40 +280,28 @@ public class TaskModel {
 			item2.put(TaskItemModel.KEY_ITEM_TEXT,
 					"Does it have stagnant water inside?");
 			item2.put(TaskItemModel.KEY_ITEM_HELP, "");
-			item2.put(TaskItemModel.KEY_ITEM_CHOICES,
-					new JSONArray("['yes', 'no']"));
+			item2.put(TaskItemModel.KEY_ITEM_CHOICES, new JSONArray(
+					"['yes', 'no']"));
 
 			item3.put(TaskItemModel.KEY_ITEM_ID, "Item3");
 			item3.put(TaskItemModel.KEY_ITEM_TEXT,
 					"Have you seen mosquito larvae (not necessarily tiger mosquito) inside?");
 			item3.put(TaskItemModel.KEY_ITEM_HELP, "");
-			item3.put(TaskItemModel.KEY_ITEM_CHOICES,
-					new JSONArray("['yes', 'no']"));
-
-			item4.put(TaskItemModel.KEY_ITEM_ID, "Item4");
-			item4.put(
-					TaskItemModel.KEY_ITEM_TEXT,
-					"Have you seen adult mosquitoes (not necessarily tigre) inside or very closeby?");
-			item4.put(TaskItemModel.KEY_ITEM_HELP, "");
-			item4.put(TaskItemModel.KEY_ITEM_CHOICES,
-					new JSONArray("['yes', 'no']"));
+			item3.put(TaskItemModel.KEY_ITEM_CHOICES, new JSONArray(
+					"['yes', 'no', 'not sure']"));
 
 			items.put(item1);
 			items.put(item2);
 			items.put(item3);
-			items.put(item4);
 
 			taskJson.put(KEY_TASK_ITEMS, items);
 
 			task.put(Tasks.KEY_TASK_JSON, taskJson);
 
-
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
-		
 
 		return task;
 	}
@@ -334,7 +321,7 @@ public class TaskModel {
 			task.put(Tasks.KEY_DATE, -1);
 			task.put(Tasks.KEY_EXPIRATION_DATE, -1);
 
-			taskJson.put(KEY_TASK_TITLE, "Tiger Mosquito Taxonomy");
+			taskJson.put(KEY_TASK_TITLE, "Adult Checklist");
 			taskJson.put(KEY_TASK_BUTTON_LEFT_ACTION,
 					TASK_CONFIGURATION_REPORT_ADULT);
 
@@ -346,9 +333,10 @@ public class TaskModel {
 			item1.put(TaskItemModel.KEY_ITEM_HELP_IMAGE, R.drawable.m);
 			item1.put(TaskItemModel.KEY_ITEM_CHOICES, new JSONArray("['"
 					+ context.getResources().getString(R.string.yes) + "','"
-					+ context.getResources().getString(R.string.no) + "']"));
+					+ context.getResources().getString(R.string.no)
+					+ context.getResources().getString(R.string.dontknow)
+					+ "']"));
 
-			
 			item2.put(TaskItemModel.KEY_ITEM_ID, "item2");
 			item2.put(TaskItemModel.KEY_ITEM_TEXT, context.getResources()
 					.getString(R.string.confirmation_q2_adult_headthorax));
@@ -357,9 +345,10 @@ public class TaskModel {
 			item2.put(TaskItemModel.KEY_ITEM_HELP_IMAGE, R.drawable.n);
 			item2.put(TaskItemModel.KEY_ITEM_CHOICES, new JSONArray("['"
 					+ context.getResources().getString(R.string.yes) + "','"
-					+ context.getResources().getString(R.string.no) + "']"));
+					+ context.getResources().getString(R.string.no)
+					+ context.getResources().getString(R.string.dontknow)
+					+ "']"));
 
-			
 			item3.put(TaskItemModel.KEY_ITEM_ID, "item3");
 			item3.put(TaskItemModel.KEY_ITEM_TEXT, context.getResources()
 					.getString(R.string.confirmation_q3_abdomenlegs));
@@ -368,7 +357,9 @@ public class TaskModel {
 			item3.put(TaskItemModel.KEY_ITEM_HELP_IMAGE, R.drawable.o);
 			item3.put(TaskItemModel.KEY_ITEM_CHOICES, new JSONArray("['"
 					+ context.getResources().getString(R.string.yes) + "','"
-					+ context.getResources().getString(R.string.no) + "']"));
+					+ context.getResources().getString(R.string.no)
+					+ context.getResources().getString(R.string.dontknow)
+					+ "']"));
 
 			items.put(item1);
 			items.put(item2);

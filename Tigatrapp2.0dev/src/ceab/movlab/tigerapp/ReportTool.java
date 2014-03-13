@@ -21,7 +21,6 @@
 
 package ceab.movlab.tigerapp;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
@@ -167,8 +166,9 @@ public class ReportTool extends Activity {
 		if (editing) {
 
 			ContentResolver cr = getContentResolver();
-			String sc = Reports.KEY_REPORT_ID + " = '" + b.getString("reportId")
-					+ "' AND " + Reports.KEY_LATEST_VERSION + " = 1 AND "
+			String sc = Reports.KEY_REPORT_ID + " = '"
+					+ b.getString("reportId") + "' AND "
+					+ Reports.KEY_LATEST_VERSION + " = 1 AND "
 					+ Reports.KEY_DELETE_REPORT + "= 0";
 
 			Cursor c = cr.query(Reports.CONTENT_URI, Reports.KEYS_ALL, sc,
@@ -203,6 +203,9 @@ public class ReportTool extends Activity {
 				int mailingCol = c.getColumnIndexOrThrow(Reports.KEY_MAILING);
 				int photoAttachedCol = c
 						.getColumnIndexOrThrow(Reports.KEY_PHOTO_ATTACHED);
+				int photoUrisCol = c
+						.getColumnIndexOrThrow(Reports.KEY_PHOTO_URIS);
+
 				int uploadedCol = c.getColumnIndexOrThrow(Reports.KEY_UPLOADED);
 				int serverTimestampCol = c
 						.getColumnIndexOrThrow(Reports.KEY_SERVER_TIMESTAMP);
@@ -223,11 +226,10 @@ public class ReportTool extends Activity {
 						c.getFloat(currentLocationLonCol),
 						c.getFloat(selectedLocationLatCol),
 						c.getFloat(selectedLocationLonCol),
-						c.getInt(photoAttachedCol), c.getString(noteCol),
-						c.getInt(mailingCol), c.getInt(uploadedCol),
-						c.getLong(serverTimestampCol),
-						c.getInt(deleteReportCol), c.getInt(latestVersionCol),
-						new ArrayList<Photo>());
+						c.getInt(photoAttachedCol), c.getString(photoUrisCol),
+						c.getString(noteCol), c.getInt(mailingCol),
+						c.getInt(uploadedCol), c.getLong(serverTimestampCol),
+						c.getInt(deleteReportCol), c.getInt(latestVersionCol));
 
 				Log.e("RT1", thisReport.printAllValues());
 
@@ -238,40 +240,40 @@ public class ReportTool extends Activity {
 			// already incremented. Perhaps there is a less confusing way to
 			// organize
 			// this.
-			sc = TigaPhotos.KEY_REPORT_ID + " = '" + thisReport.reportId
-					+ "' AND " + TigaPhotos.KEY_REPORT_VERSION + " = "
-					+ (thisReport.reportVersion - 1) + " AND "
-					+ TigaPhotos.KEY_USER_ID + " = '" + thisReport.userId + "'";
-
-			c = cr.query(TigaPhotos.CONTENT_URI, TigaPhotos.KEYS_ALL, sc, null,
-					null);
-
-			if (c.moveToLast()) {
-
-				int rowIdCol = c.getColumnIndexOrThrow(TigaPhotos.KEY_ROW_ID);
-				int userIdCol = c.getColumnIndexOrThrow(TigaPhotos.KEY_USER_ID);
-				int reportIdCol = c
-						.getColumnIndexOrThrow(TigaPhotos.KEY_REPORT_ID);
-				int reportVersionCol = c
-						.getColumnIndexOrThrow(TigaPhotos.KEY_REPORT_VERSION);
-				int photoUriCol = c
-						.getColumnIndexOrThrow(TigaPhotos.KEY_PHOTO_URI);
-				int photoTimeCol = c
-						.getColumnIndexOrThrow(TigaPhotos.KEY_PHOTO_TIME);
-
-				while (!c.isAfterLast()) {
-
-					thisReport.photos.add(new Photo(c.getString(reportIdCol), c
-							.getInt(reportVersionCol),
-							c.getString(photoUriCol), c.getLong(photoTimeCol),
-							Report.NO, Report.MISSING, Report.NO));
-
-					c.moveToNext();
-				}
-
-			}
-			c.close();
-
+			/*
+			 * sc = TigaPhotos.KEY_REPORT_ID + " = '" + thisReport.reportId +
+			 * "' AND " + TigaPhotos.KEY_REPORT_VERSION + " = " +
+			 * (thisReport.reportVersion - 1) + " AND " + TigaPhotos.KEY_USER_ID
+			 * + " = '" + thisReport.userId + "'";
+			 * 
+			 * c = cr.query(TigaPhotos.CONTENT_URI, TigaPhotos.KEYS_ALL, sc,
+			 * null, null);
+			 * 
+			 * if (c.moveToLast()) {
+			 * 
+			 * int rowIdCol = c.getColumnIndexOrThrow(TigaPhotos.KEY_ROW_ID);
+			 * int userIdCol = c.getColumnIndexOrThrow(TigaPhotos.KEY_USER_ID);
+			 * int reportIdCol = c
+			 * .getColumnIndexOrThrow(TigaPhotos.KEY_REPORT_ID); int
+			 * reportVersionCol = c
+			 * .getColumnIndexOrThrow(TigaPhotos.KEY_REPORT_VERSION); int
+			 * photoUriCol = c .getColumnIndexOrThrow(TigaPhotos.KEY_PHOTO_URI);
+			 * int photoTimeCol = c
+			 * .getColumnIndexOrThrow(TigaPhotos.KEY_PHOTO_TIME);
+			 * 
+			 * while (!c.isAfterLast()) {
+			 * 
+			 * thisReport.photos.add(new Photo(c.getString(reportIdCol), c
+			 * .getInt(reportVersionCol), c.getString(photoUriCol),
+			 * c.getLong(photoTimeCol), Report.NO, Report.MISSING, Report.NO));
+			 * 
+			 * c.moveToNext(); }
+			 * 
+			 * }
+			 * 
+			 * 
+			 * c.close();
+			 */
 		} else {
 			thisReport = new Report(type, PropertyHolder.getUserId());
 		}
@@ -334,9 +336,7 @@ public class ReportTool extends Activity {
 			thisReport.photoAttached = icicle.getInt("photoAttached");
 			thisReport.note = icicle.getString("note");
 			thisReport.mailing = icicle.getInt("mailing");
-			thisReport.reassemblePhotos(
-					icicle.getStringArray(EXTRA_PHOTO_URI_ARRAY),
-					icicle.getLongArray(EXTRA_PHOTO_TIME_ARRAY));
+			thisReport.setPhotoUris(icicle.getString(Reports.KEY_PHOTO_URIS));
 		}
 
 		if (thisReport.reportId == null) {
@@ -457,12 +457,8 @@ public class ReportTool extends Activity {
 				}
 				case (R.id.reportPhotoRow): {
 					Intent i = new Intent(ReportTool.this, AttachedPhotos.class);
-					i.putExtra(EXTRA_PHOTO_URI_ARRAY,
-							thisReport.photoUris2Array());
-					i.putExtra(EXTRA_PHOTO_TIME_ARRAY,
-							thisReport.photoTimes2Array());
-					i.putExtra(EXTRA_REPORT_ID, thisReport.reportId);
-					i.putExtra(EXTRA_REPORT_VERSION, thisReport.reportVersion);
+					i.putExtra(Reports.KEY_PHOTO_URIS,
+							thisReport.photoUrisJson.toString());
 					startActivityForResult(i, REQUEST_CODE_ATTACHED_PHOTOS);
 
 					return;
@@ -498,9 +494,11 @@ public class ReportTool extends Activity {
 		reportLocationCheck
 				.setChecked(thisReport.locationChoice != Report.MISSING);
 
-		if (thisReport.photos.size() > 0) {
+		if (thisReport.photoUrisJson != null
+				&& thisReport.photoUrisJson.length() > 0) {
 			photoCount.setVisibility(View.VISIBLE);
-			photoCount.setText(String.valueOf(thisReport.photos.size()));
+			photoCount
+					.setText(String.valueOf(thisReport.photoUrisJson.length()));
 			reportPhotoCheck.setChecked(true);
 			thisReport.photoAttached = Report.YES;
 		} else {
@@ -671,10 +669,8 @@ public class ReportTool extends Activity {
 		icicle.putString("note", thisReport.note);
 		icicle.putInt("mailing", thisReport.mailing);
 
-		icicle.putStringArray(EXTRA_PHOTO_URI_ARRAY,
-				thisReport.photoUris2Array());
-		icicle.putLongArray(EXTRA_PHOTO_TIME_ARRAY,
-				thisReport.photoTimes2Array());
+		icicle.putString(Reports.KEY_PHOTO_URIS,
+				thisReport.photoUrisJson.toString());
 
 	}
 
@@ -851,16 +847,25 @@ public class ReportTool extends Activity {
 
 			if (resultCode == RESULT_OK) {
 
-				thisReport.reassemblePhotos(
-						data.getStringArrayExtra(EXTRA_PHOTO_URI_ARRAY),
-						data.getLongArrayExtra(EXTRA_PHOTO_TIME_ARRAY));
+				if (data.hasExtra(Reports.KEY_PHOTO_URIS)) {
+					String incomingPhotoUris = data
+							.getStringExtra(Reports.KEY_PHOTO_URIS);
 
-				if (thisReport.photos.size() > 0) {
-					photoCount.setVisibility(View.VISIBLE);
-					photoCount
-							.setText(String.valueOf(thisReport.photos.size()));
-					reportPhotoCheck.setChecked(true);
-					thisReport.photoAttached = Report.YES;
+					if (incomingPhotoUris.length() > 0) {
+						thisReport.setPhotoUris(data
+								.getStringExtra(Reports.KEY_PHOTO_URIS));
+						photoCount.setVisibility(View.VISIBLE);
+						photoCount.setText(String
+								.valueOf(thisReport.photoUrisJson.length()));
+						reportPhotoCheck.setChecked(true);
+						thisReport.photoAttached = Report.YES;
+					}
+
+					else {
+						photoCount.setVisibility(View.GONE);
+						reportPhotoCheck.setChecked(false);
+						thisReport.photoAttached = Report.NO;
+					}
 				} else {
 					photoCount.setVisibility(View.GONE);
 					reportPhotoCheck.setChecked(false);
@@ -968,18 +973,13 @@ public class ReportTool extends Activity {
 
 			Uri photosUri = TigaPhotos.CONTENT_URI;
 
-			for (Photo thisPhoto : thisReport.photos) {
-				cr.insert(photosUri,
-						ContentProviderValuesPhotos.createPhoto(thisPhoto));
-			}
-
 			// now mark all prior reports as not latest version
-			String sc = Reports.KEY_REPORT_ID + " = '" + thisReport.reportId + "' AND " 
-					+ Reports.KEY_REPORT_VERSION + " < "
+			String sc = Reports.KEY_REPORT_ID + " = '" + thisReport.reportId
+					+ "' AND " + Reports.KEY_REPORT_VERSION + " < "
 					+ thisReport.reportVersion;
 
 			ContentValues cv = new ContentValues();
-			cv.put(Reports.KEY_LATEST_VERSION, 0);			
+			cv.put(Reports.KEY_LATEST_VERSION, 0);
 			cr.update(repUri, cv, sc, null);
 
 			if (!Util.privateMode) {
@@ -1027,7 +1027,7 @@ public class ReportTool extends Activity {
 				if (resultFlag == OFFLINE) {
 
 					Intent uploadSchedulerIntent = new Intent(
-							"ceab.movelab.tigerapp.UPLOADS_NEEDED");
+							TigerBroadcastReceiver.UPLOADS_NEEDED_MESSAGE);
 					context.sendBroadcast(uploadSchedulerIntent);
 
 					buildCustomAlert(getResources().getString(

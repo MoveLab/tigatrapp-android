@@ -68,6 +68,11 @@ public class MyItemizedOverlay extends ItemizedOverlay {
 		if (item.photoUris != null) {
 		i.putExtra(Reports.KEY_PHOTO_URIS, item.photoUris);
 		}
+		if (item.responses != null) {
+			i.putExtra(Reports.KEY_CONFIRMATION, item.responses);
+			}
+			
+		
 		if(item.reportId != null){
 			i.putExtra(Reports.KEY_REPORT_ID, item.reportId);	
 		}

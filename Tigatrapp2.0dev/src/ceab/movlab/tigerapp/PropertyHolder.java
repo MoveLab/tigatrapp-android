@@ -108,6 +108,37 @@ public class PropertyHolder {
 		editor.commit();
 	}
 
+	/**
+	 * Sets flag indicating user has consented.
+	 * 
+	 * @param _consented
+	 *            True if user has consented; false otherwise.
+	 */
+	public static void setConsent(boolean _consented) {
+		editor.putBoolean("CONSENTED", _consented);
+		editor.commit();
+	}
+
+	public static boolean hasConsented() {
+		return sharedPreferences.getBoolean("CONSENTED", false);
+	}
+
+	/**
+	 * Stores the time of consent in the shared preferences to the given value.
+	 * 
+	 * @param _consentTime
+	 *            The time of consent.
+	 */
+	public static void setConsentTime(String _consentTime) {
+		editor.putString("CONSENT_TIME", _consentTime);
+		editor.commit();
+	}
+
+	public static String getConsentTime() {
+		return sharedPreferences.getString("CONSENT_TIME", "");
+	}
+
+	
 	public static int getNSiteReports() {
 		return sharedPreferences.getInt("N_SITE_REPORTS", 0);
 	}

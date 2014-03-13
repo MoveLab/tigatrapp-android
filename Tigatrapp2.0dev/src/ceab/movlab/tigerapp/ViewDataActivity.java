@@ -530,7 +530,7 @@ public class ViewDataActivity extends MapActivity {
 									c.getString(noteCol),
 									c.getString(reportIdCol),
 									c.getInt(typeCol),
-									c.getString(photoUrisCol));
+									c.getString(photoUrisCol), c.getString(confirmationCol));
 							currentCenter = point;
 							if (thisType == Report.TYPE_ADULT)
 								myAdultOverlaylist.add(overlayitem);

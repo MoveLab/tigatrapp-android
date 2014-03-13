@@ -209,6 +209,9 @@ public class FileUploader extends Service {
 			int mailingCol = c.getColumnIndexOrThrow(Reports.KEY_MAILING);
 			int photoAttachedCol = c
 					.getColumnIndexOrThrow(Reports.KEY_PHOTO_ATTACHED);
+
+			int photoUrisCol = c.getColumnIndexOrThrow(Reports.KEY_PHOTO_URIS);
+
 			int uploadedCol = c.getColumnIndexOrThrow(Reports.KEY_UPLOADED);
 			int serverTimestampCol = c
 					.getColumnIndexOrThrow(Reports.KEY_SERVER_TIMESTAMP);
@@ -229,11 +232,10 @@ public class FileUploader extends Service {
 						c.getFloat(currentLocationLonCol),
 						c.getFloat(selectedLocationLatCol),
 						c.getFloat(selectedLocationLonCol),
-						c.getInt(photoAttachedCol), c.getString(noteCol),
-						c.getInt(mailingCol), c.getInt(uploadedCol),
-						c.getLong(serverTimestampCol),
-						c.getInt(deleteReportCol), c.getInt(latestVersionCol),
-						new ArrayList<Photo>());
+						c.getInt(photoAttachedCol), c.getString(photoUrisCol),
+						c.getString(noteCol), c.getInt(mailingCol),
+						c.getInt(uploadedCol), c.getLong(serverTimestampCol),
+						c.getInt(deleteReportCol), c.getInt(latestVersionCol));
 
 				if (report.upload(context)) {
 
@@ -262,7 +264,7 @@ public class FileUploader extends Service {
 
 		} else {
 			Intent uploadSchedulerIntent = new Intent(
-					"ceab.movelab.tigerapp.UPLOADS_NEEDED");
+					TigerBroadcastReceiver.UPLOADS_NEEDED_MESSAGE);
 			context.sendBroadcast(uploadSchedulerIntent);
 
 		}

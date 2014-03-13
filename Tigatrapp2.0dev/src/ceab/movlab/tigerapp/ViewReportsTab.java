@@ -130,7 +130,9 @@ public class ViewReportsTab extends TabActivity {
 		// checklist tab
 		Intent intentChecklist = new Intent().setClass(this,
 				ViewReportsChecklistTab.class);
-		intentChecklist.putExtra("bundle", b);
+		if (b.containsKey(Reports.KEY_CONFIRMATION))
+			intentChecklist.putExtra(Reports.KEY_CONFIRMATION,
+					b.getString(Reports.KEY_CONFIRMATION));
 		TabSpec tabSpecChecklist = tabHost
 				.newTabSpec("Checklist")
 				.setIndicator(

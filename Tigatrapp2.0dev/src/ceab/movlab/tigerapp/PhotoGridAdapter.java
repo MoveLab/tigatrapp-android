@@ -45,7 +45,7 @@ public class PhotoGridAdapter extends BaseAdapter {
 		String result = "";
 
 		try {
-			result = jsonPhotos.getString(position);
+			result = jsonPhotos.getJSONObject(position).getString(Report.KEY_PHOTO_URI);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -75,7 +75,7 @@ public class PhotoGridAdapter extends BaseAdapter {
 
 			try {
 
-				thisUri = jsonPhotos.getString(position);
+				thisUri = jsonPhotos.getJSONObject(position).getString(Report.KEY_PHOTO_URI);
 				loadBitmap(thisUri, imageView);
 
 				// imageView.setImageBitmap(Util.getSmallerBitmap(new File(

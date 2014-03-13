@@ -159,7 +159,7 @@ public class Util {
 	/**
 	 * Default value for the interval between location fixes. In milliseconds.
 	 */
-	public static final long ALARM_INTERVAL = 15000; // 15 second
+	public static final long ALARM_INTERVAL = 1000*60*60; // 1 hour
 
 	public static final long UPLOAD_INTERVAL = 1000 * 60 * 60; // 1 hour
 

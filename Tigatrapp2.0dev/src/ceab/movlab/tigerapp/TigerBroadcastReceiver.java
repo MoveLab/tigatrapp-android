@@ -86,8 +86,12 @@ import ceab.movelab.tigerapp.R;
  */
 public class TigerBroadcastReceiver extends BroadcastReceiver {
 
+	public static final String START_FIXGET_MESSAGE = "ceab.movelab.tigerapp.START_FIXGET_MESSAGE";
+
 	public static final String STOP_FIXGET_MESSAGE = "ceab.movelab.tigerapp.STOP_FIXGET_MESSAGE";
 	public static final String LONGSTOP_FIXGET_MESSAGE = "ceab.movelab.tigerapp.LONGSTOP_FIXGET_MESSAGE";
+	
+	public static final String UPLOADS_NEEDED_MESSAGE = "ceab.movelab.tigerapp.UPLOADS_NEEDED";
 
 	public static final String TIGER_TASK_MESSAGE = "ceab.movelab.tigerapp.TIGER_TASK_MESSAGE";
 	public static final String TIGER_TASK_CLEAR = "ceab.movelab.tigerapp.TIGER_TASK_CLEAR";
@@ -124,11 +128,11 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 		PendingIntent pendingDataSync = PendingIntent.getBroadcast(context, 0,
 				intent2StopFixGet, 0);
 
-		if (action.contains("tigre.UNSCHEDULE")) {
+		if (action.contains(STOP_FIXGET_MESSAGE)) {
 			startFixGetAlarm.cancel(pendingIntent2FixGet);
 			PropertyHolder.setServiceOn(false);
 			cancelNotification(context);
-		} else if (action.contains("tigre.SCHEDULE")) {
+		} else if (action.contains(START_FIXGET_MESSAGE)) {
 			long alarmInterval = PropertyHolder.getAlarmInterval();
 			int alarmType = AlarmManager.ELAPSED_REALTIME_WAKEUP;
 			long triggerTime = SystemClock.elapsedRealtime();
@@ -156,12 +160,11 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 		else if (action.contains("BOOT_COMPLETED")) {
 			if (PropertyHolder.isServiceOn()) {
 				Intent intent2broadcast = new Intent(
-						"ceab.movelab.tigerapp.SCHEDULE");
+						START_FIXGET_MESSAGE);
 				context.sendBroadcast(intent2broadcast);
 			}
 			if (PropertyHolder.uploadsNeeded()) {
-				Intent intent2broadcast = new Intent(
-						"ceab.movelab.tigerapp.UPLOADS_NEEDED");
+				Intent intent2broadcast = new Intent(UPLOADS_NEEDED_MESSAGE);
 				context.sendBroadcast(intent2broadcast);
 			}
 		} else if (action.contains(TIGER_TASK_MESSAGE)) {

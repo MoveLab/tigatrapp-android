@@ -86,14 +86,7 @@ public class ContentProviderValuesReports {
 
 		initialValues.put(Reports.KEY_PHOTO_ATTACHED, rep.photoAttached);
 
-		if (rep.photos.size() > 0) {
-			JSONArray jsonPhotos = new JSONArray();
-			for (Photo photo : rep.photos) {
-				jsonPhotos.put(photo.photoUri);
-			}
-
-			initialValues.put(Reports.KEY_PHOTO_URIS, jsonPhotos.toString());
-		}
+		initialValues.put(Reports.KEY_PHOTO_URIS, rep.photoUrisJson.toString());
 
 		if (rep.note != null)
 			initialValues.put(Reports.KEY_NOTE, rep.note);

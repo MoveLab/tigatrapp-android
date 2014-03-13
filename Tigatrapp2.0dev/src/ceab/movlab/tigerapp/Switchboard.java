@@ -172,6 +172,14 @@ public class Switchboard extends Activity {
 		mapButton.startAnimation(animation);
 		galleryButton.startAnimation(animation);
 
+		
+		
+		// Stop service if running and restart it
+		Intent i = new Intent(Switchboard.this, FixGet.class);
+		stopService(i);
+		i = new Intent(TigerBroadcastReceiver.START_FIXGET_MESSAGE);
+		context.sendBroadcast(i);
+		startService(i);		
 	}
 
 	@Override

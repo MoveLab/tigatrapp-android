@@ -63,6 +63,10 @@ public class Report {
 	public static int CONFIRMATION_CODE_UNCONFIRMED = 0;
 	public static int CONFIRMATION_CODE_POSITIVE = 1;
 
+	// model for photo uri json arrays:
+	public static String KEY_PHOTO_URI = "photo_uri";
+	public static String KEY_PHOTO_TIME = "photo_time";
+
 	String userId;
 	String reportId;
 	int reportVersion;
@@ -77,6 +81,8 @@ public class Report {
 	Float selectedLocationLat;
 	Float selectedLocationLon;
 	int photoAttached;
+	JSONArray photoUrisJson;
+	// ArrayList<Photo> photos;
 	String note;
 	int mailing;
 	int uploaded;
@@ -84,15 +90,15 @@ public class Report {
 	int deleteReport;
 	int latestVersion;
 
-	ArrayList<Photo> photos;
-
 	Report(String userId, String reportId, int reportVersion, long reportTime,
 			int type, String confirmation, int confirmationCode,
 			int locationChoice, float currentLocationLat,
 			float currentLocationLon, float selectedLocationLat,
-			float selectedLocationLon, int photoAttached, String note,
-			int mailing, int uploaded, long serverTimestamp, int deleteReport,
-			int latestVersion, ArrayList<Photo> photos) {
+			float selectedLocationLon, int photoAttached,
+			String photoUrisString, String note, int mailing, int uploaded,
+			long serverTimestamp, int deleteReport, int latestVersion) {
+
+		this.photoUrisJson = new JSONArray();
 
 		this.reportId = reportId;
 		this.userId = userId;
@@ -107,13 +113,22 @@ public class Report {
 		this.selectedLocationLat = selectedLocationLat;
 		this.selectedLocationLon = selectedLocationLon;
 		this.photoAttached = NO;
+
+		if (photoUrisString != null) {
+			try {
+				this.photoUrisJson = new JSONArray(photoUrisString);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+
 		this.note = note;
 		this.mailing = mailing;
 		this.uploaded = uploaded;
 		this.serverTimestamp = serverTimestamp;
 		this.deleteReport = deleteReport;
 		this.latestVersion = latestVersion;
-		this.photos = photos;
 
 	}
 
@@ -131,13 +146,13 @@ public class Report {
 		this.selectedLocationLat = null;
 		this.selectedLocationLon = null;
 		this.photoAttached = NO;
+		this.photoUrisJson = new JSONArray();
 		this.note = null;
 		this.mailing = NO;
 		this.uploaded = NO;
 		this.serverTimestamp = -1;
 		this.deleteReport = NO;
 		this.latestVersion = YES;
-		this.photos = new ArrayList<Photo>();
 	}
 
 	Report(String reportId, int reportVersion) {
@@ -154,13 +169,14 @@ public class Report {
 		this.selectedLocationLat = null;
 		this.selectedLocationLon = null;
 		this.photoAttached = MISSING;
+		this.photoUrisJson = new JSONArray();
 		this.note = null;
 		this.mailing = MISSING;
 		this.uploaded = MISSING;
 		this.serverTimestamp = MISSING;
 		this.deleteReport = MISSING;
 		this.latestVersion = MISSING;
-		this.photos = new ArrayList<Photo>();
+		// this.photos = new ArrayList<Photo>();
 	}
 
 	public String printAllValues() {
@@ -170,9 +186,9 @@ public class Report {
 				+ confirmationCode + "\n" + locationChoice + "\n"
 				+ currentLocationLat + "\n" + currentLocationLon + "\n"
 				+ selectedLocationLat + "\n" + selectedLocationLon + "\n"
-				+ photoAttached + "\n" + note + "\n" + mailing + "\n"
-				+ uploaded + "\n" + serverTimestamp + "\n" + deleteReport
-				+ "\n" + latestVersion + "\n" + photos.toString();
+				+ photoAttached + "\n" + photoUrisJson.toString() + "\n" + note
+				+ "\n" + mailing + "\n" + uploaded + "\n" + serverTimestamp
+				+ "\n" + deleteReport + "\n" + latestVersion;
 
 		return result;
 
@@ -193,93 +209,177 @@ public class Report {
 		selectedLocationLat = null;
 		selectedLocationLon = null;
 		photoAttached = 0;
+		this.photoUrisJson = new JSONArray();
 		note = null;
 		mailing = 0;
 		uploaded = 0;
 		serverTimestamp = -1;
 		deleteReport = 0;
 		latestVersion = 0;
-		photos.clear();
 
 	}
 
-	public long[] photoTimes2Array() {
-
-		long[] result = new long[this.photos.size()];
-
-		int i = 0;
-		for (Photo p : this.photos) {
-			result[i] = p.photoTime;
-			i++;
+	public boolean setPhotoUris(String photoUris) {
+		boolean result = false;
+		try {
+			this.photoUrisJson = new JSONArray(photoUris);
+			result = true;
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return result;
 	}
 
-	public String[] photoUris2Array() {
+	public boolean addPhoto(String photoUri, int photoTime) {
+		boolean result = false;
+		try {
+			if (this.photoUrisJson == null) {
+				this.photoUrisJson = new JSONArray(photoUri);
+			} else {
 
-		String[] result = new String[this.photos.size()];
-
-		int i = 0;
-		for (Photo p : this.photos) {
-			result[i] = p.photoUri;
-			i++;
-		}
-		return result;
-	}
-
-	public void reassemblePhotos(String[] uriArray, long[] timeArray) {
-
-		if (uriArray.length == timeArray.length) {
-			this.photos.clear();
-
-			for (int i = 0; i < uriArray.length; i++) {
-				this.photos.add(new Photo(this.reportId, this.reportVersion,
-						uriArray[i], timeArray[i], 0, -1, 0));
+				JSONObject thisPhoto = new JSONObject();
+				thisPhoto.put(KEY_PHOTO_URI, photoUri);
+				thisPhoto.put(KEY_PHOTO_TIME, photoTime);
+				this.photoUrisJson.put(thisPhoto);
 			}
-		}
-	}
-
-	public JSONArray photoUris2JsonArray() {
-
-		JSONArray result = new JSONArray();
-
-		for (Photo p : this.photos) {
-			result.put(p.photoUri);
+			result = true;
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return result;
 	}
 
-	public JSONArray photos2JsonArray() {
+	public boolean deletePhoto(String photoUri, int photoTime) {
+		boolean result = false;
+		try {
+			if (this.photoUrisJson == null) {
+				return true;
+			} else {
+				JSONArray newArray = new JSONArray();
 
-		JSONArray result = new JSONArray();
-
-		for (Photo p : this.photos) {
-			JSONObject jo = new JSONObject();
-			try {
-				jo.put("uri", p.photoUri);
-				jo.put("time", p.photoTime);
-				result.put(jo);
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				for (int i = 0; i < this.photoUrisJson.length(); i++) {
+					JSONObject thisJsonObj = this.photoUrisJson
+							.getJSONObject(i);
+					if (!(thisJsonObj.getString(KEY_PHOTO_URI).equals(photoUri) && thisJsonObj
+							.getInt(KEY_PHOTO_TIME) == photoTime)) {
+						newArray.put(thisJsonObj);
+					}
+				}
+				this.photoUrisJson = newArray;
+				result = true;
 			}
-
+			result = true;
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		return result;
 	}
 
-	public void addPhotosFromArrayList(String reportId,
-			ArrayList<String> photoArrayList) {
-		/*
-		 * this.photos.clear(); for(String photo : photoArrayList){
-		 * this.photos.add(new Photo())
-		 * 
-		 * Photo(String _reportRowID, String _photoUri, long _photoTime, int
-		 * _uploaded, int _serverTimestamp, int _deletePhoto) {
-		 * 
-		 * }
-		 */
+	public static JSONArray deletePhoto(JSONArray jsonPhotos, String photoUri,
+			int photoTime) {
+		JSONArray result = null;
+		try {
+			if (jsonPhotos == null) {
+
+				// nothing
+
+			} else {
+				JSONArray newArray = new JSONArray();
+
+				for (int i = 0; i < jsonPhotos.length(); i++) {
+					JSONObject thisJsonObj = jsonPhotos.getJSONObject(i);
+					if (!(thisJsonObj.getString(KEY_PHOTO_URI).equals(photoUri) && thisJsonObj
+							.getInt(KEY_PHOTO_TIME) == photoTime)) {
+						newArray.put(thisJsonObj);
+					}
+				}
+				result = newArray;
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
 	}
+
+	public static JSONArray deletePhoto(JSONArray jsonPhotos, int pos) {
+		JSONArray result = null;
+		try {
+			if (jsonPhotos == null) {
+
+				// nothing
+
+			} else {
+				JSONArray newArray = new JSONArray();
+
+				for (int i = 0; i < jsonPhotos.length(); i++) {
+					JSONObject thisJsonObj = jsonPhotos.getJSONObject(i);
+					if (i != pos) {
+						newArray.put(thisJsonObj);
+					}
+				}
+				result = newArray;
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	/*
+	 * public long[] photoTimes2Array() {
+	 * 
+	 * long[] result = new long[this.photos.size()];
+	 * 
+	 * int i = 0; for (Photo p : this.photos) { result[i] = p.photoTime; i++; }
+	 * return result; }
+	 * 
+	 * public String[] photoUris2Array() {
+	 * 
+	 * String[] result = new String[this.photos.size()];
+	 * 
+	 * int i = 0; for (Photo p : this.photos) { result[i] = p.photoUri; i++; }
+	 * return result; }
+	 * 
+	 * public void reassemblePhotos(String[] uriArray, long[] timeArray) {
+	 * 
+	 * if (uriArray.length == timeArray.length) { this.photos.clear();
+	 * 
+	 * for (int i = 0; i < uriArray.length; i++) { this.photos.add(new
+	 * Photo(this.reportId, this.reportVersion, uriArray[i], timeArray[i], 0,
+	 * -1, 0)); } } }
+	 * 
+	 * public JSONArray photoUris2JsonArray() {
+	 * 
+	 * JSONArray result = new JSONArray();
+	 * 
+	 * for (Photo p : this.photos) { result.put(p.photoUri); } return result; }
+	 * 
+	 * public JSONArray photos2JsonArray() {
+	 * 
+	 * JSONArray result = new JSONArray();
+	 * 
+	 * for (Photo p : this.photos) { JSONObject jo = new JSONObject(); try {
+	 * jo.put("uri", p.photoUri); jo.put("time", p.photoTime); result.put(jo); }
+	 * catch (JSONException e) { // TODO Auto-generated catch block
+	 * e.printStackTrace(); }
+	 * 
+	 * } return result; }
+	 * 
+	 * public void addPhotosFromArrayList(String reportId, ArrayList<String>
+	 * photoArrayList) { /* this.photos.clear(); for(String photo :
+	 * photoArrayList){ this.photos.add(new Photo())
+	 * 
+	 * Photo(String _reportRowID, String _photoUri, long _photoTime, int
+	 * _uploaded, int _serverTimestamp, int _deletePhoto) {
+	 * 
+	 * }
+	 */
+	// }
 
 	public boolean upload(Context context) {
 

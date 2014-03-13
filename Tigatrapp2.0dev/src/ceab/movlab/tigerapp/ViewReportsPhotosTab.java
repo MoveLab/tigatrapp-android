@@ -36,7 +36,7 @@ public class ViewReportsPhotosTab extends Activity {
 		setContentView(textview);
 		Intent incoming = getIntent();
 		Bundle b = incoming.getExtras();
-		if (b.containsKey(Reports.KEY_PHOTO_URIS)) {
+		if (b != null && b.containsKey(Reports.KEY_PHOTO_URIS)) {
 			try {
 				final JSONArray jsonPhotos = new JSONArray(
 						b.getString(Reports.KEY_PHOTO_URIS));

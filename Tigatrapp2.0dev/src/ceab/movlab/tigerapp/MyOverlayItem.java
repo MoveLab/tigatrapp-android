@@ -8,13 +8,15 @@ public class MyOverlayItem extends OverlayItem {
 	String reportId;
 	int type;
 	String photoUris;
+	String responses;
 	
-	public MyOverlayItem(GeoPoint location, String title, String snippet, String _reportId, int _type, String photoUris) {
+	public MyOverlayItem(GeoPoint location, String title, String snippet, String _reportId, int _type, String photoUris, String responses) {
 		super(location, title, snippet);
 		// TODO Auto-generated constructor stub
 		reportId = _reportId;
 		type = _type;
 		this.photoUris = photoUris;
+		this.responses = responses;
 	}
 
 

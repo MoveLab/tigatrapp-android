@@ -117,6 +117,9 @@ public class ViewDataActivity extends MapActivity {
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
 
+		if(!PropertyHolder.isInit())
+			PropertyHolder.init(context);
+		
 		setContentView(R.layout.map_layout);
 
 		Util.overrideFonts(this, findViewById(android.R.id.content));
@@ -461,7 +464,8 @@ public class ViewDataActivity extends MapActivity {
 		protected Boolean doInBackground(Context... context) {
 
 			ContentResolver cr = getContentResolver();
-			Cursor c = cr.query(Reports.CONTENT_URI, Reports.KEYS_ALL, null,
+			String sc = Reports.KEY_DELETE_REPORT + " = 0 AND " + Reports.KEY_LATEST_VERSION + " = 1";
+			Cursor c = cr.query(Reports.CONTENT_URI, Reports.KEYS_ALL, sc,
 					null, null);
 
 			if (c.moveToFirst()) {
@@ -503,8 +507,6 @@ public class ViewDataActivity extends MapActivity {
 
 				while (!c.isAfterLast()) {
 
-					if (c.getInt(deleteReportCol) == 0
-							&& c.getInt(latestVersionCol) == 1) {
 						Double geoLat = c
 								.getDouble(locationChoice == Report.LOCATION_CHOICE_SELECTED ? selectedLocationLatCol
 										: currentLocationLatCol) * 1E6;
@@ -540,7 +542,7 @@ public class ViewDataActivity extends MapActivity {
 							else
 								othersSiteReports.add(point);
 						}
-					}
+					
 					c.moveToNext();
 				}
 			}

@@ -33,6 +33,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -148,6 +149,9 @@ public class ReportTool extends Activity {
 	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
+		if (!PropertyHolder.isInit())
+			PropertyHolder.init(context);
+
 		lang = PropertyHolder.getLanguage();
 		Locale myLocale = new Locale(lang);
 		Resources res = getResources();
@@ -163,11 +167,12 @@ public class ReportTool extends Activity {
 		if (editing) {
 
 			ContentResolver cr = getContentResolver();
-			String sc = Reports.KEY_REPORT_ID + " = '"
-					+ b.getString("reportId") + "'";
+			String sc = Reports.KEY_REPORT_ID + " = '" + b.getString("reportId")
+					+ "' AND " + Reports.KEY_LATEST_VERSION + " = 1 AND "
+					+ Reports.KEY_DELETE_REPORT + "= 0";
 
 			Cursor c = cr.query(Reports.CONTENT_URI, Reports.KEYS_ALL, sc,
-					null, Reports.KEY_REPORT_VERSION + " ASC");
+					null, null);
 
 			if (c.moveToLast()) {
 
@@ -209,7 +214,7 @@ public class ReportTool extends Activity {
 				// note that we increment the version number here
 				thisReport = new Report(c.getString(userIdCol),
 						c.getString(reportIdCol),
-						c.getInt(reportVersionCol) + 1,
+						(c.getInt(reportVersionCol) + 1),
 						c.getLong(reportTimeCol), c.getInt(typeCol),
 						c.getString(confirmationCol),
 						c.getInt(confirmationCodeCol),
@@ -384,11 +389,11 @@ public class ReportTool extends Activity {
 						Intent i = new Intent(ReportTool.this,
 								TaskActivity.class);
 						i.putExtra(Tasks.KEY_TASK_JSON, thisTaskType);
-						if (thisReport.confirmation != null){
+						if (thisReport.confirmation != null) {
 							i.putExtra(Tasks.KEY_RESPONSES_JSON,
 									thisReport.confirmation);
-						Log.e("RT conf int", thisReport.confirmation);
-					}
+							Log.e("RT conf int", thisReport.confirmation);
+						}
 						startActivityForResult(i, REQUEST_CODE_REPORT_RESPONSES);
 
 					} catch (JSONException e1) {
@@ -954,19 +959,28 @@ public class ReportTool extends Activity {
 
 			// First save report to internal DB
 			ContentResolver cr = getContentResolver();
-			Uri dbUri = Reports.CONTENT_URI;
+			Uri repUri = Reports.CONTENT_URI;
 
 			Log.e("RT3", thisReport.printAllValues());
 
-			cr.insert(dbUri,
+			cr.insert(repUri,
 					ContentProviderValuesReports.createReport(thisReport));
 
-			dbUri = TigaPhotos.CONTENT_URI;
+			Uri photosUri = TigaPhotos.CONTENT_URI;
 
 			for (Photo thisPhoto : thisReport.photos) {
-				cr.insert(dbUri,
+				cr.insert(photosUri,
 						ContentProviderValuesPhotos.createPhoto(thisPhoto));
 			}
+
+			// now mark all prior reports as not latest version
+			String sc = Reports.KEY_REPORT_ID + " = '" + thisReport.reportId + "' AND " 
+					+ Reports.KEY_REPORT_VERSION + " < "
+					+ thisReport.reportVersion;
+
+			ContentValues cv = new ContentValues();
+			cv.put(Reports.KEY_LATEST_VERSION, 0);			
+			cr.update(repUri, cv, sc, null);
 
 			if (!Util.privateMode) {
 

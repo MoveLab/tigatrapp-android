@@ -71,7 +71,9 @@ public class Switchboard extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		PropertyHolder.init(context);
+		if(!PropertyHolder.isInit())
+			PropertyHolder.init(context);
+		
 
 		if (PropertyHolder.getUserId() == null) {
 			String userId = UUID.randomUUID().toString();

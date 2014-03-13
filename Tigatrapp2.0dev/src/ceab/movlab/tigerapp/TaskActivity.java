@@ -49,6 +49,9 @@ public class TaskActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		if(!PropertyHolder.isInit())
+			PropertyHolder.init(context);
+		
 		lang = PropertyHolder.getLanguage();
 		Locale myLocale = new Locale(lang);
 		Resources res = getResources();

@@ -49,11 +49,25 @@ public class ContentProviderValuesTasks {
 
 			initialValues.put(Tasks.KEY_TASK_ID,
 					task.getString(Tasks.KEY_TASK_ID));
-			initialValues.put(Tasks.KEY_TASK_HEADING, task.getString(Tasks.KEY_TASK_HEADING));
-			initialValues.put(Tasks.KEY_TASK_SHORT_DESCRIPTION, task.getString(Tasks.KEY_TASK_SHORT_DESCRIPTION));
-			initialValues.put(Tasks.KEY_DATE, Long.parseLong(task.getString(Tasks.KEY_DATE)));
+			initialValues.put(Tasks.KEY_TASK_HEADING,
+					task.getString(Tasks.KEY_TASK_HEADING));
+			initialValues.put(Tasks.KEY_TASK_SHORT_DESCRIPTION,
+					task.getString(Tasks.KEY_TASK_SHORT_DESCRIPTION));
+			initialValues.put(Tasks.KEY_DATE,
+					Long.parseLong(task.getString(Tasks.KEY_DATE)));
 			initialValues.put(Tasks.KEY_EXPIRATION_DATE,
 					Long.parseLong(task.getString(Tasks.KEY_EXPIRATION_DATE)));
+
+			// IF JSON trigger specified in task, then task starts out as in
+			// active (0). Otherwise starts as active
+			if (task.has(Tasks.KEY_LOCATION_TRIGGERS_JSON)) {
+				initialValues.put(Tasks.KEY_LOCATION_TRIGGERS_JSON, task
+								.getString(Tasks.KEY_LOCATION_TRIGGERS_JSON));
+				initialValues.put(Tasks.KEY_ACTIVE,
+						task.getInt(Tasks.KEY_ACTIVE));
+			} else
+				initialValues.put(Tasks.KEY_ACTIVE, 1);
+
 			initialValues.put(Tasks.KEY_TASK_JSON,
 					task.getString(Tasks.KEY_TASK_JSON));
 			initialValues.put(Tasks.KEY_DONE, 0);

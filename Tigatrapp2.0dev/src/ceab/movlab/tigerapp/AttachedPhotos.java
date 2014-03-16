@@ -84,7 +84,10 @@ public class AttachedPhotos extends Activity {
 					public void onItemClick(AdapterView<?> parent, View v,
 							int position, long id) {
 
-						if (jsonPhotos.length() > 0) {
+						String thisPhotoUri = Report.getPhotoUri(jsonPhotos,
+								position);
+						if (thisPhotoUri != null) {
+
 							try {
 								final Dialog dialog = new Dialog(context);
 								dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -94,8 +97,7 @@ public class AttachedPhotos extends Activity {
 								// TODO find better way of choosing max pixel
 								// size -- based on screen
 								iv.setImageBitmap(Util.getSmallerBitmap(
-										new File(jsonPhotos.getString(position)),
-										context, 300));
+										new File(thisPhotoUri), context, 300));
 								iv.setOnClickListener(new View.OnClickListener() {
 									public void onClick(View View3) {
 										dialog.dismiss();
@@ -104,9 +106,6 @@ public class AttachedPhotos extends Activity {
 								dialog.setCanceledOnTouchOutside(true);
 								dialog.setCancelable(true);
 								dialog.show();
-							} catch (JSONException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
 							} catch (FileNotFoundException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
@@ -122,6 +121,9 @@ public class AttachedPhotos extends Activity {
 				gridview.setOnItemLongClickListener(new OnItemLongClickListener() {
 					public boolean onItemLongClick(AdapterView<?> parent,
 							View v, int position, long id) {
+
+						Log.d("AP2", "pos: " + position);
+						Log.d("AP2", "jsonphotoslength: " + jsonPhotos.length());
 
 						final String item = (String) parent
 								.getItemAtPosition(position);

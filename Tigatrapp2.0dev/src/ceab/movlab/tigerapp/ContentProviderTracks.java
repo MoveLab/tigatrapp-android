@@ -49,7 +49,7 @@ public class ContentProviderTracks extends ContentProvider {
 
 	private static final String DATABASE_NAME = "tracksDB";
 
-	private static final int DATABASE_VERSION = 2;
+	private static final int DATABASE_VERSION = 3;
 
 	public static final String DATABASE_TABLE = "tracksTable";
 
@@ -84,8 +84,9 @@ public class ContentProviderTracks extends ContentProvider {
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		//	Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
-		//			+ newVersion + ", which will destroy all old data");
+			// Log.w(TAG, "Upgrading database from version " + oldVersion +
+			// " to "
+			// + newVersion + ", which will destroy all old data");
 			db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
 			onCreate(db);
 		}
@@ -98,18 +99,11 @@ public class ContentProviderTracks extends ContentProvider {
 
 		fixesProjectionMap = new HashMap<String, String>();
 		fixesProjectionMap.put(Fixes.KEY_ROWID, Fixes.KEY_ROWID);
-		fixesProjectionMap.put(Fixes.KEY_ACCURACY, Fixes.KEY_ACCURACY);
-		fixesProjectionMap.put(Fixes.KEY_ALTITUDE, Fixes.KEY_ALTITUDE);
 		fixesProjectionMap.put(Fixes.KEY_LATITUDE, Fixes.KEY_LATITUDE);
 		fixesProjectionMap.put(Fixes.KEY_LONGITUDE, Fixes.KEY_LONGITUDE);
-		fixesProjectionMap.put(Fixes.KEY_PROVIDER, Fixes.KEY_PROVIDER);
-		fixesProjectionMap.put(Fixes.KEY_TIMELONG, Fixes.KEY_TIMELONG);
-		fixesProjectionMap.put(Fixes.KEY_TIMESTAMP, Fixes.KEY_TIMESTAMP);
+		fixesProjectionMap.put(Fixes.KEY_TIME, Fixes.KEY_TIME);
 		fixesProjectionMap.put(Fixes.KEY_POWER_LEVEL, Fixes.KEY_POWER_LEVEL);
-		fixesProjectionMap.put(Fixes.KEY_STATION_DEPARTURE_TIMELONG, Fixes.KEY_STATION_DEPARTURE_TIMELONG);		
-		fixesProjectionMap.put(Fixes.KEY_DISPLAY, Fixes.KEY_DISPLAY);
 		fixesProjectionMap.put(Fixes.KEY_UPLOADED, Fixes.KEY_UPLOADED);
-		
 
 	}
 

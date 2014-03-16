@@ -36,6 +36,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -45,6 +47,7 @@ import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Html;
@@ -209,6 +212,17 @@ public class ReportTool extends Activity {
 						.getColumnIndexOrThrow(Reports.KEY_DELETE_REPORT);
 				int latestVersionCol = c
 						.getColumnIndexOrThrow(Reports.KEY_LATEST_VERSION);
+				int packageNameCol = c
+						.getColumnIndexOrThrow(Reports.KEY_PACKAGE_NAME);
+				int packageVersionCol = c
+						.getColumnIndexOrThrow(Reports.KEY_PACKAGE_VERSION);
+				int phoneManufacturerCol = c
+						.getColumnIndexOrThrow(Reports.KEY_PHONE_MANUFACTURER);
+				int phoneModelCol = c
+						.getColumnIndexOrThrow(Reports.KEY_PHONE_MODEL);
+				int osCol = c.getColumnIndexOrThrow(Reports.KEY_OS);
+				int osVersionCol = c
+						.getColumnIndexOrThrow(Reports.KEY_OS_VERSION);
 
 				// note that we increment the version number here
 				thisReport = new Report(c.getString(userIdCol),
@@ -225,51 +239,18 @@ public class ReportTool extends Activity {
 						c.getInt(photoAttachedCol), c.getString(photoUrisCol),
 						c.getString(noteCol), c.getInt(uploadedCol),
 						c.getLong(serverTimestampCol),
-						c.getInt(deleteReportCol), c.getInt(latestVersionCol));
+						c.getInt(deleteReportCol), c.getInt(latestVersionCol),
+						c.getString(packageNameCol),
+						c.getString(packageVersionCol),
+						c.getString(phoneManufacturerCol),
+						c.getString(phoneModelCol), c.getString(osCol),
+						c.getString(osVersionCol));
 
 				Log.e("RT1", thisReport.printAllValues());
 
 			}
 			c.close();
 
-			// note that here I am subtracting 1 from the version since it is
-			// already incremented. Perhaps there is a less confusing way to
-			// organize
-			// this.
-			/*
-			 * sc = TigaPhotos.KEY_REPORT_ID + " = '" + thisReport.reportId +
-			 * "' AND " + TigaPhotos.KEY_REPORT_VERSION + " = " +
-			 * (thisReport.reportVersion - 1) + " AND " + TigaPhotos.KEY_USER_ID
-			 * + " = '" + thisReport.userId + "'";
-			 * 
-			 * c = cr.query(TigaPhotos.CONTENT_URI, TigaPhotos.KEYS_ALL, sc,
-			 * null, null);
-			 * 
-			 * if (c.moveToLast()) {
-			 * 
-			 * int rowIdCol = c.getColumnIndexOrThrow(TigaPhotos.KEY_ROW_ID);
-			 * int userIdCol = c.getColumnIndexOrThrow(TigaPhotos.KEY_USER_ID);
-			 * int reportIdCol = c
-			 * .getColumnIndexOrThrow(TigaPhotos.KEY_REPORT_ID); int
-			 * reportVersionCol = c
-			 * .getColumnIndexOrThrow(TigaPhotos.KEY_REPORT_VERSION); int
-			 * photoUriCol = c .getColumnIndexOrThrow(TigaPhotos.KEY_PHOTO_URI);
-			 * int photoTimeCol = c
-			 * .getColumnIndexOrThrow(TigaPhotos.KEY_PHOTO_TIME);
-			 * 
-			 * while (!c.isAfterLast()) {
-			 * 
-			 * thisReport.photos.add(new Photo(c.getString(reportIdCol), c
-			 * .getInt(reportVersionCol), c.getString(photoUriCol),
-			 * c.getLong(photoTimeCol), Report.NO, Report.MISSING, Report.NO));
-			 * 
-			 * c.moveToNext(); }
-			 * 
-			 * }
-			 * 
-			 * 
-			 * c.close();
-			 */
 		} else {
 			thisReport = new Report(type, PropertyHolder.getUserId());
 		}
@@ -424,20 +405,32 @@ public class ReportTool extends Activity {
 
 						locationRadioGroup.check(R.id.whereRadioButtonHere);
 						reportLocationCheck.setChecked(true);
-						thisReport.currentLocationLat = (float) currentLocation
+						final float clat = (float) currentLocation
 								.getLatitude();
-						thisReport.currentLocationLon = (float) currentLocation
+						final float clon = (float) currentLocation
 								.getLongitude();
+
+						thisReport.currentLocationLat = Float.valueOf(clat);
+						thisReport.currentLocationLon = Float.valueOf(clon);
 						thisReport.locationChoice = Report.LOCATION_CHOICE_CURRENT;
 
+						/*
+						 * Util.toast( context,
+						 * "FOR TESTING... Aitana: what values are displayed here?\n\nLat: "
+						 * + String.format("%.5g%n",
+						 * thisReport.currentLocationLat) + "\nLon: " +
+						 * String.format("%.5g%n",
+						 * thisReport.currentLocationLon));
+						 */
 						Util.toast(
 								context,
 								"Added current location.\n\nLat: "
 										+ String.format("%.5g%n",
-												currentLocation.getLatitude())
+												thisReport.currentLocationLat)
 										+ "\nLon: "
 										+ String.format("%.5g%n",
-												currentLocation.getLongitude()));
+												thisReport.currentLocationLon));
+
 					}
 
 					return;
@@ -482,6 +475,10 @@ public class ReportTool extends Activity {
 		reportLocationCheck
 				.setChecked(thisReport.locationChoice != Report.MISSING);
 
+		if (type == Report.TYPE_ADULT)
+			reportPhotoCheck.setText("Photo(s)");
+		else
+			reportPhotoCheck.setText("Photo(s)*");
 		if (thisReport.photoUrisJson != null
 				&& thisReport.photoUrisJson.length() > 0) {
 			photoCount.setVisibility(View.VISIBLE);
@@ -500,40 +497,25 @@ public class ReportTool extends Activity {
 			@Override
 			public void onClick(View v) {
 
-				if (currentLocation == null
-						&& (thisReport.selectedLocationLat == null || thisReport.selectedLocationLon == null)) {
-
-					if (locationManager == null) {
-						locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-					}
-
-					if (locationManager
-							.isProviderEnabled(LocationManager.GPS_PROVIDER)
-							|| locationManager
-									.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-
-						buildLocationAlert(getResources().getString(
-								R.string.nolocation_alert_report));
-					} else {
-						buildLocationAlert(getResources().getString(
-								R.string.nolocnogps_alert));
-					}
-
-				} else if (!reportConfirmationCheck.isChecked()
-						|| !reportLocationCheck.isChecked()) {
-
+				if (!reportConfirmationCheck.isChecked()
+						|| !reportLocationCheck.isChecked()
+						|| (type == Report.TYPE_BREEDING_SITE && !reportPhotoCheck
+								.isChecked())) {
 					Util.toast(
 							context,
-							"Please complete the checklist and specify a location before sending your report.");
-
+							"Before submitting your report, please:\n\n"
+									+ (reportConfirmationCheck.isChecked() ? ""
+											: "- complete the checklist\n")
+									+ (reportLocationCheck.isChecked() ? ""
+											: "- specify a location\n")
+									+ ((type == Report.TYPE_BREEDING_SITE && !reportPhotoCheck
+											.isChecked()) ? "- attach a photo of the breeding site"
+											: ""));
 				} else {
-
 					message = getResources().getString(R.string.report_sent);
 					buildMailMessage(message);
-
 				}
 			}
-
 		});
 
 		countDownTimer = new MyCountDownTimer(5 * 60 * 1000, 5 * 30 * 1000);
@@ -924,6 +906,20 @@ public class ReportTool extends Activity {
 		}
 
 		protected Boolean doInBackground(Context... context) {
+
+			try {
+				PackageInfo pInfo = getPackageManager().getPackageInfo(
+						getPackageName(), 0);
+				thisReport.packageName = pInfo.packageName;
+				thisReport.packageVersion = pInfo.versionName;
+			} catch (NameNotFoundException e) {
+			}
+
+			thisReport.phoneManufacturer = Build.MANUFACTURER;
+			thisReport.phoneModel = Build.MODEL;
+
+			thisReport.OS = "Android";
+			thisReport.OSversion = Integer.toString(Build.VERSION.SDK_INT);
 
 			// First save report to internal DB
 			ContentResolver cr = getContentResolver();

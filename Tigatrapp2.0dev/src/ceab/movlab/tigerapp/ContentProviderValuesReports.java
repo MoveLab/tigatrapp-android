@@ -24,6 +24,9 @@ package ceab.movlab.tigerapp;
 import org.json.JSONArray;
 
 import android.content.ContentValues;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.Build;
 import ceab.movlab.tigerapp.ContentProviderContractReports.Reports;
 
 /**
@@ -91,7 +94,6 @@ public class ContentProviderValuesReports {
 		if (rep.note != null)
 			initialValues.put(Reports.KEY_NOTE, rep.note);
 
-
 		initialValues.put(Reports.KEY_UPLOADED, rep.uploaded);
 
 		initialValues.put(Reports.KEY_SERVER_TIMESTAMP, rep.serverTimestamp);
@@ -99,6 +101,25 @@ public class ContentProviderValuesReports {
 		initialValues.put(Reports.KEY_DELETE_REPORT, rep.deleteReport);
 
 		initialValues.put(Reports.KEY_LATEST_VERSION, rep.latestVersion);
+
+		if (rep.packageName != null)
+			initialValues.put(Reports.KEY_PACKAGE_NAME, rep.packageName);
+
+		if (rep.packageVersion != null)
+			initialValues.put(Reports.KEY_PACKAGE_VERSION, rep.packageVersion);
+
+		if (rep.phoneManufacturer != null)
+			initialValues.put(Reports.KEY_PHONE_MANUFACTURER,
+					rep.phoneManufacturer);
+
+		if (rep.phoneModel != null)
+			initialValues.put(Reports.KEY_PHONE_MODEL, rep.phoneModel);
+
+		if (rep.OS != null)
+			initialValues.put(Reports.KEY_OS, rep.OS);
+
+		if (rep.OSversion != null)
+			initialValues.put(Reports.KEY_OS_VERSION, rep.OSversion);
 
 		return initialValues;
 	}

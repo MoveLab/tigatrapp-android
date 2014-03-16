@@ -30,7 +30,7 @@
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/helpIcon"
             android:text="Task Title"
-            android:textSize="70sp"
+            android:textSize="40sp"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/light_orange" />
     </RelativeLayout>
@@ -42,7 +42,7 @@
         android:paddingBottom="5dip"
         android:paddingLeft="5dip"
         android:paddingRight="5dip"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:text="Task Detail"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 

@@ -52,7 +52,7 @@ public class ContentProviderReports extends ContentProvider {
 	private static final String DATABASE_NAME = "reportsDB";
 
 	/** The database version */
-	private static final int DATABASE_VERSION = 2;
+	private static final int DATABASE_VERSION = 3;
 
 	/** The location fix table name; currently "reportsTable" */
 	public static final String DATABASE_TABLE = "reportsTable";
@@ -82,7 +82,12 @@ public class ContentProviderReports extends ContentProvider {
 			+ TYPE_TEXT + COMMA + Reports.KEY_UPLOADED + TYPE_INTEGER + COMMA
 			+ Reports.KEY_SERVER_TIMESTAMP + TYPE_INTEGER + COMMA
 			+ Reports.KEY_DELETE_REPORT + TYPE_INTEGER + COMMA
-			+ Reports.KEY_LATEST_VERSION + TYPE_INTEGER + ");";
+			+ Reports.KEY_LATEST_VERSION + TYPE_INTEGER
+			+ Reports.KEY_PACKAGE_NAME + TYPE_TEXT + COMMA
+			+ Reports.KEY_PACKAGE_VERSION + TYPE_TEXT + COMMA
+			+ Reports.KEY_PHONE_MANUFACTURER + TYPE_TEXT + COMMA
+			+ Reports.KEY_PHONE_MODEL + TYPE_TEXT + COMMA + Reports.KEY_OS
+			+ TYPE_TEXT + COMMA + Reports.KEY_OS_VERSION + TYPE_TEXT + ");";
 
 	private DatabaseHelper mDbHelper;
 
@@ -164,6 +169,19 @@ public class ContentProviderReports extends ContentProvider {
 				Reports.KEY_DELETE_REPORT);
 		reportsProjectionMap.put(Reports.KEY_LATEST_VERSION,
 				Reports.KEY_LATEST_VERSION);
+
+		reportsProjectionMap.put(Reports.KEY_PACKAGE_NAME,
+				Reports.KEY_PACKAGE_NAME);
+		reportsProjectionMap.put(Reports.KEY_PACKAGE_VERSION,
+				Reports.KEY_PACKAGE_VERSION);
+		reportsProjectionMap.put(Reports.KEY_PHONE_MANUFACTURER,
+				Reports.KEY_PHONE_MANUFACTURER);
+		reportsProjectionMap.put(Reports.KEY_PHONE_MODEL,
+				Reports.KEY_PHONE_MODEL);
+		reportsProjectionMap.put(Reports.KEY_OS, Reports.KEY_OS);
+		reportsProjectionMap
+				.put(Reports.KEY_OS_VERSION, Reports.KEY_OS_VERSION);
+
 	}
 
 	@Override

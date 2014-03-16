@@ -50,7 +50,16 @@ public class ContentProviderContractTasks {
 		public static final String KEY_TASK_HEADING = "task_title";
 		public static final String KEY_TASK_SHORT_DESCRIPTION = "task_short_description";
 		public static final String KEY_DATE = "date"; // long, unix time
-		public static final String KEY_EXPIRATION_DATE = "expiration_date"; // long, unix time
+		public static final String KEY_EXPIRATION_DATE = "expiration_date"; // long,
+																			// unix
+																			// time
+		public static final String KEY_LOCATION_TRIGGERS_JSON = "location_triggers"; // json
+																						// array
+																						// string:
+																						// [{lat:_lat,
+																						// lon:_lon, start_hour: _start_hour, end_hour:_end_hour},
+
+		public static final String KEY_ACTIVE = "active"; // 1 or 0;
 		public static final String KEY_TASK_JSON = "task_json";
 		public static final String KEY_DONE = "done"; // int 0=no, 1=yes
 		public static final String KEY_RESPONSES_JSON = "responses"; // text
@@ -59,13 +68,18 @@ public class ContentProviderContractTasks {
 		/** The names of all the fields contained in the reports table */
 		public static final String[] KEYS_ALL = { KEY_ROW_ID, KEY_TASK_ID,
 				KEY_TASK_HEADING, KEY_TASK_SHORT_DESCRIPTION, KEY_DATE,
-				KEY_EXPIRATION_DATE, KEY_TASK_JSON, KEY_DONE,
+				KEY_EXPIRATION_DATE,KEY_ACTIVE, KEY_TASK_JSON, KEY_DONE,
 				KEY_RESPONSES_JSON, KEY_UPLOADED };
 
-		public static final String[] KEYS_TASKS_LIST = { KEY_ROW_ID, KEY_TASK_HEADING,
-				KEY_TASK_SHORT_DESCRIPTION, KEY_DATE, KEY_TASK_JSON};
+		public static final String[] KEYS_TASKS_LIST = { KEY_ROW_ID,
+				KEY_TASK_HEADING, KEY_TASK_SHORT_DESCRIPTION, KEY_DATE, KEY_EXPIRATION_DATE, KEY_ACTIVE,
+				KEY_TASK_JSON, KEY_DONE };
 
-		public static final String[] KEYS_DONE = { KEY_ROW_ID, KEY_DONE, KEY_EXPIRATION_DATE};
+		public static final String[] KEYS_DONE = { KEY_ROW_ID, KEY_DONE,
+				KEY_EXPIRATION_DATE, KEY_ACTIVE };
+
+		public static final String[] KEYS_TRIGGERS = { KEY_ROW_ID,
+				KEY_LOCATION_TRIGGERS_JSON, KEY_TASK_HEADING};
 
 	}
 

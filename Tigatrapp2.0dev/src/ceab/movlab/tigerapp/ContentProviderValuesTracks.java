@@ -36,33 +36,17 @@ import ceab.movlab.tigerapp.ContentProviderContractTracks.Fixes;
 
 public class ContentProviderValuesTracks {
 
-	public static ContentValues createFix(float accuracy,
-			double altitude, double latitude, double longitude,
-			String provider, long time, int power_level,
-			long station_departure_timelong, int display) {
+	public static ContentValues createFix(double latitude, double longitude,
+			long time, int power_level) {
 		Date usertime = new Date(time);
 		ContentValues initialValues = new ContentValues();
-		initialValues.put(Fixes.KEY_ACCURACY, (double) accuracy);
-		initialValues.put(Fixes.KEY_ALTITUDE, (double) altitude);
 		initialValues.put(Fixes.KEY_LATITUDE, (double) latitude);
 		initialValues.put(Fixes.KEY_LONGITUDE, (double) longitude);
-		initialValues.put(Fixes.KEY_PROVIDER, provider);
-		initialValues.put(Fixes.KEY_TIMELONG, (long) time);
-		initialValues.put(Fixes.KEY_TIMESTAMP, Util.userDate(usertime));
+		initialValues.put(Fixes.KEY_TIME, (long) time);
 		initialValues.put(Fixes.KEY_POWER_LEVEL, power_level);
-		initialValues.put(Fixes.KEY_STATION_DEPARTURE_TIMELONG,
-				station_departure_timelong);
-		initialValues.put(Fixes.KEY_DISPLAY, display);
 		initialValues.put(Fixes.KEY_UPLOADED, 0);
 
 		return initialValues;
-	}
-
-	public static ContentValues createFix(Location loc,
-			int power_level, long station_departure_timelong, int display) {
-		return createFix( loc.getAccuracy(), loc.getAltitude(),
-				loc.getLatitude(), loc.getLongitude(), loc.getProvider(),
-				loc.getTime(), power_level, station_departure_timelong, display);
 	}
 
 }

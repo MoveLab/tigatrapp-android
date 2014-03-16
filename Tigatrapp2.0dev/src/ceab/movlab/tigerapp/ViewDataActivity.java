@@ -58,20 +58,17 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Point;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import ceab.movlab.tigerapp.ContentProviderContractReports.Reports;
 import ceab.movelab.tigerapp.R;
+import ceab.movlab.tigerapp.ContentProviderContractReports.Reports;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -240,9 +237,7 @@ public class ViewDataActivity extends MapActivity {
 	 * Draw selected locations on map. Returns true if drawn; false otherwise.
 	 */
 	public boolean drawFixes(ArrayList<MyOverlayItem> myAdultReports,
-			ArrayList<MyOverlayItem> mySiteReports,
-			ArrayList<GeoPoint> othersAdultReports,
-			ArrayList<GeoPoint> othersSiteReports, boolean clearMapOverlays,
+			ArrayList<MyOverlayItem> mySiteReports, boolean clearMapOverlays,
 			boolean recenter) {
 
 		// get mapview overlays
@@ -251,15 +246,6 @@ public class ViewDataActivity extends MapActivity {
 		// Clear any existing overlays if cleraMapOverlays set to true
 		if (clearMapOverlays)
 			mapOverlays.clear();
-
-		if (othersAdultReports != null && othersAdultReports.size() > 0) {
-			mapOverlays.add(new MapOverlay(ADULT_COLOR, othersAdultReports
-					.toArray(new GeoPoint[othersAdultReports.size()])));
-		}
-		if (othersSiteReports != null && othersSiteReports.size() > 0) {
-			mapOverlays.add(new MapOverlay(SITE_COLOR, othersSiteReports
-					.toArray(new GeoPoint[othersSiteReports.size()])));
-		}
 
 		if (myAdultReports != null && myAdultReports.size() > 0) {
 			// Drawable drawable = this.getResources().getDrawable(
@@ -450,8 +436,6 @@ public class ViewDataActivity extends MapActivity {
 
 		ArrayList<MyOverlayItem> myAdultOverlaylist = new ArrayList<MyOverlayItem>();
 		ArrayList<MyOverlayItem> mySiteOverlaylist = new ArrayList<MyOverlayItem>();
-		ArrayList<GeoPoint> othersAdultReports = new ArrayList<GeoPoint>();
-		ArrayList<GeoPoint> othersSiteReports = new ArrayList<GeoPoint>();
 
 		GeoPoint center;
 
@@ -503,9 +487,10 @@ public class ViewDataActivity extends MapActivity {
 				int uploadedCol = c.getColumnIndexOrThrow(Reports.KEY_UPLOADED);
 				int serverTimestampCol = c
 						.getColumnIndexOrThrow(Reports.KEY_SERVER_TIMESTAMP);
-				int locationChoice = c.getInt(locationChoiceCol);
-
+				
 				while (!c.isAfterLast()) {
+
+					int locationChoice = c.getInt(locationChoiceCol);
 
 					Double geoLat = c
 							.getDouble(locationChoice == Report.LOCATION_CHOICE_SELECTED ? selectedLocationLatCol
@@ -516,30 +501,32 @@ public class ViewDataActivity extends MapActivity {
 					GeoPoint point = new GeoPoint(geoLat.intValue(),
 							geoLon.intValue());
 
+					
+					Log.i("VDA", "locationChoice = " + locationChoice);
+					Log.i("VDA", "geolat = " + geoLat);
+					
+					
+					
 					final int thisType = c.getInt(typeCol);
 
-					if (c.getString(userIdCol).equals(
-							PropertyHolder.getUserId())) {
-						MyOverlayItem overlayitem = new MyOverlayItem(point,
-								(thisType == Report.TYPE_ADULT ? "Adult Report"
-										: "Breeding Site Report")
-										+ "\n"
-										+ Util.userDate(new Date(c
-												.getLong(reportTimeCol))),
-								c.getString(noteCol), c.getString(reportIdCol),
-								c.getInt(typeCol), c.getString(photoUrisCol),
-								c.getString(confirmationCol));
-						currentCenter = point;
-						if (thisType == Report.TYPE_ADULT)
-							myAdultOverlaylist.add(overlayitem);
-						else
-							mySiteOverlaylist.add(overlayitem);
-					} else {
-						if (thisType == Report.TYPE_ADULT)
-							othersAdultReports.add(point);
-						else
-							othersSiteReports.add(point);
-					}
+					// NOTE THAT WE HAVE DECIDED TO HAVE ONLY THE USER'S REPORTS
+					// ON THE PHONE DB, NOT OTHERS', SO NO NEED
+					// TO CHECK USER ID HERE
+
+					MyOverlayItem overlayitem = new MyOverlayItem(point,
+							(thisType == Report.TYPE_ADULT ? "Adult Report"
+									: "Breeding Site Report")
+									+ "\n"
+									+ Util.userDate(new Date(c
+											.getLong(reportTimeCol))),
+							c.getString(noteCol), c.getString(reportIdCol),
+							c.getInt(typeCol), c.getString(photoUrisCol),
+							c.getString(confirmationCol));
+					currentCenter = point;
+					if (thisType == Report.TYPE_ADULT)
+						myAdultOverlaylist.add(overlayitem);
+					else
+						mySiteOverlaylist.add(overlayitem);
 
 					c.moveToNext();
 				}
@@ -554,8 +541,7 @@ public class ViewDataActivity extends MapActivity {
 
 		protected void onPostExecute(Boolean result) {
 			if (result) {
-				drawFixes(myAdultOverlaylist, mySiteOverlaylist,
-						othersAdultReports, othersSiteReports, true, true);
+				drawFixes(myAdultOverlaylist, mySiteOverlaylist, true, true);
 			}
 			progressbar.setVisibility(View.INVISIBLE);
 			loadingData = false;

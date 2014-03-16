@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import ceab.movelab.tigerapp.R;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -13,7 +12,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -22,6 +20,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import ceab.movelab.tigerapp.R;
 
 /********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
 public class TaskAdapter extends BaseAdapter implements OnClickListener {
@@ -177,7 +176,7 @@ public class TaskAdapter extends BaseAdapter implements OnClickListener {
 
 			/******** Set Item Click Listner for LayoutInflater for each row *******/
 
-			vi.setOnLongClickListener(new OnItemLongClickListener(position));
+			vi.setOnClickListener(new OnItemClickListener(position));
 		}
 		return vi;
 	}
@@ -188,15 +187,15 @@ public class TaskAdapter extends BaseAdapter implements OnClickListener {
 	}
 
 	/********* Called when Item click in ListView ************/
-	private class OnItemLongClickListener implements OnLongClickListener {
+	private class OnItemClickListener implements OnClickListener {
 		private int mPosition;
 
-		OnItemLongClickListener(int position) {
+		OnItemClickListener(int position) {
 			mPosition = position;
 		}
 
 		@Override
-		public boolean onLongClick(View arg0) {
+		public void onClick(View arg0) {
 
 			TaskItemModel thisTask = (TaskItemModel) data.get(mPosition);
 
@@ -206,7 +205,7 @@ public class TaskAdapter extends BaseAdapter implements OnClickListener {
 			} else
 				Util.showHelp(activity, thisTask.getItemHelp());
 
-			return true;
+			return;
 		}
 	}
 }

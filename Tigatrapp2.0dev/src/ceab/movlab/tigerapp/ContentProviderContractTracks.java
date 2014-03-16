@@ -46,16 +46,10 @@ public class ContentProviderContractTracks {
 		public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.movlabtiger.fixes";
 
 		public static final String KEY_ROWID = "_id";
-		public static final String KEY_ACCURACY = "accuracy";
-		public static final String KEY_ALTITUDE = "altitude";
 		public static final String KEY_LATITUDE = "latitude";
 		public static final String KEY_LONGITUDE = "longitude";
-		public static final String KEY_PROVIDER = "provider";
-		public static final String KEY_TIMELONG = "timelong";
-		public static final String KEY_TIMESTAMP = "timestamp";
+		public static final String KEY_TIME = "time";
 		public static final String KEY_POWER_LEVEL = "power_level";
-		public static final String KEY_STATION_DEPARTURE_TIMELONG = "sdtimelong";
-		public static final String KEY_DISPLAY = "display";
 		public static final String KEY_UPLOADED = "uploaded";
 
 		public static final int DISPLAY_TRUE = 1;
@@ -63,29 +57,22 @@ public class ContentProviderContractTracks {
 
 		public static final String DB_CREATE_STATEMENT = "create table "
 				+ ContentProviderTracks.DATABASE_TABLE + " ( " + KEY_ROWID
-				+ " integer primary key autoincrement, " + KEY_ACCURACY
-				+ " real, " + KEY_ALTITUDE + "  real, " + KEY_LATITUDE
-				+ " real, " + KEY_LONGITUDE + " real, " + KEY_PROVIDER
-				+ " text, " + KEY_TIMELONG + " long,  " + KEY_TIMESTAMP
-				+ " text not null, " + KEY_POWER_LEVEL + " integer,"
-				+ KEY_STATION_DEPARTURE_TIMELONG + " long, " + KEY_DISPLAY
-				+ " integer, " + KEY_UPLOADED + " integer);";
+				+ " integer primary key autoincrement, " + KEY_LATITUDE
+				+ " real, " + KEY_LONGITUDE + " real, " + KEY_TIME + " long,  "
+				+ KEY_POWER_LEVEL + " integer," + KEY_UPLOADED + " integer);";
 
 		/** The names of all the fields contained in the location tracks table */
-		public static final String[] KEYS_ALL = { KEY_ROWID, KEY_ACCURACY,
-				KEY_ALTITUDE, KEY_LATITUDE, KEY_LONGITUDE, KEY_PROVIDER,
-				KEY_TIMELONG, KEY_TIMESTAMP, KEY_POWER_LEVEL,
-				KEY_STATION_DEPARTURE_TIMELONG, KEY_DISPLAY, KEY_UPLOADED };
+		public static final String[] KEYS_ALL = { KEY_ROWID, KEY_LATITUDE,
+				KEY_LONGITUDE, KEY_TIME, KEY_POWER_LEVEL, KEY_UPLOADED };
 
 		public static final String[] KEYS_LATLON = { KEY_ROWID, KEY_LATITUDE,
 				KEY_LONGITUDE };
 
 		public static final String[] KEYS_LATLONACC = { KEY_ROWID,
-				KEY_LATITUDE, KEY_LONGITUDE, KEY_ACCURACY };
+				KEY_LATITUDE, KEY_LONGITUDE };
 
 		public static final String[] KEYS_LATLONACCTIMES = { KEY_ROWID,
-				KEY_LATITUDE, KEY_LONGITUDE, KEY_ACCURACY, KEY_TIMELONG,
-				KEY_STATION_DEPARTURE_TIMELONG };
+				KEY_LATITUDE, KEY_LONGITUDE, KEY_TIME };
 
 	}
 

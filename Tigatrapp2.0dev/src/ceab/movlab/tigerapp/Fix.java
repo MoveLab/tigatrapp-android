@@ -56,20 +56,13 @@ public class Fix {
 
 	double lat;
 	double lng;
-	double alt;
-	float acc;
-	String prov;
 	long time;
 	int pow;
 
-	Fix(double _lat, double _lng, double _alt, float _acc, String _prov,
-			long _time, int _pow) {
+	Fix(double _lat, double _lng, long _time, int _pow) {
 
 		lat = _lat;
 		lng = _lng;
-		alt = _alt;
-		acc = _acc;
-		prov = _prov;
 		time = _time;
 		pow = _pow;
 
@@ -85,9 +78,6 @@ public class Fix {
 			object.put("userid", PropertyHolder.getUserId());
 			object.put("lat", String.valueOf(this.lat));
 			object.put("lng", String.valueOf(this.lng));
-			object.put("alt", String.valueOf(this.alt));
-			object.put("acc", String.valueOf(this.acc));
-			object.put("prov", String.valueOf(this.prov));
 			object.put("time", String.valueOf(this.time));
 			object.put("pow", String.valueOf(this.pow));
 
@@ -107,8 +97,8 @@ public class Fix {
 
 		byte[] result = null;
 
-		String thisFix = this.lat + "," + this.lng + "," + this.alt + ","
-				+ this.acc + "," + this.prov + "," + this.time + "," + this.pow;
+		String thisFix = this.lat + "," + this.lng + "," + this.time + ","
+				+ this.pow;
 
 		try {
 			result = Util.encryptRSA(context, thisFix.getBytes("UTF-8"));

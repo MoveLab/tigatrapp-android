@@ -84,7 +84,9 @@ import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -104,15 +106,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -133,6 +136,9 @@ public class Util {
 
 	public final static GeoPoint CEAB_COORDINATES = new GeoPoint(41686600,
 			2799600);
+
+	public final static double latMask = 0.5;
+	public final static double lonMask = 0.5;
 
 	public final static boolean testingMode = false;
 
@@ -155,17 +161,24 @@ public class Util {
 
 	public static boolean redrawMap = false;
 
+	public static int nSamplesPerDay = 20; // for testing, will reduce to 5
+
 	public static long xTime = 1 * 60 * 60 * 1000;
 	/**
 	 * Default value for the interval between location fixes. In milliseconds.
 	 */
-	public static final long ALARM_INTERVAL = 1000*60*60; // 1 hour
+	public static final long ALARM_INTERVAL = 1000 * 60 * 60; // 1 hour
+
+	public static final long TASK_FIX_WINDOW = 1000 * 60 * 1; // 1 minute
 
 	public static final long UPLOAD_INTERVAL = 1000 * 60 * 60; // 1 hour
 
 	/**
 	 * Server URLs for uploads.
 	 */
+
+	public static final String URL_TIGERSERVER_ROOT = "http://tce.ceab.csic.es/";
+
 	public static final String URL_TIGERFINDER = "http://tce.ceab.csic.es/tigaDev2/tigerfinder2.0Dev.php";
 
 	public static final String URL_DELETE_REPORT = "http://tce.ceab.csic.es/tigaDev2/tigerfinderdeleterep2.0Dev.php";
@@ -374,6 +387,13 @@ public class Util {
 		return format;
 	}
 
+	public static int hour(long unixtime) {
+		GregorianCalendar cal = new GregorianCalendar();
+		cal.setTimeInMillis(unixtime);
+		int hour = cal.get(Calendar.HOUR_OF_DAY);
+		return hour;
+	}
+
 	/**
 	 * Gets the current system time in milliseconds. Taken from Human Mobility
 	 * Project code written by Chang Y. Chung and Necati E. Ozgencil.
@@ -404,9 +424,19 @@ public class Util {
 		tv.setPadding(20, 20, 20, 20);
 		tv.setTextSize(20);
 
-		Toast t = new Toast(context);
-		t.setDuration(Toast.LENGTH_LONG);
+		final Toast t = new Toast(context);
+		t.setDuration(Toast.LENGTH_SHORT);
 		t.setView(tv);
+		tv.setOnTouchListener(new OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View arg0, MotionEvent arg1) {
+				t.cancel();
+				return true;
+			}
+
+		});
+
 		t.show();
 	}
 
@@ -420,6 +450,14 @@ public class Util {
 		final ImageView mImage = (ImageView) dialog
 				.findViewById(R.id.checkHelpImage);
 		mImage.setImageResource(image);
+		ImageView cancelButton = (ImageView) dialog
+				.findViewById(R.id.cancelButton);
+		cancelButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				dialog.cancel();
+			}
+		});
 		dialog.setCanceledOnTouchOutside(true);
 		dialog.show();
 	}
@@ -431,7 +469,15 @@ public class Util {
 		Util.overrideFonts(context, dialog.findViewById(android.R.id.content));
 		TextView mText = (TextView) dialog.findViewById(R.id.checkHelpText);
 		mText.setText(message);
-		dialog.setCanceledOnTouchOutside(true);
+		ImageView cancelButton = (ImageView) dialog
+				.findViewById(R.id.cancelButton);
+		cancelButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				dialog.cancel();
+			}
+		});
+		// dialog.setCanceledOnTouchOutside(true);
 		dialog.show();
 	}
 
@@ -824,8 +870,7 @@ public class Util {
 
 	public static Bitmap getSmallerBitmap(File file, Context context,
 			int pixelSize) throws FileNotFoundException, IOException {
-		
-		
+
 		FileInputStream input = new FileInputStream(file);
 
 		BitmapFactory.Options onlyBoundsOptions = new BitmapFactory.Options();
@@ -862,41 +907,43 @@ public class Util {
 			return k;
 	}
 
-	  public static LayerDrawable createMarker(int color){  
-		  		  
-			ShapeDrawable border = new ShapeDrawable(new OvalShape());
-			border.getPaint().setColor(Color.BLACK);
-			border.getPaint().setStyle(Paint.Style.STROKE);;
-			border.setBounds(0, 0, 80, 80);
-			ShapeDrawable fill = new ShapeDrawable(new OvalShape());
-			fill.getPaint().setColor(Color.BLACK);
-			fill.getPaint().setStyle(Paint.Style.FILL);;
-			fill.setBounds(0, 0, 80, 80);
-			Drawable drawableArray[] = new Drawable[]{fill, border};
-		     LayerDrawable layerDraw = new LayerDrawable(drawableArray);  
-		//     layerDraw.setLayerInset(0, 15, 15, 0, 0);//set offset of first layer  
-		 //    layerDraw.setLayerInset(1,40,40,0,0);//set offset for second layer  
-		     return layerDraw;  
-		   }  
+	public static LayerDrawable createMarker(int color) {
 
+		ShapeDrawable border = new ShapeDrawable(new OvalShape());
+		border.getPaint().setColor(Color.BLACK);
+		border.getPaint().setStyle(Paint.Style.STROKE);
+		;
+		border.setBounds(0, 0, 80, 80);
+		ShapeDrawable fill = new ShapeDrawable(new OvalShape());
+		fill.getPaint().setColor(Color.BLACK);
+		fill.getPaint().setStyle(Paint.Style.FILL);
+		;
+		fill.setBounds(0, 0, 80, 80);
+		Drawable drawableArray[] = new Drawable[] { fill, border };
+		LayerDrawable layerDraw = new LayerDrawable(drawableArray);
+		// layerDraw.setLayerInset(0, 15, 15, 0, 0);//set offset of first layer
+		// layerDraw.setLayerInset(1,40,40,0,0);//set offset for second layer
+		return layerDraw;
+	}
 
-	  public static Drawable createMarker2(int color){  
-		  		  
-			ShapeDrawable border = new ShapeDrawable(new OvalShape());
-			border.getPaint().setColor(Color.BLACK);
-			border.getPaint().setStyle(Paint.Style.STROKE);;
-			border.setBounds(0, 0, 80, 80);
-			ShapeDrawable fill = new ShapeDrawable(new OvalShape());
-			fill.getPaint().setColor(Color.BLACK);
-			fill.getPaint().setStyle(Paint.Style.FILL);;
-			fill.setBounds(0, 0, 80, 80);
-			Drawable drawableArray[] = new Drawable[]{fill, border};
-		     LayerDrawable layerDraw = new LayerDrawable(drawableArray);  
-		     layerDraw.setBounds(0,0,80,80);
-		//     layerDraw.setLayerInset(0, 15, 15, 0, 0);//set offset of first layer  
-		 //    layerDraw.setLayerInset(1,40,40,0,0);//set offset for second layer  
-		     return fill;  
-		   }  
+	public static Drawable createMarker2(int color) {
 
-	  
+		ShapeDrawable border = new ShapeDrawable(new OvalShape());
+		border.getPaint().setColor(Color.BLACK);
+		border.getPaint().setStyle(Paint.Style.STROKE);
+		;
+		border.setBounds(0, 0, 80, 80);
+		ShapeDrawable fill = new ShapeDrawable(new OvalShape());
+		fill.getPaint().setColor(Color.BLACK);
+		fill.getPaint().setStyle(Paint.Style.FILL);
+		;
+		fill.setBounds(0, 0, 80, 80);
+		Drawable drawableArray[] = new Drawable[] { fill, border };
+		LayerDrawable layerDraw = new LayerDrawable(drawableArray);
+		layerDraw.setBounds(0, 0, 80, 80);
+		// layerDraw.setLayerInset(0, 15, 15, 0, 0);//set offset of first layer
+		// layerDraw.setLayerInset(1,40,40,0,0);//set offset for second layer
+		return fill;
+	}
+
 }

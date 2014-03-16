@@ -15,7 +15,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.content.res.Resources.NotFoundException;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,15 +22,14 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import ceab.movelab.tigerapp.R;
 import ceab.movlab.tigerapp.ContentProviderContractReports.Reports;
 import ceab.movlab.tigerapp.ContentProviderContractTasks.Tasks;
-import ceab.movelab.tigerapp.R;
 
 public class TaskActivity extends Activity {
 	Context context = this;
@@ -42,6 +40,7 @@ public class TaskActivity extends Activity {
 	LinearLayout taskHeader;
 	ImageView helpIcon;
 	Button buttonLeft;
+	Button buttonMiddle;
 	Button buttonRight;
 	public JSONObject responses;
 	String currentResponses;
@@ -49,9 +48,9 @@ public class TaskActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		if(!PropertyHolder.isInit())
+		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
-		
+
 		lang = PropertyHolder.getLanguage();
 		Locale myLocale = new Locale(lang);
 		Resources res = getResources();
@@ -76,6 +75,7 @@ public class TaskActivity extends Activity {
 		helpIcon = (ImageView) findViewById(R.id.helpIcon);
 		taskHeader = (LinearLayout) findViewById(R.id.header);
 		buttonLeft = (Button) findViewById(R.id.buttonLeft);
+		buttonMiddle = (Button) findViewById(R.id.buttonMiddle);
 		buttonRight = (Button) findViewById(R.id.buttonRight);
 
 		ArrayList<TaskItemModel> list = new ArrayList<TaskItemModel>();
@@ -83,14 +83,16 @@ public class TaskActivity extends Activity {
 		final Bundle b = getIntent().getExtras();
 
 		String taskJson = b.getString(Tasks.KEY_TASK_JSON);
-		Log.d("TA1", taskJson);
+		
 		if (b.containsKey(Tasks.KEY_RESPONSES_JSON)) {
 			currentResponses = b.getString(Tasks.KEY_RESPONSES_JSON);
-			Log.d("TA2", currentResponses);
+		
 
 		}
+		final JSONObject thisTask;
+
 		try {
-			final JSONObject thisTask;
+
 			thisTask = new JSONObject(taskJson);
 
 			if (thisTask.has(TaskModel.KEY_TASK_TITLE))
@@ -108,11 +110,11 @@ public class TaskActivity extends Activity {
 				final String helpText = thisTask
 						.getString(TaskModel.KEY_TASK_HELP);
 				helpIcon.setVisibility(View.VISIBLE);
-				taskHeader.setOnLongClickListener(new OnLongClickListener() {
+				taskHeader.setOnClickListener(new OnClickListener() {
 					@Override
-					public boolean onLongClick(View v) {
+					public void onClick(View v) {
 						Util.showHelp(context, helpText);
-						return true;
+						return;
 					}
 				});
 			} else
@@ -130,8 +132,7 @@ public class TaskActivity extends Activity {
 						if (cr.has(thisTaskItem.getItemId())) {
 							String thisItemResponse = cr.getString(thisTaskItem
 									.getItemId());
-							Log.d("TA3", thisItemResponse);
-							Log.d("TA4", thisTaskItem.getItemId());
+					
 
 							thisTaskItem.setItemResponse(thisItemResponse);
 						}
@@ -145,335 +146,282 @@ public class TaskActivity extends Activity {
 			final TaskAdapter adapter = new TaskAdapter(this, list, res);
 			lv.setAdapter(adapter);
 
-			/************ BUTTON ACTION SWITCH **************/
+			if (thisTask.has(TaskModel.KEY_TASK_PRESET_CONFIGURATION)) {
 
-			switch (thisTask.getInt(TaskModel.KEY_TASK_BUTTON_LEFT_ACTION)) {
+				// / PRECONFIGURE MODELS
+				if (thisTask.getInt(TaskModel.KEY_TASK_PRESET_CONFIGURATION) == TaskModel.PRECONFIRUATION_ADULTS) {
+					// / ADULTS
 
-			case (TaskModel.TASK_CONFIGURATION_SIMPLE): {
-				buttonLeft.setVisibility(View.GONE);
-				buttonRight.setText(getResources().getString(R.string.ok));
-				buttonRight.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						ContentResolver cr = getContentResolver();
-						ContentValues cv = new ContentValues();
-						int rowId = b.getInt(Tasks.KEY_ROW_ID);
-						String sc = Tasks.KEY_ROW_ID + " = " + rowId;
-						if (responses.length() > 0) {
-							cv.put(Tasks.KEY_RESPONSES_JSON,
-									responses.toString());
-						}
-						cv.put(Tasks.KEY_DONE, 1);
-						cr.update(Tasks.CONTENT_URI, cv, sc, null);
-
-						Cursor c = cr.query(Tasks.CONTENT_URI, Tasks.KEYS_DONE,
-								Tasks.KEY_DONE + " = " + "0 AND "
-										+ Tasks.KEY_EXPIRATION_DATE + " <="
-										+ System.currentTimeMillis(), null,
-								null);
-
-						if (c.getCount() == 0) {
-							Intent i = new Intent(
-									TigerBroadcastReceiver.TIGER_TASK_CLEAR);
-							context.sendBroadcast(i);
-						}
-						finish();
-					}
-				});
-
-				break;
-
-			}
-			case (TaskModel.TASK_CONFIGURATION_SURVEY_TASK): {
-
-				buttonLeft.setText("Submit");
-				buttonLeft.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-
-						ContentResolver cr = getContentResolver();
-						ContentValues cv = new ContentValues();
-						int rowId = b.getInt(Tasks.KEY_ROW_ID);
-						String sc = Tasks.KEY_ROW_ID + " = " + rowId;
-						if (responses.length() > 0) {
-							cv.put(Tasks.KEY_RESPONSES_JSON,
-									responses.toString());
-						}
-						cv.put(Tasks.KEY_DONE, 1);
-						cr.update(Tasks.CONTENT_URI, cv, sc, null);
-
-						Cursor c = cr.query(Tasks.CONTENT_URI, Tasks.KEYS_DONE,
-								Tasks.KEY_DONE + " = " + "0 AND "
-										+ Tasks.KEY_EXPIRATION_DATE + " <="
-										+ System.currentTimeMillis(), null,
-								null);
-
-						if (c.getCount() == 0) {
-							Intent i = new Intent(
-									TigerBroadcastReceiver.TIGER_TASK_CLEAR);
-							context.sendBroadcast(i);
-						}
-
-						// TODO
-						/*
-						 * upload
-						 */
-						Util.toast(context,
-								"Uploading responses: " + responses.toString());
-
-						finish();
-
-						// TODO mark task as completed and/or delete from
-						// phone's database
-
-					}
-				});
-
-				buttonRight.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						finish();
-					}
-				});
-
-				break;
-
-			}
-
-			case (TaskModel.TASK_CONFIGURATION_ADULT_TASK): {
-
-				buttonLeft.setText("Start Report");
-				buttonLeft.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-
-						Intent i = new Intent(TaskActivity.this,
-								ReportTool.class);
-						Bundle b = new Bundle();
-						b.putInt("type", Report.TYPE_ADULT);
-						i.putExtras(b);
-						startActivity(i);
-						finish();
-
-						// TODO mark task as completed and/or delete from
-						// phone's database
-
-					}
-				});
-
-				buttonRight.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						finish();
-					}
-				});
-
-				break;
-
-			}
-			case (TaskModel.TASK_CONFIGURATION_SITE_TASK): {
-
-				buttonLeft.setText("Start Report");
-				buttonLeft.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-
-						Intent i = new Intent(TaskActivity.this,
-								ReportTool.class);
-						Bundle b = new Bundle();
-						b.putInt("type", Report.TYPE_BREEDING_SITE);
-						i.putExtras(b);
-						startActivity(i);
-
-						finish();
-
-						// TODO mark task as completed and/or delete from
-						// phone's database
-
-					}
-				});
-				buttonRight.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						finish();
-					}
-				});
-
-				break;
-
-			}
-
-			case (TaskModel.TASK_CONFIGURATION_WEBLINK): {
-
-				buttonLeft.setText("Go to website");
-				buttonLeft.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						try {
-
-							String url;
-							url = thisTask
-									.getString(TaskModel.KEY_TASK_BUTTON_LEFT_URL);
-
-							ContentResolver cr = getContentResolver();
-							ContentValues cv = new ContentValues();
-							int rowId = b.getInt(Tasks.KEY_ROW_ID);
-							String sc = Tasks.KEY_ROW_ID + " = " + rowId;
+					buttonLeft.setVisibility(View.GONE);
+					buttonMiddle.setVisibility(View.GONE);
+					buttonRight.setVisibility(View.VISIBLE);					
+					buttonRight.setText(getResources().getString(R.string.ok));
+					buttonRight.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							Intent dataForReport = new Intent();
 							if (responses.length() > 0) {
-								cv.put(Tasks.KEY_RESPONSES_JSON,
+								dataForReport.putExtra(
+										Tasks.KEY_RESPONSES_JSON,
 										responses.toString());
-							}
-							cv.put(Tasks.KEY_DONE, 1);
-							cr.update(Tasks.CONTENT_URI, cv, sc, null);
 
-							Cursor c = cr.query(Tasks.CONTENT_URI,
-									Tasks.KEYS_DONE, Tasks.KEY_DONE + " = "
-											+ "0 AND "
-											+ Tasks.KEY_EXPIRATION_DATE + " <="
-											+ System.currentTimeMillis(), null,
-									null);
+								// For adult report, user must select something
+								// for
+								// each question to send it. So testing that
+								// here:
+								int responseCount = 0;
+								Iterator<String> iter = responses.keys();
+								while (iter.hasNext()) {
+									String key = iter.next();
+									try {
+										JSONObject thisItem = responses
+												.getJSONObject(key);
 
-							if (c.getCount() == 0) {
-								Intent i = new Intent(
-										TigerBroadcastReceiver.TIGER_TASK_CLEAR);
-								context.sendBroadcast(i);
-							}
-
-							Intent i = new Intent(Intent.ACTION_VIEW);
-							i.setData(Uri.parse(url));
-							startActivity(i);
-
-						} catch (JSONException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-
-						finish();
-
-					}
-				});
-
-				buttonRight.setOnClickListener(new OnClickListener() {
-					@Override
-					public void onClick(View v) {
-						finish();
-					}
-				});
-
-				break;
-
-			}
-
-			case (TaskModel.TASK_CONFIGURATION_REPORT_SITE): {
-
-				buttonLeft.setVisibility(View.GONE);
-				buttonRight.setText(getResources().getString(R.string.ok));
-				buttonRight.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						Intent dataForReport = new Intent();
-						if (responses.length() > 0) {
-							dataForReport.putExtra(Tasks.KEY_RESPONSES_JSON,
-									responses.toString());
-
-							Iterator<String> iter = responses.keys();
-							while (iter.hasNext()) {
-								String key = iter.next();
-								try {
-									JSONObject thisItem = responses
-											.getJSONObject(key);
-									if (thisItem.getString(
-											TaskItemModel.KEY_ITEM_RESPONSE)
-											.length() > 0
-											&& !thisItem
-													.getString(
-															TaskItemModel.KEY_ITEM_RESPONSE)
-													.equals(getResources()
-															.getString(
-																	R.string.spinner_nothing_selected))) {
-										dataForReport
-												.putExtra(
-														Reports.KEY_CONFIRMATION_CODE,
-														Report.CONFIRMATION_CODE_POSITIVE);
-										setResult(RESULT_OK, dataForReport);
-										break;
+										if (!thisItem
+												.getString(
+														TaskItemModel.KEY_ITEM_RESPONSE)
+												.equals(getResources()
+														.getString(
+																R.string.spinner_nothing_selected)))
+											responseCount++;
+									} catch (JSONException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
 									}
-								} catch (JSONException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
+								}
+								if (responseCount == 3) {
+
+									dataForReport.putExtra(
+											Reports.KEY_CONFIRMATION_CODE,
+											Report.CONFIRMATION_CODE_POSITIVE);
+									setResult(RESULT_OK, dataForReport);
 								}
 							}
-
+							finish();
 						}
-						finish();
-					}
-				});
+					});
 
-				break;
+				} else if (thisTask
+						.getInt(TaskModel.KEY_TASK_PRESET_CONFIGURATION) == TaskModel.PRECONFIRUATION_SITES) {
 
-			}
+					buttonLeft.setVisibility(View.GONE);
+					buttonMiddle.setVisibility(View.GONE);
+					buttonRight.setVisibility(View.VISIBLE);
+					buttonRight.setText(getResources().getString(R.string.ok));
+					buttonRight.setOnClickListener(new OnClickListener() {
 
-			case (TaskModel.TASK_CONFIGURATION_REPORT_ADULT): {
+						@Override
+						public void onClick(View v) {
+							Intent dataForReport = new Intent();
+							if (responses.length() > 0) {
+								dataForReport.putExtra(
+										Tasks.KEY_RESPONSES_JSON,
+										responses.toString());
 
-				buttonLeft.setVisibility(View.GONE);
-				buttonRight.setText(getResources().getString(R.string.ok));
-				buttonRight.setOnClickListener(new OnClickListener() {
+								// For site report, user must select something
+								// for
+								// each question to send it. So testing that
+								// here:
+								int responseCount = 0;
+								Iterator<String> iter = responses.keys();
+								while (iter.hasNext()) {
+									String key = iter.next();
+									try {
+										JSONObject thisItem = responses
+												.getJSONObject(key);
 
-					@Override
-					public void onClick(View v) {
-						Intent dataForReport = new Intent();
-						if (responses.length() > 0) {
-							dataForReport.putExtra(Tasks.KEY_RESPONSES_JSON,
-									responses.toString());
-
-							Iterator<String> iter = responses.keys();
-							while (iter.hasNext()) {
-								String key = iter.next();
-								try {
-									JSONObject thisItem = responses
-											.getJSONObject(key);
-									// This is a bit ugly -- should figure out a
-									// better way,
-									// but I am doing it for now to save time
-									if (thisItem.getString(
-											TaskItemModel.KEY_ITEM_RESPONSE)
-											.equals(getResources().getString(
-													R.string.yes))) {
-										dataForReport
-												.putExtra(
-														Reports.KEY_CONFIRMATION_CODE,
-														Report.CONFIRMATION_CODE_POSITIVE);
-										setResult(RESULT_OK, dataForReport);
-										break;
+										if (!thisItem
+												.getString(
+														TaskItemModel.KEY_ITEM_RESPONSE)
+												.equals(getResources()
+														.getString(
+																R.string.spinner_nothing_selected)))
+											responseCount++;
+									} catch (JSONException e) {
+										// TODO Auto-generated catch block
+										e.printStackTrace();
 									}
-								} catch (JSONException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
+
+								}
+								if (responseCount == 3) {
+
+									dataForReport.putExtra(
+											Reports.KEY_CONFIRMATION_CODE,
+											Report.CONFIRMATION_CODE_POSITIVE);
+									setResult(RESULT_OK, dataForReport);
 								}
 							}
-
+							finish();
 						}
-						finish();
+					});
+				}
+			} else {
+
+				// LEFT BUTTON
+				if (!thisTask.has(TaskModel.KEY_TASK_BUTTON_LEFT_VISIBLE)
+						|| thisTask
+								.getInt(TaskModel.KEY_TASK_BUTTON_LEFT_VISIBLE) == 0)
+					buttonLeft.setVisibility(View.GONE);
+				else {
+					buttonLeft.setVisibility(View.VISIBLE);
+
+					if (thisTask.has(TaskModel.KEY_TASK_BUTTON_LEFT_TEXT))
+						buttonLeft
+								.setText(thisTask
+										.getString(TaskModel.KEY_TASK_BUTTON_LEFT_TEXT));
+					if (thisTask.has(TaskModel.KEY_TASK_BUTTON_LEFT_ACTION)) {
+						String leftUrl = thisTask
+								.has(TaskModel.KEY_TASK_BUTTON_LEFT_URL) ? thisTask
+								.getString(TaskModel.KEY_TASK_BUTTON_LEFT_URL)
+								: null;
+						buttonLeft
+								.setOnClickListener(makeOnClickListener(
+										thisTask.getInt(TaskModel.KEY_TASK_BUTTON_LEFT_ACTION),
+										b, leftUrl));
 					}
-				});
+				}
+				// MIDDLE BUTTON
+				if (!thisTask.has(TaskModel.KEY_TASK_BUTTON_MIDDLE_VISIBLE)
+						|| thisTask
+								.getInt(TaskModel.KEY_TASK_BUTTON_MIDDLE_VISIBLE) == 0)
+					buttonMiddle.setVisibility(View.GONE);
+				else {
+					buttonMiddle.setVisibility(View.VISIBLE);
 
-				break;
+					if (thisTask.has(TaskModel.KEY_TASK_BUTTON_MIDDLE_TEXT))
+						buttonMiddle
+								.setText(thisTask
+										.getString(TaskModel.KEY_TASK_BUTTON_MIDDLE_TEXT));
+					if (thisTask.has(TaskModel.KEY_TASK_BUTTON_MIDDLE_ACTION)) {
+						String middleUrl = thisTask
+								.has(TaskModel.KEY_TASK_BUTTON_MIDDLE_URL) ? thisTask
+								.getString(TaskModel.KEY_TASK_BUTTON_MIDDLE_URL)
+								: null;
+						buttonMiddle
+								.setOnClickListener(makeOnClickListener(
+										thisTask.getInt(TaskModel.KEY_TASK_BUTTON_MIDDLE_ACTION),
+										b, middleUrl));
+					}
+				}
+
+				// RIGHT BUTTON
+				if (!thisTask.has(TaskModel.KEY_TASK_BUTTON_RIGHT_VISIBLE)
+						|| thisTask
+								.getInt(TaskModel.KEY_TASK_BUTTON_RIGHT_VISIBLE) == 0)
+					buttonRight.setVisibility(View.GONE);
+				else {
+					buttonRight.setVisibility(View.VISIBLE);
+
+					if (thisTask.has(TaskModel.KEY_TASK_BUTTON_RIGHT_TEXT))
+						buttonRight
+								.setText(thisTask
+										.getString(TaskModel.KEY_TASK_BUTTON_RIGHT_TEXT));
+					if (thisTask.has(TaskModel.KEY_TASK_BUTTON_RIGHT_ACTION)) {
+						String rightUrl = thisTask
+								.has(TaskModel.KEY_TASK_BUTTON_RIGHT_URL) ? thisTask
+								.getString(TaskModel.KEY_TASK_BUTTON_RIGHT_URL)
+								: null;
+						buttonRight
+								.setOnClickListener(makeOnClickListener(
+										thisTask.getInt(TaskModel.KEY_TASK_BUTTON_RIGHT_ACTION),
+										b, rightUrl));
+					}
+				}
 
 			}
 
-			}
-		} catch (NotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
+	}
+
+	public OnClickListener makeOnClickListener(int action,
+			Bundle taskInfoBundle, String url) {
+		final int thisAction = action;
+		final Bundle thisBundle = taskInfoBundle;
+		final String thisUrl = url;
+		OnClickListener result = null;
+		switch (thisAction) {
+		case (TaskModel.BUTTONACTIONS_DO_TASK): {
+			result = new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					ContentResolver cr = getContentResolver();
+					ContentValues cv = new ContentValues();
+					int rowId = thisBundle.getInt(Tasks.KEY_ROW_ID);
+					String sc = Tasks.KEY_ROW_ID + " = " + rowId;
+					if (responses.length() > 0) {
+						cv.put(Tasks.KEY_RESPONSES_JSON, responses.toString());
+					}
+					cv.put(Tasks.KEY_DONE, 1);
+					cr.update(Tasks.CONTENT_URI, cv, sc, null);
+					// CHECK IF NOTIFICATIONS SHOULD BE REMOVED
+					sc = Tasks.KEY_DONE + " = " + "0 AND "
+							+ Tasks.KEY_EXPIRATION_DATE + " <="
+							+ System.currentTimeMillis();
+					Cursor c = cr.query(Tasks.CONTENT_URI, Tasks.KEYS_DONE, sc,
+							null, null);
+					if (c.getCount() == 0) {
+						Intent i = new Intent(
+								TigerBroadcastReceiver.TIGER_TASK_CLEAR);
+						context.sendBroadcast(i);
+					}
+					// TODO UPLOAD
+
+					if (thisUrl != null) {
+						Intent i = new Intent(Intent.ACTION_VIEW);
+						i.setData(Uri
+								.parse(thisUrl));
+						startActivity(i);
+					}
+					
+					// take 1 fix for this task
+					Intent taskFixIntent = new Intent(TigerBroadcastReceiver.DO_TASK_FIX_MESSAGE);
+					sendBroadcast(taskFixIntent);
+					finish();
+				}
+			};
+			break;
+		}
+		case (TaskModel.BUTTONACTIONS_DO_TASK_LATER): {
+			result = new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					finish();
+				}
+			};
+			break;
+		}
+		case (TaskModel.BUTTONACTIONS_DELETE_TASK): {
+			result = new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					ContentResolver cr = getContentResolver();
+					ContentValues cv = new ContentValues();
+					int rowId = thisBundle.getInt(Tasks.KEY_ROW_ID);
+					String sc = Tasks.KEY_ROW_ID + " = " + rowId;
+					cr.delete(Tasks.CONTENT_URI, sc, null);
+					// CHECK IF NOTIFICATIONS SHOULD BE REMOVED
+					sc = Tasks.KEY_DONE + " = " + "0 AND "
+							+ Tasks.KEY_EXPIRATION_DATE + " <="
+							+ System.currentTimeMillis();
+					Cursor c = cr.query(Tasks.CONTENT_URI, Tasks.KEYS_DONE, sc,
+							null, null);
+					if (c.getCount() == 0) {
+						Intent i = new Intent(
+								TigerBroadcastReceiver.TIGER_TASK_CLEAR);
+						context.sendBroadcast(i);
+					}
+					finish();
+					// TODO mark task as completed and/or delete from
+					// phone's database
+				}
+			};
+			break;
+		}
+		}
+		return result;
 	}
 }

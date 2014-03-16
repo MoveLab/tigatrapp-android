@@ -51,7 +51,7 @@ public class ContentProviderTasks extends ContentProvider {
 	private static final String DATABASE_NAME = "tasksDB";
 
 	/** The database version */
-	private static final int DATABASE_VERSION = 2;
+	private static final int DATABASE_VERSION = 3;
 
 	private static final String DATABASE_TABLE = "tasksTable";
 
@@ -67,9 +67,11 @@ public class ContentProviderTasks extends ContentProvider {
 			+ TYPE_TEXT + COMMA + Tasks.KEY_TASK_HEADING + TYPE_TEXT + COMMA
 			+ Tasks.KEY_TASK_SHORT_DESCRIPTION + TYPE_TEXT + COMMA
 			+ Tasks.KEY_DATE + TYPE_INTEGER + COMMA + Tasks.KEY_EXPIRATION_DATE
-			+ TYPE_INTEGER + COMMA + Tasks.KEY_TASK_JSON + TYPE_TEXT + COMMA
-			+ Tasks.KEY_DONE + TYPE_INTEGER + COMMA + Tasks.KEY_RESPONSES_JSON
-			+ TYPE_TEXT + COMMA + Tasks.KEY_UPLOADED + TYPE_INTEGER + ");";
+			+ TYPE_INTEGER + COMMA + Tasks.KEY_LOCATION_TRIGGERS_JSON
+			+ TYPE_TEXT + COMMA + Tasks.KEY_ACTIVE + TYPE_INTEGER + COMMA
+			+ Tasks.KEY_TASK_JSON + TYPE_TEXT + COMMA + Tasks.KEY_DONE
+			+ TYPE_INTEGER + COMMA + Tasks.KEY_RESPONSES_JSON + TYPE_TEXT
+			+ COMMA + Tasks.KEY_UPLOADED + TYPE_INTEGER + ");";
 
 	private DatabaseHelper mDbHelper;
 
@@ -121,6 +123,10 @@ public class ContentProviderTasks extends ContentProvider {
 		tasksProjectionMap.put(Tasks.KEY_DATE, Tasks.KEY_DATE);
 		tasksProjectionMap.put(Tasks.KEY_EXPIRATION_DATE,
 				Tasks.KEY_EXPIRATION_DATE);
+		tasksProjectionMap.put(Tasks.KEY_LOCATION_TRIGGERS_JSON,
+				Tasks.KEY_LOCATION_TRIGGERS_JSON);
+		tasksProjectionMap.put(Tasks.KEY_ACTIVE, Tasks.KEY_ACTIVE);
+
 		tasksProjectionMap.put(Tasks.KEY_TASK_JSON, Tasks.KEY_TASK_JSON);
 		tasksProjectionMap.put(Tasks.KEY_DONE, Tasks.KEY_DONE);
 		tasksProjectionMap.put(Tasks.KEY_RESPONSES_JSON,

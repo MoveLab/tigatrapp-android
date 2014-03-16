@@ -31,7 +31,7 @@
             android:layout_toLeftOf="@+id/helpIcon"
             android:text="Text"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:textSize="40sp" />
+            android:textSize="30sp" />
     </RelativeLayout>
 
     <Spinner
@@ -42,6 +42,6 @@
         android:layout_marginTop="8dip"
         android:ellipsize="marquee"
         android:prompt="@string/spinner_prompt"
-        android:textSize="40sp" />
+        android:textSize="30sp" />
 
 </LinearLayout>

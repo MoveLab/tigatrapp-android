@@ -126,38 +126,44 @@ public class ContentProviderContractReports {
 
 		/**
 		 * The <code>confirmation</code> field contains the users responses to
-		 * the confirmation questions for the given report type. This should be JSON formatted string
+		 * the confirmation questions for the given report type. This should be
+		 * JSON formatted string
 		 */
 		public static final String KEY_CONFIRMATION = "confirmation";
-		
+
 		public static final String KEY_CONFIRMATION_CODE = "confirmation_code";
-		
-		
+
 		public static final String KEY_LOCATION_CHOICE = "location_choice";
 		public static final String KEY_CURRENT_LOCATION_LON = "current_location_lon";
 		public static final String KEY_CURRENT_LOCATION_LAT = "current_location_lat";
 		public static final String KEY_SELECTED_LOCATION_LON = "selected_location_lon";
 		public static final String KEY_SELECTED_LOCATION_LAT = "selected_location_lat";
 		public static final String KEY_PHOTO_ATTACHED = "photo_attached";
-		public static final String KEY_PHOTO_URIS = "photo_uris";		
+		public static final String KEY_PHOTO_URIS = "photo_uris";
 		public static final String KEY_NOTE = "note";
 		public static final String KEY_UPLOADED = "uploaded";
 		public static final String KEY_SERVER_TIMESTAMP = "server_timestamp";
 		public static final String KEY_DELETE_REPORT = "delete_report";
 		public static final String KEY_LATEST_VERSION = "latest_version";
+		public static final String KEY_PACKAGE_NAME = "package_name";
+		public static final String KEY_PACKAGE_VERSION = "package_version";
+		public static final String KEY_PHONE_MANUFACTURER = "phone_manufacturer";
+		public static final String KEY_PHONE_MODEL = "phone_model";
+		public static final String KEY_OS = "os";
+		public static final String KEY_OS_VERSION = "os_version";
 
 		/**
 		 * Vector of all the fields contained in the reports table, to be used
 		 * for quickly grabbing them all.
 		 */
-		public static final String[] KEYS_ALL = { KEY_ROW_ID, KEY_USER_ID, KEY_REPORT_ID,
-				KEY_REPORT_VERSION, KEY_REPORT_TIME, KEY_VERSION_TIME,
-				KEY_TYPE, KEY_CONFIRMATION, KEY_CONFIRMATION_CODE, KEY_LOCATION_CHOICE,
+		public static final String[] KEYS_ALL = { KEY_ROW_ID, KEY_USER_ID,
+				KEY_REPORT_ID, KEY_REPORT_VERSION, KEY_REPORT_TIME,
+				KEY_VERSION_TIME, KEY_TYPE, KEY_CONFIRMATION,
+				KEY_CONFIRMATION_CODE, KEY_LOCATION_CHOICE,
 				KEY_CURRENT_LOCATION_LON, KEY_CURRENT_LOCATION_LAT,
 				KEY_SELECTED_LOCATION_LON, KEY_SELECTED_LOCATION_LAT,
-				KEY_PHOTO_ATTACHED,KEY_PHOTO_URIS, KEY_NOTE, 
-				KEY_UPLOADED, KEY_SERVER_TIMESTAMP, KEY_DELETE_REPORT,
-				KEY_LATEST_VERSION };
+				KEY_PHOTO_ATTACHED, KEY_PHOTO_URIS, KEY_NOTE, KEY_UPLOADED,
+				KEY_SERVER_TIMESTAMP, KEY_DELETE_REPORT, KEY_LATEST_VERSION };
 
 	}
 

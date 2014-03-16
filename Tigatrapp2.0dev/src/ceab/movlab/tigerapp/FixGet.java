@@ -65,7 +65,9 @@
 
 package ceab.movlab.tigerapp;
 
-import java.util.Date;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Service;
 import android.content.BroadcastReceiver;
@@ -80,8 +82,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.WifiLock;
 import android.os.Binder;
@@ -91,9 +91,8 @@ import android.os.Parcel;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.os.RemoteException;
-import android.os.SystemClock;
+import ceab.movlab.tigerapp.ContentProviderContractTasks.Tasks;
 import ceab.movlab.tigerapp.ContentProviderContractTracks.Fixes;
-import ceab.movelab.tigerapp.R;
 
 /**
  * Space Mapper's location recording service.
@@ -177,8 +176,6 @@ public class FixGet extends Service {
 					TigerBroadcastReceiver.STOP_FIXGET_MESSAGE);
 			stopReceiver = new StopReceiver();
 			registerReceiver(stopReceiver, stopFilter);
-
-			announceFixStarted();
 
 			// stopListening = null;
 			bestLocation = null;
@@ -397,88 +394,70 @@ public class FixGet extends Service {
 			locationManager.removeUpdates(listener);
 	}
 
-	private void announceFix(Location location, boolean newRecord) {
-
-		// reset missed fixes counter to zero
-		Util.missedFixes = 0;
-		Date usertime = new Date(location.getTime());
-		Util.lastFixTimeStamp = Util.userDate(usertime);
-		Util.lastFixTime = location.getTime();
-		Util.lastFixLat = location.getLatitude();
-		Util.lastFixLon = location.getLongitude();
-
-		// inform the main display
-		Context context = getApplicationContext();
-		if (PropertyHolder.isInit() == false)
-			PropertyHolder.init(context);
-		Intent intent = new Intent(getResources().getString(
-				R.string.internal_message_id)
-				+ Util.MESSAGE_FIX_RECORDED);
-		Bundle bundle = new Bundle();
-		bundle.putBoolean(NEW_RECORD, newRecord);
-		intent.putExtras(bundle);
-
-		sendBroadcast(intent);
-	}
-
-	private void announceFixStarted() {
-
-		Intent intent = new Intent(FIX_STARTED);
-		sendBroadcast(intent);
-		Util.lastFixStartedAt = SystemClock.elapsedRealtime();
-	}
-
 	private void useFix(Context context, Location location) {
 		if (PropertyHolder.isInit() == false)
 			PropertyHolder.init(context);
 		ContentResolver cr = getContentResolver();
-		float dist = -1;
-		Cursor c = cr.query(Fixes.CONTENT_URI, Fixes.KEYS_LATLON, null, null,
-				null);
-		int id = -1;
-		if (c.moveToLast()) {
-			int latCol = c.getColumnIndexOrThrow(Fixes.KEY_LATITUDE);
-			int lonCol = c.getColumnIndexOrThrow(Fixes.KEY_LONGITUDE);
-			int idCol = c.getColumnIndexOrThrow(Fixes.KEY_ROWID);
-			float[] distResult = new float[1];
-			id = c.getInt(idCol);
-			Location.distanceBetween(c.getDouble(latCol), c.getDouble(lonCol),
-					location.getLatitude(), location.getLongitude(), distResult);
-			dist = distResult[0];
-		}
-		c.close();
-		if (dist > minDist || dist == -1) {
-			// create new entry with time and sdtime both set to the
-			// location time. (We will update sdtime in next chunk of code
-			// if the person
-			// stays in same 50 m radius.).
-			cr.insert(Fixes.CONTENT_URI, ContentProviderValuesTracks.createFix(
-					location,
-					Util.getBatteryLevel(context), location.getTime(),
-					Fixes.DISPLAY_TRUE));
-			announceFix(location, true);
-		} else if (id > 0) {
-			// update the prior location with a new station departure time so
-			// that this can be used in the user display. Note this will not be
-			// sent to the server since this prior locaiton is already marked as
-			// uploaded.
-			ContentValues cv = new ContentValues();
-			String sc = Fixes.KEY_ROWID + " = " + id;
-			cv.put(Fixes.KEY_STATION_DEPARTURE_TIMELONG, location.getTime());
-			cr.update(Fixes.CONTENT_URI, cv, sc, null);
 
-			// now create a new record to be uploaded to the server (but not
-			// displayed on the user map, so as to avoid too many points on the
-			// map)
-			cr.insert(Fixes.CONTENT_URI, ContentProviderValuesTracks.createFix(
-					location,
-					Util.getBatteryLevel(context), location.getTime(),
-					Fixes.DISPLAY_FALSE));
+		double thisLat = location.getLatitude();
+		double maskedLat = Math.floor(thisLat / Util.latMask) * Util.latMask;
+		double thisLon = location.getLongitude();
+		double maskedLon = Math.floor(thisLon / Util.lonMask) * Util.lonMask;
 
-			announceFix(location, false);
+		cr.insert(Fixes.CONTENT_URI, ContentProviderValuesTracks.createFix(
+				maskedLat, maskedLon, location.getTime(),
+				Util.getBatteryLevel(context)));
+
+		// Check for location-based tasks
+
+		int thisHour = Util.hour(location.getTime());
+
+		Cursor c = cr.query(Tasks.CONTENT_URI, Tasks.KEYS_TRIGGERS,
+				Tasks.KEY_LOCATION_TRIGGERS_JSON + " IS NOT NULL", null, null);
+
+		while (c.moveToNext()) {
+
+			try {
+				JSONArray theseTriggers = new JSONArray(
+						c.getString(c
+								.getColumnIndexOrThrow(Tasks.KEY_LOCATION_TRIGGERS_JSON)));
+
+				for (int i = 0; i < theseTriggers.length(); i++) {
+
+					JSONObject thisTrigger = theseTriggers.getJSONObject(i);
+
+					if (maskedLat == thisTrigger.getDouble("lat")
+							&& maskedLon == thisTrigger.getDouble("lon")
+							&& thisHour >= thisTrigger.getInt("start_hour")
+							&& thisHour <= thisTrigger.getInt("end_hour")) {
+
+						ContentValues cv = new ContentValues();
+						int rowId = c.getInt(c
+								.getColumnIndexOrThrow(Tasks.KEY_ROW_ID));
+						String sc = Tasks.KEY_ROW_ID + " = " + rowId;
+						cv.put(Tasks.KEY_ACTIVE, 1);
+						cr.update(Tasks.CONTENT_URI, cv, sc, null);
+
+						Intent intent = new Intent(
+								TigerBroadcastReceiver.TIGER_TASK_MESSAGE);
+						intent.putExtra(Tasks.KEY_TASK_HEADING, c.getString(c
+								.getColumnIndexOrThrow(Tasks.KEY_TASK_HEADING)));
+						context.sendBroadcast(intent);
+					}
+				}
+
+			} catch (IllegalArgumentException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
 		}
-		Intent uploaderIntent = new Intent(FixGet.this, FileUploader.class);
-		startService(uploaderIntent);
+
+		// TODO UPLOAD
+
 		unWakeLock();
 	}
 
@@ -532,63 +511,19 @@ public class FixGet extends Service {
 		@Override
 		public void onReceive(Context context, Intent intent) {
 
-			if (extraRuns > 0
-					&& Util.missedFixes > 0
-					&& Util.missedFixes % 10 == 1
-					&& locationManager
-							.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+			removeLocationUpdate("gps");
 
-				// turn on screen to get network location woken up
-				wakeUpAndWakeLock();
+			unregisterReceiver(stopReceiver);
+			removeLocationUpdate("network");
 
-				// Check if online and if so try to inject new XTRA into GPS for
-				// first extra run
-				if (extraRuns == Util.EXTRARUNS) {
+			unWakeLock();
 
-					NetworkInfo netInfo = ((ConnectivityManager) context
-							.getSystemService(Context.CONNECTIVITY_SERVICE))
-							.getActiveNetworkInfo();
+			locationListener1 = null;
+			locationListener2 = null;
+			locationManager = null;
+			fixInProgress = false;
 
-					if (netInfo != null && netInfo.isConnected()) {
-						injectNewXTRA();
-
-					}
-				}
-
-				extraRuns = extraRuns - 1;
-			} else {
-
-				extraRuns = Util.EXTRARUNS;
-
-				// stop both listeners if running
-				if (locationListener1 != null) {
-					locationManager.removeUpdates(locationListener1);
-					// Log.e(TAG, "gps listener stopped by timer");
-				}
-				if (locationListener2 != null) {
-					locationManager.removeUpdates(locationListener2);
-					// Log.e(TAG, "network listener stopped by timer");
-				}
-				// use best location if one exists and if it is below minimum
-				// threshhold
-				if (bestLocation != null
-						&& bestLocation.getAccuracy() < Util.MIN_ACCURACY) {
-
-					useFix(context, bestLocation);
-
-				} else {
-
-					if (locationManager
-							.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-						Util.missedFixes = Util.missedFixes + 1;
-					}
-				}
-
-				// locationManager = null;
-				fixInProgress = false;
-				stopSelf();
-
-			}
+			stopSelf();
 
 		}
 

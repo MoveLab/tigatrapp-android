@@ -27,9 +27,10 @@ import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
-import ceab.movlab.tigerapp.ContentProviderContractTasks.Tasks;
 import ceab.movelab.tigerapp.R;
+import ceab.movlab.tigerapp.ContentProviderContractTasks.Tasks;
 
 public class ListPendingTasksCursorAdapter extends SimpleCursorAdapter {
 
@@ -52,10 +53,17 @@ public class ListPendingTasksCursorAdapter extends SimpleCursorAdapter {
 		String date = Util.userDate(new Date((c.getLong(c
 				.getColumnIndex(Tasks.KEY_DATE)))));
 
-		String taskTitle = c.getString(c.getColumnIndex(Tasks.KEY_TASK_HEADING));
+		String expirationDate = Util.userDate(new Date((c.getLong(c
+				.getColumnIndex(Tasks.KEY_EXPIRATION_DATE)))));
+
+		String taskTitle = c
+				.getString(c.getColumnIndex(Tasks.KEY_TASK_HEADING));
 
 		String taskShortDescription = c.getString(c
 				.getColumnIndex(Tasks.KEY_TASK_SHORT_DESCRIPTION));
+
+		boolean done = c.getInt(c.getColumnIndexOrThrow(Tasks.KEY_DONE)) == 1 ? true
+				: false;
 
 		TextView taskTitleView = (TextView) v.findViewById(R.id.taskTitle);
 		if (taskTitle != null) {
@@ -68,10 +76,19 @@ public class ListPendingTasksCursorAdapter extends SimpleCursorAdapter {
 			taskShortDescriptionView.setText(taskShortDescription);
 		}
 		TextView dateView = (TextView) v.findViewById(R.id.date);
+
+		CheckBox taskCheck = (CheckBox) v.findViewById(R.id.taskCheck);
+
+		String thisDateRange = "";
 		if (date != null) {
-			dateView.setText(date);
+			thisDateRange = date;
+			if (expirationDate != null) {
+				thisDateRange = date + " - " + expirationDate;
+			}
+			dateView.setText(thisDateRange);
 		}
 
-	}
+		taskCheck.setChecked(done);
 
+	}
 }

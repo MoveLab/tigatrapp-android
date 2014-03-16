@@ -56,11 +56,12 @@ public class ViewReportsPhotosTab extends Activity {
 				gridview.setOnItemClickListener(new OnItemClickListener() {
 					public void onItemClick(AdapterView<?> parent, View v,
 							int position, long id) {
-						Uri thisUri;
-						if (jsonPhotos.length() > 0) {
+
+						String thisPhotoUri = Report.getPhotoUri(jsonPhotos,
+								position);
+						if (thisPhotoUri != null) {
+
 							try {
-								thisUri = Uri.parse(jsonPhotos
-										.getString(position));
 								final Dialog dialog = new Dialog(context);
 								dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 								dialog.setContentView(R.layout.photo_view);
@@ -70,7 +71,7 @@ public class ViewReportsPhotosTab extends Activity {
 								// size --
 								// based on screen
 								iv.setImageBitmap(Util.getSmallerBitmap(
-										new File(jsonPhotos.getString(position)),
+										new File(thisPhotoUri),
 										context, 300));
 								iv.setOnClickListener(new View.OnClickListener() {
 									public void onClick(View View3) {
@@ -80,9 +81,6 @@ public class ViewReportsPhotosTab extends Activity {
 								dialog.setCanceledOnTouchOutside(true);
 								dialog.setCancelable(true);
 								dialog.show();
-							} catch (JSONException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
 							} catch (FileNotFoundException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();

@@ -88,6 +88,12 @@ public class Report {
 	long serverTimestamp;
 	int deleteReport;
 	int latestVersion;
+	String packageName;
+	String packageVersion;
+	String phoneManufacturer;
+	String phoneModel;
+	String OS;
+	String OSversion;
 
 	Report(String userId, String reportId, int reportVersion, long reportTime,
 			int type, String confirmation, int confirmationCode,
@@ -95,7 +101,9 @@ public class Report {
 			float currentLocationLon, float selectedLocationLat,
 			float selectedLocationLon, int photoAttached,
 			String photoUrisString, String note, int uploaded,
-			long serverTimestamp, int deleteReport, int latestVersion) {
+			long serverTimestamp, int deleteReport, int latestVersion,
+			String packageName, String packageVersion,
+			String phoneManufacturer, String phoneModel, String OS, String OSversion) {
 
 		this.photoUrisJson = new JSONArray();
 
@@ -127,9 +135,15 @@ public class Report {
 		this.serverTimestamp = serverTimestamp;
 		this.deleteReport = deleteReport;
 		this.latestVersion = latestVersion;
-
+		this.packageName = packageName;
+		this.packageVersion = packageVersion;
+		this.phoneManufacturer = phoneManufacturer;
+		this.phoneModel = phoneModel;
+		this.OS = OS;
+		this.OSversion = OSversion;
 	}
 
+	
 	Report(int type, String userId) {
 		this.reportId = null;
 		this.userId = userId;
@@ -150,6 +164,13 @@ public class Report {
 		this.serverTimestamp = -1;
 		this.deleteReport = NO;
 		this.latestVersion = YES;
+		this.packageName = null;
+		this.packageVersion = null;
+		this.phoneManufacturer = null;
+		this.phoneModel = null;
+		this.OS = null;
+		this.OSversion = null;
+
 	}
 
 	Report(String reportId, int reportVersion) {
@@ -172,7 +193,13 @@ public class Report {
 		this.serverTimestamp = MISSING;
 		this.deleteReport = MISSING;
 		this.latestVersion = MISSING;
-		// this.photos = new ArrayList<Photo>();
+		this.packageName = null;
+		this.packageVersion = null;
+		this.phoneManufacturer = null;
+		this.phoneModel = null;
+		this.OS = null;
+		this.OSversion = null;
+
 	}
 
 	public String printAllValues() {
@@ -184,7 +211,9 @@ public class Report {
 				+ selectedLocationLat + "\n" + selectedLocationLon + "\n"
 				+ photoAttached + "\n" + photoUrisJson.toString() + "\n" + note
 				+ "\n" + uploaded + "\n" + serverTimestamp + "\n"
-				+ deleteReport + "\n" + latestVersion;
+				+ deleteReport + "\n" + latestVersion + "\n" + packageName
+				+ "\n" + packageVersion + "\n" + phoneManufacturer + "\n"
+				+ phoneModel + "\n" + OS + "\n" + OSversion;
 
 		return result;
 
@@ -211,9 +240,15 @@ public class Report {
 		serverTimestamp = -1;
 		deleteReport = 0;
 		latestVersion = 0;
+		this.packageName = null;
+		this.packageVersion = null;
+		this.phoneManufacturer = null;
+		this.phoneModel = null;
+		this.OS = null;
+		this.OSversion = null;
 
 	}
-
+	
 	public boolean setPhotoUris(String photoUris) {
 		boolean result = false;
 		try {
@@ -269,6 +304,22 @@ public class Report {
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public static String getPhotoUri(JSONArray jsonPhotos, int position) {
+		String result = null;
+		if (jsonPhotos == null || jsonPhotos.length() < 1) {
+			// nothing
+		} else {
+			try {
+				result = jsonPhotos.getJSONObject(position).getString(
+						KEY_PHOTO_URI);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		return result;
 	}

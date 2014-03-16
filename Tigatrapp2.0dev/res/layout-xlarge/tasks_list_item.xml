@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:text="date" 
-        android:textSize="50sp"/>
+        android:textSize="30sp"/>
 
     <TextView
         android:id="@+id/taskTitle"
@@ -19,7 +19,7 @@
         android:layout_toLeftOf="@+id/date"
         android:text="Task Title"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="50sp" />
+        android:textSize="40sp" />
 
     <TextView
         android:id="@+id/taskShortDescription"

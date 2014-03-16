@@ -108,6 +108,31 @@ public class PropertyHolder {
 		editor.commit();
 	}
 
+	public static void lastSampleSchedleMade(long time) {
+		editor.putLong("LAST_SCHEDULE", time);
+		editor.commit();
+	}
+
+	public static long lastSampleSchedleMade() {
+		return sharedPreferences.getLong("LAST_SCHEDULE", -1);
+	}
+
+	
+	// TESTING
+
+	public static void setCurrentFixTimes(String[] _times) {
+		String input = "";
+		for (int i = 0; i < _times.length; i++) {
+			input = input + _times[i] + "\n";
+		}
+		editor.putString("CURRENT_FIX_TIMES", input);
+		editor.commit();
+	}
+
+	public static String getCurrentFixTimes() {
+		return sharedPreferences.getString("CURRENT_FIX_TIMES", null);
+	}
+
 	/**
 	 * Sets flag indicating user has consented.
 	 * 
@@ -138,7 +163,6 @@ public class PropertyHolder {
 		return sharedPreferences.getString("CONSENT_TIME", "");
 	}
 
-	
 	public static String getLanguage() {
 		return sharedPreferences.getString("LANGUAGE", "ca");
 	}

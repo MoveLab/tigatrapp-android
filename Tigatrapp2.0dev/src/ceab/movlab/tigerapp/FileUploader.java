@@ -136,22 +136,18 @@ public class FileUploader extends Service {
 			}
 
 			int idIndex = c.getColumnIndexOrThrow(Fixes.KEY_ROWID);
-			int accIndex = c.getColumnIndexOrThrow(Fixes.KEY_ACCURACY);
-			int altIndex = c.getColumnIndexOrThrow(Fixes.KEY_ALTITUDE);
 			int latIndex = c.getColumnIndexOrThrow(Fixes.KEY_LATITUDE);
 			int lngIndex = c.getColumnIndexOrThrow(Fixes.KEY_LONGITUDE);
 			int powIndex = c.getColumnIndexOrThrow(Fixes.KEY_POWER_LEVEL);
-			int provIndex = c.getColumnIndexOrThrow(Fixes.KEY_PROVIDER);
-			int timeIndex = c.getColumnIndexOrThrow(Fixes.KEY_TIMELONG);
+			int timeIndex = c.getColumnIndexOrThrow(Fixes.KEY_TIME);
 
 			while (!c.isAfterLast()) {
 
 				int thisId = c.getInt(idIndex);
 
 				Fix thisFix = new Fix(c.getDouble(latIndex),
-						c.getDouble(lngIndex), c.getDouble(altIndex),
-						c.getFloat(accIndex), c.getString(provIndex),
-						c.getLong(timeIndex), c.getInt(powIndex));
+						c.getDouble(lngIndex), c.getLong(timeIndex),
+						c.getInt(powIndex));
 
 				if (thisFix.upload(context)) {
 
@@ -208,7 +204,6 @@ public class FileUploader extends Service {
 			int noteCol = c.getColumnIndexOrThrow(Reports.KEY_NOTE);
 			int photoAttachedCol = c
 					.getColumnIndexOrThrow(Reports.KEY_PHOTO_ATTACHED);
-
 			int photoUrisCol = c.getColumnIndexOrThrow(Reports.KEY_PHOTO_URIS);
 
 			int uploadedCol = c.getColumnIndexOrThrow(Reports.KEY_UPLOADED);
@@ -218,11 +213,22 @@ public class FileUploader extends Service {
 					.getColumnIndexOrThrow(Reports.KEY_DELETE_REPORT);
 			int latestVersionCol = c
 					.getColumnIndexOrThrow(Reports.KEY_LATEST_VERSION);
+			int packageNameCol = c
+					.getColumnIndexOrThrow(Reports.KEY_PACKAGE_NAME);
+			int packageVersionCol = c
+					.getColumnIndexOrThrow(Reports.KEY_PACKAGE_VERSION);
+			int phoneManufacturerCol = c
+					.getColumnIndexOrThrow(Reports.KEY_PHONE_MANUFACTURER);
+			int phoneModelCol = c
+					.getColumnIndexOrThrow(Reports.KEY_PHONE_MODEL);
+			int osCol = c.getColumnIndexOrThrow(Reports.KEY_OS);
+			int osVersionCol = c.getColumnIndexOrThrow(Reports.KEY_OS_VERSION);
 
 			while (!c.isAfterLast()) {
 
 				Report report = new Report(c.getString(userIdCol),
-						c.getString(reportIdCol), c.getInt(reportVersionCol),
+						c.getString(reportIdCol),
+						(c.getInt(reportVersionCol) + 1),
 						c.getLong(reportTimeCol), c.getInt(typeCol),
 						c.getString(confirmationCol),
 						c.getInt(confirmationCodeCol),
@@ -234,8 +240,12 @@ public class FileUploader extends Service {
 						c.getInt(photoAttachedCol), c.getString(photoUrisCol),
 						c.getString(noteCol), c.getInt(uploadedCol),
 						c.getLong(serverTimestampCol),
-						c.getInt(deleteReportCol), c.getInt(latestVersionCol));
-
+						c.getInt(deleteReportCol), c.getInt(latestVersionCol),
+						c.getString(packageNameCol),
+						c.getString(packageVersionCol),
+						c.getString(phoneManufacturerCol),
+						c.getString(phoneModelCol), c.getString(osCol),
+						c.getString(osVersionCol));
 				if (report.upload(context)) {
 
 					// mark record as uploaded

@@ -16,43 +16,69 @@ public class TaskModel {
 	public static final String KEY_TASK_DETAIL = "task_detail";
 	public static final String KEY_TASK_HELP = "task_help";
 	public static final String KEY_TASK_ITEMS = "task_items";
+	public static final String KEY_TASK_PRESET_CONFIGURATION = "task_preset_configuation";
+
+	public static final String KEY_TASK_BUTTON_LEFT_VISIBLE = "task_button_left_visible";
+	public static final String KEY_TASK_BUTTON_MIDDLE_VISIBLE = "task_button_middle_visible";
+	public static final String KEY_TASK_BUTTON_RIGHT_VISIBLE = "task_button_right_visible";
+	public static final String KEY_TASK_BUTTON_LEFT_TEXT = "task_button_left_text";
 	public static final String KEY_TASK_BUTTON_LEFT_ACTION = "task_button_left_action";
 	public static final String KEY_TASK_BUTTON_LEFT_URL = "task_button_left_url";
-	public static final String KEY_TASK_MAKE_MAILING_OPTION = "task_make_mailing";
-	public static final String KEY_TASK_N_SITE_REPORTS = "task_n_site";
-	public static final String KEY_TASK_N_ADULT_REPORTS = "task_n_adult";
+	public static final String KEY_TASK_BUTTON_MIDDLE_TEXT = "task_button_middle_text";
+	public static final String KEY_TASK_BUTTON_MIDDLE_ACTION = "task_button_middle_action";
+	public static final String KEY_TASK_BUTTON_MIDDLE_URL = "task_button_middle_url";
+	public static final String KEY_TASK_BUTTON_RIGHT_TEXT = "task_button_right_text";
+	public static final String KEY_TASK_BUTTON_RIGHT_ACTION = "task_button_right_action";
+	public static final String KEY_TASK_BUTTON_RIGHT_URL = "task_button_right_url";
 
-	public static final int TASK_CONFIGURATION_SIMPLE = 0;
-	public static final int TASK_CONFIGURATION_SURVEY_TASK = 1;
-	public static final int TASK_CONFIGURATION_ADULT_TASK = 2;
-	public static final int TASK_CONFIGURATION_SITE_TASK = 3;
-	public static final int TASK_CONFIGURATION_WEBLINK = 4;
+	public static final int BUTTONACTIONS_DO_TASK = 0;
+	// This button marks task complete, uploads any responses, goes to url (if
+	// there is a url for this button), and removes notification if there are no
+	// other pending tasks.
+	public static final int BUTTONACTIONS_DO_TASK_LATER = 1;
+	// This button dismisses the task but keeps it in the task list and keeps
+	// notification up.
 
-	// task configurations used for the regular reports -- not intended to be
-	// called from server
-	public static final int TASK_CONFIGURATION_REPORT_SITE = 5;
-	public static final int TASK_CONFIGURATION_REPORT_ADULT = 6;
+	public static final int BUTTONACTIONS_DELETE_TASK = 2;
+	// This button deletes the task from phone and removes notification if there
+	// are no other pending tasks.
 
-	public static JSONObject makeDemoTask0() {
+	public static final int PRECONFIRUATION_SITES = 0;
+	public static final int PRECONFIRUATION_ADULTS = 1;
+
+	public static JSONObject makeDemoTaskA() {
 
 		JSONObject task = new JSONObject();
 		JSONObject taskJson = new JSONObject();
 
 		try {
 
-			task.put(Tasks.KEY_TASK_ID, "task0");
-			task.put(Tasks.KEY_TASK_HEADING, "Task Model 0");
+			task.put(Tasks.KEY_TASK_ID, "taskA");
+			task.put(Tasks.KEY_TASK_HEADING, "Task Model A");
 			task.put(Tasks.KEY_TASK_SHORT_DESCRIPTION, "A simple task");
 			task.put(Tasks.KEY_DATE, System.currentTimeMillis());
-			task.put(Tasks.KEY_EXPIRATION_DATE, System.currentTimeMillis());
+			task.put(Tasks.KEY_EXPIRATION_DATE, System.currentTimeMillis()
+					+ 1000 * 60 * 60 * 24 * 10); // 10 days
 
-			taskJson.put(KEY_TASK_TITLE, "Task Model 0 Title");
+			taskJson.put(KEY_TASK_TITLE, "Task Model A Title");
 			taskJson.put(
 					KEY_TASK_DETAIL,
 					"This is a simple task that the user must do on their own. There is only one button and "
 							+ "clicking it simply marks the task as complete.");
 			taskJson.put(KEY_TASK_HELP, "This is the help text for task 0");
-			taskJson.put(KEY_TASK_BUTTON_LEFT_ACTION, TASK_CONFIGURATION_SIMPLE);
+
+			taskJson.put(KEY_TASK_BUTTON_LEFT_VISIBLE, 1);
+			taskJson.put(KEY_TASK_BUTTON_MIDDLE_VISIBLE, 1);
+			taskJson.put(KEY_TASK_BUTTON_RIGHT_VISIBLE, 1);
+
+			taskJson.put(KEY_TASK_BUTTON_LEFT_TEXT, "Mark Task Complete");
+			taskJson.put(KEY_TASK_BUTTON_LEFT_ACTION, BUTTONACTIONS_DO_TASK);
+			taskJson.put(KEY_TASK_BUTTON_MIDDLE_TEXT, "DO Task Later");
+			taskJson.put(KEY_TASK_BUTTON_MIDDLE_ACTION,
+					BUTTONACTIONS_DO_TASK_LATER);
+			taskJson.put(KEY_TASK_BUTTON_RIGHT_TEXT, "Delete Task");
+			taskJson.put(KEY_TASK_BUTTON_RIGHT_ACTION,
+					BUTTONACTIONS_DELETE_TASK);
 
 			task.put(Tasks.KEY_TASK_JSON, taskJson);
 
@@ -64,7 +90,7 @@ public class TaskModel {
 		return task;
 	}
 
-	public static JSONObject makeDemoTask1() {
+	public static JSONObject makeDemoTaskB() {
 
 		JSONObject task = new JSONObject();
 		JSONObject taskJson = new JSONObject();
@@ -74,22 +100,34 @@ public class TaskModel {
 
 		try {
 
-			task.put(Tasks.KEY_TASK_ID, "task1");
-			task.put(Tasks.KEY_TASK_HEADING, "Task Model 1");
+			task.put(Tasks.KEY_TASK_ID, "taskB");
+			task.put(Tasks.KEY_TASK_HEADING, "Task Model B");
 			task.put(Tasks.KEY_TASK_SHORT_DESCRIPTION, "Survey Task");
 			task.put(Tasks.KEY_DATE, System.currentTimeMillis());
-			task.put(Tasks.KEY_EXPIRATION_DATE, System.currentTimeMillis());
+			task.put(Tasks.KEY_EXPIRATION_DATE, System.currentTimeMillis()
+					+ 1000 * 60 * 60 * 24 * 10); // 10 days
 
-			taskJson.put(KEY_TASK_TITLE, "Task Model 1 Title");
+			taskJson.put(KEY_TASK_TITLE, "Task Model B Title");
 			taskJson.put(
 					KEY_TASK_DETAIL,
 					"This is a survey task: The user is given a list of survey items, each with a multiple"
 							+ "choice response. We can set as many items as we want, and as many responses as we want for each. The left button "
 							+ "submits user responses to the server and marks task complete. The right button cancels the dialog.");
 			taskJson.put(KEY_TASK_HELP,
-					"This is the help text for Task Model 1.");
-			taskJson.put(KEY_TASK_BUTTON_LEFT_ACTION,
-					TASK_CONFIGURATION_SURVEY_TASK);
+					"This is the help text for Task Model B.");
+
+			taskJson.put(KEY_TASK_BUTTON_LEFT_VISIBLE, 1);
+			taskJson.put(KEY_TASK_BUTTON_MIDDLE_VISIBLE, 1);
+			taskJson.put(KEY_TASK_BUTTON_RIGHT_VISIBLE, 1);
+
+			taskJson.put(KEY_TASK_BUTTON_LEFT_TEXT, "Submit Responses");
+			taskJson.put(KEY_TASK_BUTTON_LEFT_ACTION, BUTTONACTIONS_DO_TASK);
+			taskJson.put(KEY_TASK_BUTTON_MIDDLE_TEXT, "Answer Later");
+			taskJson.put(KEY_TASK_BUTTON_MIDDLE_ACTION,
+					BUTTONACTIONS_DO_TASK_LATER);
+			taskJson.put(KEY_TASK_BUTTON_RIGHT_TEXT, "Delete Task");
+			taskJson.put(KEY_TASK_BUTTON_RIGHT_ACTION,
+					BUTTONACTIONS_DELETE_TASK);
 
 			item1.put(TaskItemModel.KEY_ITEM_ID, "Item1");
 			item1.put(TaskItemModel.KEY_ITEM_TEXT,
@@ -123,7 +161,7 @@ public class TaskModel {
 		return task;
 	}
 
-	public static JSONObject makeDemoTask2() {
+	public static JSONObject makeDemoTaskC() {
 
 		JSONObject task = new JSONObject();
 		JSONObject taskJson = new JSONObject();
@@ -133,101 +171,115 @@ public class TaskModel {
 
 		try {
 
-			task.put(Tasks.KEY_TASK_ID, "task2");
-			task.put(Tasks.KEY_TASK_HEADING, "Task Model 2");
-			task.put(Tasks.KEY_TASK_SHORT_DESCRIPTION, "Adult reporting task");
-			task.put(Tasks.KEY_DATE, System.currentTimeMillis());
-			task.put(Tasks.KEY_EXPIRATION_DATE, System.currentTimeMillis());
-
-			taskJson.put(KEY_TASK_TITLE, "Task Model 2 Title");
-			taskJson.put(
-					KEY_TASK_DETAIL,
-					"This task directs the user to the adult reporting tool. When the user clicks"
-							+ "the left button, that tool is opened. The task is marked as complete when the user submits "
-							+ "the requested number of reports."
-							+ "The mailing specimen option in the report can be made visible by setting KEY_TASK_MAKE_MAILING_OPTION"
-							+ "to 1. And the number of reports required to complete the task can be set with KEY_TASK_N_ADULT_REPORTS.");
-			taskJson.put(KEY_TASK_HELP, "sample task help");
-			taskJson.put(KEY_TASK_BUTTON_LEFT_ACTION,
-					TASK_CONFIGURATION_ADULT_TASK);
-			taskJson.put(KEY_TASK_MAKE_MAILING_OPTION, 1);
-			taskJson.put(KEY_TASK_N_ADULT_REPORTS, 1);
-
-			task.put(Tasks.KEY_TASK_JSON, taskJson);
-
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return task;
-	}
-
-	public static JSONObject makeDemoTask3() {
-
-		JSONObject task = new JSONObject();
-		JSONObject taskJson = new JSONObject();
-		JSONArray items = new JSONArray();
-		JSONObject item1 = new JSONObject();
-		JSONObject item2 = new JSONObject();
-
-		try {
-
-			task.put(Tasks.KEY_TASK_ID, "task3");
-			task.put(Tasks.KEY_TASK_HEADING, "Task Model 3");
-			task.put(Tasks.KEY_TASK_SHORT_DESCRIPTION,
-					"Breeding Site Reporting Task");
-			task.put(Tasks.KEY_DATE, System.currentTimeMillis());
-			task.put(Tasks.KEY_EXPIRATION_DATE, System.currentTimeMillis());
-
-			taskJson.put(KEY_TASK_TITLE, "Task Model 3 Title");
-			taskJson.put(
-					KEY_TASK_DETAIL,
-					"This task directs the user to the breeding site reporting tool. When the user clicks"
-							+ "the left button, that tool is opened. The task is marked as complete when the user submits the requested"
-							+ "number of reports (set with KEY_TASK_N_SITE_REPORTS).");
-			taskJson.put(KEY_TASK_HELP, "sample task help");
-			taskJson.put(KEY_TASK_BUTTON_LEFT_ACTION,
-					TASK_CONFIGURATION_SITE_TASK);
-			taskJson.put(KEY_TASK_N_SITE_REPORTS, 1);
-
-			task.put(Tasks.KEY_TASK_JSON, taskJson);
-
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return task;
-	}
-
-	public static JSONObject makeDemoTask4() {
-
-		JSONObject task = new JSONObject();
-		JSONObject taskJson = new JSONObject();
-		JSONArray items = new JSONArray();
-		JSONObject item1 = new JSONObject();
-		JSONObject item2 = new JSONObject();
-
-		try {
-
-			task.put(Tasks.KEY_TASK_ID, "task4");
-			task.put(Tasks.KEY_TASK_HEADING, "Task Model 4");
+			task.put(Tasks.KEY_TASK_ID, "taskC");
+			task.put(Tasks.KEY_TASK_HEADING, "Task Model C");
 			task.put(Tasks.KEY_TASK_SHORT_DESCRIPTION, "Website task");
 			task.put(Tasks.KEY_DATE, System.currentTimeMillis());
-			task.put(Tasks.KEY_EXPIRATION_DATE, System.currentTimeMillis());
+			task.put(Tasks.KEY_EXPIRATION_DATE, System.currentTimeMillis()
+					+ 1000 * 60 * 60 * 24 * 10); // 10 days
 
-			taskJson.put(KEY_TASK_TITLE, "Task Model 4 Title");
+			taskJson.put(KEY_TASK_TITLE,
+					"Visit the Tigatrapp Map and look at the results!");
 			taskJson.put(
 					KEY_TASK_DETAIL,
-					"This task directs the user to a website. We choose the URL and"
-							+ "the app makes this the target of the left button. Whent the user clicks the "
+					"This task directs the user to a website on our server. We choose the URL and"
+							+ "the app makes this the target of the left button. When the user clicks the "
 							+ "button, the task is marked as complete and the user is taken to the website.");
 			taskJson.put(KEY_TASK_HELP,
-					"Help text for task model 4. Bla bla bla.");
-			taskJson.put(KEY_TASK_BUTTON_LEFT_ACTION,
-					TASK_CONFIGURATION_WEBLINK);
-			taskJson.put(KEY_TASK_BUTTON_LEFT_URL, "http://atrapaeltigre.com");
+					"Help text for task model C. Bla bla bla.");
+
+			taskJson.put(KEY_TASK_BUTTON_LEFT_VISIBLE, 1);
+			taskJson.put(KEY_TASK_BUTTON_MIDDLE_VISIBLE, 1);
+			taskJson.put(KEY_TASK_BUTTON_RIGHT_VISIBLE, 1);
+
+			taskJson.put(KEY_TASK_BUTTON_LEFT_TEXT, "Go to website");
+			taskJson.put(KEY_TASK_BUTTON_LEFT_ACTION, BUTTONACTIONS_DO_TASK);
+			taskJson.put(KEY_TASK_BUTTON_LEFT_URL,
+					"http://tce.ceab.csic.es/tigaDev2/TigatrappMap.html");
+
+			taskJson.put(KEY_TASK_BUTTON_MIDDLE_TEXT, "DO Task Later");
+			taskJson.put(KEY_TASK_BUTTON_MIDDLE_ACTION,
+					BUTTONACTIONS_DO_TASK_LATER);
+			taskJson.put(KEY_TASK_BUTTON_RIGHT_TEXT, "Delete Task");
+			taskJson.put(KEY_TASK_BUTTON_RIGHT_ACTION,
+					BUTTONACTIONS_DELETE_TASK);
+
+			task.put(Tasks.KEY_TASK_JSON, taskJson);
+
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return task;
+	}
+
+	public static JSONObject makeDemoTaskBWithTriggers() {
+
+		JSONObject task = new JSONObject();
+		JSONObject taskJson = new JSONObject();
+		JSONArray items = new JSONArray();
+		JSONObject item1 = new JSONObject();
+		JSONObject item2 = new JSONObject();
+
+		try {
+
+			task.put(Tasks.KEY_TASK_ID, "taskB_t");
+			task.put(Tasks.KEY_TASK_HEADING, "Task Model B With Triggers");
+			task.put(Tasks.KEY_TASK_SHORT_DESCRIPTION,
+					"Survey Task With Triggers");
+			task.put(Tasks.KEY_DATE, System.currentTimeMillis());
+			task.put(Tasks.KEY_EXPIRATION_DATE, System.currentTimeMillis()
+					+ 1000 * 60 * 60 * 24 * 10); // 10 days
+			task.put(
+					Tasks.KEY_LOCATION_TRIGGERS_JSON,
+					"["
+							+ "{'lat': 2.5, 'lon': 41.5, 'start_hour': 0, 'end_hour': 24}, "
+							+ "{'lat': 2.0, 'lon': 41.0, 'start_hour': 0, 'end_hour': 24}, "
+
+							+ "]");
+			taskJson.put(KEY_TASK_TITLE, "Task Model B With Triggers");
+			taskJson.put(
+					KEY_TASK_DETAIL,
+					"This is a survey task with triggers: For the demo, I have inluded trigger points in Barcelona and Blanes for all hours of the day. When triggers, the user is given a list of survey items, each with a multiple"
+							+ "choice response. We can set as many items as we want, and as many responses as we want for each. The left button "
+							+ "submits user responses to the server and marks task complete. The right button cancels the dialog.");
+			taskJson.put(KEY_TASK_HELP,
+					"This is the help text for Task Model B.");
+
+			taskJson.put(KEY_TASK_BUTTON_LEFT_VISIBLE, 1);
+			taskJson.put(KEY_TASK_BUTTON_MIDDLE_VISIBLE, 1);
+			taskJson.put(KEY_TASK_BUTTON_RIGHT_VISIBLE, 1);
+
+			taskJson.put(KEY_TASK_BUTTON_LEFT_TEXT, "Submit Responses");
+			taskJson.put(KEY_TASK_BUTTON_LEFT_ACTION, BUTTONACTIONS_DO_TASK);
+			taskJson.put(KEY_TASK_BUTTON_MIDDLE_TEXT, "Answer Later");
+			taskJson.put(KEY_TASK_BUTTON_MIDDLE_ACTION,
+					BUTTONACTIONS_DO_TASK_LATER);
+			taskJson.put(KEY_TASK_BUTTON_RIGHT_TEXT, "Delete Task");
+			taskJson.put(KEY_TASK_BUTTON_RIGHT_ACTION,
+					BUTTONACTIONS_DELETE_TASK);
+
+			item1.put(TaskItemModel.KEY_ITEM_ID, "Item1");
+			item1.put(TaskItemModel.KEY_ITEM_TEXT,
+					"Have you been bitten by a mosquito in the last hour?");
+			item1.put(TaskItemModel.KEY_ITEM_HELP,
+					"This is the help text for item 1.");
+			item1.put(TaskItemModel.KEY_ITEM_CHOICES, new JSONArray(
+					"['yes', 'no', 'maybe']"));
+
+			item2.put(TaskItemModel.KEY_ITEM_ID, "Item2");
+			item2.put(TaskItemModel.KEY_ITEM_TEXT,
+					"Have you seen any tiger mosquitos in the vicinity of your current location?");
+			item2.put(TaskItemModel.KEY_ITEM_HELP,
+					"This is the help text for item 2.");
+			item2.put(TaskItemModel.KEY_ITEM_CHOICES, new JSONArray(
+					"['yes', 'no', 'maybe']"));
+			items.put(item1);
+			items.put(item2);
+
+			taskJson.put(KEY_TASK_ITEMS, items);
+
 			task.put(Tasks.KEY_TASK_JSON, taskJson);
 
 		} catch (JSONException e) {
@@ -264,8 +316,7 @@ public class TaskModel {
 							+ "tiger females to lay their eggs and therefore, "
 							+ "allow mosquitoes to reproduce. They have no fishes or "
 							+ "other animals that eat mosquito larvae. More info on the website.");
-			taskJson.put(KEY_TASK_BUTTON_LEFT_ACTION,
-					TASK_CONFIGURATION_REPORT_SITE);
+			taskJson.put(KEY_TASK_PRESET_CONFIGURATION, PRECONFIRUATION_SITES);
 
 			item1.put(TaskItemModel.KEY_ITEM_ID, "Item1");
 			item1.put(TaskItemModel.KEY_ITEM_TEXT,
@@ -322,8 +373,7 @@ public class TaskModel {
 			task.put(Tasks.KEY_EXPIRATION_DATE, -1);
 
 			taskJson.put(KEY_TASK_TITLE, "Adult Checklist");
-			taskJson.put(KEY_TASK_BUTTON_LEFT_ACTION,
-					TASK_CONFIGURATION_REPORT_ADULT);
+			taskJson.put(KEY_TASK_PRESET_CONFIGURATION, PRECONFIRUATION_ADULTS);
 
 			item1.put(TaskItemModel.KEY_ITEM_ID, "Item1");
 			item1.put(TaskItemModel.KEY_ITEM_TEXT, context.getResources()
@@ -333,7 +383,7 @@ public class TaskModel {
 			item1.put(TaskItemModel.KEY_ITEM_HELP_IMAGE, R.drawable.m);
 			item1.put(TaskItemModel.KEY_ITEM_CHOICES, new JSONArray("['"
 					+ context.getResources().getString(R.string.yes) + "','"
-					+ context.getResources().getString(R.string.no)
+					+ context.getResources().getString(R.string.no) + "','"
 					+ context.getResources().getString(R.string.dontknow)
 					+ "']"));
 
@@ -345,7 +395,7 @@ public class TaskModel {
 			item2.put(TaskItemModel.KEY_ITEM_HELP_IMAGE, R.drawable.n);
 			item2.put(TaskItemModel.KEY_ITEM_CHOICES, new JSONArray("['"
 					+ context.getResources().getString(R.string.yes) + "','"
-					+ context.getResources().getString(R.string.no)
+					+ context.getResources().getString(R.string.no) + "','"
 					+ context.getResources().getString(R.string.dontknow)
 					+ "']"));
 
@@ -357,7 +407,7 @@ public class TaskModel {
 			item3.put(TaskItemModel.KEY_ITEM_HELP_IMAGE, R.drawable.o);
 			item3.put(TaskItemModel.KEY_ITEM_CHOICES, new JSONArray("['"
 					+ context.getResources().getString(R.string.yes) + "','"
-					+ context.getResources().getString(R.string.no)
+					+ context.getResources().getString(R.string.no) + "','"
 					+ context.getResources().getString(R.string.dontknow)
 					+ "']"));
 

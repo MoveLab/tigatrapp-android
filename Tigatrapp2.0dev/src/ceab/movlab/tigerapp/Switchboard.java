@@ -62,8 +62,6 @@ public class Switchboard extends Activity {
 	private ImageView galleryButton;
 	private ImageView mapButton;
 	final Context context = this;
-	private TimerTask delayTask;
-	private Timer myTimer;
 	AnimationDrawable ad;
 	String lang;
 
@@ -87,15 +85,12 @@ public class Switchboard extends Activity {
 
 		if (PropertyHolder.isServiceOn()) {
 
-			// Make sure fixes are being scheduled
-			// Stop service if it is currently running
-			Intent stopFixGet = new Intent(Switchboard.this, FixGet.class);
-			stopService(stopFixGet);
-			// now schedule
-			Intent scheduleService = new Intent(
-					"ceab.movelab.tigerapp.SCHEDULE_SERVICE");
-			context.sendBroadcast(scheduleService);
-			startService(scheduleService);
+			long lastScheduleTime = PropertyHolder.lastSampleSchedleMade();
+			if (System.currentTimeMillis() - lastScheduleTime > 1000 * 60 * 60 * 24) {
+				Intent scheduleService = new Intent(
+						TigerBroadcastReceiver.START_SAMPLING_MESSAGE);
+				sendBroadcast(scheduleService);
+			}
 
 		}
 
@@ -215,12 +210,16 @@ public class Switchboard extends Activity {
 	static final private int SHARE_APP = Menu.FIRST + 3;
 	static final private int HELP = Menu.FIRST + 4;
 	static final private int LIST_TASKS = Menu.FIRST + 5;
-	static final private int TEST_TASK_NOTIFICATION0 = Menu.FIRST + 6;
-	static final private int TEST_TASK_NOTIFICATION1 = Menu.FIRST + 7;
-	static final private int TEST_TASK_NOTIFICATION4 = Menu.FIRST + 10;
+	static final private int TEST_TASK_NOTIFICATION_A = Menu.FIRST + 6;
+	static final private int TEST_TASK_NOTIFICATION_B = Menu.FIRST + 7;
+	static final private int TEST_TASK_NOTIFICATION_C = Menu.FIRST + 10;
 	static final private int RSS_FEED_MOVELAB = Menu.FIRST + 11;
 	static final private int ABOUT = Menu.FIRST + 12;
 	static final private int WEBMAP = Menu.FIRST + 13;
+	static final private int TEST_FIX_SAMPLER = Menu.FIRST + 14;
+	static final private int VIEW_CURRENT_FIX_TIMES = Menu.FIRST + 15;
+	static final private int FIX_NOW = Menu.FIRST + 16;
+	static final private int TEST_TASK_NOTIFICATION_B_TRIGGERS = Menu.FIRST + 17;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -234,10 +233,18 @@ public class Switchboard extends Activity {
 		menu.add(0, LIST_TASKS, Menu.NONE, "List Pending Tasks");
 		menu.add(0, HELP, Menu.NONE, "help");
 		menu.add(0, ABOUT, Menu.NONE, "about");
-		menu.add(0, TEST_TASK_NOTIFICATION0, Menu.NONE, "Test task type 0");
-		menu.add(0, TEST_TASK_NOTIFICATION1, Menu.NONE, "Test task type 1");
-		menu.add(0, TEST_TASK_NOTIFICATION4, Menu.NONE, "Test task type 2");
+		menu.add(0, TEST_TASK_NOTIFICATION_A, Menu.NONE, "Test task type A");
+		menu.add(0, TEST_TASK_NOTIFICATION_B, Menu.NONE, "Test task type B");
+		menu.add(0, TEST_TASK_NOTIFICATION_B_TRIGGERS, Menu.NONE,
+				"Test task type B with triggers");
+		menu.add(0, TEST_TASK_NOTIFICATION_C, Menu.NONE, "Test task type C");
+		menu.add(0, TEST_FIX_SAMPLER, Menu.NONE, "Testing: Schedule fixes");
+		menu.add(0, VIEW_CURRENT_FIX_TIMES, Menu.NONE,
+				"Testing: View Fix Schedule");
+		menu.add(0, FIX_NOW, Menu.NONE, "Testing: Take Fix Now");
+
 		return true;
+
 	}
 
 	@Override
@@ -339,14 +346,14 @@ public class Switchboard extends Activity {
 			return true;
 		}
 
-		case (TEST_TASK_NOTIFICATION0): {
+		case (TEST_TASK_NOTIFICATION_A): {
 			Intent intent = new Intent(
 					TigerBroadcastReceiver.TIGER_TASK_MESSAGE);
 			try {
-				TaskModel.storeTask(context, TaskModel.makeDemoTask0()
+				TaskModel.storeTask(context, TaskModel.makeDemoTaskA()
 						.toString());
 				intent.putExtra(Tasks.KEY_TASK_HEADING, TaskModel
-						.makeDemoTask0().getString(Tasks.KEY_TASK_HEADING));
+						.makeDemoTaskA().getString(Tasks.KEY_TASK_HEADING));
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -354,14 +361,14 @@ public class Switchboard extends Activity {
 			context.sendBroadcast(intent);
 			return true;
 		}
-		case (TEST_TASK_NOTIFICATION1): {
+		case (TEST_TASK_NOTIFICATION_B): {
 			Intent intent = new Intent(
 					TigerBroadcastReceiver.TIGER_TASK_MESSAGE);
 			try {
-				TaskModel.storeTask(context, TaskModel.makeDemoTask1()
+				TaskModel.storeTask(context, TaskModel.makeDemoTaskB()
 						.toString());
 				intent.putExtra(Tasks.KEY_TASK_HEADING, TaskModel
-						.makeDemoTask1().getString(Tasks.KEY_TASK_HEADING));
+						.makeDemoTaskB().getString(Tasks.KEY_TASK_HEADING));
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -369,19 +376,44 @@ public class Switchboard extends Activity {
 			context.sendBroadcast(intent);
 			return true;
 		}
-		case (TEST_TASK_NOTIFICATION4): {
+		case (TEST_TASK_NOTIFICATION_C): {
 			Intent intent = new Intent(
 					TigerBroadcastReceiver.TIGER_TASK_MESSAGE);
 			try {
-				TaskModel.storeTask(context, TaskModel.makeDemoTask4()
+				TaskModel.storeTask(context, TaskModel.makeDemoTaskC()
 						.toString());
 				intent.putExtra(Tasks.KEY_TASK_HEADING, TaskModel
-						.makeDemoTask4().getString(Tasks.KEY_TASK_HEADING));
+						.makeDemoTaskC().getString(Tasks.KEY_TASK_HEADING));
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			context.sendBroadcast(intent);
+			return true;
+		}
+
+		case (TEST_TASK_NOTIFICATION_B_TRIGGERS): {
+			TaskModel.storeTask(context, TaskModel.makeDemoTaskBWithTriggers()
+					.toString());
+			return true;
+		}
+
+		case (TEST_FIX_SAMPLER): {
+			Intent intent = new Intent(
+					TigerBroadcastReceiver.START_SAMPLING_MESSAGE);
+			context.sendBroadcast(intent);
+			return true;
+		}
+
+		case (VIEW_CURRENT_FIX_TIMES): {
+			Util.showHelp(context, PropertyHolder.getCurrentFixTimes());
+
+			return true;
+		}
+		case (FIX_NOW): {
+			Intent intent2FixGet = new Intent(context, FixGet.class);
+			startService(intent2FixGet);
+
 			return true;
 		}
 

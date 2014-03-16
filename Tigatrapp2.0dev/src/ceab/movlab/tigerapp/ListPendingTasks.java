@@ -72,14 +72,19 @@ public class ListPendingTasks extends FragmentActivity implements
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Cursor c = (Cursor) listView.getItemAtPosition(position);
+				
+				if(c.getLong(c.getColumnIndexOrThrow(Tasks.KEY_EXPIRATION_DATE)) <= System.currentTimeMillis()){
 				String taskJson = c.getString(c
 						.getColumnIndexOrThrow(Tasks.KEY_TASK_JSON));
 				int rowId = c.getInt(c.getColumnIndexOrThrow(Tasks.KEY_ROW_ID));
-				
+
 				Intent i = new Intent(ListPendingTasks.this, TaskActivity.class);
 				i.putExtra(Tasks.KEY_TASK_JSON, taskJson);
 				i.putExtra(Tasks.KEY_ROW_ID, rowId);
 				startActivity(i);
+				} else{
+					Util.toast(context, "This task has expired.");
+				}
 			}
 		});
 
@@ -104,9 +109,7 @@ public class ListPendingTasks extends FragmentActivity implements
 								ContentResolver cr = getContentResolver();
 								cr.delete(Tasks.CONTENT_URI, Tasks.KEY_ROW_ID
 										+ " = " + rowId, null);
-								
-								
-								
+
 							}
 						});
 				dialog.setNegativeButton("Cancel",
@@ -121,7 +124,7 @@ public class ListPendingTasks extends FragmentActivity implements
 			}
 		});
 	}
-	
+
 	@Override
 	protected void onResume() {
 
@@ -129,14 +132,11 @@ public class ListPendingTasks extends FragmentActivity implements
 		super.onResume();
 	}
 
-
 	public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
 
 		return new CursorLoader(context, Tasks.CONTENT_URI,
-				Tasks.KEYS_TASKS_LIST, Tasks.KEY_DONE + " = " + "0 AND "
-						+ Tasks.KEY_EXPIRATION_DATE + " <= "
-						+ System.currentTimeMillis(), null, Tasks.KEY_DATE
-						+ " DESC");
+				Tasks.KEYS_TASKS_LIST, Tasks.KEY_ACTIVE + " = " + "1", null,
+				Tasks.KEY_DATE + " DESC");
 	}
 
 	public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {

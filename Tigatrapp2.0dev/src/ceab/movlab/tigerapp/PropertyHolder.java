@@ -164,7 +164,7 @@ public class PropertyHolder {
 	}
 
 	public static String getLanguage() {
-		return sharedPreferences.getString("LANGUAGE", "ca");
+		return sharedPreferences.getString("LANGUAGE", null);
 	}
 
 	public static void setLanguage(String lang) {

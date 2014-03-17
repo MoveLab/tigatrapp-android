@@ -130,6 +130,8 @@
                 <action android:name="ceab.movelab.tigerapp.DO_TASK_FIX_MESSAGE" />
                 <action android:name="ceab.movelab.tigerapp.START_SAMPLING_MESSAGE" />
                 <action android:name="ceab.movelab.tigerapp.STOP_SAMPLING_MESSAGE" />
+                <action android:name="ceab.movelab.tigerapp.START_FIXGET_MESSAGE" />
+                
                 
                 </intent-filter>
         </receiver>

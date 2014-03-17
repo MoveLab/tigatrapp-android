@@ -51,7 +51,7 @@ public class ContentProviderTasks extends ContentProvider {
 	private static final String DATABASE_NAME = "tasksDB";
 
 	/** The database version */
-	private static final int DATABASE_VERSION = 3;
+	private static final int DATABASE_VERSION = 5;
 
 	private static final String DATABASE_TABLE = "tasksTable";
 

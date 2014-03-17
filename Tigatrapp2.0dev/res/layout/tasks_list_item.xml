@@ -1,22 +1,23 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-android:id="@+id/taskListItem"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
     android:padding="6dip" >
 
-    <CheckBox
+    <TextView
         android:id="@+id/taskCheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:clickable="false" />
+        android:text="pending"
+        android:textColor="#f90" />
 
     <LinearLayout
         android:id="@+id/line1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/taskCheck"
+        android:layout_toLeftOf="@+id/taskCheck"
         android:orientation="vertical" >
 
         <TextView

@@ -234,8 +234,8 @@ public class TaskModel {
 			task.put(
 					Tasks.KEY_LOCATION_TRIGGERS_JSON,
 					"["
-							+ "{'lat': 2.5, 'lon': 41.5, 'start_hour': 0, 'end_hour': 24}, "
-							+ "{'lat': 2.0, 'lon': 41.0, 'start_hour': 0, 'end_hour': 24}, "
+							+ "{'lat': 41.5, 'lon': 2.5, 'start_hour': 0, 'end_hour': 24}, "
+							+ "{'lat': 41.0, 'lon': 2.0, 'start_hour': 0, 'end_hour': 24} "
 
 							+ "]");
 			taskJson.put(KEY_TASK_TITLE, "Task Model B With Triggers");
@@ -321,7 +321,7 @@ public class TaskModel {
 			item1.put(TaskItemModel.KEY_ITEM_ID, "Item1");
 			item1.put(TaskItemModel.KEY_ITEM_TEXT,
 					"Select the type of potential breeding site:");
-			item1.put(TaskItemModel.KEY_ITEM_HELP, "");
+			item1.put(TaskItemModel.KEY_ITEM_HELP, "Help text for item 1: to be added along with image.");
 			item1.put(
 					TaskItemModel.KEY_ITEM_CHOICES,
 					new JSONArray(
@@ -330,14 +330,14 @@ public class TaskModel {
 			item2.put(TaskItemModel.KEY_ITEM_ID, "Item2");
 			item2.put(TaskItemModel.KEY_ITEM_TEXT,
 					"Does it have stagnant water inside?");
-			item2.put(TaskItemModel.KEY_ITEM_HELP, "");
+			item2.put(TaskItemModel.KEY_ITEM_HELP, "Help text for item 2: to be added along with image.");
 			item2.put(TaskItemModel.KEY_ITEM_CHOICES, new JSONArray(
 					"['yes', 'no']"));
 
 			item3.put(TaskItemModel.KEY_ITEM_ID, "Item3");
 			item3.put(TaskItemModel.KEY_ITEM_TEXT,
 					"Have you seen mosquito larvae (not necessarily tiger mosquito) inside?");
-			item3.put(TaskItemModel.KEY_ITEM_HELP, "");
+			item3.put(TaskItemModel.KEY_ITEM_HELP, "Help text for item 3: to be added along with image.");
 			item3.put(TaskItemModel.KEY_ITEM_CHOICES, new JSONArray(
 					"['yes', 'no', 'not sure']"));
 
@@ -432,6 +432,7 @@ public class TaskModel {
 		ContentResolver cr = context.getContentResolver();
 		cr.insert(Tasks.CONTENT_URI,
 				ContentProviderValuesTasks.createTask(task));
+		
 
 	}
 

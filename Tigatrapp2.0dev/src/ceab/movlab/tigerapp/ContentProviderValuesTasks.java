@@ -63,8 +63,7 @@ public class ContentProviderValuesTasks {
 			if (task.has(Tasks.KEY_LOCATION_TRIGGERS_JSON)) {
 				initialValues.put(Tasks.KEY_LOCATION_TRIGGERS_JSON, task
 								.getString(Tasks.KEY_LOCATION_TRIGGERS_JSON));
-				initialValues.put(Tasks.KEY_ACTIVE,
-						task.getInt(Tasks.KEY_ACTIVE));
+				initialValues.put(Tasks.KEY_ACTIVE,0);
 			} else
 				initialValues.put(Tasks.KEY_ACTIVE, 1);
 

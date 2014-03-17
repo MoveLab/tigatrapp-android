@@ -42,6 +42,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AlphaAnimation;
@@ -92,6 +93,12 @@ public class Switchboard extends Activity {
 				sendBroadcast(scheduleService);
 			}
 
+		}
+
+		if (PropertyHolder.getLanguage() == null) {
+			final String phoneLang = Locale.getDefault().getDisplayLanguage();
+			if (phoneLang != null)
+				PropertyHolder.setLanguage(phoneLang);
 		}
 
 		lang = PropertyHolder.getLanguage();
@@ -204,45 +211,58 @@ public class Switchboard extends Activity {
 		return super.onKeyDown(keyCode, event);
 	}
 
-	static final private int TOGGLE_LANGUAGE = Menu.FIRST;
-	static final private int MAIN_WEBSITE = Menu.FIRST + 1;
-	static final private int RSS_FEED_ATRAPAELTIGRE = Menu.FIRST + 2;
-	static final private int SHARE_APP = Menu.FIRST + 3;
-	static final private int HELP = Menu.FIRST + 4;
-	static final private int LIST_TASKS = Menu.FIRST + 5;
-	static final private int TEST_TASK_NOTIFICATION_A = Menu.FIRST + 6;
-	static final private int TEST_TASK_NOTIFICATION_B = Menu.FIRST + 7;
-	static final private int TEST_TASK_NOTIFICATION_C = Menu.FIRST + 10;
-	static final private int RSS_FEED_MOVELAB = Menu.FIRST + 11;
-	static final private int ABOUT = Menu.FIRST + 12;
-	static final private int WEBMAP = Menu.FIRST + 13;
-	static final private int TEST_FIX_SAMPLER = Menu.FIRST + 14;
-	static final private int VIEW_CURRENT_FIX_TIMES = Menu.FIRST + 15;
-	static final private int FIX_NOW = Menu.FIRST + 16;
-	static final private int TEST_TASK_NOTIFICATION_B_TRIGGERS = Menu.FIRST + 17;
-
+	/*
+	 * static final private int TOGGLE_LANGUAGE = Menu.FIRST; static final
+	 * private int MAIN_WEBSITE = Menu.FIRST + 1; static final private int
+	 * RSS_FEED_ATRAPAELTIGRE = Menu.FIRST + 2; static final private int
+	 * SHARE_APP = Menu.FIRST + 3; static final private int HELP = Menu.FIRST +
+	 * 4; static final private int LIST_TASKS = Menu.FIRST + 5; static final
+	 * private int TEST_TASK_NOTIFICATION_A = Menu.FIRST + 6; static final
+	 * private int TEST_TASK_NOTIFICATION_B = Menu.FIRST + 7; static final
+	 * private int TEST_TASK_NOTIFICATION_C = Menu.FIRST + 10; static final
+	 * private int RSS_FEED_MOVELAB = Menu.FIRST + 11; static final private int
+	 * ABOUT = Menu.FIRST + 12; static final private int WEBMAP = Menu.FIRST +
+	 * 13; static final private int TEST_FIX_SAMPLER = Menu.FIRST + 14; static
+	 * final private int VIEW_CURRENT_FIX_TIMES = Menu.FIRST + 15; static final
+	 * private int FIX_NOW = Menu.FIRST + 16; static final private int
+	 * TEST_TASK_NOTIFICATION_B_TRIGGERS = Menu.FIRST + 17;
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
-		menu.add(0, TOGGLE_LANGUAGE, Menu.NONE, R.string.menu_toggle_language);
-		menu.add(0, WEBMAP, Menu.NONE, "Webmap");
-		menu.add(0, MAIN_WEBSITE, Menu.NONE, R.string.visit_website);
-		menu.add(0, RSS_FEED_ATRAPAELTIGRE, Menu.NONE, "Tigatrapp News");
-		menu.add(0, RSS_FEED_MOVELAB, Menu.NONE, "MoveLab News");
-		menu.add(0, SHARE_APP, Menu.NONE, "share app");
-		menu.add(0, LIST_TASKS, Menu.NONE, "List Pending Tasks");
-		menu.add(0, HELP, Menu.NONE, "help");
-		menu.add(0, ABOUT, Menu.NONE, "about");
-		menu.add(0, TEST_TASK_NOTIFICATION_A, Menu.NONE, "Test task type A");
-		menu.add(0, TEST_TASK_NOTIFICATION_B, Menu.NONE, "Test task type B");
-		menu.add(0, TEST_TASK_NOTIFICATION_B_TRIGGERS, Menu.NONE,
-				"Test task type B with triggers");
-		menu.add(0, TEST_TASK_NOTIFICATION_C, Menu.NONE, "Test task type C");
-		menu.add(0, TEST_FIX_SAMPLER, Menu.NONE, "Testing: Schedule fixes");
-		menu.add(0, VIEW_CURRENT_FIX_TIMES, Menu.NONE,
-				"Testing: View Fix Schedule");
-		menu.add(0, FIX_NOW, Menu.NONE, "Testing: Take Fix Now");
 
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.switchboard_menu, menu);
+		MenuItem miEn = menu.findItem(R.id.english);
+		MenuItem miEs = menu.findItem(R.id.spanish);
+		MenuItem miCa = menu.findItem(R.id.catalan);
+
+		if (PropertyHolder.getLanguage().equals("ca"))
+			miCa.setChecked(true);
+		else if (PropertyHolder.getLanguage().equals("es"))
+			miEs.setChecked(true);
+		else
+			miEn.setChecked(true);
+
+		/*
+		 * menu.add(0, TOGGLE_LANGUAGE, Menu.NONE,
+		 * R.string.menu_toggle_language); menu.add(0, WEBMAP, Menu.NONE,
+		 * "Webmap"); menu.add(0, MAIN_WEBSITE, Menu.NONE,
+		 * R.string.visit_website); menu.add(0, RSS_FEED_ATRAPAELTIGRE,
+		 * Menu.NONE, "Tigatrapp News"); menu.add(0, RSS_FEED_MOVELAB,
+		 * Menu.NONE, "MoveLab News"); menu.add(0, SHARE_APP, Menu.NONE,
+		 * "share app"); menu.add(0, LIST_TASKS, Menu.NONE,
+		 * "List Pending Tasks"); menu.add(0, HELP, Menu.NONE, "help");
+		 * menu.add(0, ABOUT, Menu.NONE, "about"); menu.add(0,
+		 * TEST_TASK_NOTIFICATION_A, Menu.NONE, "Test task type A"); menu.add(0,
+		 * TEST_TASK_NOTIFICATION_B, Menu.NONE, "Test task type B"); menu.add(0,
+		 * TEST_TASK_NOTIFICATION_B_TRIGGERS, Menu.NONE,
+		 * "Test task type B with triggers"); menu.add(0,
+		 * TEST_TASK_NOTIFICATION_C, Menu.NONE, "Test task type C"); menu.add(0,
+		 * TEST_FIX_SAMPLER, Menu.NONE, "Testing: Schedule fixes"); menu.add(0,
+		 * VIEW_CURRENT_FIX_TIMES, Menu.NONE, "Testing: View Fix Schedule");
+		 * menu.add(0, FIX_NOW, Menu.NONE, "Testing: Take Fix Now");
+		 */
 		return true;
 
 	}
@@ -252,16 +272,29 @@ public class Switchboard extends Activity {
 		super.onOptionsItemSelected(item);
 
 		switch (item.getItemId()) {
-		case (TOGGLE_LANGUAGE): {
-
-			lang = PropertyHolder.getLanguage() == "ca" ? "es" : "ca";
+		case (R.id.english): {
+			item.setChecked(true);
+			lang = "en";
 			PropertyHolder.setLanguage(lang);
 			setLocale(lang);
-
+			return true;
+		}
+		case (R.id.catalan): {
+			item.setChecked(true);
+			lang = "ca";
+			PropertyHolder.setLanguage(lang);
+			setLocale(lang);
+			return true;
+		}
+		case (R.id.spanish): {
+			item.setChecked(true);
+			lang = "es";
+			PropertyHolder.setLanguage(lang);
+			setLocale(lang);
 			return true;
 		}
 
-		case (WEBMAP): {
+		case (R.id.webmap): {
 
 			String url = "http://tce.ceab.csic.es/tigatrapp/TigatrappMap.html";
 			Intent i = new Intent(Intent.ACTION_VIEW);
@@ -270,7 +303,7 @@ public class Switchboard extends Activity {
 			return true;
 		}
 
-		case (MAIN_WEBSITE): {
+		case (R.id.mainSite): {
 
 			String url = "http://atrapaeltigre.com";
 			Intent i = new Intent(Intent.ACTION_VIEW);
@@ -279,7 +312,7 @@ public class Switchboard extends Activity {
 			return true;
 		}
 
-		case (RSS_FEED_ATRAPAELTIGRE): {
+		case (R.id.tigatrappNews): {
 
 			Intent i = new Intent(Switchboard.this, RSSActivity.class);
 			i.putExtra(RSSActivity.RSSEXTRA_TITLE, "Latest from Tigatrapp!");
@@ -291,7 +324,7 @@ public class Switchboard extends Activity {
 			return true;
 		}
 
-		case (RSS_FEED_MOVELAB): {
+		case (R.id.movelabNews): {
 			Intent i = new Intent(Switchboard.this, RSSActivity.class);
 			i.putExtra(RSSActivity.RSSEXTRA_TITLE, "Latest from Movelab!");
 			i.putExtra(RSSActivity.RSSEXTRA_URL, "http://movelab.net/web/feed/");
@@ -301,28 +334,28 @@ public class Switchboard extends Activity {
 			return true;
 		}
 
-		case (LIST_TASKS): {
+		case (R.id.taskList): {
 
 			Intent i = new Intent(Switchboard.this, ListPendingTasks.class);
 			startActivity(i);
 			return true;
 		}
 
-		case (HELP): {
+		case (R.id.help): {
 
 			Intent i = new Intent(Switchboard.this, Help.class);
 			startActivity(i);
 			return true;
 		}
 
-		case (ABOUT): {
+		case (R.id.about): {
 
 			Intent i = new Intent(Switchboard.this, Credits.class);
 			startActivity(i);
 			return true;
 		}
 
-		case (SHARE_APP): {
+		case (R.id.shareApp): {
 			Intent shareIntent = new Intent(Intent.ACTION_SEND);
 
 			// set the type
@@ -346,7 +379,7 @@ public class Switchboard extends Activity {
 			return true;
 		}
 
-		case (TEST_TASK_NOTIFICATION_A): {
+		case (R.id.taskA): {
 			Intent intent = new Intent(
 					TigerBroadcastReceiver.TIGER_TASK_MESSAGE);
 			try {
@@ -361,7 +394,7 @@ public class Switchboard extends Activity {
 			context.sendBroadcast(intent);
 			return true;
 		}
-		case (TEST_TASK_NOTIFICATION_B): {
+		case (R.id.taskB): {
 			Intent intent = new Intent(
 					TigerBroadcastReceiver.TIGER_TASK_MESSAGE);
 			try {
@@ -376,7 +409,7 @@ public class Switchboard extends Activity {
 			context.sendBroadcast(intent);
 			return true;
 		}
-		case (TEST_TASK_NOTIFICATION_C): {
+		case (R.id.taskC): {
 			Intent intent = new Intent(
 					TigerBroadcastReceiver.TIGER_TASK_MESSAGE);
 			try {
@@ -392,28 +425,28 @@ public class Switchboard extends Activity {
 			return true;
 		}
 
-		case (TEST_TASK_NOTIFICATION_B_TRIGGERS): {
+		case (R.id.taskLocTrig): {
 			TaskModel.storeTask(context, TaskModel.makeDemoTaskBWithTriggers()
 					.toString());
 			return true;
 		}
 
-		case (TEST_FIX_SAMPLER): {
+		case (R.id.scheduleFixes): {
 			Intent intent = new Intent(
 					TigerBroadcastReceiver.START_SAMPLING_MESSAGE);
 			context.sendBroadcast(intent);
 			return true;
 		}
 
-		case (VIEW_CURRENT_FIX_TIMES): {
+		case (R.id.viewFixSchedule): {
 			Util.showHelp(context, PropertyHolder.getCurrentFixTimes());
 
 			return true;
 		}
-		case (FIX_NOW): {
-			Intent intent2FixGet = new Intent(context, FixGet.class);
-			startService(intent2FixGet);
-
+		case (R.id.fixNow): {
+			Intent intent = new Intent(
+					TigerBroadcastReceiver.START_FIXGET_MESSAGE);
+			context.sendBroadcast(intent);
 			return true;
 		}
 

@@ -52,7 +52,7 @@ public class ContentProviderReports extends ContentProvider {
 	private static final String DATABASE_NAME = "reportsDB";
 
 	/** The database version */
-	private static final int DATABASE_VERSION = 3;
+	private static final int DATABASE_VERSION = 4;
 
 	/** The location fix table name; currently "reportsTable" */
 	public static final String DATABASE_TABLE = "reportsTable";
@@ -82,7 +82,7 @@ public class ContentProviderReports extends ContentProvider {
 			+ TYPE_TEXT + COMMA + Reports.KEY_UPLOADED + TYPE_INTEGER + COMMA
 			+ Reports.KEY_SERVER_TIMESTAMP + TYPE_INTEGER + COMMA
 			+ Reports.KEY_DELETE_REPORT + TYPE_INTEGER + COMMA
-			+ Reports.KEY_LATEST_VERSION + TYPE_INTEGER
+			+ Reports.KEY_LATEST_VERSION + TYPE_INTEGER + COMMA
 			+ Reports.KEY_PACKAGE_NAME + TYPE_TEXT + COMMA
 			+ Reports.KEY_PACKAGE_VERSION + TYPE_TEXT + COMMA
 			+ Reports.KEY_PHONE_MANUFACTURER + TYPE_TEXT + COMMA

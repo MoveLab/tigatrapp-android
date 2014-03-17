@@ -25,8 +25,11 @@ import java.util.Date;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.CheckBox;
 import android.widget.TextView;
 import ceab.movelab.tigerapp.R;
@@ -77,7 +80,7 @@ public class ListPendingTasksCursorAdapter extends SimpleCursorAdapter {
 		}
 		TextView dateView = (TextView) v.findViewById(R.id.date);
 
-		CheckBox taskCheck = (CheckBox) v.findViewById(R.id.taskCheck);
+		TextView taskCheck = (TextView) v.findViewById(R.id.taskCheck);
 
 		String thisDateRange = "";
 		if (date != null) {
@@ -88,7 +91,21 @@ public class ListPendingTasksCursorAdapter extends SimpleCursorAdapter {
 			dateView.setText(thisDateRange);
 		}
 
-		taskCheck.setChecked(done);
+		if (done) {
+			taskCheck.setText("Complete");
+			taskCheck.setTextColor(Color.WHITE);
+			taskCheck.clearAnimation();
+
+		} else {
+			taskCheck.setText("Pending");
+			taskCheck.setTextColor(Color.YELLOW);
+			Animation blink = new AlphaAnimation(0.0f, 1.0f);
+			blink.setDuration(300);
+			blink.setStartOffset(20);
+			blink.setRepeatMode(Animation.REVERSE);
+			blink.setRepeatCount(Animation.INFINITE);
+			taskCheck.startAnimation(blink);
+		}
 
 	}
 }

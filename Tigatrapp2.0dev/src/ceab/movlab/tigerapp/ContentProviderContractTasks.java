@@ -57,7 +57,10 @@ public class ContentProviderContractTasks {
 																						// array
 																						// string:
 																						// [{lat:_lat,
-																						// lon:_lon, start_hour: _start_hour, end_hour:_end_hour},
+																						// lon:_lon,
+																						// start_hour:
+																						// _start_hour,
+																						// end_hour:_end_hour},
 
 		public static final String KEY_ACTIVE = "active"; // 1 or 0;
 		public static final String KEY_TASK_JSON = "task_json";
@@ -68,18 +71,19 @@ public class ContentProviderContractTasks {
 		/** The names of all the fields contained in the reports table */
 		public static final String[] KEYS_ALL = { KEY_ROW_ID, KEY_TASK_ID,
 				KEY_TASK_HEADING, KEY_TASK_SHORT_DESCRIPTION, KEY_DATE,
-				KEY_EXPIRATION_DATE,KEY_ACTIVE, KEY_TASK_JSON, KEY_DONE,
+				KEY_EXPIRATION_DATE, KEY_ACTIVE, KEY_TASK_JSON, KEY_DONE,
 				KEY_RESPONSES_JSON, KEY_UPLOADED };
 
 		public static final String[] KEYS_TASKS_LIST = { KEY_ROW_ID,
-				KEY_TASK_HEADING, KEY_TASK_SHORT_DESCRIPTION, KEY_DATE, KEY_EXPIRATION_DATE, KEY_ACTIVE,
-				KEY_TASK_JSON, KEY_DONE };
+				KEY_TASK_HEADING, KEY_TASK_SHORT_DESCRIPTION, KEY_DATE,
+				KEY_EXPIRATION_DATE, KEY_ACTIVE, KEY_TASK_JSON, KEY_DONE };
 
 		public static final String[] KEYS_DONE = { KEY_ROW_ID, KEY_DONE,
 				KEY_EXPIRATION_DATE, KEY_ACTIVE };
 
-		public static final String[] KEYS_TRIGGERS = { KEY_ROW_ID,
-				KEY_LOCATION_TRIGGERS_JSON, KEY_TASK_HEADING};
+		public static final String[] KEYS_TRIGGERS = { KEY_ROW_ID, 
+				KEY_TASK_HEADING, KEY_EXPIRATION_DATE, KEY_ACTIVE,
+				KEY_LOCATION_TRIGGERS_JSON, KEY_DONE };
 
 	}
 

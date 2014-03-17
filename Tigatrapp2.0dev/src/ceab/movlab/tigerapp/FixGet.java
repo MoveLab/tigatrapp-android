@@ -91,6 +91,7 @@ import android.os.Parcel;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.os.RemoteException;
+import android.util.Log;
 import ceab.movlab.tigerapp.ContentProviderContractTasks.Tasks;
 import ceab.movlab.tigerapp.ContentProviderContractTracks.Fixes;
 
@@ -133,10 +134,6 @@ public class FixGet extends Service {
 
 	boolean fixInProgress = false;
 
-	private int minDist = 0;
-
-	public int extraRuns = Util.EXTRARUNS;
-
 	/**
 	 * Creates a new FixGet service instance.<br>
 	 * Begins location recording process. Creates a location manager and two
@@ -163,8 +160,6 @@ public class FixGet extends Service {
 				PowerManager.SCREEN_DIM_WAKE_LOCK
 						| PowerManager.ACQUIRE_CAUSES_WAKEUP,
 				"MosquitTigreScreenDimWakeLock");
-
-		minDist = Util.getMinDist(context);
 
 	}
 
@@ -217,7 +212,12 @@ public class FixGet extends Service {
 	public void onDestroy() {
 		removeLocationUpdate("gps");
 
-		unregisterReceiver(stopReceiver);
+		try {
+			unregisterReceiver(stopReceiver);
+		} catch (IllegalArgumentException e) {
+
+		}
+
 		removeLocationUpdate("network");
 
 		unWakeLock();
@@ -278,11 +278,9 @@ public class FixGet extends Service {
 				return;
 			} else {
 
-				// if the location is within the optimum accuracy (for either
-				// normal or long runs),
+				// if the location is within the optimum accuracy
 				// then use it and stop.
-				if ((location.getAccuracy() <= Util.OPT_ACCURACY || (Util.missedFixes > 0 && location
-						.getAccuracy() < Util.OPT_ACCURACY_LONGRUNS))) {
+				if ((location.getAccuracy() <= Util.OPT_ACCURACY)) {
 
 					removeLocationUpdate("gps");
 					removeLocationUpdate("network");
@@ -297,49 +295,13 @@ public class FixGet extends Service {
 
 						bestLocation = location;
 						return;
-						// current and best location are gps, use for new bets
-						// whichever is better
-					} else if (location.getProvider().equals("gps")
-							&& bestLocation.getProvider().equals("gps")
-							&& location.getAccuracy() < bestLocation
-									.getAccuracy()) {
-
-						bestLocation = location;
-						return;
-
-						// if current location is gps and best location is
-						// network,
-						// use gps for new best if it is below the minimum gps
-						// accuracy or better than current
-					} else if (location.getProvider().equals("gps")
-							&& bestLocation.getProvider().equals("network")
-							&& (location.getAccuracy() <= Util.MIN_GPS_ACCURACY || location
-									.getAccuracy() < bestLocation.getAccuracy())) {
-						bestLocation = location;
-						return;
-
-						// if current location is network and best is network,
-						// use
-						// for new best whichever is better
-					} else if (location.getProvider().equals("network")
-							&& bestLocation.getProvider().equals("network")
-							&& location.getAccuracy() < location.getAccuracy()) {
-
-						bestLocation = location;
-						return;
-
-						// if current location is network and best is gps, use
-						// current as new best if gps accuracy is above the
-						// minimum threshhold or is better than network
-					} else if (location.getProvider().equals("network")
-							&& bestLocation.getProvider().equals("gps")
-							&& (bestLocation.getAccuracy() > Util.MIN_GPS_ACCURACY || location
-									.getAccuracy() < bestLocation.getAccuracy())) {
+					} else if (location.getAccuracy() < bestLocation
+							.getAccuracy()) {
 
 						bestLocation = location;
 						return;
 					} else
-						// if none of these conditions are met, then return and
+						// if conditions not met, then return and
 						// keep trying
 
 						return;
@@ -404,6 +366,11 @@ public class FixGet extends Service {
 		double thisLon = location.getLongitude();
 		double maskedLon = Math.floor(thisLon / Util.lonMask) * Util.lonMask;
 
+		Log.i("FG", "thisLat: " + thisLat);
+		Log.i("FG", "thisLon: " + thisLon);
+		Log.i("FG", "maskedLat: " + maskedLat);
+		Log.i("FG", "maskedLon: " + maskedLon);
+
 		cr.insert(Fixes.CONTENT_URI, ContentProviderValuesTracks.createFix(
 				maskedLat, maskedLon, location.getTime(),
 				Util.getBatteryLevel(context)));
@@ -412,8 +379,19 @@ public class FixGet extends Service {
 
 		int thisHour = Util.hour(location.getTime());
 
-		Cursor c = cr.query(Tasks.CONTENT_URI, Tasks.KEYS_TRIGGERS,
-				Tasks.KEY_LOCATION_TRIGGERS_JSON + " IS NOT NULL", null, null);
+		Log.i("FG", "thisHour: " + thisHour);
+
+		String sc1 = Tasks.KEY_LOCATION_TRIGGERS_JSON + " IS NOT NULL AND "
+				+ Tasks.KEY_ACTIVE + " = 0 AND " + Tasks.KEY_DONE + " = 0 AND "
+				+ Tasks.KEY_EXPIRATION_DATE + " >= "
+				+ System.currentTimeMillis();
+
+		Log.i("FG", sc1);
+
+		// grab tasks that have location triggers, that are not yet active, that
+		// are not yet done, and that have not expired
+		Cursor c = cr.query(Tasks.CONTENT_URI, Tasks.KEYS_TRIGGERS, sc1, null,
+				null);
 
 		while (c.moveToNext()) {
 
@@ -426,10 +404,22 @@ public class FixGet extends Service {
 
 					JSONObject thisTrigger = theseTriggers.getJSONObject(i);
 
+					Log.i("FG", "thisTrigger: " + thisTrigger.toString());
+					Log.i("FG", ""
+							+ (maskedLat == thisTrigger.getDouble("lat")));
+					Log.i("FG", ""
+							+ (maskedLon == thisTrigger.getDouble("lon")));
+					Log.i("FG",
+							"" + (thisHour >= thisTrigger.getInt("start_hour")));
+					Log.i("FG",
+							"" + (thisHour <= thisTrigger.getInt("end_hour")));
+
 					if (maskedLat == thisTrigger.getDouble("lat")
 							&& maskedLon == thisTrigger.getDouble("lon")
 							&& thisHour >= thisTrigger.getInt("start_hour")
 							&& thisHour <= thisTrigger.getInt("end_hour")) {
+
+						Log.i("FG", "task triggered");
 
 						ContentValues cv = new ContentValues();
 						int rowId = c.getInt(c
@@ -512,19 +502,22 @@ public class FixGet extends Service {
 		public void onReceive(Context context, Intent intent) {
 
 			removeLocationUpdate("gps");
-
-			unregisterReceiver(stopReceiver);
 			removeLocationUpdate("network");
+			try {
+				unregisterReceiver(stopReceiver);
+			} catch (IllegalArgumentException e) {
 
+			}
 			unWakeLock();
-
 			locationListener1 = null;
 			locationListener2 = null;
 			locationManager = null;
 			fixInProgress = false;
-
+			if (bestLocation != null
+					&& bestLocation.getAccuracy() < Util.MIN_ACCURACY) {
+				useFix(context, bestLocation);
+			}
 			stopSelf();
-
 		}
 
 	}

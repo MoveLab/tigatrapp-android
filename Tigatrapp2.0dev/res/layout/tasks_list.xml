@@ -10,7 +10,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/helpIcon"
-            android:text="Pending Tasks"
+            android:text="Tiger Tasks"
             android:textColor="@color/light_orange"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:padding="10dip" />

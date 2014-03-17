@@ -197,7 +197,6 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 				 pendingIntent2FixGet);
 		stopFixGetAlarm.set(alarmType, triggerTime
 				+ Util.LISTENER_WINDOW, pendingFixGetStop);
-		Util.countingFrom = triggerTime;
 		PropertyHolder.setServiceOn(true);
 
 	} 

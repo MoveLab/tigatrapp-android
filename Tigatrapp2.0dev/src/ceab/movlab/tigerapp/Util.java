@@ -142,9 +142,6 @@ public class Util {
 
 	public final static boolean testingMode = false;
 
-	public final static String MESSAGE_FIX_RECORDED = ".NEW_FIX_RECORDED";
-
-	public static int JITTER_MAX_METERS = 250;
 
 	public static String[] ALPHA_NUMERIC_DIGITS = { "0", "1", "2", "3", "4",
 			"5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H",
@@ -159,11 +156,9 @@ public class Util {
 
 	public static boolean flushGPSFlag = false;
 
-	public static boolean redrawMap = false;
 
 	public static int nSamplesPerDay = 20; // for testing, will reduce to 5
 
-	public static long xTime = 1 * 60 * 60 * 1000;
 	/**
 	 * Default value for the interval between location fixes. In milliseconds.
 	 */
@@ -204,103 +199,29 @@ public class Util {
 	 */
 	public static final long LISTENER_WINDOW = 5 * 1000;
 
-	public static final long LONG_LISTENER_WINDOW = 60 * 1000;
-
 	public final static long SECONDS = 1000;
 	public final static long MINUTES = SECONDS * 60;
 	public final static long HOURS = MINUTES * 60;
 	public final static long DAYS = HOURS * 24;
 	public final static long WEEKS = DAYS * 7;
 
-	// Min average comfortable walking speed (cm/s) from Bohannon 1997,
-	// http://ageing.oxfordjournals.org/content/26/1/15.full.pdf+html
-	public static int WALKING_SPEED = 127;
 
-	// Use the distance one would cover at walking speed capped at 80 (which is
-	// standard city block size)
-	public static int getMinDist(Context context) {
 
-		PropertyHolder.init(context);
-
-		int fixIntervalSeconds = (int) ((int) PropertyHolder.getAlarmInterval() / (int) SECONDS);
-
-		int expectedWalkingDistanceMeters = (int) (WALKING_SPEED * fixIntervalSeconds) / 100;
-		return Math.min(MIN_DIST, expectedWalkingDistanceMeters);
-	}
-
-	public static int MIN_DIST = 80;
-
-	/**
-	 * Value at which a GPS location will be preferred to a network location,
-	 * even if the network location is listed with a higher accuracy.
-	 */
-	public static final float MIN_GPS_ACCURACY = 50;
 
 	/**
 	 * Value at which a location will be used, and both listeners stopped even
 	 * if not yet at the end of the listener window.
 	 */
-	public static final float OPT_ACCURACY = 15;
+	public static final float OPT_ACCURACY = 1000;
 
-	/**
-	 * Value at which a location will be used, and both listeners stopped even
-	 * if not yet at the end of the listener window - for long runs.
-	 */
-	public static final float OPT_ACCURACY_LONGRUNS = 50;
 
 	/**
 	 * Minimum accuracy necessary for location to be used.
 	 */
-	public static final float MIN_ACCURACY = 500;
+	public static final float MIN_ACCURACY = 2000;
 
-	/**
-	 * Default time for storing user data when user selects to do so. In days.
-	 */
-	public static final int STORAGE_DAYS = 7;
 
-	/**
-	 * Dummy variable indicating whether application is currently trying to
-	 * upload data.
-	 */
-	public static boolean uploading = false;
 
-	/**
-	 * Default value for figuring out when alarm manager started counting. For
-	 * use with the display timer in the DriverMapActivity activity.
-	 */
-	public static long countingFrom = 0;
-
-	public static long lastFixStartedAt = 0;
-
-	/**
-	 * counter for how many fixes have been missed in a row.
-	 */
-	public static int missedFixes = 0;
-
-	/**
-	 * temp holder for info on latest fix.
-	 */
-	public static String lastFixTimeStamp = null;
-
-	/**
-	 * temp holder for info on latest fix.
-	 */
-	public static long lastFixTime = 0;
-
-	/**
-	 * temp holder for info on latest fix.
-	 */
-	public static double lastFixLat = 0;
-
-	/**
-	 * temp holder for info on latest fix.
-	 */
-	public static double lastFixLon = 0;
-
-	/**
-	 * holder for current value of the listener window
-	 */
-	public static long listenerTimer = LISTENER_WINDOW;
 
 	/**
 	 * Surrounds the given string in quotation marks. Taken from Human Mobility

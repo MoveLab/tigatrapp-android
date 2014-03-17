@@ -32,22 +32,33 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
-import ceab.movlab.tigerapp.ContentProviderContractTasks.Tasks;
 import ceab.movelab.tigerapp.R;
+import ceab.movlab.tigerapp.ContentProviderContractTasks.Tasks;
 
 public class ListPendingTasks extends FragmentActivity implements
 		LoaderManager.LoaderCallbacks<Cursor> {
 
 	private static final int LOADER_ID = 0x02;
 	Context context;
-	ListView mListView;
+	ListView listView;
 	ListPendingTasksCursorAdapter adapter;
+
+	private boolean all = true;
+
+	private static final String queryAll = Tasks.KEY_ACTIVE + " = " + "1";
+
+	private static final String queryPending = Tasks.KEY_ACTIVE + " = "
+			+ "1 AND " + Tasks.KEY_DONE + " = 0";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -63,7 +74,7 @@ public class ListPendingTasks extends FragmentActivity implements
 				new int[] { R.id.taskTitle, R.id.taskShortDescription,
 						R.id.date }, Adapter.NO_SELECTION);
 
-		final ListView listView = (ListView) findViewById(R.id.listview);
+		listView = (ListView) findViewById(R.id.listview);
 		listView.setAdapter(adapter);
 
 		listView.setFastScrollEnabled(true);
@@ -72,17 +83,32 @@ public class ListPendingTasks extends FragmentActivity implements
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Cursor c = (Cursor) listView.getItemAtPosition(position);
-				
-				if(c.getLong(c.getColumnIndexOrThrow(Tasks.KEY_EXPIRATION_DATE)) <= System.currentTimeMillis()){
-				String taskJson = c.getString(c
-						.getColumnIndexOrThrow(Tasks.KEY_TASK_JSON));
-				int rowId = c.getInt(c.getColumnIndexOrThrow(Tasks.KEY_ROW_ID));
 
-				Intent i = new Intent(ListPendingTasks.this, TaskActivity.class);
-				i.putExtra(Tasks.KEY_TASK_JSON, taskJson);
-				i.putExtra(Tasks.KEY_ROW_ID, rowId);
-				startActivity(i);
-				} else{
+				Log.i("LPT",
+						""
+								+ c.getLong(c
+										.getColumnIndexOrThrow(Tasks.KEY_EXPIRATION_DATE)));
+
+				if (c.getLong(c
+						.getColumnIndexOrThrow(Tasks.KEY_EXPIRATION_DATE)) >= System
+						.currentTimeMillis()) {
+
+					if (c.getInt(c.getColumnIndexOrThrow(Tasks.KEY_DONE)) == 0) {
+						String taskJson = c.getString(c
+								.getColumnIndexOrThrow(Tasks.KEY_TASK_JSON));
+						int rowId = c.getInt(c
+								.getColumnIndexOrThrow(Tasks.KEY_ROW_ID));
+
+						Intent i = new Intent(ListPendingTasks.this,
+								TaskActivity.class);
+						i.putExtra(Tasks.KEY_TASK_JSON, taskJson);
+						i.putExtra(Tasks.KEY_ROW_ID, rowId);
+						startActivity(i);
+					} else {
+						Util.toast(context,
+								"You have already completed this task. Thank you!");
+					}
+				} else {
 					Util.toast(context, "This task has expired.");
 				}
 			}
@@ -135,7 +161,7 @@ public class ListPendingTasks extends FragmentActivity implements
 	public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
 
 		return new CursorLoader(context, Tasks.CONTENT_URI,
-				Tasks.KEYS_TASKS_LIST, Tasks.KEY_ACTIVE + " = " + "1", null,
+				Tasks.KEYS_TASKS_LIST, all ? queryAll : queryPending, null,
 				Tasks.KEY_DATE + " DESC");
 	}
 
@@ -147,4 +173,33 @@ public class ListPendingTasks extends FragmentActivity implements
 		adapter.swapCursor(null);
 	}
 
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.task_list_menu, menu);
+		MenuItem miAll = menu.findItem(R.id.all);
+		MenuItem miPending = menu.findItem(R.id.pending);
+		miAll.setChecked(all);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case R.id.pending:
+			item.setChecked(true);
+			all = false;
+			getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
+			adapter.notifyDataSetChanged();
+			return true;
+		case R.id.all:
+			item.setChecked(true);
+			all = true;
+			getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
+			adapter.notifyDataSetChanged();
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
 }

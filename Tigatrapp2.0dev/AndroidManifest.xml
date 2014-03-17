@@ -22,8 +22,8 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ceab.movelab.tigerapp"
-    android:versionCode="18"
-    android:versionName="v2dev" >
+    android:versionCode="19"
+    android:versionName="v2.05dev" >
 
     <uses-sdk
         android:minSdkVersion="4"

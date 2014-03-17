@@ -1,33 +1,48 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants"
     android:padding="6dip" >
 
     <TextView
-        android:id="@+id/date"
+        android:id="@+id/taskCheck"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:text="date" 
-        android:textSize="30sp"/>
-
-    <TextView
-        android:id="@+id/taskTitle"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toLeftOf="@+id/date"
-        android:text="Task Title"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textSize="40sp" />
+        android:text="pending"
+        android:textColor="#f90" />
 
-    <TextView
-        android:id="@+id/taskShortDescription"
+    <LinearLayout
+        android:id="@+id/line1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/date"
-        android:text="Task Short Description"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textSize="30sp" />
+        android:layout_toLeftOf="@+id/taskCheck"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/taskTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Task Title"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="40sp" />
+
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="dates"
+            android:textSize="30sp" />
+
+        <TextView
+            android:id="@+id/taskShortDescription"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line1"
+            android:text="Task Short Description"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textSize="30sp" />
+    </LinearLayout>
 
 </RelativeLayout>

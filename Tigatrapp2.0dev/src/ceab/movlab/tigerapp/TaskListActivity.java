@@ -28,6 +28,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.LoaderManager;
@@ -65,8 +66,8 @@ public class TaskListActivity extends FragmentActivity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-	
-		context = getBaseContext();
+
+		context = this;
 
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
@@ -82,7 +83,6 @@ public class TaskListActivity extends FragmentActivity implements
 
 		setContentView(R.layout.tasks_list);
 
-	
 		getSupportLoaderManager().initLoader(LOADER_ID, null, this);
 
 		adapter = new TaskListCursorAdapter(this, R.layout.tasks_list_item,
@@ -205,7 +205,9 @@ public class TaskListActivity extends FragmentActivity implements
 		case R.id.pending:
 			item.setChecked(true);
 			all = false;
+
 			getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
+
 			adapter.notifyDataSetChanged();
 			return true;
 		case R.id.all:

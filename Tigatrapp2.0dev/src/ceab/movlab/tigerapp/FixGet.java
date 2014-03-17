@@ -76,7 +76,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.location.GpsStatus;
 import android.location.Location;
@@ -87,6 +86,7 @@ import android.net.wifi.WifiManager;
 import android.net.wifi.WifiManager.WifiLock;
 import android.os.Binder;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.os.Parcel;
 import android.os.PowerManager;
@@ -116,16 +116,9 @@ public class FixGet extends Service {
 	private LocationListener locationListener1; // gps
 	private LocationListener locationListener2; // network
 
-	public static String NEW_RECORD = "newRecord";
-
 	GpsStatusListener mGpsStatusListener;
 
-	public static final String NEW_FIX_RECORDED = "ceab.movelab.tigerapp.New_Fix_Recorded";
-	public static final String FIX_STARTED = "Fix_Started";
-
-	boolean gotLocation = false;
 	Location bestLocation;
-	Location bestGpsLocation;
 
 	WifiLock wifiLock;
 	WakeLock wakeLock;
@@ -169,12 +162,14 @@ public class FixGet extends Service {
 
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
-		if (!PropertyHolder.hasConsented() || PropertyHolder.getLanguage() == null) {
+		if (!PropertyHolder.hasConsented()
+				|| PropertyHolder.getLanguage() == null) {
 			stopSelf();
 		}
 
 		if (fixInProgress == false) {
 			fixInProgress = true;
+
 			stopFilter = new IntentFilter(
 					TigerBroadcastReceiver.STOP_FIXGET_MESSAGE);
 			stopReceiver = new StopReceiver();
@@ -184,13 +179,6 @@ public class FixGet extends Service {
 			bestLocation = null;
 
 			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-
-				if (Util.flushGPSFlag == true) {
-
-					clearGPS();
-					injectNewXTRA();
-					Util.flushGPSFlag = false;
-				}
 
 				locationListener1 = new mLocationListener();
 				locationManager.requestLocationUpdates(
@@ -210,6 +198,38 @@ public class FixGet extends Service {
 
 			}
 
+			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+					|| locationManager
+							.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+
+				new CountDownTimer(Util.LISTENER_WINDOW, Util.LISTENER_WINDOW) {
+
+					public void onTick(long millisUntilFinished) {
+						// nothing
+					}
+
+					public void onFinish() {
+						removeLocationUpdate("gps");
+						removeLocationUpdate("network");
+						try {
+							unregisterReceiver(stopReceiver);
+						} catch (IllegalArgumentException e) {
+
+						}
+						unWakeLock();
+						locationListener1 = null;
+						locationListener2 = null;
+						locationManager = null;
+						fixInProgress = false;
+						if (bestLocation != null
+								&& bestLocation.getAccuracy() < Util.MIN_ACCURACY) {
+							useFix(context, bestLocation);
+						}
+						stopSelf();
+					}
+				}.start();
+
+			}
 		}
 	};
 
@@ -219,14 +239,13 @@ public class FixGet extends Service {
 	@Override
 	public void onDestroy() {
 		removeLocationUpdate("gps");
+		removeLocationUpdate("network");
 
 		try {
 			unregisterReceiver(stopReceiver);
 		} catch (IllegalArgumentException e) {
 
 		}
-
-		removeLocationUpdate("network");
 
 		unWakeLock();
 

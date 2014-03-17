@@ -83,8 +83,8 @@ public class Switchboard extends Activity {
 				Intent i2c = new Intent(Switchboard.this, Consent.class);
 				startActivity(i2c);
 				finish();
-				
-			}else{
+
+			} else {
 
 				if (PropertyHolder.getUserId() == null) {
 					String userId = UUID.randomUUID().toString();
@@ -178,12 +178,9 @@ public class Switchboard extends Activity {
 				mapButton.startAnimation(animation);
 				galleryButton.startAnimation(animation);
 
-				// Stop service if running and restart it
-				Intent i = new Intent(Switchboard.this, FixGet.class);
-				stopService(i);
-				i = new Intent(TigerBroadcastReceiver.START_FIXGET_MESSAGE);
-				context.sendBroadcast(i);
-				startService(i);
+				Intent i = new Intent(
+						TigerBroadcastReceiver.START_SAMPLING_MESSAGE);
+				sendBroadcast(i);
 
 			}
 		}

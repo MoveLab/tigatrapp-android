@@ -20,7 +20,7 @@
  * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -30,30 +30,38 @@
         android:id="@+id/languageRadioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/buttonRow"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="8dip"
         android:orientation="vertical" >
 
         <RadioButton
             android:id="@+id/esButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Spanish" />
+            android:layout_height="0dip"
+            android:layout_weight="1"
+            android:text="Utilice la aplicación en español." />
 
         <RadioButton
             android:id="@+id/caButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Catalan" />
+            android:layout_height="0dip"
+            android:layout_weight="1"
+            android:text="Utilitzeu l'aplicació en català." />
 
         <RadioButton
             android:id="@+id/enButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="English" />
+            android:layout_height="0dip"
+            android:layout_weight="1"
+            android:text="Use app in English." />
     </RadioGroup>
 
     <LinearLayout
+        android:id="@+id/buttonRow"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:orientation="horizontal"
         android:padding="10dip" >
 
@@ -63,8 +71,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/ok" />
-
- 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

@@ -29,6 +29,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -64,7 +65,7 @@ public class Consent extends Activity {
 		setContentView(R.layout.consent);
 
 		TextView consent = (TextView) findViewById(R.id.consenttext);
-		consent.setText("This is the introduction to the application as well as the consent form. We will  add this as html formatted text.");
+		consent.setText(Html.fromHtml(getString(R.string.consent_html)));
 		consent.setTextColor(Color.WHITE);
 		consent.setTextSize(getResources()
 				.getDimension(R.dimen.textsize_normal));

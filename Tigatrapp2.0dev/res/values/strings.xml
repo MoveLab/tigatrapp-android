@@ -17,7 +17,7 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
@@ -209,6 +209,33 @@
 <![CDATA[
 <p>Copyright &#169; 2013 John R.B. Palmer, Aitana Oltra, Joan Garriga i Frederic Bartumeus</p>
     ]]>
+    </string>
+    <string name="consent_html">
+<![CDATA[
+<p><b>Introduction to the app</b></p>
+<p> Here we will put some short introductory text (more nicely formatted than this) about the project and the purpose of the app. Then the consent form follows:</p>
+    <p><b>FORMULARI ESTÀNDARD DE CONSENTIMENT</b></p>
+<p>(Convocatòria FECYT 2012; Projecte FCT-12-3730) Projecte de divulgació i participació científica dels joves en el seguiment i control del mosquit tigre: “Caçant el Tigre!” (Atrapa el Tigre!)</p>
+
+<p>Entenc que la participació al projecte Atrapa el Tigre! a través de l’aplicació Tigatrapp ha d’estar sempre supervisada per un adult.</p> 
+
+<p>Entenc que Tigatrapp em permet recollir i enviar dades sobre el meu moviment i la localització geogràfica d’albiraments de mosquit tigre que jo mateix documento i comparteixo. Entenc que Tigatrapp em permet també enviar i compatir, de manera voluntària, fotografies de mosquit tigre, missatges pels científics que descriguin els meus albiraments i respostes a qüestionaris.</p> 
+
+<p>Entenc que les dades i imatges recollides i compartides a través de Tigatrapp no són de caràcter personal, ja que no es recull informació referent a persones físiques identificades o identificables, segons el que estableix la Llei orgànica 15/1999. Entenc que està sota la meva responsabilitat la correcta utilització de Tigatrapp i que no haig ni de recollir, ni d’enviar, a través de Tigatrapp, imatges o dades personals, ni fer un ús indegut, o fora de la legalitat, o diferent al qual Tigatrapp està destinat.</p>
+
+<p>Entenc que la utilització del telèfon mòbil mentre condueixo està prohibida i que pot augmentar el risc d’accidents, morts o danys. Entenc que no haig d’utilitzar l’aplicació o el meu telèfon mòbil en cap cas mentre condueixi, i estic d’acord en no fer-ho. Entenc també que la seguretat és la prioritat més important en tots els aspectes d’aquest projecte i estic d’acord en utilitzar el meu telèfon mòbil en tot moment d’una manera segura.</p>
+
+<p>Entenc que la informació que recull i envia Tigatrapp pot ser publicada al portal web www.atrapaeltigre.com i en d’altres portals i suports. Entenc que la informació subministrada pot ser utilitzada per a fins científics, ambientals i de sanitat pública. En cap cas aquesta informació serà utilitzada per a fins comercials.</p>
+
+<p>Entenc que l’objectiu d’aquest projecte d’investigació i ciència ciutadana és estudiar la presència i dispersió del mosquit tigre a Catalunya, així com aspectes relacionats amb la participació ciutadana i les ciències ciutadanes. Entenc que no rebré cap tipus de compensació econòmica per la meva participació i que no podré cancel&#183;ar ni rectificar la informació ja compartida, ja que aquesta en cap cas es pot associar a la meva persona física.  Entenc que es prendran les mesures raonables per tal de protegir la meva privacitat en tota la informació que enviï pel projecte d’investigació.</p> 
+
+<p>Amb el consentiment d’aquest formulari declaro que sóc major d’edat  i que he llegit i entenc que:</p>
+
+<p>A. La meva participació és voluntària, i puc deixar de participar en qualsevol moment. La meva negativa a participar no donarà lloc a cap tipus de penalització. La meva participació està sotmesa a les condicions d’aquest formulari de consentiment.</p>
+<p>B. La prestació del meu consentiment no implica la renúncia a qualsevol dret o eximeix al Consell Superior d’Investigacions Científiques, els seus agents o a l’investigador responsable d’aquest projecte, de qualsevol responsabilitat per culpa.</p>
+<p>Presto el meu consentiment a ser un participant d’aquest projecte d’investigació sota les condicions establertes en aquest formulari.</p>
+    
+   ]]>
     </string>
     <string name="about_html">
 <![CDATA[

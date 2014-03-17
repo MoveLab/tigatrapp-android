@@ -155,9 +155,7 @@ public class Util {
 
 	public static boolean privateMode = false;
 
-	public static int EXTRARUNS = 4;
 
-	public static boolean flushGPSFlag = false;
 
 	public static int nSamplesPerDay = 20; // for testing, will reduce to 5
 

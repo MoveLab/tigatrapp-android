@@ -21,12 +21,20 @@
             android:text="Left Button"
             android:textSize="30sp" />
 
+                <Button
+            android:id="@+id/buttonMiddle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Middle Button"
+            android:textSize="30sp" />
+        
         <Button
             android:id="@+id/buttonRight"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/cancel"
+            android:text="Right Button"
             android:textSize="30sp" />
     </LinearLayout>
 

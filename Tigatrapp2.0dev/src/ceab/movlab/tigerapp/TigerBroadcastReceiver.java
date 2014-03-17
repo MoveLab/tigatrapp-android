@@ -75,6 +75,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.SystemClock;
 import android.support.v4.app.TaskStackBuilder;
 import ceab.movelab.tigerapp.R;
@@ -117,6 +118,8 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 		if (PropertyHolder.hasConsented()
 				&& PropertyHolder.getLanguage() != null) {
 
+			int sdk = Build.VERSION.SDK_INT;
+			
 			String action = intent.getAction();
 
 			AlarmManager startFixGetAlarm = (AlarmManager) context
@@ -183,6 +186,7 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 					thisTriggerTime = mRandom.nextInt(24 * 60) * 60 * 1000;
 					startFixGetAlarms[i].set(alarmType, thisTriggerTime,
 							pendingFixGetMessage);
+					
 					// FOR TESTING
 					currentSamplingTimes[i] = Util.iso8601(System
 							.currentTimeMillis() + thisTriggerTime);

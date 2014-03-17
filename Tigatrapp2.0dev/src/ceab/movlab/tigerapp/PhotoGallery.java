@@ -1,13 +1,15 @@
 package ceab.movlab.tigerapp;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Gallery;
 import android.widget.TextView;
-import ceab.movlab.tigerapp.ImageAdapter.ViewHolder;
 import ceab.movelab.tigerapp.R;
 
 public class PhotoGallery extends Activity {
@@ -18,7 +20,23 @@ public class PhotoGallery extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		Context context = this;
+
+		if (!PropertyHolder.isInit())
+			PropertyHolder.init(context);
+
+		if (PropertyHolder.getLanguage() == null) {
+			Intent i2sb = new Intent(PhotoGallery.this, Switchboard.class);
+			startActivity(i2sb);
+			finish();
+		} else {
+			Resources res = getResources();
+			Util.setDisplayLanguage(res);
+		}
+
 		setContentView(R.layout.tiger_photos);
+
 		galleryView = (Gallery) findViewById(R.id.galleryid);
 		captionView = (TextView) findViewById(R.id.captionid);
 		captionView.setText(ImageAdapter.captions[0]);
@@ -42,4 +60,5 @@ public class PhotoGallery extends Activity {
 
 		});
 	}
+
 }

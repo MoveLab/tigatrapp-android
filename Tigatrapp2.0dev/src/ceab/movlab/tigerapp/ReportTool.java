@@ -22,7 +22,6 @@
 package ceab.movlab.tigerapp;
 
 import java.util.Date;
-import java.util.Locale;
 import java.util.Random;
 
 import org.json.JSONException;
@@ -38,7 +37,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.location.Location;
@@ -51,7 +49,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Html;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -131,8 +128,6 @@ public class ReportTool extends Activity {
 
 	RadioGroup locationRadioGroup;
 
-	String lang;
-
 	String message;
 
 	public static final int REQUEST_CODE_TAKE_PHOTO = 1;
@@ -151,13 +146,14 @@ public class ReportTool extends Activity {
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
 
-		lang = PropertyHolder.getLanguage();
-		Locale myLocale = new Locale(lang);
-		Resources res = getResources();
-		DisplayMetrics dm = res.getDisplayMetrics();
-		Configuration conf = res.getConfiguration();
-		conf.locale = myLocale;
-		res.updateConfiguration(conf, dm);
+		if (PropertyHolder.getLanguage() == null) {
+			Intent i2sb = new Intent(ReportTool.this, Switchboard.class);
+			startActivity(i2sb);
+			finish();
+		} else {
+			Resources res = getResources();
+			Util.setDisplayLanguage(res);
+		}
 
 		Bundle b = getIntent().getExtras();
 		type = b.getInt("type");
@@ -619,6 +615,9 @@ public class ReportTool extends Activity {
 
 		icicle.putString(Reports.KEY_PHOTO_URIS,
 				thisReport.photoUrisJson.toString());
+
+		if (type != -1)
+			icicle.putInt("type", type);
 
 	}
 
@@ -1346,17 +1345,6 @@ public class ReportTool extends Activity {
 		}
 	}
 
-	public void setLocale(String lang) {
-
-		Locale myLocale = new Locale(lang);
-		Resources res = getResources();
-		DisplayMetrics dm = res.getDisplayMetrics();
-		Configuration conf = res.getConfiguration();
-		conf.locale = myLocale;
-		res.updateConfiguration(conf, dm);
-		Intent refresh = new Intent(this, ReportTool.class);
-		startActivity(refresh);
-	}
 
 	public void buildLeaveReportWarning() {
 
@@ -1396,4 +1384,5 @@ public class ReportTool extends Activity {
 	 * 
 	 * return super.onKeyDown(keyCode, event); }
 	 */
+
 }

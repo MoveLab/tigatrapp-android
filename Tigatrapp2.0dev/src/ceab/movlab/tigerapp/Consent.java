@@ -24,12 +24,11 @@ package ceab.movlab.tigerapp;
 import java.util.Date;
 
 import android.app.Activity;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -49,9 +48,20 @@ public class Consent extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.consent);
 		context = getApplicationContext();
-		PropertyHolder.init(context);
+
+		if (!PropertyHolder.isInit())
+			PropertyHolder.init(context);		
+		if (PropertyHolder.getLanguage() == null) {
+			Intent i2sb = new Intent(Consent.this, Switchboard.class);
+			startActivity(i2sb);
+			finish();
+		} else {
+			Resources res = getResources();
+			Util.setDisplayLanguage(res);
+		}
+
+		setContentView(R.layout.consent);
 
 		TextView consent = (TextView) findViewById(R.id.consenttext);
 		consent.setText("This is the introduction to the application as well as the consent form. We will  add this as html formatted text.");

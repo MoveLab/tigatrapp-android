@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <item android:id="@+id/satToggle"
+          android:title="Map Type" >
+        <!-- "file" submenu -->
+        <menu>
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/sat"
+              android:title="Satellite Map" />
+        <item android:id="@+id/street"
+              android:title="Street Map" />
+    </group>
+        </menu>
+    </item>
+        <item android:id="@+id/saveMap"
+          android:title="Save Map" >
+    </item>
+        <item android:id="@+id/shareMap"
+          android:title="Share Map" >
+    </item>
+        
+</menu>

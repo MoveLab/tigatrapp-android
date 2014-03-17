@@ -2,7 +2,6 @@ package ceab.movlab.tigerapp;
 
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Locale;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,13 +12,10 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -51,13 +47,17 @@ public class TaskActivity extends Activity {
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
 
-		lang = PropertyHolder.getLanguage();
-		Locale myLocale = new Locale(lang);
+		if (PropertyHolder.getLanguage() == null) {
+			Intent i2sb = new Intent(TaskActivity.this, Switchboard.class);
+			startActivity(i2sb);
+			finish();
+		} else {
+			Resources res = getResources();
+			Util.setDisplayLanguage(res);
+		}
+
+		
 		Resources res = getResources();
-		DisplayMetrics dm = res.getDisplayMetrics();
-		Configuration conf = res.getConfiguration();
-		conf.locale = myLocale;
-		res.updateConfiguration(conf, dm);
 
 		setContentView(R.layout.task);
 		View header = getLayoutInflater().inflate(R.layout.task_head, null);

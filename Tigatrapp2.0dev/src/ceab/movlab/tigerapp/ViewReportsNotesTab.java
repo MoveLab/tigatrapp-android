@@ -1,14 +1,20 @@
 package ceab.movlab.tigerapp;
 
-import ceab.movlab.tigerapp.ContentProviderContractReports.Reports;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.TextView;
+import ceab.movlab.tigerapp.ContentProviderContractReports.Reports;
 
 public class ViewReportsNotesTab extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		Context context = this;
+		Resources res = getResources();
+		Util.setDisplayLanguage(res);
 
 		TextView textview = new TextView(this);
 		textview.setText("No note attached.");

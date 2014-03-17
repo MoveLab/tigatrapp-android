@@ -45,10 +45,13 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-import ceab.movelab.tigerapp.R;
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.TextView;
+import ceab.movelab.tigerapp.R;
 
 /**
  * Displays the LGPL.
@@ -60,6 +63,21 @@ public class LGPLView extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		Context context = this;
+		
+		if (!PropertyHolder.isInit())
+			PropertyHolder.init(context);		
+		if (PropertyHolder.getLanguage() == null) {
+			Intent i2sb = new Intent(LGPLView.this, Switchboard.class);
+			startActivity(i2sb);
+			finish();
+		} else {
+			Resources res = getResources();
+			Util.setDisplayLanguage(res);
+		}
+
+		
 		setContentView(R.layout.lgpl_view);
 		
 		Util.overrideFonts(this, findViewById(android.R.id.content));

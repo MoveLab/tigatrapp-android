@@ -2,25 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <item
-        android:id="@+id/language"
-        android:title="Language">
-
-        <!-- "file" submenu -->
-        <menu>
-            <group android:checkableBehavior="single" >
-                <item
-                    android:id="@+id/spanish"
-                    android:title="Spanish"/>
-                <item
-                    android:id="@+id/catalan"
-                    android:title="Catalan"/>
-                <item
-                    android:id="@+id/english"
-                    android:title="English"/>
-            </group>
-        </menu>
-    </item>
-    <item
         android:id="@+id/taskList"
         android:title="Task List">
     </item>

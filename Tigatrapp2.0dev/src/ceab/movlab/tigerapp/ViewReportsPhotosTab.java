@@ -11,7 +11,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +30,9 @@ public class ViewReportsPhotosTab extends Activity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		Resources res = getResources();
+		Util.setDisplayLanguage(res);
 
 		TextView textview = new TextView(this);
 		textview.setText("This report has no photos.");
@@ -71,8 +74,7 @@ public class ViewReportsPhotosTab extends Activity {
 								// size --
 								// based on screen
 								iv.setImageBitmap(Util.getSmallerBitmap(
-										new File(thisPhotoUri),
-										context, 300));
+										new File(thisPhotoUri), context, 300));
 								iv.setOnClickListener(new View.OnClickListener() {
 									public void onClick(View View3) {
 										dialog.dismiss();

@@ -52,6 +52,7 @@ import java.util.List;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -64,6 +65,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -85,6 +87,8 @@ import com.google.android.maps.Overlay;
  * 
  */
 public class ViewDataActivity extends MapActivity {
+
+	String lang;
 
 	boolean loadingData;
 
@@ -116,6 +120,15 @@ public class ViewDataActivity extends MapActivity {
 
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
+
+		if (PropertyHolder.getLanguage() == null) {
+			Intent i2sb = new Intent(ViewDataActivity.this, Switchboard.class);
+			startActivity(i2sb);
+			finish();
+		} else {
+			Resources res = getResources();
+			Util.setDisplayLanguage(res);
+		}
 
 		setContentView(R.layout.map_layout);
 
@@ -191,17 +204,20 @@ public class ViewDataActivity extends MapActivity {
 		super.onPause();
 	}
 
-	static final private int TOGGLE_VIEW = Menu.FIRST + 2;
-	static final private int SAVE_MAP = Menu.FIRST + 4;
-	static final private int SHARE_MAP = Menu.FIRST + 5;
-
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 
-		menu.add(0, TOGGLE_VIEW, Menu.NONE, R.string.menu_toggle_view);
-		menu.add(0, SAVE_MAP, Menu.NONE, R.string.menu_map_save);
-		menu.add(0, SHARE_MAP, Menu.NONE, R.string.menu_map_share);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.view_data_menu, menu);
+
+		MenuItem mSat = menu.findItem(R.id.sat);
+		MenuItem mStreet = menu.findItem(R.id.street);
+
+		if (satToggle == true)
+			mSat.setChecked(true);
+		else
+			mStreet.setChecked(true);
 
 		return true;
 
@@ -212,18 +228,25 @@ public class ViewDataActivity extends MapActivity {
 		super.onOptionsItemSelected(item);
 
 		switch (item.getItemId()) {
-		case (TOGGLE_VIEW): {
-			satToggle = !satToggle;
-			mapView.setSatellite(satToggle);
-
+		case (R.id.sat): {
+			item.setChecked(true);
+			mapView.setSatellite(true);
+			satToggle = true;
 			return true;
 		}
-		case (SAVE_MAP): {
+		case (R.id.street): {
+			item.setChecked(true);
+			mapView.setSatellite(false);
+			satToggle = false;
+			return true;
+		}
+
+		case (R.id.saveMap): {
 			Context context = getApplicationContext();
 			saveMapImage(context);
 			return true;
 		}
-		case (SHARE_MAP): {
+		case (R.id.shareMap): {
 			Context context = getApplicationContext();
 			shareMap(context);
 			return true;
@@ -487,7 +510,7 @@ public class ViewDataActivity extends MapActivity {
 				int uploadedCol = c.getColumnIndexOrThrow(Reports.KEY_UPLOADED);
 				int serverTimestampCol = c
 						.getColumnIndexOrThrow(Reports.KEY_SERVER_TIMESTAMP);
-				
+
 				while (!c.isAfterLast()) {
 
 					int locationChoice = c.getInt(locationChoiceCol);
@@ -501,12 +524,9 @@ public class ViewDataActivity extends MapActivity {
 					GeoPoint point = new GeoPoint(geoLat.intValue(),
 							geoLon.intValue());
 
-					
 					Log.i("VDA", "locationChoice = " + locationChoice);
 					Log.i("VDA", "geolat = " + geoLat);
-					
-					
-					
+
 					final int thisType = c.getInt(typeCol);
 
 					// NOTE THAT WE HAVE DECIDED TO HAVE ONLY THE USER'S REPORTS

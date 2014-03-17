@@ -45,6 +45,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -60,7 +61,6 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.widget.Button;
 import ceab.movelab.tigerapp.R;
 
@@ -107,6 +107,19 @@ public class MapSelector extends MapActivity {
 	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
+		
+		if (!PropertyHolder.isInit())
+			PropertyHolder.init(context);		
+		if (PropertyHolder.getLanguage() == null) {
+			Intent i2sb = new Intent(MapSelector.this, Switchboard.class);
+			startActivity(i2sb);
+			finish();
+		} else {
+			Resources res = getResources();
+			Util.setDisplayLanguage(res);
+		}
+
+		
 		setContentView(R.layout.map_selector_dialog);
 
 		Util.overrideFonts(this, findViewById(android.R.id.content));

@@ -31,10 +31,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import ceab.movelab.tigerapp.R;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.res.Resources;
 //import android.content.DialogInterface.OnKeyListener;
 import android.os.Environment;
 import android.text.Editable;
@@ -88,6 +90,10 @@ public class SimpleFileDialog
 		m_sdcardDirectory = Environment.getExternalStorageDirectory().getAbsolutePath();
 		m_SimpleFileDialogListener = SimpleFileDialogListener;
 
+		Resources res = context.getResources();
+		Util.setDisplayLanguage(res);
+
+		
 		try
 		{
 			m_sdcardDirectory = new File(m_sdcardDirectory).getCanonicalPath();
@@ -164,7 +170,7 @@ public class SimpleFileDialog
 		AlertDialog.Builder dialogBuilder = createDirectoryChooserDialog(dir, m_subdirs, 
 				new SimpleFileDialogOnClickListener());
 
-		dialogBuilder.setPositiveButton("OK", new OnClickListener() 
+		dialogBuilder.setPositiveButton(R.string.ok, new OnClickListener() 
 		{
 			@Override
 			public void onClick(DialogInterface dialog, int which) 
@@ -184,7 +190,7 @@ public class SimpleFileDialog
 					}
 				}
 			}
-		}).setNegativeButton("Cancel", null);
+		}).setNegativeButton(R.string.cancel, null);
 
 		final AlertDialog dirsDialog = dialogBuilder.create();
 
@@ -263,7 +269,7 @@ public class SimpleFileDialog
 		//m_titleView1.setTextAppearance(m_context, android.R.style.TextAppearance_Large);
 		//m_titleView1.setTextColor( m_context.getResources().getColor(android.R.color.black) );
 				
-		if (Select_type == FileOpen    ) m_titleView1.setText("Open:");
+		if (Select_type == FileOpen    ) m_titleView1.setText(m_context.getResources().getString(R.string.open) + ":");
 		if (Select_type == FileSave    ) m_titleView1.setText("Save As:");
 		if (Select_type == FolderChoose) m_titleView1.setText("Folder Select:");
 		

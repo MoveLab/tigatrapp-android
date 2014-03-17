@@ -67,6 +67,20 @@ public class ViewReportsTab extends TabActivity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		if (!PropertyHolder.isInit())
+			PropertyHolder.init(context);
+
+		if (PropertyHolder.getLanguage() == null) {
+			Intent i2sb = new Intent(ViewReportsTab.this, Switchboard.class);
+			startActivity(i2sb);
+			finish();
+		} else {
+			Resources res = getResources();
+			Util.setDisplayLanguage(res);
+		}
+
+		
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.view_reports_tab);
 		Resources resources = getResources();

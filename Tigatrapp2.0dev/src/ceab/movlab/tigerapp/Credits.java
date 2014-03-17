@@ -21,9 +21,10 @@
 
 package ceab.movlab.tigerapp;
 
-import ceab.movelab.tigerapp.R;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Html;
@@ -33,6 +34,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
+import ceab.movelab.tigerapp.R;
 
 /**
  * Displays the Credits screen.
@@ -51,6 +53,19 @@ public class Credits extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		Context context = this;
+
+		if (!PropertyHolder.isInit())
+			PropertyHolder.init(context);
+		if (PropertyHolder.getLanguage() == null) {
+			Intent i2sb = new Intent(Credits.this, Switchboard.class);
+			startActivity(i2sb);
+			finish();
+		} else {
+			Resources res = getResources();
+			Util.setDisplayLanguage(res);
+		}
 
 		setContentView(R.layout.credits);
 

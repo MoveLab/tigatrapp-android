@@ -42,10 +42,10 @@
             android:layout_gravity="center"
             android:layout_marginBottom="6dip"
             android:layout_marginTop="5dip"
-            android:textColor="@color/discolor"
-            android:text="Report"
             android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:text="Report"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@color/discolor" />
 
         <View
             android:layout_width="fill_parent"
@@ -239,35 +239,6 @@
                 android:layout_centerVertical="true"
                 android:clickable="false"
                 android:src="@drawable/ic_action_edit" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:background="@color/white" />
-
-        <RelativeLayout
-            android:id="@+id/reportMailingRow"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/selectorcolors"
-            android:clickable="true" >
-
-            <CheckBox
-                android:id="@+id/reportMailingCheck"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="false"
-                android:text="Mailing specimen" />
-
-            <ImageView
-                android:id="@+id/reportMailingButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:clickable="false"
-                android:src="@drawable/ic_action_email" />
         </RelativeLayout>
 
         <View

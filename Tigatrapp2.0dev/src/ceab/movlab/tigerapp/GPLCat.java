@@ -21,9 +21,10 @@
 
 package ceab.movlab.tigerapp;
 
-import ceab.movelab.tigerapp.R;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -31,6 +32,7 @@ import android.text.util.Linkify;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import ceab.movelab.tigerapp.R;
 
 /**
  * Displays the About screen.
@@ -44,6 +46,20 @@ public class GPLCat extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		Context context = this;
+		
+		if (!PropertyHolder.isInit())
+			PropertyHolder.init(context);		
+		if (PropertyHolder.getLanguage() == null) {
+			Intent i2sb = new Intent(GPLCat.this, Switchboard.class);
+			startActivity(i2sb);
+			finish();
+		} else {
+			Resources res = getResources();
+			Util.setDisplayLanguage(res);
+		}
+
+		
 		setContentView(R.layout.gpl_cat);
 		
 		Util.overrideFonts(this, findViewById(android.R.id.content));

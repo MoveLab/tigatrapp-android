@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License along 
  * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/LightThemeSelector"
     android:layout_width="fill_parent"
@@ -31,57 +31,73 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:visibility="gone"
-        android:src="@drawable/tigerlogo" />
+        android:src="@drawable/tigerlogo"
+        android:visibility="gone" />
 
-    <ImageView
-        android:id="@+id/reportButtonSite"
-        android:layout_width="80dip"
-        android:layout_height="80dip"
-        android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="25dp"
-        android:background="@drawable/selectorcolors_light"
-        android:gravity="center_vertical|center_horizontal"
-        android:padding="10dip"
-        android:src="@drawable/switchboard_icon_breeding_site" />
+    <RelativeLayout
+        android:layout_width="0dip"
+        android:layout_height="fill_parent"
+        android:layout_weight="1" >
 
-    <ImageView
-        android:id="@+id/reportMainPic"
-        android:layout_width="80dip"
-        android:layout_height="80dip"
-        android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/dataMapButton"
-        android:layout_marginRight="24dp"
-        android:background="@drawable/selectorcolors_light"
-        android:contentDescription="@string/reportGallery_CD"
-        android:gravity="center_vertical|center_horizontal"
-        android:padding="10dip"
-        android:src="@drawable/switchboard_icon_gallery" />
+        <ImageView
+            android:id="@+id/reportButtonSite"
+            android:layout_width="80dip"
+            android:layout_height="80dip"
+            android:layout_centerInParent="true"
+            android:background="@drawable/selectorcolors_light"
+            android:gravity="center_vertical|center_horizontal"
+            android:padding="10dip"
+            android:src="@drawable/switchboard_icon_breeding_site" />
+    </RelativeLayout>
 
-    <ImageView
-        android:id="@+id/reportButtonAdult"
-        android:layout_width="80dip"
-        android:layout_height="80dip"
-        android:layout_alignTop="@+id/reportButtonSite"
-        android:layout_marginLeft="98dp"
-        android:layout_toRightOf="@+id/reportButtonSite"
-        android:background="@drawable/selectorcolors_light"
-        android:gravity="center_vertical|center_horizontal"
-        android:padding="10dip"
-        android:src="@drawable/switchboard_icon_adult" />
+    <RelativeLayout
+        android:layout_width="0dip"
+        android:layout_height="fill_parent"
+        android:layout_weight="1" >
 
-    <ImageView
-        android:id="@+id/dataMapButton"
-        android:layout_width="80dip"
-        android:layout_height="80dip"
-        android:layout_alignTop="@+id/reportButtonAdult"
-        android:layout_marginRight="86dp"
-        android:layout_toLeftOf="@+id/reportMainPic"
-        android:background="@drawable/selectorcolors_light"
-        android:contentDescription="@string/dataMap_CD"
-        android:gravity="center_vertical|center_horizontal"
-        android:padding="10dip"
-        android:src="@drawable/switchboard_icon_map" />
+        <ImageView
+            android:id="@+id/reportMainPic"
+            android:layout_width="80dip"
+            android:layout_height="80dip"
+            android:layout_centerInParent="true"
+            android:background="@drawable/selectorcolors_light"
+            android:contentDescription="@string/reportGallery_CD"
+            android:gravity="center_vertical|center_horizontal"
+            android:padding="10dip"
+            android:src="@drawable/switchboard_icon_gallery" />
+    </RelativeLayout>
 
-</RelativeLayout>
+    <RelativeLayout
+        android:layout_width="0dip"
+        android:layout_height="fill_parent"
+        android:layout_weight="1" >
+
+        <ImageView
+            android:id="@+id/reportButtonAdult"
+            android:layout_width="80dip"
+            android:layout_height="80dip"
+            android:layout_centerInParent="true"
+            android:background="@drawable/selectorcolors_light"
+            android:gravity="center_vertical|center_horizontal"
+            android:padding="10dip"
+            android:src="@drawable/switchboard_icon_adult" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="0dip"
+        android:layout_height="fill_parent"
+        android:layout_weight="1" >
+
+        <ImageView
+            android:id="@+id/dataMapButton"
+            android:layout_width="80dip"
+            android:layout_height="80dip"
+            android:layout_centerInParent="true"
+            android:background="@drawable/selectorcolors_light"
+            android:contentDescription="@string/dataMap_CD"
+            android:gravity="center_vertical|center_horizontal"
+            android:padding="10dip"
+            android:src="@drawable/switchboard_icon_map" />
+    </RelativeLayout>
+
+</LinearLayout>

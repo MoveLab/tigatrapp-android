@@ -266,38 +266,6 @@
             android:layout_height="1dip"
             android:background="@color/white" />
 
-        <RelativeLayout
-            android:id="@+id/reportMailingRow"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/selectorcolors"
-            android:clickable="true"
-            android:paddingBottom="20dip"
-            android:paddingTop="20dip" >
-
-            <CheckBox
-                android:id="@+id/reportMailingCheck"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:clickable="false"
-                android:text="Mailing specimen"
-                android:textSize="30sp" />
-
-            <ImageView
-                android:id="@+id/reportMailingButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:clickable="false"
-                android:src="@drawable/ic_action_email" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:background="@color/white" />
-
         <Button
             android:id="@+id/buttonReportSubmit"
             android:layout_width="wrap_content"

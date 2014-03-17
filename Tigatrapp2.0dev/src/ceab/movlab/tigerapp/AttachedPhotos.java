@@ -19,6 +19,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -52,6 +53,17 @@ public class AttachedPhotos extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		if (!PropertyHolder.isInit())
+			PropertyHolder.init(context);		
+		if (PropertyHolder.getLanguage() == null) {
+			Intent i2sb = new Intent(AttachedPhotos.this, Switchboard.class);
+			startActivity(i2sb);
+			finish();
+		} else {
+			Resources res = getResources();
+			Util.setDisplayLanguage(res);
+		}
 
 		setContentView(R.layout.attached_photos);
 

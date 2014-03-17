@@ -73,7 +73,7 @@ public class TaskModel {
 
 			taskJson.put(KEY_TASK_BUTTON_LEFT_TEXT, "Mark Task Complete");
 			taskJson.put(KEY_TASK_BUTTON_LEFT_ACTION, BUTTONACTIONS_DO_TASK);
-			taskJson.put(KEY_TASK_BUTTON_MIDDLE_TEXT, "DO Task Later");
+			taskJson.put(KEY_TASK_BUTTON_MIDDLE_TEXT, "Do Task Later");
 			taskJson.put(KEY_TASK_BUTTON_MIDDLE_ACTION,
 					BUTTONACTIONS_DO_TASK_LATER);
 			taskJson.put(KEY_TASK_BUTTON_RIGHT_TEXT, "Delete Task");
@@ -197,7 +197,7 @@ public class TaskModel {
 			taskJson.put(KEY_TASK_BUTTON_LEFT_URL,
 					"http://tce.ceab.csic.es/tigaDev2/TigatrappMap.html");
 
-			taskJson.put(KEY_TASK_BUTTON_MIDDLE_TEXT, "DO Task Later");
+			taskJson.put(KEY_TASK_BUTTON_MIDDLE_TEXT, "Do Task Later");
 			taskJson.put(KEY_TASK_BUTTON_MIDDLE_ACTION,
 					BUTTONACTIONS_DO_TASK_LATER);
 			taskJson.put(KEY_TASK_BUTTON_RIGHT_TEXT, "Delete Task");

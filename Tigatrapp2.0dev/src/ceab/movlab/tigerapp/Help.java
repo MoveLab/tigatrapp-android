@@ -1,7 +1,8 @@
 package ceab.movlab.tigerapp;
 
 import android.content.Context;
-import android.content.pm.ActivityInfo;
+import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.KeyEvent;
@@ -24,6 +25,19 @@ public class Help extends FragmentActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		if (!PropertyHolder.isInit())
+			PropertyHolder.init(context);		
+		if (PropertyHolder.getLanguage() == null) {
+			Intent i2sb = new Intent(Help.this, Switchboard.class);
+			startActivity(i2sb);
+			finish();
+		} else {
+			Resources res = getResources();
+			Util.setDisplayLanguage(res);
+		}
+
+		
 		setContentView(R.layout.webview);
 
 		myWebView = (WebView) findViewById(R.id.webview);

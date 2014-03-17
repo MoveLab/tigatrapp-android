@@ -87,6 +87,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.Locale;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
@@ -101,6 +102,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -112,6 +115,7 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -142,7 +146,6 @@ public class Util {
 
 	public final static boolean testingMode = false;
 
-
 	public static String[] ALPHA_NUMERIC_DIGITS = { "0", "1", "2", "3", "4",
 			"5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H",
 			"I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
@@ -155,7 +158,6 @@ public class Util {
 	public static int EXTRARUNS = 4;
 
 	public static boolean flushGPSFlag = false;
-
 
 	public static int nSamplesPerDay = 20; // for testing, will reduce to 5
 
@@ -205,23 +207,16 @@ public class Util {
 	public final static long DAYS = HOURS * 24;
 	public final static long WEEKS = DAYS * 7;
 
-
-
-
 	/**
 	 * Value at which a location will be used, and both listeners stopped even
 	 * if not yet at the end of the listener window.
 	 */
 	public static final float OPT_ACCURACY = 1000;
 
-
 	/**
 	 * Minimum accuracy necessary for location to be used.
 	 */
 	public static final float MIN_ACCURACY = 2000;
-
-
-
 
 	/**
 	 * Surrounds the given string in quotation marks. Taken from Human Mobility
@@ -865,6 +860,15 @@ public class Util {
 		// layerDraw.setLayerInset(0, 15, 15, 0, 0);//set offset of first layer
 		// layerDraw.setLayerInset(1,40,40,0,0);//set offset for second layer
 		return fill;
+	}
+
+	public static void setDisplayLanguage(Resources res) {
+		String lang = PropertyHolder.getLanguage();
+		Locale myLocale = new Locale(lang);
+		DisplayMetrics dm = res.getDisplayMetrics();
+		Configuration conf = res.getConfiguration();
+		conf.locale = myLocale;
+		res.updateConfiguration(conf, dm);
 	}
 
 }

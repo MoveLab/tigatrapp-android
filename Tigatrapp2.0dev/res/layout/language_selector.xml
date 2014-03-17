@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Tigatrapp
+ * Copyright (C) 2013, 2014  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
+ * Contact: tigatrapp@ceab.csic.es
+ * 
+ * This file is part of Tigatrapp.
+ * 
+ * Tigatrapp is free software: you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation, either version 3 of the License, or (at 
+ * your option) any later version.
+ * 
+ * Tigatrapp is distributed in the hope that it will be useful, but 
+ * WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along 
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <RadioGroup
+        android:id="@+id/languageRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <RadioButton
+            android:id="@+id/esButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Spanish" />
+
+        <RadioButton
+            android:id="@+id/caButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Catalan" />
+
+        <RadioButton
+            android:id="@+id/enButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="English" />
+    </RadioGroup>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal"
+        android:padding="10dip" >
+
+        <Button
+            android:id="@+id/languageOK"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/ok" />
+
+ 
+    </LinearLayout>
+
+</LinearLayout>

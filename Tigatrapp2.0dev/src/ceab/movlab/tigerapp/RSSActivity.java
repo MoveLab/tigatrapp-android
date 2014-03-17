@@ -16,6 +16,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.ParseException;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -43,6 +44,7 @@ public class RSSActivity extends Activity {
 	TextView tv;
 	Context context = this;
 
+	//TODO deal with RSS language
 	public static final String RSSEXTRA_URL = "rssextra_url";
 	public static final String RSSEXTRA_TITLE = "rssextra_title";
 	public static final String RSSEXTRA_DEFAULT_THUMB = "default_thumb";
@@ -54,6 +56,20 @@ public class RSSActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		if (!PropertyHolder.isInit())
+			PropertyHolder.init(context);
+
+		if (PropertyHolder.getLanguage() == null) {
+			Intent i2sb = new Intent(RSSActivity.this, Switchboard.class);
+			startActivity(i2sb);
+			finish();
+		} else {
+			Resources res = getResources();
+			Util.setDisplayLanguage(res);
+		}
+
+		
 		setContentView(R.layout.activity_view_rss);
 
 		Intent i = getIntent();

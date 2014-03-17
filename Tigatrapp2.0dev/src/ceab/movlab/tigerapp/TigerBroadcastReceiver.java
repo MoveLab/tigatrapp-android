@@ -74,6 +74,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.SystemClock;
 import android.support.v4.app.TaskStackBuilder;
 import ceab.movelab.tigerapp.R;
@@ -110,122 +111,128 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		PropertyHolder.init(context);
+		if (!PropertyHolder.isInit())
+			PropertyHolder.init(context);
 
-		String action = intent.getAction();
+		if (PropertyHolder.hasConsented()
+				&& PropertyHolder.getLanguage() != null) {
 
-		AlarmManager startFixGetAlarm = (AlarmManager) context
-				.getSystemService(Context.ALARM_SERVICE);
-		Intent intent2FixGet = new Intent(context, FixGet.class);
-		PendingIntent pendingIntent2FixGet = PendingIntent.getService(context,
-				0, intent2FixGet, 0);
+			String action = intent.getAction();
 
-		AlarmManager stopFixGetAlarm = (AlarmManager) context
-				.getSystemService(Context.ALARM_SERVICE);
-		Intent intent2StopFixGet = new Intent(STOP_FIXGET_MESSAGE);
-		PendingIntent pendingFixGetStop = PendingIntent.getBroadcast(context,
-				0, intent2StopFixGet, 0);
+			AlarmManager startFixGetAlarm = (AlarmManager) context
+					.getSystemService(Context.ALARM_SERVICE);
+			Intent intent2FixGet = new Intent(context, FixGet.class);
+			PendingIntent pendingIntent2FixGet = PendingIntent.getService(
+					context, 0, intent2FixGet, 0);
 
-		AlarmManager samplingAlarm = (AlarmManager) context
-				.getSystemService(Context.ALARM_SERVICE);
-		Intent i2setFixAlarms = new Intent(SET_FIX_ALARMS_MESSAGE);
-		PendingIntent pending2setFixAlarms = PendingIntent.getBroadcast(
-				context, 0, i2setFixAlarms, 0);
+			AlarmManager stopFixGetAlarm = (AlarmManager) context
+					.getSystemService(Context.ALARM_SERVICE);
+			Intent intent2StopFixGet = new Intent(STOP_FIXGET_MESSAGE);
+			PendingIntent pendingFixGetStop = PendingIntent.getBroadcast(
+					context, 0, intent2StopFixGet, 0);
 
-		for (int i = 0; i < Util.nSamplesPerDay; i++) {
-			startFixGetAlarms[i] = ((AlarmManager) context
-					.getSystemService(Context.ALARM_SERVICE));
-			stopFixGetAlarms[i] = ((AlarmManager) context
-					.getSystemService(Context.ALARM_SERVICE));
-		}
+			AlarmManager samplingAlarm = (AlarmManager) context
+					.getSystemService(Context.ALARM_SERVICE);
+			Intent i2setFixAlarms = new Intent(SET_FIX_ALARMS_MESSAGE);
+			PendingIntent pending2setFixAlarms = PendingIntent.getBroadcast(
+					context, 0, i2setFixAlarms, 0);
 
-		Intent intent2SendFixGetMessage = new Intent(START_FIXGET_MESSAGE);
-		PendingIntent pendingFixGetMessage = PendingIntent.getBroadcast(context,
-				0, intent2SendFixGetMessage, 0);
-
-		
-		AlarmManager startFileUploaderAlarm = (AlarmManager) context
-				.getSystemService(Context.ALARM_SERVICE);
-		Intent intent2FileUploader = new Intent(context, FileUploader.class);
-		PendingIntent pendingIntent2FileUploader = PendingIntent.getService(
-				context, 0, intent2FileUploader, 0);
-
-		if (action.contains(START_SAMPLING_MESSAGE)) {
-			long alarmInterval = 1000 * 60 * 60 * 24; // daily alarm
-			int alarmType = AlarmManager.ELAPSED_REALTIME_WAKEUP;
-			long triggerTime = SystemClock.elapsedRealtime();
-			samplingAlarm.setRepeating(alarmType, triggerTime, alarmInterval,
-					pending2setFixAlarms);
-			PropertyHolder.setServiceOn(true);
-			PropertyHolder.lastSampleSchedleMade(System.currentTimeMillis());
-
-		} else if (action.contains(SET_FIX_ALARMS_MESSAGE)) {
-
-			// first cancel any still running
-			context.sendBroadcast(intent2StopFixGet);
 			for (int i = 0; i < Util.nSamplesPerDay; i++) {
-				startFixGetAlarms[i].cancel(pendingIntent2FixGet);
+				startFixGetAlarms[i] = ((AlarmManager) context
+						.getSystemService(Context.ALARM_SERVICE));
+				stopFixGetAlarms[i] = ((AlarmManager) context
+						.getSystemService(Context.ALARM_SERVICE));
 			}
 
-			long thisTriggerTime;
-			Random mRandom = new Random();
-			int alarmType = AlarmManager.ELAPSED_REALTIME_WAKEUP;
+			Intent intent2SendFixGetMessage = new Intent(START_FIXGET_MESSAGE);
+			PendingIntent pendingFixGetMessage = PendingIntent.getBroadcast(
+					context, 0, intent2SendFixGetMessage, 0);
 
-			// FOR TESTING
-			String[] currentSamplingTimes = new String[Util.nSamplesPerDay];
+			AlarmManager startFileUploaderAlarm = (AlarmManager) context
+					.getSystemService(Context.ALARM_SERVICE);
+			Intent intent2FileUploader = new Intent(context, FileUploader.class);
+			PendingIntent pendingIntent2FileUploader = PendingIntent
+					.getService(context, 0, intent2FileUploader, 0);
 
-			for (int i = 0; i < Util.nSamplesPerDay; i++) {
-				thisTriggerTime = mRandom.nextInt(24 * 60) * 60 * 1000;
-				startFixGetAlarms[i].set(alarmType, thisTriggerTime,
-						pendingFixGetMessage);
+			if (action.contains(START_SAMPLING_MESSAGE)) {
+				long alarmInterval = 1000 * 60 * 60 * 24; // daily alarm
+				int alarmType = AlarmManager.ELAPSED_REALTIME_WAKEUP;
+				long triggerTime = SystemClock.elapsedRealtime();
+				samplingAlarm.setRepeating(alarmType, triggerTime,
+						alarmInterval, pending2setFixAlarms);
+				PropertyHolder.setServiceOn(true);
+				PropertyHolder
+						.lastSampleSchedleMade(System.currentTimeMillis());
+
+			} else if (action.contains(SET_FIX_ALARMS_MESSAGE)) {
+
+				// first cancel any still running
+				context.sendBroadcast(intent2StopFixGet);
+				for (int i = 0; i < Util.nSamplesPerDay; i++) {
+					startFixGetAlarms[i].cancel(pendingIntent2FixGet);
+				}
+
+				long thisTriggerTime;
+				Random mRandom = new Random();
+				int alarmType = AlarmManager.ELAPSED_REALTIME_WAKEUP;
+
 				// FOR TESTING
-				currentSamplingTimes[i] = Util.iso8601(System
-						.currentTimeMillis() + thisTriggerTime);
+				String[] currentSamplingTimes = new String[Util.nSamplesPerDay];
+
+				for (int i = 0; i < Util.nSamplesPerDay; i++) {
+					thisTriggerTime = mRandom.nextInt(24 * 60) * 60 * 1000;
+					startFixGetAlarms[i].set(alarmType, thisTriggerTime,
+							pendingFixGetMessage);
+					// FOR TESTING
+					currentSamplingTimes[i] = Util.iso8601(System
+							.currentTimeMillis() + thisTriggerTime);
+				}
+				PropertyHolder.setCurrentFixTimes(currentSamplingTimes);
+			} else if (action.contains(STOP_SAMPLING_MESSAGE)) {
+				context.sendBroadcast(intent2StopFixGet);
+				for (int i = 0; i < Util.nSamplesPerDay; i++) {
+					startFixGetAlarms[i].cancel(pendingIntent2FixGet);
+				}
+				PropertyHolder.setServiceOn(false);
+
+			} else if (action.contains(START_FIXGET_MESSAGE)) {
+				int alarmType = AlarmManager.ELAPSED_REALTIME_WAKEUP;
+				long triggerTime = SystemClock.elapsedRealtime();
+				startFixGetAlarm.set(alarmType, triggerTime,
+						pendingIntent2FixGet);
+				stopFixGetAlarm.set(alarmType, triggerTime
+						+ Util.LISTENER_WINDOW, pendingFixGetStop);
+				PropertyHolder.setServiceOn(true);
+
 			}
-			PropertyHolder.setCurrentFixTimes(currentSamplingTimes);
-		} else if (action.contains(STOP_SAMPLING_MESSAGE)) {
-			context.sendBroadcast(intent2StopFixGet);
-			for (int i = 0; i < Util.nSamplesPerDay; i++) {
-				startFixGetAlarms[i].cancel(pendingIntent2FixGet);
+
+			else if (action.contains("BOOT_COMPLETED")) {
+				if (PropertyHolder.isServiceOn()) {
+					Intent intent2broadcast = new Intent(START_SAMPLING_MESSAGE);
+					context.sendBroadcast(intent2broadcast);
+				}
+
+			} else if (action.contains(DO_TASK_FIX_MESSAGE)) {
+				long triggerTime = SystemClock.elapsedRealtime();
+				((AlarmManager) context.getSystemService(Context.ALARM_SERVICE))
+						.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+								SystemClock.elapsedRealtime(),
+								pendingIntent2FixGet);
+				((AlarmManager) context.getSystemService(Context.ALARM_SERVICE))
+						.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerTime
+								+ Util.TASK_FIX_WINDOW, pendingFixGetStop);
+
+			} else if (action.contains(TIGER_TASK_MESSAGE)) {
+
+				final String taskTitle = intent
+						.getStringExtra(Tasks.KEY_TASK_HEADING);
+				createNotification(context, taskTitle);
+
+			} else if (action.contains(TIGER_TASK_CLEAR)) {
+
+				cancelNotification(context);
+
 			}
-			PropertyHolder.setServiceOn(false);
-		
-	} else if (action.contains(START_FIXGET_MESSAGE)) {
-		int alarmType = AlarmManager.ELAPSED_REALTIME_WAKEUP;
-		long triggerTime = SystemClock.elapsedRealtime();
-		startFixGetAlarm.set(alarmType, triggerTime,
-				 pendingIntent2FixGet);
-		stopFixGetAlarm.set(alarmType, triggerTime
-				+ Util.LISTENER_WINDOW, pendingFixGetStop);
-		PropertyHolder.setServiceOn(true);
-
-	} 
-		
-		else if (action.contains("BOOT_COMPLETED")) {
-			if (PropertyHolder.isServiceOn()) {
-				Intent intent2broadcast = new Intent(START_SAMPLING_MESSAGE);
-				context.sendBroadcast(intent2broadcast);
-			}
-
-		} else if (action.contains(DO_TASK_FIX_MESSAGE)) {
-			long triggerTime = SystemClock.elapsedRealtime();
-			((AlarmManager) context.getSystemService(Context.ALARM_SERVICE))
-					.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-							SystemClock.elapsedRealtime(), pendingIntent2FixGet);
-			((AlarmManager) context.getSystemService(Context.ALARM_SERVICE))
-					.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, triggerTime
-							+ Util.TASK_FIX_WINDOW, pendingFixGetStop);
-
-		} else if (action.contains(TIGER_TASK_MESSAGE)) {
-
-			final String taskTitle = intent
-					.getStringExtra(Tasks.KEY_TASK_HEADING);
-			createNotification(context, taskTitle);
-
-		} else if (action.contains(TIGER_TASK_CLEAR)) {
-
-			cancelNotification(context);
-
 		}
 
 	}
@@ -233,6 +240,10 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 	// TODO finish data syncing part
 
 	public void createNotification(Context context, String taskTitle) {
+
+		Resources res = context.getResources();
+		Util.setDisplayLanguage(res);
+
 		NotificationManager notificationManager = (NotificationManager) context
 				.getSystemService(Context.NOTIFICATION_SERVICE);
 		Notification notification = new Notification(R.drawable.ic_stat_name,
@@ -240,7 +251,7 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 		// notification.flags |= Notification.FLAG_NO_CLEAR;
 		// notification.flags |= Notification.FLAG_ONGOING_EVENT;
 
-		Intent intent = new Intent(context, ListPendingTasks.class);
+		Intent intent = new Intent(context, TaskListActivity.class);
 
 		// not sure if we still need this
 		TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);

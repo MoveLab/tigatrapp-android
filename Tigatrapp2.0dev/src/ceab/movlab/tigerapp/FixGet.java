@@ -76,6 +76,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.location.GpsStatus;
 import android.location.Location;
@@ -131,6 +132,7 @@ public class FixGet extends Service {
 
 	StopReceiver stopReceiver;
 	IntentFilter stopFilter;
+	Context context;
 
 	boolean fixInProgress = false;
 
@@ -147,7 +149,7 @@ public class FixGet extends Service {
 	@Override
 	public void onCreate() {
 
-		Context context = getApplicationContext();
+		context = getApplicationContext();
 
 		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
@@ -164,6 +166,12 @@ public class FixGet extends Service {
 	}
 
 	public void onStart(Intent intent, int startId) {
+
+		if (!PropertyHolder.isInit())
+			PropertyHolder.init(context);
+		if (!PropertyHolder.hasConsented() || PropertyHolder.getLanguage() == null) {
+			stopSelf();
+		}
 
 		if (fixInProgress == false) {
 			fixInProgress = true;

@@ -25,9 +25,6 @@
     <string name="internal_message_id" translatable="false">csic.ceab.movelab.tigatrapp</string>
 
     <!-- Switchboard -->
-    <string name="switchboard_report_button_adult">Reportar un mosquit</string>
-    <string name="switchboard_report_button_site">Reportar un lloc</string>
-    <string name="data_map_button">Les meves dades</string>
     <string name="dataMap_CD">Les meves dades</string>
 
     <!-- Report Adult -->

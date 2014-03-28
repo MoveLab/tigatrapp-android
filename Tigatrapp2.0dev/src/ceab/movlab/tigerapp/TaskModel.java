@@ -290,7 +290,7 @@ public class TaskModel {
 		return task;
 	}
 
-	public static JSONObject makeSiteConfirmation() {
+	public static JSONObject makeSiteConfirmation(Context context) {
 
 		JSONObject task = new JSONObject();
 		JSONObject taskJson = new JSONObject();
@@ -308,38 +308,60 @@ public class TaskModel {
 			task.put(Tasks.KEY_DATE, -1);
 			task.put(Tasks.KEY_EXPIRATION_DATE, -1);
 
-			taskJson.put(KEY_TASK_TITLE, "Site Checklist");
+			taskJson.put(
+					KEY_TASK_TITLE,
+					context.getResources().getString(
+							R.string.report_checklist_title_site));
 			taskJson.put(
 					KEY_TASK_HELP,
-					"Potential breeding sites are small recipients or public "
-							+ "spaces that contain stagnant water that can be used by "
-							+ "tiger females to lay their eggs and therefore, "
-							+ "allow mosquitoes to reproduce. They have no fishes or "
-							+ "other animals that eat mosquito larvae. More info on the website.");
+					context.getResources().getString(
+							R.string.site_report_help_html));
 			taskJson.put(KEY_TASK_PRESET_CONFIGURATION, PRECONFIRUATION_SITES);
 
 			item1.put(TaskItemModel.KEY_ITEM_ID, "Item1");
-			item1.put(TaskItemModel.KEY_ITEM_TEXT,
-					"Select the type of potential breeding site:");
-			item1.put(TaskItemModel.KEY_ITEM_HELP, "Help text for item 1: to be added along with image.");
-			item1.put(
-					TaskItemModel.KEY_ITEM_CHOICES,
-					new JSONArray(
-							"['embornals', 'fonts', 'basses artificials', 'bidons', 'pous', 'altres']"));
+			item1.put(TaskItemModel.KEY_ITEM_HELP_IMAGE,
+					R.drawable.checklist_image_sites_1);
+
+			item1.put(TaskItemModel.KEY_ITEM_TEXT, context.getResources()
+					.getString(R.string.site_report_q1));
+			item1.put(TaskItemModel.KEY_ITEM_HELP, context.getResources()
+					.getString(R.string.site_report_item_help_1));
+			item1.put(TaskItemModel.KEY_ITEM_CHOICES, new JSONArray("['"
+					+ context.getResources().getString(R.string.embornals)
+					+ "', '" + context.getResources().getString(R.string.fonts)
+					+ "', '"
+					+ context.getResources().getString(R.string.basses)
+					+ "', '"
+					+ context.getResources().getString(R.string.bidons)
+					+ "', '" + context.getResources().getString(R.string.pous)
+					+ "', '"
+					+ context.getResources().getString(R.string.altres) + "']"));
 
 			item2.put(TaskItemModel.KEY_ITEM_ID, "Item2");
-			item2.put(TaskItemModel.KEY_ITEM_TEXT,
-					"Does it have stagnant water inside?");
-			item2.put(TaskItemModel.KEY_ITEM_HELP, "Help text for item 2: to be added along with image.");
-			item2.put(TaskItemModel.KEY_ITEM_CHOICES, new JSONArray(
-					"['yes', 'no']"));
+			item2.put(TaskItemModel.KEY_ITEM_HELP_IMAGE,
+					R.drawable.checklist_image_sites_2);
+
+			item2.put(TaskItemModel.KEY_ITEM_TEXT, context.getResources()
+					.getString(R.string.site_report_q2));
+			item2.put(TaskItemModel.KEY_ITEM_HELP, context.getResources()
+					.getString(R.string.site_report_item_help_2));
+			item2.put(TaskItemModel.KEY_ITEM_CHOICES, new JSONArray("['"
+					+ context.getResources().getString(R.string.yes) + "','"
+					+ context.getResources().getString(R.string.no) + "']"));
 
 			item3.put(TaskItemModel.KEY_ITEM_ID, "Item3");
-			item3.put(TaskItemModel.KEY_ITEM_TEXT,
-					"Have you seen mosquito larvae (not necessarily tiger mosquito) inside?");
-			item3.put(TaskItemModel.KEY_ITEM_HELP, "Help text for item 3: to be added along with image.");
-			item3.put(TaskItemModel.KEY_ITEM_CHOICES, new JSONArray(
-					"['yes', 'no', 'not sure']"));
+			item3.put(TaskItemModel.KEY_ITEM_HELP_IMAGE,
+
+			R.drawable.checklist_image_sites_3);
+			item3.put(TaskItemModel.KEY_ITEM_TEXT, context.getResources()
+					.getString(R.string.site_report_q3));
+			item3.put(TaskItemModel.KEY_ITEM_HELP, context.getResources()
+					.getString(R.string.site_report_item_help_3));
+			item3.put(TaskItemModel.KEY_ITEM_CHOICES, new JSONArray("['"
+					+ context.getResources().getString(R.string.yes) + "','"
+					+ context.getResources().getString(R.string.no) + "','"
+					+ context.getResources().getString(R.string.dontknow)
+					+ "']"));
 
 			items.put(item1);
 			items.put(item2);
@@ -372,15 +394,22 @@ public class TaskModel {
 			task.put(Tasks.KEY_DATE, -1);
 			task.put(Tasks.KEY_EXPIRATION_DATE, -1);
 
-			taskJson.put(KEY_TASK_TITLE, "Adult Checklist");
+			taskJson.put(KEY_TASK_TITLE, 
+					context.getResources().getString(
+							R.string.report_checklist_title_adult));
 			taskJson.put(KEY_TASK_PRESET_CONFIGURATION, PRECONFIRUATION_ADULTS);
+			taskJson.put(
+					KEY_TASK_HELP,
+					context.getResources().getString(
+							R.string.adult_report_help_html));
 
 			item1.put(TaskItemModel.KEY_ITEM_ID, "Item1");
 			item1.put(TaskItemModel.KEY_ITEM_TEXT, context.getResources()
 					.getString(R.string.confirmation_q1_adult_sizecolor));
 			item1.put(TaskItemModel.KEY_ITEM_HELP, context.getResources()
 					.getString(R.string.q1_sizecolor_text));
-			item1.put(TaskItemModel.KEY_ITEM_HELP_IMAGE, R.drawable.m);
+			item1.put(TaskItemModel.KEY_ITEM_HELP_IMAGE,
+					R.drawable.checklist_image_adult_1);
 			item1.put(TaskItemModel.KEY_ITEM_CHOICES, new JSONArray("['"
 					+ context.getResources().getString(R.string.yes) + "','"
 					+ context.getResources().getString(R.string.no) + "','"
@@ -392,7 +421,8 @@ public class TaskModel {
 					.getString(R.string.confirmation_q2_adult_headthorax));
 			item2.put(TaskItemModel.KEY_ITEM_HELP, context.getResources()
 					.getString(R.string.q3_headthorax_text));
-			item2.put(TaskItemModel.KEY_ITEM_HELP_IMAGE, R.drawable.n);
+			item2.put(TaskItemModel.KEY_ITEM_HELP_IMAGE,
+					R.drawable.checklist_image_adult_2);
 			item2.put(TaskItemModel.KEY_ITEM_CHOICES, new JSONArray("['"
 					+ context.getResources().getString(R.string.yes) + "','"
 					+ context.getResources().getString(R.string.no) + "','"
@@ -401,10 +431,11 @@ public class TaskModel {
 
 			item3.put(TaskItemModel.KEY_ITEM_ID, "item3");
 			item3.put(TaskItemModel.KEY_ITEM_TEXT, context.getResources()
-					.getString(R.string.confirmation_q3_abdomenlegs));
+					.getString(R.string.adult_report_q3));
 			item3.put(TaskItemModel.KEY_ITEM_HELP, context.getResources()
 					.getString(R.string.q2_abdomenlegs_text));
-			item3.put(TaskItemModel.KEY_ITEM_HELP_IMAGE, R.drawable.o);
+			item3.put(TaskItemModel.KEY_ITEM_HELP_IMAGE,
+					R.drawable.checklist_image_adult_3);
 			item3.put(TaskItemModel.KEY_ITEM_CHOICES, new JSONArray("['"
 					+ context.getResources().getString(R.string.yes) + "','"
 					+ context.getResources().getString(R.string.no) + "','"
@@ -432,7 +463,6 @@ public class TaskModel {
 		ContentResolver cr = context.getContentResolver();
 		cr.insert(Tasks.CONTENT_URI,
 				ContentProviderValuesTasks.createTask(task));
-		
 
 	}
 

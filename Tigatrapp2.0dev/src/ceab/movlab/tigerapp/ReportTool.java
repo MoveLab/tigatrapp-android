@@ -271,12 +271,14 @@ public class ReportTool extends Activity {
 		buttonReportSubmit = (Button) findViewById(R.id.buttonReportSubmit);
 
 		if (editing) {
-			reportTitle.setText("Edit "
+			reportTitle.setText(getResources().getString(R.string.edit) + " "
 					+ (type == Report.TYPE_BREEDING_SITE ? "Site" : "Adult")
-					+ " Report" + "\n" + "created on "
-					+ Util.userDate(new Date((thisReport.reportTime))));
+					+ " " + getResources().getString(R.string.word_report)
+					+ "\n" + getResources().getString(R.string.created_on)
+					+ " " + Util.userDate(new Date((thisReport.reportTime))));
 
-			buttonReportSubmit.setText("Update");
+			buttonReportSubmit.setText(getResources()
+					.getString(R.string.update));
 		} else {
 			reportTitle
 					.setText(getResources()
@@ -354,7 +356,7 @@ public class ReportTool extends Activity {
 						String thisTaskType = type == Report.TYPE_ADULT ? TaskModel
 								.makeAdultConfirmation(context).getString(
 										Tasks.KEY_TASK_JSON) : TaskModel
-								.makeSiteConfirmation().getString(
+								.makeSiteConfirmation(context).getString(
 										Tasks.KEY_TASK_JSON);
 						Intent i = new Intent(ReportTool.this,
 								TaskActivity.class);
@@ -375,8 +377,8 @@ public class ReportTool extends Activity {
 
 				case (R.id.reportLocationRow): {
 					if (!reportLocationCheck.isChecked())
-						Util.toast(context,
-								"Please select 'Current' or 'Choose on map' below.");
+						
+						
 					return;
 				}
 
@@ -472,9 +474,11 @@ public class ReportTool extends Activity {
 				.setChecked(thisReport.locationChoice != Report.MISSING);
 
 		if (type == Report.TYPE_ADULT)
-			reportPhotoCheck.setText("Photo(s)");
+			reportPhotoCheck.setText(getResources().getString(
+					R.string.photo_label));
 		else
-			reportPhotoCheck.setText("Photo(s)*");
+			reportPhotoCheck.setText(getResources().getString(
+					R.string.photo_label_star));
 		if (thisReport.photoUrisJson != null
 				&& thisReport.photoUrisJson.length() > 0) {
 			photoCount.setVisibility(View.VISIBLE);
@@ -499,13 +503,15 @@ public class ReportTool extends Activity {
 								.isChecked())) {
 					Util.toast(
 							context,
-							"Before submitting your report, please:\n\n"
+							getResources().getString(
+									R.string.toast_report_before_submitting)
+									+ "\n\n"
 									+ (reportConfirmationCheck.isChecked() ? ""
-											: "- complete the checklist\n")
+											: (getResources().getString(R.string.toast_complete_checklist) + "\n"))
 									+ (reportLocationCheck.isChecked() ? ""
-											: "- specify a location\n")
+											: (getResources().getString(R.string.toast_specify_location) + "\n"))
 									+ ((type == Report.TYPE_BREEDING_SITE && !reportPhotoCheck
-											.isChecked()) ? "- attach a photo of the breeding site"
+											.isChecked()) ? getResources().getString(R.string.toast_attach_photo)
 											: ""));
 				} else {
 					message = getResources().getString(R.string.report_sent);
@@ -1060,149 +1066,6 @@ public class ReportTool extends Activity {
 		dialog.show();
 	}
 
-	public void buildConfirmationDialog(int type) {
-		final Dialog dialog = new Dialog(context);
-		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		dialog.setContentView(R.layout.tiger_checklist);
-		Util.overrideFonts(context, dialog.findViewById(android.R.id.content));
-		TextView title = (TextView) dialog.findViewById(R.id.title);
-		title.setText(getResources().getString(
-				R.string.identifying_mosquitoes_title));
-		final ImageButton helpButton1 = (ImageButton) dialog
-				.findViewById(R.id.confirmationQ1HelpButton);
-		final ImageButton helpButton2 = (ImageButton) dialog
-				.findViewById(R.id.confirmationQ2HelpButton);
-		final ImageButton helpButton3 = (ImageButton) dialog
-				.findViewById(R.id.confirmationQ3HelpButton);
-
-		helpButton1.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				final Dialog dialog = new Dialog(context);
-				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-				dialog.setContentView(R.layout.check_help);
-				Util.overrideFonts(context,
-						dialog.findViewById(android.R.id.content));
-				TextView mText = (TextView) dialog
-						.findViewById(R.id.checkHelpText);
-				mText.setText(getResources().getString(
-						R.string.q1_sizecolor_text));
-				final ImageView mImage = (ImageView) dialog
-						.findViewById(R.id.checkHelpImage);
-				mImage.setImageResource(R.drawable.m);
-				dialog.show();
-			}
-		});
-
-		helpButton2.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View arg0) {
-				final Dialog dialog = new Dialog(context);
-				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-				dialog.setContentView(R.layout.check_help);
-				Util.overrideFonts(context,
-						dialog.findViewById(android.R.id.content));
-				TextView mText = (TextView) dialog
-						.findViewById(R.id.checkHelpText);
-				mText.setText(getResources().getString(
-						R.string.q3_headthorax_text));
-				final ImageView mImage = (ImageView) dialog
-						.findViewById(R.id.checkHelpImage);
-				mImage.setImageResource(R.drawable.n);
-				dialog.show();
-			}
-		});
-
-		helpButton3.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-
-				final Dialog dialog = new Dialog(context);
-				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-				dialog.setContentView(R.layout.check_help);
-				Util.overrideFonts(context,
-						dialog.findViewById(android.R.id.content));
-
-				TextView mText = (TextView) dialog
-						.findViewById(R.id.checkHelpText);
-				mText.setText(getResources().getString(
-						R.string.q2_abdomenlegs_text));
-				final ImageView mImage = (ImageView) dialog
-						.findViewById(R.id.checkHelpImage);
-				mImage.setImageResource(R.drawable.o);
-
-				dialog.show();
-			}
-		});
-
-		Button okB = (Button) dialog.findViewById(R.id.confirmationButtonOK);
-		// if button is clicked, close the custom dialog
-		okB.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-
-				int id;
-				int q1response = 0;
-				int q2response = 0;
-				int q3response = 0;
-
-				RadioGroup mLegsYN = (RadioGroup) dialog
-						.findViewById(R.id.confirmationQ3RadioGroup);
-				id = mLegsYN.getCheckedRadioButtonId();
-				if (id == R.id.confirmationQ3RadioGroupButton1) {
-					q3response = 1;
-				}
-				if (id == R.id.confirmationQ3RadioGroupButton2) {
-					q3response = 2;
-				}
-				if (id == R.id.confirmationQ3RadioGroupButton3) {
-					q3response = 3;
-				}
-
-				RadioGroup mStripeYN = (RadioGroup) dialog
-						.findViewById(R.id.confirmationQ2RadioGroup);
-				id = mStripeYN.getCheckedRadioButtonId();
-				if (id == R.id.confirmationQ2RadioGroupButton1) {
-					q2response = 1;
-				}
-				if (id == R.id.confirmationQ2RadioGroupButton2) {
-					q2response = 2;
-				}
-				if (id == R.id.confirmationQ2RadioGroupButton3) {
-					q2response = 3;
-				}
-
-				RadioGroup mSizeYN = (RadioGroup) dialog
-						.findViewById(R.id.confirmationQ1RadioGroup);
-				id = mSizeYN.getCheckedRadioButtonId();
-				if (id == R.id.confirmationQ1RadioGroupButton1) {
-					q1response = 1;
-				}
-				if (id == R.id.confirmationQ1RadioGroupButton2) {
-					q1response = 2;
-				}
-				if (id == R.id.confirmationQ1RadioGroupButton3) {
-					q1response = 3;
-				}
-
-				thisReport.confirmation = String.valueOf(q1response)
-						+ String.valueOf(q2response)
-						+ String.valueOf(q3response);
-
-				if (q1response == 1 || +q2response == 1 || +q3response == 1) {
-					reportConfirmationCheck.setChecked(true);
-				} else {
-					reportConfirmationCheck.setChecked(false);
-				}
-				dialog.dismiss();
-			}
-		});
-
-		dialog.show();
-
-	}
-
 	public void buildCustomAlert(String message) {
 
 		final Dialog dialog = new Dialog(context);
@@ -1268,6 +1131,40 @@ public class ReportTool extends Activity {
 
 	}
 
+	
+	public void buildLocationMenu() {
+
+		final Dialog dialog = new Dialog(context);
+
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+		dialog.setContentView(R.layout.custom_alert);
+
+		Util.overrideFonts(context, dialog.findViewById(android.R.id.content));
+
+		dialog.setCancelable(false);
+
+		TextView alertText = (TextView) dialog.findViewById(R.id.alertText);
+		alertText.setText(message);
+
+		Button positive = (Button) dialog.findViewById(R.id.alertOK);
+		Button negative = (Button) dialog.findViewById(R.id.alertCancel);
+		negative.setVisibility(View.GONE);
+
+		positive.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+				dialog.cancel();
+
+			}
+		});
+
+		dialog.show();
+
+	}
+
+	
 	public void buildAlertMessageNoGpsNoNet(String message) {
 
 		final Dialog dialog = new Dialog(context);
@@ -1345,26 +1242,28 @@ public class ReportTool extends Activity {
 		}
 	}
 
-
 	public void buildLeaveReportWarning() {
 
 		AlertDialog.Builder dialog = new AlertDialog.Builder(context);
-		dialog.setTitle("Exit?");
-		dialog.setMessage("This report has not been saved. Are you sure you want to exit?");
+		dialog.setTitle(getResources().getString(R.string.exit_question));
+		dialog.setMessage(getResources().getString(
+				R.string.report_not_saved_warning));
 		dialog.setCancelable(true);
-		dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-			@Override
-			public void onClick(DialogInterface d, int arg1) {
+		dialog.setPositiveButton(getResources().getString(R.string.yes),
+				new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface d, int arg1) {
 
-				Intent i = new Intent(ReportTool.this, Switchboard.class);
-				startActivity(i);
-				finish();
+						Intent i = new Intent(ReportTool.this,
+								Switchboard.class);
+						startActivity(i);
+						finish();
 
-			}
+					}
 
-		});
+				});
 
-		dialog.setNegativeButton("Cancel",
+		dialog.setNegativeButton(getResources().getString(R.string.cancel),
 				new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface d, int arg1) {

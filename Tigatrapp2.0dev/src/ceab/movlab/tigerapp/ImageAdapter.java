@@ -18,21 +18,11 @@ public class ImageAdapter extends BaseAdapter {
 			R.drawable.e, R.drawable.f, R.drawable.g, R.drawable.h,
 			R.drawable.i, R.drawable.k, R.drawable.j, R.drawable.l, };
 
-	public static final String[] captions = {
-			"Femella de mosquit tigre. Observa la forma, el color i les característiques ratlles blanques.",
-			"Femella de mosquit tigre. Observa les ratlles a l’abdomen. Observa també els plomalls. Són diferents als del mascle?",
-			"Femella de mosquit tigre preparada per picar. Observa la forma, el color i les ratlles blanques.",
-			"Femella de mosquit tigre picant. Observa la característica ratlla blanca al cap i al tòrax.",
-			"Femella de mosquit tigre picant. Observa la característica ratlla blanca al cap i al tòrax.",
-			"Dues femelles de mosquit tigre picant. La de l’esquerra ja té sang acumulada a l’abdomen, mentre que la de la dreta encara no.",
-			"Femella de mosquit tigre picant. La sang que acumula a l'abdomen servirà per generar una posta d'ous.",
-			"Posta d’ous de mosquit tigre. Observa el color fosc i la forma allargada. Els ous són tan petits que són quasi invisibles a ull nu.",
-			"Larves (més allargades) i pupes (més arrodonides) de mosquit tigre. Observa que són aquàtiques. Les larves emergeixen dels ous i amb el temps fan la muda a pupes.",
-			"Larves (més allargades) i pupes (més arrodonides) de mosquit tigre. Observa que són aquàtiques. Les larves emergeixen dels ous i amb el temps fan la muda a pupes.",
-			"Dues pupes de mosquit tigre. En aquesta fase es produeix la metamorfosi, i el mosquit adult emergeix de la pupa cap al medi aeri." };
+	public String[] captions;
 
-	public ImageAdapter(Activity a) {
+	public ImageAdapter(Activity a, String[] captions) {
 		activity = a;
+		this.captions = captions;
 		inflater = (LayoutInflater) activity
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 

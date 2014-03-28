@@ -59,27 +59,14 @@ public class About extends Activity {
 		}
 
 		
-		setContentView(R.layout.about);
+		setContentView(R.layout.credits);
 
 
 		
 		Util.overrideFonts(this, findViewById(android.R.id.content));
 
-		TextView t = (TextView) findViewById(R.id.aboutText);
-		t.setText(Html.fromHtml(getString(R.string.about_html)));
-		t.setTextColor(getResources().getColor(R.color.light_yellow));
-		t.setTextSize(15);
-
-		final TextView mWeb = (TextView) findViewById(R.id.webLink);
-		Linkify.addLinks(mWeb, Linkify.ALL);
-		mWeb.setLinkTextColor(getResources().getColor(R.color.light_yellow));
-		mWeb.setTextSize(getResources().getDimension(R.dimen.textsize_url));
-
-		final TextView mEmail = (TextView) findViewById(R.id.emailLink);
-		Linkify.addLinks(mEmail, Linkify.ALL);
-		mEmail.setLinkTextColor(getResources().getColor(R.color.light_yellow));
-		mEmail.setTextSize(getResources().getDimension(R.dimen.textsize_url));
-
+		TextView t = (TextView) findViewById(R.id.creditsTextMain);
+		t.setText(Html.fromHtml(getString(R.string.credits)));
 	}
 
 	static final private int GPL = Menu.FIRST;

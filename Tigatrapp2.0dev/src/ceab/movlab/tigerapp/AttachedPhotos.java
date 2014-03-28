@@ -55,7 +55,7 @@ public class AttachedPhotos extends Activity {
 		super.onCreate(savedInstanceState);
 
 		if (!PropertyHolder.isInit())
-			PropertyHolder.init(context);		
+			PropertyHolder.init(context);
 		if (PropertyHolder.getLanguage() == null) {
 			Intent i2sb = new Intent(AttachedPhotos.this, Switchboard.class);
 			startActivity(i2sb);
@@ -142,11 +142,11 @@ public class AttachedPhotos extends Activity {
 						final int pos = position;
 						final AlertDialog.Builder dialog = new AlertDialog.Builder(
 								context);
-						dialog.setTitle("Remove Attachment");
-						dialog.setMessage("Remove this photo" + item
-								+ " from this report?");
+						dialog.setTitle(getResources().getString(R.string.photo_selector_remove_attachment));
+						dialog.setMessage(getResources().getString(R.string.photo_selector_remove_this_photo) + item
+								+ " " + getResources().getString(R.string.photo_selector_from_thisreport));
 						dialog.setCancelable(true);
-						dialog.setPositiveButton("Remove",
+						dialog.setPositiveButton(getResources().getString(R.string.photo_selector_remove_button_label),
 								new DialogInterface.OnClickListener() {
 									@Override
 									public void onClick(DialogInterface d,
@@ -167,7 +167,7 @@ public class AttachedPhotos extends Activity {
 
 								});
 
-						dialog.setNegativeButton("Cancel",
+						dialog.setNegativeButton(getResources().getString(R.string.cancel),
 								new DialogInterface.OnClickListener() {
 									@Override
 									public void onClick(DialogInterface d,

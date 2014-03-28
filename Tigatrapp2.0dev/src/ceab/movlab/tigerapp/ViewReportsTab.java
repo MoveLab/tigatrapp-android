@@ -67,7 +67,7 @@ public class ViewReportsTab extends TabActivity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
 
@@ -80,7 +80,6 @@ public class ViewReportsTab extends TabActivity {
 			Util.setDisplayLanguage(res);
 		}
 
-		
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.view_reports_tab);
 		Resources resources = getResources();
@@ -148,7 +147,8 @@ public class ViewReportsTab extends TabActivity {
 			intentChecklist.putExtra(Reports.KEY_CONFIRMATION,
 					b.getString(Reports.KEY_CONFIRMATION));
 		TabSpec tabSpecChecklist = tabHost
-				.newTabSpec("Checklist")
+				.newTabSpec(
+						getResources().getString(R.string.checklist_tab_title))
 				.setIndicator(
 						"",
 						resources
@@ -162,7 +162,7 @@ public class ViewReportsTab extends TabActivity {
 			intentPhotos.putExtra(Reports.KEY_PHOTO_URIS,
 					b.getString(Reports.KEY_PHOTO_URIS));
 		TabSpec tabSpecPhotos = tabHost
-				.newTabSpec("Photos")
+				.newTabSpec(getResources().getString(R.string.photos_tab_title))
 				.setIndicator(
 						"",
 						resources
@@ -176,7 +176,7 @@ public class ViewReportsTab extends TabActivity {
 			intentNotes.putExtra(Reports.KEY_NOTE,
 					b.getString(Reports.KEY_NOTE));
 		TabSpec tabSpecNotes = tabHost
-				.newTabSpec("Notes")
+				.newTabSpec(getResources().getString(R.string.notes_tab_title))
 				.setIndicator(
 						"",
 						resources

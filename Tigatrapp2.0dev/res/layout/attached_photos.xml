@@ -7,31 +7,30 @@
     <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="Report Photos"
+        android:text="@string/photo_selector_title"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-        <LinearLayout
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="5dip" >
+        android:padding="2dip" >
 
         <Button
             android:id="@+id/takePhotoButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Take new photo" />
+            android:text="@string/photo_selector_take_photo_button" />
 
         <Button
             android:id="@+id/attachFileButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Attach from file" />
+            android:text="@string/photo_selector_attach_photo_button" />
     </LinearLayout>
-    
-    
+
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dip"
@@ -46,22 +45,20 @@
         android:gravity="center"
         android:horizontalSpacing="2dp"
         android:numColumns="auto_fit"
+        android:padding="2dip"
         android:stretchMode="columnWidth"
-        android:verticalSpacing="2dp" 
-        android:padding="2dip" />
+        android:verticalSpacing="2dp" />
 
     <View
         android:layout_width="fill_parent"
         android:layout_height="1dip"
         android:background="@color/white" />
 
-
-
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="5dip" >
+        android:padding="2dip" >
 
         <Button
             android:id="@+id/okButton"
@@ -69,7 +66,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/ok" />
-<Button
+
+        <Button
             android:id="@+id/cancelButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

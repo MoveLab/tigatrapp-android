@@ -12,7 +12,7 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:padding="5dip"
-        android:text="Latest from TigaTrapp!"
+        android:text="@string/rss_title_tigatrapp"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textColor="@color/light_orange" />
 
@@ -37,7 +37,7 @@
         android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true" 
-        android:text="No internet connection.\n\nTo view the feed, please connect to the internet and select 'refresh' from the menu."/>
+        android:text="@string/rss_internet_connection_warning"/>
     
     <ListView
         android:id="@+id/rsslist"

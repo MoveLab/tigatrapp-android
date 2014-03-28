@@ -35,7 +35,7 @@ public class ViewReportsPhotosTab extends Activity {
 		Util.setDisplayLanguage(res);
 
 		TextView textview = new TextView(this);
-		textview.setText("This report has no photos.");
+		textview.setText(getResources().getString(R.string.no_photo_attached));
 		setContentView(textview);
 		Intent incoming = getIntent();
 		Bundle b = incoming.getExtras();

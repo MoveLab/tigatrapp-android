@@ -43,7 +43,6 @@
             android:layout_marginBottom="6dip"
             android:layout_marginTop="5dip"
             android:gravity="center"
-            android:text="Report"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/discolor" />
 
@@ -65,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false"
-                android:text="Checklist*" />
+                android:text="@string/checklist_label" />
 
             <ImageView
                 android:id="@+id/reportConfirmationButton"
@@ -94,7 +93,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false"
-                android:text="Location*" />
+                android:text="@string/location_label" />
         </RelativeLayout>
 
         <RadioGroup
@@ -126,7 +125,7 @@
                     android:layout_marginLeft="50dip"
                     android:checked="false"
                     android:clickable="false"
-                    android:text="Current" />
+                    android:text="@string/location_current_label" />
 
                 <ImageView
                     android:id="@+id/reportCurrentLocationImage"
@@ -158,7 +157,7 @@
                     android:layout_marginLeft="50dip"
                     android:checked="false"
                     android:clickable="false"
-                    android:text="Choose on map" />
+                    android:text="@string/location_select_label" />
 
                 <ImageView
                     android:id="@+id/reportSelectMaphButton"
@@ -189,7 +188,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:clickable="false"
-                android:text="Photo(s)" />
+                android:text="@string/photo_check_label" />
 
             <TextView
                 android:id="@+id/photoCount"
@@ -199,7 +198,6 @@
                 android:layout_toLeftOf="@+id/reportPhotoAttachButton"
                 android:background="@drawable/white_border"
                 android:padding="5dip"
-                android:text="0"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <ImageView
@@ -229,7 +227,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false"
-                android:text="Note" />
+                android:text="@string/note_check_label" />
 
             <ImageView
                 android:id="@+id/reportNoteButton"

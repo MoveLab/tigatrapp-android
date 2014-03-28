@@ -302,7 +302,7 @@ public class SimpleFileDialog
 					// Show new folder name input dialog
 					new AlertDialog.Builder(m_context).
 					setTitle("New Folder Name").
-					setView(input).setPositiveButton("OK", new DialogInterface.OnClickListener() 
+					setView(input).setPositiveButton(m_context.getResources().getString(R.string.ok), new DialogInterface.OnClickListener() 
 					{
 						public void onClick(DialogInterface dialog, int whichButton) 
 						{
@@ -321,7 +321,7 @@ public class SimpleFileDialog
 										+ newDirName + "' folder", Toast.LENGTH_SHORT).show();
 							}
 						}
-					}).setNegativeButton("Cancel", null).show(); 
+					}).setNegativeButton(m_context.getResources().getString(R.string.cancel), null).show(); 
 				}
 			}
 					);

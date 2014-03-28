@@ -31,23 +31,22 @@
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
-                <TextView
+        <TextView
             android:id="@+id/yourIdIsText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/your_report_id_is"
             android:padding="10dp"
+            android:text="@string/your_report_id_is"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-        
-                        <TextView
+
+        <TextView
             android:id="@+id/reportIdText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="asdasd"
             android:layout_gravity="center"
             android:padding="10dp"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-        
+
         <TextView
             android:id="@+id/alertText"
             android:layout_width="wrap_content"

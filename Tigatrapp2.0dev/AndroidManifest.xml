@@ -17,13 +17,13 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ceab.movelab.tigerapp"
-    android:versionCode="19"
-    android:versionName="v2.05dev" >
+    android:versionCode="20"
+    android:versionName="v2beta" >
 
     <uses-sdk
         android:minSdkVersion="4"

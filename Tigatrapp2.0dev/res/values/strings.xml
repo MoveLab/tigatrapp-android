@@ -17,232 +17,276 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
     <!-- DO NOT TRANSLATE -->
     <string name="internal_message_id" translatable="false">csic.ceab.movelab.tigatrapp</string>
+    <string name="language_selector_english" translatable="false">Use app in English.</string>
+    <string name="language_selector_catalan" translatable="false">Utilitzeu l\'aplicació en català.</string>
+    <string name="language_selector_spanish" translatable="false">Utilice la aplicación en español.</string>
 
-    <!-- Switchboard -->
-    <string name="dataMap_CD">Les meves dades</string>
-
-    <!-- Report Adult -->
-    <string name="report_title_adult">New Mosquito Report</string>
-
-    <!-- Report Site -->
-    <string name="report_title_site">New Breeding Site Report</string>
-    <string name="identifying_breeding_site_title">Breeding Site Checklist</string>
-
-    <string-array name="confirmation_q1_site_array">
-        <item>embornal</item>
-        <item>font</item>
-        <item>basse</item>
-        <item> artificial</item>
-        <item>bidons</item>
-        <item>pous</item>
-        <item>altres</item>
+    <!-- Gallery -->
+    <string-array name="gallery_array">
+        <item>Female tiger mosquito. Tiger mosquitoes (1) are small, with black and white stripes, 
+        (2) have a white stripe on their head and thorax, and (3) have white stripes on their abdomen 
+        and legs. There are other similar insects, so it is important to avoid confusing them!</item>
+        <item>Female tiger mosquito. Note the stripes on the abdomen. 
+        Remember that the tiger mosquito is very small, 
+        not more than 5 mm (including legs; about half the size of a 1 cent coin).</item>
+        <item>Female tiger mosquito ready to bite. 
+        Note the white stripe on the head and thorax, and the stripes on the legs .</item>
+        <item>Female tiger mosquito biting. Note 
+        the characteristic white stripe on the head and thorax. </item>
+        <item>Female tiger mosquito biting. 
+        Note the characteristic white stripe on the head and thorax. </item>
+        <item>Two female tiger mosquitoes biting. Remember that only the females bite. 
+        Tiger mosquitoes usually bite during the day (not when it\'s dark)
+         and they usually bite legs.</item>
+        <item>Female tiger mosquito biting. 
+        The blood that accumulates in the abdomen will trigger the laying of eggs.</item>
+        <item>Tiger mosquito laying eggs. Note the eggs\' dark color and elongated shape. 
+        The eggs are so small that they are almost invisible to the naked eye. 
+        Remember that the tiger mosquito lays eggs in small containers, 
+        on dry walls by stagnant and dirty water.</item>
+        <item>Larvae (more elongated) and pupae (more rounded) of Aedes albopictus.
+        Note that they are aquatic. 
+        The larvae emerge from the eggs when they are covered with water and eventually make 
+        the transition to pupae.</item>
+        <item>Larvae (more elongated) and pupae (more rounded) of Aedes albopictus. 
+        Remember that to keep tiger mosquitos out of your home you need to avoid having standing 
+        water in which the larvae can develop!</item>
+        <item>Two pupae of Aedes albopictus. 
+        This is the phase in which metamorphosis occurs, and the adult
+         mosquito emerges from the pupa and enters the aerial environment.</item>
     </string-array>
 
-    <!-- Map -->
+    <!-- Toasts -->
+    <string name="toast_report_before_submitting">Before submitting your report, please:</string>
+    <string name="toast_location_needed">"Please select 'Current' or 'Choose on map' below."</string>
+    <string name="toast_complete_checklist">- complete the checklist</string>
+    <string name="toast_specify_location">- specify a location</string>
+    <string name="toast_attach_photo">- attach a photo of the breeding site</string>
 
+    <!-- Intro and Consent -->
+    <string name="consent_button_label">Consent</string>
+    <string name="decline_button_label">Decline</string>
+
+    <!-- Switchboard -->
+    <string name="dataMap_CD">My Data</string>
+
+    <!-- Reports -->
+    <string name="report_title_adult">New Mosquito Report</string>
+    <string name="report_title_site">New Breeding Site Report</string>
+    <string name="checklist_label">Checklist*</string>
+    <string name="location_label">Location*</string>
+    <string name="location_current_label">Current</string>
+    <string name="location_select_label">Choose on map</string>
+    <string name="photo_check_label">Photos(s)</string>
+    <string name="note_check_label">Note</string>
+    <string name="update">Update</string>
+    <string name="created_on">created on</string>
+    <string name="word_report">Report</string>
+    <string name="photo_label">Photo(s)</string>
+    <string name="photo_label_star">Photo(s)*</string>
+    <string name="site_report_q1">Type of breeding site</string>
+    <string name="site_report_q2">Does it have stagnant water inside?</string>
+    <string name="site_report_q3">Have you seen mosquito larvae (not necessarily tiger mosquito) inside?</string>
+    <string name="q2_abdomenlegs_text">Tiger mosquitoes have white stripes on their abdomens and legs.</string>
+    <string name="identifying_mosquitoes_title">Identifying Tiger Mosquitoes</string>
+    <string name="confirmation_q1_adult_sizecolor">Is it small and black with white stripes?</string>
+    <string name="q1_sizecolor_text">Tiger mosquitoes are small and black with white stripes.</string>
+    <string name="confirmation_q2_adult_headthorax">Does it have a white stripe on the head and thorax?</string>
+    <string name="adult_report_q3">Does it have white stripes on the abdomen and legs?</string>
+    <string name="embornals">Storm drain</string>
+    <string name="fonts">Spring</string>
+    <string name="basses">Small artificial pond</string>
+    <string name="bidons">Drum</string>
+    <string name="pous">Well</string>
+    <string name="altres">Other</string>
+    <string name="report_checklist_title_adult">Adult Checklist</string>
+    <string name="report_checklist_title_site">Site Checklist</string>
+    <string name="adult_report_help_html">
+<![CDATA[
+        
+<p>English to be added.</p> 
+   ]]>
+    </string>
+    <string name="site_report_help_html">
+<![CDATA[
+        
+English to be added
+       ]]>
+    </string>
+    <string name="site_report_item_help_1">
+<![CDATA[      
+    English to be added.
+       ]]>
+    </string>
+    <string name="site_report_item_help_2">
+<![CDATA[    English to be added
+   ]]>
+    </string>
+    <string name="site_report_item_help_3">
+<![CDATA[     
+English to be added
+       ]]>
+    </string>
+
+    <!-- View Report -->
+    <string name="return_to_map">Back</string>
+    <string name="delete_report">Delete</string>
+    <string name="edit_report">Edit</string>
+    <string name="report_not_saved_warning">This report has not been saved. Are you sure you want to exit?</string>
+    <string name="exit_question">Exit?</string>
+    <string name="no_note_attached">No note attached</string>
+    <string name="no_photo_attached">No photo attached</string>
+    <string name="checklist_tab_title">Checklist</string>
+    <string name="photos_tab_title">Photos</string>
+    <string name="notes_tab_title">Notes</string>
+    <string name="view_report_title_adult">Adult Report</string>
+    <string name="view_report_title_site">Breeding Site Report</string>
+
+    <!-- Photo Selector -->
+    <string name="photo_selector_title">Report Photos</string>
+    <string name="photo_selector_take_photo_button">Take new photo</string>
+    <string name="photo_selector_attach_photo_button">Attach from file</string>
+    <string name="photo_selector_remove_attachment">Remove Attachment</string>
+    <string name="photo_selector_remove_this_photo">Remove this photo</string>
+    <string name="photo_selector_from_thisreport">from this report</string>
+    <string name="photo_selector_remove_button_label">Remove</string>
+
+    <!-- RSS Feeds -->
+    <string name="rss_internet_connection_warning">No internet connection.\n\nTo view the feed, please connect to the internet and select \'refresh\' from the menu.</string>
+    <string name="rss_title_tigatrapp">Latest from TigaTrapp!</string>
+    <string name="rss_title_movelab"> Latest from MoveLab!</string>
+
+    <!-- Task List -->
+    <string name="task_list_title">Task List</string>
+    <string name="task_list_pending">Pending</string>
+    <string name="task_list_completed">Complete</string>
+    <string name="delete_task_from_list_question">Delete task from list?</string>
+    <string name="delete">Delete</string>
 
     <!-- Menu -->
-
-    <string name="visit_website">Visita la pàgina web</string>
-    <string name="menu_toggle_language">Español</string>
+    <string name="menu_option_task_list">Task List</string>
+    <string name="menu_option_tigatrapp_project">Tigatrapp Project</string>
+    <string name="menu_option_web_map">Web Map</string>
+    <string name="menu_option_main_website">Main Website</string>
+    <string name="menu_option_tigatrapp_news">Tigatrapp News</string>
+    <string name="menu_option_movelab_news">MoveLab News</string>
+    <string name="menu_option_share">Share App</string>
+    <string name="menu_option_help">Help</string>
+    <string name="menu_option_about">About</string>
+    <string name="menu_option_filter">Filter</string>
+    <string name="menu_option_show_pending_tasks_only">Show pending tasks only</string>
+    <string name="menu_option_show_all_tasks">Show all tasks</string>
+    <string name="menu_option_map_type_label">Map Type</string>
+    <string name="menu_option_map_type_satellite">Satellite Map</string>
+    <string name="menu_option_map_type_street">Street Map</string>
+    <string name="menu_option_share_map">Share Map</string>
+    <string name="menu_option_save_map">Save Map</string>
+    <string name="menu_map_save">Save</string>
+    <string name="menu_map_share">Share</string>
+    <string name="menu_toggle_view">Satellite</string>
 
     <!-- Misc -->
+    <string name="edit">Edit</string>
+    <string name="cd_help_icon">Help Icon</string>
     <string name="open">Open</string>
     <string name="spinner_prompt">Select Response</string>
     <string name="spinner_nothing_selected">Nothing selected</string>
-    <string name="help">Ajuda</string>
-    <string name="saved">Viatge guardat.</string>
-    <string name="font_credit">Ús de la tipografia Anna en parts de l’App Tigatrapp (www.annavives.com)</string>
-    <string name="photo_credit_gallery">Fotografia de R. Eritja (www.eritja.com)</string>
+    <string name="help">Help</string>
+    <string name="font_credit">Anna font used in parts of Tigatrapp (www.annavives.com)</string>
+    <string name="photo_credit_gallery">Photo by R. Eritja (www.eritja.com)</string>
     <string name="photo_credit">Fotografies de R. Eritja (www.eritja.com)</string>
-    <string name="refresh">Actualitza</string>
-    <string name="nolocnogps_alert">No s\'ha pogut detectar la teva posició perquè ni el GPS ni la ubicació per xarxa mòbil i/o Wi-Fi estan activats. Activa\'ls o senyala la posició al mapa.</string>
+    <string name="nolocnogps_alert">Your locatioin cannot be detected because GPS and network receivers are both off. Please activate them or choose a location on the map.</string>
     <string name="progtitle_report">Enviant</string>
-    <string name="progtitle_trip_saving">Enviant</string>
-    <string name="progtitle_trip_deleting">Eliminant</string>
-    <string name="progmessage_trip_saving"></string>
-    <string name="progmessage_trip_deleting"></string>
-    <string name="trip_deleted">Viatge eliminat.</string>
-    <string name="nolocation_alert_report">No s\'ha pogut detectar la teva posició. Espera uns segons i torna-ho a intentar o senyala la posició al mapa.</string>
-    <string name="upload_error_report">Error d\'enviament. Les dades de la Tigre troballa s\'han guardat al mòbil i s\'enviaran més tard. Gràcies!</string>
-    <string name="upload_error_trip_save">Error d\'enviament. Les dades del Tigre viatge s\'han guardat al mòbil i s\'enviaran més tard. Gràcies!</string>
-    <string name="upload_error_trip_delete">No s\'ha pogut eliminar el Tigre viatge del servidor. Se seguirà intentant. Gràcies!</string>
-    <string name="offline_report">Sense connexió a internet. La Tigre troballa s\'enviarà automàticament quan torni la connexió. Gràcies!</string>
-    <string name="offline_trip_save">Sense connexió a internet. El Tigre viatge s\'enviarà automàticament quan torni la connexió. Gràcies!</string>
-    <string name="offline_trip_delete">Sense connexió a internet. El Tigre viatge s\'eliminarà del servidor automàticament quan hi torni a haver connexió. Gràcies!</string>
-    <string name="upload_error_activation">Sense connexió a internet. Connecta\'t i torna-ho a provar.</string>
-    <string name="offline_activation">Sense connexió a internet. Connecta\'t i torna-ho a provar.</string>
-    <string name="save_trip">Acaba i envia</string>
-    <string name="delete_trip">Acaba i esborra</string>
-    <string name="activated">Clau d\'activació correcte. Gràcies per participar!</string>
-    <string name="activation_text">Introduir clau d\'activació</string>
-    <string name="about">Informació</string>
-    <string name="acc_label">Precisió (m): </string>
-    <string name="accblank">"Precisió:         "</string>
-    <string name="add_note">Si vols, pots escriure un missatge que arribarà als científics del centre de recerca. Per exemple, pots descriure millor la teva Tigre troballa.</string>
-    <string name="alt_label">Altitud (m): </string>
-    <string name="altblank">"Altitud:         "</string>
+    <string name="nolocation_alert_report">Your location has not yet been detected. Please wait a few more seconds and try again or else select location from map..</string>
+    <string name="upload_error_report">Transmission error. Your data has been saved on the device and will be sent later. Thank you!</string>
+    <string name="offline_report">No internet connection. Your report will be sent automatically when there is a connection available. Thank you!</string>
+    <string name="about">About</string>
+    <string name="add_note">If you want, you can write a message here for the research team. For example, you can describe the  mosquito in more detail.</string>
     <string name="app_directory">Tigatrapp</string>
     <string name="app_name">Tigatrapp</string>
-    <string name="back">Anul·la</string>
-    <string name="back_to_trip">Anul·la</string>
-    <string name="button_from_camera_CD">Botó per fer una fotografia i afegir-la a la teva Tigre troballa</string>
-    <string name="button_note_CD">Botó per afegir un missatge a la teva Tigre troballa</string>
-    <string name="button_spec_CD">Botó per indicar si acompanyaràs  la teva Tigre troballa amb una mostra que enviaràs al centre de recerca</string>
-    <string name="button_submit_CD">Botó per enviar la teva Tigre troballa al centre de recerca</string>
-    <string name="cancel">Anul·la</string>
+    <string name="button_submit_CD">Button for sending report to research center</string>
+    <string name="cancel">Cancel</string>
     <string name="ceab_CD">CEAB logo</string>
-    <string name="checklist_CD">Botó per ajudar en l\'identificació del mosquit tigre</string>
-    <string name="data_saved">Dades guardades com </string>
-    <string name="data_SD_error">Error al guardar l\'arxiu a la targeta SD</string>
-    <string name="data_SD_unavailable">Targeta SD No Disponible – l\'arxiu no es pot guardar</string>
+    <string name="data_saved">Data saved as </string>
+    <string name="data_SD_error">SD card error</string>
+    <string name="data_SD_unavailable">SD card not available – data cannot be saved.</string>
     <string name="dipsalut_CD">Dipsalut logo</string>
-    <string name="dontknow">No ho sé</string>
+    <string name="dontknow">Not sure</string>
     <string name="fecyt_CD">FECYT logo</string>
-    <string name="funded_by">Finançat per:</string>
-    <string name="funding_and_support">Finançament i Suport</string>
-    <string name="gallery">Galeria d\'Imatges</string>
-    <string name="GPL">Veure GPL</string>
+    <string name="funded_by">Financed by:</string>
+    <string name="funding_and_support">Financing and Support</string>
+    <string name="gallery">Image Gallery</string>
+    <string name="GPL">View GPL</string>
     <string name="gpl_heading">GPL</string>
-    <string name="haveyoufound">Has trobat un mosquit tigre?</string>
-    <string name="confirmation_q3_abdomenlegs">Té ratlles blanques a l\'abdomen i a les potes?</string>
-    <string name="q2_abdomenlegs_text">El mosquit tigre té ratlles blanques a l\'abdomen i a les potes.</string>
-    <string name="q2_abdomenlegs_title">Abdomen i Potes</string>
-    <string name="here">Aquí</string>
-    <string name="identifying_mosquitoes_title">Respon els 3 Tigre principis</string>
-    <string name="lat_label">Latitud: </string>
-    <string name="latblank">"Lat:         "</string>
-    <string name="confirmation_q1_adult_sizecolor">És petit i negre amb ratlles blanques?</string>
-    <string name="q1_sizecolor_text">El mosquit tigre és petit i negre amb ratlles blanques.</string>
-    <string name="q1_sizecolor_title">Mida i color</string>
-    <string name="letssee">Comprova-ho!</string>
-    <string name="LGPL">Veure LGPL</string>
-    <string name="location_found">POSICIÓ TROBADA</string>
-    <string name="lon_label">Longitud: </string>
-    <string name="lonblank">"Lon:         "</string>
-    <string name="mail_message">Escriu aquest codi en un sobre, fica-hi el teu mosquit i envia\'l a:</string>
-    <string name="mailing_spec_title">Envia una mostra</string>
-    <string name="menu_flush_gps">Actualitza GPS</string>
-    <string name="menu_locate_now">Localitza\'m</string>
-    <string name="menu_map_save">Desa</string>
-    <string name="menu_map_settings">Configura</string>
-    <string name="menu_map_share">Comparteix</string>
-    <string name="menu_settings">Preferències</string>
-    <string name="menu_toggle_ccs">Visualitza Precisió</string>
-    <string name="menu_toggle_view">Satèl·lit</string>
-    <string name="mosquitoImageContentDesc">Imatge d\'un mosquit tigre</string>
+    <string name="LGPL">View LGPL</string>
+    <string name="mailing_spec_title">Send sample</string>
     <string name="movelab">MoveLab\nCentre d\'Estudis Avançats de Blanes (CEAB-CSIC)</string>
     <string name="movelab_address1">C/ d\'accés a la Cala St. Francesc, 14</string>
     <string name="movelab_address2">Blanes. Girona. E-17300</string>
     <string name="movelab_banner_CD">MoveLab logo</string>
-    <string name="my_location">Localització</string>
     <string name="no">No</string>
-    <string name="noGPS">Clica aquí per activar el GPS</string>
-    <string name="noGPSAlert">"El GPS està desconnectat. Vols activar-lo?"</string>
-    <string name="noGPSnoNet">No se\'t pot localitzar perquè el GPS i la recepció de xarxa telefònica estan apagats. \nClica aquí per activar-los.</string>
-    <string name="noGPSnoNetAlert">El GPS i la recepció de xarxa telefònica estan desactivats. No se\'t pot localitzar sense com a mínim un d\'ells activat. Vols activar-los ?</string>
-    <string name="notes_title">Missatge</string>
+    <string name="noGPSnoNetAlert">Your GPS and network receivers are off so it Is not possible to detect your location. Activate them now?</string>
+    <string name="notes_title">Message</string>
     <string name="ok">OK</string>
-    <string name="other_place">A un altre lloc</string>
     <string name="project_email">tigatrapp@ceab.csic.es</string>
     <string name="project_website">atrapaeltigre.com/</string>
-    <string name="prov_label">Proveïdor: </string>
-    <string name="recording">Viatjant</string>
-    <string name="recording_trip">Viatjant...</string>
-    <string name="renew_gps_alert">Si creus que el GPS no està funcionant correctament, pots reiniciar-lo. Això pot tardar uns minuts.</string>
-    <string name="report">Crea una Tigre troballa</string>
-    <string name="report_sent">Si cliques OK, la teva Tigre troballa s\'enviarà al centre de recerca.</string>
-    <string name="report_sent_confirmation">Tigre troballa enviada. Gràcies!</string>
-    <string name="reportGallery_CD">Botó per accedir a la galeria d\'imatges del mosquit tigre</string>
-    <string name="saved_image_prefix">elMeuMapa</string>
+    <string name="report_sent">If you select OK, your report will be sent to the lab.</string>
+    <string name="report_sent_confirmation">Report sent. Thank you!</string>
+    <string name="reportGallery_CD">Image gallery button</string>
+    <string name="saved_image_prefix">myMap</string>
     <string name="scm_CD">SCM logo</string>
-    <string name="send_spec_text">Enviaràs el teu mosquit per correu postal al centre de recerca?</string>
-    <string name="send_spec_si">Sí (NOTA: rebràs instruccions de com fer-ho més endavant)</string>
-    <string name="share_with">Comparteix</string>
-    <string name="start_trip">Inicia Viatge</string>
-    <string name="start_trip_button_CD">Botó per iniciar el viatge</string>
-    <string name="stop_trip_button_CD">Botó per acabar el viatge</string>
-    <string name="stop_trip_q">Acabar Viatge?</string>
-    <string name="submit">Envia</string>
-    <string name="supported_by">Amb el suport de:</string>
-    <string name="confirmation_q2_adult_headthorax">Té una ratlla blanca al cap i al tòrax?</string>
-    <string name="q3_headthorax_text">El mosquit tigre té una ratlla blanca al cap i al tòrax.</string>
-    <string name="q3_headthorax_title">Cap i Tòrax</string>
-    <string name="tigatrapp_is_recording_your_trip">Tigatrapp està gravant el teu viatge</string>
-    <string name="tigatrapp_recording">Tigatrapp Viatjant</string>
-    <string name="tiger_car_image_CD">Dibuix d\'un mosquit viatjant dins d\'un cotxe</string>
-    <string name="tiger_drawing_CD">Dibuix d\'un mosquit</string>
-    <string name="tiger_head_diagram_CD">Diagrama d\'un mosquit tigre</string>
-    <string name="tiger_legs_diagram_CD">Diagrama de l\'abdomen i les potes d\'un mosquit tigre</string>
-    <string name="tiger_thorax_diagram_CD">Diagrama del cap i del tòrax d\'un mosquit tigre</string>
-    <string name="time_label">Time and Date: </string>
-    <string name="title_activity_splash">Splash</string>
-    <string name="title_activity_switchboard">Switchboard</string>
-    <string name="title_activity_tiger_finder">TigerFinder</string>
-    <string name="title_activity_trip_notification">TripNotification</string>
-    <string name="toggle_trip_off">Interrompre Viatge</string>
-    <string name="toggle_trip_on">Reprendre Viatge</string>
-    <string name="transported_q_text">Transportaves un mosquit en aquest viatge?</string>
-    <string name="transported_qb_text">Era un mosquit tigre?</string>
-    <string name="trip_data_sent">Viatge enviat. Gràcies!</string>
-    <string name="type_here">Missatge pels científics</string>
-    <string name="view_gpl_english">Veure GPL versió oficial</string>
-    <string name="where_found_text">On l\'has trobat?</string>
-    <string name="yes">Sí</string>
-    <string name="you_found">Has trobat un mosquit tigre!</string>
-    <string name="your_report_id_is">"El codi de la teva Tigre troballa és: "</string>
+    <string name="send_spec_text">Will you send your mosquito by post to the lab?</string>
+    <string name="share_with">Share</string>
+    <string name="submit">Send</string>
+    <string name="supported_by">With support from:</string>
+    <string name="q3_headthorax_text">Tiger  mosquitoes have a white stripe on the head and thorax.</string>
+    <string name="type_here">Message for research team</string>
+    <string name="view_gpl_english">View Official Version of GPL</string>
+    <string name="yes">Yes</string>
+    <string name="your_report_id_is">"Your report ID is: "</string>
+    <string name="photo_credits">The photographs in Tigatrapp were provided by R. Eritja (www.eritja.com).</string>
     <string name="credits">
 <![CDATA[
-<p>Tigatrapp ha sigut desenvolupat pel grup de recerca Movement Ecology Lab (CEAB-CSIC) i finançat per la Fundación Española para la Ciencia y la Tecnología (FECYT) – Ministerio de Economía y Competitividad (MINECO) i per l\'Organisme de Salut Pública de la Diputació de Girona (DIPSALUT). A més a més, han col·laborat en el seu desenvolupament la Mancomunitat Intermunicipal Voluntària del Servei de Control de Mosquits de la Badia de Roses i del Baix Ter (SCM) i el Centre d\'Estudis Avançats de Blanes del Consejo Superior de Investigaciones Científicas (CEAB-CSIC).</p>
+<p>ENGLISH TO BE ADDED.</p>
     ]]>
     </string>
     <string name="copyright">
 <![CDATA[
-<p>Copyright &#169; 2013 John R.B. Palmer, Aitana Oltra, Joan Garriga i Frederic Bartumeus</p>
+<p>Copyright &#169; 2013, 2014 John R.B. Palmer, Aitana Oltra, Joan Garriga ansd Frederic Bartumeus</p>
     ]]>
     </string>
     <string name="consent_html">
 <![CDATA[
 <p><b>Introduction to the app</b></p>
 <p> Here we will put some short introductory text (more nicely formatted than this) about the project and the purpose of the app. Then the consent form follows:</p>
-    <p><b>FORMULARI ESTÀNDARD DE CONSENTIMENT</b></p>
-<p>(Convocatòria FECYT 2012; Projecte FCT-12-3730) Projecte de divulgació i participació científica dels joves en el seguiment i control del mosquit tigre: “Caçant el Tigre!” (Atrapa el Tigre!)</p>
-
-<p>Entenc que la participació al projecte Atrapa el Tigre! a través de l’aplicació Tigatrapp ha d’estar sempre supervisada per un adult.</p> 
-
-<p>Entenc que Tigatrapp em permet recollir i enviar dades sobre el meu moviment i la localització geogràfica d’albiraments de mosquit tigre que jo mateix documento i comparteixo. Entenc que Tigatrapp em permet també enviar i compatir, de manera voluntària, fotografies de mosquit tigre, missatges pels científics que descriguin els meus albiraments i respostes a qüestionaris.</p> 
-
-<p>Entenc que les dades i imatges recollides i compartides a través de Tigatrapp no són de caràcter personal, ja que no es recull informació referent a persones físiques identificades o identificables, segons el que estableix la Llei orgànica 15/1999. Entenc que està sota la meva responsabilitat la correcta utilització de Tigatrapp i que no haig ni de recollir, ni d’enviar, a través de Tigatrapp, imatges o dades personals, ni fer un ús indegut, o fora de la legalitat, o diferent al qual Tigatrapp està destinat.</p>
-
-<p>Entenc que la utilització del telèfon mòbil mentre condueixo està prohibida i que pot augmentar el risc d’accidents, morts o danys. Entenc que no haig d’utilitzar l’aplicació o el meu telèfon mòbil en cap cas mentre condueixi, i estic d’acord en no fer-ho. Entenc també que la seguretat és la prioritat més important en tots els aspectes d’aquest projecte i estic d’acord en utilitzar el meu telèfon mòbil en tot moment d’una manera segura.</p>
-
-<p>Entenc que la informació que recull i envia Tigatrapp pot ser publicada al portal web www.atrapaeltigre.com i en d’altres portals i suports. Entenc que la informació subministrada pot ser utilitzada per a fins científics, ambientals i de sanitat pública. En cap cas aquesta informació serà utilitzada per a fins comercials.</p>
-
-<p>Entenc que l’objectiu d’aquest projecte d’investigació i ciència ciutadana és estudiar la presència i dispersió del mosquit tigre a Catalunya, així com aspectes relacionats amb la participació ciutadana i les ciències ciutadanes. Entenc que no rebré cap tipus de compensació econòmica per la meva participació i que no podré cancel&#183;ar ni rectificar la informació ja compartida, ja que aquesta en cap cas es pot associar a la meva persona física.  Entenc que es prendran les mesures raonables per tal de protegir la meva privacitat en tota la informació que enviï pel projecte d’investigació.</p> 
-
-<p>Amb el consentiment d’aquest formulari declaro que sóc major d’edat  i que he llegit i entenc que:</p>
-
-<p>A. La meva participació és voluntària, i puc deixar de participar en qualsevol moment. La meva negativa a participar no donarà lloc a cap tipus de penalització. La meva participació està sotmesa a les condicions d’aquest formulari de consentiment.</p>
-<p>B. La prestació del meu consentiment no implica la renúncia a qualsevol dret o eximeix al Consell Superior d’Investigacions Científiques, els seus agents o a l’investigador responsable d’aquest projecte, de qualsevol responsabilitat per culpa.</p>
-<p>Presto el meu consentiment a ser un participant d’aquest projecte d’investigació sota les condicions establertes en aquest formulari.</p>
-    
+    <p><b>STANDARD CONSENT FORM</b></p>
+<p>consent form to be translated</p>    
    ]]>
     </string>
     <string name="about_html">
 <![CDATA[
-<p>Tigatrapp prototip, versió 1.3</p>
+<p>Tigatrapp, versió 2.0</p>
 
-<p>Tigatrapp és una aplicació Android que busca aprofitar el gran potencial de la ciutadania per a col·laborar en la recerca del mosquit tigre a Catalunya gràcies a l\'ús de les noves tecnologies. És, per tant, un exemple del potencial de les ciències ciutadanes. L\'aplicació ha sigut desenvolupada pel grup de recerca Movement Ecology Lab del Centre d\'Estudis Avançats de Blanes (CEAB-CSIC). El codi font està en part basat en codi de l\'aplicació Space Mapper (desenvolupada per John R.B. Palmer), codi de the Human Mobility Project (Chang Y. Chung, Kathleen Li i Necati E. Ozgencil) i codi de Funf (Nadav Aharony, Wei Pan i Alex Pentland). El codi font de Tigatrapp està disponible al grup de recerca Movement Ecology Lab.</p>
+<p>Tigatrapp is an Android application that harnesses the power of citizen scientists and new technologies to  
+investigate the spread of Tiger Mosquitoes in Spain. 
+The application was developed by the 
+ Movement Ecology Laboratory of the Center for Advanced Studies of Blanes (CEAB-CSIC).
+  The code is drawn in part from Space Mapper (John R.B. Palmer), the Human Mobility Project 
+ (Chang Y. Chung, Kathleen Li and Necati E. Ozgencil), and Funf (Nadav Aharony, Wei Pan, and Alex Pentland). 
+ The Tigatrapp code is freely available from the Movement Ecology Lab.</p>
 
-<p>Copyright &#169; 2013 John R.B. Palmer, Aitana Oltra, Joan Garriga i Frederic Bartumeus</p>
+<p>Copyright &#169; 2013 John R.B. Palmer, Aitana Oltra, Joan Garriga and Frederic Bartumeus</p>
  
-<p> Tigatrapp és programari lliure: es pots redistribuir i/o modificar sota els termes de la llicència general pública GNU General Public License publicada per Free Software Foundation (versió 3 de la llicència o superior)</p>
+<p>Tigatrapp is free software: you can redistribute it and/or modify 
+ it under the terms of the GNU General Public License as published by 
+ the Free Software Foundation, either version 3 of the License, or (at 
+  your option) any later version.</p>
 
 <p>This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -475,6 +519,11 @@ Això és programari lliure, i podeu redistribuir-lo sota certes condicions; per
 </p><p>La Llicència Pública General GNU no permet incorporar els vostres programes com a part de programes propietaris. Si el vostre programa és una subrutina d\'una biblioteca, hauríeu de considerar que és més útil permetre enllaçar aplicacions propietàries amb la biblioteca. Si tot i així, això és el que voleu fer, utilitzeu la Llicència Pública General Reduïda de GNU en comptes d\'aquesta Llicència. Però primer, consulteu <a href="http://www.gnu.org/philosophy/why-not-lgpl.html" class="external autonumber" rel="nofollow">[4]</a>.
 </p>
         ]]>
+    </string>
+    <string name="help_offline_html">
+<![CDATA[
+English offline help - to be added
+   ]]>
     </string>
 
 </resources>

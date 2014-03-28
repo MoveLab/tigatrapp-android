@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
-    
-    <item android:id="@+id/taskFilter"
-          android:title="Filter" >
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/taskFilter"
+        android:title="@string/menu_option_filter">
+
         <!-- "file" submenu -->
         <menu>
-    <group android:checkableBehavior="single">
-        <item android:id="@+id/pending"
-              android:title="Show pending tasks only" />
-        <item android:id="@+id/all"
-              android:title="Show all tasks" />
-    </group>
-
+            <group android:checkableBehavior="single" >
+                <item
+                    android:id="@+id/pending"
+                    android:title="@string/menu_option_show_pending_tasks_only"/>
+                <item
+                    android:id="@+id/all"
+                    android:title="@string/menu_option_show_all_tasks"/>
+            </group>
         </menu>
     </item>
+
 </menu>

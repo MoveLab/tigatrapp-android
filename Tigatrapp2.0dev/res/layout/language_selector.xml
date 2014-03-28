@@ -40,21 +40,21 @@
             android:layout_width="wrap_content"
             android:layout_height="0dip"
             android:layout_weight="1"
-            android:text="Utilice la aplicación en español." />
+            android:text="@string/language_selector_spanish" />
 
         <RadioButton
             android:id="@+id/caButton"
             android:layout_width="wrap_content"
             android:layout_height="0dip"
             android:layout_weight="1"
-            android:text="Utilitzeu l'aplicació en català." />
+            android:text="@string/language_selector_catalan" />
 
         <RadioButton
             android:id="@+id/enButton"
             android:layout_width="wrap_content"
             android:layout_height="0dip"
             android:layout_weight="1"
-            android:text="Use app in English." />
+            android:text="@string/language_selector_english" />
     </RadioGroup>
 
     <LinearLayout

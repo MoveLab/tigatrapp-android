@@ -115,6 +115,7 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.text.Html;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
@@ -154,8 +155,6 @@ public class Util {
 			"v", "w", "x", "y", "z" };
 
 	public static boolean privateMode = false;
-
-
 
 	public static int nSamplesPerDay = 20; // for testing, will reduce to 5
 
@@ -355,15 +354,40 @@ public class Util {
 	}
 
 	public static void showHelp(Context context, String message, int image) {
-		final Dialog dialog = new Dialog(context);
+		final Context thisContext = context;
+		final Dialog dialog = new Dialog(thisContext);
+		final int thisImage = image;
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.check_help);
 		Util.overrideFonts(context, dialog.findViewById(android.R.id.content));
 		TextView mText = (TextView) dialog.findViewById(R.id.checkHelpText);
-		mText.setText(message);
+		mText.setText(Html.fromHtml(message));
 		final ImageView mImage = (ImageView) dialog
 				.findViewById(R.id.checkHelpImage);
-		mImage.setImageResource(image);
+		mImage.setImageResource(thisImage);
+		mImage.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				final Dialog dialog = new Dialog(thisContext);
+				dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+				dialog.setContentView(R.layout.photo_view);
+				ImageView iv = (ImageView) dialog.findViewById(R.id.photoView);
+				// TODO find better way of choosing max pixel
+				// size -- based on screen
+				iv.setImageResource(thisImage);
+				iv.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View View3) {
+						dialog.dismiss();
+					}
+				});
+				dialog.setCanceledOnTouchOutside(true);
+				dialog.setCancelable(true);
+				dialog.show();
+
+			}
+
+		});
 		ImageView cancelButton = (ImageView) dialog
 				.findViewById(R.id.cancelButton);
 		cancelButton.setOnClickListener(new OnClickListener() {
@@ -382,7 +406,11 @@ public class Util {
 		dialog.setContentView(R.layout.check_help);
 		Util.overrideFonts(context, dialog.findViewById(android.R.id.content));
 		TextView mText = (TextView) dialog.findViewById(R.id.checkHelpText);
-		mText.setText(message);
+		mText.setText(Html.fromHtml(message));
+		final ImageView mImage = (ImageView) dialog
+				.findViewById(R.id.checkHelpImage);
+		mImage.setVisibility(View.GONE);
+
 		ImageView cancelButton = (ImageView) dialog
 				.findViewById(R.id.cancelButton);
 		cancelButton.setOnClickListener(new OnClickListener() {

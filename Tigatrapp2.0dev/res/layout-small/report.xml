@@ -43,7 +43,6 @@
             android:layout_marginBottom="6dip"
             android:layout_marginTop="5dip"
             android:gravity="center"
-            android:text="Report"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/discolor" />
 
@@ -65,7 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false"
-                android:text="Checklist*" />
+                android:text="@string/checklist_label" />
 
             <ImageView
                 android:id="@+id/reportConfirmationButton"
@@ -94,7 +93,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false"
-                android:text="Location*" />
+                android:text="@string/location_label" />
         </RelativeLayout>
 
         <RadioGroup
@@ -108,7 +107,7 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dip"
-                android:layout_marginLeft="50dip"
+                android:layout_marginLeft="10dip"
                 android:background="@color/white" />
 
             <RelativeLayout
@@ -123,10 +122,10 @@
                     android:id="@+id/whereRadioButtonHere"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dip"
+                    android:layout_marginLeft="10dip"
                     android:checked="false"
                     android:clickable="false"
-                    android:text="Current" />
+                    android:text="@string/location_current_label" />
 
                 <ImageView
                     android:id="@+id/reportCurrentLocationImage"
@@ -141,7 +140,7 @@
             <View
                 android:layout_width="fill_parent"
                 android:layout_height="1dip"
-                android:layout_marginLeft="50dip"
+                android:layout_marginLeft="10dip"
                 android:background="@color/white" />
 
             <RelativeLayout
@@ -155,10 +154,10 @@
                     android:id="@+id/whereRadioButtonOtherPlace"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="50dip"
+                    android:layout_marginLeft="10dip"
                     android:checked="false"
                     android:clickable="false"
-                    android:text="Choose on map" />
+                    android:text="@string/location_select_label" />
 
                 <ImageView
                     android:id="@+id/reportSelectMaphButton"
@@ -189,7 +188,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:clickable="false"
-                android:text="Photo(s)" />
+                android:text="@string/photo_check_label" />
 
             <TextView
                 android:id="@+id/photoCount"
@@ -199,7 +198,6 @@
                 android:layout_toLeftOf="@+id/reportPhotoAttachButton"
                 android:background="@drawable/white_border"
                 android:padding="5dip"
-                android:text="0"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
 
             <ImageView
@@ -229,7 +227,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false"
-                android:text="Note" />
+                android:text="@string/note_check_label" />
 
             <ImageView
                 android:id="@+id/reportNoteButton"
@@ -246,23 +244,14 @@
             android:layout_height="1dip"
             android:background="@color/white" />
 
-        <ImageButton
+        <Button
             android:id="@+id/buttonReportSubmit"
-            android:layout_width="70dip"
+            android:layout_width="wrap_content"
             android:layout_height="70dip"
             android:layout_gravity="center"
             android:layout_marginTop="15dip"
-            android:contentDescription="@string/button_submit_CD"
-            android:hapticFeedbackEnabled="true"
-            android:padding="0dip"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_launcher" />
-
-        <TextView
-            android:id="@+id/reportSubmitButtonLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:minWidth="70dip"
+            android:padding="10dip"
             android:text="@string/submit" />
     </LinearLayout>
 

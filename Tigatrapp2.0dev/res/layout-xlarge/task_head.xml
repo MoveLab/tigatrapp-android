@@ -19,7 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:contentDescription="Help icon"
+            android:contentDescription="@string/cd_help_icon"
             android:src="@drawable/ic_action_about"
             android:visibility="gone" />
 
@@ -29,10 +29,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/helpIcon"
-            android:text="Task Title"
-            android:textSize="40sp"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/light_orange" />
+            android:textColor="@color/light_orange"
+            android:textSize="40sp" />
     </RelativeLayout>
 
     <TextView
@@ -42,9 +41,8 @@
         android:paddingBottom="5dip"
         android:paddingLeft="5dip"
         android:paddingRight="5dip"
-        android:textSize="20sp"
-        android:text="Task Detail"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textSize="20sp" />
 
     <View
         android:layout_width="fill_parent"

@@ -190,7 +190,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dip"
-            android:text="@string/confirmation_q3_abdomenlegs"
+            android:text="@string/adult_report_q3"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <LinearLayout

@@ -137,9 +137,11 @@ public class TaskListActivity extends FragmentActivity implements
 				final int thisPos = position;
 				AlertDialog.Builder dialog = new AlertDialog.Builder(
 						TaskListActivity.this);
-				dialog.setTitle("Delete task from list?");
+				dialog.setTitle(getResources().getString(
+						R.string.delete_task_from_list_question));
 				dialog.setCancelable(true);
-				dialog.setPositiveButton("Delete",
+				dialog.setPositiveButton(
+						getResources().getString(R.string.delete),
 						new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface d, int arg1) {
@@ -154,7 +156,7 @@ public class TaskListActivity extends FragmentActivity implements
 
 							}
 						});
-				dialog.setNegativeButton("Cancel",
+				dialog.setNegativeButton(getResources().getString(R.string.cancel),
 						new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface d, int arg1) {

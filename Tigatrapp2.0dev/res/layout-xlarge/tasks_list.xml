@@ -8,9 +8,7 @@
             android:id="@+id/tasksListTitle"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@+id/helpIcon"
-            android:text="Pending Tasks"
+            android:text="@string/task_list_title"
             android:textColor="@color/light_orange"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:padding="10dip" />

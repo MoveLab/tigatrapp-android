@@ -43,7 +43,6 @@
             android:layout_marginBottom="6dip"
             android:layout_marginTop="5dip"
             android:gravity="center"
-            android:text="Report"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/discolor"
             android:textSize="40sp" />
@@ -68,7 +67,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false"
-                android:text="Checklist*"
+                android:text="@string/checklist_label"
                 android:textSize="30sp" />
 
             <ImageView
@@ -100,7 +99,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false"
-                android:text="Location*"
+                android:text="@string/location_label"
                 android:textSize="30sp" />
         </RelativeLayout>
 
@@ -135,7 +134,7 @@
                     android:layout_marginLeft="50dip"
                     android:checked="false"
                     android:clickable="false"
-                    android:text="Current"
+                    android:text="@string/location_current_label"
                     android:textSize="30sp" />
 
                 <ImageView
@@ -170,7 +169,7 @@
                     android:layout_marginLeft="50dip"
                     android:checked="false"
                     android:clickable="false"
-                    android:text="Choose on map"
+                    android:text="@string/location_select_label"
                     android:textSize="30sp" />
 
                 <ImageView
@@ -204,7 +203,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:clickable="false"
-                android:text="Photo(s)"
+                android:text="@string/photo_check_label"
                 android:textSize="30sp" />
 
             <TextView
@@ -215,7 +214,6 @@
                 android:layout_toLeftOf="@+id/reportPhotoAttachButton"
                 android:background="@drawable/white_border"
                 android:padding="5dip"
-                android:text="0"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:textSize="30sp" />
 
@@ -248,7 +246,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false"
-                android:text="Note"
+                android:text="@string/note_check_label"
                 android:textSize="30sp" />
 
             <ImageView
@@ -272,12 +270,9 @@
             android:layout_height="100dip"
             android:layout_gravity="center"
             android:layout_marginTop="15dip"
-            android:contentDescription="@string/button_submit_CD"
             android:hapticFeedbackEnabled="true"
             android:minWidth="100dip"
             android:padding="20dip"
-            android:scaleType="centerInside"
-            android:src="@drawable/ic_launcher"
             android:text="@string/submit"
             android:textSize="30sp" />
     </LinearLayout>

@@ -11,6 +11,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Gallery;
 import android.widget.TextView;
 import ceab.movelab.tigerapp.R;
+import ceab.movelab.tigerapp.R.array;
 
 public class PhotoGallery extends Activity {
 	private Gallery galleryView;
@@ -36,11 +37,13 @@ public class PhotoGallery extends Activity {
 		}
 
 		setContentView(R.layout.tiger_photos);
+		
+		final String[] captions = getResources().getStringArray(R.array.gallery_array);
 
 		galleryView = (Gallery) findViewById(R.id.galleryid);
 		captionView = (TextView) findViewById(R.id.captionid);
-		captionView.setText(ImageAdapter.captions[0]);
-		ImageAdapter adapter = new ImageAdapter(this);
+		captionView.setText(captions[0]);
+		ImageAdapter adapter = new ImageAdapter(this,captions);
 		galleryView.setAdapter(adapter);
 		galleryView.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -48,7 +51,7 @@ public class PhotoGallery extends Activity {
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
 
-				captionView.setText(ImageAdapter.captions[arg2]);
+				captionView.setText(captions[arg2]);
 
 			}
 

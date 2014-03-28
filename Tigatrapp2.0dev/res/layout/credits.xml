@@ -21,8 +21,10 @@
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/LightThemeSelector"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/white"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -42,66 +44,20 @@
                 android:orientation="vertical" >
 
                 <TextView
+                    android:id="@+id/creditsTextMain"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dip"
-                    android:text="@string/funded_by"
+                    android:text="@string/credits"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/light_yellow" />
+                    android:textColor="@color/black" />
 
                 <ImageView
-                    android:id="@+id/fecytImage"
+                    android:id="@+id/creditsImage"
                     android:layout_width="fill_parent"
-                    android:layout_height="200dip"
-                    android:layout_gravity="center"
-                    android:contentDescription="@string/fecyt_CD"
-                    android:src="@drawable/fecytstacked" />
-
-                <ImageView
-                    android:id="@+id/dipsalutImage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="100dip"
-                    android:layout_gravity="center"
-                    android:contentDescription="@string/dipsalut_CD"
-                    android:gravity="center"
-                    android:padding="1dip"
-                    android:src="@drawable/logo_dipsalut" />
-
-                <TextView
-                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dip"
-                    android:text="@string/supported_by"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/light_yellow" />
-
-                <LinearLayout
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
                     android:layout_gravity="center"
-                    android:gravity="center"
-                    android:orientation="vertical" >
-
-                    <ImageView
-                        android:id="@+id/ceabImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="100dip"
-                        android:layout_gravity="center"
-                        android:contentDescription="@string/ceab_CD"
-                        android:gravity="center"
-                        android:padding="0dip"
-                        android:src="@drawable/logo_ceab_csic" />
-
-                    <ImageView
-                        android:id="@+id/scmImage"
-                        android:layout_width="wrap_content"
-                        android:layout_height="90dip"
-                        android:layout_gravity="center"
-                        android:contentDescription="@string/scm_CD"
-                        android:gravity="center"
-                        android:padding="3dip"
-                        android:src="@drawable/logo_scm" />
-                </LinearLayout>
+                    android:src="@drawable/credits" />
 
                 <TextView
                     android:id="@+id/imageCredit"
@@ -109,23 +65,14 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="8dip"
                     android:text="@string/photo_credit"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/light_yellow" />
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <TextView
-                    android:id="@+id/fontCredit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dip"
-                    android:text="@string/font_credit"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/light_yellow" />
-
-                <TextView
-                    android:id="@+id/shortAbout"
+                    android:id="@+id/creditsTextPhotos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dip"
+                    android:text="@string/photo_credits"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </LinearLayout>
         </ScrollView>

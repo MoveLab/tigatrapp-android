@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="pending"
+        android:text="@string/task_list_pending"
         android:textColor="#f90" />
 
     <LinearLayout
@@ -24,21 +24,17 @@
             android:id="@+id/taskTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Task Title"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/date"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="dates" />
+            android:layout_height="wrap_content"/>
 
         <TextView
             android:id="@+id/taskShortDescription"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/line1"
-            android:text="Task Short Description"
             android:textAppearance="?android:attr/textAppearanceSmall" />
     </LinearLayout>
 

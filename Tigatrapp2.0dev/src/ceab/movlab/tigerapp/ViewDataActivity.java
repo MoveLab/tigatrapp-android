@@ -534,8 +534,8 @@ public class ViewDataActivity extends MapActivity {
 					// TO CHECK USER ID HERE
 
 					MyOverlayItem overlayitem = new MyOverlayItem(point,
-							(thisType == Report.TYPE_ADULT ? "Adult Report"
-									: "Breeding Site Report")
+							(thisType == Report.TYPE_ADULT ? getResources().getString(R.string.view_report_title_adult)
+									: getResources().getString(R.string.view_report_title_site))
 									+ "\n"
 									+ Util.userDate(new Date(c
 											.getLong(reportTimeCol))),

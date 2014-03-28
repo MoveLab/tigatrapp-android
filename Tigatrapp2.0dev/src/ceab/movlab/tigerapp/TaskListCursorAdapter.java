@@ -95,12 +95,14 @@ public class TaskListCursorAdapter extends SimpleCursorAdapter {
 		}
 
 		if (done) {
-			taskCheck.setText("Complete");
+			taskCheck.setText(context.getResources().getString(
+					R.string.task_list_completed));
 			taskCheck.setTextColor(Color.WHITE);
 			taskCheck.clearAnimation();
 
 		} else {
-			taskCheck.setText("Pending");
+			taskCheck.setText(context.getResources().getString(
+					R.string.task_list_pending));
 			taskCheck.setTextColor(Color.YELLOW);
 			Animation blink = new AlphaAnimation(0.0f, 1.0f);
 			blink.setDuration(300);

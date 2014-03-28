@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.TextView;
+import ceab.movelab.tigerapp.R;
 import ceab.movlab.tigerapp.ContentProviderContractReports.Reports;
 
 public class ViewReportsNotesTab extends Activity {
@@ -17,7 +18,7 @@ public class ViewReportsNotesTab extends Activity {
 		Util.setDisplayLanguage(res);
 
 		TextView textview = new TextView(this);
-		textview.setText("No note attached.");
+		textview.setText(getResources().getString(R.string.no_note_attached));
 		setContentView(textview);
 
 		Intent incoming = getIntent();

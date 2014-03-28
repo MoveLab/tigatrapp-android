@@ -107,7 +107,6 @@ public class Switchboard extends Activity {
 
 				Util.overrideFonts(this, findViewById(android.R.id.content));
 
-				ImageView logo = (ImageView) findViewById(R.id.splashLogo);
 
 				reportButtonAdult = (ImageView) findViewById(R.id.reportButtonAdult);
 				reportButtonAdult
@@ -169,10 +168,7 @@ public class Switchboard extends Activity {
 
 				Animation animation = new AlphaAnimation(0.0f, 1.0f);
 				animation.setDuration(500);
-				Animation animationSlow = new AlphaAnimation(0.0f, 1.0f);
-				animationSlow.setDuration(2000);
 
-				logo.startAnimation(animationSlow);
 				reportButtonAdult.startAnimation(animation);
 				reportButtonSite.startAnimation(animation);
 				mapButton.startAnimation(animation);
@@ -247,7 +243,7 @@ public class Switchboard extends Activity {
 		case (R.id.tigatrappNews): {
 
 			Intent i = new Intent(Switchboard.this, RSSActivity.class);
-			i.putExtra(RSSActivity.RSSEXTRA_TITLE, "Latest from Tigatrapp!");
+			i.putExtra(RSSActivity.RSSEXTRA_TITLE, getResources().getString(R.string.rss_title_tigatrapp));
 			i.putExtra(RSSActivity.RSSEXTRA_URL,
 					"http://atrapaeltigre.com/web/feed/");
 			i.putExtra(RSSActivity.RSSEXTRA_DEFAULT_THUMB,
@@ -258,7 +254,7 @@ public class Switchboard extends Activity {
 
 		case (R.id.movelabNews): {
 			Intent i = new Intent(Switchboard.this, RSSActivity.class);
-			i.putExtra(RSSActivity.RSSEXTRA_TITLE, "Latest from Movelab!");
+			i.putExtra(RSSActivity.RSSEXTRA_TITLE, getResources().getString(R.string.rss_title_movelab));
 			i.putExtra(RSSActivity.RSSEXTRA_URL, "http://movelab.net/web/feed/");
 			i.putExtra(RSSActivity.RSSEXTRA_DEFAULT_THUMB,
 					R.drawable.movelab_icon);
@@ -282,7 +278,7 @@ public class Switchboard extends Activity {
 
 		case (R.id.about): {
 
-			Intent i = new Intent(Switchboard.this, Credits.class);
+			Intent i = new Intent(Switchboard.this, About.class);
 			startActivity(i);
 			return true;
 		}
@@ -310,7 +306,7 @@ public class Switchboard extends Activity {
 
 			return true;
 		}
-
+/*
 		case (R.id.taskA): {
 			Intent intent = new Intent(
 					TigerBroadcastReceiver.TIGER_TASK_MESSAGE);
@@ -381,7 +377,7 @@ public class Switchboard extends Activity {
 			context.sendBroadcast(intent);
 			return true;
 		}
-
+*/
 		}
 		return false;
 	}

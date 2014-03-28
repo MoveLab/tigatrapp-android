@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:contentDescription="Help icon"
+            android:contentDescription="@string/cd_help_icon"
             android:src="@drawable/ic_action_about" />
 
         <TextView
@@ -29,7 +29,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/helpIcon"
-            android:text="Text"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textSize="30sp" />
     </RelativeLayout>

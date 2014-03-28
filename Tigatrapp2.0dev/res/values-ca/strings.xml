@@ -17,7 +17,7 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
@@ -75,6 +75,9 @@
     <string name="location_label">Localització*</string>
     <string name="location_current_label">Posició actual</string>
     <string name="location_select_label">Senyala posició al mapa</string>
+    <string name="location_current_label_button">Actual</string>
+    <string name="location_select_label_button">Senyala</string>
+    <string name="location_menu_title">Utilitzar posició actual o Senyala posició al mapa?</string>
     <string name="photo_check_label">Imatges</string>
     <string name="note_check_label">Nota</string>
     <string name="update">Actualitza</string>
@@ -177,10 +180,10 @@ ni als aiguamolls o estanys i per tan les larves que hi puguem trobar allà no s
     <string name="photo_selector_title">Afegeix imatges</string>
     <string name="photo_selector_take_photo_button">Fes foto</string>
     <string name="photo_selector_attach_photo_button">Adjunta foto</string>
-    <string name="photo_selector_remove_attachment">Remove Attachment</string>
-    <string name="photo_selector_remove_this_photo">Remove this photo</string>
+    <string name="photo_selector_remove_attachment">Elimina adjunt</string>
+    <string name="photo_selector_remove_this_photo">Elimina aquesta</string>
     <string name="photo_selector_from_thisreport">d\'aquest informe</string>
-    <string name="photo_selector_remove_button_label">Remove</string>
+    <string name="photo_selector_remove_button_label">Elimina</string>
 
     <!-- RSS Feeds -->
     <string name="rss_internet_connection_warning">Sense connexió a internet.\n\nPer veure el contingut, connecta\'t i selecciona \'actualitza\' al menú</string>

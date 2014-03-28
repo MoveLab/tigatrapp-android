@@ -377,9 +377,8 @@ public class ReportTool extends Activity {
 
 				case (R.id.reportLocationRow): {
 					if (!reportLocationCheck.isChecked())
-						
-						
-					return;
+						buildLocationMenu();
+						return;
 				}
 
 				case (R.id.reportCurrentLocationRow): {
@@ -507,11 +506,17 @@ public class ReportTool extends Activity {
 									R.string.toast_report_before_submitting)
 									+ "\n\n"
 									+ (reportConfirmationCheck.isChecked() ? ""
-											: (getResources().getString(R.string.toast_complete_checklist) + "\n"))
+											: (getResources()
+													.getString(
+															R.string.toast_complete_checklist) + "\n"))
 									+ (reportLocationCheck.isChecked() ? ""
-											: (getResources().getString(R.string.toast_specify_location) + "\n"))
+											: (getResources()
+													.getString(
+															R.string.toast_specify_location) + "\n"))
 									+ ((type == Report.TYPE_BREEDING_SITE && !reportPhotoCheck
-											.isChecked()) ? getResources().getString(R.string.toast_attach_photo)
+											.isChecked()) ? getResources()
+											.getString(
+													R.string.toast_attach_photo)
 											: ""));
 				} else {
 					message = getResources().getString(R.string.report_sent);
@@ -1131,32 +1136,78 @@ public class ReportTool extends Activity {
 
 	}
 
-	
 	public void buildLocationMenu() {
 
 		final Dialog dialog = new Dialog(context);
 
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
-		dialog.setContentView(R.layout.custom_alert);
+		dialog.setContentView(R.layout.location_menu);
 
 		Util.overrideFonts(context, dialog.findViewById(android.R.id.content));
 
-		dialog.setCancelable(false);
+		dialog.setCancelable(true);
 
-		TextView alertText = (TextView) dialog.findViewById(R.id.alertText);
-		alertText.setText(message);
+		Button currB = (Button) dialog.findViewById(R.id.currentLocButton);
+		Button selectB = (Button) dialog.findViewById(R.id.selectLocButton);
 
-		Button positive = (Button) dialog.findViewById(R.id.alertOK);
-		Button negative = (Button) dialog.findViewById(R.id.alertCancel);
-		negative.setVisibility(View.GONE);
-
-		positive.setOnClickListener(new OnClickListener() {
+		currB.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 
-				dialog.cancel();
+				if (currentLocation == null) {
+					if (locationManager
+							.isProviderEnabled(LocationManager.GPS_PROVIDER)
+							|| locationManager
+									.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 
+						buildLocationAlert(getResources().getString(
+								R.string.nolocation_alert_report));
+					} else if (!gpsAvailable && !networkLocationAvailable) {
+						buildAlertMessageNoGpsNoNet(getResources().getString(
+								R.string.noGPSnoNetAlert));
+					} else {
+						buildLocationAlert(getResources().getString(
+								R.string.nolocnogps_alert));
+					}
+				} else {
+
+					locationRadioGroup.check(R.id.whereRadioButtonHere);
+					reportLocationCheck.setChecked(true);
+					final float clat = (float) currentLocation.getLatitude();
+					final float clon = (float) currentLocation.getLongitude();
+
+					thisReport.currentLocationLat = Float.valueOf(clat);
+					thisReport.currentLocationLon = Float.valueOf(clon);
+					thisReport.locationChoice = Report.LOCATION_CHOICE_CURRENT;
+
+					/*
+					 * Util.toast( context,
+					 * "FOR TESTING... Aitana: what values are displayed here?\n\nLat: "
+					 * + String.format("%.5g%n", thisReport.currentLocationLat)
+					 * + "\nLon: " + String.format("%.5g%n",
+					 * thisReport.currentLocationLon));
+					 */
+					Util.toast(
+							context,
+							"Added current location.\n\nLat: "
+									+ String.format("%.5g%n",
+											thisReport.currentLocationLat)
+									+ "\nLon: "
+									+ String.format("%.5g%n",
+											thisReport.currentLocationLon));
+				}
+
+				dialog.cancel();
+			}
+		});
+
+		selectB.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent i = new Intent(ReportTool.this, MapSelector.class);
+				startActivityForResult(i, REQUEST_CODE_MAPSELECTOR);
+				dialog.cancel();
 			}
 		});
 
@@ -1164,7 +1215,6 @@ public class ReportTool extends Activity {
 
 	}
 
-	
 	public void buildAlertMessageNoGpsNoNet(String message) {
 
 		final Dialog dialog = new Dialog(context);

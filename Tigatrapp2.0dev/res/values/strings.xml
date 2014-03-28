@@ -17,7 +17,7 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
@@ -83,6 +83,9 @@
     <string name="location_label">Location*</string>
     <string name="location_current_label">Current</string>
     <string name="location_select_label">Choose on map</string>
+    <string name="location_current_label_button">Current</string>
+    <string name="location_select_label_button">Select</string>
+    <string name="location_menu_title">Use current location or select location from map?</string>
     <string name="photo_check_label">Photos(s)</string>
     <string name="note_check_label">Note</string>
     <string name="update">Update</string>

@@ -6,28 +6,12 @@
         android:title="@string/menu_option_task_list">
     </item>
     <item
-        android:id="@+id/tigatrappProject"
-        android:title="@string/menu_option_tigatrapp_project">
-
-        <!-- "file" submenu -->
-        <menu>
-            <item
-                android:id="@+id/webmap"
-                android:title="@string/menu_option_web_map"/>
-            <item
-                android:id="@+id/mainSite"
-                android:title="@string/menu_option_main_website"/>
-            <item
-                android:id="@+id/tigatrappNews"
-                android:title="@string/menu_option_tigatrapp_news"/>
-            <item
-                android:id="@+id/movelabNews"
-                android:title="@string/menu_option_movelab_news"/>
-        </menu>
+        android:id="@+id/tigatrappNews"
+        android:title="@string/menu_option_tigatrapp_news">
     </item>
     <item
-        android:id="@+id/shareApp"
-        android:title="@string/menu_option_share">
+        android:id="@+id/settings"
+        android:title="@string/menu_option_settings">
     </item>
     <item
         android:id="@+id/help"
@@ -37,36 +21,8 @@
         android:id="@+id/about"
         android:title="@string/menu_option_about">
     </item>
-
-    <!--
     <item
-        android:id="@+id/testing"
-        android:title="Testing">
-        <menu>
-            <item
-                android:id="@+id/taskA"
-                android:title="Task Model A"/>
-            <item
-                android:id="@+id/taskB"
-                android:title="Task Model B"/>
-            <item
-                android:id="@+id/taskC"
-                android:title="Task Model C"/>
-            <item
-                android:id="@+id/taskLocTrig"
-                android:title="Location-Triggered Task"/>
-            <item
-                android:id="@+id/scheduleFixes"
-                android:title="Schedule Fixes"/>
-            <item
-                android:id="@+id/viewFixSchedule"
-                android:title="View Fix Schedule"/>
-            <item
-                android:id="@+id/fixNow"
-                android:title="Get Fix Now"/>
-            
-        </menu>
-    </item>
-    -->
-
+        android:id="@+id/shareApp"
+        android:title="@string/menu_option_share">
+    </item>
 </menu>

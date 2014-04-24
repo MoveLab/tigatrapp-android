@@ -222,23 +222,7 @@ public class Switchboard extends Activity {
 		super.onOptionsItemSelected(item);
 
 		switch (item.getItemId()) {
-		case (R.id.webmap): {
 
-			String url = "http://tce.ceab.csic.es/tigatrapp/TigatrappMap.html";
-			Intent i = new Intent(Intent.ACTION_VIEW);
-			i.setData(Uri.parse(url));
-			startActivity(i);
-			return true;
-		}
-
-		case (R.id.mainSite): {
-
-			String url = "http://atrapaeltigre.com";
-			Intent i = new Intent(Intent.ACTION_VIEW);
-			i.setData(Uri.parse(url));
-			startActivity(i);
-			return true;
-		}
 
 		case (R.id.tigatrappNews): {
 
@@ -252,15 +236,6 @@ public class Switchboard extends Activity {
 			return true;
 		}
 
-		case (R.id.movelabNews): {
-			Intent i = new Intent(Switchboard.this, RSSActivity.class);
-			i.putExtra(RSSActivity.RSSEXTRA_TITLE, getResources().getString(R.string.rss_title_movelab));
-			i.putExtra(RSSActivity.RSSEXTRA_URL, "http://movelab.net/web/feed/");
-			i.putExtra(RSSActivity.RSSEXTRA_DEFAULT_THUMB,
-					R.drawable.movelab_icon);
-			startActivity(i);
-			return true;
-		}
 
 		case (R.id.taskList): {
 

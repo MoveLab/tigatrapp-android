@@ -17,7 +17,7 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
@@ -174,14 +174,11 @@ English to be added
 
     <!-- Menu -->
     <string name="menu_option_task_list">Task List</string>
-    <string name="menu_option_tigatrapp_project">Tigatrapp Project</string>
-    <string name="menu_option_web_map">Web Map</string>
-    <string name="menu_option_main_website">Main Website</string>
-    <string name="menu_option_tigatrapp_news">Tigatrapp News</string>
-    <string name="menu_option_movelab_news">MoveLab News</string>
-    <string name="menu_option_share">Share App</string>
+    <string name="menu_option_tigatrapp_news">News</string>
+    <string name="menu_option_settings">Settings</string>
     <string name="menu_option_help">Help</string>
     <string name="menu_option_about">About</string>
+    <string name="menu_option_share">Share</string>
     <string name="menu_option_filter">Filter</string>
     <string name="menu_option_show_pending_tasks_only">Show pending tasks only</string>
     <string name="menu_option_show_all_tasks">Show all tasks</string>
@@ -195,6 +192,8 @@ English to be added
     <string name="menu_toggle_view">Satellite</string>
 
     <!-- Misc -->
+        <string name="refresh">Refresh</string>
+    
     <string name="edit">Edit</string>
     <string name="cd_help_icon">Help Icon</string>
     <string name="open">Open</string>

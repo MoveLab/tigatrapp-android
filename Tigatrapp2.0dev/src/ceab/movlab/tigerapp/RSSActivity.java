@@ -8,6 +8,7 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -147,7 +148,7 @@ public class RSSActivity extends Activity {
 				int eventType = xpp.getEventType();
 				RSSPost pdData = null;
 				SimpleDateFormat dateFormat = new SimpleDateFormat(
-						"EEE, DD MMM yyyy HH:mm:ss");
+						"EEE, DD MMM yyyy HH:mm:ss", Locale.US);
 				while (eventType != XmlPullParser.END_DOCUMENT) {
 					if (eventType == XmlPullParser.START_DOCUMENT) {
 
@@ -260,7 +261,7 @@ public class RSSActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
-		menu.add(0, REFRESH, Menu.NONE, "Refresh");
+		menu.add(0, REFRESH, Menu.NONE, R.string.refresh);
 		return true;
 	}
 

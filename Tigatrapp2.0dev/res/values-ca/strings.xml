@@ -17,7 +17,7 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
@@ -29,38 +29,38 @@
     <string-array name="gallery_array">
         <item>Femella de mosquit tigre. Només els mosquits que: 1) són petits, 
         negres i amb ratlles blanques, 2) tenen una ratlla blanca al cap i al tòrax i 3) tenen 
-        ratlles blanques a l\’abdomen i a 
+        ratlles blanques a l\'abdomen i a 
         les potes són mosquit tigre. Hi ha altres 
-        insectes semblants, cal evitar confondre\’ls!</item>
-        <item>Femella de mosquit tigre. Observa les ratlles a l\’abdomen. 
+        insectes semblants, cal evitar confondre\'ls!</item>
+        <item>Femella de mosquit tigre. Observa les ratlles a l\'abdomen. 
            Recorda que el mosquit tigre és molt petit, 
-           no fa més de 5 mm (amb potes incloses, aproximadament la meitat d\’una moneda d\’1 cèntim).</item>
+           no fa més de 5 mm (amb potes incloses, aproximadament la meitat d\'una moneda d\'1 cèntim).</item>
         <item>Femella de mosquit tigre preparada per picar. 
               Observa la ratlla blanca al cap i al tòrax i les ratlles a les potes.</item>
         <item>Femella de mosquit tigre picant. 
-        Observa la característica ratlla blanca la cap i al tòrax. </item>
+        Observa la característica ratlla blanca al cap i al tòrax. </item>
         <item>Femella de mosquit tigre picant. 
-        Observa la característica ratlla blanca la cap i al tòrax. </item>
+        Observa la característica ratlla blanca al cap i al tòrax. </item>
         <item>Dues femelles de mosquit tigre picant. Recorda que només piquen les femelles. 
         En el cas del mosquit tigre, acostumen a fer-ho durant el dia (i no quan és fosc) i normalment 
         piquen a les cames. </item>
-        <item>Femella de mosquit tigre picant. La sang que acumula a l\’abdomen 
-        servirà per generar una posta d\’ous. </item>
-        <item>Posta d’ous de mosquit tigre. Observa el color fosc i la forma allargada. 
+        <item>Femella de mosquit tigre picant. La sang que acumula a l\'abdomen 
+        servirà per generar una posta d\'ous. </item>
+        <item>Posta d\'ous de mosquit tigre. Observa el color fosc i la forma allargada. 
         Els ous són tan petits que són quasi invisibles a ull nu. 
         Recorda que el mosquit tigre posa els ous en recipients petits, en parets 
-        seques prop d\’aigua estancada i bruta. </item>
+        seques prop d\'aigua estancada i bruta. </item>
         <item>Larves (més allargades) i pupes (més arrodonides) de mosquit tigre. Observa que són aquàtiques. 
-        Les larves emergeixen dels ous quan aquests queden coberts d\’aigua i amb el temps fan la muda a pupes. </item>
+        Les larves emergeixen dels ous quan aquests queden coberts d\'aigua i amb el temps fan la muda a pupes. </item>
         <item>Larves (més allargades) i pupes (més arrodonides) de mosquit tigre. 
         Recorda que per evitar tenir mosquit tigre a casa, 
-        cal evitar tenir acumulacions d’aigua on les larves es puguin desenvolupar!</item>
+        cal evitar tenir acumulacions d\'aigua on les larves es puguin desenvolupar!</item>
         <item>Dues pupes de mosquit tigre. En aquesta fase es produeix la metamorfosi, 
         i el mosquit adult emergeix de la pupa cap al medi aeri. </item>
     </string-array>
     <!-- Toasts -->
     <string name="toast_report_before_submitting">Per poder enviar aquest lloc de cria, has de:</string>
-    <string name="toast_location_needed">"Please select 'Current' or 'Choose on map' below."</string>
+    <string name="toast_location_needed">"Please select \'Current\' or \'Choose on map\' below."</string>
     <string name="toast_complete_checklist">- Completar-ne la descripció</string>
     <string name="toast_specify_location">- Especificar-ne una posició</string>
     <string name="toast_attach_photo">- Adjuntar-ne una imatge</string>
@@ -89,68 +89,57 @@
     <string name="site_report_q2">Conté aigua?</string>
     <string name="site_report_q3">Conté larves de mosquit (no necessàriament de mosquit tigre)</string>
     <string name="adult_report_q3">Té ratlles blanques a l\'abdomen i a les potes?</string>
-    <string name="q3_headthorax_text">El mosquit tigre té una ratlla blanca al cap i al tòrax.Evita enviar dades de mosquits que no siguin tigre</string>
+    <string name="q3_headthorax_text">El mosquit tigre té una ratlla blanca al cap i al tòrax. Evita enviar dades de mosquits que no siguin tigre.</string>
     <string name="q2_abdomenlegs_text">El mosquit tigre té ratlles blanques a l\'abdomen i a les potes. Evita enviar dades de mosquits que no siguin tigre.</string>
     <string name="identifying_mosquitoes_title">Descripció del mosquit</string>
     <string name="confirmation_q1_adult_sizecolor">És petit i negre amb ratlles blanques?</string>
-    <string name="q1_sizecolor_text">El mosquit tigre és petit i negre amb ratlles blanques. Normalment és actiu només de dia i acostuma a picar a les cames. Evita enviar dades de mosquits que no siguin tigre</string>
+    <string name="q1_sizecolor_text">El mosquit tigre és petit i negre amb ratlles blanques. Normalment és actiu només de dia i acostuma a picar a les cames. Evita enviar dades de mosquits que no siguin tigre.</string>
     <string name="adult_report_help_html">
 <![CDATA[
-        
-<p>Si has atrapat un mosquit i creus que és un mosquit tigre, 
-respon el formulari i envia les dades.
-És necessari completar els camps marcats amb un *.</p>
-<p><strong>Descripció</strong>: clica i respon el formulari, que t’ajudarà a saber si el 
-teu mosquit és un mosquit tigre. Les teves respostes ens ajudaran a interpretar les dades.</p>
-<p><strong>Localització</strong>: escull posició actual si el mosquit l’has atrapat al lloc on es troba el telèfon, 
-o senyala la posició al mapa si l\’has trobat a un altre lloc.</p>
-<p><strong>Imatges</strong>: fes una foto del teu mosquit o adjunta una foto del teu mosquit que hagis fet amb un 
-altre dispositiu.</p>
-<p><strong>Notes</strong>: si cal, complementa el teu informe amb una nota complementària. 
-Pots descriure millor el mosquit, el lloc on l’has trobat, etc.</p>
-<p>Un cop enviat, podràs consultar i editar el formulari al teu mapa. 
-Les dades que enviïs seran publicades al mapa web del mosquit tigre a 
-la web www.atrapaeltigre.com.</p> 
+
+<p>Has atrapat un mosquit i creus que és un mosquit tigre, respon l\'informe i envia les dades. És necessari completar els camps amb asterisc (*).
+</p>
+<p>
+<ul>
+<li><strong>Descripció</strong>: respon el formulari, t\'ajudarà a saber si has atrapat un mosquit tigre i en facilitarà la interpretació de les dades.</li> 
+<li><strong>Localització</strong>: escull posició actual si el mosquit l\'has atrapat al lloc on es troba el telèfon, o senyala la posició al mapa si l\'has trobat a un altre lloc. Activa el GPS si vols que la posició de la teva troballa sigui més precisa.</li>  
+<li><strong>Imatges</strong>: fes una foto del teu mosquit o adjunta una foto del teu mosquit que hagis fet amb un altre dispositiu.</li>
+<li><strong>Notes</strong>: si cal, complementa el teu informe descrivint millor la teva troballa.</li>
+</ul>
+</p> 
+<p>Un cop enviat, podràs consultar i editar l\'informe al teu mapa. Les dades que enviïs seran publicades al mapa del mosquit tigre a la web <a href="www.atrapaeltigre.com">www.atrapaeltigre.com</a>.</p>        
    ]]>
     </string>
     <string name="site_report_help_html">
 <![CDATA[
-        
-<p>Si creus que has trobat llocs de cria potencial 
-de mosquit tigre en un espai públic, respon el formulari i 
-envia les dades. És necessari completar els camps marcats amb un *.</p> 
-<p><strong>Descripció</strong>: clica i respon el formulari, que t’ajudarà a saber si el teu mosquit és un mosquit tigre. Les teves respostes ens ajudaran a interpretar les dades. 
-</p><p><strong>Localització</strong>: escull posició actual si el mosquit l’has atrapat al lloc on es troba el telèfon, o senyala la posició al mapa si l’has trobat a un altre lloc.  
-</p><p><strong>Imatges</strong>: fes una foto del teu mosquit o adjunta una foto del teu mosquit que hagis fet amb un altre dispositiu
-</p><p><strong>Notes</strong>: si cal, complementa el teu informe amb una nota complementària. Pots descriure millor el mosquit, el lloc on l’has trobat, etc.
+<p>Has trobat un lloc públic on creus que el mosquit tigre pot criar, respon l\'informe i envia les dades. És necessari completar els camps amb asterisc (*).
 </p>
-<p>Un cop enviat, podràs consultar i editar el formulari al teu mapa. Les dades que enviïs seran publicades al mapa web del mosquit tigre a la web www.atrapaeltigre.com. 
+<ul> 
+<li><strong>Descripció</strong>: respon el formulari per facilitar la interpretació de les dades.</li> 
+<li><strong>Localització</strong>: escull posició actual si el lloc de cria es troba al lloc on tens el telèfon, o senyala la posició al mapa si l\'has trobat a un altre lloc. Activa el GPS si vols que la posició de la teva troballa sigui més precisa.</li>  
+<li><strong>Imatges</strong>: fes una foto del lloc de cria o adjunta una foto del teu lloc de cria feta amb un altre dispositiu.</li> 
+<li><strong>Notes</strong>: si cal, complementa el teu informe descrivint millor la teva troballa.</li>
+</ul> 
 </p>
+<p>Un cop enviat, podràs consultar i editar l\'informe al teu mapa. Les dades que enviïs seran publicades al mapa del mosquit tigre a la web www.atrapaeltigre.com.</p>        
        ]]>
     </string>
     <string name="site_report_item_help_1">
-<![CDATA[      
-    <p>Les larves i pupes de mosquit tigre viuen i 
-    es desenvolupen en dipòsits o recipients petits, 
-    amb aigua estancada o bruta (sense peixos), com 
-    per exemple: embornals, fonts, dipòsits, pous, galledes, etc.</p> 
-<p>El mosquit tigre no cria a la platja, ni als rius, ni als llacs, 
-ni als aiguamolls o estanys i per tan les larves que hi puguem trobar allà no són de mosquit tigre.</p>
+<![CDATA[  
+<p>Les larves i pupes de mosquit tigre viuen en dipòsits o recipients petits, amb aigua estancada o bruta (sense peixos), com per exemple: embornals, fonts, dipòsits, pous, galledes, etc.</p> 
+<p>El mosquit tigre no cria a la platja, ni als rius, ni als llacs, ni als aiguamolls o estanys. Les larves que hi puguis trobar no són de mosquit tigre.</p>    
        ]]>
     </string>
     <string name="site_report_item_help_2">
 <![CDATA[      
-    <p>Les larves i les pupes creixen en aigua estancada 
-    i una mica bruta, ja que s’alimenten de matèria orgànica. 
-    Sense aigua, les larves no poden créixer ni desenvolupar-se en mosquits adult.
-       </p>]]>
+<p>Les larves i pupes necessiten aigua estancada i amb matèria orgànica (aliment) per viure. Si evites tenir petites acumulacions d\'aigua a casa teva estaràs combatent el mosquit tigre.</p> 
+]]>
     </string>
     <string name="site_report_item_help_3">
 <![CDATA[      
-<p>Les larves de mosquit són molt fàcils de reconèixer. Són allargades, més petites que una moneda d’1 cèntim i naden fent piruetes per l’aigua. Es belluguen molt, ja que necessiten pujar a la superfície de l’aigua per respirar. 
-</p>
-<p>Si trobeu larves en un recipient (no cal que siguin de mosquit tigre), has trobat un lloc de cria de mosquit. És important intentar evitar que s’hi acumuli l’aigua perquè les larves no es desenvolupin en mosquits adults. 
-</p>
+<p>Les larves de mosquit són molt fàcils de reconèixer. Són allargades, més petites que una moneda d\'1 cèntim i naden fent piruetes. Es belluguen molt i pugen a la superfície de l\'aigua per respirar.</p>
+
+<p>Si trobes larves en un recipient (no cal que siguin de mosquit tigre), has trobat un lloc de cria de mosquit. Si evites tenir petites acumulacions d\'aigua a casa teva estaràs combatent el mosquit tigre.</p> 
        ]]>
     </string>
     <string name="embornals">Embornals</string>
@@ -187,7 +176,7 @@ ni als aiguamolls o estanys i per tan les larves que hi puguem trobar allà no s
 
     <!-- RSS Feeds -->
     <string name="rss_internet_connection_warning">Sense connexió a internet.\n\nPer veure el contingut, connecta\'t i selecciona \'actualitza\' al menú</string>
-    <string name="rss_title_tigatrapp">Últimes novetats d\'Atrapa el tigre</string>
+    <string name="rss_title_tigatrapp">Notícies d\'Atrapaeltigre.com</string>
     <string name="rss_title_movelab"> Notícies del ICREA-Laboratori d\'Ecologia del Moviment (CEAB-CSIC)</string>
 
     <!-- Task List -->
@@ -198,15 +187,12 @@ ni als aiguamolls o estanys i per tan les larves que hi puguem trobar allà no s
     <string name="delete">Elimina</string>
 
     <!-- Menu -->
-    <string name="menu_option_task_list">Tasques</string>
-    <string name="menu_option_tigatrapp_project">Atrapa el tigre</string>
-    <string name="menu_option_web_map">Mapa web</string>
-    <string name="menu_option_main_website">Web del projecte</string>
-    <string name="menu_option_tigatrapp_news">Novetats projecte</string>
-    <string name="menu_option_movelab_news">Notícies Movelab</string>
-    <string name="menu_option_share">Comparteix App</string>
+    <string name="menu_option_task_list">Missions</string>
+    <string name="menu_option_tigatrapp_news">Notícies</string>
+    <string name="menu_option_settings">Ajustos</string>
     <string name="menu_option_help">Ajuda</string>
     <string name="menu_option_about">Sobre</string>
+    <string name="menu_option_share">Comparteix</string>
     <string name="menu_option_filter">Filtra</string>
     <string name="menu_option_show_pending_tasks_only">Només tasques pendents</string>
     <string name="menu_option_show_all_tasks">Totes</string>
@@ -220,13 +206,17 @@ ni als aiguamolls o estanys i per tan les larves que hi puguem trobar allà no s
     <string name="menu_toggle_view">Imatge</string>
 
     <!-- Misc -->
+    
+    
+    <string name="refresh">Actualitza</string>
+    
     <string name="edit">Edita</string>
     <string name="cd_help_icon">Ajuda</string>
     <string name="open">Obre</string>
     <string name="spinner_prompt">Selecciona resposta</string>
     <string name="spinner_nothing_selected">Res seleccionat</string>
     <string name="help">Ajuda</string>
-    <string name="font_credit">Ús de la tipografia Anna en parts de l’App Tigatrapp (www.annavives.com)</string>
+    <string name="font_credit">Ús de la tipografia Anna en parts de l\'App Tigatrapp (www.annavives.com)</string>
     <string name="photo_credit_gallery">Fotografia de R. Eritja (www.eritja.com)</string>
     <string name="photo_credit">Fotografies de R. Eritja (www.eritja.com)</string>
     <string name="nolocnogps_alert">No s\'ha pogut detectar la teva posició perquè ni el GPS ni la ubicació per xarxa mòbil i/o Wi-Fi estan activats. Activa\'ls o senyala la posició al mapa</string>
@@ -264,7 +254,7 @@ ni als aiguamolls o estanys i per tan les larves que hi puguem trobar allà no s
     <string name="ok">OK</string>
     <string name="project_email">info@atrapaeltigre.com</string>
     <string name="project_website">atrapaeltigre.com/</string>
-    <string name="report_sent">Si cliques OK, aquestes dades s\’enviaran al centre de recerca i es faran públiques al mapa del mosquit</string>
+    <string name="report_sent">Si cliques OK, aquestes dades s\'enviaran al centre de recerca i es faran públiques al mapa del mosquit</string>
     <string name="report_sent_confirmation">Gràcies per participar</string>
     <string name="reportGallery_CD">Botó per accedir a la galeria d\'imatges del mosquit tigre</string>
     <string name="saved_image_prefix">elMeuMapa</string>
@@ -278,10 +268,17 @@ ni als aiguamolls o estanys i per tan les larves que hi puguem trobar allà no s
     <string name="view_gpl_english">Veure GPL versió oficial</string>
     <string name="yes">Sí</string>
     <string name="your_report_id_is">"El codi de la teva Tigre troballa és: "</string>
-    <string name="photo_credits">Les fotografies de l\’App Tigatrapp han estat cedides per R. Eritja (www.eritja.com).</string>
+    <string name="photo_credits">Les fotografies de l\'App Tigatrapp han estat cedides per R. Eritja (www.eritja.com).</string>
     <string name="credits">
 <![CDATA[
-<p>Atrapa el tigre! és un projecte de ciència ciutadana desenvolupat per l\’ICREA-Laboratori d\’Ecologia del Moviment del Centre d\’Estudis Avançats de Blanes (Consell Superior d\’Investigacions Científiques), per responsables de comunicació científica del Consell Superior d\’Investigacions Científiques i per la Universitat de Múrcia. Està cofinançat per la Fundació Espanyola per la Ciència i la Tecnologia (FECYT). El projecte és possible gràcies al suport de vàries institucions col\•laboradores.</p> 
+<p>Atrapaeltigre.com és un projecte de ciència ciutadana coordinat per l\'ICREA-Laboratori d\'Ecologia del Moviment del Centre d\'Estudis Avançats de Blanes del Consell Superior d\'Investigacions Científiques (CEAB-CSIC) (www.ceab.csic.es).</p> 
+
+<p>Hi participen també responsables de comunicació científica del Consell Superior d\'Investigacions Científiques (www.csic.es) i científics de la Universitat de Múrcia (www.um.es). El projecte està cofinançat per la Fundació Espanyola per la Ciència i la Tecnologia (FECYT).</p> 
+
+<p>El projecte compta a més amb el suport de vàries institucions públiques i privades.</p>
+
+<p>Les fotografies de l\'App Tigatrapp han estat cedides per R. Eritja (www.eritja.com).</p>
+ 
     ]]>
     </string>
     <string name="copyright">
@@ -296,23 +293,23 @@ ni als aiguamolls o estanys i per tan les larves que hi puguem trobar allà no s
     <p><b>FORMULARI ESTÀNDARD DE CONSENTIMENT</b></p>
 <p>(Convocatòria FECYT 2012; Projecte FCT-12-3730) Projecte de divulgació i participació científica dels joves en el seguiment i control del mosquit tigre: “Caçant el Tigre!” (Atrapa el Tigre!)</p>
 
-<p>Entenc que la participació al projecte Atrapa el Tigre! a través de l’aplicació Tigatrapp ha d’estar sempre supervisada per un adult.</p> 
+<p>Entenc que la participació al projecte Atrapa el Tigre! a través de l\'aplicació Tigatrapp ha d\'estar sempre supervisada per un adult.</p> 
 
-<p>Entenc que Tigatrapp em permet recollir i enviar dades sobre el meu moviment i la localització geogràfica d’albiraments de mosquit tigre que jo mateix documento i comparteixo. Entenc que Tigatrapp em permet també enviar i compatir, de manera voluntària, fotografies de mosquit tigre, missatges pels científics que descriguin els meus albiraments i respostes a qüestionaris.</p> 
+<p>Entenc que Tigatrapp em permet recollir i enviar dades sobre el meu moviment i la localització geogràfica d\'albiraments de mosquit tigre que jo mateix documento i comparteixo. Entenc que Tigatrapp em permet també enviar i compatir, de manera voluntària, fotografies de mosquit tigre, missatges pels científics que descriguin els meus albiraments i respostes a qüestionaris.</p> 
 
-<p>Entenc que les dades i imatges recollides i compartides a través de Tigatrapp no són de caràcter personal, ja que no es recull informació referent a persones físiques identificades o identificables, segons el que estableix la Llei orgànica 15/1999. Entenc que està sota la meva responsabilitat la correcta utilització de Tigatrapp i que no haig ni de recollir, ni d’enviar, a través de Tigatrapp, imatges o dades personals, ni fer un ús indegut, o fora de la legalitat, o diferent al qual Tigatrapp està destinat.</p>
+<p>Entenc que les dades i imatges recollides i compartides a través de Tigatrapp no són de caràcter personal, ja que no es recull informació referent a persones físiques identificades o identificables, segons el que estableix la Llei orgànica 15/1999. Entenc que està sota la meva responsabilitat la correcta utilització de Tigatrapp i que no haig ni de recollir, ni d\'enviar, a través de Tigatrapp, imatges o dades personals, ni fer un ús indegut, o fora de la legalitat, o diferent al qual Tigatrapp està destinat.</p>
 
-<p>Entenc que la utilització del telèfon mòbil mentre condueixo està prohibida i que pot augmentar el risc d’accidents, morts o danys. Entenc que no haig d’utilitzar l’aplicació o el meu telèfon mòbil en cap cas mentre condueixi, i estic d’acord en no fer-ho. Entenc també que la seguretat és la prioritat més important en tots els aspectes d’aquest projecte i estic d’acord en utilitzar el meu telèfon mòbil en tot moment d’una manera segura.</p>
+<p>Entenc que la utilització del telèfon mòbil mentre condueixo està prohibida i que pot augmentar el risc d\'accidents, morts o danys. Entenc que no haig d\'utilitzar l\'aplicació o el meu telèfon mòbil en cap cas mentre condueixi, i estic d\'acord en no fer-ho. Entenc també que la seguretat és la prioritat més important en tots els aspectes d\'aquest projecte i estic d\'acord en utilitzar el meu telèfon mòbil en tot moment d\'una manera segura.</p>
 
-<p>Entenc que la informació que recull i envia Tigatrapp pot ser publicada al portal web www.atrapaeltigre.com i en d’altres portals i suports. Entenc que la informació subministrada pot ser utilitzada per a fins científics, ambientals i de sanitat pública. En cap cas aquesta informació serà utilitzada per a fins comercials.</p>
+<p>Entenc que la informació que recull i envia Tigatrapp pot ser publicada al portal web www.atrapaeltigre.com i en d\'altres portals i suports. Entenc que la informació subministrada pot ser utilitzada per a fins científics, ambientals i de sanitat pública. En cap cas aquesta informació serà utilitzada per a fins comercials.</p>
 
-<p>Entenc que l’objectiu d’aquest projecte d’investigació i ciència ciutadana és estudiar la presència i dispersió del mosquit tigre a Catalunya, així com aspectes relacionats amb la participació ciutadana i les ciències ciutadanes. Entenc que no rebré cap tipus de compensació econòmica per la meva participació i que no podré cancel&#183;ar ni rectificar la informació ja compartida, ja que aquesta en cap cas es pot associar a la meva persona física.  Entenc que es prendran les mesures raonables per tal de protegir la meva privacitat en tota la informació que enviï pel projecte d’investigació.</p> 
+<p>Entenc que l\'objectiu d\'aquest projecte d\'investigació i ciència ciutadana és estudiar la presència i dispersió del mosquit tigre a Catalunya, així com aspectes relacionats amb la participació ciutadana i les ciències ciutadanes. Entenc que no rebré cap tipus de compensació econòmica per la meva participació i que no podré cancel&#183;ar ni rectificar la informació ja compartida, ja que aquesta en cap cas es pot associar a la meva persona física.  Entenc que es prendran les mesures raonables per tal de protegir la meva privacitat en tota la informació que enviï pel projecte d\'investigació.</p> 
 
-<p>Amb el consentiment d’aquest formulari declaro que sóc major d’edat  i que he llegit i entenc que:</p>
+<p>Amb el consentiment d\'aquest formulari declaro que sóc major d\'edat  i que he llegit i entenc que:</p>
 
-<p>A. La meva participació és voluntària, i puc deixar de participar en qualsevol moment. La meva negativa a participar no donarà lloc a cap tipus de penalització. La meva participació està sotmesa a les condicions d’aquest formulari de consentiment.</p>
-<p>B. La prestació del meu consentiment no implica la renúncia a qualsevol dret o eximeix al Consell Superior d’Investigacions Científiques, els seus agents o a l’investigador responsable d’aquest projecte, de qualsevol responsabilitat per culpa.</p>
-<p>Presto el meu consentiment a ser un participant d’aquest projecte d’investigació sota les condicions establertes en aquest formulari.</p>
+<p>A. La meva participació és voluntària, i puc deixar de participar en qualsevol moment. La meva negativa a participar no donarà lloc a cap tipus de penalització. La meva participació està sotmesa a les condicions d\'aquest formulari de consentiment.</p>
+<p>B. La prestació del meu consentiment no implica la renúncia a qualsevol dret o eximeix al Consell Superior d\'Investigacions Científiques, els seus agents o a l\'investigador responsable d\'aquest projecte, de qualsevol responsabilitat per culpa.</p>
+<p>Presto el meu consentiment a ser un participant d\'aquest projecte d\'investigació sota les condicions establertes en aquest formulari.</p>
     
    ]]>
     </string>
@@ -561,76 +558,40 @@ Això és programari lliure, i podeu redistribuir-lo sota certes condicions; per
     <string name="help_offline_html">
 <![CDATA[
 
-<h2>Per què serveix l’App Tigatrapp</h2>
-<p>Tigatrapp et permet participar en la recerca sobre el mosquit tigre a Espanya. 
-Informa’t també sobre les últimes novetats relacionades amb el mosquit tigre i 
-aprèn mesures quotidianes per disminuir-ne la seva presència a casa teva.</p>
+
+
+<h1>PARTICIPA, ÉS MOLT FÀCIL</h1>
+Participa en l\'estudi i seguiment del mosquit tigre a Espanya, enviant dades de llocs de cria i troballes d\'adult de mosquit tigre. Informa\'t de les últimes novetats i aprèn a combatre el mosquit tigre a casa teva. 
+
+<h2>Familiaritza\'t amb el mosquit tigre</h2>
+Aprèn a reconèixer el mosquit tigre (assegura\'t que no el confons amb altres mosquits). Familiaritza\'t amb el seu cicle de vida i amb els llocs on cria. L\'App i la web del projecte Atrapaeltigre.com contenen tota la informació necessària perquè les teves dades siguin de qualitat.
+
+<h2>Participa compartint dades</h2>
+Utilitza els botons “PARTICIPA” per enviar informes de nous llocs de cria en espais públics i de troballes de mosquit tigre. Trobaràs informació detallada clicant l\'icona (i). 
+
+<h2>Mantén les teves dades actualitzades</h2>
+Utilitza el botó “EL MEU MAPA” per veure i controlar les teves dades, editar-les si les vols actualitzar o corregir i eliminar-les si creus que són errònies. 
+
+<h2>Participa en missions</h2>
+Participa en missions especials si t\'apareix la icona del mosquit tigre al teu telèfon. En qualsevol moment podràs realitzar la missió, deixar-la per més tard, o eliminar-la si no vols participar-hi. Consulta les missions pendents al menú principal. 
+
+<h2>Explora altres opcions</h2>
+Explora el botó de configuració a cada pantalla per accedir a opcions extres. Canvia el mapa base, comparteix l\'App o consultar les últimes notícies del projecte Atrapa el tigre.
  
-<h2>Com participar</h2>
-<p>L’App consta de 4 botons bàsics:
-</p><p><strong>Botó llocs de cria</strong>: busca llocs on potencialment pot estar 
-criant el mosquit tigre en espais públics del teu poble o ciutat, marca’ls al mapa i comparteix-los.</p>
-<p>
-<strong>Botó adults</strong>: atrapa mosquits tigre, marca’ls al mapa i comparteix-los.</p><p>
-Mapa: tingues les teves dades controlades, 
-edita-les si les vols actualitzar o corregir i elimina-les si són errònies.</p><p>Galeria d’imatges: aprèn moltes coses més sobre el mosquit tigre</li>
-</p>
 
-<p><strong>Tasques especials</strong>: de manera puntual, 
-podràs participar en tasques especials. 
-Quan tinguis una nova tasca pendent, t’apareixerà la icona del 
-mosquit tigre al teu telèfon. En qualsevol moment podràs executar 
-la tasca, deixar-la per més tard, o eliminar-la si no vols participar-hi.</p>
+<h1>DESTÍ DE LES TEVES DADES</h1>
+Les teves dades s\'enviaran al centre de recerca que coordina Atrapa el tigre, el Centre d\'Estudis Avançats de Blanes del Consell Superior d\'Investigacions Científiques (CEAB-CSIC). Aquestes dades seran utilitzades per a fins no lucratius relacionats amb la recerca, l\'educació ambiental, el control d\'espècies invasores, etc.
+ 
+Tigatrapp recull també dades de la posició aproximada del teu telèfon mòbil, dins d\'un radi de XXXkm . Aquestes dades ens permeten enviar-te missions especials i informar-te de les últimes novetats sobre el mosquit tigre en funció del territori on vius. En cap cas Tigatrapp recull dades personals.
 
-<p>Explora el botó de configuració a cada pantalla per accedir a opcions extres. 
-Podràs canviar el mapa base, compartir l’App o consultar les últimes notícies del projecte Atrapa el tigre.</p>
+Part de les teves dades es publiquen de manera automàtica al mapa web del mosquit tigre a la web del projecte Atrapaeltigre.com. En qualsevol moment pots editar i actualitzar aquestes dades, des del botó “EL MEU MAPA”. 
+ 
+<h1>CONSULTA SI TENS MÉS DUBTES</h1> 
+Si tens dubtes, consulta la <a href="http://www.atrapaeltigre.com">pàgina web</a> o escriu a <a href="mailto:info@atrapaeltigre.com">info@atrapaeltigre.com</a>.
 
 
-<h2>Què necessites saber per participar</h2>
-<p>Familiaritza/’t amb el mosquit tigre, sobretot: 
-com és i com reconèixer-lo (no el confonguis!) i on viu i on cria. 
-Tota la informació necessària la trobaràs a l\’App i a la <a href="www.atrapaeltigre.com">web del projecte</a>.</p> 
 
-<h2>Ajuda</h2> 
-<p>L’icona (i) t’ajudarà a entendre millor cada tasca. 
-Si tens més dubtes, pots consultar la <a href="www.atrapaeltigre.com">pàgina web</a> 
- o escriure a <a mailto="info@atrapaeltigre.com">info@atrapaeltigre.com</a>. </p>
 
-<h2>On s’envien i on es publiquen les teves dades</h2>
-<p>Les dades s’envien al Centre d’Estudis Avançats de Blanes del Consell Superior d’Investigacions 
-Científiques (CEAB-CSIC). El CEAB-CSIC és un centre de recerca públic que coordina el projecte. 
-Les dades que enviïs podran ser utilitzades per qualsevol fi relacionat amb la recerca, 
-l’educació ambiental, el control d’espècies invasores, etc.</p>  
-
-<p>L’App recull també dades relacionades amb la posició aproximada del teu telèfon mòbil. 
-Per protegir la teva privacitat, la posició que es recull és aproximada dins d’un radi de XXXkm . 
-Si no vols compartir la teva posició aproximada, pots apagar el GPS.</p> 
-
-<p>En cap cas l’ App Tigatrapp recull dades personals.</p> 
-
-<h2>Per què és important estudiar el mosquit tigre</h2> 
-
-<p>El mosquit tigre (Aedes albopictus) és una espècie invasora que prové del sud-est asiàtic. 
-És vector potencial de malalties víriques tropicals i és molt molest per les seves picades. 
-A casa nostra habita i cria en zones urbanes. Es va veure per primera vegada a Catalunya el 2004. 
-Més recentment ha arribat a València, a les Illes Balears i a Múrcia.</p>
-
-<p>El mosquit tigre és petit i es troba sobretot en zones urbanes i molt sovint als jardins, 
-terrasses i balcons de les cases. Per això, conèixer-ne la distribució i controlar-ne la dispersió és difícil 
-i costós. La vostra col•laboració pot ser de gran ajuda.</p> 
-
-<p>Encara que vola poc (aproximadament un radi de 400m), es creu que es dispersa 
-fàcilment amb el nostre ajut: tan els ous, com les larves o els adults poden ser 
-transportats fàcilment en vehicles de transport de mercaderies o en vehicles particulars.</p> 
-
-<p><a href="www.atrapaeltigre.com">Atrapa el Tigre!</a> és un projecte de ciència ciutadana 
-que té per objectiu que la ciutadania participi en l’estudi de la presència i la dispersió del 
-mosquit tigre i millorar-ne així el seu control. Les ciències ciutadanes pretenen explorar 
-l’aproximació de la ciència a la societat fent-la més participativa i involucrant els 
-ciutadans en un procés científic real.</p>
-
-<p>Participant en aquest projecte ajudaràs a avançar la ciència i a millorar el
- seguiment i el control del mosquit tigre.</p> 
    ]]>
     </string>
 

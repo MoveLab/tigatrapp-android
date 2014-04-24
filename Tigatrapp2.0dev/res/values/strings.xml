@@ -17,7 +17,7 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
@@ -165,12 +165,13 @@ English to be added
     <string name="rss_title_tigatrapp">Latest from TigaTrapp!</string>
     <string name="rss_title_movelab"> Latest from MoveLab!</string>
 
-    <!-- Task List -->
+    <!-- Tasks -->
     <string name="task_list_title">Task List</string>
     <string name="task_list_pending">Pending</string>
     <string name="task_list_completed">Complete</string>
     <string name="delete_task_from_list_question">Delete task from list?</string>
     <string name="delete">Delete</string>
+    <string name="new_mission">New Tigatrapp mission!</string>
 
     <!-- Menu -->
     <string name="menu_option_task_list">Task List</string>

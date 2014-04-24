@@ -24,8 +24,6 @@ package ceab.movlab.tigerapp;
 import java.util.Locale;
 import java.util.UUID;
 
-import org.json.JSONException;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -45,7 +43,6 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 import ceab.movelab.tigerapp.R;
-import ceab.movlab.tigerapp.ContentProviderContractTasks.Tasks;
 
 /**
  * Main menu screen for app.
@@ -60,6 +57,7 @@ public class Switchboard extends Activity {
 	private ImageView reportButtonSite;
 	private ImageView galleryButton;
 	private ImageView mapButton;
+	private ImageView websiteButton;
 	final Context context = this;
 	AnimationDrawable ad;
 	Resources res;
@@ -165,6 +163,18 @@ public class Switchboard extends Activity {
 
 					}
 				});
+				websiteButton = (ImageView) findViewById(R.id.mainSiteButton);
+				websiteButton.setOnClickListener(new View.OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						String url = "http://atrapaeltigre.com";
+						Intent i = new Intent(Intent.ACTION_VIEW);
+						i.setData(Uri.parse(url));
+						startActivity(i);
+
+					}
+				});
 
 				Animation animation = new AlphaAnimation(0.0f, 1.0f);
 				animation.setDuration(500);
@@ -173,12 +183,14 @@ public class Switchboard extends Activity {
 				reportButtonSite.startAnimation(animation);
 				mapButton.startAnimation(animation);
 				galleryButton.startAnimation(animation);
+				websiteButton.startAnimation(animation);
 
 				Intent i = new Intent(
 						TigerBroadcastReceiver.START_SAMPLING_MESSAGE);
 				sendBroadcast(i);
 
 			}
+
 		}
 	}
 
@@ -212,7 +224,7 @@ public class Switchboard extends Activity {
 		super.onCreateOptionsMenu(menu);
 
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.switchboard_menu, menu);
+		inflater.inflate(R.menu.switchboard, menu);
 
 		return true;
 
@@ -281,43 +293,6 @@ public class Switchboard extends Activity {
 
 			return true;
 		}
-		/*
-		 * case (R.id.taskA): { Intent intent = new Intent(
-		 * TigerBroadcastReceiver.TIGER_TASK_MESSAGE); try {
-		 * TaskModel.storeTask(context, TaskModel.makeDemoTaskA() .toString());
-		 * intent.putExtra(Tasks.KEY_TASK_HEADING, TaskModel
-		 * .makeDemoTaskA().getString(Tasks.KEY_TASK_HEADING)); } catch
-		 * (JSONException e) { // TODO Auto-generated catch block
-		 * e.printStackTrace(); } context.sendBroadcast(intent); return true; }
-		 * case (R.id.taskB): { Intent intent = new Intent(
-		 * TigerBroadcastReceiver.TIGER_TASK_MESSAGE); try {
-		 * TaskModel.storeTask(context, TaskModel.makeDemoTaskB() .toString());
-		 * intent.putExtra(Tasks.KEY_TASK_HEADING, TaskModel
-		 * .makeDemoTaskB().getString(Tasks.KEY_TASK_HEADING)); } catch
-		 * (JSONException e) { // TODO Auto-generated catch block
-		 * e.printStackTrace(); } context.sendBroadcast(intent); return true; }
-		 * case (R.id.taskC): { Intent intent = new Intent(
-		 * TigerBroadcastReceiver.TIGER_TASK_MESSAGE); try {
-		 * TaskModel.storeTask(context, TaskModel.makeDemoTaskC() .toString());
-		 * intent.putExtra(Tasks.KEY_TASK_HEADING, TaskModel
-		 * .makeDemoTaskC().getString(Tasks.KEY_TASK_HEADING)); } catch
-		 * (JSONException e) { // TODO Auto-generated catch block
-		 * e.printStackTrace(); } context.sendBroadcast(intent); return true; }
-		 * 
-		 * case (R.id.taskLocTrig): { TaskModel.storeTask(context,
-		 * TaskModel.makeDemoTaskBWithTriggers() .toString()); return true; }
-		 * 
-		 * case (R.id.scheduleFixes): { Intent intent = new Intent(
-		 * TigerBroadcastReceiver.START_SAMPLING_MESSAGE);
-		 * context.sendBroadcast(intent); return true; }
-		 * 
-		 * case (R.id.viewFixSchedule): { Util.showHelp(context,
-		 * PropertyHolder.getCurrentFixTimes());
-		 * 
-		 * return true; } case (R.id.fixNow): { Intent intent = new Intent(
-		 * TigerBroadcastReceiver.START_FIXGET_MESSAGE);
-		 * context.sendBroadcast(intent); return true; }
-		 */
 		}
 		return false;
 	}

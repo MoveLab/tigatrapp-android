@@ -40,21 +40,21 @@
                 android:id="@+id/reportButtonSite"
                 android:layout_width="210dip"
                 android:layout_height="210dip"
-                android:layout_margin="10dip"
+                android:layout_margin="20dp"
                 android:background="@drawable/selectorcolors_light"
                 android:gravity="center_vertical|center_horizontal"
-                android:scaleType="center"
-                android:src="@drawable/switchboard_icon_breeding_site_large" />
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_switchboard_icon_breeding_site_large" />
 
             <ImageView
                 android:id="@+id/reportButtonAdult"
                 android:layout_width="210dip"
                 android:layout_height="210dip"
-                android:layout_margin="10dip"
+                android:layout_margin="20dp"
                 android:background="@drawable/selectorcolors_light"
                 android:gravity="center_vertical|center_horizontal"
-                android:scaleType="center"
-                android:src="@drawable/switchboard_icon_adult_large" />
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_switchboard_icon_adult_large" />
         </LinearLayout>
 
         <LinearLayout
@@ -66,24 +66,35 @@
                 android:id="@+id/dataMapButton"
                 android:layout_width="210dip"
                 android:layout_height="210dip"
-                android:layout_margin="10dip"
+                android:layout_margin="20dp"
                 android:background="@drawable/selectorcolors_light"
                 android:contentDescription="@string/dataMap_CD"
                 android:gravity="center_vertical|center_horizontal"
-                android:scaleType="center"
-                android:src="@drawable/switchboard_icon_map_large" />
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_switchboard_icon_map_large" />
 
             <ImageView
                 android:id="@+id/reportMainPic"
                 android:layout_width="210dip"
                 android:layout_height="210dip"
-                android:layout_margin="10dip"
+                android:layout_margin="20dp"
                 android:background="@drawable/selectorcolors_light"
                 android:contentDescription="@string/reportGallery_CD"
                 android:gravity="center_vertical|center_horizontal"
-                android:scaleType="center"
-                android:src="@drawable/switchboard_icon_gallery_large" />
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_switchboard_icon_gallery_large" />
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/mainSiteButton"
+            android:layout_width="191dip"
+            android:layout_height="41dip"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="20dp"
+            android:background="@drawable/selectorcolors_clear"
+            android:gravity="center_vertical|center_horizontal"
+            android:padding="10dip"
+            android:src="@drawable/atrapaeltigre_site_icon" />
     </LinearLayout>
 
 </RelativeLayout>

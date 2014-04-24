@@ -44,8 +44,7 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/selectorcolors_light"
                 android:gravity="center_vertical|center_horizontal"
-                android:padding="10dip"
-                android:src="@drawable/switchboard_icon_breeding_site" />
+                android:src="@drawable/ic_switchboard_icon_breeding_site" />
 
             <ImageView
                 android:id="@+id/reportButtonAdult"
@@ -54,8 +53,7 @@
                 android:layout_margin="10dp"
                 android:background="@drawable/selectorcolors_light"
                 android:gravity="center_vertical|center_horizontal"
-                android:padding="10dip"
-                android:src="@drawable/switchboard_icon_adult" />
+                android:src="@drawable/ic_switchboard_icon_adult" />
         </LinearLayout>
 
         <LinearLayout
@@ -71,8 +69,7 @@
                 android:background="@drawable/selectorcolors_light"
                 android:contentDescription="@string/dataMap_CD"
                 android:gravity="center_vertical|center_horizontal"
-                android:padding="10dip"
-                android:src="@drawable/switchboard_icon_map" />
+                android:src="@drawable/ic_switchboard_icon_map" />
 
             <ImageView
                 android:id="@+id/reportMainPic"
@@ -82,9 +79,19 @@
                 android:background="@drawable/selectorcolors_light"
                 android:contentDescription="@string/reportGallery_CD"
                 android:gravity="center_vertical|center_horizontal"
-                android:padding="10dip"
-                android:src="@drawable/switchboard_icon_gallery" />
+                android:src="@drawable/ic_switchboard_icon_gallery" />
         </LinearLayout>
+
+        <ImageView
+            android:id="@+id/mainSiteButton"
+            android:layout_width="191dip"
+            android:layout_height="41dip"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="10dp"
+            android:background="@drawable/selectorcolors_clear"
+            android:gravity="center_vertical|center_horizontal"
+            android:padding="10dip"
+            android:src="@drawable/atrapaeltigre_site_icon" />
     </LinearLayout>
 
 </RelativeLayout>

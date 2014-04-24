@@ -119,7 +119,7 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 				&& PropertyHolder.getLanguage() != null) {
 
 			int sdk = Build.VERSION.SDK_INT;
-			
+
 			String action = intent.getAction();
 
 			AlarmManager startFixGetAlarm = (AlarmManager) context
@@ -186,7 +186,7 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 					thisTriggerTime = mRandom.nextInt(24 * 60) * 60 * 1000;
 					startFixGetAlarms[i].set(alarmType, thisTriggerTime,
 							pendingFixGetMessage);
-					
+
 					// FOR TESTING
 					currentSamplingTimes[i] = Util.iso8601(System
 							.currentTimeMillis() + thisTriggerTime);
@@ -250,8 +250,8 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 
 		NotificationManager notificationManager = (NotificationManager) context
 				.getSystemService(Context.NOTIFICATION_SERVICE);
-		Notification notification = new Notification(R.drawable.ic_stat_name,
-				"New Tiger Task!", System.currentTimeMillis());
+		Notification notification = new Notification(R.drawable.ic_stat_mission,
+				res.getString(R.string.new_mission), System.currentTimeMillis());
 		// notification.flags |= Notification.FLAG_NO_CLEAR;
 		// notification.flags |= Notification.FLAG_ONGOING_EVENT;
 

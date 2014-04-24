@@ -17,7 +17,7 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
@@ -179,12 +179,13 @@
     <string name="rss_title_tigatrapp">Notícies d\'Atrapaeltigre.com</string>
     <string name="rss_title_movelab"> Notícies del ICREA-Laboratori d\'Ecologia del Moviment (CEAB-CSIC)</string>
 
-    <!-- Task List -->
-    <string name="task_list_title">Tasques</string>
+    <!-- Tasks -->
+    <string name="task_list_title">Missions</string>
     <string name="task_list_pending">Pendents</string>
     <string name="task_list_completed">Completades</string>
-    <string name="delete_task_from_list_question">Elimina tasca de la llista</string>
+    <string name="delete_task_from_list_question">Elimina missió de la llista</string>
     <string name="delete">Elimina</string>
+    <string name="new_mission">Nova missió Tigatrapp!</string>
 
     <!-- Menu -->
     <string name="menu_option_task_list">Missions</string>
@@ -194,7 +195,7 @@
     <string name="menu_option_about">Sobre</string>
     <string name="menu_option_share">Comparteix</string>
     <string name="menu_option_filter">Filtra</string>
-    <string name="menu_option_show_pending_tasks_only">Només tasques pendents</string>
+    <string name="menu_option_show_pending_tasks_only">Només missions pendents</string>
     <string name="menu_option_show_all_tasks">Totes</string>
     <string name="menu_option_map_type_label">Tipus de mapa</string>
     <string name="menu_option_map_type_satellite">Imatge</string>
@@ -209,7 +210,7 @@
     <!-- Misc -->
 
     <string name="refresh">Actualitza</string>
-    <string name="report_deleted">Informe esborat</string>
+    <string name="report_deleted">Informe esborrat</string>
     <string name="edit">Edita</string>
     <string name="cd_help_icon">Ajuda</string>
     <string name="open">Obre</string>
@@ -303,7 +304,7 @@ Informa\'t de les últimes novetats i aprèn a combatre el mosquit tigre a casa 
 
 <li>I moltes coses més: des de missions especials fins a notícies actualitzades del projecte Atrapa el tigre i del mosquit tigre.</li>
 </ol>
-<p>Explora Tigatrapp i si tens dubtes consulta la pàgina d\'ajuda o la web www.atrapaeltogre.com 
+<p>Explora Tigatrapp i si tens dubtes consulta la pàgina d\'ajuda o la web <a href="www.atrapaeltogre.com">www.atrapaeltogre.com</a> 
 </p>
 <br>
     <p><b>FORMULARI ESTÀNDARD DE CONSENTIMENT</b></p>

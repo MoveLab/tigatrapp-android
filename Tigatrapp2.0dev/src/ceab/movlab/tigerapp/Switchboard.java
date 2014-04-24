@@ -62,6 +62,7 @@ public class Switchboard extends Activity {
 	private ImageView mapButton;
 	final Context context = this;
 	AnimationDrawable ad;
+	Resources res;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -76,7 +77,7 @@ public class Switchboard extends Activity {
 			startActivity(i2l);
 			finish();
 		} else {
-			Resources res = getResources();
+			res = getResources();
 			Util.setDisplayLanguage(res);
 
 			if (!PropertyHolder.hasConsented()) {
@@ -106,7 +107,6 @@ public class Switchboard extends Activity {
 				setContentView(R.layout.switchboard);
 
 				Util.overrideFonts(this, findViewById(android.R.id.content));
-
 
 				reportButtonAdult = (ImageView) findViewById(R.id.reportButtonAdult);
 				reportButtonAdult
@@ -184,8 +184,9 @@ public class Switchboard extends Activity {
 
 	@Override
 	protected void onResume() {
-
 		super.onResume();
+		res = getResources();
+		Util.setDisplayLanguage(res);
 	}
 
 	@Override
@@ -223,11 +224,11 @@ public class Switchboard extends Activity {
 
 		switch (item.getItemId()) {
 
-
 		case (R.id.tigatrappNews): {
 
 			Intent i = new Intent(Switchboard.this, RSSActivity.class);
-			i.putExtra(RSSActivity.RSSEXTRA_TITLE, getResources().getString(R.string.rss_title_tigatrapp));
+			i.putExtra(RSSActivity.RSSEXTRA_TITLE,
+					getResources().getString(R.string.rss_title_tigatrapp));
 			i.putExtra(RSSActivity.RSSEXTRA_URL,
 					"http://atrapaeltigre.com/web/feed/");
 			i.putExtra(RSSActivity.RSSEXTRA_DEFAULT_THUMB,
@@ -235,7 +236,6 @@ public class Switchboard extends Activity {
 			startActivity(i);
 			return true;
 		}
-
 
 		case (R.id.taskList): {
 
@@ -281,78 +281,43 @@ public class Switchboard extends Activity {
 
 			return true;
 		}
-/*
-		case (R.id.taskA): {
-			Intent intent = new Intent(
-					TigerBroadcastReceiver.TIGER_TASK_MESSAGE);
-			try {
-				TaskModel.storeTask(context, TaskModel.makeDemoTaskA()
-						.toString());
-				intent.putExtra(Tasks.KEY_TASK_HEADING, TaskModel
-						.makeDemoTaskA().getString(Tasks.KEY_TASK_HEADING));
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			context.sendBroadcast(intent);
-			return true;
-		}
-		case (R.id.taskB): {
-			Intent intent = new Intent(
-					TigerBroadcastReceiver.TIGER_TASK_MESSAGE);
-			try {
-				TaskModel.storeTask(context, TaskModel.makeDemoTaskB()
-						.toString());
-				intent.putExtra(Tasks.KEY_TASK_HEADING, TaskModel
-						.makeDemoTaskB().getString(Tasks.KEY_TASK_HEADING));
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			context.sendBroadcast(intent);
-			return true;
-		}
-		case (R.id.taskC): {
-			Intent intent = new Intent(
-					TigerBroadcastReceiver.TIGER_TASK_MESSAGE);
-			try {
-				TaskModel.storeTask(context, TaskModel.makeDemoTaskC()
-						.toString());
-				intent.putExtra(Tasks.KEY_TASK_HEADING, TaskModel
-						.makeDemoTaskC().getString(Tasks.KEY_TASK_HEADING));
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			context.sendBroadcast(intent);
-			return true;
-		}
-
-		case (R.id.taskLocTrig): {
-			TaskModel.storeTask(context, TaskModel.makeDemoTaskBWithTriggers()
-					.toString());
-			return true;
-		}
-
-		case (R.id.scheduleFixes): {
-			Intent intent = new Intent(
-					TigerBroadcastReceiver.START_SAMPLING_MESSAGE);
-			context.sendBroadcast(intent);
-			return true;
-		}
-
-		case (R.id.viewFixSchedule): {
-			Util.showHelp(context, PropertyHolder.getCurrentFixTimes());
-
-			return true;
-		}
-		case (R.id.fixNow): {
-			Intent intent = new Intent(
-					TigerBroadcastReceiver.START_FIXGET_MESSAGE);
-			context.sendBroadcast(intent);
-			return true;
-		}
-*/
+		/*
+		 * case (R.id.taskA): { Intent intent = new Intent(
+		 * TigerBroadcastReceiver.TIGER_TASK_MESSAGE); try {
+		 * TaskModel.storeTask(context, TaskModel.makeDemoTaskA() .toString());
+		 * intent.putExtra(Tasks.KEY_TASK_HEADING, TaskModel
+		 * .makeDemoTaskA().getString(Tasks.KEY_TASK_HEADING)); } catch
+		 * (JSONException e) { // TODO Auto-generated catch block
+		 * e.printStackTrace(); } context.sendBroadcast(intent); return true; }
+		 * case (R.id.taskB): { Intent intent = new Intent(
+		 * TigerBroadcastReceiver.TIGER_TASK_MESSAGE); try {
+		 * TaskModel.storeTask(context, TaskModel.makeDemoTaskB() .toString());
+		 * intent.putExtra(Tasks.KEY_TASK_HEADING, TaskModel
+		 * .makeDemoTaskB().getString(Tasks.KEY_TASK_HEADING)); } catch
+		 * (JSONException e) { // TODO Auto-generated catch block
+		 * e.printStackTrace(); } context.sendBroadcast(intent); return true; }
+		 * case (R.id.taskC): { Intent intent = new Intent(
+		 * TigerBroadcastReceiver.TIGER_TASK_MESSAGE); try {
+		 * TaskModel.storeTask(context, TaskModel.makeDemoTaskC() .toString());
+		 * intent.putExtra(Tasks.KEY_TASK_HEADING, TaskModel
+		 * .makeDemoTaskC().getString(Tasks.KEY_TASK_HEADING)); } catch
+		 * (JSONException e) { // TODO Auto-generated catch block
+		 * e.printStackTrace(); } context.sendBroadcast(intent); return true; }
+		 * 
+		 * case (R.id.taskLocTrig): { TaskModel.storeTask(context,
+		 * TaskModel.makeDemoTaskBWithTriggers() .toString()); return true; }
+		 * 
+		 * case (R.id.scheduleFixes): { Intent intent = new Intent(
+		 * TigerBroadcastReceiver.START_SAMPLING_MESSAGE);
+		 * context.sendBroadcast(intent); return true; }
+		 * 
+		 * case (R.id.viewFixSchedule): { Util.showHelp(context,
+		 * PropertyHolder.getCurrentFixTimes());
+		 * 
+		 * return true; } case (R.id.fixNow): { Intent intent = new Intent(
+		 * TigerBroadcastReceiver.START_FIXGET_MESSAGE);
+		 * context.sendBroadcast(intent); return true; }
+		 */
 		}
 		return false;
 	}

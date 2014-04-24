@@ -39,27 +39,27 @@ import ceab.movelab.tigerapp.R;
  * 
  */
 public class CreditsDetail extends Activity {
+	Resources res;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		Context context = this;
-		
+
 		if (!PropertyHolder.isInit())
-			PropertyHolder.init(context);		
+			PropertyHolder.init(context);
 		if (PropertyHolder.getLanguage() == null) {
 			Intent i2sb = new Intent(CreditsDetail.this, Switchboard.class);
 			startActivity(i2sb);
 			finish();
 		} else {
-			Resources res = getResources();
+			res = getResources();
 			Util.setDisplayLanguage(res);
 		}
 
-		
 		setContentView(R.layout.credits_detail);
-		
+
 		Util.overrideFonts(this, findViewById(android.R.id.content));
 
 		TextView t = (TextView) findViewById(R.id.aboutText);
@@ -110,6 +110,13 @@ public class CreditsDetail extends Activity {
 		}
 		}
 		return false;
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		res = getResources();
+		Util.setDisplayLanguage(res);
 	}
 
 }

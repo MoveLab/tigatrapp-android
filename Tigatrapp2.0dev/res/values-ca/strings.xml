@@ -17,7 +17,7 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
@@ -204,12 +204,12 @@
     <string name="menu_map_save">Guarda</string>
     <string name="menu_map_share">Comparteix</string>
     <string name="menu_toggle_view">Imatge</string>
+    <string name="menu_option_refresh">Actualitza</string>
 
     <!-- Misc -->
-    
-    
+
     <string name="refresh">Actualitza</string>
-    
+    <string name="report_deleted">Informe esborat</string>
     <string name="edit">Edita</string>
     <string name="cd_help_icon">Ajuda</string>
     <string name="open">Obre</string>
@@ -288,8 +288,24 @@
     </string>
     <string name="consent_html">
 <![CDATA[
-<p><b>Introduction to the app</b></p>
-<p> Here we will put some short introductory text (more nicely formatted than this) about the project and the purpose of the app. Then the consent form follows:</p>
+<p>
+Participa en l\'estudi i seguiment del mosquit tigre a Espanya amb l\'App Tigatrapp, 
+enviant dades de llocs de cria i troballes d\'adult de mosquit tigre. 
+Informa\'t de les últimes novetats i aprèn a combatre el mosquit tigre a casa teva. 
+</p>
+<ol>
+<li>Familiaritza\'t amb el mosquit tigre i amb els seus llocs de cria. Trobaràs tot el necessari a l\'App i a la web del projecte.</li>
+
+<li>Participa compartint dades. Envia informes de nous llocs de cria en espais públics i de troballes de mosquit tigre. Formaràs part del primer mapa de mosquit tigre d\'Espanya.</li> 
+
+<li>Mantén les teves dades actualitzades amb l\'opció d\'edició del teu mapa.</li>
+
+
+<li>I moltes coses més: des de missions especials fins a notícies actualitzades del projecte Atrapa el tigre i del mosquit tigre.</li>
+</ol>
+<p>Explora Tigatrapp i si tens dubtes consulta la pàgina d\'ajuda o la web www.atrapaeltogre.com 
+</p>
+<br>
     <p><b>FORMULARI ESTÀNDARD DE CONSENTIMENT</b></p>
 <p>(Convocatòria FECYT 2012; Projecte FCT-12-3730) Projecte de divulgació i participació científica dels joves en el seguiment i control del mosquit tigre: “Caçant el Tigre!” (Atrapa el Tigre!)</p>
 

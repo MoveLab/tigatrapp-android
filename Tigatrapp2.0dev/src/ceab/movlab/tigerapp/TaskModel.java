@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.text.Html;
 import android.util.Log;
 import ceab.movelab.tigerapp.R;
 import ceab.movlab.tigerapp.ContentProviderContractTasks.Tasks;
@@ -312,10 +313,9 @@ public class TaskModel {
 					KEY_TASK_TITLE,
 					context.getResources().getString(
 							R.string.report_checklist_title_site));
-			taskJson.put(
-					KEY_TASK_HELP,
-					context.getResources().getString(
-							R.string.site_report_help_html));
+			taskJson.put(KEY_TASK_HELP, Html.fromHtml(context.getResources()
+					.getString(R.string.site_report_help_html), null,
+					new TigaTagHandler()));
 			taskJson.put(KEY_TASK_PRESET_CONFIGURATION, PRECONFIRUATION_SITES);
 
 			item1.put(TaskItemModel.KEY_ITEM_ID, "Item1");
@@ -394,14 +394,14 @@ public class TaskModel {
 			task.put(Tasks.KEY_DATE, -1);
 			task.put(Tasks.KEY_EXPIRATION_DATE, -1);
 
-			taskJson.put(KEY_TASK_TITLE, 
+			taskJson.put(
+					KEY_TASK_TITLE,
 					context.getResources().getString(
 							R.string.report_checklist_title_adult));
 			taskJson.put(KEY_TASK_PRESET_CONFIGURATION, PRECONFIRUATION_ADULTS);
-			taskJson.put(
-					KEY_TASK_HELP,
-					context.getResources().getString(
-							R.string.adult_report_help_html));
+			taskJson.put(KEY_TASK_HELP, Html.fromHtml(context.getResources()
+					.getString(R.string.adult_report_help_html), null,
+					new TigaTagHandler()));
 
 			item1.put(TaskItemModel.KEY_ITEM_ID, "Item1");
 			item1.put(TaskItemModel.KEY_ITEM_TEXT, context.getResources()

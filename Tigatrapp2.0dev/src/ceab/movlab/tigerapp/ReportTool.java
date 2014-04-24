@@ -140,6 +140,8 @@ public class ReportTool extends Activity {
 	public static final String EXTRA_REPORT_ID = "reportId";
 	public static final String EXTRA_REPORT_VERSION = "reportVersions";
 
+	Resources res;
+
 	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
@@ -151,7 +153,7 @@ public class ReportTool extends Activity {
 			startActivity(i2sb);
 			finish();
 		} else {
-			Resources res = getResources();
+			res = getResources();
 			Util.setDisplayLanguage(res);
 		}
 
@@ -378,7 +380,7 @@ public class ReportTool extends Activity {
 				case (R.id.reportLocationRow): {
 					if (!reportLocationCheck.isChecked())
 						buildLocationMenu();
-						return;
+					return;
 				}
 
 				case (R.id.reportCurrentLocationRow): {
@@ -679,6 +681,10 @@ public class ReportTool extends Activity {
 		}
 
 		super.onResume();
+
+		res = getResources();
+		Util.setDisplayLanguage(res);
+
 	}
 
 	@Override

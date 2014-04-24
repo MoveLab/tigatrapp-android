@@ -17,7 +17,7 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
@@ -190,10 +190,11 @@ English to be added
     <string name="menu_map_save">Save</string>
     <string name="menu_map_share">Share</string>
     <string name="menu_toggle_view">Satellite</string>
+    <string name="menu_option_refresh">Refresh</string>
 
     <!-- Misc -->
-        <string name="refresh">Refresh</string>
-    
+    <string name="refresh">Refresh</string>
+    <string name="report_deleted">Report deleted</string>
     <string name="edit">Edit</string>
     <string name="cd_help_icon">Help Icon</string>
     <string name="open">Open</string>

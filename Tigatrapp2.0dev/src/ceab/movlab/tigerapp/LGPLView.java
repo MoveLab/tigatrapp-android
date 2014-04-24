@@ -60,28 +60,29 @@ import ceab.movelab.tigerapp.R;
  * 
  */
 public class LGPLView extends Activity {
+	Resources res;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		Context context = this;
-		
+
 		if (!PropertyHolder.isInit())
-			PropertyHolder.init(context);		
+			PropertyHolder.init(context);
 		if (PropertyHolder.getLanguage() == null) {
 			Intent i2sb = new Intent(LGPLView.this, Switchboard.class);
 			startActivity(i2sb);
 			finish();
 		} else {
-			Resources res = getResources();
+			res = getResources();
 			Util.setDisplayLanguage(res);
 		}
 
-		
 		setContentView(R.layout.lgpl_view);
-		
+
 		Util.overrideFonts(this, findViewById(android.R.id.content));
-		
+
 		TextView t = (TextView) findViewById(R.id.lgplView);
 		t.setText(readTxt());
 		t.setTextColor(getResources().getColor(R.color.light_yellow));
@@ -111,6 +112,13 @@ public class LGPLView extends Activity {
 			}
 		}
 		return byteArrayOutputStream.toString();
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		res = getResources();
+		Util.setDisplayLanguage(res);
 	}
 
 }

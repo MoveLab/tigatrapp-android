@@ -44,6 +44,7 @@ import ceab.movelab.tigerapp.R;
 public class Consent extends Activity {
 
 	Context context;
+	Resources res;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -58,14 +59,14 @@ public class Consent extends Activity {
 			startActivity(i2sb);
 			finish();
 		} else {
-			Resources res = getResources();
+			res = getResources();
 			Util.setDisplayLanguage(res);
 		}
 
 		setContentView(R.layout.consent);
 
 		TextView consent = (TextView) findViewById(R.id.consenttext);
-		consent.setText(Html.fromHtml(getString(R.string.consent_html)));
+		consent.setText(Html.fromHtml(getString(R.string.consent_html), null, new TigaTagHandler()));
 		consent.setTextColor(Color.WHITE);
 		consent.setTextSize(getResources()
 				.getDimension(R.dimen.textsize_normal));
@@ -101,4 +102,12 @@ public class Consent extends Activity {
 
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		res = getResources();
+		Util.setDisplayLanguage(res);
+	}
+
+	
 }

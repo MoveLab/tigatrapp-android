@@ -70,6 +70,8 @@ public class SimpleFileDialog
 	private List<String> m_subdirs = null;
 	private SimpleFileDialogListener m_SimpleFileDialogListener = null;
 	private ArrayAdapter<String> m_listAdapter = null;
+	
+	Resources res;
 
 	//////////////////////////////////////////////////////
 	// Callback interface for selected directory
@@ -90,7 +92,7 @@ public class SimpleFileDialog
 		m_sdcardDirectory = Environment.getExternalStorageDirectory().getAbsolutePath();
 		m_SimpleFileDialogListener = SimpleFileDialogListener;
 
-		Resources res = context.getResources();
+		res = context.getResources();
 		Util.setDisplayLanguage(res);
 
 		

@@ -16,6 +16,7 @@ import ceab.movelab.tigerapp.R.array;
 public class PhotoGallery extends Activity {
 	private Gallery galleryView;
 	private TextView captionView;
+	Resources res;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -32,18 +33,19 @@ public class PhotoGallery extends Activity {
 			startActivity(i2sb);
 			finish();
 		} else {
-			Resources res = getResources();
+			res = getResources();
 			Util.setDisplayLanguage(res);
 		}
 
 		setContentView(R.layout.tiger_photos);
-		
-		final String[] captions = getResources().getStringArray(R.array.gallery_array);
+
+		final String[] captions = getResources().getStringArray(
+				R.array.gallery_array);
 
 		galleryView = (Gallery) findViewById(R.id.galleryid);
 		captionView = (TextView) findViewById(R.id.captionid);
 		captionView.setText(captions[0]);
-		ImageAdapter adapter = new ImageAdapter(this,captions);
+		ImageAdapter adapter = new ImageAdapter(this, captions);
 		galleryView.setAdapter(adapter);
 		galleryView.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -62,6 +64,13 @@ public class PhotoGallery extends Activity {
 			}
 
 		});
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		res = getResources();
+		Util.setDisplayLanguage(res);
 	}
 
 }

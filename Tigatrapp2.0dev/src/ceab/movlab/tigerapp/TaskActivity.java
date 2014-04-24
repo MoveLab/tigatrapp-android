@@ -40,6 +40,7 @@ public class TaskActivity extends Activity {
 	Button buttonRight;
 	public JSONObject responses;
 	String currentResponses;
+	Resources res;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -52,12 +53,11 @@ public class TaskActivity extends Activity {
 			startActivity(i2sb);
 			finish();
 		} else {
-			Resources res = getResources();
+			res = getResources();
 			Util.setDisplayLanguage(res);
 		}
 
-		
-		Resources res = getResources();
+		res = getResources();
 
 		setContentView(R.layout.task);
 		View header = getLayoutInflater().inflate(R.layout.task_head, null);
@@ -83,10 +83,9 @@ public class TaskActivity extends Activity {
 		final Bundle b = getIntent().getExtras();
 
 		String taskJson = b.getString(Tasks.KEY_TASK_JSON);
-		
+
 		if (b.containsKey(Tasks.KEY_RESPONSES_JSON)) {
 			currentResponses = b.getString(Tasks.KEY_RESPONSES_JSON);
-		
 
 		}
 		final JSONObject thisTask;
@@ -132,7 +131,6 @@ public class TaskActivity extends Activity {
 						if (cr.has(thisTaskItem.getItemId())) {
 							String thisItemResponse = cr.getString(thisTaskItem
 									.getItemId());
-					
 
 							thisTaskItem.setItemResponse(thisItemResponse);
 						}
@@ -154,7 +152,7 @@ public class TaskActivity extends Activity {
 
 					buttonLeft.setVisibility(View.GONE);
 					buttonMiddle.setVisibility(View.GONE);
-					buttonRight.setVisibility(View.VISIBLE);					
+					buttonRight.setVisibility(View.VISIBLE);
 					buttonRight.setText(getResources().getString(R.string.ok));
 					buttonRight.setOnClickListener(new OnClickListener() {
 						@Override
@@ -337,6 +335,13 @@ public class TaskActivity extends Activity {
 
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		res = getResources();
+		Util.setDisplayLanguage(res);
+	}
+
 	public OnClickListener makeOnClickListener(int action,
 			Bundle taskInfoBundle, String url) {
 		final int thisAction = action;
@@ -372,13 +377,13 @@ public class TaskActivity extends Activity {
 
 					if (thisUrl != null) {
 						Intent i = new Intent(Intent.ACTION_VIEW);
-						i.setData(Uri
-								.parse(thisUrl));
+						i.setData(Uri.parse(thisUrl));
 						startActivity(i);
 					}
-					
+
 					// take 1 fix for this task
-					Intent taskFixIntent = new Intent(TigerBroadcastReceiver.DO_TASK_FIX_MESSAGE);
+					Intent taskFixIntent = new Intent(
+							TigerBroadcastReceiver.DO_TASK_FIX_MESSAGE);
 					sendBroadcast(taskFixIntent);
 					finish();
 				}

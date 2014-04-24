@@ -42,30 +42,32 @@ import ceab.movelab.tigerapp.R;
  */
 public class GPLCat extends Activity {
 
+	Resources res;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		Context context = this;
-		
+
 		if (!PropertyHolder.isInit())
-			PropertyHolder.init(context);		
+			PropertyHolder.init(context);
 		if (PropertyHolder.getLanguage() == null) {
 			Intent i2sb = new Intent(GPLCat.this, Switchboard.class);
 			startActivity(i2sb);
 			finish();
 		} else {
-			Resources res = getResources();
+			res = getResources();
 			Util.setDisplayLanguage(res);
 		}
 
-		
 		setContentView(R.layout.gpl_cat);
-		
+
 		Util.overrideFonts(this, findViewById(android.R.id.content));
 
 		TextView t = (TextView) findViewById(R.id.gplText);
-		t.setText(Html.fromHtml(getString(R.string.gpl_catalan_unofficial_translanslation)));
+		t.setText(Html
+				.fromHtml(getString(R.string.gpl_catalan_unofficial_translanslation)));
 		t.setMovementMethod(LinkMovementMethod.getInstance());
 		t.setTextColor(getResources().getColor(R.color.light_yellow));
 		t.setTextSize(15);
@@ -83,6 +85,13 @@ public class GPLCat extends Activity {
 	}
 
 	static final private int GPL = Menu.FIRST;
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		res = getResources();
+		Util.setDisplayLanguage(res);
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

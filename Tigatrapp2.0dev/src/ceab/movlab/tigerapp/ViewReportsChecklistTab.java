@@ -19,12 +19,14 @@ import ceab.movlab.tigerapp.ContentProviderContractReports.Reports;
 
 public class ViewReportsChecklistTab extends Activity {
 
+	Resources res;
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		Context context = this;
 
-		Resources res = getResources();
+		res = getResources();
 		Util.setDisplayLanguage(res);
 
 		ArrayList<TaskItemModel> taskData = new ArrayList<TaskItemModel>();

@@ -50,6 +50,8 @@ public class AttachedPhotos extends Activity {
 	JSONArray jsonPhotos;
 	String jsonPhotosString;
 
+	Resources res;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -61,7 +63,7 @@ public class AttachedPhotos extends Activity {
 			startActivity(i2sb);
 			finish();
 		} else {
-			Resources res = getResources();
+			res = getResources();
 			Util.setDisplayLanguage(res);
 		}
 
@@ -142,11 +144,20 @@ public class AttachedPhotos extends Activity {
 						final int pos = position;
 						final AlertDialog.Builder dialog = new AlertDialog.Builder(
 								context);
-						dialog.setTitle(getResources().getString(R.string.photo_selector_remove_attachment));
-						dialog.setMessage(getResources().getString(R.string.photo_selector_remove_this_photo) + item
-								+ " " + getResources().getString(R.string.photo_selector_from_thisreport));
+						dialog.setTitle(getResources().getString(
+								R.string.photo_selector_remove_attachment));
+						dialog.setMessage(getResources().getString(
+								R.string.photo_selector_remove_this_photo)
+								+ item
+								+ " "
+								+ getResources()
+										.getString(
+												R.string.photo_selector_from_thisreport));
 						dialog.setCancelable(true);
-						dialog.setPositiveButton(getResources().getString(R.string.photo_selector_remove_button_label),
+						dialog.setPositiveButton(
+								getResources()
+										.getString(
+												R.string.photo_selector_remove_button_label),
 								new DialogInterface.OnClickListener() {
 									@Override
 									public void onClick(DialogInterface d,
@@ -167,7 +178,8 @@ public class AttachedPhotos extends Activity {
 
 								});
 
-						dialog.setNegativeButton(getResources().getString(R.string.cancel),
+						dialog.setNegativeButton(
+								getResources().getString(R.string.cancel),
 								new DialogInterface.OnClickListener() {
 									@Override
 									public void onClick(DialogInterface d,
@@ -277,6 +289,13 @@ public class AttachedPhotos extends Activity {
 			};
 		});
 
+	}
+
+	@Override
+	protected void onResume() {
+		super.onResume();
+		res = getResources();
+		Util.setDisplayLanguage(res);
 	}
 
 	@Override

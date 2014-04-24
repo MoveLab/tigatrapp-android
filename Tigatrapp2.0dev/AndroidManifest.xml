@@ -100,10 +100,6 @@
                 android:value=".ReportTool" />
         </activity>
         <activity
-            android:name="ceab.movlab.tigerapp.Credits"
-            android:allowTaskReparenting="true" >
-        </activity>
-        <activity
             android:name="ceab.movlab.tigerapp.About"
             android:allowTaskReparenting="true" >
         </activity>

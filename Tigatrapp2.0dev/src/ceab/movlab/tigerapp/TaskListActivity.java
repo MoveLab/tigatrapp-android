@@ -63,6 +63,8 @@ public class TaskListActivity extends FragmentActivity implements
 	private static final String queryPending = Tasks.KEY_ACTIVE + " = "
 			+ "1 AND " + Tasks.KEY_DONE + " = 0";
 
+	Resources res;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -77,7 +79,7 @@ public class TaskListActivity extends FragmentActivity implements
 			startActivity(i2sb);
 			finish();
 		} else {
-			Resources res = getResources();
+			res = getResources();
 			Util.setDisplayLanguage(res);
 		}
 
@@ -156,7 +158,8 @@ public class TaskListActivity extends FragmentActivity implements
 
 							}
 						});
-				dialog.setNegativeButton(getResources().getString(R.string.cancel),
+				dialog.setNegativeButton(
+						getResources().getString(R.string.cancel),
 						new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface d, int arg1) {
@@ -174,6 +177,9 @@ public class TaskListActivity extends FragmentActivity implements
 
 		adapter.notifyDataSetChanged();
 		super.onResume();
+		res = getResources();
+		Util.setDisplayLanguage(res);
+
 	}
 
 	public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {

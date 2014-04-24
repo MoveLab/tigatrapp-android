@@ -114,6 +114,8 @@ public class ViewDataActivity extends MapActivity {
 
 	final Context context = this;
 
+	Resources res;
+
 	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
@@ -126,7 +128,7 @@ public class ViewDataActivity extends MapActivity {
 			startActivity(i2sb);
 			finish();
 		} else {
-			Resources res = getResources();
+			res = getResources();
 			Util.setDisplayLanguage(res);
 		}
 
@@ -195,6 +197,9 @@ public class ViewDataActivity extends MapActivity {
 		}
 
 		super.onResume();
+
+		res = getResources();
+		Util.setDisplayLanguage(res);
 
 	}
 
@@ -533,9 +538,12 @@ public class ViewDataActivity extends MapActivity {
 					// ON THE PHONE DB, NOT OTHERS', SO NO NEED
 					// TO CHECK USER ID HERE
 
-					MyOverlayItem overlayitem = new MyOverlayItem(point,
-							(thisType == Report.TYPE_ADULT ? getResources().getString(R.string.view_report_title_adult)
-									: getResources().getString(R.string.view_report_title_site))
+					MyOverlayItem overlayitem = new MyOverlayItem(
+							point,
+							(thisType == Report.TYPE_ADULT ? getResources()
+									.getString(R.string.view_report_title_adult)
+									: getResources().getString(
+											R.string.view_report_title_site))
 									+ "\n"
 									+ Util.userDate(new Date(c
 											.getLong(reportTimeCol))),

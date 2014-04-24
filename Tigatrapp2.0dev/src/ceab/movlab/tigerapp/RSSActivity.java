@@ -45,7 +45,7 @@ public class RSSActivity extends Activity {
 	TextView tv;
 	Context context = this;
 
-	//TODO deal with RSS language
+	// TODO deal with RSS language
 	public static final String RSSEXTRA_URL = "rssextra_url";
 	public static final String RSSEXTRA_TITLE = "rssextra_title";
 	public static final String RSSEXTRA_DEFAULT_THUMB = "default_thumb";
@@ -54,10 +54,12 @@ public class RSSActivity extends Activity {
 	String thisTitle;
 	int thisDefaultThumb;
 
+	Resources res;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
 
@@ -66,28 +68,29 @@ public class RSSActivity extends Activity {
 			startActivity(i2sb);
 			finish();
 		} else {
-			Resources res = getResources();
+			res = getResources();
 			Util.setDisplayLanguage(res);
 		}
 
-		
 		setContentView(R.layout.activity_view_rss);
 
 		Intent i = getIntent();
 		thisUrl = i.getStringExtra(RSSEXTRA_URL);
 		thisTitle = i.getStringExtra(RSSEXTRA_TITLE);
-		thisDefaultThumb = i.getIntExtra(RSSEXTRA_DEFAULT_THUMB, R.drawable.ic_launcher);
+		thisDefaultThumb = i.getIntExtra(RSSEXTRA_DEFAULT_THUMB,
+				R.drawable.ic_launcher);
 
 		listData = new ArrayList<RSSPost>();
 
 		pb = (ProgressBar) this.findViewById(R.id.rssProgress);
 		title = (TextView) this.findViewById(R.id.rssViewTitle);
-		
+
 		title.setText(thisTitle);
-		
+
 		tv = (TextView) this.findViewById(R.id.offlineWarning);
 		ListView listView = (ListView) this.findViewById(R.id.rsslist);
-		itemAdapter = new RSSAdapter(this, R.layout.rss_item, listData, thisDefaultThumb);
+		itemAdapter = new RSSAdapter(this, R.layout.rss_item, listData,
+				thisDefaultThumb);
 		listView.setAdapter(itemAdapter);
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
@@ -112,6 +115,10 @@ public class RSSActivity extends Activity {
 		setInfoDisplay(context, true, thisUrl);
 
 		super.onResume();
+
+		res = getResources();
+		Util.setDisplayLanguage(res);
+
 	}
 
 	class RssDataController extends
@@ -281,10 +288,11 @@ public class RSSActivity extends Activity {
 		return false;
 	}
 
-	private void setInfoDisplay(Context context, boolean refreshData, String dataUrl) {
+	private void setInfoDisplay(Context context, boolean refreshData,
+			String dataUrl) {
 
 		if (Util.isOnline(context)) {
-			if(refreshData)
+			if (refreshData)
 				new RssDataController().execute(dataUrl);
 			tv.setVisibility(View.GONE);
 			if (listData.size() > 0) {

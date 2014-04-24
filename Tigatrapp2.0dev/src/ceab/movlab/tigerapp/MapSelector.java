@@ -103,23 +103,23 @@ public class MapSelector extends MapActivity {
 
 	public static final String LAT = "lat";
 	public static final String LON = "lon";
+	Resources res;
 
 	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
-		
+
 		if (!PropertyHolder.isInit())
-			PropertyHolder.init(context);		
+			PropertyHolder.init(context);
 		if (PropertyHolder.getLanguage() == null) {
 			Intent i2sb = new Intent(MapSelector.this, Switchboard.class);
 			startActivity(i2sb);
 			finish();
 		} else {
-			Resources res = getResources();
+			res = getResources();
 			Util.setDisplayLanguage(res);
 		}
 
-		
 		setContentView(R.layout.map_selector_dialog);
 
 		Util.overrideFonts(this, findViewById(android.R.id.content));
@@ -128,7 +128,6 @@ public class MapSelector extends MapActivity {
 		mapView.setBuiltInZoomControls(true);
 		satToggle = true;
 		mapView.setSatellite(satToggle);
-
 
 		myMapController = mapView.getController();
 		myMapController.setCenter(Util.CEAB_COORDINATES);
@@ -178,7 +177,6 @@ public class MapSelector extends MapActivity {
 
 		});
 
-
 		mCancelB.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -208,6 +206,9 @@ public class MapSelector extends MapActivity {
 		}
 
 		super.onResume();
+
+		res = getResources();
+		Util.setDisplayLanguage(res);
 
 	}
 
@@ -244,8 +245,6 @@ public class MapSelector extends MapActivity {
 		return false;
 	}
 
-
-	
 	class MapOverlay extends Overlay {
 
 		private Bitmap fixPin;
@@ -288,7 +287,6 @@ public class MapSelector extends MapActivity {
 
 		}
 
-		
 		@Override
 		public boolean onTap(GeoPoint p, MapView mapview) {
 

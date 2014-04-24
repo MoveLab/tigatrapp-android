@@ -27,6 +27,7 @@ public class Help extends FragmentActivity {
 	private WebView myWebView;
 
 	String lang = "";
+	Resources res;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +40,7 @@ public class Help extends FragmentActivity {
 			startActivity(i2sb);
 			finish();
 		} else {
-			Resources res = getResources();
+			res = getResources();
 			Util.setDisplayLanguage(res);
 		}
 
@@ -65,20 +66,23 @@ public class Help extends FragmentActivity {
 
 			if (lang.equals("ca")) {
 				myWebView.loadUrl(TIGER_HELP_URL_CA);
-			}
-			else if (lang.equals("es")) {
+			} else if (lang.equals("es")) {
 				myWebView.loadUrl(TIGER_HELP_URL_ES);
-			} else{
+			} else {
 				myWebView.loadUrl(TIGER_HELP_URL);
 			}
 
 		} else {
 			setContentView(R.layout.webview_offline);
-			((TextView) findViewById(R.id.offlineText)).setText(Html
-					.fromHtml(getString(R.string.help_offline_html)));
+			((TextView) findViewById(R.id.offlineText)).setText(Html.fromHtml(
+					getString(R.string.help_offline_html), null,
+					new TigaTagHandler()));
 		}
 
 		super.onResume();
+
+		res = getResources();
+		Util.setDisplayLanguage(res);
 
 	}
 

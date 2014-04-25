@@ -31,6 +31,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -58,6 +59,8 @@ public class Switchboard extends Activity {
 	private ImageView galleryButton;
 	private ImageView mapButton;
 	private ImageView websiteButton;
+	private ImageView menuButton;
+
 	final Context context = this;
 	AnimationDrawable ad;
 	Resources res;
@@ -176,6 +179,16 @@ public class Switchboard extends Activity {
 					}
 				});
 
+				menuButton = (ImageView) findViewById(R.id.menuButton);
+				menuButton.setOnClickListener(new View.OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						openOptionsMenu();
+
+					}
+				});
+
 				Animation animation = new AlphaAnimation(0.0f, 1.0f);
 				animation.setDuration(500);
 
@@ -184,6 +197,7 @@ public class Switchboard extends Activity {
 				mapButton.startAnimation(animation);
 				galleryButton.startAnimation(animation);
 				websiteButton.startAnimation(animation);
+				menuButton.startAnimation(animation);
 
 				Intent i = new Intent(
 						TigerBroadcastReceiver.START_SAMPLING_MESSAGE);
@@ -224,7 +238,7 @@ public class Switchboard extends Activity {
 		super.onCreateOptionsMenu(menu);
 
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.switchboard, menu);
+		inflater.inflate(R.menu.switchboard_menu, menu);
 
 		return true;
 

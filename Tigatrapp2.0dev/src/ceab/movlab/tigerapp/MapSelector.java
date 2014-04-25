@@ -57,6 +57,7 @@ import android.location.LocationProvider;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
@@ -224,7 +225,16 @@ public class MapSelector extends MapActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 
-		menu.add(0, TOGGLE_VIEW, Menu.NONE, R.string.menu_toggle_view);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.map_selector_menu, menu);
+
+		MenuItem mSat = menu.findItem(R.id.sat);
+		MenuItem mStreet = menu.findItem(R.id.street);
+
+		if (satToggle == true)
+			mSat.setChecked(true);
+		else
+			mStreet.setChecked(true);
 
 		return true;
 
@@ -235,10 +245,16 @@ public class MapSelector extends MapActivity {
 		super.onOptionsItemSelected(item);
 
 		switch (item.getItemId()) {
-		case (TOGGLE_VIEW): {
-			satToggle = !satToggle;
-			mapView.setSatellite(satToggle);
-
+		case (R.id.sat): {
+			item.setChecked(true);
+			mapView.setSatellite(true);
+			satToggle = true;
+			return true;
+		}
+		case (R.id.street): {
+			item.setChecked(true);
+			mapView.setSatellite(false);
+			satToggle = false;
 			return true;
 		}
 		}

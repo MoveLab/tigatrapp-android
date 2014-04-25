@@ -41,10 +41,12 @@
 
 package ceab.movlab.tigerapp;
 
+import android.app.AlertDialog;
 import android.app.TabActivity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -97,22 +99,48 @@ public class ViewReportsTab extends TabActivity {
 				.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						// TODO Auto-generated method stub
 
-						// ViewDataActivity.mOverlays.remove(thisItem);
-						// ViewDataActivity.mapView.invalidate();
-						Util.toast(context, "Report deleted.");
+						final AlertDialog.Builder dialog = new AlertDialog.Builder(
+								context);
+						dialog.setTitle(getResources().getString(
+								R.string.delete_report));
+						dialog.setMessage(getResources().getString(
+								R.string.delete_report_warning));
+						dialog.setPositiveButton(
+								getResources().getString(R.string.delete),
+								new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface d,
+											int arg1) {
 
-						ContentResolver cr = context.getContentResolver();
-						ContentValues cv = new ContentValues();
-						String sc = Reports.KEY_REPORT_ID + " = '" + reportId
-								+ "'";
-						cv.put(Reports.KEY_DELETE_REPORT, 1);
-						cr.update(Reports.CONTENT_URI, cv, sc, null);
+										Util.toast(context, "Report deleted.");
 
-						// TODO sync deletion to server
+										ContentResolver cr = context
+												.getContentResolver();
+										ContentValues cv = new ContentValues();
+										String sc = Reports.KEY_REPORT_ID
+												+ " = '" + reportId + "'";
+										cv.put(Reports.KEY_DELETE_REPORT, 1);
+										cr.update(Reports.CONTENT_URI, cv, sc,
+												null);
+										// TODO sync deletion to server
+										d.dismiss();
+										finish();
+									}
 
-						finish();
+								});
+
+						dialog.setNegativeButton(
+								getResources().getString(R.string.cancel),
+								new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface d,
+											int arg1) {
+										d.cancel();
+									};
+								});
+
+						dialog.show();
 
 					};
 				});

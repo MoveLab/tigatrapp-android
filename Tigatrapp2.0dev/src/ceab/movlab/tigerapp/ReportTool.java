@@ -273,11 +273,15 @@ public class ReportTool extends Activity {
 		buttonReportSubmit = (Button) findViewById(R.id.buttonReportSubmit);
 
 		if (editing) {
-			reportTitle.setText(getResources().getString(R.string.edit) + " "
-					+ (type == Report.TYPE_BREEDING_SITE ? "Site" : "Adult")
-					+ " " + getResources().getString(R.string.word_report)
-					+ "\n" + getResources().getString(R.string.created_on)
-					+ " " + Util.userDate(new Date((thisReport.reportTime))));
+			reportTitle
+					.setText((type == Report.TYPE_BREEDING_SITE ? getResources()
+							.getString(R.string.edit_title_site)
+							: getResources().getString(
+									R.string.edit_title_adult))
+							+ "\n"
+							+ getResources().getString(R.string.created_on)
+							+ " "
+							+ Util.userDate(new Date((thisReport.reportTime))));
 
 			buttonReportSubmit.setText(getResources()
 					.getString(R.string.update));
@@ -423,7 +427,9 @@ public class ReportTool extends Activity {
 						 */
 						Util.toast(
 								context,
-								"Added current location.\n\nLat: "
+								getResources().getString(
+										R.string.added_current_loc)
+										+ "\n\nLat: "
 										+ String.format("%.5g%n",
 												thisReport.currentLocationLat)
 										+ "\nLon: "
@@ -504,8 +510,10 @@ public class ReportTool extends Activity {
 								.isChecked())) {
 					Util.toast(
 							context,
-							getResources().getString(
-									R.string.toast_report_before_submitting)
+							getResources()
+									.getString(
+											(type == Report.TYPE_ADULT ? R.string.toast_report_before_submitting_adult
+													: R.string.toast_report_before_submitting))
 									+ "\n\n"
 									+ (reportConfirmationCheck.isChecked() ? ""
 											: (getResources()
@@ -1196,7 +1204,9 @@ public class ReportTool extends Activity {
 					 */
 					Util.toast(
 							context,
-							"Added current location.\n\nLat: "
+							getResources()
+									.getString(R.string.added_current_loc)
+									+ "\n\nLat: "
 									+ String.format("%.5g%n",
 											thisReport.currentLocationLat)
 									+ "\nLon: "

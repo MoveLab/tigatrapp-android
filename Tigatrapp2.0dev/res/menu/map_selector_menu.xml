@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/satToggle"
+        android:title="@string/menu_option_map_type_label">
+
+        <!-- "file" submenu -->
+        <menu>
+            <group android:checkableBehavior="single" >
+                <item
+                    android:id="@+id/sat"
+                    android:title="@string/menu_option_map_type_satellite"/>
+                <item
+                    android:id="@+id/street"
+                    android:title="@string/menu_option_map_type_street"/>
+            </group>
+        </menu>
+    </item>
+
+</menu>

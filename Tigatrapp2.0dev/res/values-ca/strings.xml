@@ -60,6 +60,8 @@
     </string-array>
     <!-- Toasts -->
     <string name="toast_report_before_submitting">Per poder enviar aquest lloc de cria, has de:</string>
+    <string name="toast_report_before_submitting_adult">Per poder enviar aquest albirament d\'adult, has de:</string>
+    
     <string name="toast_location_needed">"Please select \'Current\' or \'Choose on map\' below."</string>
     <string name="toast_complete_checklist">- Completar-ne la descripció</string>
     <string name="toast_specify_location">- Especificar-ne una posició</string>
@@ -81,13 +83,15 @@
     <string name="photo_check_label">Imatges</string>
     <string name="note_check_label">Nota</string>
     <string name="update">Actualitza</string>
-    <string name="created_on">escrit en</string>
+    <string name="created_on">Enviat:</string>
+            <string name="delete_report_warning">Elimina informe?</string>
+    
     <string name="word_report">Informe</string>
     <string name="photo_label">Imatges</string>
     <string name="photo_label_star">Imatges*</string>
     <string name="site_report_q1">Tipus de lloc de cria</string>
     <string name="site_report_q2">Conté aigua?</string>
-    <string name="site_report_q3">Conté larves de mosquit (no necessàriament de mosquit tigre)</string>
+    <string name="site_report_q3">Conté larves o pupes de mosquit (de qualsevol espècie)?</string>
     <string name="adult_report_q3">Té ratlles blanques a l\'abdomen i a les potes?</string>
     <string name="q3_headthorax_text">El mosquit tigre té una ratlla blanca al cap i al tòrax. Evita enviar dades de mosquits que no siguin tigre.</string>
     <string name="q2_abdomenlegs_text">El mosquit tigre té ratlles blanques a l\'abdomen i a les potes. Evita enviar dades de mosquits que no siguin tigre.</string>
@@ -148,8 +152,8 @@
     <string name="bidons">Bidons</string>
     <string name="pous">Pous</string>
     <string name="altres">Altres</string>
-    <string name="report_checklist_title_adult">Descripció de mosquit</string>
-    <string name="report_checklist_title_site">Descripció del lloc</string>
+    <string name="report_checklist_title_adult">Descripció del mosquit</string>
+    <string name="report_checklist_title_site">Descripció del lloc de cria</string>
 
     <!-- View Report -->
     <string name="return_to_map">Torna</string>
@@ -163,7 +167,7 @@
     <string name="photos_tab_title">Imatges</string>
     <string name="notes_tab_title">Notes</string>
     <string name="view_report_title_adult">Troballa de mosquit tigre</string>
-    <string name="view_report_title_site">Lloc de Cria</string>
+    <string name="view_report_title_site">Lloc de cria</string>
 
     <!-- Photo Selector -->
     <string name="photo_selector_title">Afegeix imatges</string>
@@ -208,14 +212,18 @@
     <string name="menu_option_refresh">Actualitza</string>
 
     <!-- Misc -->
+    <string name="added_current_loc">Posició actual guardada.</string>
 
     <string name="refresh">Actualitza</string>
     <string name="report_deleted">Informe esborrat</string>
     <string name="edit">Edita</string>
+        <string name="edit_title_adult">Edita informe: troballa de mosquit tigre</string>
+        <string name="edit_title_site">Edita informe: lloc de cria</string>
+        
     <string name="cd_help_icon">Ajuda</string>
     <string name="open">Obre</string>
     <string name="spinner_prompt">Selecciona resposta</string>
-    <string name="spinner_nothing_selected">Res seleccionat</string>
+    <string name="spinner_nothing_selected">Selecciona</string>
     <string name="help">Ajuda</string>
     <string name="font_credit">Ús de la tipografia Anna en parts de l\'App Tigatrapp (www.annavives.com)</string>
     <string name="photo_credit_gallery">Fotografia de R. Eritja (www.eritja.com)</string>
@@ -255,7 +263,7 @@
     <string name="ok">OK</string>
     <string name="project_email">info@atrapaeltigre.com</string>
     <string name="project_website">atrapaeltigre.com/</string>
-    <string name="report_sent">Si cliques OK, aquestes dades s\'enviaran al centre de recerca i es faran públiques al mapa del mosquit</string>
+    <string name="report_sent">Si cliques OK, les teves dades s\'enviaran al grup de recerca responsable del projecte. Part de les dades es faran públiques al mapa web del mosquit tigre a la pàgina web www.atrapaeltigre.com</string>
     <string name="report_sent_confirmation">Gràcies per participar</string>
     <string name="reportGallery_CD">Botó per accedir a la galeria d\'imatges del mosquit tigre</string>
     <string name="saved_image_prefix">elMeuMapa</string>
@@ -265,7 +273,7 @@
     <string name="submit">Envia</string>
     <string name="supported_by">Amb el suport de:</string>
     <string name="confirmation_q2_adult_headthorax">Té una ratlla blanca al cap i al tòrax?</string>
-    <string name="type_here">Descripció o nota complementària opcional per acompanyar el teu informe</string>
+    <string name="type_here">Utilitza aquest espai per afegir una nota o comentari si és necessari</string>
     <string name="view_gpl_english">Veure GPL versió oficial</string>
     <string name="yes">Sí</string>
     <string name="your_report_id_is">"El codi de la teva Tigre troballa és: "</string>

@@ -113,7 +113,11 @@ public class ViewReportsTab extends TabActivity {
 									public void onClick(DialogInterface d,
 											int arg1) {
 
-										Util.toast(context, "Report deleted.");
+										Util.toast(
+												context,
+												getResources()
+														.getString(
+																R.string.report_deleted));
 
 										ContentResolver cr = context
 												.getContentResolver();

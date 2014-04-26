@@ -338,8 +338,6 @@ public class TaskActivity extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		res = getResources();
-		Util.setDisplayLanguage(res);
 	}
 
 	public OnClickListener makeOnClickListener(int action,

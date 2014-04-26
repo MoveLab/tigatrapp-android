@@ -118,8 +118,6 @@ public class GPLView extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		res = getResources();
-		Util.setDisplayLanguage(res);
 	}
 
 }

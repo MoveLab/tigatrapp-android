@@ -116,9 +116,6 @@ public class RSSActivity extends Activity {
 
 		super.onResume();
 
-		res = getResources();
-		Util.setDisplayLanguage(res);
-
 	}
 
 	class RssDataController extends

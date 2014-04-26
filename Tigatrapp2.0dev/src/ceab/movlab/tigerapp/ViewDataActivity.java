@@ -198,8 +198,6 @@ public class ViewDataActivity extends MapActivity {
 
 		super.onResume();
 
-		res = getResources();
-		Util.setDisplayLanguage(res);
 
 	}
 

@@ -115,8 +115,6 @@ public class CreditsDetail extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		res = getResources();
-		Util.setDisplayLanguage(res);
 	}
 
 }

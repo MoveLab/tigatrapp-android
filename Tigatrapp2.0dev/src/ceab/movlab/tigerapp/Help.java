@@ -81,8 +81,6 @@ public class Help extends FragmentActivity {
 
 		super.onResume();
 
-		res = getResources();
-		Util.setDisplayLanguage(res);
 
 	}
 

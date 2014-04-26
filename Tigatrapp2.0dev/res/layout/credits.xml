@@ -59,33 +59,17 @@
                     android:layout_gravity="center"
                     android:src="@drawable/credits" />
 
-                <TextView
-                    android:id="@+id/imageCredit"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dip"
-                    android:text="@string/photo_credit"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <TextView
-                    android:id="@+id/creditsTextPhotos"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dip"
-                    android:text="@string/photo_credits"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
 
     <ImageView
         android:id="@+id/movelabBanner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="400dip"
+        android:layout_height="160dip"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/movelab_banner_CD"
-        android:padding="5dp"
         android:src="@drawable/logo_movelab_web" />
 
 </RelativeLayout>

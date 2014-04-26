@@ -89,8 +89,6 @@ public class GPLCat extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		res = getResources();
-		Util.setDisplayLanguage(res);
 	}
 
 	@Override

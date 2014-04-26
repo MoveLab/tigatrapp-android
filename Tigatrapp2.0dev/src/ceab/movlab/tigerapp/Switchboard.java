@@ -211,8 +211,6 @@ public class Switchboard extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		res = getResources();
-		Util.setDisplayLanguage(res);
 	}
 
 	@Override
@@ -270,6 +268,13 @@ public class Switchboard extends Activity {
 			return true;
 		}
 
+		case (R.id.settings): {
+
+			Intent i = new Intent(Switchboard.this, Settings.class);
+			startActivity(i);
+			return true;
+		}
+
 		case (R.id.help): {
 
 			Intent i = new Intent(Switchboard.this, Help.class);
@@ -311,18 +316,17 @@ public class Switchboard extends Activity {
 		return false;
 	}
 
-	public void setLocale(String lang) {
-
-		Locale myLocale = new Locale(lang);
-		Resources res = getResources();
-		DisplayMetrics dm = res.getDisplayMetrics();
-		Configuration conf = res.getConfiguration();
-		conf.locale = myLocale;
-		res.updateConfiguration(conf, dm);
-		finish();
-		startActivity(getIntent());
-		finish();
-
-	}
-
+	/*
+	 * old code for changing language at any time in app (no longer used because
+	 * of complications with then downloading tasks in all languages). public
+	 * void setLocale(String lang) {
+	 * 
+	 * Locale myLocale = new Locale(lang); Resources res = getResources();
+	 * DisplayMetrics dm = res.getDisplayMetrics(); Configuration conf =
+	 * res.getConfiguration(); conf.locale = myLocale;
+	 * res.updateConfiguration(conf, dm); finish(); startActivity(getIntent());
+	 * finish();
+	 * 
+	 * }
+	 */
 }

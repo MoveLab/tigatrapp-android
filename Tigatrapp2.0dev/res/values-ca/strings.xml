@@ -17,7 +17,7 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
@@ -61,7 +61,6 @@
     <!-- Toasts -->
     <string name="toast_report_before_submitting">Per poder enviar aquest lloc de cria, has de:</string>
     <string name="toast_report_before_submitting_adult">Per poder enviar aquest albirament d\'adult, has de:</string>
-    
     <string name="toast_location_needed">"Please select \'Current\' or \'Choose on map\' below."</string>
     <string name="toast_complete_checklist">- Completar-ne la descripció</string>
     <string name="toast_specify_location">- Especificar-ne una posició</string>
@@ -84,8 +83,7 @@
     <string name="note_check_label">Nota</string>
     <string name="update">Actualitza</string>
     <string name="created_on">Enviat:</string>
-            <string name="delete_report_warning">Elimina informe?</string>
-    
+    <string name="delete_report_warning">Elimina informe?</string>
     <string name="word_report">Informe</string>
     <string name="photo_label">Imatges</string>
     <string name="photo_label_star">Imatges*</string>
@@ -212,14 +210,19 @@
     <string name="menu_option_refresh">Actualitza</string>
 
     <!-- Misc -->
-    <string name="added_current_loc">Posició actual guardada.</string>
 
+    <string name="on">Encès</string>
+    <string name="off">Apagat</string>
+    <string name="sample_my_locations">Provar meus llocs</string>
+    <string name="sampling_is_off">El mostreig dels llocs està desactivat</string>
+        <string name="sampling_is_on">El mostreig dels llocs està activat</string>
+    
+    <string name="added_current_loc">Posició actual guardada.</string>
     <string name="refresh">Actualitza</string>
     <string name="report_deleted">Informe esborrat</string>
     <string name="edit">Edita</string>
-        <string name="edit_title_adult">Edita informe: troballa de mosquit tigre</string>
-        <string name="edit_title_site">Edita informe: lloc de cria</string>
-        
+    <string name="edit_title_adult">Edita informe: troballa de mosquit tigre</string>
+    <string name="edit_title_site">Edita informe: lloc de cria</string>
     <string name="cd_help_icon">Ajuda</string>
     <string name="open">Obre</string>
     <string name="spinner_prompt">Selecciona resposta</string>
@@ -307,7 +310,7 @@ Informa\'t de les últimes novetats i aprèn a combatre el mosquit tigre a casa 
 
 <li>Participa compartint dades. Envia informes de nous llocs de cria en espais públics i de troballes de mosquit tigre. Formaràs part del primer mapa de mosquit tigre d\'Espanya.</li> 
 
-<li>Mantén les teves dades actualitzades amb l\'opció d\'edició del teu mapa.</li>
+<li>Manté les teves dades actualitzades amb l\'opció d\'edició del teu mapa.</li>
 
 
 <li>I moltes coses més: des de missions especials fins a notícies actualitzades del projecte Atrapa el tigre i del mosquit tigre.</li>

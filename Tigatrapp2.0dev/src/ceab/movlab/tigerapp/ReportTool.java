@@ -690,8 +690,6 @@ public class ReportTool extends Activity {
 
 		super.onResume();
 
-		res = getResources();
-		Util.setDisplayLanguage(res);
 
 	}
 

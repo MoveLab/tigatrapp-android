@@ -177,8 +177,6 @@ public class TaskListActivity extends FragmentActivity implements
 
 		adapter.notifyDataSetChanged();
 		super.onResume();
-		res = getResources();
-		Util.setDisplayLanguage(res);
 
 	}
 

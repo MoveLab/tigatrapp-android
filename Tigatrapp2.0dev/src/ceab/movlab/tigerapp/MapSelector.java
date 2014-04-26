@@ -208,8 +208,6 @@ public class MapSelector extends MapActivity {
 
 		super.onResume();
 
-		res = getResources();
-		Util.setDisplayLanguage(res);
 
 	}
 

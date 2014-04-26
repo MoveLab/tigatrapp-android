@@ -17,7 +17,7 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
@@ -90,9 +90,7 @@
     <string name="note_check_label">Note</string>
     <string name="update">Update</string>
     <string name="created_on">Sent:</string>
-    
-        <string name="delete_report_warning">Are you sure you want to delete this report?</string>
-    
+    <string name="delete_report_warning">Are you sure you want to delete this report?</string>
     <string name="word_report">Report</string>
     <string name="photo_label">Photo(s)</string>
     <string name="photo_label_star">Photo(s)*</string>
@@ -197,14 +195,18 @@ English to be added
     <string name="menu_option_refresh">Refresh</string>
 
     <!-- Misc -->
+
+    <string name="on">On</string>
+    <string name="off">Off</string>
+    <string name="sample_my_locations">Sample my locations</string>
+    <string name="sampling_is_off">Location sampling is off</string>
+    <string name="sampling_is_on">Location sampling is on</string>
     <string name="added_current_loc">Added current location.</string>
-    
     <string name="refresh">Refresh</string>
     <string name="report_deleted">Report deleted</string>
     <string name="edit">Edit</string>
-            <string name="edit_title_adult">Edit Report: Adult</string>
-        <string name="edit_title_site">Edit Report: Breeding Site</string>
-    
+    <string name="edit_title_adult">Edit Report: Adult</string>
+    <string name="edit_title_site">Edit Report: Breeding Site</string>
     <string name="cd_help_icon">Help Icon</string>
     <string name="open">Open</string>
     <string name="spinner_prompt">Select Response</string>

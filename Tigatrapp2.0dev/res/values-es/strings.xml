@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!--
  * Tigatrapp
  * Copyright (C) 2013, 2014  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
@@ -67,336 +67,335 @@
 <resources>
 
     <!-- Intro and Consent -->
-    <string name="consent_button_label">He llegit i accepto les condicions d\'ús</string>
-    <string name="decline_button_label">No hi estic d\'acord</string>
+    <string name="consent_button_label">He leído y acepto las condiciones de uso</string>
+    <string name="decline_button_label">No estoy de acuerdo</string>
 
     <!-- Gallery -->
     <string-array name="gallery_array">
-        <item>Femella de mosquit tigre. Només els mosquits que: 1) són petits, 
-        negres i amb ratlles blanques, 2) tenen una ratlla blanca al cap i al tòrax i 3) tenen 
-        ratlles blanques a l\'abdomen i a 
-        les potes són mosquit tigre. Hi ha altres 
-        insectes semblants, cal evitar confondre\'ls!</item>
-        <item>Femella de mosquit tigre. Observa les ratlles a l\'abdomen. 
-           Recorda que el mosquit tigre és molt petit, 
-           no fa més de 5 mm (amb potes incloses, aproximadament la meitat d\'una moneda d\'1 cèntim).</item>
-        <item>Femella de mosquit tigre preparada per picar. 
-              Observa la ratlla blanca al cap i al tòrax i les ratlles a les potes.</item>
-        <item>Femella de mosquit tigre picant. 
-        Observa la característica ratlla blanca al cap i al tòrax. </item>
-        <item>Femella de mosquit tigre picant. 
-        Observa la característica ratlla blanca al cap i al tòrax. </item>
-        <item>Dues femelles de mosquit tigre picant. Recorda que només piquen les femelles. 
-        En el cas del mosquit tigre, acostumen a fer-ho durant el dia (i no quan és fosc) i normalment 
-        piquen a les cames. </item>
-        <item>Femella de mosquit tigre picant. La sang que acumula a l\'abdomen 
-        servirà per generar una posta d\'ous. </item>
-        <item>Posta d\'ous de mosquit tigre. Observa el color fosc i la forma allargada. 
-        Els ous són tan petits que són quasi invisibles a ull nu. 
-        Recorda que el mosquit tigre posa els ous en recipients petits, en parets 
-        seques prop d\'aigua estancada i bruta. </item>
-        <item>Larves (més allargades) i pupes (més arrodonides) de mosquit tigre. Observa que són aquàtiques. 
-        Les larves emergeixen dels ous quan aquests queden coberts d\'aigua i amb el temps fan la muda a pupes. </item>
-        <item>Larves (més allargades) i pupes (més arrodonides) de mosquit tigre. 
-        Recorda que per evitar tenir mosquit tigre a casa, 
-        cal evitar les petites acumulacions d\'aigua.</item>
-        <item>Dues pupes de mosquit tigre. En aquesta fase es produeix la metamorfosi, 
-        i el mosquit adult emergeix de la pupa cap al medi aeri. </item>
+        <item>Hembra de mosquito tigre. Sólo los mosquitos que: 1) son pequeños, 
+        negros y con rayas blancas, 2) tienen una raya blanca en la cabeza y en el tórax y 3) tienen  
+        rayas blancas en el abdomen y en 
+        las patas son mosquito tigre. Hay otros 
+        insectos parecidos, !no los confundas!</item>
+        <item>Hembra de mosquito tigre. Observa las rayas en el abdomen. 
+           Recuerda que el mosquito tigre es muy pequeño, 
+           no mide más de 5 mm (con patas incluidas, aproximadamente la mitad de una moneda de 1 céntimo).</item>
+        <item>Hembra de mosquito tigre preparada para picar. 
+              Observa la raya blanca en la cabeza y en el tórax y las rayas en las patas.</item>
+        <item>Hembra de mosquito tigre picando. 
+        Observa la característica raya blanca en la cabeza y en el tórax.</item>
+        <item>Hembra de mosquito tigre picando. 
+        Observa la característica raya blanca en la cabeza y en el tórax.</item>
+        <item>Dos hembras de mosquito tigre picando. Recuerda que sólo pican las hembras. 
+        En el caso del mosquito tigre, acostumbran a hacerlo durante el día (y no cuando oscurece) y normalmente 
+        pican en las piernas.</item>
+        <item>Hembra de mosquito tigre picando. La sangre que acumula en el abdomen 
+        servirá para generar una puesta de huevos.</item>
+        <item>Puesta de huevos de mosquito tigre. Observa el color oscuro y la forma alargada. 
+        Los huevos son tan pequeños que son casi invisibles a simple vista. 
+        Recuerda que el mosquito tigre pone los huevos en recipientes pequeños, en paredes  
+        secas cerca de agua estancada y sucia.</item>
+        <item>Larvas(más alargadas) y pupas (más redondeadas) de mosquito tigre. Observa que son acuáticas. 
+        Las larvas emergen de los huevos cuando éstos quedan cubiertos de agua y con el tiempo mudan a pupas.</item>
+        <item>Larvas(más alargadas) y pupas (más redondeadas) de mosquito tigre. 
+        Recuerda evitar tener pequeñas acumulaciones de agua en casa.</item>
+        <item>Dos pupas de mosquito tigre. En esta fase se produce la metamorfosis, 
+        y el mosquito adulto emerge de la pupa hacia el medio aéreo.</item>
     </string-array>
     <!-- Toasts -->
-    <string name="toast_report_before_submitting">Per enviar aquest lloc de cria:</string>
-    <string name="toast_report_before_submitting_adult">Per enviar aquest albirament d\'adult:</string>
+    <string name="toast_report_before_submitting">Para enviar este lugar de cría:</string>
+    <string name="toast_report_before_submitting_adult">Para enviar este avistamiento de adulto:</string>
     <string name="toast_location_needed">"Please select \'Current\' or \'Choose on map\' below."</string>
-    <string name="toast_complete_checklist">- Completa descripció</string>
-    <string name="toast_specify_location">- Especifica posició</string>
-    <string name="toast_attach_photo">- Adjunta imatge</string>
+    <string name="toast_complete_checklist">- Completa descripción</string>
+    <string name="toast_specify_location">- Especifica posición</string>
+    <string name="toast_attach_photo">- Adjunta imagen</string>
 
     <!-- Switchboard -->
-    <string name="dataMap_CD">Les meves dades</string>
+    <string name="dataMap_CD">Mis datos</string>
 
     <!-- Reports -->
-    <string name="report_title_adult">Adult: nou informe</string>
-    <string name="report_title_site">Lloc de cria: nou informe</string>
-    <string name="checklist_label">Completa descripció*</string>
-    <string name="location_label">Afegeix localització*</string>
-    <string name="location_current_label">Utilitza GPS</string>
-    <string name="location_select_label">Seleciona al mapa</string>
+    <string name="report_title_adult">Adulto: nuevo informe</string>
+    <string name="report_title_site">Lugar de cría: nuevo informe</string>
+    <string name="checklist_label">Completa descripción*</string>
+    <string name="location_label">Añade localización*</string>
+    <string name="location_current_label">Utiliza GPS</string>
+    <string name="location_select_label">Selecciona en el mapa</string>
     <string name="location_current_label_button">Actual</string>
-    <string name="location_select_label_button">Senyala</string>
-    <string name="location_menu_title">Utilitza posició actual o senyala posició al mapa</string>
-    <string name="photo_check_label">Adjunta imatges</string>
-    <string name="note_check_label">Afegeix nota</string>
-    <string name="update">Actualitza</string>
-    <string name="created_on">Enviat:</string>
-    <string name="delete_report_warning">Elimina informe?</string>
+    <string name="location_select_label_button">Señala</string>
+    <string name="location_menu_title">Utiliza posición actual o señala posición en el mapa</string>
+    <string name="photo_check_label">Adjunta imágenes</string>
+    <string name="note_check_label">Añade nota</string>
+    <string name="update">Actualiza</string>
+    <string name="created_on">Enviado:</string>
+    <string name="delete_report_warning">¿Elimina informe?</string>
     <string name="word_report">Informe</string>
-    <string name="photo_label">Imatges</string>
-    <string name="photo_label_star">Imatges*</string>
-    <string name="site_report_q1">Selecciona lloc de cria</string>
-    <string name="site_report_q2">Conté aigua?</string>
-    <string name="site_report_q3">Conté larves o pupes de mosquit (de qualsevol espècie)?</string>
-    <string name="adult_report_q3">Té ratlles blanques a l\'abdomen i a les potes?</string>
-    <string name="q3_headthorax_text">El mosquit tigre té una ratlla blanca al cap i al tòrax. Evita enviar dades d\'altres insectes.</string>
-    <string name="q2_abdomenlegs_text">El mosquit tigre té ratlles blanques a l\'abdomen i a les potes. Evita enviar dades d\'altres insectes.</string>
-    <string name="identifying_mosquitoes_title">Descripció del mosquit</string>
-    <string name="confirmation_q1_adult_sizecolor">És petit i negre amb ratlles blanques?</string>
-    <string name="q1_sizecolor_text">El mosquit tigre és petit i negre amb ratlles blanques. Normalment és actiu només de dia i acostuma a picar a les cames. Evita enviar dades d\'altres insectes.</string>
+    <string name="photo_label">Imágenes</string>
+    <string name="photo_label_star">Imágenes*</string>
+    <string name="site_report_q1">Tipo de lugar de cría</string>
+    <string name="site_report_q2">¿Contiene agua?</string>
+    <string name="site_report_q3">¿Contiene larvas o pupas de mosquito (de cualquier especie)?</string>
+    <string name="adult_report_q3">¿Tiene rayas blancas en el abdomen y en las patas?</string>
+    <string name="q3_headthorax_text">El mosquito tigre tiene una raya blanca en la cabeza y en el tórax. Evita enviar datos de mosquitos que no sean tigre.</string>
+    <string name="q2_abdomenlegs_text">El mosquito tigre tiene rayas blancas en el abdomen y en las patas. Evita enviar datos de mosquitos que no sean tigre.</string>
+    <string name="identifying_mosquitoes_title">Descripción del mosquito</string>
+    <string name="confirmation_q1_adult_sizecolor">¿Es pequeño y negro con rayas blancas?</string>
+    <string name="q1_sizecolor_text">El mosquito tigre es pequeño y negro con rayas blancas. Normalmente es activo sólo de día y acostumbra a picar en las piernas. Evita enviar datos de mosquitos que no sean tigre.</string>
     <string name="adult_report_help_html">
 <![CDATA[
 
-<p>AJUDA: Creus que has trobat un mosquit tigre? Respon l\'informe i envia les dades. Els camps amb asterisc (*) són obligatoris.
+<p>AYUDA: ¿Crees que has encontrado un mosquito tigre? Responde el informe y envía los datos. Es necesario completar los campos con asterisco (*).
 </p>
 <p>
 <ul>
-<li><strong>Descripció</strong>: respon el formulari, t\'ajudarà a saber si és un mosquit tigre i facilitarà la interpretació de les dades.</li> 
-<li><strong>Localització</strong>: escull posició actual si el mosquit l\'has atrapat al lloc on es troba el telèfon, o senyala la posició al mapa si l\'has trobat a un altre lloc. Activa el GPS si vols que la posició de la teva troballa sigui més precisa.</li>  
-<li><strong>Imatges</strong>: fes una foto  o adjunta una foto del mosquit que hagis fet amb un altre dispositiu.</li>
-<li><strong>Notes</strong>: si vols, descriu millor la teva troballa.</li>
+<li><strong>Descripción</strong>: responde el formulario, te ayudará a saber si es un mosquito tigre y facilitará la interpretación de los datos.</li> 
+<li><strong>Localización</strong>: elige posición actual si el mosquito lo has atrapado en el lugar donde se encuentra el teléfono, o señala la posición en el mapa si lo has encontrado en otro lugar. Activa el GPS si quieres que la posición de tu hallazgo sea más precisa.</li>  
+<li><strong>Imágenes</strong>: haz una foto o adjunta una foto de tu mosquito que hayas hecho con otro dispositivo.</li>
+<li><strong>Notas</strong>: si quieres, describe mejor tu hallazgo.</li>
 </ul>
 </p> 
-<p>Un cop enviat, podràs consultar i editar l\'informe al teu mapa. Les dades que enviïs seran publicades al mapa del mosquit tigre a la web <a href="www.atrapaeltigre.com">www.atrapaeltigre.com</a>.</p>        
+<p>Una vez enviado, podrás consultar y editar el informe en tu mapa. Los datos que envíes serán publicados en el mapa del mosquito tigre en la web <a href="www.atrapaeltigre.com">www.atrapaeltigre.com</a>.</p>        
    ]]>
     </string>
     <string name="site_report_help_html">
 <![CDATA[
-<p>AJUDA: Has trobat un lloc públic on creus que el mosquit tigre pot criar? Respon l\'informe i envia les dades. És necessari completar els camps amb asterisc (*).
+<p>AYUDA: ¿Has encontrado un lugar público donde crees que el mosquito tigre puede criar? Responde el informe y envía los datos. Es necesario completar los campos con asterisco (*).
 </p>
 <ul> 
-<li><strong>Descripció</strong>: respon el formulari per facilitar la interpretació de les dades.</li> 
-<li><strong>Localització</strong>: escull posició actual si el lloc de cria es troba al lloc on tens el telèfon, o senyala la posició al mapa si l\'has trobat a un altre lloc. Activa el GPS si vols que la posició de la teva troballa sigui més precisa.</li>  
-<li><strong>Imatges</strong>: fes una foto o adjunta una foto de lloc de cria feta amb un altre dispositiu.</li> 
-<li><strong>Notes</strong>: si vols, descriu millor la teva troballa.</li>
+<li><strong>Descripción</strong>: responde el formulario para facilitar la interpretación de los datos.</li> 
+<li><strong>Localización</strong>: elige posición actual si el lugar de cría se encuentra en el lugar donde tienes el teléfono, o señala la posición en el mapa si lo has encontrado en otro lugar. Activa el GPS si quieres que la posición de tu hallazgo sea más precisa.</li>  
+<li><strong>Imágenes</strong>: haz una foto o adjunta una foto del lugar de cría hecha con otro dispositivo.</li> 
+<li><strong>Notas</strong>: si quieres, describe mejor tu hallazgo.</li>
 </ul> 
 </p>
-<p>Un cop enviat, podràs consultar i editar l\'informe al teu mapa. Les dades que enviïs seran publicades al mapa del mosquit tigre a la web www.atrapaeltigre.com.</p>        
+<p>Una vez enviado, podrás consultar y editar el informe en tu mapa. Los datos que envíes serán publicados en el mapa del mosquito tigre en la web www.atrapaeltigre.com.</p>        
        ]]>
     </string>
     <string name="site_report_item_help_1">
 <![CDATA[  
-<p>Les larves i pupes de mosquit tigre viuen en dipòsits o recipients petits, amb aigua estancada o bruta (sense peixos). Exemples: embornals, fonts, dipòsits, pous, galledes, etc.</p> 
-<p>El mosquit tigre no cria a la platja, ni als rius, ni als llacs, ni als aiguamolls o estanys. Les larves que hi trobis no són de mosquit tigre.</p>    
+<p>Las larvas y pupas de mosquito tigre viven en depósitos o recipientes pequeños, con agua estancada o sucia (sin peces). Ejemplos: sumideros, fuentes, depósitos, pozos, cubos, etc.</p> 
+<p>El mosquito tigre no cría en playas, ríos, lagos, humedales o estanques. Las larvas que encuentres allí no son de mosquito tigre.</p>    
        ]]>
     </string>
     <string name="site_report_item_help_2">
 <![CDATA[      
-<p>Les larves i pupes necessiten aigua estancada i amb matèria orgànica (aliment) per viure. Evita tenir petites acumulacions d\'aigua a casa teva.</p> 
+<p>Las larvas y las pupas necesitan agua estancada con materia orgánica (alimento) para vivir. Evita tener pequeñas acumulaciones de agua en tu casa para combatir el mosquito tigre.</p> 
 ]]>
     </string>
     <string name="site_report_item_help_3">
 <![CDATA[      
-<p>Les larves de mosquit són fàcils de reconèixer. Són allargades, més petites que una moneda d\'1 cèntim i naden fent piruetes. Es belluguen molt i pugen a la superfície de l\'aigua per respirar.</p>
+<p>Las larvas de mosquito son muy fáciles de reconocer. Son alargadas, más pequeñas que una moneda de 1 céntimo y nadan haciendo piruetas. Se mueven mucho y suben a la superficie del agua para respirar.</p>
 
-<p>Si trobes larves de mosquit en un recipient (de qualsevol espècie), has trobat un potencial lloc de cria de mosquit tigre. Si evites tenir petites acumulacions d\'aigua a casa teva, estaràs combatent el mosquit tigre.</p> 
+<p>Si encuentras larvas de mosquito en un recipiente (de cualquier especie), has encontrado un lugar potencial de cría de mosquito tigre. Si evitas tener pequeñas acumulaciones de agua en tu casa estarás combatiendo el mosquito tigre.</p> 
        ]]>
     </string>
-    <string name="embornals">Embornals</string>
-    <string name="fonts">Fonts</string>
-    <string name="basses">Basses artificials petites</string>
-    <string name="bidons">Bidons</string>
-    <string name="pous">Pous</string>
-    <string name="altres">Altres</string>
-    <string name="report_checklist_title_adult">Descripció del mosquit</string>
-    <string name="report_checklist_title_site">Descripció del lloc de cria</string>
+    <string name="embornals">Sumideros</string>
+    <string name="fonts">Fuentes</string>
+    <string name="basses">Pequeñas balsas artificiales</string>
+    <string name="bidons">Bidones</string>
+    <string name="pous">Pozos</string>
+    <string name="altres">Otros</string>
+    <string name="report_checklist_title_adult">Descripción del mosquito</string>
+    <string name="report_checklist_title_site">Descripción del lugar de cría</string>
 
     <!-- View Report -->
-    <string name="return_to_map">Torna</string>
+    <string name="return_to_map">Atrás</string>
     <string name="delete_report">Elimina</string>
     <string name="edit_report">Edita</string>
-    <string name="report_not_saved_warning">L\'informe no s\'ha guardat. Vols sortit igualment?</string>
-    <string name="exit_question">Sortir?</string>
-    <string name="no_note_attached">Cap nota adjunta</string>
-    <string name="no_photo_attached">Cap imatge adjunta</string>
-    <string name="checklist_tab_title">Descripció</string>
-    <string name="photos_tab_title">Imatges</string>
-    <string name="notes_tab_title">Notes</string>
-    <string name="view_report_title_adult">Troballa de mosquit tigre</string>
-    <string name="view_report_title_site">Lloc de cria</string>
+    <string name="report_not_saved_warning">El informe no se ha guardado. ¿Quieres salir igualmente?</string>
+    <string name="exit_question">¿Salir?</string>
+    <string name="no_note_attached">Ninguna nota adjunta</string>
+    <string name="no_photo_attached">Ninguna imagen adjunta</string>
+    <string name="checklist_tab_title">Descripción</string>
+    <string name="photos_tab_title">Imágenes</string>
+    <string name="notes_tab_title">Notas</string>
+    <string name="view_report_title_adult">Hallazgo de mosquito tigre</string>
+    <string name="view_report_title_site">Lugar de cría</string>
 
     <!-- Photo Selector -->
-    <string name="photo_selector_title">Afegeix imatges</string>
-    <string name="photo_selector_take_photo_button">Fes foto</string>
+    <string name="photo_selector_title">Añade imágenes</string>
+    <string name="photo_selector_take_photo_button">Haz foto</string>
     <string name="photo_selector_attach_photo_button">Adjunta foto</string>
-    <string name="photo_selector_remove_attachment">Elimina adjunt</string>
-    <string name="photo_selector_remove_this_photo">Elimina aquesta</string>
-    <string name="photo_selector_from_thisreport">d\'aquest informe</string>
+    <string name="photo_selector_remove_attachment">Elimina adjunto</string>
+    <string name="photo_selector_remove_this_photo">Elimina ésta</string>
+    <string name="photo_selector_from_thisreport">de este informe</string>
     <string name="photo_selector_remove_button_label">Elimina</string>
 
     <!-- RSS Feeds -->
-    <string name="rss_internet_connection_warning">Sense connexió a internet.\n\nPer veure el contingut, connecta\'t i selecciona \'actualitza\' al menú</string>
-    <string name="rss_title_tigatrapp">Notícies d\'AtrapaelTigre.com</string>
-    <string name="rss_title_movelab"> Notícies del ICREA-Laboratori d\'Ecologia del Moviment (CEAB-CSIC)</string>
+    <string name="rss_internet_connection_warning">Sin conexión a internet.\n\nPara ver el contenido, conéctate y selecciona \'actualiza\' en el menú</string>
+    <string name="rss_title_tigatrapp">Noticias de AtrapaelTigre.com</string>
+    <string name="rss_title_movelab"> Noticias de ICREA-Laboratorío de Ecología del Movimiento (CEAB-CSIC)</string>
 
     <!-- Tasks -->
-    <string name="task_list_title">Missions</string>
-    <string name="task_list_pending">Pendents</string>
-    <string name="task_list_completed">Completades</string>
-    <string name="delete_task_from_list_question">Elimina missió de la llista</string>
+    <string name="task_list_title">Misiones</string>
+    <string name="task_list_pending">Pendientes</string>
+    <string name="task_list_completed">Completadas</string>
+    <string name="delete_task_from_list_question">Elimina misión de la lista</string>
     <string name="delete">Elimina</string>
-    <string name="new_mission">Nova missió Tigatrapp!</string>
+    <string name="new_mission">Nueva misión Tigatrapp!</string>
 
     <!-- Menu -->
-    <string name="menu_option_task_list">Missions</string>
-    <string name="menu_option_tigatrapp_news">Notícies</string>
-    <string name="menu_option_settings">Ajustos</string>
-    <string name="menu_option_help">Ajuda</string>
+    <string name="menu_option_task_list">Misiones</string>
+    <string name="menu_option_tigatrapp_news">Noticias</string>
+    <string name="menu_option_settings">Ajustes</string>
+    <string name="menu_option_help">Ayuda</string>
     <string name="menu_option_about">Sobre</string>
-    <string name="menu_option_share">Comparteix</string>
+    <string name="menu_option_share">Comparte</string>
     <string name="menu_option_filter">Filtra</string>
-    <string name="menu_option_show_pending_tasks_only">Només missions pendents</string>
-    <string name="menu_option_show_all_tasks">Totes</string>
-    <string name="menu_option_map_type_label">Tipus de mapa</string>
-    <string name="menu_option_map_type_satellite">Imatge</string>
-    <string name="menu_option_map_type_street">Topogràfic</string>
-    <string name="menu_option_share_map">Comparteix mapa</string>
+    <string name="menu_option_show_pending_tasks_only">Sólo misiones pendientes</string>
+    <string name="menu_option_show_all_tasks">Todas</string>
+    <string name="menu_option_map_type_label">Tipo de mapa</string>
+    <string name="menu_option_map_type_satellite">Imagen</string>
+    <string name="menu_option_map_type_street">Topográfico</string>
+    <string name="menu_option_share_map">Comparte mapa</string>
     <string name="menu_option_save_map">Guarda mapa</string>
     <string name="menu_map_save">Guarda</string>
-    <string name="menu_map_share">Comparteix</string>
-    <string name="menu_toggle_view">Imatge</string>
-    <string name="menu_option_refresh">Actualitza</string>
+    <string name="menu_map_share">Comparte</string>
+    <string name="menu_toggle_view">Imagen</string>
+    <string name="menu_option_refresh">Actualiza</string>
 
     <!-- Misc -->
 
-    <string name="on">Encès</string>
-    <string name="off">Apagat</string>
-    <string name="sample_my_locations">Provar meus llocs</string>
-    <string name="sampling_is_off">El mostreig dels llocs està desactivat</string>
-        <string name="sampling_is_on">El mostreig dels llocs està activat</string>
+    <string name="on">Encendido</string>
+    <string name="off">Apagado</string>
+    <string name="sample_my_locations">Probar mis lugares</string>
+    <string name="sampling_is_off">El muestreo de los lugares está desactivado</string>
+        <string name="sampling_is_on">El muestreo de los lugares está activado</string>
     
-    <string name="added_current_loc">Posició actual guardada</string>
-    <string name="refresh">Actualitza</string>
-    <string name="report_deleted">Informe esborrat</string>
+    <string name="added_current_loc">Posición actual guardada</string>
+    <string name="refresh">Actualiza</string>
+    <string name="report_deleted">Informe borrado</string>
     <string name="edit">Edita</string>
-    <string name="edit_title_adult">Edita informe: troballa de mosquit tigre</string>
-    <string name="edit_title_site">Edita informe: lloc de cria</string>
-    <string name="cd_help_icon">Ajuda</string>
-    <string name="open">Obre</string>
-    <string name="spinner_prompt">Selecciona resposta</string>
+    <string name="edit_title_adult">Edita informe: hallazgo de mosquito tigre</string>
+    <string name="edit_title_site">Edita informe: lugar de cría</string>
+    <string name="cd_help_icon">Ayuda</string>
+    <string name="open">Abre</string>
+    <string name="spinner_prompt">Selecciona respuesta</string>
     <string name="spinner_nothing_selected">Selecciona</string>
-    <string name="help">Ajuda</string>
-    <string name="font_credit">Ús de la tipografia Anna en parts de l\'App Tigatrapp (www.annavives.com)</string>
-    <string name="photo_credit_gallery">Fotografia de R. Eritja (www.eritja.com)</string>
-    <string name="photo_credit">Fotografies de R. Eritja (www.eritja.com)</string>
-    <string name="nolocnogps_alert">No s\'ha pogut detectar la teva posició perquè ni el GPS ni la ubicació per xarxa mòbil i/o Wi-Fi estan activats. Activa\'ls o senyala la posició al mapa</string>
-    <string name="progtitle_report">Enviant</string>
-    <string name="nolocation_alert_report">No s\'ha pogut detectar la teva posició. Espera uns segons i torna-ho a intentar o senyala la posició al mapa</string>
-    <string name="upload_error_report">Error d\'enviament. El teu informe s\'ha guardat al mòbil i s\'enviarà més tard. Gràcies per participar</string>
-    <string name="offline_report">Sense connexió a internet. El teu informe s\'enviarà automàticament quan torni la connexió. Gràcies per participar</string>
-    <string name="about">Informació</string>
-    <string name="add_note">Descripció o nota opcional per acompanyar el teu informe</string>
+    <string name="help">Ayuda</string>
+    <string name="font_credit">Uso de la tipografía Anna en partes de la App Tigatrapp (www.annavives.com)</string>
+    <string name="photo_credit_gallery">Fotografía de R. Eritja (www.eritja.com)</string>
+    <string name="photo_credit">Fotografías de R. Eritja (www.eritja.com)</string>
+    <string name="nolocnogps_alert">No se ha podido detectar tu posición porque ni el GPS ni la ubicación por red móvil y/o Wi-Fi están activados. Actívalos o señala la posición en el mapa</string>
+    <string name="progtitle_report">Enviando</string>
+    <string name="nolocation_alert_report">No se ha podido detectar tu posición. Espera unos segundos y vuélvelo a intentar o señala la posición en el mapa</string>
+    <string name="upload_error_report">Error de envío. Tu informe se ha guardado en el móvil y se enviará más tarde. Gracias por participar</string>
+    <string name="offline_report">Sin conexión a internet. Tu informe se enviará automáticamente cuando vuelva la conexión. Gracias por participar</string>
+    <string name="about">Información</string>
+    <string name="add_note">Descripción o nota opcional para acompañar tu informe</string>
     <string name="app_directory">Tigatrapp</string>
     <string name="app_name">Tigatrapp</string>
-    <string name="button_submit_CD">Botó per enviar el teu informe al centre de recerca</string>
-    <string name="cancel">Anul·la</string>
+    <string name="button_submit_CD">Botón para enviar tu informe al centro de investigación</string>
+    <string name="cancel">Anula</string>
     <string name="ceab_CD">CEAB logo</string>
-    <string name="data_saved">Dades guardades com </string>
-    <string name="data_SD_error">Error al guardar l\'arxiu a la targeta SD</string>
-    <string name="data_SD_unavailable">Targeta SD No Disponible – l\'arxiu no es pot guardar</string>
+    <string name="data_saved">Datos guardados como </string>
+    <string name="data_SD_error">Error al guardar el archivo en la tarjeta SD</string>
+    <string name="data_SD_unavailable">Tarjeta SD No Disponible – el archivo no se puede guardar</string>
     <string name="dipsalut_CD">Dipsalut logo</string>
-    <string name="dontknow">No ho sé</string>
+    <string name="dontknow">No lo sé</string>
     <string name="fecyt_CD">FECYT logo</string>
-    <string name="funded_by">Finançat per:</string>
-    <string name="funding_and_support">Finançament i Suport</string>
-    <string name="gallery">Galeria d\'Imatges</string>
-    <string name="GPL">Veure GPL</string>
+    <string name="funded_by">Financiado por: </string>
+    <string name="funding_and_support">Financiación y Apoyo</string>
+    <string name="gallery">Galería de Imágenes</string>
+    <string name="GPL">Ver GPL</string>
     <string name="gpl_heading">GPL</string>
-    <string name="LGPL">Veure LGPL</string>
-    <string name="mailing_spec_title">Envia una mostra</string>
-    <string name="movelab">MoveLab\nCentre d\'Estudis Avançats de Blanes (CEAB-CSIC)</string>
+    <string name="LGPL">Ver LGPL</string>
+    <string name="mailing_spec_title">Envía una muestra</string>
+    <string name="movelab">MoveLab\nCentro de Estudios Avanzados de Blanes (CEAB-CSIC)</string>
     <string name="movelab_address1">C/ d\'accés a la Cala St. Francesc, 14</string>
     <string name="movelab_address2">Blanes. Girona. E-17300</string>
     <string name="movelab_banner_CD">MoveLab logo</string>
     <string name="no">No</string>
-    <string name="noGPSnoNetAlert">El GPS i la recepció de xarxa telefònica estan desactivats. No se\'t pot localitzar sense com a mínim un d\'ells activat. Vols activar-los?</string>
-    <string name="notes_title">Missatge</string>
+    <string name="noGPSnoNetAlert">El GPS y la recepción de red telefónica están desactivados. No se te puede localizar si no tienes al menos uno de ellos activado. ¿Quieres activarlos?</string>
+    <string name="notes_title">Mensaje</string>
     <string name="ok">OK</string>
     <string name="project_email">info@atrapaeltigre.com</string>
     <string name="project_website">www.atrapaeltigre.com/</string>
-    <string name="report_sent">Si cliques OK, les teves dades s\'enviaran al grup de recerca responsable del projecte. Part de les dades es faran públiques al mapa web del mosquit tigre a la pàgina web www.atrapaeltigre.com</string>
-    <string name="report_sent_confirmation">Gràcies per participar</string>
-    <string name="reportGallery_CD">Botó per accedir a la galeria d\'imatges del mosquit tigre</string>
-    <string name="saved_image_prefix">elMeuMapa</string>
+    <string name="report_sent">Si clicas OK, tus datos se enviarán al grupo de investigación responsable del proyecto. Parte de los datos se harán públicos en el mapa web del mosquito tigre en la pàgina web www.atrapaeltigre.com</string>
+    <string name="report_sent_confirmation">Gracias por participar</string>
+    <string name="reportGallery_CD">Botón para acceder a la galería de imágenes del mosquito tigre</string>
+    <string name="saved_image_prefix">MiMapa</string>
     <string name="scm_CD">SCM logo</string>
-    <string name="send_spec_text">Enviaràs el teu mosquit per correu postal al centre de recerca?</string>
-    <string name="share_with">Comparteix</string>
-    <string name="submit">Envia</string>
-    <string name="supported_by">Amb el suport de:</string>
-    <string name="confirmation_q2_adult_headthorax">Té una ratlla blanca al cap i al tòrax?</string>
-    <string name="type_here">Utilitza aquest espai per afegir una nota o comentari si és necessari</string>
-    <string name="view_gpl_english">Veure GPL versió oficial</string>
+    <string name="send_spec_text">¿Enviarás tu mosquito por correo postal al centro de investigación?</string>
+    <string name="share_with">Comparte</string>
+    <string name="submit">Envía</string>
+    <string name="supported_by">Con el apoyo de:</string>
+    <string name="confirmation_q2_adult_headthorax">¿Tiene una raya blanca en la cabeza y en el tórax?</string>
+    <string name="type_here">Utiliza este espacio para añadir una nota o comentario si es necesario</string>
+    <string name="view_gpl_english">Ver GPL versión oficial</string>
     <string name="yes">Sí</string>
-    <string name="your_report_id_is">"El codi de la teva Tigre troballa és: "</string>
-    <string name="photo_credits">Les fotografies de l\'App Tigatrapp han estat cedides per R. Eritja (www.eritja.com).</string>
+    <string name="your_report_id_is">"El código de tu Tigre hallazgo es: "</string>
+    <string name="photo_credits">Las fotografías de la App Tigatrapp han sido cedidas por R. Eritja (www.eritja.com).</string>
     <string name="credits">
 <![CDATA[
-<p>AtrapaelTigre.com és un projecte de ciència ciutadana coordinat per l\'ICREA-Laboratori d\'Ecologia del Moviment (www.movelab.net) del Centre d\'Estudis Avançats de Blanes (www.ceab.csic.es) del Consell Superior d\'Investigacions Científiques (www.csic.es).</p> 
+<p>AtrapaelTigre.com es un proyecto de ciencia ciudadana coordinado por el ICREA-Laboratorio de Ecología del Movimiento (www.movelab.es) del Centro de Estudios Avanzados de Blanes (www.ceab.csic.es) del Consejo Superior de Investigaciones Científicas (www.csic.es).</p> 
 
-<p>Hi participen responsables de comunicació científica del Consell Superior d\'Investigacions Científiques (Vicepresidència Adjunta de Cultura Científica, Delegació a les Illes Balears, Delegació a Catalunya i Delegació a València) i la Universitat de Múrcia (www.um.es).</p> 
+<p>Participan responsables de comunicación científica del Consejo Superior de Investigaciones Científicas (Vicepresidencia Adjunta de Cultura Científica, Delegación en las Islas Baleares, Delegación en Cataluña y Delegación en Valencia) y la Universidad de Murcia (www.um.es).</p> 
 
-<p>El projecte està cofinançat per la Fundació Espanyola per la Ciència i la Tecnologia (FECYT) i pel programa d\'ajuts a la recerca Recercaixa, dins el marc del projecte "Ciència ciutadana: educació i recerca". Bloom col·labora en la lluita contra el mosquit tigre patrocinant el projecte AtrapaelTigre.com</p> 
+<p>El proyecto está cofinanciado por la Fundación Española para la Ciencia y la Tecnología (FECYT) y por el programa de ayudas a la investigación Recercaixa, dentro del marco del proyecto: "Ciencia ciudadana: educación e investigación". Bloom colabora en la lucha contra el mosquito tigre patrocinando el proyecto AtrapaelTigre.com</p> 
 
-<p>El projecte compta a més amb el suport de vàries institucions públiques i privades.</p>
+<p>El proyecto cuenta además con el apoyo de varias instituciones públicas y privadas.</p>
 
-<p>Les fotografies de l\'App Tigatrapp han estat cedides per R. Eritja (www.eritja.com).</p>
+<p>Las fotografías de la App Tigatrapp han sido cedidas por R. Eritja (www.eritja.com).</p>
  
     ]]>
     </string>
     <string name="copyright">
 <![CDATA[
-<p>Copyright &#169; 2013 John R.B. Palmer, Aitana Oltra, Joan Garriga i Frederic Bartumeus</p>
+<p>Copyright &#169; 2013 John R.B. Palmer, Aitana Oltra, Joan Garriga y Frederic Bartumeus</p>
     ]]>
     </string>
     <string name="consent_html">
 <![CDATA[
 <p>
-Participa en l\'estudi i seguiment del mosquit tigre a Espanya amb l\'App Tigatrapp, 
-enviant dades de llocs de cria i troballes d\'adult de mosquit tigre. 
-Informa\'t de les últimes novetats i aprèn a combatre el mosquit tigre a casa teva. 
+Participa en el estudio y seguimiento del mosquito tigre en España con la App Tigatrapp, 
+enviando datos de lugares de cría y hallazgos de mosquito tigre. 
+Infórmate de las últimas novedades y aprende a combatir el mosquito tigre en tu casa. 
 </p>
 <ol>
-<li>Familiaritza\'t amb el mosquit tigre i amb els seus llocs de cria. Trobaràs tot el necessari a l\'App i a la web del projecte.</li>
+<li>Familiarízate con el mosquito tigre y con sus lugares de cría. Encontrarás todo lo necesario en la App y en la web del proyecto.</li>
 
-<li>Participa compartint dades. Envia informes de nous llocs de cria en espais públics i de troballes de mosquit tigre. Formaràs part del primer mapa de mosquit tigre d\'Espanya.</li> 
+<li>Participa compartiendo datos. Envía informes de nuevos lugares de cría en espacios públicos y hallazgos de mosquito tigre. Formarás parte del primer mapa de mosquito tigre de España.</li> 
 
-<li>Manté les teves dades actualitzades amb l\'opció d\'edició del teu mapa.</li>
+<li>Mantén tus datos actualizados con la opción de edición de tu mapa.</li>
 
 
-<li>I moltes coses més: des de missions especials fins a notícies actualitzades del projecte AtrapaelTigre.com i del mosquit tigre.</li>
+<li>Y muchas cosas más: desde misiones especiales hasta noticias actualizadas del proyecto AtrapaelTigre.com y del mosquito tigre.</li>
 </ol>
-<p>Explora Tigatrapp i si tens dubtes consulta la pàgina d\'ajuda o la web <a href="www.atrapaeltigre.com">www.atrapaeltigre.com</a> 
+<p>Explora Tigatrapp y si tienes dudas consulta la página de ayuda o la web <a href="www.atrapaeltigre.com">www.atrapaeltigre.com</a> 
 </p>
 <br>
-    <p><b>FORMULARI ESTÀNDARD DE CONSENTIMENT</b></p>
-<p>(Convocatòria FECYT 2013; Projecte FCT-13-7019) Diseño e implementación de un sistema ciudadano de alerta y seguimiento del mosquito tigre: ciencia en sociedad (Atrapa el Tigre 2.0)</p>
+    <p><b>FORMULARIO ESTÁNDAR DE CONSENTIMIENTO</b></p>
+<p>(Convocatoria FECYT 2013; Proyecto FCT-13-7019) Diseño e implementación de un sistema ciudadano de alerta y seguimiento del mosquito tigre: ciencia en sociedad (Atrapa el Tigre 2.0)</p>
 
-<p>Entenc que la participació al projecte AtrapaelTigre.com a través de l\'aplicació Tigatrapp ha d\'estar sempre supervisada per un adult.</p> 
+<p>Entiendo que la participación en el proyecto AtrapaelTigre.com a través de la aplicación Tigatrapp tiene que estar siempre supervisada por un adulto.</p> 
 
-<p>Entenc que Tigatrapp recull i envia dades sobre la meva posició aproximada, així com dades geolocalitzades d\'albiraments de mosquit tigre i de llocs de cria en espais públics que jo mateix documento i comparteixo. Entenc que Tigatrapp em permet també enviar i compatir, de manera voluntària, fotografies de mosquit tigre i de llocs de cria, missatges pels científics que descriguin els meus albiraments i respostes a qüestionaris.</p> 
+<p>Entiendo que Tigatrapp recoge y envía datos sobre mi localización aproximada, así como datos geolocalizados de avistamientos de mosquito tigre y de lugares de cría en espacios públicos que yo mismo documento y comparto. Entiendo que Tigatrapp me permite también enviar y compartir, de manera voluntaria, fotografías de mosquito tigre y de lugares de cría, mensajes para los científicos que describan mis avistamientos y respuestas a cuestionarios.</p> 
 
-<p>Entenc que les dades i imatges recollides i compartides a través de Tigatrapp no són de caràcter personal, ja que no es recull informació referent a persones físiques identificades o identificables, segons el que estableix la Llei orgànica 15/1999. Entenc que està sota la meva responsabilitat la correcta utilització de Tigatrapp i que no haig ni de recollir, ni d\'enviar, a través de Tigatrapp, imatges o dades personals, ni fer un ús indegut, o fora de la legalitat, o diferent al qual Tigatrapp està destinat.</p>
+<p>Entiendo que los datos e imágenes recogidos y compartidos a través de Tigatrapp no son de carácter personal, ya que no se recoge información referente a personas físicas identificadas o identificables, según lo establecido en la Ley Orgánica 15/1999. Entiendo que está bajo mi responsabilidad la correcta utilización de Tigatrapp y que no tengo que recoger, ni enviar, a través de Tigatrapp, imágenes o datos personales, ni hacer un uso indebido, o fuera de la legalidad, o diferente al que Tigatrapp está destinado.</p>
 
-<p>Entenc que la utilització del telèfon mòbil mentre condueixo està prohibida i que pot augmentar el risc d\'accidents, morts o danys. Entenc que no haig d\'utilitzar l\'aplicació o el meu telèfon mòbil en cap cas mentre condueixo, i estic d\'acord en no fer-ho. Entenc també que la seguretat és la prioritat més important en tots els aspectes d\'aquest projecte i estic d\'acord en utilitzar el meu telèfon mòbil en tot moment d\'una manera segura.</p>
+<p>Entiendo que la utilización del teléfono móvil mientras conduzco está prohibida y que puede aumentar el riesgo de accidentes, muertes o daños. Entiendo que no tengo que utilizar la aplicación o mi teléfono móvil en ningún caso mientras conduzco, y estoy de acuerdo en no hacerlo. Entiendo también que la seguridad es la prioridad más importante en todos los aspectos de este proyecto y estoy de acuerdo en utilizar mi teléfono móvil de manera segura en todo momento.</p>
 
-<p>Entenc que la informació que recull i envia Tigatrapp pot ser publicada al portal web www.atrapaeltigre.com i en d\'altres portals i suports. Entenc que la informació subministrada pot ser utilitzada per a fins científics, ambientals i de sanitat pública. En cap cas aquesta informació serà utilitzada per a fins comercials.</p>
+<p>Entiendo que la información que recoge y envía Tigatrapp puede ser publicada en el portal web www.atrapaeltigre.com y en de otros portales y soportes. Entiendo que la información suministrada puede ser utilizada para fines científicos, ambientales y de sanidad pública. En ningún caso esta información será utilizada para fines comerciales.</p>
 
-<p>Entenc que l\'objectiu d\'aquest projecte d\'investigació i ciència ciutadana és estudiar la presència i dispersió del mosquit tigre, així com aspectes relacionats amb la participació ciutadana i les ciències ciutadanes. Entenc que no rebré cap tipus de compensació econòmica per la meva participació i que no podré cancel&#183;ar ni rectificar la informació ja compartida, ja que aquesta en cap cas es pot associar a la meva persona física. Entenc que es prendran les mesures raonables per tal de protegir la meva privacitat en tota la informació que enviï pel projecte d\'investigació.</p> 
+<p>Entiendo que el objetivo de este proyecto de investigación y ciencia ciudadana es estudiar la presencia y dispersión del mosquito tigre, así como aspectos relacionados con la participación ciudadana y las ciencias ciudadanas. Entiendo que no recibiré ningún tipo de compensación económica por mi participación y que no podré cancelar ni rectificar la información ya compartida, ya que ésta en ningún caso se puede asociar a mi persona física. Entiendo que se tomarán las medidas razonables para proteger mi privacidad en relación a toda la información que envíe al proyecto de investigación.</p> 
 
-<p>Amb el consentiment d\'aquest formulari declaro que sóc major d\'edat  i que he llegit i entenc que:</p>
+<p>Con el consentimiento de este formulario declaro que soy mayor de edad y que he leído y entiendo que:</p>
 
-<p>A. La meva participació és voluntària, i puc deixar de participar en qualsevol moment. La meva negativa a participar no donarà lloc a cap tipus de penalització. La meva participació està sotmesa a les condicions d\'aquest formulari de consentiment.</p>
-<p>B. La prestació del meu consentiment no implica la renúncia a qualsevol dret o eximeix al Consell Superior d\'Investigacions Científiques, els seus agents o a l\'investigador responsable d\'aquest projecte, de qualsevol responsabilitat per culpa.</p>
-<p>Presto el meu consentiment a ser un participant d\'aquest projecte d\'investigació sota les condicions establertes en aquest formulari.</p>
+<p>A. Mi participación es voluntaria y puedo dejar de participar en cualquier momento. Mi negativa a participar no dará lugar a ningún tipo de penalización. Mi participación está sometida a las condiciones de este formulario de consentimiento.</p>
+<p>B. La prestación de mi consentimiento no implica la renuncia a cualquier derecho o exime al Consejo Superior de Investigaciones Científicas, sus agentes o a investigador responsable de este proyecto, de cualquier responsabilidad por culpa.</p>
+<p>Presto mi consentimiento a ser un participante de este proyecto de investigación bajo las condiciones establecidas en este formulario.</p>
     
    ]]>
     </string>
     <string name="about_html">
 <![CDATA[
-<p>Tigatrapp prototip, versió 1.3</p>
+<p>Tigatrapp prototipo, versió 1.3</p>
 
-<p>Tigatrapp és una aplicació Android que busca aprofitar el gran potencial de la ciutadania per a col·laborar en la recerca del mosquit tigre, gràcies a l\'ús de les noves tecnologies. És, per tant, un exemple del potencial de les ciències ciutadanes. L\'aplicació ha sigut desenvolupada pel grup de recerca Movement Ecology Lab del Centre d\'Estudis Avançats de Blanes (CEAB-CSIC). El codi font està en part basat en codi de l\'aplicació "Space Mapper" (desenvolupada per John R.B. Palmer), codi de "The Human Mobility Project" (Chang Y. Chung, Kathleen Li i Necati E. Ozgencil) i codi de "Funf" (Nadav Aharony, Wei Pan i Alex Pentland). El codi font de Tigatrapp està disponible al grup de recerca Movement Ecology Lab.</p>
+<p>Tigatrapp es una aplicación Android que busca aprovechar el gran potencial que puede tener la ciudadanía en el estudio del mosquito tigre, gracias a las nuevas tecnologías. Es, por lo tanto, un ejemplo del potencial de las ciencias ciudadanas. La aplicación ha sido desarrollada por el grupo de investigación Movement Ecology Lab del Centro de Estudios Avanzados de Blanes (CEAB-CSIC). El código fuente está en parte basado en código de la aplicación "Space Mapper" (desarrollada por John RB Palmer), código de "The Human Mobility Project" (Chang Y. Chung, Kathleen Li y Necati E. Ozgencil) y código de "Funf" (Nadav Aharony, Wei Pan y Alex Pentland). El código fuente de Tigatrapp está disponible en el grupo de investigación Movement Ecology Lab.</p>
 
-<p>Copyright &#169; 2013 John R.B. Palmer, Aitana Oltra, Joan Garriga i Frederic Bartumeus</p>
+<p>Copyright &#169; 2013 John R.B. Palmer, Aitana Oltra, Joan Garriga y Frederic Bartumeus</p>
  
-<p> Tigatrapp és programari lliure: es pot redistribuir i/o modificar sota els termes de la llicència general pública GNU General Public License publicada per Free Software Foundation (versió 3 de la llicència o superior)</p>
+<p> Tigatrapp es software libre: se puede redistribuir y/o modificar bajo los términos de la licencia general pública GNU General Public License publicada por Free Software Foundation (versión 3 de la licencia o superior)</p>
 
 <p>This program is distributed in the hope that it will be useful,
     but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -635,34 +634,34 @@ Això és programari lliure, i podeu redistribuir-lo sota certes condicions; per
 
 
 
-<h1>PARTICIPA</h1>
-Participa en l\'estudi i seguiment del mosquit tigre a Espanya, enviant dades de llocs de cria i troballes d\'adult de mosquit tigre. Informa\'t de les últimes novetats i aprèn a combatre el mosquit tigre a casa teva. 
+<h1>PARTICIPA, ES MUY FÁCIL</h1>
+Participa en el estudio y seguimiento del mosquito tigre en España, enviando datos de lugares de cría y hallazgos de mosquito tigre. Infórmate de las últimas novedades y aprende a combatir el mosquito tigre en tu casa. 
 
-<h2>Familiaritza\'t amb el mosquit tigre</h2>
-Aprèn a reconèixer el mosquit tigre (assegura\'t que no el confons amb altres mosquits). Familiaritza\'t amb el seu cicle de vida i amb els llocs on cria. L\'App i la web del projecte AtrapaelTigre.com contenen tota la informació necessària perquè les teves dades siguin de qualitat.
+<h2>Familiarízate con el mosquito tigre</h2>
+Aprende a reconocer el mosquito tigre (asegúrate de que no lo confundes con otros mosquitos). Familiarízate con su ciclo de vida y con sus lugares de cría. La App y la web del proyecto AtrapaelTigre.com contienen toda la información necesaria para que tus datos sean de calidad.
 
-<h2>Participa compartint dades</h2>
-Utilitza els botons “PARTICIPA” per enviar informes de nous llocs de cria en espais públics i de troballes de mosquit tigre. Trobaràs informació detallada clicant l\'icona (i). 
+<h2>Participa compartiendo datos</h2>
+Utiliza los botones “PARTICIPA” para enviar informes de nuevos lugares de cría en espacios públicos y de hallazgos de mosquito tigre. Encontrarás información detallada clicando el icono (i). 
 
-<h2>Mantén les teves dades actualitzades</h2>
-Utilitza el botó “EL MEU MAPA” per veure i controlar les teves dades, editar-les si les vols actualitzar o corregir i eliminar-les si creus que són errònies. 
+<h2>Mantén tus datos actualizados</h2>
+Utiliza el botón “MI MAPA” para ver y controlar tus datos, editarlos si los quieres actualizar o corregir y eliminarlos si crees que son erróneos. 
 
-<h2>Participa en missions</h2>
-Participa en missions especials si t\'apareix la icona del mosquit tigre al teu telèfon. En qualsevol moment podràs realitzar la missió, deixar-la per més tard, o eliminar-la si no vols participar-hi. Consulta les missions pendents al menú principal. 
+<h2>Participa en misiones</h2>
+Participa en misiones especiales si te aparece el icono del mosquito tigre en tu teléfono. En cualquier momento podrás realizar la misión, dejarla para más tarde, o eliminarla si no quieres participar. Consulta las misiones pendientes en el menú principal. 
 
-<h2>Explora altres opcions</h2>
-Explora el botó de configuració a cada pantalla per accedir a opcions extres. Canvia el mapa base, comparteix l\'App o consulta les últimes notícies del projecte AtrapaelTigre.com.
+<h2>Explora otras opciones</h2>
+Explora el botón de configuración en cada pantalla para acceder a opciones extras. Cambia el mapa base, comparte la App o consulta las últimas noticias del proyecto AtrapaelTigre.com. 
  
 
-<h1>DESTÍ DE LES TEVES DADES</h1>
-Les teves dades s\'enviaran al centre de recerca que coordina AtrapaelTigre.com, el Centre d\'Estudis Avançats de Blanes del Consell Superior d\'Investigacions Científiques (CEAB-CSIC). Aquestes dades seran utilitzades per a fins no lucratius relacionats amb la recerca, l\'educació ambiental, el control d\'espècies invasores, etc.
+<h1>DESTINO DE TUS DATOS</h1>
+Tus datos se mandarán al centro de investigación que coordina AtrapaelTigre.com, el Centro de Estudios Avanzados de Blanes del Consejo Superior de Investigaciones Científicas (CEAB-CSIC). Estos datos serán utilizados para fines no lucrativos relacionados con la investigación, la educación ambiental, el control de especies invasoras, etc.
  
-Tigatrapp recull també dades de la posició aproximada del teu telèfon mòbil, dins d\'un radi de XXXkm . Aquestes dades ens permeten enviar-te missions especials i informar-te de les últimes novetats sobre el mosquit tigre en funció de la regió on vius. En cap cas Tigatrapp recull dades personals.
+Tigatrapp recoge también datos de la posición aproximada de tu teléfono móvil, dentro de un radio de XXXkm. Estos datos nos permiten enviarte misiones especiales e informarte de las últimas novedades sobre el mosquito tigre en función de la región en la que vives. En ningún caso Tigatrapp recoge datos personales.
 
-Part de les teves dades enviades es publiquen de manera automàtica al mapa web del mosquit tigre a la web del projecte AtrapaelTigre.com. En qualsevol moment pots eliminar, editar i actualitzar aquestes dades, des del botó “EL MEU MAPA”. 
+Parte de tus datos enviados se publican de manera automática en el mapa web del mosquito tigre en la web del proyecto AtrapaelTigre.com. En cualquier momento puedes eliminar, editar y actualizar estos datos, desde el botón “MI MAPA”. 
  
-<h1>CONSULTA SI TENS MÉS DUBTES</h1> 
-Consulta la <a href="http://www.atrapaeltigre.com">pàgina web</a> o escriu a <a href="mailto:info@atrapaeltigre.com">info@atrapaeltigre.com</a>.
+<h1>CONSULTA SI TIENES MÁS DUDAS</h1> 
+Si tienes dudas, consulta la <a href="http://www.atrapaeltigre.com">página web</a> o escribe a <a href="mailto:info@atrapaeltigre.com">info@atrapaeltigre.com</a>.
 
 
 

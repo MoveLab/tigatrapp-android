@@ -81,15 +81,16 @@ public class Help extends FragmentActivity {
 
 		super.onResume();
 
-
 	}
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		// Check if the key event was the Back button and if there's history
-		if ((keyCode == KeyEvent.KEYCODE_BACK) && myWebView.canGoBack()) {
-			myWebView.goBack();
-			return true;
+		if (Util.isOnline(context)) {
+			// Check if the key event was the Back button and if there's history
+			if ((keyCode == KeyEvent.KEYCODE_BACK) && myWebView.canGoBack()) {
+				myWebView.goBack();
+				return true;
+			}
 		}
 		return super.onKeyDown(keyCode, event);
 	}

@@ -214,6 +214,8 @@ public class FixGet extends Service {
 						try {
 							unregisterReceiver(stopReceiver);
 						} catch (IllegalArgumentException e) {
+							Log.e("Unregister receiver error: ", e.getMessage());
+
 
 						}
 						unWakeLock();
@@ -244,6 +246,7 @@ public class FixGet extends Service {
 		try {
 			unregisterReceiver(stopReceiver);
 		} catch (IllegalArgumentException e) {
+			Log.e("Unregister receiver error: ", e.getMessage());
 
 		}
 
@@ -410,9 +413,9 @@ public class FixGet extends Service {
 
 		Log.i("FG", "thisHour: " + thisHour);
 
-		String sc1 = Tasks.KEY_LOCATION_TRIGGERS_JSON + " IS NOT NULL AND "
+		String sc1 = Tasks.KEY_TRIGGERS + " IS NOT NULL AND "
 				+ Tasks.KEY_ACTIVE + " = 0 AND " + Tasks.KEY_DONE + " = 0 AND "
-				+ Tasks.KEY_EXPIRATION_DATE + " >= "
+				+ Tasks.KEY_EXPIRATION_TIME + " >= "
 				+ System.currentTimeMillis();
 
 		Log.i("FG", sc1);
@@ -427,7 +430,7 @@ public class FixGet extends Service {
 			try {
 				JSONArray theseTriggers = new JSONArray(
 						c.getString(c
-								.getColumnIndexOrThrow(Tasks.KEY_LOCATION_TRIGGERS_JSON)));
+								.getColumnIndexOrThrow(Tasks.KEY_TRIGGERS)));
 
 				for (int i = 0; i < theseTriggers.length(); i++) {
 
@@ -459,8 +462,8 @@ public class FixGet extends Service {
 
 						Intent intent = new Intent(
 								TigerBroadcastReceiver.TIGER_TASK_MESSAGE);
-						intent.putExtra(Tasks.KEY_TASK_HEADING, c.getString(c
-								.getColumnIndexOrThrow(Tasks.KEY_TASK_HEADING)));
+						intent.putExtra(Tasks.KEY_TITLE_CATALAN, c.getString(c
+								.getColumnIndexOrThrow(Tasks.KEY_TITLE_CATALAN)));
 						context.sendBroadcast(intent);
 					}
 				}
@@ -536,6 +539,8 @@ public class FixGet extends Service {
 			try {
 				unregisterReceiver(stopReceiver);
 			} catch (IllegalArgumentException e) {
+				Log.e("Unregister receiver error: ", e.getMessage());
+
 
 			}
 			unWakeLock();

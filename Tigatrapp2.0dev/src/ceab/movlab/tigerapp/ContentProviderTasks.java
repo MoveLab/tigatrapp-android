@@ -51,7 +51,7 @@ public class ContentProviderTasks extends ContentProvider {
 	private static final String DATABASE_NAME = "tasksDB";
 
 	/** The database version */
-	private static final int DATABASE_VERSION = 5;
+	private static final int DATABASE_VERSION = 6;
 
 	private static final String DATABASE_TABLE = "tasksTable";
 
@@ -63,11 +63,15 @@ public class ContentProviderTasks extends ContentProvider {
 	/** The SQL command to create the tasksTable */
 	private static final String DATABASE_CREATE = "create table "
 			+ DATABASE_TABLE + " (" + Tasks.KEY_ROW_ID + TYPE_INTEGER
-			+ " primary key autoincrement" + COMMA + Tasks.KEY_TASK_ID
-			+ TYPE_TEXT + COMMA + Tasks.KEY_TASK_HEADING + TYPE_TEXT + COMMA
-			+ Tasks.KEY_TASK_SHORT_DESCRIPTION + TYPE_TEXT + COMMA
-			+ Tasks.KEY_DATE + TYPE_INTEGER + COMMA + Tasks.KEY_EXPIRATION_DATE
-			+ TYPE_INTEGER + COMMA + Tasks.KEY_LOCATION_TRIGGERS_JSON
+			+ " primary key autoincrement" + COMMA + Tasks.KEY_ID + TYPE_TEXT
+			+ COMMA + Tasks.KEY_TITLE_CATALAN + TYPE_TEXT + COMMA
+			+ Tasks.KEY_TITLE_SPANISH + TYPE_TEXT + COMMA
+			+ Tasks.KEY_TITLE_ENGLISH + TYPE_TEXT + COMMA
+			+ Tasks.KEY_SHORT_DESCRIPTION_CATALAN + TYPE_TEXT + COMMA
+			+ Tasks.KEY_SHORT_DESCRIPTION_SPANISH + TYPE_TEXT + COMMA
+			+ Tasks.KEY_SHORT_DESCRIPTION_ENGLISH + TYPE_TEXT + COMMA
+			+ Tasks.KEY_CREATION_TIME + TYPE_INTEGER + COMMA + Tasks.KEY_EXPIRATION_TIME
+			+ TYPE_INTEGER + COMMA + Tasks.KEY_TRIGGERS
 			+ TYPE_TEXT + COMMA + Tasks.KEY_ACTIVE + TYPE_INTEGER + COMMA
 			+ Tasks.KEY_TASK_JSON + TYPE_TEXT + COMMA + Tasks.KEY_DONE
 			+ TYPE_INTEGER + COMMA + Tasks.KEY_RESPONSES_JSON + TYPE_TEXT
@@ -115,16 +119,17 @@ public class ContentProviderTasks extends ContentProvider {
 
 		tasksProjectionMap = new HashMap<String, String>();
 		tasksProjectionMap.put(Tasks.KEY_ROW_ID, Tasks.KEY_ROW_ID);
-		tasksProjectionMap.put(Tasks.KEY_TASK_ID, Tasks.KEY_TASK_ID);
-		tasksProjectionMap.put(Tasks.KEY_TASK_HEADING, Tasks.KEY_TASK_HEADING);
-		tasksProjectionMap.put(Tasks.KEY_TASK_SHORT_DESCRIPTION,
-				Tasks.KEY_TASK_SHORT_DESCRIPTION);
+		tasksProjectionMap.put(Tasks.KEY_ID, Tasks.KEY_ID);
+		tasksProjectionMap
+				.put(Tasks.KEY_TITLE_CATALAN, Tasks.KEY_TITLE_CATALAN);
+		tasksProjectionMap.put(Tasks.KEY_SHORT_DESCRIPTION_CATALAN,
+				Tasks.KEY_SHORT_DESCRIPTION_CATALAN);
 
-		tasksProjectionMap.put(Tasks.KEY_DATE, Tasks.KEY_DATE);
-		tasksProjectionMap.put(Tasks.KEY_EXPIRATION_DATE,
-				Tasks.KEY_EXPIRATION_DATE);
-		tasksProjectionMap.put(Tasks.KEY_LOCATION_TRIGGERS_JSON,
-				Tasks.KEY_LOCATION_TRIGGERS_JSON);
+		tasksProjectionMap.put(Tasks.KEY_CREATION_TIME, Tasks.KEY_CREATION_TIME);
+		tasksProjectionMap.put(Tasks.KEY_EXPIRATION_TIME,
+				Tasks.KEY_EXPIRATION_TIME);
+		tasksProjectionMap.put(Tasks.KEY_TRIGGERS,
+				Tasks.KEY_TRIGGERS);
 		tasksProjectionMap.put(Tasks.KEY_ACTIVE, Tasks.KEY_ACTIVE);
 
 		tasksProjectionMap.put(Tasks.KEY_TASK_JSON, Tasks.KEY_TASK_JSON);

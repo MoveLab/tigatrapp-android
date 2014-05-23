@@ -440,8 +440,8 @@ public class Report {
 					
 					JSONObject innerJSON = new JSONObject();
 					JSONObject itemJSON = thisConfirmation.getJSONObject(key);
-					innerJSON.put("question", itemJSON.get("item_text"));
-					innerJSON.put("answer", itemJSON.get("item_response"));
+					innerJSON.put("question", itemJSON.get(TaskItemModel.KEY_ITEM_TEXT));
+					innerJSON.put("answer", itemJSON.get(TaskItemModel.KEY_ITEM_RESPONSE));
 					
 					responsesArray.put(innerJSON);
 

@@ -105,10 +105,10 @@ public class TaskListActivity extends FragmentActivity implements
 				Log.i("LPT",
 						""
 								+ c.getLong(c
-										.getColumnIndexOrThrow(Tasks.KEY_EXPIRATION_DATE)));
+										.getColumnIndexOrThrow(Tasks.KEY_EXPIRATION_TIME)));
 
 				if (c.getLong(c
-						.getColumnIndexOrThrow(Tasks.KEY_EXPIRATION_DATE)) >= System
+						.getColumnIndexOrThrow(Tasks.KEY_EXPIRATION_TIME)) >= System
 						.currentTimeMillis()) {
 
 					if (c.getInt(c.getColumnIndexOrThrow(Tasks.KEY_DONE)) == 0) {
@@ -184,7 +184,7 @@ public class TaskListActivity extends FragmentActivity implements
 
 		return new CursorLoader(context, Tasks.CONTENT_URI,
 				Tasks.KEYS_TASKS_LIST, all ? queryAll : queryPending, null,
-				Tasks.KEY_DATE + " DESC");
+				Tasks.KEY_CREATION_TIME + " DESC");
 	}
 
 	public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {

@@ -19,11 +19,25 @@ public class TaskItemModel {
 	private String[] itemChoices;
 	private String itemResponse;
 
-	public static final String KEY_ITEM_ID = "item_id";
+	public static final String KEY_ITEM_ID = "id";
+	public static final String KEY_QUESTION = "question";
+	public static final String KEY_QUESTION_CATALAN = "question_catalan";
+	public static final String KEY_QUESTION_SPANISH = "question_spanish";
+	public static final String KEY_QUESTION_ENGLISH = "question_english";
+
+	public static final String KEY_HELP_TEXT = "help_text";
+	public static final String KEY_HELP_TEXT_CATALAN = "help_text_catalan";
+	public static final String KEY_HELP_TEXT_SPANISH = "help_text_spanish";
+	public static final String KEY_HELP_TEXT_ENGLISH = "help_text_english";
+
+	public static final String KEY_PREPOSITIONED_IMAGE_REFERENCE = "prepositioned_image_reference";
+	public static final String KEY_ANSWER_CHOICES = "answer_choices";
+	public static final String KEY_ANSWER_CHOICES_CATALAN = "answer_choices_catalan";
+	public static final String KEY_ANSWER_CHOICES_SPANISH = "answer_choices_spanish";
+	public static final String KEY_ANSWER_CHOICES_ENGLISH = "answer_choices_english";
+
 	public static final String KEY_ITEM_TEXT = "item_text";
-	public static final String KEY_ITEM_HELP = "item_help";
-	public static final String KEY_ITEM_HELP_IMAGE = "item_help_image";
-	public static final String KEY_ITEM_CHOICES = "item_choices";
+
 	public static final String KEY_ITEM_RESPONSE = "item_response";
 
 	public TaskItemModel(Context context, JSONObject item) {
@@ -36,36 +50,16 @@ public class TaskItemModel {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		try {
 
-			if (item.has(KEY_ITEM_TEXT))
-				this.itemText = item.getString(KEY_ITEM_TEXT);
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
+		// if preset, then language already decided:
+		if (item.has(KEY_ANSWER_CHOICES) && item.has(KEY_HELP_TEXT)
+				&& item.has(KEY_QUESTION)) {
+			try {
+				this.itemText = item.getString(KEY_QUESTION);
+				this.itemHelp = item.getString(KEY_HELP_TEXT);
 
-			if (item.has(KEY_ITEM_HELP))
-				this.itemHelp = item.getString(KEY_ITEM_HELP);
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		try {
-
-			if (item.has(KEY_ITEM_HELP_IMAGE))
-				this.itemHelpImage = item.getInt(KEY_ITEM_HELP_IMAGE);
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		try {
-
-			if (item.has(KEY_ITEM_CHOICES)) {
-				JSONArray itemChoicesJson = item.getJSONArray(KEY_ITEM_CHOICES);
+				JSONArray itemChoicesJson = item
+						.getJSONArray(KEY_ANSWER_CHOICES);
 				String[] itemChoicesTemp = new String[itemChoicesJson.length() + 1];
 				// Making the first row blank so that Spinner default is no
 				// selection
@@ -75,8 +69,154 @@ public class TaskItemModel {
 					itemChoicesTemp[i + 1] = itemChoicesJson.getString(i);
 				}
 				itemChoices = itemChoicesTemp;
+
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 
+		} else {
+
+			String currentLang = PropertyHolder.getLanguage();
+
+			if (currentLang == "ca") {
+				try {
+
+					if (item.has(KEY_QUESTION_CATALAN))
+						this.itemText = item.getString(KEY_QUESTION_CATALAN);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+
+					if (item.has(KEY_HELP_TEXT_CATALAN))
+						this.itemHelp = item.getString(KEY_HELP_TEXT_CATALAN);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				try {
+
+					if (item.has(KEY_ANSWER_CHOICES_CATALAN)) {
+						JSONArray itemChoicesJson = item
+								.getJSONArray(KEY_ANSWER_CHOICES_CATALAN);
+						String[] itemChoicesTemp = new String[itemChoicesJson
+								.length() + 1];
+						// Making the first row blank so that Spinner default is
+						// no
+						// selection
+						itemChoicesTemp[0] = context.getResources().getString(
+								R.string.spinner_nothing_selected);
+						for (int i = 0; i < itemChoicesJson.length(); i++) {
+							itemChoicesTemp[i + 1] = itemChoicesJson
+									.getString(i);
+						}
+						itemChoices = itemChoicesTemp;
+					}
+
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			} else if (currentLang == "es") {
+
+				try {
+
+					if (item.has(KEY_QUESTION_SPANISH))
+						this.itemText = item.getString(KEY_QUESTION_SPANISH);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+
+					if (item.has(KEY_HELP_TEXT_SPANISH))
+						this.itemHelp = item.getString(KEY_HELP_TEXT_SPANISH);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				try {
+
+					if (item.has(KEY_ANSWER_CHOICES_SPANISH)) {
+						JSONArray itemChoicesJson = item
+								.getJSONArray(KEY_ANSWER_CHOICES_SPANISH);
+						String[] itemChoicesTemp = new String[itemChoicesJson
+								.length() + 1];
+						// Making the first row blank so that Spinner default is
+						// no
+						// selection
+						itemChoicesTemp[0] = context.getResources().getString(
+								R.string.spinner_nothing_selected);
+						for (int i = 0; i < itemChoicesJson.length(); i++) {
+							itemChoicesTemp[i + 1] = itemChoicesJson
+									.getString(i);
+						}
+						itemChoices = itemChoicesTemp;
+					}
+
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			} else if (currentLang == "en") {
+
+				try {
+
+					if (item.has(KEY_QUESTION_ENGLISH))
+						this.itemText = item.getString(KEY_QUESTION_ENGLISH);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+
+					if (item.has(KEY_HELP_TEXT_ENGLISH))
+						this.itemHelp = item.getString(KEY_HELP_TEXT_ENGLISH);
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+				try {
+
+					if (item.has(KEY_ANSWER_CHOICES_ENGLISH)) {
+						JSONArray itemChoicesJson = item
+								.getJSONArray(KEY_ANSWER_CHOICES_ENGLISH);
+						String[] itemChoicesTemp = new String[itemChoicesJson
+								.length() + 1];
+						// Making the first row blank so that Spinner default is
+						// no
+						// selection
+						itemChoicesTemp[0] = context.getResources().getString(
+								R.string.spinner_nothing_selected);
+						for (int i = 0; i < itemChoicesJson.length(); i++) {
+							itemChoicesTemp[i + 1] = itemChoicesJson
+									.getString(i);
+						}
+						itemChoices = itemChoicesTemp;
+					}
+
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
+
+		}
+
+		// ////////////////////////////
+		try {
+
+			if (item.has(KEY_PREPOSITIONED_IMAGE_REFERENCE))
+				this.itemHelpImage = item
+						.getInt(KEY_PREPOSITIONED_IMAGE_REFERENCE);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

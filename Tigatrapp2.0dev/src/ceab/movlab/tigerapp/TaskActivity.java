@@ -92,22 +92,59 @@ public class TaskActivity extends Activity {
 
 		try {
 
+			String currentLang = PropertyHolder.getLanguage();
+
 			thisTask = new JSONObject(taskJson);
 
-			if (thisTask.has(TaskModel.KEY_TASK_TITLE))
-				taskTitle.setText(Util.getString(thisTask,
-						TaskModel.KEY_TASK_TITLE));
-			else
+			if (thisTask.has(TaskModel.KEY_TITLE)) {
+				taskTitle
+						.setText(Util.getString(thisTask, TaskModel.KEY_TITLE));
+			} else if (thisTask.has(TaskModel.KEY_TITLE_CATALAN)
+					&& thisTask.has(TaskModel.KEY_TITLE_SPANISH)
+					&& thisTask.has(TaskModel.KEY_TITLE_ENGLISH)) {
+				if (currentLang == "ca")
+					taskTitle.setText(Util.getString(thisTask,
+							TaskModel.KEY_TITLE_CATALAN));
+				else if (currentLang == "es")
+					taskTitle.setText(Util.getString(thisTask,
+							TaskModel.KEY_TITLE_SPANISH));
+				else if (currentLang == "en")
+					taskTitle.setText(Util.getString(thisTask,
+							TaskModel.KEY_TITLE_ENGLISH));
+			} else
 				taskTitle.setVisibility(View.GONE);
 
-			if (thisTask.has(TaskModel.KEY_TASK_DETAIL))
-				taskDetail.setText(Util.getString(thisTask,
-						TaskModel.KEY_TASK_DETAIL));
-			else
+			if (thisTask.has(TaskModel.KEY_LONG_DESCRIPTION_CATALAN)
+					&& thisTask.has(TaskModel.KEY_LONG_DESCRIPTION_SPANISH)
+					&& thisTask.has(TaskModel.KEY_LONG_DESCRIPTION_ENGLISH)) {
+
+				if (currentLang == "ca")
+					taskDetail.setText(Util.getString(thisTask,
+							TaskModel.KEY_LONG_DESCRIPTION_CATALAN));
+				else if (currentLang == "es")
+					taskDetail.setText(Util.getString(thisTask,
+							TaskModel.KEY_LONG_DESCRIPTION_SPANISH));
+				else if (currentLang == "en")
+					taskDetail.setText(Util.getString(thisTask,
+							TaskModel.KEY_LONG_DESCRIPTION_ENGLISH));
+			} else
 				taskDetail.setVisibility(View.GONE);
-			if (thisTask.has(TaskModel.KEY_TASK_HELP)) {
-				final String helpText = thisTask
-						.getString(TaskModel.KEY_TASK_HELP);
+			if (thisTask.has(TaskModel.KEY_HELP_TEXT_CATALAN)
+					&& thisTask.has(TaskModel.KEY_HELP_TEXT_SPANISH)
+					&& thisTask.has(TaskModel.KEY_HELP_TEXT_ENGLISH)) {
+				String helpTextTemp = "";
+				if (currentLang == "ca")
+					helpTextTemp = thisTask
+							.getString(TaskModel.KEY_HELP_TEXT_CATALAN);
+				else if (currentLang == "es")
+					helpTextTemp = thisTask
+							.getString(TaskModel.KEY_HELP_TEXT_SPANISH);
+				else if (currentLang == "en")
+					helpTextTemp = thisTask
+							.getString(TaskModel.KEY_HELP_TEXT_ENGLISH);
+
+				final String helpText = helpTextTemp;
+
 				helpIcon.setVisibility(View.VISIBLE);
 				taskHeader.setOnClickListener(new OnClickListener() {
 					@Override
@@ -119,9 +156,9 @@ public class TaskActivity extends Activity {
 			} else
 				helpIcon.setVisibility(View.GONE);
 
-			if (thisTask.has(TaskModel.KEY_TASK_ITEMS)) {
+			if (thisTask.has(TaskModel.KEY_ITEMS)) {
 				JSONArray theseItems;
-				theseItems = thisTask.getJSONArray(TaskModel.KEY_TASK_ITEMS);
+				theseItems = thisTask.getJSONArray(TaskModel.KEY_ITEMS);
 				for (int i = 0; i < theseItems.length(); i++) {
 					TaskItemModel thisTaskItem = new TaskItemModel(context,
 							theseItems.getJSONObject(i));
@@ -144,10 +181,10 @@ public class TaskActivity extends Activity {
 			final TaskAdapter adapter = new TaskAdapter(this, list, res);
 			lv.setAdapter(adapter);
 
-			if (thisTask.has(TaskModel.KEY_TASK_PRESET_CONFIGURATION)) {
+			if (thisTask.has(TaskModel.KEY_PRESET_CONFIGURATION)) {
 
 				// / PRECONFIGURE MODELS
-				if (thisTask.getInt(TaskModel.KEY_TASK_PRESET_CONFIGURATION) == TaskModel.PRECONFIRUATION_ADULTS) {
+				if (thisTask.getInt(TaskModel.KEY_PRESET_CONFIGURATION) == TaskModel.PRECONFIRUATION_ADULTS) {
 					// / ADULTS
 
 					buttonLeft.setVisibility(View.GONE);
@@ -199,8 +236,7 @@ public class TaskActivity extends Activity {
 						}
 					});
 
-				} else if (thisTask
-						.getInt(TaskModel.KEY_TASK_PRESET_CONFIGURATION) == TaskModel.PRECONFIRUATION_SITES) {
+				} else if (thisTask.getInt(TaskModel.KEY_PRESET_CONFIGURATION) == TaskModel.PRECONFIRUATION_SITES) {
 
 					buttonLeft.setVisibility(View.GONE);
 					buttonMiddle.setVisibility(View.GONE);
@@ -362,7 +398,7 @@ public class TaskActivity extends Activity {
 					cr.update(Tasks.CONTENT_URI, cv, sc, null);
 					// CHECK IF NOTIFICATIONS SHOULD BE REMOVED
 					sc = Tasks.KEY_DONE + " = " + "0 AND "
-							+ Tasks.KEY_EXPIRATION_DATE + " <="
+							+ Tasks.KEY_EXPIRATION_TIME + " <="
 							+ System.currentTimeMillis();
 					Cursor c = cr.query(Tasks.CONTENT_URI, Tasks.KEYS_DONE, sc,
 							null, null);
@@ -408,7 +444,7 @@ public class TaskActivity extends Activity {
 					cr.delete(Tasks.CONTENT_URI, sc, null);
 					// CHECK IF NOTIFICATIONS SHOULD BE REMOVED
 					sc = Tasks.KEY_DONE + " = " + "0 AND "
-							+ Tasks.KEY_EXPIRATION_DATE + " <="
+							+ Tasks.KEY_EXPIRATION_TIME + " <="
 							+ System.currentTimeMillis();
 					Cursor c = cr.query(Tasks.CONTENT_URI, Tasks.KEYS_DONE, sc,
 							null, null);

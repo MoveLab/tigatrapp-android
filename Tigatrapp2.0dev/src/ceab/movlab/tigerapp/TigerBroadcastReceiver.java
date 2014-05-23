@@ -237,7 +237,7 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 			} else if (action.contains(TIGER_TASK_MESSAGE)) {
 
 				final String taskTitle = intent
-						.getStringExtra(Tasks.KEY_TASK_HEADING);
+						.getStringExtra(Tasks.KEY_TITLE_CATALAN);
 				createNotification(context, taskTitle);
 
 			} else if (action.contains(TIGER_TASK_CLEAR)) {

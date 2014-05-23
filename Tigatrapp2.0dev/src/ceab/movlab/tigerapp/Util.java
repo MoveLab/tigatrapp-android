@@ -158,7 +158,7 @@ public class Util {
 	/**
 	 * Server API URL.
 	 */
-	private static final String URL_TIGASERVER_API_ROOT = "http://161.111.254.98/api/";
+	private static final String URL_TIGASERVER_API_ROOT = "http://tigaserver.atrapaeltigre.com/api/";
 
 	/**
 	 * API user endpoint.
@@ -287,6 +287,15 @@ public class Util {
 		SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
 		return sdf.format(new Date(time));
 	}
+
+	// TODO MAKE THIS WORK!
+	public static long ecma262String2Long(String ecma262) {
+		String format = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+		SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
+		long mock_must_be_replaced = 1l;
+		return mock_must_be_replaced;
+	}
+
 
 	/**
 	 * Formats the given time and converts to String form. Taken from Human
@@ -978,6 +987,9 @@ public class Util {
 			httpost.setHeader("Accept", "application/json");
 			httpost.setHeader("Content-type", "application/json");
 			httpost.setHeader("Authorization", TIGASERVER_AUTHORIZATION);
+			
+			Log.i("ABOUT TO POST TO", "URI: " + httpost.getURI());
+			
 			HttpResponse httpResponse;
 			httpResponse = httpclient.execute(httpost);
 			StatusLine status = httpResponse.getStatusLine();
@@ -1013,6 +1025,9 @@ public class Util {
 		httpGet.setHeader("Accept", "application/json");
 		httpGet.setHeader("Content-type", "application/json");
 		httpGet.setHeader("Authorization", TIGASERVER_AUTHORIZATION);
+		
+		Log.i("ABOUT TO GET FROM", "URI: " + httpGet.getURI());
+
 
 		try {
 			HttpResponse response = client.execute(httpGet);

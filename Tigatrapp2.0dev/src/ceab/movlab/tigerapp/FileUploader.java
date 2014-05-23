@@ -72,6 +72,7 @@ import android.database.Cursor;
 import android.os.IBinder;
 import android.util.Log;
 import ceab.movlab.tigerapp.ContentProviderContractReports.Reports;
+import ceab.movlab.tigerapp.ContentProviderContractTasks.Tasks;
 import ceab.movlab.tigerapp.ContentProviderContractTracks.Fixes;
 
 /**
@@ -154,28 +155,28 @@ public class FileUploader extends Service {
 					e.printStackTrace();
 				}
 
-				
 				// try to get missions
 				try {
-					
+
 					JSONArray missions = new JSONArray(
 							Util.getJSON(Util.API_MISSION));
-					if (missions != null && missions.length()>0) {
-						for(int i=0; 1 < missions.length(); i++){
+					if (missions != null && missions.length() > 0) {
+						for (int i = 0; 1 < missions.length(); i++) {
 							JSONObject mission = missions.getJSONObject(i);
-															
-						}
-						
-						
+							ContentResolver cr = context.getContentResolver();
+							cr.insert(Tasks.CONTENT_URI,
+									ContentProviderValuesTasks
+											.createTask(mission));
+
 						}
 
-					
+					}
+
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
-				
+
 				ContentResolver cr = getContentResolver();
 
 				// start with Tracks
@@ -205,10 +206,6 @@ public class FileUploader extends Service {
 
 					if (thisFix.upload(context)) {
 
-						if (Util.testingMode) {
-
-							thisFix.upload(context);
-						}
 
 						ContentValues cv = new ContentValues();
 						String sc = Fixes.KEY_ROWID + " = "

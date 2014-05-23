@@ -52,7 +52,7 @@ public class ContentProviderReports extends ContentProvider {
 	private static final String DATABASE_NAME = "reportsDB";
 
 	/** The database version */
-	private static final int DATABASE_VERSION = 9;
+	private static final int DATABASE_VERSION = 11;
 
 	/** The location fix table name; currently "reportsTable" */
 	public static final String DATABASE_TABLE = "reportsTable";
@@ -118,6 +118,8 @@ public class ContentProviderReports extends ContentProvider {
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			db.execSQL(DATABASE_CREATE);
+			
+			Log.i("Report DB create: ", DATABASE_CREATE);
 
 		}
 
@@ -128,6 +130,8 @@ public class ContentProviderReports extends ContentProvider {
 			// + newVersion + ", which will destroy all old data");
 			db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
 			onCreate(db);
+			Log.i("Report DB upgrade. Dropped: ", DATABASE_TABLE);
+
 		}
 	}
 
@@ -139,14 +143,23 @@ public class ContentProviderReports extends ContentProvider {
 
 		reportsProjectionMap = new HashMap<String, String>();
 		reportsProjectionMap.put(Reports.KEY_ROW_ID, Reports.KEY_ROW_ID);
+		reportsProjectionMap.put(Reports.KEY_VERSION_UUID, Reports.KEY_VERSION_UUID);
+
 		reportsProjectionMap.put(Reports.KEY_USER_ID, Reports.KEY_USER_ID);
 		reportsProjectionMap.put(Reports.KEY_REPORT_ID, Reports.KEY_REPORT_ID);
 		reportsProjectionMap.put(Reports.KEY_REPORT_VERSION,
 				Reports.KEY_REPORT_VERSION);
+		
+		reportsProjectionMap.put(Reports.KEY_CREATION_TIME,
+				Reports.KEY_CREATION_TIME);
+
 		reportsProjectionMap.put(Reports.KEY_REPORT_TIME,
 				Reports.KEY_REPORT_TIME);
 		reportsProjectionMap.put(Reports.KEY_VERSION_TIME,
 				Reports.KEY_VERSION_TIME);
+		reportsProjectionMap.put(Reports.KEY_VERSION_TIME_STRING,
+				Reports.KEY_VERSION_TIME_STRING);
+
 		reportsProjectionMap.put(Reports.KEY_TYPE, Reports.KEY_TYPE);
 		reportsProjectionMap.put(Reports.KEY_CONFIRMATION,
 				Reports.KEY_CONFIRMATION);
@@ -186,7 +199,13 @@ public class ContentProviderReports extends ContentProvider {
 		reportsProjectionMap.put(Reports.KEY_OS, Reports.KEY_OS);
 		reportsProjectionMap
 				.put(Reports.KEY_OS_VERSION, Reports.KEY_OS_VERSION);
+		reportsProjectionMap
+		.put(Reports.KEY_OS_LANGUAGE, Reports.KEY_OS_LANGUAGE);
+		reportsProjectionMap
+		.put(Reports.KEY_APP_LANGUAGE, Reports.KEY_APP_LANGUAGE);
 
+		reportsProjectionMap
+		.put(Reports.KEY_MISSION_UUID, Reports.KEY_MISSION_UUID);
 	}
 
 	@Override

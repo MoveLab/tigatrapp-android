@@ -57,16 +57,16 @@ public class TaskListCursorAdapter extends SimpleCursorAdapter {
 	public void bindView(View v, Context context, Cursor c) {
 
 		String date = Util.userDate(new Date((c.getLong(c
-				.getColumnIndex(Tasks.KEY_DATE)))));
+				.getColumnIndex(Tasks.KEY_CREATION_TIME)))));
 
 		String expirationDate = Util.userDate(new Date((c.getLong(c
-				.getColumnIndex(Tasks.KEY_EXPIRATION_DATE)))));
+				.getColumnIndex(Tasks.KEY_EXPIRATION_TIME)))));
 
 		String taskTitle = c
-				.getString(c.getColumnIndex(Tasks.KEY_TASK_HEADING));
+				.getString(c.getColumnIndex(Tasks.KEY_TITLE_CATALAN));
 
 		String taskShortDescription = c.getString(c
-				.getColumnIndex(Tasks.KEY_TASK_SHORT_DESCRIPTION));
+				.getColumnIndex(Tasks.KEY_SHORT_DESCRIPTION_CATALAN));
 
 		boolean done = c.getInt(c.getColumnIndexOrThrow(Tasks.KEY_DONE)) == 1 ? true
 				: false;

@@ -46,14 +46,25 @@ public class ContentProviderContractTasks {
 		public static final String CONTENT_TYPE = "vnd.android.cursor.dir/vnd.movlabtiger.tasks";
 
 		public static final String KEY_ROW_ID = "_id";
-		public static final String KEY_TASK_ID = "task_id";
-		public static final String KEY_TASK_HEADING = "task_title";
-		public static final String KEY_TASK_SHORT_DESCRIPTION = "task_short_description";
-		public static final String KEY_DATE = "date"; // long, unix time
-		public static final String KEY_EXPIRATION_DATE = "expiration_date"; // long,
+		public static final String KEY_ID = "id";
+
+		public static final String KEY_TITLE = "title"; // for presets only - not in db
+		
+		public static final String KEY_TITLE_CATALAN = "title_catalan";
+		public static final String KEY_TITLE_SPANISH = "title_spanish";
+		public static final String KEY_TITLE_ENGLISH = "title_english";
+
+		public static final String KEY_SHORT_DESCRIPTION = "short_description"; // for presets only - not in db
+
+		public static final String KEY_SHORT_DESCRIPTION_CATALAN = "short_description_catalan";
+		public static final String KEY_SHORT_DESCRIPTION_SPANISH = "short_description_spanish";
+		public static final String KEY_SHORT_DESCRIPTION_ENGLISH = "short_description_english";
+
+		public static final String KEY_CREATION_TIME = "creation_time"; // long, unix time
+		public static final String KEY_EXPIRATION_TIME = "expiration_time"; // long,
 																			// unix
 																			// time
-		public static final String KEY_LOCATION_TRIGGERS_JSON = "location_triggers"; // json
+		public static final String KEY_TRIGGERS = "triggers"; // json
 																						// array
 																						// string:
 																						// [{lat:_lat,
@@ -69,21 +80,21 @@ public class ContentProviderContractTasks {
 		public static final String KEY_UPLOADED = "uploaded"; // int 0=no, 1=yes
 
 		/** The names of all the fields contained in the reports table */
-		public static final String[] KEYS_ALL = { KEY_ROW_ID, KEY_TASK_ID,
-				KEY_TASK_HEADING, KEY_TASK_SHORT_DESCRIPTION, KEY_DATE,
-				KEY_EXPIRATION_DATE, KEY_ACTIVE, KEY_TASK_JSON, KEY_DONE,
+		public static final String[] KEYS_ALL = { KEY_ROW_ID, KEY_ID,
+				KEY_TITLE_CATALAN, KEY_SHORT_DESCRIPTION_CATALAN, KEY_CREATION_TIME,
+				KEY_EXPIRATION_TIME, KEY_ACTIVE, KEY_TASK_JSON, KEY_DONE,
 				KEY_RESPONSES_JSON, KEY_UPLOADED };
 
 		public static final String[] KEYS_TASKS_LIST = { KEY_ROW_ID,
-				KEY_TASK_HEADING, KEY_TASK_SHORT_DESCRIPTION, KEY_DATE,
-				KEY_EXPIRATION_DATE, KEY_ACTIVE, KEY_TASK_JSON, KEY_DONE };
+				KEY_TITLE_CATALAN, KEY_SHORT_DESCRIPTION_CATALAN, KEY_CREATION_TIME,
+				KEY_EXPIRATION_TIME, KEY_ACTIVE, KEY_TASK_JSON, KEY_DONE };
 
 		public static final String[] KEYS_DONE = { KEY_ROW_ID, KEY_DONE,
-				KEY_EXPIRATION_DATE, KEY_ACTIVE };
+				KEY_EXPIRATION_TIME, KEY_ACTIVE };
 
 		public static final String[] KEYS_TRIGGERS = { KEY_ROW_ID, 
-				KEY_TASK_HEADING, KEY_EXPIRATION_DATE, KEY_ACTIVE,
-				KEY_LOCATION_TRIGGERS_JSON, KEY_DONE };
+				KEY_TITLE_CATALAN, KEY_EXPIRATION_TIME, KEY_ACTIVE,
+				KEY_TRIGGERS, KEY_DONE };
 
 	}
 

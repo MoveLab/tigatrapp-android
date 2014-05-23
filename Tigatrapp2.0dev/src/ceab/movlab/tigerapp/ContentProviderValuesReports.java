@@ -30,7 +30,7 @@ import android.os.Build;
 import ceab.movlab.tigerapp.ContentProviderContractReports.Reports;
 
 /**
- * Creates content values from location fix data.
+ * Creates content values from report data.
  * 
  * @author John R.B. Palmer
  * 
@@ -48,19 +48,21 @@ public class ContentProviderValuesReports {
 
 		ContentValues initialValues = new ContentValues();
 
-		if (rep.userId != null)
-			;
+		initialValues.put(Reports.KEY_VERSION_UUID, rep.version_UUID);
+
 		initialValues.put(Reports.KEY_USER_ID, rep.userId);
 
-		if (rep.reportId != null)
-			;
 		initialValues.put(Reports.KEY_REPORT_ID, rep.reportId);
 
 		initialValues.put(Reports.KEY_REPORT_VERSION, rep.reportVersion);
 
 		initialValues.put(Reports.KEY_REPORT_TIME, rep.reportTime);
 
+		initialValues.put(Reports.KEY_CREATION_TIME, rep.creation_time);
+
 		initialValues.put(Reports.KEY_VERSION_TIME, rep.versionTime);
+
+		initialValues.put(Reports.KEY_VERSION_TIME_STRING, rep.version_time);
 
 		initialValues.put(Reports.KEY_TYPE, rep.type);
 
@@ -105,7 +107,7 @@ public class ContentProviderValuesReports {
 		if (rep.packageName != null)
 			initialValues.put(Reports.KEY_PACKAGE_NAME, rep.packageName);
 
-		if (rep.packageVersion != null)
+		if (rep.packageVersion != Report.MISSING)
 			initialValues.put(Reports.KEY_PACKAGE_VERSION, rep.packageVersion);
 
 		if (rep.phoneManufacturer != null)
@@ -120,6 +122,15 @@ public class ContentProviderValuesReports {
 
 		if (rep.OSversion != null)
 			initialValues.put(Reports.KEY_OS_VERSION, rep.OSversion);
+
+		if (rep.osLanguage != null)
+			initialValues.put(Reports.KEY_OS_LANGUAGE, rep.osLanguage);
+
+		if (rep.appLanguage != null)
+			initialValues.put(Reports.KEY_APP_LANGUAGE, rep.appLanguage);
+
+		if (rep.mission_UUID != null)
+			initialValues.put(Reports.KEY_MISSION_UUID, rep.mission_UUID);
 
 		return initialValues;
 	}

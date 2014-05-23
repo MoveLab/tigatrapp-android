@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import ceab.movelab.tigerapp.R;
@@ -16,6 +18,8 @@ public class Settings extends Activity {
 	ToggleButton tb;
 	Boolean on;
 	TextView tv;
+
+	Button syncButton;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,21 @@ public class Settings extends Activity {
 		setContentView(R.layout.settings);
 
 		on = PropertyHolder.isServiceOn();
+
+		syncButton = (Button) findViewById(R.id.syncButton);
+		syncButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+
+				Intent uploadIntent = new Intent(Settings.this,
+						FileUploader.class);
+				startService(uploadIntent);
+				Util.toast(context, "Syncing Data.");
+
+			}
+
+		});
 
 		tb = (ToggleButton) findViewById(R.id.service_button);
 		tv = (TextView) findViewById(R.id.service_message);

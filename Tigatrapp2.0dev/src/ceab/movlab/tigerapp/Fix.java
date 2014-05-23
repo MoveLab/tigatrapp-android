@@ -57,9 +57,9 @@ public class Fix {
 	double lat;
 	double lng;
 	long time;
-	int pow;
+	float pow;
 
-	Fix(double _lat, double _lng, long _time, int _pow) {
+	Fix(double _lat, double _lng, long _time, float _pow) {
 
 		lat = _lat;
 		lng = _lng;
@@ -68,206 +68,34 @@ public class Fix {
 
 	}
 
-	public String exportJSON(Context context) {
+	public JSONObject exportJSON(Context context) {
 
 		PropertyHolder.init(context);
 
-		String result = "";
-		JSONObject object = new JSONObject();
+		JSONObject result = new JSONObject();
 		try {
-			object.put("userid", PropertyHolder.getUserId());
-			object.put("lat", String.valueOf(this.lat));
-			object.put("lng", String.valueOf(this.lng));
-			object.put("time", String.valueOf(this.time));
-			object.put("pow", String.valueOf(this.pow));
+			result.put("user", PropertyHolder.getUserId());
+			result.put("fix_time", Util.ecma262(this.time));
+			result.put("phone_upload_time", Util.ecma262(System.currentTimeMillis()));
+			result.put("masked_lon", this.lng);
+			result.put("masked_lat", this.lat);
+			result.put("power", this.pow);
 
-			result = object.toString();
 		} catch (JSONException e) {
 		}
 		return result;
 	}
 
-	public String makeFileName(Context context) {
-
-		PropertyHolder.init(context);
-		return PropertyHolder.getUserId() + "_" + Util.fileNameDate(this.time);
-	}
-
-	public byte[] encryptFix(Context context) {
-
-		byte[] result = null;
-
-		String thisFix = this.lat + "," + this.lng + "," + this.time + ","
-				+ this.pow;
-
-		try {
-			result = Util.encryptRSA(context, thisFix.getBytes("UTF-8"));
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		return result;
-	}
+	
 
 	public boolean upload(Context context) {
 
-		byte[] bytes = this.encryptFix(context);
+		boolean result = false;
 
-		if (bytes == null) {
-			return false;
-		}
+			result = Util.putJSON(this.exportJSON(context), Util.API_FIXES);
 
-		String filename = this.makeFileName(context);
-		String uploadurl = Util.URL_TIGERDRIVER;
+		return result;
 
-		HttpURLConnection conn = null;
-		DataOutputStream dos = null;
-		// DataInputStream inStream = null;
-
-		String lineEnd = "\r\n";
-		String twoHyphens = "--";
-		String boundary = "*****";
-
-		int bytesRead, bytesAvailable, bufferSize;
-		byte[] buffer;
-		int maxBufferSize = 64 * 1024; // old value 1024*1024
-		ByteArrayInputStream byteArrayInputStream = null;
-		boolean isSuccess = true;
-		try {
-			// ------------------ CLIENT REQUEST
-
-			byteArrayInputStream = new ByteArrayInputStream(bytes);
-
-			// open a URL connection to the Servlet
-			URL url = new URL(uploadurl);
-			// Open a HTTP connection to the URL
-			conn = (HttpURLConnection) url.openConnection();
-			// Allow Inputs
-			conn.setDoInput(true);
-			// Allow Outputs
-			conn.setDoOutput(true);
-			// Don't use a cached copy.
-			conn.setUseCaches(false);
-			// set timeout
-			conn.setConnectTimeout(60000);
-			conn.setReadTimeout(60000);
-			// Use a post method.
-			conn.setRequestMethod("POST");
-			conn.setRequestProperty("Connection", "Keep-Alive");
-			conn.setRequestProperty("Content-Type",
-					"multipart/form-data;boundary=" + boundary);
-
-			dos = new DataOutputStream(conn.getOutputStream());
-			dos.writeBytes(twoHyphens + boundary + lineEnd);
-			dos.writeBytes("Content-Disposition: form-data; name=\"uploadedfile\";filename=\""
-					+ filename + "\"" + lineEnd);
-			dos.writeBytes(lineEnd);
-
-			// create a buffer of maximum size
-			bytesAvailable = byteArrayInputStream.available();
-			bufferSize = Math.min(bytesAvailable, maxBufferSize);
-			buffer = new byte[bufferSize];
-
-			// read file and write it into form...
-			bytesRead = byteArrayInputStream.read(buffer, 0, bufferSize);
-			while (bytesRead > 0) {
-				dos.write(buffer, 0, bufferSize);
-				bytesAvailable = byteArrayInputStream.available();
-				bufferSize = Math.min(bytesAvailable, maxBufferSize);
-				bytesRead = byteArrayInputStream.read(buffer, 0, bufferSize);
-			}
-
-			// send multipart form data necesssary after file data...
-			dos.writeBytes(lineEnd);
-			dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-
-			// close streams
-			// Log.e(TAG,"UploadService Runnable:File is written");
-			// fileInputStream.close();
-			// dos.flush();
-			// dos.close();
-		} catch (Exception e) {
-			// Log.e(TAG, "UploadService Runnable:Client Request error", e);
-			isSuccess = false;
-		} finally {
-			if (dos != null) {
-				try {
-					dos.close();
-				} catch (IOException e) {
-					// Log.e(TAG, "exception" + e);
-
-				}
-			}
-			if (byteArrayInputStream != null) {
-				try {
-					byteArrayInputStream.close();
-				} catch (IOException e) {
-					// Log.e(TAG, "exception" + e);
-
-				}
-			}
-
-		}
-
-		// ------------------ read the SERVER RESPONSE
-		try {
-
-			if (conn.getResponseCode() != 200) {
-				isSuccess = false;
-			}
-		} catch (IOException e) {
-			// Log.e(TAG, "Connection error", e);
-			isSuccess = false;
-		}
-
-		return isSuccess;
-	}
-
-	public boolean uploadJSON(Context context) {
-
-		String response = "";
-
-		String uploadurl = Util.URL_TIGERDRIVER_JSON;
-
-		try {
-
-			// Create a new HttpClient and Post Header
-			HttpPost httppost = new HttpPost(uploadurl);
-
-			HttpParams myParams = new BasicHttpParams();
-			HttpConnectionParams.setConnectionTimeout(myParams, 10000);
-			HttpConnectionParams.setSoTimeout(myParams, 60000);
-			HttpConnectionParams.setTcpNoDelay(myParams, true);
-
-			httppost.setHeader("Content-type", "application/json");
-			HttpClient httpclient = new DefaultHttpClient();
-
-			StringEntity se = new StringEntity(exportJSON(context), HTTP.UTF_8);
-			se.setContentEncoding(new BasicHeader(HTTP.CONTENT_TYPE,
-					"application/json"));
-			httppost.setEntity(se);
-
-			// Execute HTTP Post Request
-
-			ResponseHandler<String> responseHandler = new BasicResponseHandler();
-
-			response = httpclient.execute(httppost, responseHandler);
-
-		} catch (ClientProtocolException e) {
-
-			Log.e("JSON", "client prot exc = " + e);
-
-		} catch (IOException e) {
-			Log.e("JSON", "IO exc = " + e);
-		}
-
-		if (response.contains("SUCCESS")) {
-
-			return true;
-		} else {
-			return false;
-		}
 
 	}
 

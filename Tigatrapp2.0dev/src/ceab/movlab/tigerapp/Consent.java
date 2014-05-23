@@ -22,6 +22,7 @@
 package ceab.movlab.tigerapp;
 
 import java.util.Date;
+import java.util.UUID;
 
 import android.app.Activity;
 import android.content.Context;
@@ -82,6 +83,10 @@ public class Consent extends Activity {
 				PropertyHolder.setConsentTime(consentTime);
 				PropertyHolder.setConsent(true);
 
+				// set user_UUID
+				String userId = UUID.randomUUID().toString();
+				PropertyHolder.setUserId(userId);
+				
 				Intent i = new Intent(Consent.this, Switchboard.class);
 				startActivity(i);
 				finish();

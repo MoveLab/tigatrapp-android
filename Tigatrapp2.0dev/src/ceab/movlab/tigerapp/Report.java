@@ -21,25 +21,19 @@
 
 package ceab.movlab.tigerapp;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.UUID;
 
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.BasicHttpEntity;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import ceab.movelab.tigerapp.R;
 import android.content.Context;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.Build;
+import android.util.Log;
 
 /**
  * Defines map point objects used in DriverMapActivity.
@@ -55,6 +49,7 @@ public class Report {
 
 	public static int TYPE_ADULT = 0;
 	public static int TYPE_BREEDING_SITE = 1;
+	public static int TYPE_MISSION = 2;
 
 	public static int LOCATION_CHOICE_CURRENT = 0;
 	public static int LOCATION_CHOICE_SELECTED = 1;
@@ -69,9 +64,17 @@ public class Report {
 
 	String userId;
 	String reportId;
+	String version_UUID;
 	int reportVersion;
+	// Note I am creating a creation time string that will capture the local
+	// time zone when created. Will leave also the long field for displaying
+	// user (will be read with current time zone). Should rename the long
+	// variable to something that makes more sense now. Doing same with version
+	// time...
 	long reportTime;
+	String creation_time;
 	long versionTime;
+	String version_time;
 	int type;
 	String confirmation;
 	int confirmationCode;
@@ -89,21 +92,29 @@ public class Report {
 	int deleteReport;
 	int latestVersion;
 	String packageName;
-	String packageVersion;
+	int packageVersion;
 	String phoneManufacturer;
 	String phoneModel;
 	String OS;
 	String OSversion;
+	String osLanguage;
+	String appLanguage;
+	String mission_UUID;
 
-	Report(String userId, String reportId, int reportVersion, long reportTime,
-			int type, String confirmation, int confirmationCode,
-			int locationChoice, float currentLocationLat,
+	Report(String version_UUID, String userId, String reportId,
+			int reportVersion, long reportTime, String creation_time,
+			String version_time, int type, String confirmation,
+			int confirmationCode, int locationChoice, float currentLocationLat,
 			float currentLocationLon, float selectedLocationLat,
 			float selectedLocationLon, int photoAttached,
 			String photoUrisString, String note, int uploaded,
 			long serverTimestamp, int deleteReport, int latestVersion,
-			String packageName, String packageVersion,
-			String phoneManufacturer, String phoneModel, String OS, String OSversion) {
+			String packageName, int packageVersion,
+			String phoneManufacturer, String phoneModel, String OS,
+			String OSversion, String osLanguage, String appLanguage,
+			String mission_UUID) {
+
+		this.version_UUID = version_UUID;
 
 		this.photoUrisJson = new JSONArray();
 
@@ -111,6 +122,8 @@ public class Report {
 		this.userId = userId;
 		this.reportVersion = reportVersion;
 		this.reportTime = reportTime;
+		this.creation_time = creation_time;
+		this.version_time = version_time;
 		this.type = type;
 		this.confirmation = confirmation;
 		this.confirmationCode = confirmationCode;
@@ -141,14 +154,20 @@ public class Report {
 		this.phoneModel = phoneModel;
 		this.OS = OS;
 		this.OSversion = OSversion;
+		this.osLanguage = osLanguage;
+		this.appLanguage = appLanguage;
+
+		this.mission_UUID = mission_UUID;
 	}
 
-	
 	Report(int type, String userId) {
+		this.version_UUID = UUID.randomUUID().toString();
 		this.reportId = null;
 		this.userId = userId;
 		this.reportVersion = 0;
 		this.reportTime = MISSING;
+		this.creation_time = null;
+		this.version_time = null;
 		this.type = type;
 		this.confirmation = null;
 		this.confirmationCode = -1;
@@ -165,19 +184,25 @@ public class Report {
 		this.deleteReport = NO;
 		this.latestVersion = YES;
 		this.packageName = null;
-		this.packageVersion = null;
+		this.packageVersion = MISSING;
 		this.phoneManufacturer = null;
 		this.phoneModel = null;
 		this.OS = null;
 		this.OSversion = null;
+		this.osLanguage = null;
+		this.appLanguage = null;
+		this.mission_UUID = null;
 
 	}
 
 	Report(String reportId, int reportVersion) {
+		this.version_UUID = UUID.randomUUID().toString();
 		this.reportId = reportId;
 		this.userId = null;
 		this.reportVersion = reportVersion;
 		this.reportTime = MISSING;
+		this.creation_time = null;
+		this.version_time = null;
 		this.type = MISSING;
 		this.confirmation = null;
 		this.confirmationCode = -1;
@@ -194,37 +219,26 @@ public class Report {
 		this.deleteReport = MISSING;
 		this.latestVersion = MISSING;
 		this.packageName = null;
-		this.packageVersion = null;
+		this.packageVersion = MISSING;
 		this.phoneManufacturer = null;
 		this.phoneModel = null;
 		this.OS = null;
 		this.OSversion = null;
-
-	}
-
-	public String printAllValues() {
-
-		String result = reportId + "\n" + userId + "\n" + reportVersion + "\n"
-				+ reportTime + "\n" + type + "\n" + confirmation + "\n"
-				+ confirmationCode + "\n" + locationChoice + "\n"
-				+ currentLocationLat + "\n" + currentLocationLon + "\n"
-				+ selectedLocationLat + "\n" + selectedLocationLon + "\n"
-				+ photoAttached + "\n" + photoUrisJson.toString() + "\n" + note
-				+ "\n" + uploaded + "\n" + serverTimestamp + "\n"
-				+ deleteReport + "\n" + latestVersion + "\n" + packageName
-				+ "\n" + packageVersion + "\n" + phoneManufacturer + "\n"
-				+ phoneModel + "\n" + OS + "\n" + OSversion;
-
-		return result;
+		this.osLanguage = null;
+		this.appLanguage = null;
+		this.mission_UUID = null;
 
 	}
 
 	public void clear() {
 
+		version_UUID = null;
 		reportId = null;
 		userId = null;
 		reportVersion = -1;
 		reportTime = -1;
+		creation_time = null;
+		version_time = null;
 		type = -1;
 		confirmation = null;
 		confirmationCode = -1;
@@ -241,14 +255,17 @@ public class Report {
 		deleteReport = 0;
 		latestVersion = 0;
 		this.packageName = null;
-		this.packageVersion = null;
+		this.packageVersion = MISSING;
 		this.phoneManufacturer = null;
 		this.phoneModel = null;
 		this.OS = null;
 		this.OSversion = null;
+		this.osLanguage = null;
+		this.appLanguage = null;
+		this.mission_UUID = null;
 
 	}
-	
+
 	public boolean setPhotoUris(String photoUris) {
 		boolean result = false;
 		try {
@@ -376,144 +393,85 @@ public class Report {
 		return result;
 	}
 
-	/*
-	 * public long[] photoTimes2Array() {
-	 * 
-	 * long[] result = new long[this.photos.size()];
-	 * 
-	 * int i = 0; for (Photo p : this.photos) { result[i] = p.photoTime; i++; }
-	 * return result; }
-	 * 
-	 * public String[] photoUris2Array() {
-	 * 
-	 * String[] result = new String[this.photos.size()];
-	 * 
-	 * int i = 0; for (Photo p : this.photos) { result[i] = p.photoUri; i++; }
-	 * return result; }
-	 * 
-	 * public void reassemblePhotos(String[] uriArray, long[] timeArray) {
-	 * 
-	 * if (uriArray.length == timeArray.length) { this.photos.clear();
-	 * 
-	 * for (int i = 0; i < uriArray.length; i++) { this.photos.add(new
-	 * Photo(this.reportId, this.reportVersion, uriArray[i], timeArray[i], 0,
-	 * -1, 0)); } } }
-	 * 
-	 * public JSONArray photoUris2JsonArray() {
-	 * 
-	 * JSONArray result = new JSONArray();
-	 * 
-	 * for (Photo p : this.photos) { result.put(p.photoUri); } return result; }
-	 * 
-	 * public JSONArray photos2JsonArray() {
-	 * 
-	 * JSONArray result = new JSONArray();
-	 * 
-	 * for (Photo p : this.photos) { JSONObject jo = new JSONObject(); try {
-	 * jo.put("uri", p.photoUri); jo.put("time", p.photoTime); result.put(jo); }
-	 * catch (JSONException e) { // TODO Auto-generated catch block
-	 * e.printStackTrace(); }
-	 * 
-	 * } return result; }
-	 * 
-	 * public void addPhotosFromArrayList(String reportId, ArrayList<String>
-	 * photoArrayList) { /* this.photos.clear(); for(String photo :
-	 * photoArrayList){ this.photos.add(new Photo())
-	 * 
-	 * Photo(String _reportRowID, String _photoUri, long _photoTime, int
-	 * _uploaded, int _serverTimestamp, int _deletePhoto) {
-	 * 
-	 * }
-	 */
-	// }
-
-	public boolean upload(Context context) {
-
-		// TODO
-
-		return true;
-
-	}
-
-	public boolean deleteFromServer(Context context) {
-
-		boolean success = false;
+	public JSONObject exportJSON(Context context) {
 
 		PropertyHolder.init(context);
 
-		FileInputStream fileInputStream = null;
-
-		String lineEnd = "\r\n";
-		String twoHyphens = "--";
-		String boundary = "*****";
-
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		DataOutputStream dos = new DataOutputStream(baos);
-
+		JSONObject result = new JSONObject();
 		try {
+			result.put("version_UUID", this.version_UUID);
+			result.put("version_number", this.reportVersion);
+			result.put("report_id", this.reportId);
+			// exporting current time as phone upload time on assumption that
+			// JSON export is being done immediately before upload
+			result.put("phone_upload_time",
+					Util.ecma262(System.currentTimeMillis()));
+			result.put("creation_time", this.creation_time);
+			result.put("version_time", this.version_time);
+			result.put("type", Util.reportType2String(this.type));
+			result.put("location_choice",
+					Util.locationChoice2String(this.locationChoice));
+			if (this.currentLocationLon != null)
+				result.put("current_location_lon", this.currentLocationLon);
+			if (this.currentLocationLat != null)
+				result.put("current_location_lat", this.currentLocationLat);
+			if (this.selectedLocationLon != null)
+				result.put("selected_location_lon", this.selectedLocationLon);
+			if (this.selectedLocationLat !=null)
+				result.put("selected_location_lat", this.selectedLocationLat);
+			result.put("note", this.note);
+			result.put("package_name", this.packageName);
+			result.put("package_version", this.packageVersion);
+			result.put("device_manufacturer", this.phoneManufacturer);
+			result.put("device_model", this.phoneModel);
+			result.put("os", this.OS);
+			result.put("os_version", this.OSversion);
+			result.put("os_language", this.osLanguage);
+			result.put("app_language", this.appLanguage);
 
-			dos.writeBytes(twoHyphens + boundary + lineEnd);
-			dos.writeBytes("Content-Disposition: form-data; name=\"userID\""
-					+ lineEnd);
-			dos.writeBytes("Content-Type: text/plain; charset=US-ASCII"
-					+ lineEnd);
-			dos.writeBytes("Content-Transfer-Encoding: 8bit" + lineEnd);
-			dos.writeBytes(lineEnd);
-			dos.writeBytes(PropertyHolder.getUserId() + lineEnd);
-
-			dos.writeBytes(twoHyphens + boundary + lineEnd);
-			dos.writeBytes("Content-Disposition: form-data; name=\"reportID\""
-					+ lineEnd + lineEnd);
-			dos.writeBytes(this.reportId + lineEnd);
-
-			dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-		} catch (IOException e) {
-
-		} finally {
-			if (dos != null) {
+			// making responses array
+			if(this.confirmation != null){
+			JSONArray responsesArray = new JSONArray();
+			JSONObject thisConfirmation = new JSONObject(this.confirmation);
+			Iterator<String> iter = thisConfirmation.keys();
+			while (iter.hasNext()) {
+				String key = iter.next();
 				try {
-					dos.flush();
-					dos.close();
-				} catch (IOException e) {
+					
+					JSONObject innerJSON = new JSONObject();
+					JSONObject itemJSON = thisConfirmation.getJSONObject(key);
+					innerJSON.put("question", itemJSON.get("item_text"));
+					innerJSON.put("answer", itemJSON.get("item_response"));
+					
+					responsesArray.put(innerJSON);
+
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
-			if (fileInputStream != null) {
-				try {
-					fileInputStream.close();
-				} catch (IOException e) {
-				}
+
+			result.put("responses", responsesArray);
 			}
+			result.put("user", PropertyHolder.getUserId());
+			if (this.type == TYPE_MISSION)
+				result.put("mission", this.mission_UUID);
 
-			ByteArrayInputStream content = new ByteArrayInputStream(
-					baos.toByteArray());
-			BasicHttpEntity entity = new BasicHttpEntity();
-			entity.setContent(content);
-
-			HttpPost httpPost = new HttpPost(Util.URL_DELETE_REPORT);
-
-			httpPost.addHeader("Connection", "Keep-Alive");
-			httpPost.addHeader("Content-Type", "multipart/form-data; boundary="
-					+ boundary);
-
-			httpPost.setEntity(entity);
-
-			HttpClient client = new DefaultHttpClient();
-
-			ResponseHandler<String> responseHandler = new BasicResponseHandler();
-			String response = "";
-			try {
-				response = client.execute(httpPost, responseHandler);
-			} catch (ClientProtocolException e) {
-			} catch (IOException e) {
-			}
-			if (response.contains("SUCCESS")) {
-
-				success = true;
-			}
-
+		} catch (JSONException e) {
 		}
+		return result;
+	}
 
-		return success;
+	public boolean upload(Context context) {
+
+		boolean result = false;
+
+		// TESTING ONLY NOW
+		JSONObject data = this.exportJSON(context);
+		Log.i("Report JSON conversion:", data.toString());
+		result = Util.putJSON(data, Util.API_REPORT);
+
+		return result;
 
 	}
 

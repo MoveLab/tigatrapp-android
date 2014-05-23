@@ -59,7 +59,9 @@
 
 package ceab.movlab.tigerapp;
 
-import java.util.ArrayList;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Service;
 import android.content.ContentResolver;
@@ -68,6 +70,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.IBinder;
+import android.util.Log;
 import ceab.movlab.tigerapp.ContentProviderContractReports.Reports;
 import ceab.movlab.tigerapp.ContentProviderContractTracks.Fixes;
 
@@ -124,157 +127,235 @@ public class FileUploader extends Service {
 		if (Util.isOnline(context)) {
 			// Log.e(TAG, "FileUploader online.");
 
-			ContentResolver cr = getContentResolver();
+			// Check if user has registered on server - if not, try to register
+			// first and only do other uploads once this is done
+			if (PropertyHolder.isRegistered() || Util.registerOnServer()) {
 
-			// start with Tracks
-			Cursor c = cr.query(Fixes.CONTENT_URI, Fixes.KEYS_ALL,
-					Fixes.KEY_UPLOADED + " = 0", null, null);
+				// try to get config
+				try {
+					JSONObject configJson = new JSONObject(
+							Util.getJSON(Util.API_CONFIGURATION));
+					if (configJson != null && configJson.has("samples_per_day")) {
+						int samplesPerDay = configJson
+								.getInt("samples_per_day");
+						Log.i("Samples per day", "downloaded: " + samplesPerDay);
 
-			if (!c.moveToFirst()) {
-				c.close();
-				trackUploadsNeeded = false;
-			}
+						if (samplesPerDay != PropertyHolder.getSamplesPerDay()) {
+							Intent i = new Intent(
+									TigerBroadcastReceiver.START_SAMPLING_MESSAGE);
+							sendBroadcast(i);
+							PropertyHolder.setSamplesPerDay(samplesPerDay);
+							Log.i("Samples per day", "set to: " + samplesPerDay);
+						}
 
-			int idIndex = c.getColumnIndexOrThrow(Fixes.KEY_ROWID);
-			int latIndex = c.getColumnIndexOrThrow(Fixes.KEY_LATITUDE);
-			int lngIndex = c.getColumnIndexOrThrow(Fixes.KEY_LONGITUDE);
-			int powIndex = c.getColumnIndexOrThrow(Fixes.KEY_POWER_LEVEL);
-			int timeIndex = c.getColumnIndexOrThrow(Fixes.KEY_TIME);
+					}
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
-			while (!c.isAfterLast()) {
+				
+				// try to get missions
+				try {
+					
+					JSONArray missions = new JSONArray(
+							Util.getJSON(Util.API_MISSION));
+					if (missions != null && missions.length()>0) {
+						for(int i=0; 1 < missions.length(); i++){
+							JSONObject mission = missions.getJSONObject(i);
+															
+						}
+						
+						
+						}
 
-				int thisId = c.getInt(idIndex);
+					
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
+				ContentResolver cr = getContentResolver();
 
-				Fix thisFix = new Fix(c.getDouble(latIndex),
-						c.getDouble(lngIndex), c.getLong(timeIndex),
-						c.getInt(powIndex));
+				// start with Tracks
+				Cursor c = cr.query(Fixes.CONTENT_URI, Fixes.KEYS_ALL,
+						Fixes.KEY_UPLOADED + " = 0", null, null);
 
-				if (thisFix.upload(context)) {
+				if (!c.moveToFirst()) {
+					c.close();
+					trackUploadsNeeded = false;
+				}
 
-					if (Util.testingMode) {
+				int idIndex = c.getColumnIndexOrThrow(Fixes.KEY_ROWID);
+				int latIndex = c.getColumnIndexOrThrow(Fixes.KEY_LATITUDE);
+				int lngIndex = c.getColumnIndexOrThrow(Fixes.KEY_LONGITUDE);
+				int powIndex = c.getColumnIndexOrThrow(Fixes.KEY_POWER_LEVEL);
+				int timeIndex = c.getColumnIndexOrThrow(Fixes.KEY_TIME);
 
-						thisFix.uploadJSON(context);
+				while (!c.isAfterLast()) {
+
+					int thisId = c.getInt(idIndex);
+
+					Fix thisFix = new Fix(c.getDouble(latIndex),
+							c.getDouble(lngIndex), c.getLong(timeIndex),
+							c.getFloat(powIndex));
+
+					thisFix.exportJSON(context);
+
+					if (thisFix.upload(context)) {
+
+						if (Util.testingMode) {
+
+							thisFix.upload(context);
+						}
+
+						ContentValues cv = new ContentValues();
+						String sc = Fixes.KEY_ROWID + " = "
+								+ String.valueOf(thisId);
+						cv.put(Fixes.KEY_UPLOADED, 1);
+						cr.update(Fixes.CONTENT_URI, cv, sc, null);
+
 					}
 
-					ContentValues cv = new ContentValues();
-					String sc = Fixes.KEY_ROWID + " = "
-							+ String.valueOf(thisId);
-					cv.put(Fixes.KEY_UPLOADED, 1);
-					cr.update(Fixes.CONTENT_URI, cv, sc, null);
+					c.moveToNext();
 
 				}
 
-				c.moveToNext();
-
-			}
-
-			c.close();
-
-			// now reports
-			c = cr.query(Reports.CONTENT_URI, Reports.KEYS_ALL,
-					Reports.KEY_UPLOADED + " = 0", null, null);
-
-			if (!c.moveToFirst()) {
 				c.close();
-				reportUploadsNeeded = false;
-			}
 
-			int rowIdCol = c.getColumnIndexOrThrow(Reports.KEY_ROW_ID);
-			int userIdCol = c.getColumnIndexOrThrow(Reports.KEY_USER_ID);
-			int reportIdCol = c.getColumnIndexOrThrow(Reports.KEY_REPORT_ID);
-			int reportTimeCol = c
-					.getColumnIndexOrThrow(Reports.KEY_REPORT_TIME);
-			int reportVersionCol = c
-					.getColumnIndexOrThrow(Reports.KEY_REPORT_VERSION);
-			int typeCol = c.getColumnIndexOrThrow(Reports.KEY_TYPE);
-			int confirmationCol = c
-					.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION);
-			int confirmationCodeCol = c
-					.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION_CODE);
-			int locationChoiceCol = c
-					.getColumnIndexOrThrow(Reports.KEY_LOCATION_CHOICE);
-			int currentLocationLonCol = c
-					.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LON);
-			int currentLocationLatCol = c
-					.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LAT);
-			int selectedLocationLonCol = c
-					.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LON);
-			int selectedLocationLatCol = c
-					.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LAT);
-			int noteCol = c.getColumnIndexOrThrow(Reports.KEY_NOTE);
-			int photoAttachedCol = c
-					.getColumnIndexOrThrow(Reports.KEY_PHOTO_ATTACHED);
-			int photoUrisCol = c.getColumnIndexOrThrow(Reports.KEY_PHOTO_URIS);
+				// now reports
+				c = cr.query(Reports.CONTENT_URI, Reports.KEYS_ALL,
+						Reports.KEY_UPLOADED + " = 0", null, null);
 
-			int uploadedCol = c.getColumnIndexOrThrow(Reports.KEY_UPLOADED);
-			int serverTimestampCol = c
-					.getColumnIndexOrThrow(Reports.KEY_SERVER_TIMESTAMP);
-			int deleteReportCol = c
-					.getColumnIndexOrThrow(Reports.KEY_DELETE_REPORT);
-			int latestVersionCol = c
-					.getColumnIndexOrThrow(Reports.KEY_LATEST_VERSION);
-			int packageNameCol = c
-					.getColumnIndexOrThrow(Reports.KEY_PACKAGE_NAME);
-			int packageVersionCol = c
-					.getColumnIndexOrThrow(Reports.KEY_PACKAGE_VERSION);
-			int phoneManufacturerCol = c
-					.getColumnIndexOrThrow(Reports.KEY_PHONE_MANUFACTURER);
-			int phoneModelCol = c
-					.getColumnIndexOrThrow(Reports.KEY_PHONE_MODEL);
-			int osCol = c.getColumnIndexOrThrow(Reports.KEY_OS);
-			int osVersionCol = c.getColumnIndexOrThrow(Reports.KEY_OS_VERSION);
-
-			while (!c.isAfterLast()) {
-
-				Report report = new Report(c.getString(userIdCol),
-						c.getString(reportIdCol),
-						(c.getInt(reportVersionCol) + 1),
-						c.getLong(reportTimeCol), c.getInt(typeCol),
-						c.getString(confirmationCol),
-						c.getInt(confirmationCodeCol),
-						c.getInt(locationChoiceCol),
-						c.getFloat(currentLocationLatCol),
-						c.getFloat(currentLocationLonCol),
-						c.getFloat(selectedLocationLatCol),
-						c.getFloat(selectedLocationLonCol),
-						c.getInt(photoAttachedCol), c.getString(photoUrisCol),
-						c.getString(noteCol), c.getInt(uploadedCol),
-						c.getLong(serverTimestampCol),
-						c.getInt(deleteReportCol), c.getInt(latestVersionCol),
-						c.getString(packageNameCol),
-						c.getString(packageVersionCol),
-						c.getString(phoneManufacturerCol),
-						c.getString(phoneModelCol), c.getString(osCol),
-						c.getString(osVersionCol));
-				if (report.upload(context)) {
-
-					// mark record as uploaded
-					ContentValues cv = new ContentValues();
-					String sc = Reports.KEY_ROW_ID + " = " + c.getInt(rowIdCol);
-					cv.put(Reports.KEY_UPLOADED, 1);
-					cr.update(Reports.CONTENT_URI, cv, sc, null);
-
+				if (!c.moveToFirst()) {
+					c.close();
+					reportUploadsNeeded = false;
 				}
 
-				c.moveToNext();
+				int rowIdCol = c.getColumnIndexOrThrow(Reports.KEY_ROW_ID);
+				int versionUUIDCol = c
+						.getColumnIndexOrThrow(Reports.KEY_VERSION_UUID);
+				int userIdCol = c.getColumnIndexOrThrow(Reports.KEY_USER_ID);
+				int reportIdCol = c
+						.getColumnIndexOrThrow(Reports.KEY_REPORT_ID);
+				int reportTimeCol = c
+						.getColumnIndexOrThrow(Reports.KEY_REPORT_TIME);
+				int creationTimeCol = c
+						.getColumnIndexOrThrow(Reports.KEY_CREATION_TIME);
+				int reportVersionCol = c
+						.getColumnIndexOrThrow(Reports.KEY_REPORT_VERSION);
+				int versionTimeCol = c
+						.getColumnIndexOrThrow(Reports.KEY_VERSION_TIME);
+				int versionTimeStringCol = c
+						.getColumnIndexOrThrow(Reports.KEY_VERSION_TIME_STRING);
+				int typeCol = c.getColumnIndexOrThrow(Reports.KEY_TYPE);
+				int confirmationCol = c
+						.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION);
+				int confirmationCodeCol = c
+						.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION_CODE);
+				int locationChoiceCol = c
+						.getColumnIndexOrThrow(Reports.KEY_LOCATION_CHOICE);
+				int currentLocationLonCol = c
+						.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LON);
+				int currentLocationLatCol = c
+						.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LAT);
+				int selectedLocationLonCol = c
+						.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LON);
+				int selectedLocationLatCol = c
+						.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LAT);
+				int noteCol = c.getColumnIndexOrThrow(Reports.KEY_NOTE);
+				int photoAttachedCol = c
+						.getColumnIndexOrThrow(Reports.KEY_PHOTO_ATTACHED);
+				int photoUrisCol = c
+						.getColumnIndexOrThrow(Reports.KEY_PHOTO_URIS);
+
+				int uploadedCol = c.getColumnIndexOrThrow(Reports.KEY_UPLOADED);
+				int serverTimestampCol = c
+						.getColumnIndexOrThrow(Reports.KEY_SERVER_TIMESTAMP);
+				int deleteReportCol = c
+						.getColumnIndexOrThrow(Reports.KEY_DELETE_REPORT);
+				int latestVersionCol = c
+						.getColumnIndexOrThrow(Reports.KEY_LATEST_VERSION);
+				int packageNameCol = c
+						.getColumnIndexOrThrow(Reports.KEY_PACKAGE_NAME);
+				int packageVersionCol = c
+						.getColumnIndexOrThrow(Reports.KEY_PACKAGE_VERSION);
+				int phoneManufacturerCol = c
+						.getColumnIndexOrThrow(Reports.KEY_PHONE_MANUFACTURER);
+				int phoneModelCol = c
+						.getColumnIndexOrThrow(Reports.KEY_PHONE_MODEL);
+				int osCol = c.getColumnIndexOrThrow(Reports.KEY_OS);
+				int osVersionCol = c
+						.getColumnIndexOrThrow(Reports.KEY_OS_VERSION);
+				int osLanguageCol = c
+						.getColumnIndexOrThrow(Reports.KEY_OS_LANGUAGE);
+				int appLanguageCol = c
+						.getColumnIndexOrThrow(Reports.KEY_APP_LANGUAGE);
+				int missionUUIDCol = c
+						.getColumnIndexOrThrow(Reports.KEY_MISSION_UUID);
+
+				while (!c.isAfterLast()) {
+
+					Report report = new Report(c.getString(versionUUIDCol),
+							c.getString(userIdCol), c.getString(reportIdCol),
+							c.getInt(reportVersionCol),
+							c.getLong(reportTimeCol),
+							c.getString(creationTimeCol),
+							c.getString(versionTimeCol), c.getInt(typeCol),
+							c.getString(confirmationCol),
+							c.getInt(confirmationCodeCol),
+							c.getInt(locationChoiceCol),
+							c.getFloat(currentLocationLatCol),
+							c.getFloat(currentLocationLonCol),
+							c.getFloat(selectedLocationLatCol),
+							c.getFloat(selectedLocationLonCol),
+							c.getInt(photoAttachedCol),
+							c.getString(photoUrisCol), c.getString(noteCol),
+							c.getInt(uploadedCol),
+							c.getLong(serverTimestampCol),
+							c.getInt(deleteReportCol),
+							c.getInt(latestVersionCol),
+							c.getString(packageNameCol),
+							c.getInt(packageVersionCol),
+							c.getString(phoneManufacturerCol),
+							c.getString(phoneModelCol), c.getString(osCol),
+							c.getString(osVersionCol),
+							c.getString(osLanguageCol),
+							c.getString(appLanguageCol),
+							c.getString(missionUUIDCol));
+					if (report.upload(context)) {
+
+						// mark record as uploaded
+						ContentValues cv = new ContentValues();
+						String sc = Reports.KEY_ROW_ID + " = "
+								+ c.getInt(rowIdCol);
+						cv.put(Reports.KEY_UPLOADED, 1);
+						cr.update(Reports.CONTENT_URI, cv, sc, null);
+
+					}
+
+					c.moveToNext();
+				}
+
+				c.close();
+
 			}
 
-			c.close();
+			uploading = false;
 
-		}
+			if (reportUploadsNeeded == false && trackUploadsNeeded == false
+					&& tripUploadsNeeded == false) {
+				Intent uploadSchedulerIntent = new Intent(
+						"ceab.movelab.tigerapp.UPLOADS_NOT_NEEDED");
+				context.sendBroadcast(uploadSchedulerIntent);
 
-		uploading = false;
+			} else {
+				Intent uploadSchedulerIntent = new Intent(
+						TigerBroadcastReceiver.UPLOADS_NEEDED_MESSAGE);
+				context.sendBroadcast(uploadSchedulerIntent);
 
-		if (reportUploadsNeeded == false && trackUploadsNeeded == false
-				&& tripUploadsNeeded == false) {
-			Intent uploadSchedulerIntent = new Intent(
-					"ceab.movelab.tigerapp.UPLOADS_NOT_NEEDED");
-			context.sendBroadcast(uploadSchedulerIntent);
-
-		} else {
-			Intent uploadSchedulerIntent = new Intent(
-					TigerBroadcastReceiver.UPLOADS_NEEDED_MESSAGE);
-			context.sendBroadcast(uploadSchedulerIntent);
+			}
 
 		}
 

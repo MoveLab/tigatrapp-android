@@ -52,7 +52,7 @@ public class ContentProviderReports extends ContentProvider {
 	private static final String DATABASE_NAME = "reportsDB";
 
 	/** The database version */
-	private static final int DATABASE_VERSION = 5;
+	private static final int DATABASE_VERSION = 9;
 
 	/** The location fix table name; currently "reportsTable" */
 	public static final String DATABASE_TABLE = "reportsTable";
@@ -65,10 +65,12 @@ public class ContentProviderReports extends ContentProvider {
 	/** The SQL command to create the reportsTable */
 	private static final String DATABASE_CREATE = "create table reportsTable ("
 			+ Reports.KEY_ROW_ID + " integer primary key autoincrement" + COMMA
-			+ Reports.KEY_USER_ID + TYPE_TEXT + COMMA + Reports.KEY_REPORT_ID
+			+ Reports.KEY_VERSION_UUID + TYPE_TEXT + COMMA + Reports.KEY_USER_ID + TYPE_TEXT + COMMA + Reports.KEY_REPORT_ID
 			+ TYPE_TEXT + COMMA + Reports.KEY_REPORT_VERSION + TYPE_INTEGER
 			+ COMMA + Reports.KEY_REPORT_TIME + TYPE_INTEGER + COMMA
+			+ Reports.KEY_CREATION_TIME + TYPE_TEXT + COMMA
 			+ Reports.KEY_VERSION_TIME + TYPE_INTEGER + COMMA
+			+ Reports.KEY_VERSION_TIME_STRING + TYPE_TEXT + COMMA
 			+ Reports.KEY_TYPE + TYPE_INTEGER + COMMA
 			+ Reports.KEY_CONFIRMATION + TYPE_TEXT + COMMA
 			+ Reports.KEY_CONFIRMATION_CODE + TYPE_INTEGER + COMMA
@@ -84,8 +86,11 @@ public class ContentProviderReports extends ContentProvider {
 			+ Reports.KEY_DELETE_REPORT + TYPE_INTEGER + COMMA
 			+ Reports.KEY_LATEST_VERSION + TYPE_INTEGER + COMMA
 			+ Reports.KEY_PACKAGE_NAME + TYPE_TEXT + COMMA
-			+ Reports.KEY_PACKAGE_VERSION + TYPE_TEXT + COMMA
+			+ Reports.KEY_PACKAGE_VERSION + TYPE_INTEGER + COMMA
 			+ Reports.KEY_PHONE_MANUFACTURER + TYPE_TEXT + COMMA
+			+ Reports.KEY_MISSION_UUID + TYPE_TEXT + COMMA
+			+ Reports.KEY_OS_LANGUAGE + TYPE_TEXT + COMMA
+			+ Reports.KEY_APP_LANGUAGE + TYPE_TEXT + COMMA
 			+ Reports.KEY_PHONE_MODEL + TYPE_TEXT + COMMA + Reports.KEY_OS
 			+ TYPE_TEXT + COMMA + Reports.KEY_OS_VERSION + TYPE_TEXT + ");";
 

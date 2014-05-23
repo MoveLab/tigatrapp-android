@@ -107,8 +107,9 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 
 	public static final String SET_FIX_ALARMS_MESSAGE = "ceab.movelab.tigerapp.SET_FIX_ALARMS_MESSAGE";
 
-	AlarmManager[] startFixGetAlarms = new AlarmManager[Util.nSamplesPerDay];
-	AlarmManager[] stopFixGetAlarms = new AlarmManager[Util.nSamplesPerDay];
+	AlarmManager[] startFixGetAlarms;
+	AlarmManager[] stopFixGetAlarms;
+	int samplesPerDay = Util.DEFAULT_SAMPLES_PER_DAY;
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
@@ -120,6 +121,11 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 
 			int sdk = Build.VERSION.SDK_INT;
 
+			samplesPerDay = PropertyHolder.getSamplesPerDay();
+			startFixGetAlarms = new AlarmManager[samplesPerDay];
+			stopFixGetAlarms = new AlarmManager[samplesPerDay];
+
+			
 			String action = intent.getAction();
 
 			AlarmManager startFixGetAlarm = (AlarmManager) context
@@ -140,7 +146,7 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 			PendingIntent pending2setFixAlarms = PendingIntent.getBroadcast(
 					context, 0, i2setFixAlarms, 0);
 
-			for (int i = 0; i < Util.nSamplesPerDay; i++) {
+			for (int i = 0; i < samplesPerDay; i++) {
 				startFixGetAlarms[i] = ((AlarmManager) context
 						.getSystemService(Context.ALARM_SERVICE));
 				stopFixGetAlarms[i] = ((AlarmManager) context
@@ -171,8 +177,9 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 
 				// first cancel any still running
 				context.sendBroadcast(intent2StopFixGet);
-				for (int i = 0; i < Util.nSamplesPerDay; i++) {
+				for (int i = 0; i < samplesPerDay; i++) {
 					startFixGetAlarms[i].cancel(pendingIntent2FixGet);
+					stopFixGetAlarms[i].cancel(pendingFixGetStop);
 				}
 
 				long thisTriggerTime;
@@ -180,12 +187,13 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 				int alarmType = AlarmManager.ELAPSED_REALTIME_WAKEUP;
 
 				// FOR TESTING
-				String[] currentSamplingTimes = new String[Util.nSamplesPerDay];
+				String[] currentSamplingTimes = new String[samplesPerDay];
 
-				for (int i = 0; i < Util.nSamplesPerDay; i++) {
+				for (int i = 0; i < samplesPerDay; i++) {
 					thisTriggerTime = mRandom.nextInt(24 * 60) * 60 * 1000;
 					startFixGetAlarms[i].set(alarmType, thisTriggerTime,
 							pendingFixGetMessage);
+					stopFixGetAlarms[i].set(alarmType, thisTriggerTime + Util.LISTENER_WINDOW, pendingFixGetStop);
 
 					// FOR TESTING
 					currentSamplingTimes[i] = Util.iso8601(System
@@ -194,7 +202,7 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 				PropertyHolder.setCurrentFixTimes(currentSamplingTimes);
 			} else if (action.contains(STOP_SAMPLING_MESSAGE)) {
 				context.sendBroadcast(intent2StopFixGet);
-				for (int i = 0; i < Util.nSamplesPerDay; i++) {
+				for (int i = 0; i < samplesPerDay; i++) {
 					startFixGetAlarms[i].cancel(pendingIntent2FixGet);
 				}
 				PropertyHolder.setServiceOn(false);

@@ -398,9 +398,11 @@ public class FixGet extends Service {
 		Log.i("FG", "maskedLat: " + maskedLat);
 		Log.i("FG", "maskedLon: " + maskedLon);
 
+		Fix thisFix = new Fix(maskedLat, maskedLon, location.getTime(),
+				Util.getBatteryProportion(context));
+
 		cr.insert(Fixes.CONTENT_URI, ContentProviderValuesTracks.createFix(
-				maskedLat, maskedLon, location.getTime(),
-				Util.getBatteryLevel(context)));
+				thisFix.lat, thisFix.lng, thisFix.time, thisFix.pow));
 
 		// Check for location-based tasks
 
@@ -472,9 +474,10 @@ public class FixGet extends Service {
 			}
 
 		}
-
-		// TODO UPLOAD
-
+		
+		c.close();
+		thisFix.upload(context);
+		
 		unWakeLock();
 	}
 

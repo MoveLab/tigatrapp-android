@@ -52,14 +52,11 @@ public class ContentProviderContractTracks {
 		public static final String KEY_POWER_LEVEL = "power_level";
 		public static final String KEY_UPLOADED = "uploaded";
 
-		public static final int DISPLAY_TRUE = 1;
-		public static final int DISPLAY_FALSE = 0;
-
 		public static final String DB_CREATE_STATEMENT = "create table "
 				+ ContentProviderTracks.DATABASE_TABLE + " ( " + KEY_ROWID
 				+ " integer primary key autoincrement, " + KEY_LATITUDE
 				+ " real, " + KEY_LONGITUDE + " real, " + KEY_TIME + " long,  "
-				+ KEY_POWER_LEVEL + " integer," + KEY_UPLOADED + " integer);";
+				+ KEY_POWER_LEVEL + " real," + KEY_UPLOADED + " integer);";
 
 		/** The names of all the fields contained in the location tracks table */
 		public static final String[] KEYS_ALL = { KEY_ROWID, KEY_LATITUDE,

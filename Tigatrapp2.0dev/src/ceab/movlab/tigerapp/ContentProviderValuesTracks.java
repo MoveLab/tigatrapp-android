@@ -37,13 +37,13 @@ import ceab.movlab.tigerapp.ContentProviderContractTracks.Fixes;
 public class ContentProviderValuesTracks {
 
 	public static ContentValues createFix(double latitude, double longitude,
-			long time, int power_level) {
+			long time, float power_proportion) {
 		Date usertime = new Date(time);
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(Fixes.KEY_LATITUDE, (double) latitude);
 		initialValues.put(Fixes.KEY_LONGITUDE, (double) longitude);
 		initialValues.put(Fixes.KEY_TIME, (long) time);
-		initialValues.put(Fixes.KEY_POWER_LEVEL, power_level);
+		initialValues.put(Fixes.KEY_POWER_LEVEL, power_proportion);
 		initialValues.put(Fixes.KEY_UPLOADED, 0);
 
 		return initialValues;

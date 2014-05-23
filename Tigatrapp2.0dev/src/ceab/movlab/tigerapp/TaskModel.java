@@ -13,24 +13,24 @@ import ceab.movlab.tigerapp.ContentProviderContractTasks.Tasks;
 
 public class TaskModel {
 
-	public static final String KEY_TASK_TITLE = "task_title";
-	public static final String KEY_TASK_DETAIL = "task_detail";
-	public static final String KEY_TASK_HELP = "task_help";
-	public static final String KEY_TASK_ITEMS = "task_items";
-	public static final String KEY_TASK_PRESET_CONFIGURATION = "task_preset_configuation";
+	public static final String KEY_TASK_TITLE = "mission_title";
+	public static final String KEY_TASK_DETAIL = "mission_detail";
+	public static final String KEY_TASK_HELP = "mission_help";
+	public static final String KEY_TASK_ITEMS = "mission_items";
+	public static final String KEY_TASK_PRESET_CONFIGURATION = "mission_preset_configuation";
 
-	public static final String KEY_TASK_BUTTON_LEFT_VISIBLE = "task_button_left_visible";
-	public static final String KEY_TASK_BUTTON_MIDDLE_VISIBLE = "task_button_middle_visible";
-	public static final String KEY_TASK_BUTTON_RIGHT_VISIBLE = "task_button_right_visible";
-	public static final String KEY_TASK_BUTTON_LEFT_TEXT = "task_button_left_text";
-	public static final String KEY_TASK_BUTTON_LEFT_ACTION = "task_button_left_action";
-	public static final String KEY_TASK_BUTTON_LEFT_URL = "task_button_left_url";
-	public static final String KEY_TASK_BUTTON_MIDDLE_TEXT = "task_button_middle_text";
-	public static final String KEY_TASK_BUTTON_MIDDLE_ACTION = "task_button_middle_action";
-	public static final String KEY_TASK_BUTTON_MIDDLE_URL = "task_button_middle_url";
-	public static final String KEY_TASK_BUTTON_RIGHT_TEXT = "task_button_right_text";
-	public static final String KEY_TASK_BUTTON_RIGHT_ACTION = "task_button_right_action";
-	public static final String KEY_TASK_BUTTON_RIGHT_URL = "task_button_right_url";
+	public static final String KEY_TASK_BUTTON_LEFT_VISIBLE = "mission_button_left_visible";
+	public static final String KEY_TASK_BUTTON_MIDDLE_VISIBLE = "mission_button_middle_visible";
+	public static final String KEY_TASK_BUTTON_RIGHT_VISIBLE = "mission_button_right_visible";
+	public static final String KEY_TASK_BUTTON_LEFT_TEXT = "mission_button_left_text";
+	public static final String KEY_TASK_BUTTON_LEFT_ACTION = "mission_button_left_action";
+	public static final String KEY_TASK_BUTTON_LEFT_URL = "mission_button_left_url";
+	public static final String KEY_TASK_BUTTON_MIDDLE_TEXT = "mission_button_middle_text";
+	public static final String KEY_TASK_BUTTON_MIDDLE_ACTION = "mission_button_middle_action";
+	public static final String KEY_TASK_BUTTON_MIDDLE_URL = "mission_button_middle_url";
+	public static final String KEY_TASK_BUTTON_RIGHT_TEXT = "mission_button_right_text";
+	public static final String KEY_TASK_BUTTON_RIGHT_ACTION = "mission_button_right_action";
+	public static final String KEY_TASK_BUTTON_RIGHT_URL = "mission_button_right_url";
 
 	public static final int BUTTONACTIONS_DO_TASK = 0;
 	// This button marks task complete, uploads any responses, goes to url (if

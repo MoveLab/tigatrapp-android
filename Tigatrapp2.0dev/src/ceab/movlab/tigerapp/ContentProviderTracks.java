@@ -49,7 +49,7 @@ public class ContentProviderTracks extends ContentProvider {
 
 	private static final String DATABASE_NAME = "tracksDB";
 
-	private static final int DATABASE_VERSION = 3;
+	private static final int DATABASE_VERSION = 4;
 
 	public static final String DATABASE_TABLE = "tracksTable";
 

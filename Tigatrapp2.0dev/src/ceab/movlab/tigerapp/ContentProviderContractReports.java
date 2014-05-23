@@ -103,6 +103,9 @@ public class ContentProviderContractReports {
 		 */
 		public static final String KEY_REPORT_VERSION = "report_version";
 
+		public static final String KEY_VERSION_UUID = "report_version_uuid";
+
+		
 		/**
 		 * The <code>report_time</code> field contains the time at which the
 		 * report was first created. It is set based on the user's phone's time
@@ -110,6 +113,9 @@ public class ContentProviderContractReports {
 		 */
 		public static final String KEY_REPORT_TIME = "report_time";
 
+		public static final String KEY_CREATION_TIME = "creation_time";
+
+		
 		/**
 		 * The <code>version_time</code> field contains the time at which the
 		 * version was created. It is set based on the user's phone's time and
@@ -117,10 +123,12 @@ public class ContentProviderContractReports {
 		 */
 		public static final String KEY_VERSION_TIME = "version_time";
 
+		public static final String KEY_VERSION_TIME_STRING = "version_time_string";
+
 		/**
 		 * The <code>type</code> field contains the type of report as an
-		 * integer. Current options are: -1 (missing), 0 (report of an adult
-		 * mosquito), and 1 (report of a mosquito breeding site).
+		 * integer. Options are: 0 (report of an adult
+		 * mosquito), 1 (report of a mosquito breeding site), and 2 (report from a mission).
 		 */
 		public static final String KEY_TYPE = "type";
 
@@ -151,6 +159,11 @@ public class ContentProviderContractReports {
 		public static final String KEY_PHONE_MODEL = "phone_model";
 		public static final String KEY_OS = "os";
 		public static final String KEY_OS_VERSION = "os_version";
+		public static final String KEY_OS_LANGUAGE = "os_language";
+		public static final String KEY_APP_LANGUAGE = "app_language";
+
+		public static final String KEY_MISSION_UUID = "mission_uuid";
+			
 
 		/**
 		 * Vector of all the fields contained in the reports table, to be used

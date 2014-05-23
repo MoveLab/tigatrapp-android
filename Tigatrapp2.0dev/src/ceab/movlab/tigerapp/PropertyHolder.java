@@ -108,6 +108,18 @@ public class PropertyHolder {
 		editor.commit();
 	}
 
+	static String SAMPLES_PER_DAY = "samples_per_day";
+	
+	public static void setSamplesPerDay(int samplesPerDay) {
+		editor.putInt(SAMPLES_PER_DAY, samplesPerDay);
+		editor.commit();
+	}
+
+	// get samples per day. Default is 
+	public static int getSamplesPerDay() {
+		return sharedPreferences.getInt(SAMPLES_PER_DAY, Util.DEFAULT_SAMPLES_PER_DAY);
+	}
+
 	public static void lastSampleSchedleMade(long time) {
 		editor.putLong("LAST_SCHEDULE", time);
 		editor.commit();

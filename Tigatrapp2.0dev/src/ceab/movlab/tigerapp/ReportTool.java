@@ -22,6 +22,7 @@
 package ceab.movlab.tigerapp;
 
 import java.util.Date;
+import java.util.Locale;
 import java.util.Random;
 
 import org.json.JSONException;
@@ -175,13 +176,21 @@ public class ReportTool extends Activity {
 			if (c.moveToLast()) {
 
 				int rowIdCol = c.getColumnIndexOrThrow(Reports.KEY_ROW_ID);
+				int versionUUIDCol = c
+						.getColumnIndexOrThrow(Reports.KEY_VERSION_UUID);
 				int userIdCol = c.getColumnIndexOrThrow(Reports.KEY_USER_ID);
 				int reportIdCol = c
 						.getColumnIndexOrThrow(Reports.KEY_REPORT_ID);
 				int reportTimeCol = c
 						.getColumnIndexOrThrow(Reports.KEY_REPORT_TIME);
+				int creationTimeCol = c
+						.getColumnIndexOrThrow(Reports.KEY_CREATION_TIME);
 				int reportVersionCol = c
 						.getColumnIndexOrThrow(Reports.KEY_REPORT_VERSION);
+				int versionTimeCol = c
+						.getColumnIndexOrThrow(Reports.KEY_VERSION_TIME);
+				int versionTimeStringCol = c
+						.getColumnIndexOrThrow(Reports.KEY_VERSION_TIME_STRING);
 				int typeCol = c.getColumnIndexOrThrow(Reports.KEY_TYPE);
 				int confirmationCol = c
 						.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION);
@@ -221,12 +230,19 @@ public class ReportTool extends Activity {
 				int osCol = c.getColumnIndexOrThrow(Reports.KEY_OS);
 				int osVersionCol = c
 						.getColumnIndexOrThrow(Reports.KEY_OS_VERSION);
+				int osLanguageCol = c
+						.getColumnIndexOrThrow(Reports.KEY_OS_LANGUAGE);
+				int appLanguageCol = c
+						.getColumnIndexOrThrow(Reports.KEY_APP_LANGUAGE);
+				int missionUUIDCol = c
+						.getColumnIndexOrThrow(Reports.KEY_MISSION_UUID);
 
 				// note that we increment the version number here
-				thisReport = new Report(c.getString(userIdCol),
-						c.getString(reportIdCol),
+				thisReport = new Report(c.getString(versionUUIDCol),
+						c.getString(userIdCol), c.getString(reportIdCol),
 						(c.getInt(reportVersionCol) + 1),
-						c.getLong(reportTimeCol), c.getInt(typeCol),
+						c.getLong(reportTimeCol), c.getString(creationTimeCol),
+						c.getString(versionTimeCol), c.getInt(typeCol),
 						c.getString(confirmationCol),
 						c.getInt(confirmationCodeCol),
 						c.getInt(locationChoiceCol),
@@ -239,12 +255,14 @@ public class ReportTool extends Activity {
 						c.getLong(serverTimestampCol),
 						c.getInt(deleteReportCol), c.getInt(latestVersionCol),
 						c.getString(packageNameCol),
-						c.getString(packageVersionCol),
+						c.getInt(packageVersionCol),
 						c.getString(phoneManufacturerCol),
 						c.getString(phoneModelCol), c.getString(osCol),
-						c.getString(osVersionCol));
+						c.getString(osVersionCol), c.getString(osLanguageCol),
+						c.getString(appLanguageCol),
+						c.getString(missionUUIDCol));
 
-				Log.e("RT1", thisReport.printAllValues());
+				Log.e("RT1", thisReport.exportJSON(context).toString());
 
 			}
 			c.close();
@@ -536,7 +554,7 @@ public class ReportTool extends Activity {
 		});
 
 		countDownTimer = new MyCountDownTimer(5 * 60 * 1000, 5 * 30 * 1000);
-		Log.e("RT2", thisReport.printAllValues());
+		Log.e("RT2", thisReport.exportJSON(context).toString());
 
 	}
 
@@ -689,7 +707,6 @@ public class ReportTool extends Activity {
 		}
 
 		super.onResume();
-
 
 	}
 
@@ -929,59 +946,74 @@ public class ReportTool extends Activity {
 
 		protected Boolean doInBackground(Context... context) {
 
-			try {
-				PackageInfo pInfo = getPackageManager().getPackageInfo(
-						getPackageName(), 0);
-				thisReport.packageName = pInfo.packageName;
-				thisReport.packageVersion = pInfo.versionName;
-			} catch (NameNotFoundException e) {
-			}
+			if (PropertyHolder.isRegistered() || Util.registerOnServer()) {
 
-			thisReport.phoneManufacturer = Build.MANUFACTURER;
-			thisReport.phoneModel = Build.MODEL;
+				if (!editing)
+					thisReport.creation_time = Util.ecma262(System
+							.currentTimeMillis());
 
-			thisReport.OS = "Android";
-			thisReport.OSversion = Integer.toString(Build.VERSION.SDK_INT);
+				thisReport.version_time = Util.ecma262(System
+						.currentTimeMillis());
 
-			// First save report to internal DB
-			ContentResolver cr = getContentResolver();
-			Uri repUri = Reports.CONTENT_URI;
-
-			Log.e("RT3", thisReport.printAllValues());
-
-			cr.insert(repUri,
-					ContentProviderValuesReports.createReport(thisReport));
-
-			Uri photosUri = TigaPhotos.CONTENT_URI;
-
-			// now mark all prior reports as not latest version
-			String sc = Reports.KEY_REPORT_ID + " = '" + thisReport.reportId
-					+ "' AND " + Reports.KEY_REPORT_VERSION + " < "
-					+ thisReport.reportVersion;
-
-			ContentValues cv = new ContentValues();
-			cv.put(Reports.KEY_LATEST_VERSION, 0);
-			cr.update(repUri, cv, sc, null);
-
-			if (!Util.privateMode) {
-
-				// now test if there is a data connection
-				if (!Util.isOnline(context[0])) {
-
-					resultFlag = OFFLINE;
-					return false;
-
+				try {
+					PackageInfo pInfo = getPackageManager().getPackageInfo(
+							getPackageName(), 0);
+					thisReport.packageName = pInfo.packageName;
+					thisReport.packageVersion = pInfo.versionCode;
+				} catch (NameNotFoundException e) {
 				}
 
-				if (thisReport.upload(context[0]))
-					resultFlag = SUCCESS;
-				else
-					resultFlag = UPLOAD_ERROR;
+				thisReport.phoneManufacturer = Build.MANUFACTURER;
+				thisReport.phoneModel = Build.MODEL;
 
-			} else {
-				resultFlag = PRIVATE_MODE;
-			}
-			return true;
+				thisReport.OS = "Android";
+				thisReport.OSversion = Integer.toString(Build.VERSION.SDK_INT);
+				thisReport.osLanguage = Locale.getDefault()
+						.getLanguage();
+				thisReport.appLanguage = PropertyHolder.getLanguage();
+
+				// First save report to internal DB
+				ContentResolver cr = getContentResolver();
+				Uri repUri = Reports.CONTENT_URI;
+
+				Log.e("RT3", thisReport.exportJSON(context[0]).toString());
+
+				cr.insert(repUri,
+						ContentProviderValuesReports.createReport(thisReport));
+
+				Uri photosUri = TigaPhotos.CONTENT_URI;
+
+				// now mark all prior reports as not latest version
+				String sc = Reports.KEY_REPORT_ID + " = '"
+						+ thisReport.reportId + "' AND "
+						+ Reports.KEY_REPORT_VERSION + " < "
+						+ thisReport.reportVersion;
+
+				ContentValues cv = new ContentValues();
+				cv.put(Reports.KEY_LATEST_VERSION, 0);
+				cr.update(repUri, cv, sc, null);
+
+				if (!Util.privateMode) {
+
+					// now test if there is a data connection
+					if (!Util.isOnline(context[0])) {
+
+						resultFlag = OFFLINE;
+						return false;
+
+					}
+
+					if (thisReport.upload(context[0]))
+						resultFlag = SUCCESS;
+					else
+						resultFlag = UPLOAD_ERROR;
+
+				} else {
+					resultFlag = PRIVATE_MODE;
+				}
+				return true;
+			} else
+				return false;
 		}
 
 		protected void onProgressUpdate(Integer... progress) {

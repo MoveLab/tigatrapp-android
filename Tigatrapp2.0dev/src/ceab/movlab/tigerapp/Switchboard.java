@@ -21,19 +21,17 @@
 
 package ceab.movlab.tigerapp;
 
-import java.util.Locale;
 import java.util.UUID;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -44,6 +42,8 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 import ceab.movelab.tigerapp.R;
+import ceab.movlab.tigerapp.ContentProviderContractReports.Reports;
+import ceab.movlab.tigerapp.ContentProviderContractTracks.Fixes;
 
 /**
  * Main menu screen for app.
@@ -93,6 +93,12 @@ public class Switchboard extends Activity {
 					PropertyHolder.setUserId(userId);
 				}
 
+				// open and close database in order to trigger any updates
+				ContentResolver cr = getContentResolver();
+				Cursor c = cr.query(Reports.CONTENT_URI,
+						new String[] { Reports.KEY_ROW_ID }, null, null, null);
+				c.close();
+				
 				if (PropertyHolder.isServiceOn()) {
 
 					long lastScheduleTime = PropertyHolder

@@ -66,6 +66,7 @@
 package ceab.movlab.tigerapp;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
@@ -74,6 +75,9 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.security.InvalidKeyException;
@@ -88,12 +92,23 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.UUID;
 
 import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -117,6 +132,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.Html;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -139,6 +155,51 @@ import com.google.android.maps.GeoPoint;
  */
 public class Util {
 
+	/**
+	 * Server API URL.
+	 */
+	private static final String URL_TIGASERVER_API_ROOT = "http://161.111.254.98/api/";
+
+	/**
+	 * API user endpoint.
+	 */
+	public static final String API_USER = "users/";
+
+	/**
+	 * API report endpoint.
+	 */
+	public static final String API_REPORT = "reports/";
+
+	/**
+	 * API photo endpoint.
+	 */
+	public static final String API_PHOTO = "photos/";
+
+	/**
+	 * API fix endpoint.
+	 */
+	public static final String API_FIXES = "fixes/";
+
+	/**
+	 * API mission endpoint.
+	 */
+	public static final String API_MISSION = "missions/";
+
+	/**
+	 * API c endpoint.
+	 */
+	public static final String API_CONFIGURATION = "configuration/";
+
+	/**
+	 * Server authorization.
+	 */
+	private final static String TIGASERVER_API_KEY = "3791ad3995d31cfb56add03030a804a7436079cc";
+	private final static String TIGASERVER_CLIENT_ID = "test_client";
+	private final static String TIGASERVER_AUTHORIZATION = "Token "
+			+ TIGASERVER_API_KEY;
+
+	public final static String EXTENSION = ".dat";
+
 	public final static GeoPoint CEAB_COORDINATES = new GeoPoint(41686600,
 			2799600);
 
@@ -156,7 +217,7 @@ public class Util {
 
 	public static boolean privateMode = false;
 
-	public static int nSamplesPerDay = 20; // for testing, will reduce to 5
+	public static int DEFAULT_SAMPLES_PER_DAY = 5;
 
 	/**
 	 * Default value for the interval between location fixes. In milliseconds.
@@ -166,31 +227,6 @@ public class Util {
 	public static final long TASK_FIX_WINDOW = 1000 * 60 * 1; // 1 minute
 
 	public static final long UPLOAD_INTERVAL = 1000 * 60 * 60; // 1 hour
-
-	/**
-	 * Server URLs for uploads.
-	 */
-
-	public static final String URL_TIGERSERVER_ROOT = "http://tce.ceab.csic.es/";
-
-	public static final String URL_TIGERFINDER = "http://tce.ceab.csic.es/tigaDev2/tigerfinder2.0Dev.php";
-
-	public static final String URL_DELETE_REPORT = "http://tce.ceab.csic.es/tigaDev2/tigerfinderdeleterep2.0Dev.php";
-
-	public static final String URL_TIGERDRIVER = "xxx";
-
-	public static final String URL_ACTIVATION = "xxx";
-
-	public static final String URL_DELETE_TRIP = "xxx";
-
-	public static final String URL_SAVE_TRIP = "xxx";
-
-	public static final String URL_TIGERDRIVER_JSON = "xxx";
-
-	/**
-	 * Extension to append to all files saved for uploading.
-	 */
-	public static final String EXTENSION = ".dat";
 
 	/**
 	 * Maximum length of time to run location listeners during each fix attempt.
@@ -244,6 +280,12 @@ public class Util {
 	 */
 	public static String fmtCoord(double coord) {
 		return String.format("%1$11.6f", coord);
+	}
+
+	public static String ecma262(long time) {
+		String format = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+		SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
+		return sdf.format(new Date(time));
 	}
 
 	/**
@@ -778,6 +820,22 @@ public class Util {
 		return powerLevel;
 	}
 
+	public static float getBatteryProportion(Context context) {
+		Intent batteryIntent = context.registerReceiver(null, new IntentFilter(
+				Intent.ACTION_BATTERY_CHANGED));
+		int level = batteryIntent.getIntExtra("level", -1);
+		int scale = batteryIntent.getIntExtra("scale", -1);
+
+		// Error checking that probably isn't needed but I added just in case.
+		if (level == -1 || scale == -1) {
+			return -1;
+		}
+
+		float powerProportion = level / scale;
+
+		return powerProportion;
+	}
+
 	public static String getString(JSONObject jsonObject, String key) {
 		String result = "";
 		if (jsonObject.has(key)) {
@@ -897,4 +955,135 @@ public class Util {
 		res.updateConfiguration(conf, dm);
 	}
 
+	/**
+	 * Uploads JSONObject to Tigaserver API using HTTP PUT request
+	 * 
+	 * @author: John Palmer
+	 * 
+	 * @param jsonData
+	 *            JSONObject to be uploaded.
+	 * @param path
+	 *            String representing URL to the server API.
+	 */
+	public static boolean putJSON(JSONObject jsonData, String apiEndpoint) {
+		boolean result = false;
+
+		Log.i("Uploading: ", jsonData.toString());
+		try {
+			DefaultHttpClient httpclient = new DefaultHttpClient();
+			HttpPost httpost = new HttpPost(URL_TIGASERVER_API_ROOT
+					+ apiEndpoint);
+			StringEntity se = new StringEntity(jsonData.toString(), "UTF-8");
+			httpost.setEntity(se);
+			httpost.setHeader("Accept", "application/json");
+			httpost.setHeader("Content-type", "application/json");
+			httpost.setHeader("Authorization", TIGASERVER_AUTHORIZATION);
+			HttpResponse httpResponse;
+			httpResponse = httpclient.execute(httpost);
+			StatusLine status = httpResponse.getStatusLine();
+			int statusCode = status.getStatusCode();
+			if (statusCode >= 200 && statusCode < 300) {
+				result = true;
+			}
+			Log.i("Util.putJSON", "Status Code: " + statusCode);
+			for (Header h : httpResponse.getAllHeaders()) {
+				Log.i("Util.putJSON",
+						"Header: " + h.getName() + ": " + h.getValue());
+
+			}
+
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClientProtocolException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public static String getJSON(String apiEndpoint) {
+		StringBuilder builder = new StringBuilder();
+		HttpClient client = new DefaultHttpClient();
+		HttpGet httpGet = new HttpGet(URL_TIGASERVER_API_ROOT + apiEndpoint);
+
+		httpGet.setHeader("Accept", "application/json");
+		httpGet.setHeader("Content-type", "application/json");
+		httpGet.setHeader("Authorization", TIGASERVER_AUTHORIZATION);
+
+		try {
+			HttpResponse response = client.execute(httpGet);
+			StatusLine statusLine = response.getStatusLine();
+			int statusCode = statusLine.getStatusCode();
+			Log.i("getJson", "Status code:" + statusCode);
+
+			if (statusCode == 200) {
+				HttpEntity entity = response.getEntity();
+				InputStream content = entity.getContent();
+				BufferedReader reader = new BufferedReader(
+						new InputStreamReader(content));
+				String line;
+				while ((line = reader.readLine()) != null) {
+					builder.append(line);
+				}
+			} else {
+				Log.e("getJson", "Failed to download json data");
+			}
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		Log.i("getJson", "data:" + builder.toString());
+
+		return builder.toString();
+	}
+
+	public static String reportType2String(int reportType) {
+		String result = "";
+		if (reportType == Report.TYPE_ADULT)
+			result = "adult";
+		else if (reportType == Report.TYPE_BREEDING_SITE)
+			result = "site";
+		else if (reportType == Report.TYPE_MISSION)
+			result = "mission";
+		return result;
+	}
+
+	public static String locationChoice2String(int locationChoice) {
+		String result = "";
+		if (locationChoice == Report.LOCATION_CHOICE_CURRENT)
+			result = "current";
+		else if (locationChoice == Report.LOCATION_CHOICE_SELECTED)
+			result = "selected";
+		return result;
+	}
+
+	public static Boolean registerOnServer() {
+
+		Boolean result = false;
+		JSONObject jsonUUID;
+		try {
+			jsonUUID = new JSONObject();
+			jsonUUID.put("user_UUID", PropertyHolder.getUserId());
+			if (Util.putJSON(jsonUUID, Util.API_USER)) {
+				PropertyHolder.setRegistered(true);
+				result = true;
+			} else {
+				result = false;
+			}
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			// try creating UUID again
+			PropertyHolder.setUserId(UUID.randomUUID().toString());
+			// consider looping back but make sure this will not lead to chaos.
+			// registerOnServer();
+			result = false;
+		}
+		return result;
+	}
 }

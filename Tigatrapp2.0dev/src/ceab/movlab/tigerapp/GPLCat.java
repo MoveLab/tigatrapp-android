@@ -1,7 +1,7 @@
 /*
  * Tigatrapp
  * Copyright (C) 2013, 2014  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
- * Contact: tigatrapp@ceab.csic.es
+ * Contact: info@atrapaeltigre.com
  * 
  * This file is part of Tigatrapp.
  * 
@@ -21,13 +21,15 @@
 
 package ceab.movlab.tigerapp;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.text.Html;
-import android.text.method.LinkMovementMethod;
 import android.text.util.Linkify;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -66,9 +68,7 @@ public class GPLCat extends Activity {
 		Util.overrideFonts(this, findViewById(android.R.id.content));
 
 		TextView t = (TextView) findViewById(R.id.gplText);
-		t.setText(Html
-				.fromHtml(getString(R.string.gpl_catalan_unofficial_translanslation)));
-		t.setMovementMethod(LinkMovementMethod.getInstance());
+		t.setText(readTxt());
 		t.setTextColor(getResources().getColor(R.color.light_yellow));
 		t.setTextSize(15);
 
@@ -82,6 +82,31 @@ public class GPLCat extends Activity {
 		mEmail.setLinkTextColor(getResources().getColor(R.color.light_yellow));
 		mEmail.setTextSize(getResources().getDimension(R.dimen.textsize_url));
 
+	}
+
+	private String readTxt() {
+		InputStream inputStream = null;
+		inputStream = getResources().openRawResource(R.raw.gpl);
+		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+		int i;
+		try {
+			i = inputStream.read();
+			while (i != -1) {
+				byteArrayOutputStream.write(i);
+				i = inputStream.read();
+			}
+		} catch (IOException e) {
+
+		} finally {
+			if (inputStream != null) {
+				try {
+					inputStream.close();
+				} catch (IOException e) {
+
+				}
+			}
+		}
+		return byteArrayOutputStream.toString();
 	}
 
 	static final private int GPL = Menu.FIRST;

@@ -1,7 +1,7 @@
 /*
  * Tigatrapp
  * Copyright (C) 2013, 2014  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
- * Contact: tigatrapp@ceab.csic.es
+ * Contact: info@atrapaeltigre.com
  * 
  * This file is part of Tigatrapp.
  * 
@@ -133,6 +133,8 @@ public class ViewDataActivity extends MapActivity {
 		}
 
 		setContentView(R.layout.map_layout);
+		
+		this.setTitle(context.getResources().getString(R.string.activity_label_map));
 
 		Util.overrideFonts(this, findViewById(android.R.id.content));
 

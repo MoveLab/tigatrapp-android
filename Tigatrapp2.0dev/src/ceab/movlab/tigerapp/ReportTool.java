@@ -1,7 +1,7 @@
 /*
  * Tigatrapp
  * Copyright (C) 2013, 2014  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
- * Contact: tigatrapp@ceab.csic.es
+ * Contact: info@atrapaeltigre.com
  * 
  * This file is part of Tigatrapp.
  * 
@@ -53,13 +53,13 @@ import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.view.Window;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -104,7 +104,7 @@ public class ReportTool extends Activity {
 	ScrollView reportScroll;
 
 	TextView reportTitle;
-
+	RelativeLayout reportTitleRow;
 	RelativeLayout reportConfirmationRow;
 	RelativeLayout reportLocationRow;
 	RelativeLayout reportCurrentLocationRow;
@@ -164,6 +164,8 @@ public class ReportTool extends Activity {
 
 		if (editing) {
 
+			this.setTitle(context.getResources().getString(R.string.activity_label_report_editing));
+			
 			ContentResolver cr = getContentResolver();
 			String sc = Reports.KEY_REPORT_ID + " = '"
 					+ b.getString("reportId") + "' AND "
@@ -268,6 +270,7 @@ public class ReportTool extends Activity {
 			c.close();
 
 		} else {
+			this.setTitle(context.getResources().getString(R.string.activity_label_report_new));
 			thisReport = new Report(type, PropertyHolder.getUserId());
 		}
 
@@ -275,6 +278,12 @@ public class ReportTool extends Activity {
 
 		reportScroll = (ScrollView) findViewById(R.id.reportView);
 		reportTitle = (TextView) findViewById(R.id.reportTitle);
+		reportTitle = (TextView) findViewById(R.id.reportTitle);
+		reportTitle = (TextView) findViewById(R.id.reportTitle);
+		reportTitle = (TextView) findViewById(R.id.reportTitle);
+		reportTitle = (TextView) findViewById(R.id.reportTitle);
+		reportTitleRow = (RelativeLayout) findViewById(R.id.reportTitleRow);
+
 		reportConfirmationRow = (RelativeLayout) findViewById(R.id.reportConfirmationRow);
 		reportLocationRow = (RelativeLayout) findViewById(R.id.reportLocationRow);
 		reportCurrentLocationRow = (RelativeLayout) findViewById(R.id.reportCurrentLocationRow);
@@ -300,6 +309,15 @@ public class ReportTool extends Activity {
 							+ getResources().getString(R.string.created_on)
 							+ " "
 							+ Util.userDate(new Date((thisReport.reportTime))));
+
+			reportConfirmationCheck.setText(getResources().getString(
+					R.string.checklist_label_editing));
+			reportLocationCheck.setText(getResources().getString(
+					R.string.location_label_editing));
+			reportPhotoCheck.setText(getResources().getString(
+					R.string.photo_check_label_editing));
+			reportNoteCheck.setText(getResources().getString(
+					R.string.note_check_label_editing));
 
 			buttonReportSubmit.setText(getResources()
 					.getString(R.string.update));
@@ -374,6 +392,16 @@ public class ReportTool extends Activity {
 			@Override
 			public void onClick(View v) {
 				switch (v.getId()) {
+				case (R.id.reportTitleRow): {
+					Util.showHelp(
+							context,
+							type == Report.TYPE_ADULT ? context.getResources()
+									.getString(R.string.adult_report_help_html)
+									: context.getResources().getString(
+											R.string.site_report_help_html));
+					return;
+
+				}
 				case (R.id.reportConfirmationRow): {
 
 					try {
@@ -481,6 +509,7 @@ public class ReportTool extends Activity {
 			}
 		};
 
+		reportTitleRow.setOnClickListener(ocl);
 		reportConfirmationRow.setOnClickListener(ocl);
 		reportLocationRow.setOnClickListener(ocl);
 		reportCurrentLocationRow.setOnClickListener(ocl);
@@ -968,8 +997,7 @@ public class ReportTool extends Activity {
 
 				thisReport.OS = "Android";
 				thisReport.OSversion = Integer.toString(Build.VERSION.SDK_INT);
-				thisReport.osLanguage = Locale.getDefault()
-						.getLanguage();
+				thisReport.osLanguage = Locale.getDefault().getLanguage();
 				thisReport.appLanguage = PropertyHolder.getLanguage();
 
 				// First save report to internal DB

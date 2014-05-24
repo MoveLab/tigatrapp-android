@@ -1,7 +1,7 @@
 /*
  * Tigatrapp
  * Copyright (C) 2013, 2014  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
- * Contact: tigatrapp@ceab.csic.es
+ * Contact: info@atrapaeltigre.com
  * 
  * This file is part of Tigatrapp.
  * 
@@ -296,7 +296,6 @@ public class Util {
 		return mock_must_be_replaced;
 	}
 
-
 	/**
 	 * Formats the given time and converts to String form. Taken from Human
 	 * Mobility Project code written by Chang Y. Chung and Necati E. Ozgencil.
@@ -412,7 +411,7 @@ public class Util {
 		dialog.setContentView(R.layout.check_help);
 		Util.overrideFonts(context, dialog.findViewById(android.R.id.content));
 		TextView mText = (TextView) dialog.findViewById(R.id.checkHelpText);
-		mText.setText(Html.fromHtml(message));
+		mText.setText(Html.fromHtml(message, null, new TigaTagHandler()));
 		final ImageView mImage = (ImageView) dialog
 				.findViewById(R.id.checkHelpImage);
 		mImage.setImageResource(thisImage);
@@ -457,7 +456,7 @@ public class Util {
 		dialog.setContentView(R.layout.check_help);
 		Util.overrideFonts(context, dialog.findViewById(android.R.id.content));
 		TextView mText = (TextView) dialog.findViewById(R.id.checkHelpText);
-		mText.setText(Html.fromHtml(message));
+		mText.setText(Html.fromHtml(message, null, new TigaTagHandler()));
 		final ImageView mImage = (ImageView) dialog
 				.findViewById(R.id.checkHelpImage);
 		mImage.setVisibility(View.GONE);
@@ -987,9 +986,9 @@ public class Util {
 			httpost.setHeader("Accept", "application/json");
 			httpost.setHeader("Content-type", "application/json");
 			httpost.setHeader("Authorization", TIGASERVER_AUTHORIZATION);
-			
+
 			Log.i("ABOUT TO POST TO", "URI: " + httpost.getURI());
-			
+
 			HttpResponse httpResponse;
 			httpResponse = httpclient.execute(httpost);
 			StatusLine status = httpResponse.getStatusLine();
@@ -1025,9 +1024,8 @@ public class Util {
 		httpGet.setHeader("Accept", "application/json");
 		httpGet.setHeader("Content-type", "application/json");
 		httpGet.setHeader("Authorization", TIGASERVER_AUTHORIZATION);
-		
-		Log.i("ABOUT TO GET FROM", "URI: " + httpGet.getURI());
 
+		Log.i("ABOUT TO GET FROM", "URI: " + httpGet.getURI());
 
 		try {
 			HttpResponse response = client.execute(httpGet);

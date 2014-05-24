@@ -39,6 +39,8 @@ public class PhotoGallery extends Activity {
 
 		setContentView(R.layout.tiger_photos);
 
+		this.setTitle(context.getResources().getString(R.string.activity_label_gallery));
+		
 		final String[] captions = getResources().getStringArray(
 				R.array.gallery_array);
 

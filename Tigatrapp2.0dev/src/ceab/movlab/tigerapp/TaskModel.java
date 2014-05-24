@@ -339,9 +339,6 @@ public class TaskModel {
 					KEY_TITLE,
 					context.getResources().getString(
 							R.string.report_checklist_title_site));
-			taskJson.put(KEY_HELP_TEXT, Html.fromHtml(context.getResources()
-					.getString(R.string.site_report_help_html), null,
-					new TigaTagHandler()));
 			taskJson.put(KEY_PRESET_CONFIGURATION, PRECONFIRUATION_SITES);
 
 			item1.put(TaskItemModel.KEY_ITEM_ID, "Item1");
@@ -425,9 +422,6 @@ public class TaskModel {
 					context.getResources().getString(
 							R.string.report_checklist_title_adult));
 			taskJson.put(KEY_PRESET_CONFIGURATION, PRECONFIRUATION_ADULTS);
-			taskJson.put(KEY_HELP_TEXT, Html.fromHtml(context.getResources()
-					.getString(R.string.adult_report_help_html), null,
-					new TigaTagHandler()));
 
 			item1.put(TaskItemModel.KEY_ITEM_ID, "Item1");
 			item1.put(TaskItemModel.KEY_QUESTION, context.getResources()

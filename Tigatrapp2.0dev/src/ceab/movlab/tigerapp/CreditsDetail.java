@@ -1,7 +1,7 @@
 /*
  * Tigatrapp
  * Copyright (C) 2013, 2014  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
- * Contact: tigatrapp@ceab.csic.es
+ * Contact: info@atrapaeltigre.com
  * 
  * This file is part of Tigatrapp.
  * 
@@ -100,11 +100,6 @@ public class CreditsDetail extends Activity {
 		switch (item.getItemId()) {
 		case (GPL): {
 			Intent i = new Intent(this, GPLView.class);
-			startActivity(i);
-			return true;
-		}
-		case (LGPL): {
-			Intent i = new Intent(this, LGPLView.class);
 			startActivity(i);
 			return true;
 		}

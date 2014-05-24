@@ -2,7 +2,7 @@
 <!--
  * Tigatrapp
  * Copyright (C) 2013, 2014  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
- * Contact: tigatrapp@ceab.csic.es
+ * Contact: info@atrapaeltigre.com
  * 
  * This file is part of Tigatrapp.
  * 
@@ -35,16 +35,36 @@
         android:paddingLeft="20dip"
         android:paddingRight="20dip" >
 
-        <TextView
-            android:id="@+id/reportTitle"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/reportTitleRow"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginBottom="6dip"
-            android:layout_marginTop="5dip"
-            android:gravity="center"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@color/discolor" />
+            android:background="@drawable/selectorcolors"
+            android:clickable="true"
+            android:focusable="true" >
+
+            <TextView
+                android:id="@+id/reportTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_gravity="center"
+                android:layout_marginBottom="6dip"
+                android:layout_marginTop="5dip"
+                android:layout_toLeftOf="@+id/reportTitleHelp"
+                android:gravity="center"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@color/discolor" />
+
+            <ImageView
+                android:id="@+id/reportTitleHelp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:clickable="false"
+                android:src="@drawable/ic_action_about" />
+        </RelativeLayout>
 
         <View
             android:layout_width="fill_parent"

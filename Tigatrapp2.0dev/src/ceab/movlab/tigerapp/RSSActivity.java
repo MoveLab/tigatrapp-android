@@ -55,6 +55,7 @@ public class RSSActivity extends Activity {
 	int thisDefaultThumb;
 
 	Resources res;
+	String lang;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,14 +64,8 @@ public class RSSActivity extends Activity {
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
 
-		if (PropertyHolder.getLanguage() == null) {
-			Intent i2sb = new Intent(RSSActivity.this, Switchboard.class);
-			startActivity(i2sb);
-			finish();
-		} else {
-			res = getResources();
-			Util.setDisplayLanguage(res);
-		}
+		res = getResources();
+		lang = Util.setDisplayLanguage(res);
 
 		setContentView(R.layout.activity_view_rss);
 
@@ -111,6 +106,12 @@ public class RSSActivity extends Activity {
 
 	@Override
 	protected void onResume() {
+
+		res = getResources();
+		if (!Util.setDisplayLanguage(res).equals(lang)) {
+			finish();
+			startActivity(getIntent());
+		}
 
 		setInfoDisplay(context, true, thisUrl);
 

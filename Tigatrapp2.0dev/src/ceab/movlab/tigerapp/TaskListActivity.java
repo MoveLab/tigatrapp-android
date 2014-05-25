@@ -64,6 +64,7 @@ public class TaskListActivity extends FragmentActivity implements
 			+ "1 AND " + Tasks.KEY_DONE + " = 0";
 
 	Resources res;
+	String lang;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -74,14 +75,8 @@ public class TaskListActivity extends FragmentActivity implements
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
 
-		if (PropertyHolder.getLanguage() == null) {
-			Intent i2sb = new Intent(TaskListActivity.this, Switchboard.class);
-			startActivity(i2sb);
-			finish();
-		} else {
-			res = getResources();
-			Util.setDisplayLanguage(res);
-		}
+		res = getResources();
+		lang = Util.setDisplayLanguage(res);
 
 		setContentView(R.layout.tasks_list);
 
@@ -174,6 +169,12 @@ public class TaskListActivity extends FragmentActivity implements
 
 	@Override
 	protected void onResume() {
+
+		res = getResources();
+		if (!Util.setDisplayLanguage(res).equals(lang)) {
+			finish();
+			startActivity(getIntent());
+		}
 
 		adapter.notifyDataSetChanged();
 		super.onResume();

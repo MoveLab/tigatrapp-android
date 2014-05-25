@@ -119,8 +119,6 @@ public class ContentProviderReports extends ContentProvider {
 		public void onCreate(SQLiteDatabase db) {
 			db.execSQL(DATABASE_CREATE);
 			
-			Log.i("Report DB create: ", DATABASE_CREATE);
-
 		}
 
 		@Override
@@ -130,7 +128,6 @@ public class ContentProviderReports extends ContentProvider {
 			// + newVersion + ", which will destroy all old data");
 			db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
 			onCreate(db);
-			Log.i("Report DB upgrade. Dropped: ", DATABASE_TABLE);
 
 		}
 	}

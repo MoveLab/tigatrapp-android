@@ -64,7 +64,7 @@ import ceab.movlab.tigerapp.ContentProviderContractTracks.Fixes;
  * @author John R.B. Palmer
  * 
  */
-public class FileUploader extends Service {
+public class SyncData extends Service {
 	private boolean uploading = false;
 
 	Context context;
@@ -122,14 +122,12 @@ public class FileUploader extends Service {
 					if (configJson != null && configJson.has("samples_per_day")) {
 						int samplesPerDay = configJson
 								.getInt("samples_per_day");
-						Log.i("Samples per day", "downloaded: " + samplesPerDay);
 
 						if (samplesPerDay != PropertyHolder.getSamplesPerDay()) {
 							Intent i = new Intent(
 									TigerBroadcastReceiver.START_SAMPLING_MESSAGE);
 							sendBroadcast(i);
 							PropertyHolder.setSamplesPerDay(samplesPerDay);
-							Log.i("Samples per day", "set to: " + samplesPerDay);
 						}
 
 					}
@@ -139,17 +137,64 @@ public class FileUploader extends Service {
 				}
 
 				// try to get missions
+				// check last id on phone
+
+				int latest_id = 0;
+				ContentResolver cr = getContentResolver();
+
+				Cursor c = cr.query(Tasks.CONTENT_URI, Tasks.KEYS_ROW_ID, null,
+						null, null);
+				if (c.moveToLast()) {
+					latest_id = c.getInt(c
+							.getColumnIndexOrThrow(Tasks.KEY_ROW_ID));
+				}
+				c.close();
+
 				try {
 
 					JSONArray missions = new JSONArray(
-							Util.getJSON(Util.API_MISSION));
+							Util.getJSON(Util.API_MISSION
+									+ (latest_id > 0 ? ("?id_greater_than=" + latest_id)
+											: "")));
 					if (missions != null && missions.length() > 0) {
-						for (int i = 0; 1 < missions.length(); i++) {
+						for (int i = 0; i < missions.length(); i++) {
 							JSONObject mission = missions.getJSONObject(i);
-							ContentResolver cr = context.getContentResolver();
+
+							Log.i("Mission Got", mission.toString());
+
+							cr = context.getContentResolver();
 							cr.insert(Tasks.CONTENT_URI,
 									ContentProviderValuesTasks
 											.createTask(mission));
+
+							if (mission.has(Tasks.KEY_TRIGGERS)) {
+								JSONArray theseTriggers = mission
+										.getJSONArray(Tasks.KEY_TRIGGERS);
+
+								if (theseTriggers.length() == 0) {
+									Intent intent = new Intent(
+											TigerBroadcastReceiver.TIGER_TASK_MESSAGE);
+									if (PropertyHolder.getLanguage().equals(
+											"ca")) {
+										intent.putExtra(
+												Tasks.KEY_TITLE,
+												mission.getString(Tasks.KEY_TITLE_CATALAN));
+									} else if (PropertyHolder.getLanguage()
+											.equals("es")) {
+										intent.putExtra(
+												Tasks.KEY_TITLE,
+												mission.getString(Tasks.KEY_TITLE_SPANISH));
+									} else if (PropertyHolder.getLanguage()
+											.equals("en")) {
+										intent.putExtra(
+												Tasks.KEY_TITLE,
+												mission.getString(Tasks.KEY_TITLE_ENGLISH));
+									}
+									context.sendBroadcast(intent);
+
+								}
+
+							}
 
 						}
 
@@ -160,10 +205,10 @@ public class FileUploader extends Service {
 					e.printStackTrace();
 				}
 
-				ContentResolver cr = getContentResolver();
+				cr = getContentResolver();
 
 				// start with Tracks
-				Cursor c = cr.query(Fixes.CONTENT_URI, Fixes.KEYS_ALL,
+				c = cr.query(Fixes.CONTENT_URI, Fixes.KEYS_ALL,
 						Fixes.KEY_UPLOADED + " = 0", null, null);
 
 				if (!c.moveToFirst()) {
@@ -188,7 +233,6 @@ public class FileUploader extends Service {
 					thisFix.exportJSON(context);
 
 					if (thisFix.upload(context)) {
-
 
 						ContentValues cv = new ContentValues();
 						String sc = Fixes.KEY_ROWID + " = "

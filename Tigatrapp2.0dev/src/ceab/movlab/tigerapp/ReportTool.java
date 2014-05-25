@@ -24,6 +24,7 @@ package ceab.movlab.tigerapp;
 import java.util.Date;
 import java.util.Locale;
 import java.util.Random;
+import java.util.UUID;
 
 import org.json.JSONException;
 
@@ -53,7 +54,6 @@ import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.view.Window;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -142,6 +142,7 @@ public class ReportTool extends Activity {
 	public static final String EXTRA_REPORT_VERSION = "reportVersions";
 
 	Resources res;
+	String lang;
 
 	@Override
 	public void onCreate(Bundle icicle) {
@@ -149,14 +150,8 @@ public class ReportTool extends Activity {
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
 
-		if (PropertyHolder.getLanguage() == null) {
-			Intent i2sb = new Intent(ReportTool.this, Switchboard.class);
-			startActivity(i2sb);
-			finish();
-		} else {
-			res = getResources();
-			Util.setDisplayLanguage(res);
-		}
+		res = getResources();
+		lang = Util.setDisplayLanguage(res);
 
 		Bundle b = getIntent().getExtras();
 		type = b.getInt("type");
@@ -164,8 +159,9 @@ public class ReportTool extends Activity {
 
 		if (editing) {
 
-			this.setTitle(context.getResources().getString(R.string.activity_label_report_editing));
-			
+			this.setTitle(context.getResources().getString(
+					R.string.activity_label_report_editing));
+
 			ContentResolver cr = getContentResolver();
 			String sc = Reports.KEY_REPORT_ID + " = '"
 					+ b.getString("reportId") + "' AND "
@@ -177,9 +173,6 @@ public class ReportTool extends Activity {
 
 			if (c.moveToLast()) {
 
-				int rowIdCol = c.getColumnIndexOrThrow(Reports.KEY_ROW_ID);
-				int versionUUIDCol = c
-						.getColumnIndexOrThrow(Reports.KEY_VERSION_UUID);
 				int userIdCol = c.getColumnIndexOrThrow(Reports.KEY_USER_ID);
 				int reportIdCol = c
 						.getColumnIndexOrThrow(Reports.KEY_REPORT_ID);
@@ -240,11 +233,11 @@ public class ReportTool extends Activity {
 						.getColumnIndexOrThrow(Reports.KEY_MISSION_UUID);
 
 				// note that we increment the version number here
-				thisReport = new Report(c.getString(versionUUIDCol),
+				thisReport = new Report(UUID.randomUUID().toString(),
 						c.getString(userIdCol), c.getString(reportIdCol),
 						(c.getInt(reportVersionCol) + 1),
 						c.getLong(reportTimeCol), c.getString(creationTimeCol),
-						c.getString(versionTimeCol), c.getInt(typeCol),
+						c.getString(versionTimeStringCol), c.getInt(typeCol),
 						c.getString(confirmationCol),
 						c.getInt(confirmationCodeCol),
 						c.getInt(locationChoiceCol),
@@ -264,13 +257,16 @@ public class ReportTool extends Activity {
 						c.getString(appLanguageCol),
 						c.getString(missionUUIDCol));
 
-				Log.e("RT1", thisReport.exportJSON(context).toString());
+				Log.i("BBB", thisReport.confirmation);
+
+				Log.e("ON READING VT", "" + thisReport.versionTimeString);
 
 			}
 			c.close();
 
 		} else {
-			this.setTitle(context.getResources().getString(R.string.activity_label_report_new));
+			this.setTitle(context.getResources().getString(
+					R.string.activity_label_report_new));
 			thisReport = new Report(type, PropertyHolder.getUserId());
 		}
 
@@ -416,7 +412,6 @@ public class ReportTool extends Activity {
 						if (thisReport.confirmation != null) {
 							i.putExtra(Tasks.KEY_RESPONSES_JSON,
 									thisReport.confirmation);
-							Log.e("RT conf int", thisReport.confirmation);
 						}
 						startActivityForResult(i, REQUEST_CODE_REPORT_RESPONSES);
 
@@ -583,7 +578,6 @@ public class ReportTool extends Activity {
 		});
 
 		countDownTimer = new MyCountDownTimer(5 * 60 * 1000, 5 * 30 * 1000);
-		Log.e("RT2", thisReport.exportJSON(context).toString());
 
 	}
 
@@ -691,6 +685,12 @@ public class ReportTool extends Activity {
 
 	@Override
 	protected void onResume() {
+
+		res = getResources();
+		if (!Util.setDisplayLanguage(res).equals(lang)) {
+			finish();
+			startActivity(getIntent());
+		}
 
 		gpsAvailable = false;
 		networkLocationAvailable = false;
@@ -853,7 +853,11 @@ public class ReportTool extends Activity {
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
+		res = getResources();
+		if (!Util.setDisplayLanguage(res).equals(lang)) {
+			finish();
+			startActivity(getIntent());
+		}
 		switch (requestCode) {
 
 		case (REQUEST_CODE_ATTACHED_PHOTOS): {
@@ -981,8 +985,9 @@ public class ReportTool extends Activity {
 					thisReport.creation_time = Util.ecma262(System
 							.currentTimeMillis());
 
-				thisReport.version_time = Util.ecma262(System
+				thisReport.versionTimeString = Util.ecma262(System
 						.currentTimeMillis());
+				Log.e("JUST MADE VT", "" + thisReport.versionTimeString);
 
 				try {
 					PackageInfo pInfo = getPackageManager().getPackageInfo(
@@ -995,16 +1000,14 @@ public class ReportTool extends Activity {
 				thisReport.phoneManufacturer = Build.MANUFACTURER;
 				thisReport.phoneModel = Build.MODEL;
 
-				thisReport.OS = "Android";
-				thisReport.OSversion = Integer.toString(Build.VERSION.SDK_INT);
+				thisReport.os = "Android";
+				thisReport.osversion = Integer.toString(Build.VERSION.SDK_INT);
 				thisReport.osLanguage = Locale.getDefault().getLanguage();
 				thisReport.appLanguage = PropertyHolder.getLanguage();
 
 				// First save report to internal DB
 				ContentResolver cr = getContentResolver();
 				Uri repUri = Reports.CONTENT_URI;
-
-				Log.e("RT3", thisReport.exportJSON(context[0]).toString());
 
 				cr.insert(repUri,
 						ContentProviderValuesReports.createReport(thisReport));
@@ -1079,7 +1082,7 @@ public class ReportTool extends Activity {
 				if (resultFlag == UPLOAD_ERROR || resultFlag == DATABASE_ERROR) {
 
 					Intent uploaderIntent = new Intent(ReportTool.this,
-							FileUploader.class);
+							SyncData.class);
 					startService(uploaderIntent);
 
 					buildCustomAlert(getResources().getString(

@@ -42,7 +42,8 @@ import ceab.movelab.tigerapp.R;
 public class About extends Activity {
 
 	Resources res;
-	
+	String lang;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -51,14 +52,9 @@ public class About extends Activity {
 
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
-		if (PropertyHolder.getLanguage() == null) {
-			Intent i2sb = new Intent(About.this, Switchboard.class);
-			startActivity(i2sb);
-			finish();
-		} else {
-			res = getResources();
-			Util.setDisplayLanguage(res);
-		}
+
+		res = getResources();
+		lang = Util.setDisplayLanguage(res);
 
 		setContentView(R.layout.credits);
 
@@ -86,7 +82,7 @@ public class About extends Activity {
 
 		switch (item.getItemId()) {
 		case (GPL): {
-			Intent i = new Intent(this, GPLCat.class);
+			Intent i = new Intent(this, GPLView.class);
 			startActivity(i);
 			return true;
 		}
@@ -96,6 +92,12 @@ public class About extends Activity {
 
 	@Override
 	protected void onResume() {
+		res = getResources();
+		if (!Util.setDisplayLanguage(res).equals(lang)) {
+			finish();
+			startActivity(getIntent());
+		}
+
 		super.onResume();
 	}
 

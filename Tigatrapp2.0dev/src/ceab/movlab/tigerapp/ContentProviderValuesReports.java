@@ -21,12 +21,8 @@
 
 package ceab.movlab.tigerapp;
 
-import org.json.JSONArray;
-
 import android.content.ContentValues;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.os.Build;
+import android.util.Log;
 import ceab.movlab.tigerapp.ContentProviderContractReports.Reports;
 
 /**
@@ -48,7 +44,7 @@ public class ContentProviderValuesReports {
 
 		ContentValues initialValues = new ContentValues();
 
-		initialValues.put(Reports.KEY_VERSION_UUID, rep.version_UUID);
+		initialValues.put(Reports.KEY_VERSION_UUID, rep.versionUUID);
 
 		initialValues.put(Reports.KEY_USER_ID, rep.userId);
 
@@ -62,8 +58,10 @@ public class ContentProviderValuesReports {
 
 		initialValues.put(Reports.KEY_VERSION_TIME, rep.versionTime);
 
-		initialValues.put(Reports.KEY_VERSION_TIME_STRING, rep.version_time);
+		initialValues.put(Reports.KEY_VERSION_TIME_STRING, rep.versionTimeString);
 
+		Log.e("INITIAL VALUES VT", ""+ rep.versionTimeString);
+		
 		initialValues.put(Reports.KEY_TYPE, rep.type);
 
 		if (rep.confirmation != null)
@@ -117,11 +115,11 @@ public class ContentProviderValuesReports {
 		if (rep.phoneModel != null)
 			initialValues.put(Reports.KEY_PHONE_MODEL, rep.phoneModel);
 
-		if (rep.OS != null)
-			initialValues.put(Reports.KEY_OS, rep.OS);
+		if (rep.os != null)
+			initialValues.put(Reports.KEY_OS, rep.os);
 
-		if (rep.OSversion != null)
-			initialValues.put(Reports.KEY_OS_VERSION, rep.OSversion);
+		if (rep.osversion != null)
+			initialValues.put(Reports.KEY_OS_VERSION, rep.osversion);
 
 		if (rep.osLanguage != null)
 			initialValues.put(Reports.KEY_OS_LANGUAGE, rep.osLanguage);
@@ -129,8 +127,8 @@ public class ContentProviderValuesReports {
 		if (rep.appLanguage != null)
 			initialValues.put(Reports.KEY_APP_LANGUAGE, rep.appLanguage);
 
-		if (rep.mission_UUID != null)
-			initialValues.put(Reports.KEY_MISSION_UUID, rep.mission_UUID);
+		if (rep.missionUUID != null)
+			initialValues.put(Reports.KEY_MISSION_UUID, rep.missionUUID);
 
 		return initialValues;
 	}

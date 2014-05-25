@@ -30,8 +30,8 @@
         android:id="@+id/menuButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="4dp"
         android:src="@drawable/ic_action_collections_view_as_grid" />
 
@@ -46,23 +46,61 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <ImageView
+            <RelativeLayout
                 android:id="@+id/reportButtonSite"
                 android:layout_width="130dip"
                 android:layout_height="130dip"
-                android:layout_margin="10dp"
-                android:background="@drawable/selectorcolors_light"
-                android:gravity="center_vertical|center_horizontal"
-                android:src="@drawable/ic_switchboard_icon_breeding_site" />
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/selectorcolors_light" >
 
-            <ImageView
+                <ImageView
+                    android:layout_width="110dip"
+                    android:layout_height="110dip"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:src="@drawable/ic_switchboard_icon_breeding_site" />
+
+                <TextView
+                    android:id="@+id/reportButtonSiteText"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:gravity="center"
+                    android:paddingTop="5dip"
+                    android:text="@string/switchboard_button_text_sites"
+                    android:textColor="@color/switchboard_button_text" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/reportButtonAdult"
                 android:layout_width="130dip"
                 android:layout_height="130dip"
-                android:layout_margin="10dp"
-                android:background="@drawable/selectorcolors_light"
-                android:gravity="center_vertical|center_horizontal"
-                android:src="@drawable/ic_switchboard_icon_adult" />
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/selectorcolors_light" >
+
+                <ImageView
+                    android:layout_width="110dip"
+                    android:layout_height="110dip"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:src="@drawable/ic_switchboard_icon_adult" />
+
+                <TextView
+                    android:id="@+id/reportButtonAdultText"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:gravity="center"
+                    android:paddingTop="5dip"
+                    android:text="@string/switchboard_button_text_adult"
+                    android:textColor="@color/switchboard_button_text" />
+            </RelativeLayout>
         </LinearLayout>
 
         <LinearLayout
@@ -70,25 +108,61 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal" >
 
-            <ImageView
-                android:id="@+id/dataMapButton"
+            <RelativeLayout
+                android:id="@+id/reportButtonMap"
                 android:layout_width="130dip"
                 android:layout_height="130dip"
-                android:layout_margin="10dp"
-                android:background="@drawable/selectorcolors_light"
-                android:contentDescription="@string/dataMap_CD"
-                android:gravity="center_vertical|center_horizontal"
-                android:src="@drawable/ic_switchboard_icon_map" />
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/selectorcolors_light" >
 
-            <ImageView
+                <ImageView
+                    android:layout_width="110dip"
+                    android:layout_height="110dip"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:src="@drawable/ic_switchboard_icon_map" />
+
+                <TextView
+                    android:id="@+id/reportButtonMapText"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:gravity="center"
+                    android:paddingTop="5dip"
+                    android:text="@string/switchboard_button_text_map"
+                    android:textColor="@color/switchboard_button_text" />
+            </RelativeLayout>
+
+            <RelativeLayout
                 android:id="@+id/reportMainPic"
                 android:layout_width="130dip"
                 android:layout_height="130dip"
-                android:layout_margin="10dp"
-                android:background="@drawable/selectorcolors_light"
-                android:contentDescription="@string/reportGallery_CD"
-                android:gravity="center_vertical|center_horizontal"
-                android:src="@drawable/ic_switchboard_icon_gallery" />
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/selectorcolors_light" >
+
+                <ImageView
+                    android:layout_width="110dip"
+                    android:layout_height="110dip"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:src="@drawable/ic_switchboard_icon_gallery" />
+
+                <TextView
+                    android:id="@+id/reportButtonGalleryText"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:gravity="center"
+                    android:paddingTop="5dip"
+                    android:text="@string/switchboard_button_text_gallery"
+                    android:textColor="@color/switchboard_button_text" />
+            </RelativeLayout>
         </LinearLayout>
 
         <ImageView

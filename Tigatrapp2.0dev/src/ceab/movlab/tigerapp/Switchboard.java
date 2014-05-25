@@ -32,7 +32,6 @@ import android.database.Cursor;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -41,9 +40,9 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import ceab.movelab.tigerapp.R;
 import ceab.movlab.tigerapp.ContentProviderContractReports.Reports;
-import ceab.movlab.tigerapp.ContentProviderContractTracks.Fixes;
 
 /**
  * Main menu screen for app.
@@ -54,16 +53,17 @@ import ceab.movlab.tigerapp.ContentProviderContractTracks.Fixes;
 
 public class Switchboard extends Activity {
 
-	private ImageView reportButtonAdult;
-	private ImageView reportButtonSite;
-	private ImageView galleryButton;
-	private ImageView mapButton;
+	private RelativeLayout reportButtonAdult;
+	private RelativeLayout reportButtonSite;
+	private RelativeLayout galleryButton;
+	private RelativeLayout mapButton;
 	private ImageView websiteButton;
 	private ImageView menuButton;
 
 	final Context context = this;
 	AnimationDrawable ad;
 	Resources res;
+	String lang;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -72,150 +72,142 @@ public class Switchboard extends Activity {
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
 
-		if (PropertyHolder.getLanguage() == null) {
-			Log.d("SB", "about to build lang selector");
-			Intent i2l = new Intent(Switchboard.this, LanguageSelector.class);
-			startActivity(i2l);
+		res = getResources();
+		lang = Util.setDisplayLanguage(res);
+
+		if (!PropertyHolder.hasConsented()) {
+			Intent i2c = new Intent(Switchboard.this, Consent.class);
+			startActivity(i2c);
 			finish();
+
 		} else {
-			res = getResources();
-			Util.setDisplayLanguage(res);
 
-			if (!PropertyHolder.hasConsented()) {
-				Intent i2c = new Intent(Switchboard.this, Consent.class);
-				startActivity(i2c);
-				finish();
+			if (PropertyHolder.getUserId() == null) {
+				String userId = UUID.randomUUID().toString();
+				PropertyHolder.setUserId(userId);
+			}
 
-			} else {
+			// open and close database in order to trigger any updates
+			ContentResolver cr = getContentResolver();
+			Cursor c = cr.query(Reports.CONTENT_URI,
+					new String[] { Reports.KEY_ROW_ID }, null, null, null);
+			c.close();
 
-				if (PropertyHolder.getUserId() == null) {
-					String userId = UUID.randomUUID().toString();
-					PropertyHolder.setUserId(userId);
+			if (PropertyHolder.isServiceOn()) {
+
+				long lastScheduleTime = PropertyHolder.lastSampleSchedleMade();
+				if (System.currentTimeMillis() - lastScheduleTime > 1000 * 60 * 60 * 24) {
+					Intent scheduleService = new Intent(
+							TigerBroadcastReceiver.START_SAMPLING_MESSAGE);
+					sendBroadcast(scheduleService);
 				}
-
-				// open and close database in order to trigger any updates
-				ContentResolver cr = getContentResolver();
-				Cursor c = cr.query(Reports.CONTENT_URI,
-						new String[] { Reports.KEY_ROW_ID }, null, null, null);
-				c.close();
-				
-				if (PropertyHolder.isServiceOn()) {
-
-					long lastScheduleTime = PropertyHolder
-							.lastSampleSchedleMade();
-					if (System.currentTimeMillis() - lastScheduleTime > 1000 * 60 * 60 * 24) {
-						Intent scheduleService = new Intent(
-								TigerBroadcastReceiver.START_SAMPLING_MESSAGE);
-						sendBroadcast(scheduleService);
-					}
-
-				}
-
-				setContentView(R.layout.switchboard);
-
-				Util.overrideFonts(this, findViewById(android.R.id.content));
-
-				reportButtonAdult = (ImageView) findViewById(R.id.reportButtonAdult);
-				reportButtonAdult
-						.setOnClickListener(new View.OnClickListener() {
-
-							@Override
-							public void onClick(View v) {
-
-								Intent i = new Intent(Switchboard.this,
-										ReportTool.class);
-								Bundle b = new Bundle();
-								b.putInt("type", Report.TYPE_ADULT);
-								i.putExtras(b);
-								startActivity(i);
-
-							}
-						});
-
-				reportButtonSite = (ImageView) findViewById(R.id.reportButtonSite);
-				reportButtonSite.setOnClickListener(new View.OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-
-						Intent i = new Intent(Switchboard.this,
-								ReportTool.class);
-						Bundle b = new Bundle();
-						b.putInt("type", Report.TYPE_BREEDING_SITE);
-						i.putExtras(b);
-						startActivity(i);
-					}
-				});
-
-				mapButton = (ImageView) findViewById(R.id.dataMapButton);
-				mapButton.setOnClickListener(new View.OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-
-						Intent i = new Intent(Switchboard.this,
-								ViewDataActivity.class);
-						startActivity(i);
-
-					}
-				});
-
-				galleryButton = (ImageView) findViewById(R.id.reportMainPic);
-				galleryButton.setOnClickListener(new View.OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-
-						Intent i = new Intent(Switchboard.this,
-								PhotoGallery.class);
-						startActivity(i);
-
-					}
-				});
-				websiteButton = (ImageView) findViewById(R.id.mainSiteButton);
-				websiteButton.setOnClickListener(new View.OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						String url = "http://atrapaeltigre.com";
-						Intent i = new Intent(Intent.ACTION_VIEW);
-						i.setData(Uri.parse(url));
-						startActivity(i);
-
-					}
-				});
-
-				menuButton = (ImageView) findViewById(R.id.menuButton);
-				menuButton.setOnClickListener(new View.OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-						openOptionsMenu();
-
-					}
-				});
-
-				Animation animation = new AlphaAnimation(0.0f, 1.0f);
-				animation.setDuration(500);
-
-				reportButtonAdult.startAnimation(animation);
-				reportButtonSite.startAnimation(animation);
-				mapButton.startAnimation(animation);
-				galleryButton.startAnimation(animation);
-				websiteButton.startAnimation(animation);
-				menuButton.startAnimation(animation);
-
-				Intent i = new Intent(
-						TigerBroadcastReceiver.START_SAMPLING_MESSAGE);
-				sendBroadcast(i);
 
 			}
 
+			setContentView(R.layout.switchboard);
+
+			Util.overrideFonts(this, findViewById(android.R.id.content));
+
+			reportButtonAdult = (RelativeLayout) findViewById(R.id.reportButtonAdult);
+			reportButtonAdult.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+
+					Intent i = new Intent(Switchboard.this, ReportTool.class);
+					Bundle b = new Bundle();
+					b.putInt("type", Report.TYPE_ADULT);
+					i.putExtras(b);
+					startActivity(i);
+
+				}
+			});
+
+			reportButtonSite = (RelativeLayout) findViewById(R.id.reportButtonSite);
+			reportButtonSite.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+
+					Intent i = new Intent(Switchboard.this, ReportTool.class);
+					Bundle b = new Bundle();
+					b.putInt("type", Report.TYPE_BREEDING_SITE);
+					i.putExtras(b);
+					startActivity(i);
+				}
+			});
+
+			mapButton = (RelativeLayout) findViewById(R.id.reportButtonMap);
+			mapButton.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+
+					Intent i = new Intent(Switchboard.this, MapData.class);
+					startActivity(i);
+
+				}
+			});
+
+			galleryButton = (RelativeLayout) findViewById(R.id.reportMainPic);
+			galleryButton.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+
+					Intent i = new Intent(Switchboard.this, PhotoGallery.class);
+					startActivity(i);
+
+				}
+			});
+			websiteButton = (ImageView) findViewById(R.id.mainSiteButton);
+			websiteButton.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					String url = "http://atrapaeltigre.com";
+					Intent i = new Intent(Intent.ACTION_VIEW);
+					i.setData(Uri.parse(url));
+					startActivity(i);
+
+				}
+			});
+
+			menuButton = (ImageView) findViewById(R.id.menuButton);
+			menuButton.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					openOptionsMenu();
+
+				}
+			});
+
+			Animation animation = new AlphaAnimation(0.0f, 1.0f);
+			animation.setDuration(500);
+
+			reportButtonAdult.startAnimation(animation);
+			reportButtonSite.startAnimation(animation);
+			mapButton.startAnimation(animation);
+			galleryButton.startAnimation(animation);
+			websiteButton.startAnimation(animation);
+			menuButton.startAnimation(animation);
+
+			Intent i = new Intent(TigerBroadcastReceiver.START_SAMPLING_MESSAGE);
+			sendBroadcast(i);
+
 		}
+
 	}
 
 	@Override
 	protected void onResume() {
+		res = getResources();
+		if (!Util.setDisplayLanguage(res).equals(lang)) {
+			finish();
+			startActivity(getIntent());
+		}
+
 		super.onResume();
 	}
 
@@ -322,17 +314,4 @@ public class Switchboard extends Activity {
 		return false;
 	}
 
-	/*
-	 * old code for changing language at any time in app (no longer used because
-	 * of complications with then downloading tasks in all languages). public
-	 * void setLocale(String lang) {
-	 * 
-	 * Locale myLocale = new Locale(lang); Resources res = getResources();
-	 * DisplayMetrics dm = res.getDisplayMetrics(); Configuration conf =
-	 * res.getConfiguration(); conf.locale = myLocale;
-	 * res.updateConfiguration(conf, dm); finish(); startActivity(getIntent());
-	 * finish();
-	 * 
-	 * }
-	 */
 }

@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 import ceab.movelab.tigerapp.R;
 import ceab.movlab.tigerapp.ContentProviderContractReports.Reports;
@@ -49,6 +50,9 @@ public class ViewReportsChecklistTab extends Activity {
 					String key = iter.next();
 					try {
 						JSONObject thisItem = responses.getJSONObject(key);
+						
+						
+						Log.i("ITEMTEXT", thisItem.toString());
 
 						taskData.add(new TaskItemModel(context, thisItem));
 					} catch (JSONException e) {

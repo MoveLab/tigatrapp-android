@@ -17,27 +17,8 @@
  * 
  * You should have received a copy of the GNU General Public License along 
  * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
- *
- * This file incorporates code from Space Mapper, which is subject 
- * to the following terms: 
- *
- * 		Space Mapper
- * 		Copyright (C) 2012, 2013 John R.B. Palmer
- * 		Contact: jrpalmer@princeton.edu
- *
- * 		Space Mapper is free software: you can redistribute it and/or modify 
- * 		it under the terms of the GNU General Public License as published by 
- * 		the Free Software Foundation, either version 3 of the License, or (at 
- * 		your option) any later version.
- * 
- * 		Space Mapper is distributed in the hope that it will be useful, but 
- * 		WITHOUT ANY WARRANTY; without even the implied warranty of 
- * 		MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
- * 		See the GNU General Public License for more details.
- * 
- * 		You should have received a copy of the GNU General Public License along 
- * 		with Space Mapper.  If not, see <http://www.gnu.org/licenses/>.
- */
+ **/
+
 package ceab.movlab.tigerapp;
 
 import java.io.ByteArrayOutputStream;
@@ -49,11 +30,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.text.util.Linkify;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.TextView;
 import ceab.movelab.tigerapp.R;
 
 /**
- * Displays the GPL.
+ * Displays the About screen.
  * 
  * @author John R.B. Palmer
  * 
@@ -61,6 +45,7 @@ import ceab.movelab.tigerapp.R;
 public class GPLView extends Activity {
 
 	Resources res;
+	String lang;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -70,24 +55,29 @@ public class GPLView extends Activity {
 
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
-		if (PropertyHolder.getLanguage() == null) {
-			Intent i2sb = new Intent(GPLView.this, Switchboard.class);
-			startActivity(i2sb);
-			finish();
-		} else {
-			res = getResources();
-			Util.setDisplayLanguage(res);
-		}
 
-		setContentView(R.layout.gpl_view);
+		res = getResources();
+		lang = Util.setDisplayLanguage(res);
+
+		setContentView(R.layout.gpl_cat);
 
 		Util.overrideFonts(this, findViewById(android.R.id.content));
 
-		TextView t = (TextView) findViewById(R.id.gplView);
-
+		TextView t = (TextView) findViewById(R.id.gplText);
 		t.setText(readTxt());
 		t.setTextColor(getResources().getColor(R.color.light_yellow));
-		t.setTextSize(getResources().getDimension(R.dimen.textsize_normal));
+		t.setTextSize(15);
+
+		final TextView mWeb = (TextView) findViewById(R.id.webLink);
+		Linkify.addLinks(mWeb, Linkify.ALL);
+		mWeb.setLinkTextColor(getResources().getColor(R.color.light_yellow));
+		mWeb.setTextSize(getResources().getDimension(R.dimen.textsize_url));
+
+		final TextView mEmail = (TextView) findViewById(R.id.emailLink);
+		Linkify.addLinks(mEmail, Linkify.ALL);
+		mEmail.setLinkTextColor(getResources().getColor(R.color.light_yellow));
+		mEmail.setTextSize(getResources().getDimension(R.dimen.textsize_url));
+
 	}
 
 	private String readTxt() {
@@ -115,8 +105,16 @@ public class GPLView extends Activity {
 		return byteArrayOutputStream.toString();
 	}
 
+	static final private int GPL = Menu.FIRST;
+
 	@Override
 	protected void onResume() {
+		res = getResources();
+		if (!Util.setDisplayLanguage(res).equals(lang)) {
+			finish();
+			startActivity(getIntent());
+		}
+
 		super.onResume();
 	}
 

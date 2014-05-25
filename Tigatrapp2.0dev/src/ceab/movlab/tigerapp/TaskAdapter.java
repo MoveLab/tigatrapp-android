@@ -109,6 +109,8 @@ public class TaskAdapter extends BaseAdapter implements OnClickListener {
 
 			/************ Set Model values in Holder elements ***********/
 
+			Log.i("ITEMTEXT", tempValues.getItemText());
+
 			holder.itemText.setText(tempValues.getItemText());
 			holder.itemId = tempValues.getItemId();
 
@@ -152,6 +154,9 @@ public class TaskAdapter extends BaseAdapter implements OnClickListener {
 
 								thisResponse.put(TaskItemModel.KEY_ITEM_TEXT,
 										holder.itemText.getText());
+
+								Log.i("Holder ITEMTEXT",
+										holder.itemText.getText().toString());
 
 								thisResponse.put(
 										TaskItemModel.KEY_ITEM_RESPONSE, String

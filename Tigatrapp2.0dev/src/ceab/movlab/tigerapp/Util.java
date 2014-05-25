@@ -86,6 +86,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.X509EncodedKeySpec;
+import java.text.ParseException;
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -283,17 +285,45 @@ public class Util {
 	}
 
 	public static String ecma262(long time) {
-		String format = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
+		String format = "yyyy-MM-dd'T'HH:mm:ss.SSZ";
 		SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
 		return sdf.format(new Date(time));
 	}
 
-	// TODO MAKE THIS WORK!
+	public static long string2Long(String date_string, String format) {
+		long result = 0;
+		SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
+		ParsePosition pos = new ParsePosition(0);
+		try {
+			Date d = sdf.parse(date_string);
+			result = d.getTime();
+
+		} catch (ParseException e) {
+			Log.e("DATE parsing",
+					"exception: " + e + " using: " + sdf.toLocalizedPattern());
+			e.printStackTrace();
+		} // ICU4J;
+
+		return result;
+	}
+
 	public static long ecma262String2Long(String ecma262) {
+		long result = 0;
 		String format = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
 		SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
-		long mock_must_be_replaced = 1l;
-		return mock_must_be_replaced;
+		ParsePosition pos = new ParsePosition(0);
+		try {
+			Date d = sdf.parse(ecma262, pos);
+			if (pos.getIndex() == 0)
+				throw new ParseException("Unparseable date: \"" + ecma262
+						+ "\"", pos.getErrorIndex());
+			else
+				result = d.getTime();
+		} catch (ParseException e) {
+			Log.e("DATE parsing", "exception: " + e);
+			e.printStackTrace();
+		} // ICU4J;
+		return result;
 	}
 
 	/**
@@ -954,13 +984,17 @@ public class Util {
 		return fill;
 	}
 
-	public static void setDisplayLanguage(Resources res) {
+	public static String setDisplayLanguage(Resources res) {
 		String lang = PropertyHolder.getLanguage();
-		Locale myLocale = new Locale(lang);
 		DisplayMetrics dm = res.getDisplayMetrics();
 		Configuration conf = res.getConfiguration();
-		conf.locale = myLocale;
-		res.updateConfiguration(conf, dm);
+		String oldLang = conf.locale.getLanguage();
+		if (!oldLang.equals(lang)) {
+			Locale myLocale = new Locale(lang);
+			conf.locale = myLocale;
+			res.updateConfiguration(conf, dm);
+		}
+		return lang;
 	}
 
 	/**
@@ -976,7 +1010,6 @@ public class Util {
 	public static boolean putJSON(JSONObject jsonData, String apiEndpoint) {
 		boolean result = false;
 
-		Log.i("Uploading: ", jsonData.toString());
 		try {
 			DefaultHttpClient httpclient = new DefaultHttpClient();
 			HttpPost httpost = new HttpPost(URL_TIGASERVER_API_ROOT
@@ -1025,8 +1058,6 @@ public class Util {
 		httpGet.setHeader("Content-type", "application/json");
 		httpGet.setHeader("Authorization", TIGASERVER_AUTHORIZATION);
 
-		Log.i("ABOUT TO GET FROM", "URI: " + httpGet.getURI());
-
 		try {
 			HttpResponse response = client.execute(httpGet);
 			StatusLine statusLine = response.getStatusLine();
@@ -1050,7 +1081,6 @@ public class Util {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Log.i("getJson", "data:" + builder.toString());
 
 		return builder.toString();
 	}

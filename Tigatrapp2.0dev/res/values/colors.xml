@@ -39,5 +39,6 @@
     <color name="green_glow">#5500ff00</color>
     <color name="orange_glow">#55ffff00</color>
     <color name="blue_glow">#9975d8ff</color>
+    <color name="switchboard_button_text">#444</color>
     
 </resources>

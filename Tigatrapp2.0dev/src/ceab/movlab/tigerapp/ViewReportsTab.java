@@ -66,6 +66,8 @@ public class ViewReportsTab extends TabActivity {
 	String reportId;
 	String title;
 	int type;
+	Resources res;
+	String lang;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -73,14 +75,8 @@ public class ViewReportsTab extends TabActivity {
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
 
-		if (PropertyHolder.getLanguage() == null) {
-			Intent i2sb = new Intent(ViewReportsTab.this, Switchboard.class);
-			startActivity(i2sb);
-			finish();
-		} else {
-			Resources res = getResources();
-			Util.setDisplayLanguage(res);
-		}
+		res = getResources();
+		lang = Util.setDisplayLanguage(res);
 
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.view_reports_tab);
@@ -222,6 +218,17 @@ public class ViewReportsTab extends TabActivity {
 
 		// set Windows tab as default (zero based)
 		tabHost.setCurrentTab(0);
+	}
+
+	@Override
+	protected void onResume() {
+		res = getResources();
+		if (!Util.setDisplayLanguage(res).equals(lang)) {
+			finish();
+			startActivity(getIntent());
+		}
+
+		super.onResume();
 	}
 
 }

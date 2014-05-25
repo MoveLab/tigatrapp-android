@@ -16,6 +16,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -48,14 +49,8 @@ public class TaskActivity extends Activity {
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
 
-		if (PropertyHolder.getLanguage() == null) {
-			Intent i2sb = new Intent(TaskActivity.this, Switchboard.class);
-			startActivity(i2sb);
-			finish();
-		} else {
-			res = getResources();
-			Util.setDisplayLanguage(res);
-		}
+		res = getResources();
+		lang = Util.setDisplayLanguage(res);
 
 		res = getResources();
 
@@ -252,6 +247,7 @@ public class TaskActivity extends Activity {
 										Tasks.KEY_RESPONSES_JSON,
 										responses.toString());
 
+								Log.i("ITEMTEXT 1", responses.toString());
 								// For site report, user must select something
 								// for
 								// each question to send it. So testing that
@@ -263,6 +259,8 @@ public class TaskActivity extends Activity {
 									try {
 										JSONObject thisItem = responses
 												.getJSONObject(key);
+										Log.i("ITEMTEXT 2", thisItem.toString());
+
 
 										if (!thisItem
 												.getString(
@@ -373,6 +371,12 @@ public class TaskActivity extends Activity {
 
 	@Override
 	protected void onResume() {
+		res = getResources();
+		if (!Util.setDisplayLanguage(res).equals(lang)) {
+			finish();
+			startActivity(getIntent());
+		}
+
 		super.onResume();
 	}
 

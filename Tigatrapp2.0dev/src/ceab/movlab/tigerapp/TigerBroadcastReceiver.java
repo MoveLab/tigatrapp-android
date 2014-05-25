@@ -116,8 +116,7 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
 
-		if (PropertyHolder.hasConsented()
-				&& PropertyHolder.getLanguage() != null) {
+		if (PropertyHolder.hasConsented()) {
 
 			int sdk = Build.VERSION.SDK_INT;
 
@@ -125,7 +124,6 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 			startFixGetAlarms = new AlarmManager[samplesPerDay];
 			stopFixGetAlarms = new AlarmManager[samplesPerDay];
 
-			
 			String action = intent.getAction();
 
 			AlarmManager startFixGetAlarm = (AlarmManager) context
@@ -159,7 +157,7 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 
 			AlarmManager startFileUploaderAlarm = (AlarmManager) context
 					.getSystemService(Context.ALARM_SERVICE);
-			Intent intent2FileUploader = new Intent(context, FileUploader.class);
+			Intent intent2FileUploader = new Intent(context, SyncData.class);
 			PendingIntent pendingIntent2FileUploader = PendingIntent
 					.getService(context, 0, intent2FileUploader, 0);
 
@@ -193,7 +191,8 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 					thisTriggerTime = mRandom.nextInt(24 * 60) * 60 * 1000;
 					startFixGetAlarms[i].set(alarmType, thisTriggerTime,
 							pendingFixGetMessage);
-					stopFixGetAlarms[i].set(alarmType, thisTriggerTime + Util.LISTENER_WINDOW, pendingFixGetStop);
+					stopFixGetAlarms[i].set(alarmType, thisTriggerTime
+							+ Util.LISTENER_WINDOW, pendingFixGetStop);
 
 					// FOR TESTING
 					currentSamplingTimes[i] = Util.iso8601(System
@@ -236,8 +235,7 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 
 			} else if (action.contains(TIGER_TASK_MESSAGE)) {
 
-				final String taskTitle = intent
-						.getStringExtra(Tasks.KEY_TITLE_CATALAN);
+				final String taskTitle = intent.getStringExtra(Tasks.KEY_TITLE);
 				createNotification(context, taskTitle);
 
 			} else if (action.contains(TIGER_TASK_CLEAR)) {
@@ -258,7 +256,8 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 
 		NotificationManager notificationManager = (NotificationManager) context
 				.getSystemService(Context.NOTIFICATION_SERVICE);
-		Notification notification = new Notification(R.drawable.ic_stat_mission,
+		Notification notification = new Notification(
+				R.drawable.ic_stat_mission,
 				res.getString(R.string.new_mission), System.currentTimeMillis());
 		// notification.flags |= Notification.FLAG_NO_CLEAR;
 		// notification.flags |= Notification.FLAG_ONGOING_EVENT;
@@ -274,8 +273,8 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 
 		// PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
 		// intent, PendingIntent.FLAG_CANCEL_CURRENT);
-		notification.setLatestEventInfo(context, "New Tiger Task", taskTitle,
-				pendingIntent);
+		notification.setLatestEventInfo(context,
+				res.getString(R.string.new_mission), taskTitle, pendingIntent);
 		notificationManager.notify(0, notification);
 
 	}

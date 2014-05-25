@@ -17,52 +17,7 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
@@ -112,20 +67,23 @@
 
     <!-- Switchboard -->
     <string name="dataMap_CD">Les meves dades</string>
+        <string name="switchboard_button_text_sites">ENVIA: LLOC</string>
+    <string name="switchboard_button_text_adult">ENVIA: ADULT</string>
+    <string name="switchboard_button_text_map">EL MEU MAPA</string>
+    <string name="switchboard_button_text_gallery">GALERIA</string>
     
-    <!--  activity labels -->
-        <string name="activity_label_report_editing">Tigatrapp: Edita informe</string>
-        <string name="activity_label_report_new">Tigatrapp: Nou informe</string>
-        <string name="activity_label_map">Tigatrapp: El meu Mapa</string>
-        <string name="activity_label_gallery">Tigatrapp: Galeria</string>
-    
+
+    <!-- activity labels -->
+    <string name="activity_label_report_editing">Tigatrapp: Edita informe</string>
+    <string name="activity_label_report_new">Tigatrapp: Nou informe</string>
+    <string name="activity_label_map">Tigatrapp: El meu Mapa</string>
+    <string name="activity_label_gallery">Tigatrapp: Galeria</string>
 
     <!-- Reports -->
     <string name="checklist_label_editing">Descripció*</string>
     <string name="location_label_editing">Localització*</string>
     <string name="photo_check_label_editing">Imatges</string>
     <string name="note_check_label_editing">Nota</string>
-    
     <string name="report_title_adult">Adult</string>
     <string name="report_title_site">Lloc de cria</string>
     <string name="checklist_label">Completa descripció*</string>
@@ -152,8 +110,6 @@
     <string name="identifying_mosquitoes_title">Descripció del mosquit</string>
     <string name="confirmation_q1_adult_sizecolor">És petit i negre amb ratlles blanques?</string>
     <string name="q1_sizecolor_text">El mosquit tigre és petit i negre amb ratlles blanques. Normalment és actiu només de dia i acostuma a picar a les cames. Evita enviar dades d\'altres insectes.</string>
-
-    
     <string name="adult_report_help_html">
 <![CDATA[
 <p><b>AJUDA:</b><br/>
@@ -244,7 +200,7 @@
     <!-- RSS Feeds -->
     <string name="rss_internet_connection_warning">Sense connexió a internet.\n\nPer veure el contingut, connecta\'t i selecciona \'actualitza\' al menú</string>
     <string name="rss_title_tigatrapp">Notícies d\'AtrapaelTigre.com</string>
- 
+
     <!-- Tasks -->
     <string name="task_list_title">Missions</string>
     <string name="task_list_pending">Pendents</string>
@@ -273,14 +229,21 @@
     <string name="menu_toggle_view">Imatge</string>
     <string name="menu_option_refresh">Actualitza</string>
 
-    <!-- Misc -->
-
+    <!-- Settings -->
+    <string name="settings_language_title">Idioma</string>
+    <string name="settings_language_detail">Tria idioma</string>
+    <string name="settings_language_button">Tria</string>
+    <string name="settings_sync_title">Sincronitza</string>
+    <string name="settings_sync_detail">Sincronitza dades</string>
+    <string name="settings_sync_button">Sinc.</string>
     <string name="on">Encès</string>
     <string name="off">Apagat</string>
     <string name="sample_my_locations">Provar meus llocs</string>
     <string name="sampling_is_off">El mostreig dels llocs està desactivat</string>
-        <string name="sampling_is_on">El mostreig dels llocs està activat</string>
-    
+    <string name="sampling_is_on">El mostreig dels llocs està activat</string>
+
+    <!-- Misc -->
+
     <string name="added_current_loc">Posició actual guardada</string>
     <string name="refresh">Actualitza</string>
     <string name="report_deleted">Informe esborrat</string>

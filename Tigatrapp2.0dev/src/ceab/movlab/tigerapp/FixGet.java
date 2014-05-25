@@ -162,8 +162,7 @@ public class FixGet extends Service {
 
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
-		if (!PropertyHolder.hasConsented()
-				|| PropertyHolder.getLanguage() == null) {
+		if (!PropertyHolder.hasConsented()) {
 			stopSelf();
 		}
 
@@ -215,7 +214,6 @@ public class FixGet extends Service {
 							unregisterReceiver(stopReceiver);
 						} catch (IllegalArgumentException e) {
 							Log.e("Unregister receiver error: ", e.getMessage());
-
 
 						}
 						unWakeLock();
@@ -396,11 +394,6 @@ public class FixGet extends Service {
 		double thisLon = location.getLongitude();
 		double maskedLon = Math.floor(thisLon / Util.lonMask) * Util.lonMask;
 
-		Log.i("FG", "thisLat: " + thisLat);
-		Log.i("FG", "thisLon: " + thisLon);
-		Log.i("FG", "maskedLat: " + maskedLat);
-		Log.i("FG", "maskedLon: " + maskedLon);
-
 		Fix thisFix = new Fix(maskedLat, maskedLon, location.getTime(),
 				Util.getBatteryProportion(context));
 
@@ -428,9 +421,8 @@ public class FixGet extends Service {
 		while (c.moveToNext()) {
 
 			try {
-				JSONArray theseTriggers = new JSONArray(
-						c.getString(c
-								.getColumnIndexOrThrow(Tasks.KEY_TRIGGERS)));
+				JSONArray theseTriggers = new JSONArray(c.getString(c
+						.getColumnIndexOrThrow(Tasks.KEY_TRIGGERS)));
 
 				for (int i = 0; i < theseTriggers.length(); i++) {
 
@@ -462,8 +454,10 @@ public class FixGet extends Service {
 
 						Intent intent = new Intent(
 								TigerBroadcastReceiver.TIGER_TASK_MESSAGE);
-						intent.putExtra(Tasks.KEY_TITLE_CATALAN, c.getString(c
-								.getColumnIndexOrThrow(Tasks.KEY_TITLE_CATALAN)));
+						intent.putExtra(
+								Tasks.KEY_TITLE_CATALAN,
+								c.getString(c
+										.getColumnIndexOrThrow(Tasks.KEY_TITLE_CATALAN)));
 						context.sendBroadcast(intent);
 					}
 				}
@@ -477,10 +471,10 @@ public class FixGet extends Service {
 			}
 
 		}
-		
+
 		c.close();
 		thisFix.upload(context);
-		
+
 		unWakeLock();
 	}
 
@@ -540,7 +534,6 @@ public class FixGet extends Service {
 				unregisterReceiver(stopReceiver);
 			} catch (IllegalArgumentException e) {
 				Log.e("Unregister receiver error: ", e.getMessage());
-
 
 			}
 			unWakeLock();

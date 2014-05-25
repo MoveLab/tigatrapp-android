@@ -23,9 +23,9 @@
 
     <!-- DO NOT TRANSLATE -->
     <string name="internal_message_id" translatable="false">csic.ceab.movelab.tigatrapp</string>
-    <string name="language_selector_english" translatable="false">Use app in English.</string>
-    <string name="language_selector_catalan" translatable="false">Utilitzeu l\'aplicació en català.</string>
-    <string name="language_selector_spanish" translatable="false">Utilice la aplicación en español.</string>
+    <string name="language_selector_english" translatable="false">English</string>
+    <string name="language_selector_catalan" translatable="false">Català</string>
+    <string name="language_selector_spanish" translatable="false">Español</string>
 
     <!-- Gallery -->
     <string-array name="gallery_array">
@@ -74,7 +74,11 @@
 
     <!-- Switchboard -->
     <string name="dataMap_CD">My Data</string>
-
+    <string name="switchboard_button_text_sites">Report Site</string>
+    <string name="switchboard_button_text_adult">Report Adult</string>
+    <string name="switchboard_button_text_map">Map Data</string>
+    <string name="switchboard_button_text_gallery">Browse Gallery</string>
+        
     <!-- activity labels -->
     <string name="activity_label_report_editing">Tigatrapp: Report Editor</string>
     <string name="activity_label_report_new">Tigatrapp: New Report</string>
@@ -230,19 +234,27 @@
     <string name="menu_toggle_view">Satellite</string>
     <string name="menu_option_refresh">Refresh</string>
 
-    <!-- Misc -->
-
+    
+        <string name="settings_language_title">Language</string>
+    <string name="settings_language_detail">Choose language</string>
+    <string name="settings_language_button">Choose</string>
+    <string name="settings_sync_title">Synchronize</string>
+    <string name="settings_sync_detail">Synchronize data with the Tigatrapp server to receive new missions and the latest Tigatrapp news.</string>
+    <string name="settings_sync_button">Sync.</string>
     <string name="on">On</string>
     <string name="off">Off</string>
     <string name="sample_my_locations">Sample my locations</string>
     <string name="sampling_is_off">Location sampling is off</string>
     <string name="sampling_is_on">Location sampling is on</string>
+    
+    <!-- Misc -->
+
     <string name="added_current_loc">Added current location.</string>
     <string name="refresh">Refresh</string>
     <string name="report_deleted">Report deleted</string>
     <string name="edit">Edit</string>
-    <string name="edit_title_adult">Edit Report: Adult</string>
-    <string name="edit_title_site">Edit Report: Breeding Site</string>
+    <string name="edit_title_adult">Adult Mosquito</string>
+    <string name="edit_title_site">Breeding Site</string>
     <string name="cd_help_icon">Help Icon</string>
     <string name="open">Open</string>
     <string name="spinner_prompt">Select Response</string>

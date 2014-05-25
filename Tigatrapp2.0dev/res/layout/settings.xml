@@ -20,93 +20,130 @@
  * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    
     <RelativeLayout
-            android:layout_width="fill_parent"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dip" >
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/languageButton"
+            android:orientation="vertical" >
 
-            <LinearLayout
+            <TextView
+                android:id="@+id/languageText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:orientation="vertical" >
+                android:text="@string/settings_language_title"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/heading_size" />
 
-                <TextView
-                    android:id="@+id/syncText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="sync data"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/heading_size" />
-
-                <TextView
-                    android:id="@+id/syncDetail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sync with server now?" />
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/syncButton"
+            <TextView
+                android:id="@+id/languageDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:text="Sync" />
-        </RelativeLayout>
+                android:text="@string/settings_language_detail" />
+        </LinearLayout>
 
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:background="@drawable/divider_gradient" />
-    
-
-        <RelativeLayout
-            android:layout_width="fill_parent"
+        <Button
+            android:id="@+id/languageButton"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dip" >
+            android:layout_alignParentRight="true"
+            android:text="@string/settings_language_button" />
+    </RelativeLayout>
 
-            <LinearLayout
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@drawable/divider_gradient" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/syncButton"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/syncText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:orientation="vertical" >
+                android:text="@string/settings_sync_title"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/heading_size" />
 
-                <TextView
-                    android:id="@+id/on_off"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sample_my_locations"
-                    android:textColor="@android:color/white"
-                    android:textSize="@dimen/heading_size" />
-
-                <TextView
-                    android:id="@+id/service_message"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/sampling_is_off" />
-            </LinearLayout>
-
-            <ToggleButton
-                android:id="@+id/service_button"
+            <TextView
+                android:id="@+id/syncDetail"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:textOff="@string/off"
-                android:textOn="@string/on" />
-        </RelativeLayout>
+                android:text="@string/settings_sync_detail" />
+        </LinearLayout>
 
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:background="@drawable/divider_gradient" />
-    
-    
+        <Button
+            android:id="@+id/syncButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@string/settings_sync_button" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@drawable/divider_gradient" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dip" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/service_button"
+            android:orientation="vertical" >
+
+            <TextView
+                android:id="@+id/on_off"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sample_my_locations"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/heading_size" />
+
+            <TextView
+                android:id="@+id/service_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sampling_is_off" />
+        </LinearLayout>
+
+        <ToggleButton
+            android:id="@+id/service_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textOff="@string/off"
+            android:textOn="@string/on" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@drawable/divider_gradient" />
 
 </LinearLayout>

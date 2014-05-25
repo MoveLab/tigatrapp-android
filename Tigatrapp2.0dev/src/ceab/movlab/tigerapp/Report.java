@@ -64,7 +64,7 @@ public class Report {
 
 	String userId;
 	String reportId;
-	String version_UUID;
+	String versionUUID;
 	int reportVersion;
 	// Note I am creating a creation time string that will capture the local
 	// time zone when created. Will leave also the long field for displaying
@@ -74,7 +74,7 @@ public class Report {
 	long reportTime;
 	String creation_time;
 	long versionTime;
-	String version_time;
+	String versionTimeString;
 	int type;
 	String confirmation;
 	int confirmationCode;
@@ -95,26 +95,25 @@ public class Report {
 	int packageVersion;
 	String phoneManufacturer;
 	String phoneModel;
-	String OS;
-	String OSversion;
+	String os;
+	String osversion;
 	String osLanguage;
 	String appLanguage;
-	String mission_UUID;
+	String missionUUID;
 
 	Report(String version_UUID, String userId, String reportId,
 			int reportVersion, long reportTime, String creation_time,
-			String version_time, int type, String confirmation,
+			String version_time_string, int type, String confirmation,
 			int confirmationCode, int locationChoice, float currentLocationLat,
 			float currentLocationLon, float selectedLocationLat,
 			float selectedLocationLon, int photoAttached,
 			String photoUrisString, String note, int uploaded,
 			long serverTimestamp, int deleteReport, int latestVersion,
-			String packageName, int packageVersion,
-			String phoneManufacturer, String phoneModel, String OS,
-			String OSversion, String osLanguage, String appLanguage,
-			String mission_UUID) {
+			String packageName, int packageVersion, String phoneManufacturer,
+			String phoneModel, String OS, String OSversion, String osLanguage,
+			String appLanguage, String mission_UUID) {
 
-		this.version_UUID = version_UUID;
+		this.versionUUID = version_UUID;
 
 		this.photoUrisJson = new JSONArray();
 
@@ -123,7 +122,7 @@ public class Report {
 		this.reportVersion = reportVersion;
 		this.reportTime = reportTime;
 		this.creation_time = creation_time;
-		this.version_time = version_time;
+		this.versionTimeString = versionTimeString;
 		this.type = type;
 		this.confirmation = confirmation;
 		this.confirmationCode = confirmationCode;
@@ -152,22 +151,22 @@ public class Report {
 		this.packageVersion = packageVersion;
 		this.phoneManufacturer = phoneManufacturer;
 		this.phoneModel = phoneModel;
-		this.OS = OS;
-		this.OSversion = OSversion;
+		this.os = OS;
+		this.osversion = OSversion;
 		this.osLanguage = osLanguage;
 		this.appLanguage = appLanguage;
 
-		this.mission_UUID = mission_UUID;
+		this.missionUUID = mission_UUID;
 	}
 
 	Report(int type, String userId) {
-		this.version_UUID = UUID.randomUUID().toString();
+		this.versionUUID = UUID.randomUUID().toString();
 		this.reportId = null;
 		this.userId = userId;
 		this.reportVersion = 0;
 		this.reportTime = MISSING;
 		this.creation_time = null;
-		this.version_time = null;
+		this.versionTimeString = null;
 		this.type = type;
 		this.confirmation = null;
 		this.confirmationCode = -1;
@@ -187,22 +186,22 @@ public class Report {
 		this.packageVersion = MISSING;
 		this.phoneManufacturer = null;
 		this.phoneModel = null;
-		this.OS = null;
-		this.OSversion = null;
+		this.os = null;
+		this.osversion = null;
 		this.osLanguage = null;
 		this.appLanguage = null;
-		this.mission_UUID = null;
+		this.missionUUID = null;
 
 	}
 
 	Report(String reportId, int reportVersion) {
-		this.version_UUID = UUID.randomUUID().toString();
+		this.versionUUID = UUID.randomUUID().toString();
 		this.reportId = reportId;
 		this.userId = null;
 		this.reportVersion = reportVersion;
 		this.reportTime = MISSING;
 		this.creation_time = null;
-		this.version_time = null;
+		this.versionTimeString = null;
 		this.type = MISSING;
 		this.confirmation = null;
 		this.confirmationCode = -1;
@@ -222,23 +221,23 @@ public class Report {
 		this.packageVersion = MISSING;
 		this.phoneManufacturer = null;
 		this.phoneModel = null;
-		this.OS = null;
-		this.OSversion = null;
+		this.os = null;
+		this.osversion = null;
 		this.osLanguage = null;
 		this.appLanguage = null;
-		this.mission_UUID = null;
+		this.missionUUID = null;
 
 	}
 
 	public void clear() {
 
-		version_UUID = null;
+		versionUUID = null;
 		reportId = null;
 		userId = null;
 		reportVersion = -1;
 		reportTime = -1;
 		creation_time = null;
-		version_time = null;
+		versionTimeString = null;
 		type = -1;
 		confirmation = null;
 		confirmationCode = -1;
@@ -258,11 +257,11 @@ public class Report {
 		this.packageVersion = MISSING;
 		this.phoneManufacturer = null;
 		this.phoneModel = null;
-		this.OS = null;
-		this.OSversion = null;
+		this.os = null;
+		this.osversion = null;
 		this.osLanguage = null;
 		this.appLanguage = null;
-		this.mission_UUID = null;
+		this.missionUUID = null;
 
 	}
 
@@ -399,7 +398,7 @@ public class Report {
 
 		JSONObject result = new JSONObject();
 		try {
-			result.put("version_UUID", this.version_UUID);
+			result.put("version_UUID", this.versionUUID);
 			result.put("version_number", this.reportVersion);
 			result.put("report_id", this.reportId);
 			// exporting current time as phone upload time on assumption that
@@ -407,7 +406,8 @@ public class Report {
 			result.put("phone_upload_time",
 					Util.ecma262(System.currentTimeMillis()));
 			result.put("creation_time", this.creation_time);
-			result.put("version_time", this.version_time);
+			result.put("version_time", this.versionTimeString);
+			
 			result.put("type", Util.reportType2String(this.type));
 			result.put("location_choice",
 					Util.locationChoice2String(this.locationChoice));
@@ -417,45 +417,49 @@ public class Report {
 				result.put("current_location_lat", this.currentLocationLat);
 			if (this.selectedLocationLon != null)
 				result.put("selected_location_lon", this.selectedLocationLon);
-			if (this.selectedLocationLat !=null)
+			if (this.selectedLocationLat != null)
 				result.put("selected_location_lat", this.selectedLocationLat);
 			result.put("note", this.note);
 			result.put("package_name", this.packageName);
 			result.put("package_version", this.packageVersion);
 			result.put("device_manufacturer", this.phoneManufacturer);
 			result.put("device_model", this.phoneModel);
-			result.put("os", this.OS);
-			result.put("os_version", this.OSversion);
+			result.put("os", this.os);
+			result.put("os_version", this.osversion);
 			result.put("os_language", this.osLanguage);
 			result.put("app_language", this.appLanguage);
 
 			// making responses array
-			if(this.confirmation != null){
-			JSONArray responsesArray = new JSONArray();
-			JSONObject thisConfirmation = new JSONObject(this.confirmation);
-			Iterator<String> iter = thisConfirmation.keys();
-			while (iter.hasNext()) {
-				String key = iter.next();
-				try {
-					
-					JSONObject innerJSON = new JSONObject();
-					JSONObject itemJSON = thisConfirmation.getJSONObject(key);
-					innerJSON.put("question", itemJSON.get(TaskItemModel.KEY_ITEM_TEXT));
-					innerJSON.put("answer", itemJSON.get(TaskItemModel.KEY_ITEM_RESPONSE));
-					
-					responsesArray.put(innerJSON);
+			if (this.confirmation != null) {
+				JSONArray responsesArray = new JSONArray();
+				JSONObject thisConfirmation = new JSONObject(this.confirmation);
+				Iterator<String> iter = thisConfirmation.keys();
+				while (iter.hasNext()) {
+					String key = iter.next();
+					try {
 
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+						JSONObject innerJSON = new JSONObject();
+						JSONObject itemJSON = thisConfirmation
+								.getJSONObject(key);
+						Log.i("ITEMJSON", itemJSON.toString());
+						innerJSON.put("question",
+								itemJSON.get(TaskItemModel.KEY_ITEM_TEXT));
+						innerJSON.put("answer",
+								itemJSON.get(TaskItemModel.KEY_ITEM_RESPONSE));
+
+						responsesArray.put(innerJSON);
+
+					} catch (JSONException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
-			}
 
-			result.put("responses", responsesArray);
+				result.put("responses", responsesArray);
 			}
 			result.put("user", PropertyHolder.getUserId());
 			if (this.type == TYPE_MISSION)
-				result.put("mission", this.mission_UUID);
+				result.put("mission", this.missionUUID);
 
 		} catch (JSONException e) {
 		}

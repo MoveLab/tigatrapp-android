@@ -51,8 +51,16 @@ public class TaskItemModel {
 			e.printStackTrace();
 		}
 
-		// if preset, then language already decided:
-		if (item.has(KEY_ANSWER_CHOICES) && item.has(KEY_HELP_TEXT)
+		// if answered, then language already decided:
+		if (item.has(KEY_ITEM_TEXT)) {
+			try {
+				this.itemText = item.getString(KEY_ITEM_TEXT);
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			// if preset, then language already decided:
+		} else if (item.has(KEY_ANSWER_CHOICES) && item.has(KEY_HELP_TEXT)
 				&& item.has(KEY_QUESTION)) {
 			try {
 				this.itemText = item.getString(KEY_QUESTION);

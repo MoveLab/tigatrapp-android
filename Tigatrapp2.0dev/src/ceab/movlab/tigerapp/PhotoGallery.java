@@ -5,6 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -17,6 +20,7 @@ public class PhotoGallery extends Activity {
 	private Gallery galleryView;
 	private TextView captionView;
 	Resources res;
+	String lang;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -28,19 +32,14 @@ public class PhotoGallery extends Activity {
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
 
-		if (PropertyHolder.getLanguage() == null) {
-			Intent i2sb = new Intent(PhotoGallery.this, Switchboard.class);
-			startActivity(i2sb);
-			finish();
-		} else {
-			res = getResources();
-			Util.setDisplayLanguage(res);
-		}
+		res = getResources();
+		lang = Util.setDisplayLanguage(res);
 
 		setContentView(R.layout.tiger_photos);
 
-		this.setTitle(context.getResources().getString(R.string.activity_label_gallery));
-		
+		this.setTitle(context.getResources().getString(
+				R.string.activity_label_gallery));
+
 		final String[] captions = getResources().getStringArray(
 				R.array.gallery_array);
 
@@ -70,7 +69,40 @@ public class PhotoGallery extends Activity {
 
 	@Override
 	protected void onResume() {
+		res = getResources();
+		if (!Util.setDisplayLanguage(res).equals(lang)) {
+			finish();
+			startActivity(getIntent());
+		}
+
 		super.onResume();
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.consent_menu, menu);
+
+		return true;
+
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		super.onOptionsItemSelected(item);
+
+		switch (item.getItemId()) {
+
+		case (R.id.settings): {
+
+			Intent i = new Intent(PhotoGallery.this, Settings.class);
+			startActivity(i);
+			return true;
+		}
+		}
+		return false;
 	}
 
 }

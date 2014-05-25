@@ -28,6 +28,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.RadioGroup;
 import ceab.movelab.tigerapp.R;
@@ -46,55 +47,32 @@ public class LanguageSelector extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		Log.d("LS", "ls1");
-
-		if (!PropertyHolder.isInit())
-			PropertyHolder.init(context);
-
-		Log.d("LS", "ls2");
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		context = this;
 
-		Log.d("LS", "ls2");
-
 		setContentView(R.layout.language_selector);
-
-		Log.d("LS", "ls4");
 
 		Util.overrideFonts(context, findViewById(android.R.id.content));
 
-		Log.d("LS", "ls5");
-
 		final RadioGroup languageRadioGroup = (RadioGroup) findViewById(R.id.languageRadioGroup);
 
-		Log.d("LS", "ls6");
-
 		Button positive = (Button) findViewById(R.id.languageOK);
-
-		Log.d("LS", "ls7");
 
 		positive.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 
-				Log.d("LS", "ls8");
-
 				if (languageRadioGroup.getCheckedRadioButtonId() == R.id.caButton) {
 					PropertyHolder.setLanguage("ca");
-					startActivity(new Intent(LanguageSelector.this,
-							Switchboard.class));
 					finish();
 					return;
 				} else if (languageRadioGroup.getCheckedRadioButtonId() == R.id.esButton) {
 					PropertyHolder.setLanguage("es");
-					startActivity(new Intent(LanguageSelector.this,
-							Switchboard.class));
 					finish();
 					return;
 				} else if (languageRadioGroup.getCheckedRadioButtonId() == R.id.enButton) {
 					PropertyHolder.setLanguage("en");
-					startActivity(new Intent(LanguageSelector.this,
-							Switchboard.class));
 					finish();
 					return;
 				} else {

@@ -4,11 +4,11 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 import ceab.movelab.tigerapp.R;
 
@@ -48,6 +48,8 @@ public class ViewResponsesAdapter extends ArrayAdapter<TaskItemModel> {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 
+		Log.i("ITEMTEXT", data.get(position).getItemText().toString());
+		
 		viewHolder.itemQuestion.setText(data.get(position).getItemText());
 		viewHolder.itemResponse.setText(data.get(position).getItemResponse());
 

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -15,11 +16,14 @@ import ceab.movelab.tigerapp.R;
 public class Settings extends Activity {
 	final Context context = this;
 	Resources res;
+	String lang;
+
 	ToggleButton tb;
 	Boolean on;
 	TextView tv;
 
 	Button syncButton;
+	Button languageButton;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -29,11 +33,24 @@ public class Settings extends Activity {
 			PropertyHolder.init(context);
 
 		res = getResources();
-		Util.setDisplayLanguage(res);
+		lang = Util.setDisplayLanguage(res);
 
 		setContentView(R.layout.settings);
 
 		on = PropertyHolder.isServiceOn();
+
+		languageButton = (Button) findViewById(R.id.languageButton);
+		languageButton.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View arg0) {
+
+				Intent i = new Intent(Settings.this, LanguageSelector.class);
+				startActivity(i);
+
+			}
+
+		});
 
 		syncButton = (Button) findViewById(R.id.syncButton);
 		syncButton.setOnClickListener(new OnClickListener() {
@@ -41,8 +58,7 @@ public class Settings extends Activity {
 			@Override
 			public void onClick(View arg0) {
 
-				Intent uploadIntent = new Intent(Settings.this,
-						FileUploader.class);
+				Intent uploadIntent = new Intent(Settings.this, SyncData.class);
 				startService(uploadIntent);
 				Util.toast(context, "Syncing Data.");
 
@@ -80,4 +96,17 @@ public class Settings extends Activity {
 		});
 
 	}
+
+	@Override
+	protected void onResume() {
+
+		if (!Util.setDisplayLanguage(res).equals(lang)) {
+			finish();
+			startActivity(getIntent());
+		}
+
+		super.onResume();
+
+	}
+
 }

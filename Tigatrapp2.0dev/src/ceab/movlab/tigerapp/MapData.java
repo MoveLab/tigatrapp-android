@@ -86,7 +86,7 @@ import com.google.android.maps.Overlay;
  * 
  * 
  */
-public class ViewDataActivity extends MapActivity {
+public class MapData extends MapActivity {
 
 	String lang;
 
@@ -123,18 +123,13 @@ public class ViewDataActivity extends MapActivity {
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
 
-		if (PropertyHolder.getLanguage() == null) {
-			Intent i2sb = new Intent(ViewDataActivity.this, Switchboard.class);
-			startActivity(i2sb);
-			finish();
-		} else {
-			res = getResources();
-			Util.setDisplayLanguage(res);
-		}
+		res = getResources();
+		lang = Util.setDisplayLanguage(res);
 
 		setContentView(R.layout.map_layout);
-		
-		this.setTitle(context.getResources().getString(R.string.activity_label_map));
+
+		this.setTitle(context.getResources().getString(
+				R.string.activity_label_map));
 
 		Util.overrideFonts(this, findViewById(android.R.id.content));
 
@@ -163,6 +158,12 @@ public class ViewDataActivity extends MapActivity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		res = getResources();
+		if (!Util.setDisplayLanguage(res).equals(lang)) {
+			finish();
+			startActivity(getIntent());
+		}
+
 		super.onActivityResult(requestCode, resultCode, data);
 		if (resultCode == RESULT_OK && requestCode == 1) {
 			finish();
@@ -189,6 +190,12 @@ public class ViewDataActivity extends MapActivity {
 	@Override
 	protected void onResume() {
 
+		res = getResources();
+		if (!Util.setDisplayLanguage(res).equals(lang)) {
+			finish();
+			startActivity(getIntent());
+		}
+
 		mapView.setSatellite(satToggle);
 
 		progressbar.setVisibility(View.VISIBLE);
@@ -199,7 +206,6 @@ public class ViewDataActivity extends MapActivity {
 		}
 
 		super.onResume();
-
 
 	}
 
@@ -233,6 +239,13 @@ public class ViewDataActivity extends MapActivity {
 		super.onOptionsItemSelected(item);
 
 		switch (item.getItemId()) {
+		case (R.id.settings): {
+
+			Intent i = new Intent(MapData.this, Settings.class);
+			startActivity(i);
+			return true;
+		}
+
 		case (R.id.sat): {
 			item.setChecked(true);
 			mapView.setSatellite(true);

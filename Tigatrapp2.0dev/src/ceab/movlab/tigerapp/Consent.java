@@ -31,6 +31,9 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -46,6 +49,7 @@ public class Consent extends Activity {
 
 	Context context;
 	Resources res;
+	String lang;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -54,20 +58,16 @@ public class Consent extends Activity {
 		context = getApplicationContext();
 
 		if (!PropertyHolder.isInit())
-			PropertyHolder.init(context);		
-		if (PropertyHolder.getLanguage() == null) {
-			Intent i2sb = new Intent(Consent.this, Switchboard.class);
-			startActivity(i2sb);
-			finish();
-		} else {
-			res = getResources();
-			Util.setDisplayLanguage(res);
-		}
+			PropertyHolder.init(context);
+
+		res = getResources();
+		lang = Util.setDisplayLanguage(res);
 
 		setContentView(R.layout.consent);
 
 		TextView consent = (TextView) findViewById(R.id.consenttext);
-		consent.setText(Html.fromHtml(getString(R.string.consent_html), null, new TigaTagHandler()));
+		consent.setText(Html.fromHtml(getString(R.string.consent_html), null,
+				new TigaTagHandler()));
 		consent.setTextColor(Color.WHITE);
 		consent.setTextSize(getResources()
 				.getDimension(R.dimen.textsize_normal));
@@ -86,7 +86,7 @@ public class Consent extends Activity {
 				// set user_UUID
 				String userId = UUID.randomUUID().toString();
 				PropertyHolder.setUserId(userId);
-				
+
 				Intent i = new Intent(Consent.this, Switchboard.class);
 				startActivity(i);
 				finish();
@@ -109,8 +109,40 @@ public class Consent extends Activity {
 
 	@Override
 	protected void onResume() {
+		res = getResources();
+		if (!Util.setDisplayLanguage(res).equals(lang)) {
+			finish();
+			startActivity(getIntent());
+		}
+
 		super.onResume();
 	}
 
-	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.consent_menu, menu);
+
+		return true;
+
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		super.onOptionsItemSelected(item);
+
+		switch (item.getItemId()) {
+
+		case (R.id.settings): {
+
+			Intent i = new Intent(Consent.this, Settings.class);
+			startActivity(i);
+			return true;
+		}
+		}
+		return false;
+	}
+
 }

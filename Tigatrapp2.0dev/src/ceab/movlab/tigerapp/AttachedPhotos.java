@@ -51,6 +51,7 @@ public class AttachedPhotos extends Activity {
 	String jsonPhotosString;
 
 	Resources res;
+	String lang;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -58,14 +59,9 @@ public class AttachedPhotos extends Activity {
 
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
-		if (PropertyHolder.getLanguage() == null) {
-			Intent i2sb = new Intent(AttachedPhotos.this, Switchboard.class);
-			startActivity(i2sb);
-			finish();
-		} else {
-			res = getResources();
-			Util.setDisplayLanguage(res);
-		}
+
+		res = getResources();
+		lang = Util.setDisplayLanguage(res);
 
 		setContentView(R.layout.attached_photos);
 
@@ -135,9 +131,6 @@ public class AttachedPhotos extends Activity {
 				gridview.setOnItemLongClickListener(new OnItemLongClickListener() {
 					public boolean onItemLongClick(AdapterView<?> parent,
 							View v, int position, long id) {
-
-						Log.d("AP2", "pos: " + position);
-						Log.d("AP2", "jsonphotoslength: " + jsonPhotos.length());
 
 						final String item = (String) parent
 								.getItemAtPosition(position);
@@ -293,6 +286,12 @@ public class AttachedPhotos extends Activity {
 
 	@Override
 	protected void onResume() {
+		res = getResources();
+		if (!Util.setDisplayLanguage(res).equals(lang)) {
+			finish();
+			startActivity(getIntent());
+		}
+
 		super.onResume();
 	}
 
@@ -349,6 +348,11 @@ public class AttachedPhotos extends Activity {
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		res = getResources();
+		if (!Util.setDisplayLanguage(res).equals(lang)) {
+			finish();
+			startActivity(getIntent());
+		}
 
 		switch (requestCode) {
 

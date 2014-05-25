@@ -26,7 +26,7 @@ public class Help extends FragmentActivity {
 
 	private WebView myWebView;
 
-	String lang = "";
+	String lang;
 	Resources res;
 
 	@Override
@@ -35,16 +35,9 @@ public class Help extends FragmentActivity {
 
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
-		if (PropertyHolder.getLanguage() == null) {
-			Intent i2sb = new Intent(Help.this, Switchboard.class);
-			startActivity(i2sb);
-			finish();
-		} else {
-			res = getResources();
-			Util.setDisplayLanguage(res);
-		}
 
-		lang = PropertyHolder.getLanguage();
+		res = getResources();
+		lang = Util.setDisplayLanguage(res);
 
 	}
 
@@ -56,6 +49,12 @@ public class Help extends FragmentActivity {
 
 	@Override
 	protected void onResume() {
+
+		res = getResources();
+		if (!Util.setDisplayLanguage(res).equals(lang)) {
+			finish();
+			startActivity(getIntent());
+		}
 
 		if (Util.isOnline(context)) {
 			setContentView(R.layout.webview);

@@ -65,6 +65,8 @@
 
 package ceab.movlab.tigerapp;
 
+import java.util.Locale;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -109,15 +111,16 @@ public class PropertyHolder {
 	}
 
 	static String SAMPLES_PER_DAY = "samples_per_day";
-	
+
 	public static void setSamplesPerDay(int samplesPerDay) {
 		editor.putInt(SAMPLES_PER_DAY, samplesPerDay);
 		editor.commit();
 	}
 
-	// get samples per day. Default is 
+	// get samples per day. Default is
 	public static int getSamplesPerDay() {
-		return sharedPreferences.getInt(SAMPLES_PER_DAY, Util.DEFAULT_SAMPLES_PER_DAY);
+		return sharedPreferences.getInt(SAMPLES_PER_DAY,
+				Util.DEFAULT_SAMPLES_PER_DAY);
 	}
 
 	public static void lastSampleSchedleMade(long time) {
@@ -129,7 +132,6 @@ public class PropertyHolder {
 		return sharedPreferences.getLong("LAST_SCHEDULE", -1);
 	}
 
-	
 	// TESTING
 
 	public static void setCurrentFixTimes(String[] _times) {
@@ -176,7 +178,8 @@ public class PropertyHolder {
 	}
 
 	public static String getLanguage() {
-		return sharedPreferences.getString("LANGUAGE", null);
+		return sharedPreferences.getString("LANGUAGE", Locale.getDefault()
+				.getLanguage());
 	}
 
 	public static void setLanguage(String lang) {

@@ -66,6 +66,11 @@
 
     <!-- Switchboard -->
     <string name="dataMap_CD">Mis datos</string>
+        <string name="switchboard_button_text_sites">ENVIA: LUGAR</string>
+    <string name="switchboard_button_text_adult">ENVIA: ADULTO</string>
+    <string name="switchboard_button_text_map">MI MAPA</string>
+    <string name="switchboard_button_text_gallery">GALERIA</string>
+    
 
     <!-- activity labels -->
     <string name="activity_label_report_editing">Tigatrapp: Edita informe</string>
@@ -224,13 +229,22 @@
     <string name="menu_toggle_view">Imagen</string>
     <string name="menu_option_refresh">Actualiza</string>
 
-    <!-- Misc -->
-
+    
+        <!-- Settings -->
+    <string name="settings_language_title">Idioma</string>
+    <string name="settings_language_detail">Elija idioma</string>
+    <string name="settings_language_button">Elija</string>
+    <string name="settings_sync_title">Sincroniza</string>
+    <string name="settings_sync_detail">Sincroniza tus datos</string>
+    <string name="settings_sync_button">Sinc.</string>
     <string name="on">Encendido</string>
     <string name="off">Apagado</string>
     <string name="sample_my_locations">Probar mis lugares</string>
     <string name="sampling_is_off">El muestreo de los lugares está desactivado</string>
     <string name="sampling_is_on">El muestreo de los lugares está activado</string>
+    
+    <!-- Misc -->
+
     <string name="added_current_loc">Posición actual guardada</string>
     <string name="refresh">Actualiza</string>
     <string name="report_deleted">Informe borrado</string>

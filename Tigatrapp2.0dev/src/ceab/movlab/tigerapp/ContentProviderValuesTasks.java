@@ -21,6 +21,7 @@
 
 package ceab.movlab.tigerapp;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -112,23 +113,25 @@ public class ContentProviderValuesTasks {
 			initialValues.put(Tasks.KEY_SHORT_DESCRIPTION_ENGLISH,
 					mission.getString(Tasks.KEY_SHORT_DESCRIPTION_ENGLISH));
 
-			initialValues.put(Tasks.KEY_CREATION_TIME, Util
-					.ecma262String2Long(mission
-							.getString(Tasks.KEY_CREATION_TIME)));
-			initialValues.put(Tasks.KEY_EXPIRATION_TIME, Util
-					.ecma262String2Long(mission
-							.getString(Tasks.KEY_EXPIRATION_TIME)));
+			initialValues.put(Tasks.KEY_CREATION_TIME, Util.string2Long(
+					mission.getString(Tasks.KEY_CREATION_TIME),
+					"yyyy-MM-dd'T'HH:mm:ss.SSSZ"));
+			initialValues.put(Tasks.KEY_EXPIRATION_TIME, Util.string2Long(
+					mission.getString(Tasks.KEY_EXPIRATION_TIME),
+					"yyyy-MM-dd'T'HH:mm:ssZ"));
 
 			// IF JSON trigger specified in task, then task starts out as in
 			// active (0). Otherwise starts as active
 			// TODO set repeating alarm if trigger is for time of day only
-			if (mission.has(Tasks.KEY_TRIGGERS)) {
+			if (mission.has(Tasks.KEY_TRIGGERS)
+					&& ((JSONArray) mission.getJSONArray(Tasks.KEY_TRIGGERS))
+							.length() > 0) {
 				initialValues.put(Tasks.KEY_TRIGGERS,
 						mission.getString(Tasks.KEY_TRIGGERS));
 				initialValues.put(Tasks.KEY_ACTIVE, 0);
-			} else
+			} else {
 				initialValues.put(Tasks.KEY_ACTIVE, 1);
-
+			}
 			JSONObject taskObject = new JSONObject();
 
 			if (mission.has(TaskModel.KEY_LONG_DESCRIPTION_CATALAN)
@@ -187,11 +190,11 @@ public class ContentProviderValuesTasks {
 			taskObject.put(TaskModel.KEY_PHOTO_MISSION,
 					mission.get(TaskModel.KEY_PHOTO_MISSION));
 
-			if (mission.has(TaskModel.KEY_ITEMS)){
+			if (mission.has(TaskModel.KEY_ITEMS)) {
 				taskObject.put(TaskModel.KEY_ITEMS,
 						mission.get(TaskModel.KEY_ITEMS));
 			}
-			
+
 			initialValues.put(Tasks.KEY_TASK_JSON, taskObject.toString());
 
 			initialValues.put(Tasks.KEY_DONE, 0);

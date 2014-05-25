@@ -17,7 +17,7 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -51,7 +51,9 @@
 
         <activity android:name="ceab.movlab.tigerapp.Settings" >
         </activity>
-        <activity android:name="ceab.movlab.tigerapp.LanguageSelector" >
+        <activity
+            android:name="ceab.movlab.tigerapp.LanguageSelector"
+            android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity android:name="ceab.movlab.tigerapp.Consent" >
         </activity>
@@ -75,7 +77,7 @@
         </activity>
         <activity android:name="ceab.movlab.tigerapp.ReportTool" >
         </activity>
-        <activity android:name="ceab.movlab.tigerapp.GPLCat" >
+        <activity android:name="ceab.movlab.tigerapp.GPLView" >
         </activity>
         <activity
             android:name="ceab.movlab.tigerapp.Switchboard"
@@ -88,7 +90,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="ceab.movlab.tigerapp.ViewDataActivity"
+            android:name="ceab.movlab.tigerapp.MapData"
             android:hardwareAccelerated="false" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -104,12 +106,6 @@
         <activity
             android:name="ceab.movlab.tigerapp.About"
             android:allowTaskReparenting="true" >
-        </activity>
-        <activity android:name="ceab.movlab.tigerapp.GPLView" >
-        </activity>
-        <activity android:name="ceab.movlab.tigerapp.LGPLView" >
-        </activity>
-        <activity android:name="ceab.movlab.tigerapp.CreditsDetail" >
         </activity>
         <activity
             android:name="ceab.movlab.tigerapp.RSSActivity"
@@ -135,7 +131,7 @@
         </receiver>
 
         <service android:name="ceab.movlab.tigerapp.FixGet" />
-        <service android:name="ceab.movlab.tigerapp.FileUploader" />
+        <service android:name="ceab.movlab.tigerapp.SyncData" />
 
         <provider
             android:name="ceab.movlab.tigerapp.ContentProviderTasks"

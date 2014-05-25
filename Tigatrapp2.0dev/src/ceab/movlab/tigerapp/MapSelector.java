@@ -105,6 +105,7 @@ public class MapSelector extends MapActivity {
 	public static final String LAT = "lat";
 	public static final String LON = "lon";
 	Resources res;
+	String lang;
 
 	@Override
 	public void onCreate(Bundle icicle) {
@@ -112,14 +113,9 @@ public class MapSelector extends MapActivity {
 
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
-		if (PropertyHolder.getLanguage() == null) {
-			Intent i2sb = new Intent(MapSelector.this, Switchboard.class);
-			startActivity(i2sb);
-			finish();
-		} else {
-			res = getResources();
-			Util.setDisplayLanguage(res);
-		}
+
+		res = getResources();
+		lang = Util.setDisplayLanguage(res);
 
 		setContentView(R.layout.map_selector_dialog);
 
@@ -148,6 +144,12 @@ public class MapSelector extends MapActivity {
 
 	@Override
 	protected void onResume() {
+
+		res = getResources();
+		if (!Util.setDisplayLanguage(res).equals(lang)) {
+			finish();
+			startActivity(getIntent());
+		}
 
 		context = getApplicationContext();
 
@@ -207,7 +209,6 @@ public class MapSelector extends MapActivity {
 		}
 
 		super.onResume();
-
 
 	}
 

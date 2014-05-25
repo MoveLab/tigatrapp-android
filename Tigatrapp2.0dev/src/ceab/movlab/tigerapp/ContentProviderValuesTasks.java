@@ -112,13 +112,13 @@ public class ContentProviderValuesTasks {
 					mission.getString(Tasks.KEY_SHORT_DESCRIPTION_SPANISH));
 			initialValues.put(Tasks.KEY_SHORT_DESCRIPTION_ENGLISH,
 					mission.getString(Tasks.KEY_SHORT_DESCRIPTION_ENGLISH));
+			// On phone I am setting creation time to the current time when user gets the task.
+			initialValues.put(Tasks.KEY_CREATION_TIME, System.currentTimeMillis());
 
-			initialValues.put(Tasks.KEY_CREATION_TIME, Util.string2Long(
-					mission.getString(Tasks.KEY_CREATION_TIME),
-					"yyyy-MM-dd'T'HH:mm:ss.SSSZ"));
+			
 			initialValues.put(Tasks.KEY_EXPIRATION_TIME, Util.string2Long(
 					mission.getString(Tasks.KEY_EXPIRATION_TIME),
-					"yyyy-MM-dd'T'HH:mm:ssZ"));
+					"yyyy-MM-dd'T'HH:mm:ss'Z'"));
 
 			// IF JSON trigger specified in task, then task starts out as in
 			// active (0). Otherwise starts as active

@@ -65,8 +65,8 @@
 
     <ImageView
         android:id="@+id/movelabBanner"
-        android:layout_width="400dip"
-        android:layout_height="160dip"
+        android:layout_width="wrap_content"
+        android:layout_height="75dip"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/movelab_banner_CD"

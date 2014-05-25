@@ -109,13 +109,17 @@ public class TaskAdapter extends BaseAdapter implements OnClickListener {
 
 			/************ Set Model values in Holder elements ***********/
 
-			Log.i("ITEMTEXT", tempValues.getItemText());
+			String lang = PropertyHolder.getLanguage();
 
+			Log.i("ITEMTEXT", "item text: " + tempValues.getItemText());
 			holder.itemText.setText(tempValues.getItemText());
+
 			holder.itemId = tempValues.getItemId();
 
-			if (tempValues.getItemHelp() == null)
+			if (tempValues.getItemHelp() == null || tempValues.getItemHelp().equals(""))
 				holder.helpIcon.setVisibility(View.GONE);
+
+			Log.i("ITEMCHOICES", "item choices: " + tempValues.getItemChoices());
 
 			ArrayAdapter<String> choicesAdapter = new ArrayAdapter<String>(
 					activity, android.R.layout.simple_spinner_item,
@@ -155,8 +159,8 @@ public class TaskAdapter extends BaseAdapter implements OnClickListener {
 								thisResponse.put(TaskItemModel.KEY_ITEM_TEXT,
 										holder.itemText.getText());
 
-								Log.i("Holder ITEMTEXT",
-										holder.itemText.getText().toString());
+								Log.i("Holder ITEMTEXT", holder.itemText
+										.getText().toString());
 
 								thisResponse.put(
 										TaskItemModel.KEY_ITEM_RESPONSE, String

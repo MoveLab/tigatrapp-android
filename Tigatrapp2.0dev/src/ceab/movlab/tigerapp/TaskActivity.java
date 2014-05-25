@@ -91,19 +91,20 @@ public class TaskActivity extends Activity {
 
 			thisTask = new JSONObject(taskJson);
 
-			if (thisTask.has(TaskModel.KEY_TITLE)) {
+			if (thisTask.has(TaskModel.KEY_TITLE)
+					&& Util.getString(thisTask, TaskModel.KEY_TITLE).length() > 0) {
 				taskTitle
 						.setText(Util.getString(thisTask, TaskModel.KEY_TITLE));
 			} else if (thisTask.has(TaskModel.KEY_TITLE_CATALAN)
 					&& thisTask.has(TaskModel.KEY_TITLE_SPANISH)
 					&& thisTask.has(TaskModel.KEY_TITLE_ENGLISH)) {
-				if (currentLang == "ca")
+				if (currentLang.equals("ca"))
 					taskTitle.setText(Util.getString(thisTask,
 							TaskModel.KEY_TITLE_CATALAN));
-				else if (currentLang == "es")
+				else if (currentLang.equals("es"))
 					taskTitle.setText(Util.getString(thisTask,
 							TaskModel.KEY_TITLE_SPANISH));
-				else if (currentLang == "en")
+				else if (currentLang.equals("en"))
 					taskTitle.setText(Util.getString(thisTask,
 							TaskModel.KEY_TITLE_ENGLISH));
 			} else
@@ -113,13 +114,13 @@ public class TaskActivity extends Activity {
 					&& thisTask.has(TaskModel.KEY_LONG_DESCRIPTION_SPANISH)
 					&& thisTask.has(TaskModel.KEY_LONG_DESCRIPTION_ENGLISH)) {
 
-				if (currentLang == "ca")
+				if (currentLang.equals("ca"))
 					taskDetail.setText(Util.getString(thisTask,
 							TaskModel.KEY_LONG_DESCRIPTION_CATALAN));
-				else if (currentLang == "es")
+				else if (currentLang.equals("es"))
 					taskDetail.setText(Util.getString(thisTask,
 							TaskModel.KEY_LONG_DESCRIPTION_SPANISH));
-				else if (currentLang == "en")
+				else if (currentLang.equals("en"))
 					taskDetail.setText(Util.getString(thisTask,
 							TaskModel.KEY_LONG_DESCRIPTION_ENGLISH));
 			} else
@@ -128,13 +129,13 @@ public class TaskActivity extends Activity {
 					&& thisTask.has(TaskModel.KEY_HELP_TEXT_SPANISH)
 					&& thisTask.has(TaskModel.KEY_HELP_TEXT_ENGLISH)) {
 				String helpTextTemp = "";
-				if (currentLang == "ca")
+				if (currentLang.equals("ca"))
 					helpTextTemp = thisTask
 							.getString(TaskModel.KEY_HELP_TEXT_CATALAN);
-				else if (currentLang == "es")
+				else if (currentLang.equals("es"))
 					helpTextTemp = thisTask
 							.getString(TaskModel.KEY_HELP_TEXT_SPANISH);
-				else if (currentLang == "en")
+				else if (currentLang.equals("en"))
 					helpTextTemp = thisTask
 							.getString(TaskModel.KEY_HELP_TEXT_ENGLISH);
 
@@ -152,11 +153,11 @@ public class TaskActivity extends Activity {
 				helpIcon.setVisibility(View.GONE);
 
 			if (thisTask.has(TaskModel.KEY_ITEMS)) {
-				JSONArray theseItems;
-				theseItems = thisTask.getJSONArray(TaskModel.KEY_ITEMS);
+				JSONArray theseItems = new JSONArray(
+						thisTask.getString(TaskModel.KEY_ITEMS));
 				for (int i = 0; i < theseItems.length(); i++) {
 					TaskItemModel thisTaskItem = new TaskItemModel(context,
-							theseItems.getJSONObject(i));
+							new JSONObject(theseItems.getString(i)));
 
 					if (currentResponses != null) {
 						JSONObject cr = new JSONObject(currentResponses);
@@ -261,7 +262,6 @@ public class TaskActivity extends Activity {
 												.getJSONObject(key);
 										Log.i("ITEMTEXT 2", thisItem.toString());
 
-
 										if (!thisItem
 												.getString(
 														TaskItemModel.KEY_ITEM_RESPONSE)
@@ -290,17 +290,25 @@ public class TaskActivity extends Activity {
 			} else {
 
 				// LEFT BUTTON
-				if (!thisTask.has(TaskModel.KEY_TASK_BUTTON_LEFT_VISIBLE)
-						|| thisTask
-								.getInt(TaskModel.KEY_TASK_BUTTON_LEFT_VISIBLE) == 0)
-					buttonLeft.setVisibility(View.GONE);
-				else {
 					buttonLeft.setVisibility(View.VISIBLE);
 
-					if (thisTask.has(TaskModel.KEY_TASK_BUTTON_LEFT_TEXT))
+					if (thisTask.has(TaskModel.KEY_TASK_BUTTON_LEFT_TEXT)) {
+						int buttonCode = thisTask
+								.getInt(TaskModel.KEY_TASK_BUTTON_LEFT_TEXT);
 						buttonLeft
-								.setText(thisTask
-										.getString(TaskModel.KEY_TASK_BUTTON_LEFT_TEXT));
+								.setText(buttonCode == TaskModel.BUTTONTEXT_MARK_COMPLETE ? getResources()
+										.getString(
+												R.string.mission_button_mark_complete)
+										: (buttonCode == TaskModel.BUTTONTEXT_URL_TASK ? getResources()
+												.getString(
+														R.string.mission_button_left_url)
+												: getResources()
+														.getString(
+																R.string.mission_button_left_survey)));
+					} else {
+						buttonLeft.setText(getResources().getString(
+								R.string.mission_button_left_survey));
+					}
 					if (thisTask.has(TaskModel.KEY_TASK_BUTTON_LEFT_ACTION)) {
 						String leftUrl = thisTask
 								.has(TaskModel.KEY_TASK_BUTTON_LEFT_URL) ? thisTask
@@ -311,7 +319,7 @@ public class TaskActivity extends Activity {
 										thisTask.getInt(TaskModel.KEY_TASK_BUTTON_LEFT_ACTION),
 										b, leftUrl));
 					}
-				}
+				
 				// MIDDLE BUTTON
 				if (!thisTask.has(TaskModel.KEY_TASK_BUTTON_MIDDLE_VISIBLE)
 						|| thisTask
@@ -320,10 +328,9 @@ public class TaskActivity extends Activity {
 				else {
 					buttonMiddle.setVisibility(View.VISIBLE);
 
-					if (thisTask.has(TaskModel.KEY_TASK_BUTTON_MIDDLE_TEXT))
-						buttonMiddle
-								.setText(thisTask
-										.getString(TaskModel.KEY_TASK_BUTTON_MIDDLE_TEXT));
+					// FOR NOW ONLY ONE OPTION FOR MIDDLE AND RIGHT TEXT
+					buttonMiddle.setText(getResources().getString(
+							R.string.mission_button_middle));
 					if (thisTask.has(TaskModel.KEY_TASK_BUTTON_MIDDLE_ACTION)) {
 						String middleUrl = thisTask
 								.has(TaskModel.KEY_TASK_BUTTON_MIDDLE_URL) ? thisTask
@@ -344,10 +351,10 @@ public class TaskActivity extends Activity {
 				else {
 					buttonRight.setVisibility(View.VISIBLE);
 
-					if (thisTask.has(TaskModel.KEY_TASK_BUTTON_RIGHT_TEXT))
-						buttonRight
-								.setText(thisTask
-										.getString(TaskModel.KEY_TASK_BUTTON_RIGHT_TEXT));
+					// FOR NOW ONLY ONE OPTION FOR MIDDLE AND RIGHT TEXT
+					buttonRight.setText(getResources().getString(
+							R.string.mission_button_right));
+
 					if (thisTask.has(TaskModel.KEY_TASK_BUTTON_RIGHT_ACTION)) {
 						String rightUrl = thisTask
 								.has(TaskModel.KEY_TASK_BUTTON_RIGHT_URL) ? thisTask

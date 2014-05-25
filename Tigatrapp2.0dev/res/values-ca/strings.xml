@@ -17,7 +17,7 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
@@ -67,11 +67,10 @@
 
     <!-- Switchboard -->
     <string name="dataMap_CD">Les meves dades</string>
-        <string name="switchboard_button_text_sites">ENVIA: LLOC</string>
+    <string name="switchboard_button_text_sites">ENVIA: LLOC</string>
     <string name="switchboard_button_text_adult">ENVIA: ADULT</string>
     <string name="switchboard_button_text_map">EL MEU MAPA</string>
     <string name="switchboard_button_text_gallery">GALERIA</string>
-    
 
     <!-- activity labels -->
     <string name="activity_label_report_editing">Tigatrapp: Edita informe</string>
@@ -208,6 +207,13 @@
     <string name="delete_task_from_list_question">Elimina missió de la llista</string>
     <string name="delete">Elimina</string>
     <string name="new_mission">Nova missió Tigatrapp!</string>
+    <string name="mission_button_left_survey">Envia respostes</string>
+    <string name="mission_button_left_url">Visita la pàgina</string>
+    <string name="mission_button_middle">Fes més endavant</string>
+    <string name="mission_button_right">Elimina missió</string>
+    <string name="mission_button_mark_complete">Marca la com completada</string>
+    <string name="toast__mission_already_complete">Ja has completat aquesta misión. Gràcies!</string>
+    <string name="toast_mission_expired">Aquesta misión ha expirat.</string>
 
     <!-- Menu -->
     <string name="menu_option_task_list">Missions</string>

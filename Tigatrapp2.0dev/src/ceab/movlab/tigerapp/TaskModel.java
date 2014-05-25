@@ -54,8 +54,9 @@ public class TaskModel {
 	// TODO map these to localize strings when reading task
 	public static final int BUTTONTEXT_URL_TASK = 0;
 	public static final int BUTTONTEXT_SURVEY_TASK = 1;
-	public static final int BUTTONTEXT_DO_TASK_LATER = 2;
-	public static final int BUTTONTEXT_DELETE_TASK = 3;
+	public static final int BUTTONTEXT_MARK_COMPLETE = 2;
+	public static final int BUTTONTEXT_DO_TASK_LATER = 3;
+	public static final int BUTTONTEXT_DELETE_TASK = 4;
 
 	
 	public static final int BUTTONACTIONS_DO_TASK = 0;

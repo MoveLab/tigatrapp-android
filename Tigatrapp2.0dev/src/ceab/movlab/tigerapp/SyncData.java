@@ -72,6 +72,9 @@ public class SyncData extends Service {
 	boolean trackUploadsNeeded = true;
 	boolean tripUploadsNeeded = true;
 
+	ContentResolver cr;
+	Cursor c;
+
 	@Override
 	public void onStart(Intent intent, int startId) {
 
@@ -138,17 +141,10 @@ public class SyncData extends Service {
 
 				// try to get missions
 				// check last id on phone
+				int latest_id = PropertyHolder.getLatestMissionId();
 
-				int latest_id = 0;
-				ContentResolver cr = getContentResolver();
-
-				Cursor c = cr.query(Tasks.CONTENT_URI, Tasks.KEYS_ROW_ID, null,
-						null, null);
-				if (c.moveToLast()) {
-					latest_id = c.getInt(c
-							.getColumnIndexOrThrow(Tasks.KEY_ROW_ID));
-				}
-				c.close();
+				// TODO filter missions by phone type on the server side and
+				// here in the request, using URL parameter.
 
 				try {
 
@@ -195,6 +191,11 @@ public class SyncData extends Service {
 								}
 
 							}
+
+							// IF this is last mission, mark the row id in
+							// PropertyHolder for next sync
+							PropertyHolder.setLatestMissionId(mission
+									.getInt("id"));
 
 						}
 

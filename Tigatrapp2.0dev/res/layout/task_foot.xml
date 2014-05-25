@@ -9,8 +9,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:paddingBottom="10dip"
-        android:paddingLeft="10dip"
-        android:paddingRight="10dip"
         android:paddingTop="16dip" >
 
         <Button

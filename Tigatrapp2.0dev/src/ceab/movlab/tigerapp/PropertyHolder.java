@@ -110,6 +110,17 @@ public class PropertyHolder {
 		editor.commit();
 	}
 
+	static String LATEST_MISSION_ID = "latest_mission_id";
+
+	public static void setLatestMissionId(int latestMissionId) {
+		editor.putInt(LATEST_MISSION_ID, latestMissionId);
+		editor.commit();
+	}
+
+	public static int getLatestMissionId() {
+		return sharedPreferences.getInt(LATEST_MISSION_ID, 0);
+	}
+
 	static String SAMPLES_PER_DAY = "samples_per_day";
 
 	public static void setSamplesPerDay(int samplesPerDay) {

@@ -112,10 +112,11 @@ public class ContentProviderValuesTasks {
 					mission.getString(Tasks.KEY_SHORT_DESCRIPTION_SPANISH));
 			initialValues.put(Tasks.KEY_SHORT_DESCRIPTION_ENGLISH,
 					mission.getString(Tasks.KEY_SHORT_DESCRIPTION_ENGLISH));
-			// On phone I am setting creation time to the current time when user gets the task.
-			initialValues.put(Tasks.KEY_CREATION_TIME, System.currentTimeMillis());
+			// On phone I am setting creation time to the current time when user
+			// gets the task.
+			initialValues.put(Tasks.KEY_CREATION_TIME,
+					System.currentTimeMillis());
 
-			
 			initialValues.put(Tasks.KEY_EXPIRATION_TIME, Util.string2Long(
 					mission.getString(Tasks.KEY_EXPIRATION_TIME),
 					"yyyy-MM-dd'T'HH:mm:ss'Z'"));
@@ -133,6 +134,17 @@ public class ContentProviderValuesTasks {
 				initialValues.put(Tasks.KEY_ACTIVE, 1);
 			}
 			JSONObject taskObject = new JSONObject();
+
+			if (mission.has(TaskModel.KEY_TITLE_CATALAN)
+					&& mission.has(TaskModel.KEY_TITLE_SPANISH)
+					&& mission.has(TaskModel.KEY_TITLE_ENGLISH)) {
+				taskObject.put(TaskModel.KEY_TITLE_CATALAN,
+						mission.get(TaskModel.KEY_TITLE_CATALAN));
+				taskObject.put(TaskModel.KEY_TITLE_SPANISH,
+						mission.get(TaskModel.KEY_TITLE_SPANISH));
+				taskObject.put(TaskModel.KEY_TITLE_ENGLISH,
+						mission.get(TaskModel.KEY_TITLE_ENGLISH));
+			}
 
 			if (mission.has(TaskModel.KEY_LONG_DESCRIPTION_CATALAN)
 					&& mission.has(TaskModel.KEY_LONG_DESCRIPTION_SPANISH)
@@ -157,14 +169,14 @@ public class ContentProviderValuesTasks {
 			}
 
 			// CHECK IF IT IS A URL TASK
-			if (mission.has(TaskModel.KEY_URL)) {
+			if (mission.has(TaskModel.KEY_URL) && mission.getString(TaskModel.KEY_URL).length()>0) {
 				// PUTTING URL into left button always if it exists
 				taskObject.put(TaskModel.KEY_TASK_BUTTON_LEFT_URL,
 						mission.get(TaskModel.KEY_URL));
 				taskObject.put(TaskModel.KEY_TASK_BUTTON_LEFT_TEXT,
 						TaskModel.BUTTONTEXT_URL_TASK);
 				taskObject.put(TaskModel.KEY_TASK_BUTTON_LEFT_ACTION,
-						TaskModel.BUTTONACTIONS_DO_TASK);
+						TaskModel.BUTTONTEXT_URL_TASK);
 				taskObject.put(TaskModel.KEY_TASK_BUTTON_LEFT_VISIBLE, 1);
 			} else {
 				taskObject.put(TaskModel.KEY_TASK_BUTTON_LEFT_TEXT,

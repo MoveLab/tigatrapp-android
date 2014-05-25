@@ -1,14 +1,12 @@
 package ceab.movlab.tigerapp;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.text.Html;
 import android.view.KeyEvent;
 import android.webkit.WebView;
-import android.widget.TextView;
+import android.webkit.WebViewClient;
 import ceab.movelab.tigerapp.R;
 
 /**
@@ -20,9 +18,9 @@ public class Help extends FragmentActivity {
 
 	Context context = this;
 
-	private static final String TIGER_HELP_URL = "http://tce.ceab.csic.es/tigaDev2/TigatrappHelp.html";
-	private static final String TIGER_HELP_URL_CA = "http://tce.ceab.csic.es/tigaDev2/TigatrappHelp-ca.html";
-	private static final String TIGER_HELP_URL_ES = "http://tce.ceab.csic.es/tigaDev2/TigatrappHelp-es.html";
+	private static final String TIGER_HELP_URL_EN = "http://tigaserver.atrapaeltigre.com/help/android/en";
+	private static final String TIGER_HELP_URL_CA = "http://tigaserver.atrapaeltigre.com/help/android/ca";
+	private static final String TIGER_HELP_URL_ES = "http://tigaserver.atrapaeltigre.com/help/android/es";
 
 	private WebView myWebView;
 
@@ -56,28 +54,26 @@ public class Help extends FragmentActivity {
 			startActivity(getIntent());
 		}
 
-		if (Util.isOnline(context)) {
-			setContentView(R.layout.webview);
+		// if (Util.isOnline(context)) {
+		setContentView(R.layout.webview);
 
-			myWebView = (WebView) findViewById(R.id.webview);
+		myWebView = (WebView) findViewById(R.id.webview);
+		myWebView.setWebViewClient(new WebViewClient());
 
-			myWebView.getSettings().setSupportMultipleWindows(true);
-
-			if (lang.equals("ca")) {
-				myWebView.loadUrl(TIGER_HELP_URL_CA);
-			} else if (lang.equals("es")) {
-				myWebView.loadUrl(TIGER_HELP_URL_ES);
-			} else {
-				myWebView.loadUrl(TIGER_HELP_URL);
-			}
-
+		if (lang.equals("ca")) {
+			myWebView.loadUrl(TIGER_HELP_URL_CA);
+		} else if (lang.equals("es")) {
+			myWebView.loadUrl(TIGER_HELP_URL_ES);
 		} else {
-			setContentView(R.layout.webview_offline);
-			((TextView) findViewById(R.id.offlineText)).setText(Html.fromHtml(
-					getString(R.string.help_offline_html), null,
-					new TigaTagHandler()));
+			myWebView.loadUrl(TIGER_HELP_URL_EN);
 		}
 
+		/*
+		 * } else { setContentView(R.layout.webview_offline); ((TextView)
+		 * findViewById(R.id.offlineText)).setText(Html.fromHtml(
+		 * getString(R.string.help_offline_html), null, new TigaTagHandler()));
+		 * }
+		 */
 		super.onResume();
 
 	}

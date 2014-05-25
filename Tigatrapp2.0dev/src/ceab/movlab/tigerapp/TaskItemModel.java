@@ -14,9 +14,12 @@ public class TaskItemModel {
 
 	private String itemId;
 	private String itemText;
+
 	private String itemHelp;
+
 	private int itemHelpImage;
 	private String[] itemChoices;
+
 	private String itemResponse;
 
 	public static final String KEY_ITEM_ID = "id";
@@ -68,12 +71,16 @@ public class TaskItemModel {
 
 				JSONArray itemChoicesJson = item
 						.getJSONArray(KEY_ANSWER_CHOICES);
+
+				Log.i("CHOICES", "choices: " + itemChoicesJson.toString());
 				String[] itemChoicesTemp = new String[itemChoicesJson.length() + 1];
 				// Making the first row blank so that Spinner default is no
 				// selection
 				itemChoicesTemp[0] = context.getResources().getString(
 						R.string.spinner_nothing_selected);
 				for (int i = 0; i < itemChoicesJson.length(); i++) {
+					Log.i("CHOICES", "choice: " + itemChoicesJson.getString(i));
+
 					itemChoicesTemp[i + 1] = itemChoicesJson.getString(i);
 				}
 				itemChoices = itemChoicesTemp;
@@ -87,7 +94,7 @@ public class TaskItemModel {
 
 			String currentLang = PropertyHolder.getLanguage();
 
-			if (currentLang == "ca") {
+			if (currentLang.equals("ca")) {
 				try {
 
 					if (item.has(KEY_QUESTION_CATALAN))
@@ -108,8 +115,14 @@ public class TaskItemModel {
 				try {
 
 					if (item.has(KEY_ANSWER_CHOICES_CATALAN)) {
-						JSONArray itemChoicesJson = item
-								.getJSONArray(KEY_ANSWER_CHOICES_CATALAN);
+						Log.i("ITEM CHOICES HAS CA", "true");
+
+						String theseChoices = item
+								.getString(KEY_ANSWER_CHOICES_CATALAN);
+
+						Log.i("ITEM CHOICES: ", "these: " + theseChoices);
+
+						JSONArray itemChoicesJson = new JSONArray(theseChoices);
 						String[] itemChoicesTemp = new String[itemChoicesJson
 								.length() + 1];
 						// Making the first row blank so that Spinner default is
@@ -129,7 +142,7 @@ public class TaskItemModel {
 					e.printStackTrace();
 				}
 
-			} else if (currentLang == "es") {
+			} else if (currentLang.equals("es")) {
 
 				try {
 
@@ -151,10 +164,17 @@ public class TaskItemModel {
 				try {
 
 					if (item.has(KEY_ANSWER_CHOICES_SPANISH)) {
-						JSONArray itemChoicesJson = item
-								.getJSONArray(KEY_ANSWER_CHOICES_SPANISH);
+						Log.i("ITEM CHOICES HAS ES", "true");
+
+						String theseChoices = item
+								.getString(KEY_ANSWER_CHOICES_SPANISH);
+
+						Log.i("ITEM CHOICES: ", "these: " + theseChoices);
+
+						JSONArray itemChoicesJson = new JSONArray(theseChoices);
 						String[] itemChoicesTemp = new String[itemChoicesJson
 								.length() + 1];
+
 						// Making the first row blank so that Spinner default is
 						// no
 						// selection
@@ -172,7 +192,7 @@ public class TaskItemModel {
 					e.printStackTrace();
 				}
 
-			} else if (currentLang == "en") {
+			} else if (currentLang.equals("en")) {
 
 				try {
 
@@ -194,8 +214,14 @@ public class TaskItemModel {
 				try {
 
 					if (item.has(KEY_ANSWER_CHOICES_ENGLISH)) {
-						JSONArray itemChoicesJson = item
-								.getJSONArray(KEY_ANSWER_CHOICES_ENGLISH);
+						Log.i("ITEM CHOICES HAS EN", "true");
+
+						String theseChoices = item
+								.getString(KEY_ANSWER_CHOICES_ENGLISH);
+
+						Log.i("ITEM CHOICES: ", "these: " + theseChoices);
+
+						JSONArray itemChoicesJson = new JSONArray(theseChoices);
 						String[] itemChoicesTemp = new String[itemChoicesJson
 								.length() + 1];
 						// Making the first row blank so that Spinner default is
@@ -217,14 +243,17 @@ public class TaskItemModel {
 
 			}
 
+			Log.e("ITEM", "item text BBB: " + this.itemText);
+
 		}
 
 		// ////////////////////////////
 		try {
 
 			if (item.has(KEY_PREPOSITIONED_IMAGE_REFERENCE))
-				this.itemHelpImage = item
-						.getInt(KEY_PREPOSITIONED_IMAGE_REFERENCE);
+				if (item.getString(KEY_PREPOSITIONED_IMAGE_REFERENCE) != null)
+					this.itemHelpImage = item
+							.getInt(KEY_PREPOSITIONED_IMAGE_REFERENCE);
 		} catch (JSONException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -41,6 +41,8 @@ public class TaskListCursorAdapter extends SimpleCursorAdapter {
 
 	private int layout;
 
+	private String lang;
+
 	public TaskListCursorAdapter(Context context, int layout, Cursor c,
 			String[] from, int[] to, int flag) {
 		super(context, layout, c, from, to, flag);
@@ -49,7 +51,7 @@ public class TaskListCursorAdapter extends SimpleCursorAdapter {
 		this.layout = layout;
 
 		Resources res = context.getResources();
-		Util.setDisplayLanguage(res);
+		lang = Util.setDisplayLanguage(res);
 
 	}
 
@@ -62,11 +64,24 @@ public class TaskListCursorAdapter extends SimpleCursorAdapter {
 		String expirationDate = Util.userDate(new Date((c.getLong(c
 				.getColumnIndex(Tasks.KEY_EXPIRATION_TIME)))));
 
-		String taskTitle = c
-				.getString(c.getColumnIndex(Tasks.KEY_TITLE_CATALAN));
+		String taskTitle = "";
+		if (lang.equals("ca"))
+			taskTitle = c.getString(c.getColumnIndex(Tasks.KEY_TITLE_CATALAN));
+		if (lang.equals("es"))
+			taskTitle = c.getString(c.getColumnIndex(Tasks.KEY_TITLE_SPANISH));
+		if (lang.equals("en"))
+			taskTitle = c.getString(c.getColumnIndex(Tasks.KEY_TITLE_ENGLISH));
 
-		String taskShortDescription = c.getString(c
-				.getColumnIndex(Tasks.KEY_SHORT_DESCRIPTION_CATALAN));
+		String taskShortDescription = "";
+		if (lang.equals("ca"))
+			taskShortDescription = c.getString(c
+					.getColumnIndex(Tasks.KEY_SHORT_DESCRIPTION_CATALAN));
+		if (lang.equals("es"))
+			taskShortDescription = c.getString(c
+					.getColumnIndex(Tasks.KEY_SHORT_DESCRIPTION_SPANISH));
+		if (lang.equals("en"))
+			taskShortDescription = c.getString(c
+					.getColumnIndex(Tasks.KEY_SHORT_DESCRIPTION_ENGLISH));
 
 		boolean done = c.getInt(c.getColumnIndexOrThrow(Tasks.KEY_DONE)) == 1 ? true
 				: false;

@@ -17,7 +17,7 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
@@ -78,7 +78,7 @@
     <string name="switchboard_button_text_adult">Report Adult</string>
     <string name="switchboard_button_text_map">Map Data</string>
     <string name="switchboard_button_text_gallery">Browse Gallery</string>
-        
+
     <!-- activity labels -->
     <string name="activity_label_report_editing">Tigatrapp: Report Editor</string>
     <string name="activity_label_report_new">Tigatrapp: New Report</string>
@@ -213,6 +213,13 @@
     <string name="delete_task_from_list_question">Delete mission from list?</string>
     <string name="delete">Delete</string>
     <string name="new_mission">New Tigatrapp mission!</string>
+    <string name="mission_button_left_survey">Submit responses</string>
+    <string name="mission_button_left_url">Visit webpage</string>
+    <string name="mission_button_middle">Do mission later</string>
+    <string name="mission_button_right">Delete mission</string>
+    <string name="mission_button_mark_complete">Mark complete</string>
+    <string name="toast__mission_already_complete">You have already completed this mission. Thank you!</string>
+    <string name="toast_mission_expired">This mission has expired.</string>
 
     <!-- Menu -->
     <string name="menu_option_task_list">Mission List</string>
@@ -233,9 +240,7 @@
     <string name="menu_map_share">Share</string>
     <string name="menu_toggle_view">Satellite</string>
     <string name="menu_option_refresh">Refresh</string>
-
-    
-        <string name="settings_language_title">Language</string>
+    <string name="settings_language_title">Language</string>
     <string name="settings_language_detail">Choose language</string>
     <string name="settings_language_button">Choose</string>
     <string name="settings_sync_title">Synchronize</string>
@@ -246,7 +251,7 @@
     <string name="sample_my_locations">Sample my locations</string>
     <string name="sampling_is_off">Location sampling is off</string>
     <string name="sampling_is_on">Location sampling is on</string>
-    
+
     <!-- Misc -->
 
     <string name="added_current_loc">Added current location.</string>

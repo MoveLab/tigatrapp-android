@@ -117,6 +117,8 @@ public class TaskListActivity extends FragmentActivity implements
 						i.putExtra(Tasks.KEY_TASK_JSON, taskJson);
 						i.putExtra(Tasks.KEY_ROW_ID, rowId);
 						startActivity(i);
+						
+						//TODO put in strings
 					} else {
 						Util.toast(context,
 								"You have already completed this task. Thank you!");

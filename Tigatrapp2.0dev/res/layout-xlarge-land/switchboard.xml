@@ -62,7 +62,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:gravity="center_vertical|center_horizontal"
-                    android:src="@drawable/ic_switchboard_icon_breeding_site" />
+                    android:src="@drawable/ic_switchboard_icon_breeding_site_large" />
 
                 <TextView
                     android:id="@+id/reportButtonSiteText"
@@ -90,7 +90,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:gravity="center_vertical|center_horizontal"
-                    android:src="@drawable/ic_switchboard_icon_adult" />
+                    android:src="@drawable/ic_switchboard_icon_adult_large" />
 
                 <TextView
                     android:id="@+id/reportButtonAdultText"
@@ -124,7 +124,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:gravity="center_vertical|center_horizontal"
-                    android:src="@drawable/ic_switchboard_icon_map" />
+                    android:src="@drawable/ic_switchboard_icon_map_large" />
 
                 <TextView
                     android:id="@+id/reportButtonMapText"
@@ -152,7 +152,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
                     android:gravity="center_vertical|center_horizontal"
-                    android:src="@drawable/ic_switchboard_icon_gallery" />
+                    android:src="@drawable/ic_switchboard_icon_gallery_large" />
 
                 <TextView
                     android:id="@+id/reportButtonGalleryText"

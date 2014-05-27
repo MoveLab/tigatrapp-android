@@ -55,10 +55,9 @@
                 android:background="@drawable/selectorcolors_light" >
 
                 <ImageView
-                    android:layout_width="190dip"
-                    android:layout_height="190dip"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
+                    android:layout_width="160dip"
+                    android:layout_height="160dip"
+                    android:layout_centerInParent="true"
                     android:gravity="center_vertical|center_horizontal"
                     android:src="@drawable/ic_switchboard_icon_breeding_site_large" />
 
@@ -68,9 +67,20 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:gravity="center"
-                    android:paddingTop="5dip"
+                    android:paddingTop="10dip"
+                    android:text="@string/switchboard_button_text_report"
+                    android:textColor="@color/switchboard_button_text"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center"
+                    android:paddingBottom="10dip"
                     android:text="@string/switchboard_button_text_sites"
-                    android:textColor="@color/switchboard_button_text" />
+                    android:textColor="@color/switchboard_button_text"
+                    android:textSize="18sp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -83,10 +93,9 @@
                 android:background="@drawable/selectorcolors_light" >
 
                 <ImageView
-                    android:layout_width="190dip"
-                    android:layout_height="190dip"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
+                    android:layout_width="160dip"
+                    android:layout_height="160dip"
+                    android:layout_centerInParent="true"
                     android:gravity="center_vertical|center_horizontal"
                     android:src="@drawable/ic_switchboard_icon_adult_large" />
 
@@ -96,9 +105,20 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:gravity="center"
-                    android:paddingTop="5dip"
+                    android:paddingTop="10dip"
+                    android:text="@string/switchboard_button_text_report"
+                    android:textColor="@color/switchboard_button_text"
+                    android:textSize="18sp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center"
+                    android:paddingBottom="10dip"
                     android:text="@string/switchboard_button_text_adult"
-                    android:textColor="@color/switchboard_button_text" />
+                    android:textColor="@color/switchboard_button_text"
+                    android:textSize="18sp" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -130,9 +150,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:gravity="center"
-                    android:paddingTop="5dip"
+                    android:paddingTop="10dip"
                     android:text="@string/switchboard_button_text_map"
-                    android:textColor="@color/switchboard_button_text" />
+                    android:textColor="@color/switchboard_button_text"
+                    android:textSize="18sp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -158,9 +179,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:gravity="center"
-                    android:paddingTop="5dip"
+                    android:paddingTop="10dip"
                     android:text="@string/switchboard_button_text_gallery"
-                    android:textColor="@color/switchboard_button_text" />
+                    android:textColor="@color/switchboard_button_text"
+                    android:textSize="18sp" />
             </RelativeLayout>
         </LinearLayout>
 

@@ -67,8 +67,9 @@
 
     <!-- Switchboard -->
     <string name="dataMap_CD">Les meves dades</string>
-    <string name="switchboard_button_text_sites">ENVIA: LLOC</string>
-    <string name="switchboard_button_text_adult">ENVIA: ADULT</string>
+    <string name="switchboard_button_text_report">ENVIA</string>
+    <string name="switchboard_button_text_sites">LLOC DE CRIA</string>
+    <string name="switchboard_button_text_adult">MOSQUIT TIGRE</string>
     <string name="switchboard_button_text_map">EL MEU MAPA</string>
     <string name="switchboard_button_text_gallery">GALERIA</string>
 

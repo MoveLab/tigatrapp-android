@@ -67,8 +67,9 @@
 
     <!-- Switchboard -->
     <string name="dataMap_CD">Mis datos</string>
-    <string name="switchboard_button_text_sites">ENVIA: LUGAR</string>
-    <string name="switchboard_button_text_adult">ENVIA: ADULTO</string>
+        <string name="switchboard_button_text_report">ENVIA</string>
+    <string name="switchboard_button_text_sites">LUGAR DE CRIA</string>
+    <string name="switchboard_button_text_adult">MOSQUITO TIGRE</string>
     <string name="switchboard_button_text_map">MI MAPA</string>
     <string name="switchboard_button_text_gallery">GALERIA</string>
 

@@ -22,17 +22,14 @@
 package ceab.movlab.tigerapp;
 
 import java.util.Iterator;
-import java.util.Locale;
 import java.util.UUID;
 
+import org.apache.http.HttpResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import ceab.movelab.tigerapp.R;
 import android.content.Context;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.os.Build;
 import android.util.Log;
 
 /**
@@ -122,7 +119,7 @@ public class Report {
 		this.reportVersion = reportVersion;
 		this.reportTime = reportTime;
 		this.creation_time = creation_time;
-		this.versionTimeString = versionTimeString;
+		this.versionTimeString = version_time_string;
 		this.type = type;
 		this.confirmation = confirmation;
 		this.confirmationCode = confirmationCode;
@@ -466,14 +463,14 @@ public class Report {
 		return result;
 	}
 
-	public boolean upload(Context context) {
+	public HttpResponse upload(Context context) {
 
-		boolean result = false;
+		HttpResponse result = null;
 
 		// TESTING ONLY NOW
 		JSONObject data = this.exportJSON(context);
 		Log.i("Report JSON conversion:", data.toString());
-		result = Util.putJSON(data, Util.API_REPORT);
+		result = Util.putJSON(data, Util.API_REPORT, context);
 
 		return result;
 

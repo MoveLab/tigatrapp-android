@@ -101,7 +101,6 @@ import javax.crypto.Cipher;
 import javax.crypto.IllegalBlockSizeException;
 import javax.crypto.NoSuchPaddingException;
 
-import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
@@ -323,6 +322,12 @@ public class Util {
 			Log.e("DATE parsing", "exception: " + e);
 			e.printStackTrace();
 		} // ICU4J;
+		return result;
+	}
+
+	public static int triggerTime2HourInt(String triggerTime) {
+		int result = 0;
+		result = Integer.parseInt(triggerTime.substring(0, 1));
 		return result;
 	}
 
@@ -1007,82 +1012,123 @@ public class Util {
 	 * @param path
 	 *            String representing URL to the server API.
 	 */
-	public static boolean putJSON(JSONObject jsonData, String apiEndpoint) {
-		boolean result = false;
+	public static HttpResponse putJSON(JSONObject jsonData, String apiEndpoint,
+			Context context) {
+		HttpResponse result = null;
+		if (!isOnline(context)) {
+			return null;
+		} else {
 
-		try {
-			DefaultHttpClient httpclient = new DefaultHttpClient();
-			HttpPost httpost = new HttpPost(URL_TIGASERVER_API_ROOT
-					+ apiEndpoint);
-			StringEntity se = new StringEntity(jsonData.toString(), "UTF-8");
-			httpost.setEntity(se);
-			httpost.setHeader("Accept", "application/json");
-			httpost.setHeader("Content-type", "application/json");
-			httpost.setHeader("Authorization", TIGASERVER_AUTHORIZATION);
+			try {
+				DefaultHttpClient httpclient = new DefaultHttpClient();
+				HttpPost httpost = new HttpPost(URL_TIGASERVER_API_ROOT
+						+ apiEndpoint);
+				StringEntity se = new StringEntity(jsonData.toString(), "UTF-8");
+				httpost.setEntity(se);
+				httpost.setHeader("Accept", "application/json");
+				httpost.setHeader("Content-type", "application/json");
+				httpost.setHeader("Authorization", TIGASERVER_AUTHORIZATION);
 
-			Log.i("ABOUT TO POST TO", "URI: " + httpost.getURI());
+				Log.i("ABOUT TO POST TO", "URI: " + httpost.getURI());
 
-			HttpResponse httpResponse;
-			httpResponse = httpclient.execute(httpost);
-			StatusLine status = httpResponse.getStatusLine();
-			int statusCode = status.getStatusCode();
-			if (statusCode >= 200 && statusCode < 300) {
-				result = true;
+				result = httpclient.execute(httpost);
+
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (ClientProtocolException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
-			Log.i("Util.putJSON", "Status Code: " + statusCode);
-			for (Header h : httpResponse.getAllHeaders()) {
-				Log.i("Util.putJSON",
-						"Header: " + h.getName() + ": " + h.getValue());
-
-			}
-
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClientProtocolException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			return result;
 		}
-		return result;
 	}
 
-	public static String getJSON(String apiEndpoint) {
-		StringBuilder builder = new StringBuilder();
-		HttpClient client = new DefaultHttpClient();
-		HttpGet httpGet = new HttpGet(URL_TIGASERVER_API_ROOT + apiEndpoint);
+	public static int getResponseStatusCode(HttpResponse httpResponse) {
 
-		httpGet.setHeader("Accept", "application/json");
-		httpGet.setHeader("Content-type", "application/json");
-		httpGet.setHeader("Authorization", TIGASERVER_AUTHORIZATION);
-
-		try {
-			HttpResponse response = client.execute(httpGet);
-			StatusLine statusLine = response.getStatusLine();
-			int statusCode = statusLine.getStatusCode();
-			Log.i("getJson", "Status code:" + statusCode);
-
-			if (statusCode == 200) {
-				HttpEntity entity = response.getEntity();
-				InputStream content = entity.getContent();
-				BufferedReader reader = new BufferedReader(
-						new InputStreamReader(content));
-				String line;
-				while ((line = reader.readLine()) != null) {
-					builder.append(line);
-				}
-			} else {
-				Log.e("getJson", "Failed to download json data");
-			}
-		} catch (ClientProtocolException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		int statusCode = 0;
+		if (httpResponse != null) {
+			StatusLine status = httpResponse.getStatusLine();
+			statusCode = status.getStatusCode();
+			Log.i("Util.putJSON", "Status Code: " + statusCode);
 		}
+		return statusCode;
+	}
 
-		return builder.toString();
+	public static JSONObject parseResponse(HttpResponse response) {
+		JSONObject json = new JSONObject();
+		if (response != null) {
+			BufferedReader reader;
+			try {
+				reader = new BufferedReader(new InputStreamReader(response
+						.getEntity().getContent(), "UTF-8"));
+				StringBuilder builder = new StringBuilder();
+				for (String line = null; (line = reader.readLine()) != null;) {
+					builder.append(line).append("\n");
+				}
+				json = new JSONObject(builder.toString());
+				Log.i("Util.putJSON", "Response: " + json.toString());
+
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IllegalStateException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (JSONException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return json;
+	}
+
+	public static String getJSON(String apiEndpoint, Context context) {
+
+		if (!isOnline(context)) {
+			return "";
+		} else {
+
+			StringBuilder builder = new StringBuilder();
+			HttpClient client = new DefaultHttpClient();
+			HttpGet httpGet = new HttpGet(URL_TIGASERVER_API_ROOT + apiEndpoint);
+
+			httpGet.setHeader("Accept", "application/json");
+			httpGet.setHeader("Content-type", "application/json");
+			httpGet.setHeader("Authorization", TIGASERVER_AUTHORIZATION);
+
+			try {
+				HttpResponse response = client.execute(httpGet);
+				StatusLine statusLine = response.getStatusLine();
+				int statusCode = statusLine.getStatusCode();
+				Log.i("getJson", "Status code:" + statusCode);
+
+				if (statusCode == 200) {
+					HttpEntity entity = response.getEntity();
+					InputStream content = entity.getContent();
+					BufferedReader reader = new BufferedReader(
+							new InputStreamReader(content));
+					String line;
+					while ((line = reader.readLine()) != null) {
+						builder.append(line);
+					}
+				} else {
+					Log.e("getJson", "Failed to download json data");
+				}
+			} catch (ClientProtocolException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			return builder.toString();
+		}
 	}
 
 	public static String reportType2String(int reportType) {
@@ -1105,14 +1151,15 @@ public class Util {
 		return result;
 	}
 
-	public static Boolean registerOnServer() {
+	public static Boolean registerOnServer(Context context) {
 
 		Boolean result = false;
 		JSONObject jsonUUID;
 		try {
 			jsonUUID = new JSONObject();
 			jsonUUID.put("user_UUID", PropertyHolder.getUserId());
-			if (Util.putJSON(jsonUUID, Util.API_USER)) {
+			int statusCode = Util.getResponseStatusCode(Util.putJSON(jsonUUID, Util.API_USER, context));
+			if (statusCode <300 && statusCode > 0) {
 				PropertyHolder.setRegistered(true);
 				result = true;
 			} else {

@@ -74,10 +74,11 @@
 
     <!-- Switchboard -->
     <string name="dataMap_CD">My Data</string>
-    <string name="switchboard_button_text_sites">Report Site</string>
-    <string name="switchboard_button_text_adult">Report Adult</string>
-    <string name="switchboard_button_text_map">Map Data</string>
-    <string name="switchboard_button_text_gallery">Browse Gallery</string>
+     <string name="switchboard_button_text_report">REPORT</string>
+    <string name="switchboard_button_text_sites">BREEDING SITE</string>
+    <string name="switchboard_button_text_adult">TIGER MOSQUITO</string>
+    <string name="switchboard_button_text_map">MY MAP</string>
+    <string name="switchboard_button_text_gallery">GALLERY</string>
 
     <!-- activity labels -->
     <string name="activity_label_report_editing">Tigatrapp: Report Editor</string>

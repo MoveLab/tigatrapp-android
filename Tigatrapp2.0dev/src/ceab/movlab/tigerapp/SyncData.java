@@ -42,6 +42,7 @@
 
 package ceab.movlab.tigerapp;
 
+import org.apache.http.HttpResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -116,12 +117,12 @@ public class SyncData extends Service {
 
 			// Check if user has registered on server - if not, try to register
 			// first and only do other uploads once this is done
-			if (PropertyHolder.isRegistered() || Util.registerOnServer()) {
+			if (PropertyHolder.isRegistered() || Util.registerOnServer(context)) {
 
 				// try to get config
 				try {
-					JSONObject configJson = new JSONObject(
-							Util.getJSON(Util.API_CONFIGURATION));
+					JSONObject configJson = new JSONObject(Util.getJSON(
+							Util.API_CONFIGURATION, context));
 					if (configJson != null && configJson.has("samples_per_day")) {
 						int samplesPerDay = configJson
 								.getInt("samples_per_day");
@@ -149,9 +150,10 @@ public class SyncData extends Service {
 				try {
 
 					JSONArray missions = new JSONArray(
-							Util.getJSON(Util.API_MISSION
-									+ (latest_id > 0 ? ("?id_greater_than=" + latest_id)
-											: "")));
+							Util.getJSON(
+									Util.API_MISSION
+											+ (latest_id > 0 ? ("?id_greater_than=" + latest_id)
+													: ""), context));
 					if (missions != null && missions.length() > 0) {
 						for (int i = 0; i < missions.length(); i++) {
 							JSONObject mission = missions.getJSONObject(i);
@@ -233,7 +235,10 @@ public class SyncData extends Service {
 
 					thisFix.exportJSON(context);
 
-					if (thisFix.upload(context)) {
+					int statusCode = Util.getResponseStatusCode(thisFix
+							.upload(context));
+
+					if (statusCode < 300 && statusCode > 0) {
 
 						ContentValues cv = new ContentValues();
 						String sc = Fixes.KEY_ROWID + " = "
@@ -270,8 +275,6 @@ public class SyncData extends Service {
 						.getColumnIndexOrThrow(Reports.KEY_CREATION_TIME);
 				int reportVersionCol = c
 						.getColumnIndexOrThrow(Reports.KEY_REPORT_VERSION);
-				int versionTimeCol = c
-						.getColumnIndexOrThrow(Reports.KEY_VERSION_TIME);
 				int versionTimeStringCol = c
 						.getColumnIndexOrThrow(Reports.KEY_VERSION_TIME_STRING);
 				int typeCol = c.getColumnIndexOrThrow(Reports.KEY_TYPE);
@@ -327,8 +330,8 @@ public class SyncData extends Service {
 							c.getInt(reportVersionCol),
 							c.getLong(reportTimeCol),
 							c.getString(creationTimeCol),
-							c.getString(versionTimeCol), c.getInt(typeCol),
-							c.getString(confirmationCol),
+							c.getString(versionTimeStringCol),
+							c.getInt(typeCol), c.getString(confirmationCol),
 							c.getInt(confirmationCodeCol),
 							c.getInt(locationChoiceCol),
 							c.getFloat(currentLocationLatCol),
@@ -349,8 +352,15 @@ public class SyncData extends Service {
 							c.getString(osLanguageCol),
 							c.getString(appLanguageCol),
 							c.getString(missionUUIDCol));
-					if (report.upload(context)) {
 
+					HttpResponse response = report.upload(context);
+					int statusCode = Util.getResponseStatusCode(response);
+					// TODO make this better. FOR NOW as long as we were online
+					// and got some response from the server, mark it as
+					// uploaded (I know this is ugly, but until I deal with
+					// parsing all the possible responses and find ways to try
+					// again, better to delete it and stop trying to upload.
+					if (statusCode > 0) {
 						// mark record as uploaded
 						ContentValues cv = new ContentValues();
 						String sc = Reports.KEY_ROW_ID + " = "

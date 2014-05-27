@@ -56,10 +56,9 @@
                 android:background="@drawable/selectorcolors_light" >
 
                 <ImageView
-                    android:layout_width="110dip"
-                    android:layout_height="110dip"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
+                    android:layout_width="90dip"
+                    android:layout_height="90dip"
+                    android:layout_centerInParent="true"
                     android:gravity="center_vertical|center_horizontal"
                     android:src="@drawable/ic_switchboard_icon_breeding_site" />
 
@@ -70,6 +69,15 @@
                     android:layout_alignParentTop="true"
                     android:gravity="center"
                     android:paddingTop="5dip"
+                    android:text="@string/switchboard_button_text_report"
+                    android:textColor="@color/switchboard_button_text" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center"
+                    android:paddingBottom="5dip"
                     android:text="@string/switchboard_button_text_sites"
                     android:textColor="@color/switchboard_button_text" />
             </RelativeLayout>
@@ -84,10 +92,9 @@
                 android:background="@drawable/selectorcolors_light" >
 
                 <ImageView
-                    android:layout_width="110dip"
-                    android:layout_height="110dip"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
+                    android:layout_width="90dip"
+                    android:layout_height="90dip"
+                    android:layout_centerInParent="true"
                     android:gravity="center_vertical|center_horizontal"
                     android:src="@drawable/ic_switchboard_icon_adult" />
 
@@ -98,8 +105,18 @@
                     android:layout_alignParentTop="true"
                     android:gravity="center"
                     android:paddingTop="5dip"
+                    android:text="@string/switchboard_button_text_report"
+                    android:textColor="@color/switchboard_button_text" />
+                
+                                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center"
+                    android:paddingBottom="5dip"
                     android:text="@string/switchboard_button_text_adult"
                     android:textColor="@color/switchboard_button_text" />
+                
             </RelativeLayout>
         </LinearLayout>
 
@@ -118,10 +135,9 @@
                 android:background="@drawable/selectorcolors_light" >
 
                 <ImageView
-                    android:layout_width="110dip"
-                    android:layout_height="110dip"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
+                    android:layout_width="90dip"
+                    android:layout_height="90dip"
+                    android:layout_centerInParent="true"
                     android:gravity="center_vertical|center_horizontal"
                     android:src="@drawable/ic_switchboard_icon_map" />
 
@@ -146,10 +162,9 @@
                 android:background="@drawable/selectorcolors_light" >
 
                 <ImageView
-                    android:layout_width="110dip"
-                    android:layout_height="110dip"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
+                    android:layout_width="90dip"
+                    android:layout_height="90dip"
+                    android:layout_centerInParent="true"
                     android:gravity="center_vertical|center_horizontal"
                     android:src="@drawable/ic_switchboard_icon_gallery" />
 

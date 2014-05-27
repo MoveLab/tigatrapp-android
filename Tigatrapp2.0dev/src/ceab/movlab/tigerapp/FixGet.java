@@ -201,7 +201,7 @@ public class FixGet extends Service {
 					|| locationManager
 							.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 
-				new CountDownTimer(Util.LISTENER_WINDOW, Util.LISTENER_WINDOW) {
+				new CountDownTimer(0, Util.LISTENER_WINDOW) {
 
 					public void onTick(long millisUntilFinished) {
 						// nothing
@@ -429,19 +429,21 @@ public class FixGet extends Service {
 					JSONObject thisTrigger = theseTriggers.getJSONObject(i);
 
 					Log.i("FG", "thisTrigger: " + thisTrigger.toString());
-					Log.i("FG", ""
-							+ (maskedLat == thisTrigger.getDouble("lat")));
-					Log.i("FG", ""
-							+ (maskedLon == thisTrigger.getDouble("lon")));
-					Log.i("FG",
-							"" + (thisHour >= thisTrigger.getInt("start_hour")));
-					Log.i("FG",
-							"" + (thisHour <= thisTrigger.getInt("end_hour")));
 
-					if (maskedLat == thisTrigger.getDouble("lat")
-							&& maskedLon == thisTrigger.getDouble("lon")
-							&& thisHour >= thisTrigger.getInt("start_hour")
-							&& thisHour <= thisTrigger.getInt("end_hour")) {
+					if (thisLat >= thisTrigger
+							.getDouble(TaskModel.KEY_TASK_TRIGGER_LAT_LOWERBOUND)
+							&& thisLat <= thisTrigger
+									.getDouble(TaskModel.KEY_TASK_TRIGGER_LON_UPPERBOUND)
+							&& thisLon >= thisTrigger
+									.getDouble(TaskModel.KEY_TASK_TRIGGER_LAT_LOWERBOUND)
+							&& thisLon <= thisTrigger
+									.getDouble(TaskModel.KEY_TASK_TRIGGER_LON_UPPERBOUND)
+							&& thisHour >= Util
+									.triggerTime2HourInt(thisTrigger
+											.getString(TaskModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND))
+							&& thisHour <= Util
+									.triggerTime2HourInt(thisTrigger
+											.getString(TaskModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND))) {
 
 						Log.i("FG", "task triggered");
 
@@ -454,10 +456,22 @@ public class FixGet extends Service {
 
 						Intent intent = new Intent(
 								TigerBroadcastReceiver.TIGER_TASK_MESSAGE);
-						intent.putExtra(
-								Tasks.KEY_TITLE_CATALAN,
-								c.getString(c
-										.getColumnIndexOrThrow(Tasks.KEY_TITLE_CATALAN)));
+						if (PropertyHolder.getLanguage().equals("ca")) {
+							intent.putExtra(
+									Tasks.KEY_TITLE,
+									c.getString(c
+											.getColumnIndexOrThrow(Tasks.KEY_TITLE_CATALAN)));
+						} else if (PropertyHolder.getLanguage().equals("es")) {
+							intent.putExtra(
+									Tasks.KEY_TITLE,
+									c.getString(c
+											.getColumnIndexOrThrow(Tasks.KEY_TITLE_SPANISH)));
+						} else if (PropertyHolder.getLanguage().equals("en")) {
+							intent.putExtra(
+									Tasks.KEY_TITLE,
+									c.getString(c
+											.getColumnIndexOrThrow(Tasks.KEY_TITLE_ENGLISH)));
+						}
 						context.sendBroadcast(intent);
 					}
 				}

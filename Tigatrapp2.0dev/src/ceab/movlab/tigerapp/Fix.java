@@ -21,30 +21,11 @@
 
 package ceab.movlab.tigerapp;
 
-import java.io.ByteArrayInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
-
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.ResponseHandler;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.BasicResponseHandler;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-import org.apache.http.protocol.HTTP;
+import org.apache.http.HttpResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
-import android.util.Log;
 
 /**
  * Defines map point objects used in DriverMapActivity.
@@ -88,11 +69,11 @@ public class Fix {
 
 	
 
-	public boolean upload(Context context) {
+	public HttpResponse upload(Context context) {
 
-		boolean result = false;
+		HttpResponse result = null;
 
-			result = Util.putJSON(this.exportJSON(context), Util.API_FIXES);
+			result = Util.putJSON(this.exportJSON(context), Util.API_FIXES, context);
 
 		return result;
 

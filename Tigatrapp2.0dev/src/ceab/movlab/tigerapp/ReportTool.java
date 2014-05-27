@@ -979,7 +979,8 @@ public class ReportTool extends Activity {
 
 		protected Boolean doInBackground(Context... context) {
 
-			if (PropertyHolder.isRegistered() || Util.registerOnServer()) {
+			if (PropertyHolder.isRegistered()
+					|| Util.registerOnServer(context[0])) {
 
 				if (!editing)
 					thisReport.creation_time = Util.ecma262(System
@@ -1034,7 +1035,9 @@ public class ReportTool extends Activity {
 
 					}
 
-					if (thisReport.upload(context[0]))
+					int statusCode = Util.getResponseStatusCode(thisReport
+							.upload(context[0]));
+					if (statusCode < 300 && statusCode != 0)
 						resultFlag = SUCCESS;
 					else
 						resultFlag = UPLOAD_ERROR;

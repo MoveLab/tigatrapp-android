@@ -50,6 +50,13 @@ public class TaskModel {
 	public static final String KEY_TASK_BUTTON_RIGHT_TEXT = "mission_button_right_text";
 	public static final String KEY_TASK_BUTTON_RIGHT_ACTION = "mission_button_right_action";
 	public static final String KEY_TASK_BUTTON_RIGHT_URL = "mission_button_right_url";
+	
+	public static final String KEY_TASK_TRIGGER_LON_LOWERBOUND = "lon_lower_bound";
+	public static final String KEY_TASK_TRIGGER_LON_UPPERBOUND = "lon_upper_bound";
+	public static final String KEY_TASK_TRIGGER_LAT_LOWERBOUND = "lon_lower_bound";
+	public static final String KEY_TASK_TRIGGER_LAT_UPPERBOUND = "lon_upper_bound";
+	public static final String KEY_TASK_TRIGGER_TIME_LOWERBOUND = "lon_lowerbound";
+	public static final String KEY_TASK_TRIGGER_TIME_UPPERBOUND = "lon_upperbound";
 
 	// TODO map these to localize strings when reading task
 	public static final int BUTTONTEXT_URL_TASK = 0;

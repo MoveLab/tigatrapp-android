@@ -78,6 +78,7 @@ import android.content.res.Resources;
 import android.os.Build;
 import android.os.SystemClock;
 import android.support.v4.app.TaskStackBuilder;
+import android.util.Log;
 import ceab.movelab.tigerapp.R;
 import ceab.movlab.tigerapp.ContentProviderContractTasks.Tasks;
 
@@ -197,6 +198,7 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 					// FOR TESTING
 					currentSamplingTimes[i] = Util.iso8601(System
 							.currentTimeMillis() + thisTriggerTime);
+					Log.i("Current sampling time: ", currentSamplingTimes[i]);
 				}
 				PropertyHolder.setCurrentFixTimes(currentSamplingTimes);
 			} else if (action.contains(STOP_SAMPLING_MESSAGE)) {

@@ -60,7 +60,7 @@ public class Settings extends Activity {
 
 				Intent uploadIntent = new Intent(Settings.this, SyncData.class);
 				startService(uploadIntent);
-				Util.toast(context, "Syncing Data.");
+				Util.toast(context, getResources().getString(R.string.settings_syncing));
 
 			}
 

@@ -117,14 +117,20 @@ public class TaskListActivity extends FragmentActivity implements
 						i.putExtra(Tasks.KEY_TASK_JSON, taskJson);
 						i.putExtra(Tasks.KEY_ROW_ID, rowId);
 						startActivity(i);
-						
-						//TODO put in strings
+
+						// TODO put in strings
 					} else {
-						Util.toast(context,
-								"You have already completed this task. Thank you!");
+						Util.toast(
+								context,
+								getResources()
+										.getString(
+												R.string.toast__mission_already_complete));
 					}
 				} else {
-					Util.toast(context, "This task has expired.");
+					Util.toast(
+							context,
+							getResources().getString(
+									R.string.toast_mission_expired));
 				}
 			}
 		});

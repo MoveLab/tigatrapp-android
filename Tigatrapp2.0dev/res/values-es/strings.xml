@@ -17,8 +17,7 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
-
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
@@ -32,7 +31,7 @@
         negros y con rayas blancas, 2) tienen una raya blanca en la cabeza y en el tórax y 3) tienen  
         rayas blancas en el abdomen y en 
         las patas son mosquito tigre. Hay otros 
-        insectos parecidos, !no los confundas!</item>
+        insectos parecidos, !no los ¡confundas!</item>
         <item>Hembra de mosquito tigre. Observa las rayas en el abdomen. 
            Recuerda que el mosquito tigre es muy pequeño, 
            no mide más de 5 mm (con patas incluidas, aproximadamente la mitad de una moneda de 1 céntimo).</item>
@@ -51,7 +50,7 @@
         Los huevos son tan pequeños que son casi invisibles a simple vista. 
         Recuerda que el mosquito tigre pone los huevos en recipientes pequeños, en paredes  
         secas cerca de agua estancada y sucia.</item>
-        <item>Larvas(más alargadas) y pupas (más redondeadas) de mosquito tigre. Observa que son acuáticas. 
+        <item>Larvas (más alargadas) y pupas (más redondeadas) de mosquito tigre. Observa que son acuáticas. 
         Las larvas emergen de los huevos cuando éstos quedan cubiertos de agua y con el tiempo mudan a pupas.</item>
         <item>Larvas(más alargadas) y pupas (más redondeadas) de mosquito tigre. 
         Recuerda evitar tener pequeñas acumulaciones de agua en casa.</item>
@@ -67,7 +66,7 @@
 
     <!-- Switchboard -->
     <string name="dataMap_CD">Mis datos</string>
-        <string name="switchboard_button_text_report">ENVIA</string>
+    <string name="switchboard_button_text_report">ENVIA</string>
     <string name="switchboard_button_text_sites">LUGAR DE CRIA</string>
     <string name="switchboard_button_text_adult">MOSQUITO TIGRE</string>
     <string name="switchboard_button_text_map">MI MAPA</string>
@@ -84,7 +83,7 @@
     <string name="location_label_editing">Localización*</string>
     <string name="photo_check_label_editing">Imágenes</string>
     <string name="note_check_label_editing">Nota</string>
-    <string name="report_title_adult">Adulto</string>
+    <string name="report_title_adult">Mosquito tigre</string>
     <string name="report_title_site">Lugar de cría</string>
     <string name="checklist_label">Completa descripción*</string>
     <string name="location_label">Añade localización*</string>
@@ -194,7 +193,7 @@
     <string name="photo_selector_take_photo_button">Haz foto</string>
     <string name="photo_selector_attach_photo_button">Adjunta foto</string>
     <string name="photo_selector_remove_attachment">Elimina adjunto</string>
-    <string name="photo_selector_remove_this_photo">Elimina ésta</string>
+    <string name="photo_selector_remove_this_photo">Elimina</string>
     <string name="photo_selector_from_thisreport">de este informe</string>
     <string name="photo_selector_remove_button_label">Elimina</string>
 
@@ -214,7 +213,7 @@
     <string name="mission_button_middle">Hazlo más adelante</string>
     <string name="mission_button_right">Elimina misión</string>
     <string name="mission_button_mark_complete">Marca la como completada</string>
-    <string name="toast__mission_already_complete">Ya has completado esta misión. Gracias!</string>
+    <string name="toast__mission_already_complete">Esta misión ya ha sido realizada. ¡Gracias!</string>
     <string name="toast_mission_expired">Esta misión ha expirado.</string>
 
     <!-- Menu -->
@@ -236,18 +235,21 @@
     <string name="menu_map_share">Comparte</string>
     <string name="menu_toggle_view">Imagen</string>
     <string name="menu_option_refresh">Actualiza</string>
+
     <!-- Settings -->
     <string name="settings_language_title">Idioma</string>
     <string name="settings_language_detail">Elija idioma</string>
     <string name="settings_language_button">Elija</string>
     <string name="settings_sync_title">Sincroniza</string>
-    <string name="settings_sync_detail">Sincroniza tus datos</string>
+    <string name="settings_sync_detail">Actualiza información y noticias de Tigatrapp</string>
     <string name="settings_sync_button">Sinc.</string>
+    <string name="settings_syncing">Sincronizando datos</string>
     <string name="on">Encendido</string>
     <string name="off">Apagado</string>
-    <string name="sample_my_locations">Probar mis lugares</string>
-    <string name="sampling_is_off">El muestreo de los lugares está desactivado</string>
-    <string name="sampling_is_on">El muestreo de los lugares está activado</string>
+    <string name="sample_my_locations">Geolocalización</string>
+    <string name="sampling_is_off">Permitir envío de datos aproximados de mi localización</string>
+    <string name="sampling_is_on">Permitir envío de datos aproximados de mi localización</string>
+
     <!-- Misc -->
 
     <string name="added_current_loc">Posición actual guardada</string>

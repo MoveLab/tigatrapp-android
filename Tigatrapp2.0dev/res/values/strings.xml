@@ -91,7 +91,7 @@
     <string name="location_label_editing">Location*</string>
     <string name="photo_check_label_editing">Photo(s)</string>
     <string name="note_check_label_editing">Note</string>
-    <string name="report_title_adult">Adult Mosquito</string>
+    <string name="report_title_adult">Tiger Mosquito</string>
     <string name="report_title_site">Breeding Site</string>
     <string name="checklist_label">Add description*</string>
     <string name="location_label">Add location*</string>
@@ -241,12 +241,16 @@
     <string name="menu_map_share">Share</string>
     <string name="menu_toggle_view">Satellite</string>
     <string name="menu_option_refresh">Refresh</string>
+    
+    <!-- Settings -->
+    
     <string name="settings_language_title">Language</string>
     <string name="settings_language_detail">Choose language</string>
     <string name="settings_language_button">Choose</string>
     <string name="settings_sync_title">Synchronize</string>
     <string name="settings_sync_detail">Synchronize data with the Tigatrapp server to receive new missions and the latest Tigatrapp news.</string>
     <string name="settings_sync_button">Sync.</string>
+    <string name="settings_syncing">Synchronizing data.</string>
     <string name="on">On</string>
     <string name="off">Off</string>
     <string name="sample_my_locations">Sample my locations</string>

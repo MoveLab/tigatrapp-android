@@ -17,7 +17,7 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
@@ -84,7 +84,7 @@
     <string name="location_label_editing">Localització*</string>
     <string name="photo_check_label_editing">Imatges</string>
     <string name="note_check_label_editing">Nota</string>
-    <string name="report_title_adult">Adult</string>
+    <string name="report_title_adult">Mosquit tigre</string>
     <string name="report_title_site">Lloc de cria</string>
     <string name="checklist_label">Completa descripció*</string>
     <string name="location_label">Afegeix localització*</string>
@@ -193,7 +193,7 @@
     <string name="photo_selector_take_photo_button">Fes foto</string>
     <string name="photo_selector_attach_photo_button">Adjunta foto</string>
     <string name="photo_selector_remove_attachment">Elimina adjunt</string>
-    <string name="photo_selector_remove_this_photo">Elimina aquesta</string>
+    <string name="photo_selector_remove_this_photo">Elimina</string>
     <string name="photo_selector_from_thisreport">d\'aquest informe</string>
     <string name="photo_selector_remove_button_label">Elimina</string>
 
@@ -213,7 +213,7 @@
     <string name="mission_button_middle">Fes més endavant</string>
     <string name="mission_button_right">Elimina missió</string>
     <string name="mission_button_mark_complete">Marca la com completada</string>
-    <string name="toast__mission_already_complete">Ja has completat aquesta misión. Gràcies!</string>
+    <string name="toast__mission_already_complete">Aquesta missió ja s\'ha realitzat. Gràcies!</string>
     <string name="toast_mission_expired">Aquesta misión ha expirat.</string>
 
     <!-- Menu -->
@@ -241,13 +241,14 @@
     <string name="settings_language_detail">Tria idioma</string>
     <string name="settings_language_button">Tria</string>
     <string name="settings_sync_title">Sincronitza</string>
-    <string name="settings_sync_detail">Sincronitza dades</string>
+    <string name="settings_sync_detail">Actualitza informació i notícies de Tigatrapp</string>
     <string name="settings_sync_button">Sinc.</string>
+    <string name="settings_syncing">Sincronitzant dades.</string>
     <string name="on">Encès</string>
     <string name="off">Apagat</string>
-    <string name="sample_my_locations">Provar meus llocs</string>
-    <string name="sampling_is_off">El mostreig dels llocs està desactivat</string>
-    <string name="sampling_is_on">El mostreig dels llocs està activat</string>
+    <string name="sample_my_locations">Geolocalització</string>
+    <string name="sampling_is_off">Permetre enviament de dades aproximades de la meva localització</string>
+    <string name="sampling_is_on">Permetre enviament de dades aproximades de la meva localització</string>
 
     <!-- Misc -->
 

@@ -5,5 +5,10 @@
         android:id="@+id/language"
         android:title="@string/settings_language_title">
     </item>
-
+    <item
+        android:id="@+id/license"
+        android:title="@string/license">
+    </item>
+    
+    
 </menu>

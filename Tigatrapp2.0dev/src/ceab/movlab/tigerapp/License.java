@@ -1,12 +1,34 @@
+/*
+ * Tigatrapp
+ * Copyright (C) 2013, 2014  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
+ * Contact: info@atrapaeltigre.com
+ * 
+ * This file is part of Tigatrapp.
+ * 
+ * Tigatrapp is free software: you can redistribute it and/or modify 
+ * it under the terms of the GNU General Public License as published by 
+ * the Free Software Foundation, either version 3 of the License, or (at 
+ * your option) any later version.
+ * 
+ * Tigatrapp is distributed in the hope that it will be useful, but 
+ * WITHOUT ANY WARRANTY; without even the implied warranty of 
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+ * See the GNU General Public License for more details.
+ * 
+ * You should have received a copy of the GNU General Public License along 
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ **/
+
 package ceab.movlab.tigerapp;
 
-import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
+import android.text.Html;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -15,24 +37,26 @@ import android.view.MenuItem;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 import ceab.movelab.tigerapp.R;
 
 /**
- * Main activity that user interacts with while performing the search..
+ * Displays the License screen.
  * 
  * @author John R.B. Palmer
+ * 
  */
-public class Help extends FragmentActivity {
+public class License extends Activity {
 
 	Context context = this;
 
-	private static final String TIGER_HELP_URL_EN = "http://tigaserver.atrapaeltigre.com/help/android/en";
-	private static final String TIGER_HELP_URL_CA = "http://tigaserver.atrapaeltigre.com/help/android/ca";
-	private static final String TIGER_HELP_URL_ES = "http://tigaserver.atrapaeltigre.com/help/android/es";
+	private static final String LICENSE_URL_EN = "http://tigaserver.atrapaeltigre.com/license/android/en";
+	private static final String LICENSE_URL_CA = "http://tigaserver.atrapaeltigre.com/license/android/ca";
+	private static final String LICENSE_URL_ES = "http://tigaserver.atrapaeltigre.com/license/android/es";
 
-	private static final String TIGER_HELP_URL_OFFLINE_EN = "file:///android_asset/html/help_en.html";
-	private static final String TIGER_HELP_URL_OFFLINE_CA = "file:///android_asset/html/help_ca.html";
-	private static final String TIGER_HELP_URL_OFFLINE_ES = "file:///android_asset/html/help_es.html";
+	private static final String LICENSE_URL_OFFLINE_EN = "file:///android_asset/html/license_en.html";
+	private static final String LICENSE_URL_OFFLINE_CA = "file:///android_asset/html/license_ca.html";
+	private static final String LICENSE_URL_OFFLINE_ES = "file:///android_asset/html/license_es.html";
 
 	private WebView myWebView;
 
@@ -40,7 +64,7 @@ public class Help extends FragmentActivity {
 	Resources res;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		if (!PropertyHolder.isInit())
@@ -48,8 +72,8 @@ public class Help extends FragmentActivity {
 
 		res = getResources();
 		lang = Util.setDisplayLanguage(res);
-
 	}
+
 
 	@Override
 	protected void onPause() {
@@ -68,21 +92,21 @@ public class Help extends FragmentActivity {
 		}
 
 		// if (Util.isOnline(context)) {
-		setContentView(R.layout.webview);
+		setContentView(R.layout.license);
 
-		myWebView = (WebView) findViewById(R.id.webview);
+		myWebView = (WebView) findViewById(R.id.license_webview);
 		myWebView.setWebViewClient(new WebViewClient() {
 			public void onReceivedError(WebView view, int errorCode,
 					String description, String failingUrl) {
 
 				if (lang.equals("ca"))
-					myWebView.loadUrl(TIGER_HELP_URL_OFFLINE_CA);
+					myWebView.loadUrl(LICENSE_URL_OFFLINE_CA);
 
 				else if (lang.equals("es"))
-					myWebView.loadUrl(TIGER_HELP_URL_OFFLINE_ES);
+					myWebView.loadUrl(LICENSE_URL_OFFLINE_ES);
 
 				else
-					myWebView.loadUrl(TIGER_HELP_URL_OFFLINE_EN);
+					myWebView.loadUrl(LICENSE_URL_OFFLINE_EN);
 
 			}
 
@@ -103,11 +127,11 @@ public class Help extends FragmentActivity {
 		}
 
 		if (lang.equals("ca"))
-			myWebView.loadUrl(TIGER_HELP_URL_CA);
+			myWebView.loadUrl(LICENSE_URL_CA);
 		else if (lang.equals("es"))
-			myWebView.loadUrl(TIGER_HELP_URL_ES);
+			myWebView.loadUrl(LICENSE_URL_ES);
 		else
-			myWebView.loadUrl(TIGER_HELP_URL_EN);
+			myWebView.loadUrl(LICENSE_URL_EN);
 
 		super.onResume();
 
@@ -124,13 +148,13 @@ public class Help extends FragmentActivity {
 		}
 		return super.onKeyDown(keyCode, event);
 	}
-
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.consent_menu, menu);
+		inflater.inflate(R.menu.license_menu, menu);
 
 		return true;
 
@@ -144,12 +168,21 @@ public class Help extends FragmentActivity {
 
 		case (R.id.language): {
 
-			Intent i = new Intent(Help.this, LanguageSelector.class);
+			Intent i = new Intent(License.this, LanguageSelector.class);
+			startActivity(i);
+			return true;
+		}
+
+		case (R.id.gpl): {
+
+			Intent i = new Intent(License.this, GPLView.class);
 			startActivity(i);
 			return true;
 		}
 		}
 		return false;
 	}
+
+
 
 }

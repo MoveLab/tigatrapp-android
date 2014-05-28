@@ -392,6 +392,18 @@ public class MapData extends MapActivity {
 				share.setType("image/jpeg");
 
 				share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(f));
+				
+				// add a subject
+				share.putExtra(android.content.Intent.EXTRA_SUBJECT,
+						"Tigatrapp");
+
+				// build the body of the message to be shared
+				String shareMessage = getResources().getString(R.string.project_website);
+
+				// add the message
+				share.putExtra(android.content.Intent.EXTRA_TEXT,
+						shareMessage);
+
 
 				startActivity(Intent.createChooser(share, getResources()
 						.getText(R.string.share_with)));

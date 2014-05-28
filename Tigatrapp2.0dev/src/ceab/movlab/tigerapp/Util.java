@@ -157,6 +157,17 @@ import com.google.android.maps.GeoPoint;
 public class Util {
 
 	/**
+	 * RSS URL for Spanish.
+	 */
+	private static final String URL_RSS_ES = "http://atrapaeltigre.com/web/feed/";
+	
+	/**
+	 * RSS URL for Catalan.
+	 */
+	private static final String URL_RSS_CA = "http://atrapaeltigre.com/web/ca/feed/";
+	
+	
+	/**
 	 * Server API URL.
 	 */
 	private static final String URL_TIGASERVER_API_ROOT = "http://tigaserver.atrapaeltigre.com/api/";
@@ -736,8 +747,10 @@ public class Util {
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo netInfo = cm.getActiveNetworkInfo();
 		if (netInfo != null && netInfo.isConnected()) {
+			Log.i("UTIL ONLINE", "true");
 			return true;
 		}
+		Log.i("UTIL ONLINE", "false");
 		return false;
 	}
 

@@ -803,6 +803,8 @@ public class ReportTool extends Activity {
 			@Override
 			public void onClick(View v) {
 
+				Log.i("report tool", "click");
+
 				removeLocationUpdate("gps");
 				// Log.e(TAG,
 				// "gps listener stopped by onDestroy");
@@ -831,8 +833,12 @@ public class ReportTool extends Activity {
 				 */
 				// uploadReport(thisReport, Util.SERVER);
 
+				Log.i("report tool", "click b");
+
 				if (thisReport.reportTime == Report.MISSING)
 					thisReport.reportTime = System.currentTimeMillis();
+
+				Log.i("report tool", "about to upload");
 
 				new ReportUploadTask().execute(context);
 
@@ -963,6 +969,8 @@ public class ReportTool extends Activity {
 		@Override
 		protected void onPreExecute() {
 
+			Log.i("report tool", "pre ex");
+
 			PropertyHolder.init(context);
 			resultFlag = SUCCESS;
 
@@ -975,79 +983,87 @@ public class ReportTool extends Activity {
 
 			myProgress = 0;
 
+			Log.i("report tool", "pre ex b");
+
 		}
 
 		protected Boolean doInBackground(Context... context) {
 
-			if (PropertyHolder.isRegistered()
-					|| Util.registerOnServer(context[0])) {
-
-				if (!editing)
-					thisReport.creation_time = Util.ecma262(System
-							.currentTimeMillis());
-
-				thisReport.versionTimeString = Util.ecma262(System
+			if (!editing)
+				thisReport.creation_time = Util.ecma262(System
 						.currentTimeMillis());
-				Log.e("JUST MADE VT", "" + thisReport.versionTimeString);
 
-				try {
-					PackageInfo pInfo = getPackageManager().getPackageInfo(
-							getPackageName(), 0);
-					thisReport.packageName = pInfo.packageName;
-					thisReport.packageVersion = pInfo.versionCode;
-				} catch (NameNotFoundException e) {
+			thisReport.versionTimeString = Util.ecma262(System
+					.currentTimeMillis());
+			Log.e("JUST MADE VT", "" + thisReport.versionTimeString);
+
+			try {
+				PackageInfo pInfo = getPackageManager().getPackageInfo(
+						getPackageName(), 0);
+				thisReport.packageName = pInfo.packageName;
+				thisReport.packageVersion = pInfo.versionCode;
+			} catch (NameNotFoundException e) {
+			}
+
+			thisReport.phoneManufacturer = Build.MANUFACTURER;
+			thisReport.phoneModel = Build.MODEL;
+
+			thisReport.os = "Android";
+			thisReport.osversion = Integer.toString(Build.VERSION.SDK_INT);
+			thisReport.osLanguage = Locale.getDefault().getLanguage();
+			thisReport.appLanguage = PropertyHolder.getLanguage();
+
+			// First save report to internal DB
+			ContentResolver cr = getContentResolver();
+			Uri repUri = Reports.CONTENT_URI;
+
+			cr.insert(repUri,
+					ContentProviderValuesReports.createReport(thisReport));
+
+			Uri photosUri = TigaPhotos.CONTENT_URI;
+
+			// now mark all prior reports as not latest version
+			String sc = Reports.KEY_REPORT_ID + " = '" + thisReport.reportId
+					+ "' AND " + Reports.KEY_REPORT_VERSION + " < "
+					+ thisReport.reportVersion;
+
+			ContentValues cv = new ContentValues();
+			cv.put(Reports.KEY_LATEST_VERSION, 0);
+
+			cr.update(repUri, cv, sc, null);
+
+			Log.i("report tool", "1");
+
+			if (!Util.privateMode) {
+
+				Log.i("report tool", "2");
+
+				// now test if there is a data connection
+				if (!Util.isOnline(context[0])) {
+
+					resultFlag = OFFLINE;
+					Log.i("report flag", "offline");
+					return false;
+
 				}
+				Log.i("report tool", "3");
+				if (!PropertyHolder.isRegistered())
+					Util.registerOnServer(context[0]);
 
-				thisReport.phoneManufacturer = Build.MANUFACTURER;
-				thisReport.phoneModel = Build.MODEL;
+				int statusCode = Util.getResponseStatusCode(thisReport
+						.upload(context[0]));
 
-				thisReport.os = "Android";
-				thisReport.osversion = Integer.toString(Build.VERSION.SDK_INT);
-				thisReport.osLanguage = Locale.getDefault().getLanguage();
-				thisReport.appLanguage = PropertyHolder.getLanguage();
+				Log.i("report tool", "status= " + statusCode);
 
-				// First save report to internal DB
-				ContentResolver cr = getContentResolver();
-				Uri repUri = Reports.CONTENT_URI;
+				if (statusCode < 300 && statusCode != 0)
+					resultFlag = SUCCESS;
+				else
+					resultFlag = UPLOAD_ERROR;
 
-				cr.insert(repUri,
-						ContentProviderValuesReports.createReport(thisReport));
-
-				Uri photosUri = TigaPhotos.CONTENT_URI;
-
-				// now mark all prior reports as not latest version
-				String sc = Reports.KEY_REPORT_ID + " = '"
-						+ thisReport.reportId + "' AND "
-						+ Reports.KEY_REPORT_VERSION + " < "
-						+ thisReport.reportVersion;
-
-				ContentValues cv = new ContentValues();
-				cv.put(Reports.KEY_LATEST_VERSION, 0);
-				cr.update(repUri, cv, sc, null);
-
-				if (!Util.privateMode) {
-
-					// now test if there is a data connection
-					if (!Util.isOnline(context[0])) {
-
-						resultFlag = OFFLINE;
-						return false;
-
-					}
-
-					int statusCode = Util.getResponseStatusCode(thisReport
-							.upload(context[0]));
-					if (statusCode < 300 && statusCode != 0)
-						resultFlag = SUCCESS;
-					else
-						resultFlag = UPLOAD_ERROR;
-
-				} else {
-					resultFlag = PRIVATE_MODE;
-				}
-				return true;
-			} else
-				return false;
+			} else {
+				resultFlag = PRIVATE_MODE;
+			}
+			return true;
 		}
 
 		protected void onProgressUpdate(Integer... progress) {

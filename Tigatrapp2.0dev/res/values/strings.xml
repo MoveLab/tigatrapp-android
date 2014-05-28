@@ -296,6 +296,8 @@
     <string name="GPL">View GPL</string>
     <string name="gpl_heading">GPL</string>
     <string name="LGPL">View LGPL</string>
+    <string name="license">License</string>
+    
     <string name="mailing_spec_title">Send sample</string>
     <string name="movelab">MoveLab\nCentre d\'Estudis Avançats de Blanes (CEAB-CSIC)</string>
     <string name="movelab_address1">C/ d\'accés a la Cala St. Francesc, 14</string>
@@ -306,7 +308,7 @@
     <string name="notes_title">Message</string>
     <string name="ok">OK</string>
     <string name="project_email">info@atrapaeltigre.com</string>
-    <string name="project_website">atrapaeltigre.com/</string>
+    <string name="project_website">http://atrapaeltigre.com/</string>
     <string name="report_sent">If you select OK, your report will be sent to the lab.</string>
     <string name="report_sent_confirmation">Report sent. Thank you!</string>
     <string name="reportGallery_CD">Image gallery button</string>
@@ -322,187 +324,10 @@
     <string name="yes">Yes</string>
     <string name="your_report_id_is">"Your report ID is: "</string>
     <string name="photo_credits">The photographs in Tigatrapp were provided by R. Eritja (www.eritja.com).</string>
-    <string name="credits">
-<![CDATA[
-
-<p>AtrapaelTigre.com is a citizen science project coordinated by the <a href="http://www.movelab.net">ICREA-Movement Ecology Lab</a> at the <a href="http://www.ceab.csic.es">Centre for Advanced Studies of Blanes</a> (<a href="http://www.csic.es">CSIC</a>).</p>
-
-<p>The project is being implemented in collaboration with CSIC scientific communication officers (Associate Vice President for Scientific Culture, Balearic Islands Delegation, Catalonia Delegation, and Valencia Delegation) and the <a href="http://www.um.es">University of Murcia</a>.</p>
-
-<p>The project is co-financed by the Spanish Foundation for Science and Technology (FECYT) and the Recercaixa research grant program within the framework of the project "Citizen Science: education and research". Bloom is collaborating in the fight against the tiger mosquito by also sponsoring the AtrapaelTigre.com project.</p>
-
-<p>The project also has the support of several other public and private institutions.</p>
-
-<p>All of the photos used in Tigatrapp were provided by R. Eritja (<a href="http://www.eritja.com">www.eritja.com</a>) . </ p>
-
-    ]]>
-    </string>
     <string name="copyright">
 <![CDATA[
 <p>Copyright &#169; 2013, 2014 John R.B. Palmer, Aitana Oltra, Joan Garriga ansd Frederic Bartumeus</p>
     ]]>
-    </string>
-    <string name="consent_html">
-<![CDATA[
-
-<p>
-<b>Want to help study and monitor tiger mosquitoes in Spain? Tigatrapp lets you  
-share information about mosquito breeding sites and adult mosquito sightings with researchers and the public. It also brings you the latest tiger mosquito news and helps you learn how to keep this insect out of your home.</b>
-</p>
-<ol>
-<li>Learn about the tiger mosquito and its breeding sites. You\'ll find everything you need in the app and on the project website.</li>
-
-<li>Share data. Send reports when you spot adult tiger mosquitoes or breeding sites in public spaces. You will be helping to build the first-ever crowdsourced map of tiger mosquitoes in Spain.</li> 
-
-<li>Store and edit your own data in your phone or tablet from the app\'s mapping screen.</li>
-
-<li>Much more -- from volunteering for special tiger mosquito missions to keeping up with the latest news about tiger mosquitoes and the AtrapaelTigre.com project.</li>
-</ol>
-<p>Explore Tigatrapp and if you have any questions, just check the help page or visit <a href="www.atrapaeltigre.com">www.atrapaeltigre.com</a> </p>
-
-<p>To participate, you must agree to the terms of use and privacy policy posted at <a href="www.atrapaeltigre.com">www.atrapaeltigre.com/terms_of_use</a>. If you have read and agree to these terms, please indicate your consent by submitting the form below:</p>
-
-<br>
-    <p><b>CONSENT FORM</b></p>
-<p>(FECYT 2013 Call; Project FCT-13-7019) Design and implementation of a system for citizen-driven tiger mosquito monitoring and alerts: Science and society (Atrapa el Tigre 2.0)</p>
-
-<p>I have read and agree to the terms of use and privacy policy posted at <a href="www.atrapaeltigre.com">www.atrapaeltigre.com/terms_of_use</a>.</p>
-
-<p>I understand that I must be an adult or supervised by an adult to participate in the project AtrapaelTigre.com through the Tigatrapp application.</p> 
-
-<p>I understand that Tigatrapp collects and may share with third parties or the general public the following information:
-
-<ul>
-<li>All of the reports I submit on breeding sites, adult mosquito sightings, and tiger mosquito missions. This includes my precise location when submitting each report, and any photographs, notes or other information or media that I attach. </li>
-
-<li>Coarse information about my locations at other times, sampled at random time intervals. This information is collected in order to build a map of the geographic areas that you are monitoring for tiger mosquitoes, and to learn more about the routes along which tiger mosquitoes may be spreading.</li>
-
-<li>Information about my phone model, battery power, language settings, and Tigatrapp installation. This information is used to help the research team improve the app.</li>
-</ul>
- 
-<p>I understand that Tigatrapp does not collect information about identified or identifiable individuals, according to the Organic Law 15/1999. I understand that it is my responsibility to make appropriate use of Tigatrapp and never to collect or send through Tigatrapp images in which people may be identified or any other personal images or information. I agree not to use Tigatrapp in an improper or unlawful manner or to use it for any purpose other than that for which it is intended. </ p>
-
-<p>I understand that mobile phone use while driving is prohibited and may increase the risk of accidents, death or damages. I understand that I must not use the application or otherwise use my cell phone in any way while driving, and I agree not to do so. I also understand that safety is the top priority in all aspects of this project and I agree to use my phone at all times in a safe manner.</ p>
-
-<p>I understand that all of the information I share through Tigatrapp will become part of a dataset owned by the AtrapaelTigre.com project team, and that the project team will use this dataset for scientific research on ecology, the environment, and public health. I also understand that the AtrapaelTigre.com project team may distribute this dataset to third parties or the general public in accordance with the terms of use and privacy policy posted at <a href="www.atrapaeltigre.com">www.atrapaeltigre.com/terms_of_use</a>.</p>
-
-<p>I understand that the objective of this citizen science research project is to study the presence and spread of the Asian tiger mosquito , as well as issues related to citizen participation and citizen science. I understand that I will not receive any compensation for my participation and that I cannot cancel or modify information once I have shared it, but that this information can be in no way associated with my person. I understand that reasonable measures will be taken to protect my privacy in all the information submitted as part of the project. 
-
-<p>By consenting to these terms, I declare that I have reached the age of majority in the jurisdiction within which I will be participating, and that I have read and understand that:</p>
-
-<p>A. My participation is voluntary and I may withdraw my consent and discontinue
-participation in the project at any time. My refusal to participate will not result in
-any penalty. My participation is subject to the conditions of this consent form and the terms of use and privacy policy posted at <a href="www.atrapaeltigre.com">www.atrapaeltigre.com/terms_of_use</a>.
-
-<p>B. My consent does not imply the waiver of any rights or release the CSIC, its agents, or the project researchers of from liability for negligence.</p>
-
-<p>I hereby consent to participate in this research project under the conditions of this consent form and the terms of use and privacy policy posted at <a href="www.atrapaeltigre.com">www.atrapaeltigre.com/terms_of_use</a>.</p>
-
-
-   ]]>
-    </string>
-    <string name="about_html">
-<![CDATA[
-<p>Tigatrapp, versió 1.0</p>
-
-<p>Tigatrapp is an application that harnesses the power of citizen scientists and new technologies to  
-investigate the spread of Tiger Mosquitoes in Spain. 
-The application was developed by the 
- Movement Ecology Laboratory of the Center for Advanced Studies of Blanes (CEAB-CSIC).
-  The code is drawn in part from Space Mapper (John R.B. Palmer), and the Human Mobility Project 
- (Chang Y. Chung, Kathleen Li and Necati E. Ozgencil). 
- The Tigatrapp code is freely available from the Movement Ecology Lab.</p>
-
-<p>Copyright &#169; 2013 John R.B. Palmer, Aitana Oltra, Joan Garriga and Frederic Bartumeus</p>
- 
-<p>Tigatrapp is free software: you can redistribute it and/or modify 
- it under the terms of the GNU General Public License as published by 
- the Free Software Foundation, either version 3 of the License, or (at 
-  your option) any later version.</p>
-
-<p>This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.</p>
-
-<p>You should have received a copy of the GNU General Public License
-    along with this program.  If not, see http://www.gnu.org/licenses.</p>
-
-<p>The code incorporated from Space Mapper is subject to the following terms:</p>
-    
-    <p>Copyright &#169; 2012, 2013 John R.B. Palmer</p>
- 
-<p> This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.</p>
-
-<p>This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.</p>
-
-<p>You should have received a copy of the GNU General Public License
-    along with this program.  If not, see http://www.gnu.org/licenses.</p>
-    
-
-<p>The code incorporated from the Human Mobility Project is subject to the following terms:</p>
-
-<blockquote><p>Copyright &#169; 2010, 2011 Human Mobility Project</p>
-
-<p>Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:</p>
-
-<p>The above copyright notice and this permission notice shall be included
-in all copies or substantial portions of the Software.</p>
-
-<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p></blockquote>
-
-    ]]>
-    </string>
-    <string name="help_offline_html">
-<![CDATA[
-<h1><b>PARTICIPATE</b></h1>
-<p>Participate in the study and monitoring of tiger mosquitoes in Spain by sending repors on breeding sites and adult tiger mosquito sightings. Get the latest news and learn to combat tiger mosquitoes in your home.</p>
-
-<h2><b>Learn about the tiger mosquito</b></h2>
-Learn to recognize the tiger mosquito and make sure not to confuse it with other mosquitoes. Learn about the mosquito\'s life cycle and breeding places. The app and the project website AtrapaelTigre.com contain all the information necessary for gathering quality data.
-
-<h2>Begin sharing data </h2>
-Use the "PARTICIPATE" buttons on the main screen to send reports on breeding sites in public spaces and sightings of adult tiger mosquitoes. You\'ll find detailed information by clicking the information (i) icons.
-
-<h2>Keep your information updated </h2>
-Use the "MY MAP" button to view your reports and edit them if necessary to update or correct information.
-
-<h2>Volunteer for missions</h2>
-If you are using the Android version of Tigatrapp, you will be notified of special missions by an icon appearing on your device\'s status bar. You can volunteer for mission at any time, postpone it for later, or delete it from your device. Check pending missions from the menu options on the main screen.
-
-<h2>Explore other options</h2>
-Explore the options menus on each screen to access features. Change the base map style, share the app with friends, or check the latest news from AtrapaelTigre.com.
- 
-
-<h1>YOUR DATA</h1>
-The information you submit is sent to the Centre for Advanced Studies of Blanes (CEAB-CSIC), which is coordinating the AtrapaelTigre.com project. The data will be used to learn more about the spread of tiger mosquitoes in Spain and may be shared with third parties or the public.
- 
-Tigatrapp also collects coarse information on your location at random times throughout the day in order to generate a map of the areas being monitored by Tigatrapp users, and to learn about the routes along which tiger mosquitoes may be spreading. These locations are masked by placing rounding your actual location to the nearest 0.5 degrees latitude and longitude, making it possible  to know that you were in an area roughly the size of XXX, but impossible to know where you were in that area. The locations are linked only to your randomly-generated user ID, and no personally-itentifying information is collected.
-
-Parts of the data you share will be automatically published on the web map at AtrapaelTigre.com. At any time you can delete, edit and update the data on this map from your phone by clicking the "MY MAP" button on the main screen and selecting a report.
- 
-<h1>ADDITIONAL QUESTIONS</h1>
-Check the <a href="http://www.atrapaeltigre.com">website</a> or contact <a href="mailto:info@atrapaeltigre.com">info@atrapaeltigre.com</ a> for more information.
-
-   ]]>
     </string>
 
 </resources>

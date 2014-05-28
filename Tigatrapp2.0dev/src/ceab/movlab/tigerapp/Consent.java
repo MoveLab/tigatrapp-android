@@ -31,10 +31,14 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.Button;
 import android.widget.TextView;
 import ceab.movelab.tigerapp.R;
@@ -51,6 +55,12 @@ public class Consent extends Activity {
 	Resources res;
 	String lang;
 
+	private static final String CONSENT_URL_OFFLINE_EN = "file:///android_asset/html/consent_en.html";
+	private static final String CONSENT_URL_OFFLINE_CA = "file:///android_asset/html/consent_ca.html";
+	private static final String CONSENT_URL_OFFLINE_ES = "file:///android_asset/html/consent_es.html";
+
+	private WebView myWebView;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -63,14 +73,18 @@ public class Consent extends Activity {
 		res = getResources();
 		lang = Util.setDisplayLanguage(res);
 
+	}
+
+	@Override
+	protected void onResume() {
+		res = getResources();
+		if (!Util.setDisplayLanguage(res).equals(lang)) {
+			finish();
+			startActivity(getIntent());
+		}
+		
 		setContentView(R.layout.consent);
 
-		TextView consent = (TextView) findViewById(R.id.consenttext);
-		consent.setText(Html.fromHtml(getString(R.string.consent_html), null,
-				new TigaTagHandler()));
-		consent.setTextColor(Color.WHITE);
-		consent.setTextSize(getResources()
-				.getDimension(R.dimen.textsize_normal));
 
 		final Button consentButton = (Button) findViewById(R.id.consent_button);
 		consentButton.setOnClickListener(new View.OnClickListener() {
@@ -105,15 +119,18 @@ public class Consent extends Activity {
 			}
 		});
 
-	}
 
-	@Override
-	protected void onResume() {
-		res = getResources();
-		if (!Util.setDisplayLanguage(res).equals(lang)) {
-			finish();
-			startActivity(getIntent());
-		}
+
+		myWebView = (WebView) findViewById(R.id.consent_webview);
+		myWebView.setWebViewClient(new WebViewClient());
+
+		if (lang.equals("ca"))
+			myWebView.loadUrl(CONSENT_URL_OFFLINE_CA);
+
+		else if (lang.equals("es"))
+			myWebView.loadUrl(CONSENT_URL_OFFLINE_ES);
+		else
+			myWebView.loadUrl(CONSENT_URL_OFFLINE_EN);
 
 		super.onResume();
 	}
@@ -135,9 +152,9 @@ public class Consent extends Activity {
 
 		switch (item.getItemId()) {
 
-		case (R.id.settings): {
+		case (R.id.language): {
 
-			Intent i = new Intent(Consent.this, Settings.class);
+			Intent i = new Intent(Consent.this, LanguageSelector.class);
 			startActivity(i);
 			return true;
 		}

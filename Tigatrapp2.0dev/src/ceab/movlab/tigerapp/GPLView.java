@@ -21,19 +21,11 @@
 
 package ceab.movlab.tigerapp;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.text.util.Linkify;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.TextView;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import ceab.movelab.tigerapp.R;
 
 /**
@@ -44,76 +36,22 @@ import ceab.movelab.tigerapp.R;
  */
 public class GPLView extends Activity {
 
-	Resources res;
-	String lang;
+	private WebView myWebView;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		Context context = this;
-
-		if (!PropertyHolder.isInit())
-			PropertyHolder.init(context);
-
-		res = getResources();
-		lang = Util.setDisplayLanguage(res);
-
-		setContentView(R.layout.gpl_cat);
-
-		Util.overrideFonts(this, findViewById(android.R.id.content));
-
-		TextView t = (TextView) findViewById(R.id.gplText);
-		t.setText(readTxt());
-		t.setTextColor(getResources().getColor(R.color.light_yellow));
-		t.setTextSize(15);
-
-		final TextView mWeb = (TextView) findViewById(R.id.webLink);
-		Linkify.addLinks(mWeb, Linkify.ALL);
-		mWeb.setLinkTextColor(getResources().getColor(R.color.light_yellow));
-		mWeb.setTextSize(getResources().getDimension(R.dimen.textsize_url));
-
-		final TextView mEmail = (TextView) findViewById(R.id.emailLink);
-		Linkify.addLinks(mEmail, Linkify.ALL);
-		mEmail.setLinkTextColor(getResources().getColor(R.color.light_yellow));
-		mEmail.setTextSize(getResources().getDimension(R.dimen.textsize_url));
-
 	}
-
-	private String readTxt() {
-		InputStream inputStream = null;
-		inputStream = getResources().openRawResource(R.raw.gpl);
-		ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-		int i;
-		try {
-			i = inputStream.read();
-			while (i != -1) {
-				byteArrayOutputStream.write(i);
-				i = inputStream.read();
-			}
-		} catch (IOException e) {
-
-		} finally {
-			if (inputStream != null) {
-				try {
-					inputStream.close();
-				} catch (IOException e) {
-
-				}
-			}
-		}
-		return byteArrayOutputStream.toString();
-	}
-
-	static final private int GPL = Menu.FIRST;
 
 	@Override
 	protected void onResume() {
-		res = getResources();
-		if (!Util.setDisplayLanguage(res).equals(lang)) {
-			finish();
-			startActivity(getIntent());
-		}
+
+		setContentView(R.layout.gpl);
+
+		myWebView = (WebView) findViewById(R.id.gpl_webview);
+		myWebView.setWebViewClient(new WebViewClient());
+		myWebView.loadUrl("file:///android_asset/html/gpl.html");
 
 		super.onResume();
 	}

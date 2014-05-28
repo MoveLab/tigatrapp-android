@@ -27,49 +27,31 @@
     android:background="@color/white"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <WebView
+        android:id="@+id/gpl_webview"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/movelabBanner"
         android:orientation="vertical" >
+    </WebView>
 
-        <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/creditsTextMain"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dip"
-                    android:text="@string/credits"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="@color/black" />
-
-                <ImageView
-                    android:id="@+id/creditsImage"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@drawable/credits" />
-
-            </LinearLayout>
-        </ScrollView>
-    </LinearLayout>
-
-    <ImageView
+    <LinearLayout
         android:id="@+id/movelabBanner"
         android:layout_width="wrap_content"
-        android:layout_height="75dip"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:contentDescription="@string/movelab_banner_CD"
-        android:src="@drawable/logo_movelab_web" />
+        android:orientation="vertical" >
+
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@color/black" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="75dip"
+            android:contentDescription="@string/movelab_banner_CD"
+            android:src="@drawable/logo_movelab_web" />
+    </LinearLayout>
 
 </RelativeLayout>

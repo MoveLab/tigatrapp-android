@@ -25,11 +25,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.util.Linkify;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 import ceab.movelab.tigerapp.R;
 
@@ -41,36 +48,113 @@ import ceab.movelab.tigerapp.R;
  */
 public class About extends Activity {
 
-	Resources res;
+	Context context = this;
+
+	private static final String ABOUT_URL_EN = "http://tigaserver.atrapaeltigre.com/about/android/en";
+	private static final String ABOUT_URL_CA = "http://tigaserver.atrapaeltigre.com/about/android/ca";
+	private static final String ABOUT_URL_ES = "http://tigaserver.atrapaeltigre.com/about/android/es";
+
+	private static final String ABOUT_URL_OFFLINE_EN = "file:///android_asset/html/about_en.html";
+	private static final String ABOUT_URL_OFFLINE_CA = "file:///android_asset/html/about_ca.html";
+	private static final String ABOUT_URL_OFFLINE_ES = "file:///android_asset/html/about_es.html";
+
+	private WebView myWebView;
+
 	String lang;
+	Resources res;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		Context context = this;
 
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
 
 		res = getResources();
 		lang = Util.setDisplayLanguage(res);
-
-		setContentView(R.layout.credits);
-
-		Util.overrideFonts(this, findViewById(android.R.id.content));
-
-		TextView t = (TextView) findViewById(R.id.creditsTextMain);
-		t.setText(Html.fromHtml(getString(R.string.credits)));
 	}
 
-	static final private int GPL = Menu.FIRST;
 
+	@Override
+	protected void onPause() {
+
+		super.onPause();
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	protected void onResume() {
+
+		res = getResources();
+		if (!Util.setDisplayLanguage(res).equals(lang)) {
+			finish();
+			startActivity(getIntent());
+		}
+
+		// if (Util.isOnline(context)) {
+		setContentView(R.layout.about);
+
+		myWebView = (WebView) findViewById(R.id.about_webview);
+		myWebView.setWebViewClient(new WebViewClient() {
+			public void onReceivedError(WebView view, int errorCode,
+					String description, String failingUrl) {
+
+				if (lang.equals("ca"))
+					myWebView.loadUrl(ABOUT_URL_OFFLINE_CA);
+
+				else if (lang.equals("es"))
+					myWebView.loadUrl(ABOUT_URL_OFFLINE_ES);
+
+				else
+					myWebView.loadUrl(ABOUT_URL_OFFLINE_EN);
+
+			}
+
+		});
+
+		myWebView.getSettings().setAllowFileAccess(true);
+		myWebView.getSettings().setJavaScriptEnabled(true);
+		myWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
+
+		if (Build.VERSION.SDK_INT >= 7) {
+			Log.e("help build ", "bv =" + Build.VERSION.SDK_INT);
+			WebViewApi7.api7settings(myWebView, context);
+		}
+
+		if (!Util.isOnline(context)) { // loading offline only if not online
+			myWebView.getSettings().setCacheMode(
+					WebSettings.LOAD_CACHE_ELSE_NETWORK);
+		}
+
+		if (lang.equals("ca"))
+			myWebView.loadUrl(ABOUT_URL_CA);
+		else if (lang.equals("es"))
+			myWebView.loadUrl(ABOUT_URL_ES);
+		else
+			myWebView.loadUrl(ABOUT_URL_EN);
+
+		super.onResume();
+
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (Util.isOnline(context)) {
+			// Check if the key event was the Back button and if there's history
+			if ((keyCode == KeyEvent.KEYCODE_BACK) && myWebView.canGoBack()) {
+				myWebView.goBack();
+				return true;
+			}
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 
-		menu.add(0, GPL, Menu.NONE, R.string.GPL);
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.menu.about_menu, menu);
 
 		return true;
 
@@ -81,24 +165,24 @@ public class About extends Activity {
 		super.onOptionsItemSelected(item);
 
 		switch (item.getItemId()) {
-		case (GPL): {
-			Intent i = new Intent(this, GPLView.class);
+
+		case (R.id.language): {
+
+			Intent i = new Intent(About.this, LanguageSelector.class);
 			startActivity(i);
 			return true;
 		}
+		case (R.id.license): {
+
+			Intent i = new Intent(About.this, License.class);
+			startActivity(i);
+			return true;
+		}
+
 		}
 		return false;
 	}
 
-	@Override
-	protected void onResume() {
-		res = getResources();
-		if (!Util.setDisplayLanguage(res).equals(lang)) {
-			finish();
-			startActivity(getIntent());
-		}
 
-		super.onResume();
-	}
 
 }

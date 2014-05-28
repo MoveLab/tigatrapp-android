@@ -17,7 +17,7 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
@@ -289,6 +289,7 @@
     <string name="GPL">Ver GPL</string>
     <string name="gpl_heading">GPL</string>
     <string name="LGPL">Ver LGPL</string>
+    <string name="license">Licencia</string>
     <string name="mailing_spec_title">Envía una muestra</string>
     <string name="movelab">MoveLab\nCentro de Estudios Avanzados de Blanes (CEAB-CSIC)</string>
     <string name="movelab_address1">C/ d\'accés a la Cala St. Francesc, 14</string>
@@ -299,7 +300,7 @@
     <string name="notes_title">Mensaje</string>
     <string name="ok">OK</string>
     <string name="project_email">info@atrapaeltigre.com</string>
-    <string name="project_website">www.atrapaeltigre.com/</string>
+    <string name="project_website">http://atrapaeltigre.com/</string>
     <string name="report_sent">Si clicas OK, tus datos se enviarán al grupo de investigación responsable del proyecto. Parte de los datos se harán públicos en el mapa web del mosquito tigre en la pàgina web www.atrapaeltigre.com</string>
     <string name="report_sent_confirmation">Gracias por participar</string>
     <string name="reportGallery_CD">Botón para acceder a la galería de imágenes del mosquito tigre</string>
@@ -315,166 +316,10 @@
     <string name="yes">Sí</string>
     <string name="your_report_id_is">"El código de tu Tigre hallazgo es: "</string>
     <string name="photo_credits">Las fotografías de la App Tigatrapp han sido cedidas por R. Eritja (www.eritja.com).</string>
-    <string name="credits">
-<![CDATA[
-<p>AtrapaelTigre.com es un proyecto de ciencia ciudadana coordinado por el ICREA-Laboratorio de Ecología del Movimiento (www.movelab.es) del Centro de Estudios Avanzados de Blanes (www.ceab.csic.es) del Consejo Superior de Investigaciones Científicas (www.csic.es).</p> 
-
-<p>Participan responsables de comunicación científica del Consejo Superior de Investigaciones Científicas (Vicepresidencia Adjunta de Cultura Científica, Delegación en las Islas Baleares, Delegación en Cataluña y Delegación en Valencia) y la Universidad de Murcia (www.um.es).</p> 
-
-<p>El proyecto está cofinanciado por la Fundación Española para la Ciencia y la Tecnología (FECYT) y por el programa de ayudas a la investigación Recercaixa, dentro del marco del proyecto: "Ciencia ciudadana: educación e investigación". Bloom colabora en la lucha contra el mosquito tigre patrocinando el proyecto AtrapaelTigre.com</p> 
-
-<p>El proyecto cuenta además con el apoyo de varias instituciones públicas y privadas.</p>
-
-<p>Las fotografías de la App Tigatrapp han sido cedidas por R. Eritja (www.eritja.com).</p>
- 
-    ]]>
-    </string>
     <string name="copyright">
 <![CDATA[
-<p>Copyright &#169; 2013 John R.B. Palmer, Aitana Oltra, Joan Garriga y Frederic Bartumeus</p>
+<p>Copyright &#169; 2013, 2014 John R.B. Palmer, Aitana Oltra, Joan Garriga y Frederic Bartumeus</p>
     ]]>
-    </string>
-    <string name="consent_html">
-<![CDATA[
-<p>
-<b>Participa en el estudio y seguimiento del mosquito tigre en España con la App Tigatrapp, 
-enviando datos de lugares de cría y hallazgos de mosquito tigre. 
-Infórmate de las últimas novedades y aprende a combatir el mosquito tigre en tu casa.</b>
-</p>
-<ol>
-<li>Familiarízate con el mosquito tigre y con sus lugares de cría. Encontrarás todo lo necesario en la App y en la web del proyecto.</li>
-
-<li>Participa compartiendo datos. Envía informes de nuevos lugares de cría en espacios públicos y hallazgos de mosquito tigre. Formarás parte del primer mapa de mosquito tigre de España.</li> 
-
-<li>Mantén tus datos actualizados con la opción de edición de tu mapa.</li>
-
-
-<li>Y muchas cosas más: desde misiones especiales hasta noticias actualizadas del proyecto AtrapaelTigre.com y del mosquito tigre.</li>
-</ol>
-<p>Explora Tigatrapp y si tienes dudas consulta la página de ayuda o la web <a href="www.atrapaeltigre.com">www.atrapaeltigre.com</a> 
-</p>
-<br>
-    <p><b>FORMULARIO ESTÁNDAR DE CONSENTIMIENTO</b></p>
-<p>(Convocatoria FECYT 2013; Proyecto FCT-13-7019) Diseño e implementación de un sistema ciudadano de alerta y seguimiento del mosquito tigre: ciencia en sociedad (Atrapa el Tigre 2.0)</p>
-
-<p>Entiendo que la participación en el proyecto AtrapaelTigre.com a través de la aplicación Tigatrapp tiene que estar siempre supervisada por un adulto.</p> 
-
-<p>Entiendo que Tigatrapp recoge y envía datos sobre mi localización aproximada, así como datos geolocalizados de avistamientos de mosquito tigre y de lugares de cría en espacios públicos que yo mismo documento y comparto. Entiendo que Tigatrapp me permite también enviar y compartir, de manera voluntaria, fotografías de mosquito tigre y de lugares de cría, mensajes para los científicos que describan mis avistamientos y respuestas a cuestionarios.</p> 
-
-<p>Entiendo que los datos e imágenes recogidos y compartidos a través de Tigatrapp no son de carácter personal, ya que no se recoge información referente a personas físicas identificadas o identificables, según lo establecido en la Ley Orgánica 15/1999. Entiendo que está bajo mi responsabilidad la correcta utilización de Tigatrapp y que no tengo que recoger, ni enviar, a través de Tigatrapp, imágenes o datos personales, ni hacer un uso indebido, o fuera de la legalidad, o diferente al que Tigatrapp está destinado.</p>
-
-<p>Entiendo que la utilización del teléfono móvil mientras conduzco está prohibida y que puede aumentar el riesgo de accidentes, muertes o daños. Entiendo que no tengo que utilizar la aplicación o mi teléfono móvil en ningún caso mientras conduzco, y estoy de acuerdo en no hacerlo. Entiendo también que la seguridad es la prioridad más importante en todos los aspectos de este proyecto y estoy de acuerdo en utilizar mi teléfono móvil de manera segura en todo momento.</p>
-
-<p>Entiendo que la información que recoge y envía Tigatrapp puede ser publicada en el portal web www.atrapaeltigre.com y en de otros portales y soportes. Entiendo que la información suministrada puede ser utilizada para fines científicos, ambientales y de sanidad pública. En ningún caso esta información será utilizada para fines comerciales.</p>
-
-<p>Entiendo que el objetivo de este proyecto de investigación y ciencia ciudadana es estudiar la presencia y dispersión del mosquito tigre, así como aspectos relacionados con la participación ciudadana y las ciencias ciudadanas. Entiendo que no recibiré ningún tipo de compensación económica por mi participación y que no podré cancelar ni rectificar la información ya compartida, ya que ésta en ningún caso se puede asociar a mi persona física. Entiendo que se tomarán las medidas razonables para proteger mi privacidad en relación a toda la información que envíe al proyecto de investigación.</p> 
-
-<p>Con el consentimiento de este formulario declaro que soy mayor de edad y que he leído y entiendo que:</p>
-
-<p>A. Mi participación es voluntaria y puedo dejar de participar en cualquier momento. Mi negativa a participar no dará lugar a ningún tipo de penalización. Mi participación está sometida a las condiciones de este formulario de consentimiento.</p>
-<p>B. La prestación de mi consentimiento no implica la renuncia a cualquier derecho o exime al Consejo Superior de Investigaciones Científicas, sus agentes o a investigador responsable de este proyecto, de cualquier responsabilidad por culpa.</p>
-<p>Presto mi consentimiento a ser un participante de este proyecto de investigación bajo las condiciones establecidas en este formulario.</p>
-    
-   ]]>
-    </string>
-    <string name="about_html">
-<![CDATA[
-<p>Tigatrapp prototipo, versió 1.0</p>
-
-<p>Tigatrapp es una aplicación que busca aprovechar el gran potencial que puede tener la ciudadanía en el estudio del mosquito tigre, gracias a las nuevas tecnologías. Es, por lo tanto, un ejemplo del potencial de las ciencias ciudadanas. La aplicación ha sido desarrollada por el grupo de investigación Movement Ecology Lab del Centro de Estudios Avanzados de Blanes (CEAB-CSIC). El código fuente está en parte basado en código de la aplicación "Space Mapper" (desarrollada por John RB Palmer), y código de "The Human Mobility Project" (Chang Y. Chung, Kathleen Li y Necati E. Ozgencil). El código fuente de Tigatrapp está disponible en el grupo de investigación Movement Ecology Lab.</p>
-
-<p>Copyright &#169; 2013 John R.B. Palmer, Aitana Oltra, Joan Garriga y Frederic Bartumeus</p>
- 
-<p> Tigatrapp es software libre: se puede redistribuir y/o modificar bajo los términos de la licencia general pública GNU General Public License publicada por Free Software Foundation (versión 3 de la licencia o superior)</p>
-
-<p>This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.</p>
-
-<p>You should have received a copy of the GNU General Public License
-    along with this program.  If not, see http://www.gnu.org/licenses.</p>
-
-<p>The code incorporated from Space Mapper is subject to the following terms:</p>
-    
-    <p>Copyright &#169; 2012, 2013 John R.B. Palmer</p>
- 
-<p> This program is free software: you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation, either version 3 of the License, or
-    (at your option) any later version.</p>
-
-<p>This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.</p>
-
-<p>You should have received a copy of the GNU General Public License
-    along with this program.  If not, see http://www.gnu.org/licenses.</p>
-    
-
-<p>The code incorporated from the Human Mobility Project is subject to the following terms:</p>
-
-<blockquote><p>Copyright &#169; 2010, 2011 Human Mobility Project</p>
-
-<p>Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:</p>
-
-<p>The above copyright notice and this permission notice shall be included
-in all copies or substantial portions of the Software.</p>
-
-<p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p></blockquote>
-    ]]>
-    </string>
-    <string name="help_offline_html">
-<![CDATA[
-
-
-
-<h1>PARTICIPA, ES MUY FÁCIL</h1>
-Participa en el estudio y seguimiento del mosquito tigre en España, enviando datos de lugares de cría y hallazgos de mosquito tigre. Infórmate de las últimas novedades y aprende a combatir el mosquito tigre en tu casa. 
-
-<h2>Familiarízate con el mosquito tigre</h2>
-Aprende a reconocer el mosquito tigre (asegúrate de que no lo confundes con otros mosquitos). Familiarízate con su ciclo de vida y con sus lugares de cría. La App y la web del proyecto AtrapaelTigre.com contienen toda la información necesaria para que tus datos sean de calidad.
-
-<h2>Participa compartiendo datos</h2>
-Utiliza los botones “PARTICIPA” para enviar informes de nuevos lugares de cría en espacios públicos y de hallazgos de mosquito tigre. Encontrarás información detallada clicando el icono (i). 
-
-<h2>Mantén tus datos actualizados</h2>
-Utiliza el botón “MI MAPA” para ver y controlar tus datos, editarlos si los quieres actualizar o corregir y eliminarlos si crees que son erróneos. 
-
-<h2>Participa en misiones</h2>
-Participa en misiones especiales si te aparece el icono del mosquito tigre en tu teléfono. En cualquier momento podrás realizar la misión, dejarla para más tarde, o eliminarla si no quieres participar. Consulta las misiones pendientes en el menú principal. 
-
-<h2>Explora otras opciones</h2>
-Explora el botón de configuración en cada pantalla para acceder a opciones extras. Cambia el mapa base, comparte la App o consulta las últimas noticias del proyecto AtrapaelTigre.com. 
- 
-
-<h1>DESTINO DE TUS DATOS</h1>
-Tus datos se mandarán al centro de investigación que coordina AtrapaelTigre.com, el Centro de Estudios Avanzados de Blanes del Consejo Superior de Investigaciones Científicas (CEAB-CSIC). Estos datos serán utilizados para fines no lucrativos relacionados con la investigación, la educación ambiental, el control de especies invasoras, etc.
- 
-Tigatrapp recoge también datos de la posición aproximada de tu teléfono móvil, dentro de un radio de XXXkm. Estos datos nos permiten enviarte misiones especiales e informarte de las últimas novedades sobre el mosquito tigre en función de la región en la que vives. En ningún caso Tigatrapp recoge datos personales.
-
-Parte de tus datos enviados se publican de manera automática en el mapa web del mosquito tigre en la web del proyecto AtrapaelTigre.com. En cualquier momento puedes eliminar, editar y actualizar estos datos, desde el botón “MI MAPA”. 
- 
-<h1>CONSULTA SI TIENES MÁS DUDAS</h1> 
-Si tienes dudas, consulta la <a href="http://www.atrapaeltigre.com">página web</a> o escribe a <a href="mailto:info@atrapaeltigre.com">info@atrapaeltigre.com</a>.
-
-
-
-
-   ]]>
     </string>
 
 </resources>

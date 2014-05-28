@@ -241,14 +241,14 @@
     <string name="settings_language_detail">Elija idioma</string>
     <string name="settings_language_button">Elija</string>
     <string name="settings_sync_title">Sincroniza</string>
-    <string name="settings_sync_detail">Actualiza información y noticias de Tigatrapp</string>
+    <string name="settings_sync_detail">Forzar conexión con servidor para enviar datos y descargar misiones</string>
     <string name="settings_sync_button">Sinc.</string>
     <string name="settings_syncing">Sincronizando datos</string>
     <string name="on">Encendido</string>
     <string name="off">Apagado</string>
     <string name="sample_my_locations">Geolocalización</string>
-    <string name="sampling_is_off">Permitir envío de datos aproximados de mi localización</string>
-    <string name="sampling_is_on">Permitir envío de datos aproximados de mi localización</string>
+    <string name="sampling_is_off">Permitir envío de datos aproximados de mi localización en background</string>
+    <string name="sampling_is_on">Permitir envío de datos aproximados de mi localización en background</string>
 
     <!-- Misc -->
 

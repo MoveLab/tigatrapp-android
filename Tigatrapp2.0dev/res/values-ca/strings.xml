@@ -241,14 +241,14 @@
     <string name="settings_language_detail">Tria idioma</string>
     <string name="settings_language_button">Tria</string>
     <string name="settings_sync_title">Sincronitza</string>
-    <string name="settings_sync_detail">Actualitza informació i notícies de Tigatrapp</string>
+    <string name="settings_sync_detail">Forçar connexió amb servidor per enviar dades i descarregar missions</string>
     <string name="settings_sync_button">Sinc.</string>
     <string name="settings_syncing">Sincronitzant dades.</string>
     <string name="on">Encès</string>
     <string name="off">Apagat</string>
     <string name="sample_my_locations">Geolocalització</string>
-    <string name="sampling_is_off">Permetre enviament de dades aproximades de la meva localització</string>
-    <string name="sampling_is_on">Permetre enviament de dades aproximades de la meva localització</string>
+    <string name="sampling_is_off">Permetre enviament de dades aproximades de la meva localització en background</string>
+    <string name="sampling_is_on">Permetre enviament de dades aproximades de la meva localització en background</string>
 
     <!-- Misc -->
 

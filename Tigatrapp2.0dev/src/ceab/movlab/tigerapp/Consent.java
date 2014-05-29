@@ -28,19 +28,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
-import android.text.Html;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
-import android.widget.TextView;
 import ceab.movelab.tigerapp.R;
 
 /**
@@ -82,9 +78,8 @@ public class Consent extends Activity {
 			finish();
 			startActivity(getIntent());
 		}
-		
-		setContentView(R.layout.consent);
 
+		setContentView(R.layout.consent);
 
 		final Button consentButton = (Button) findViewById(R.id.consent_button);
 		consentButton.setOnClickListener(new View.OnClickListener() {
@@ -119,10 +114,11 @@ public class Consent extends Activity {
 			}
 		});
 
-
-
 		myWebView = (WebView) findViewById(R.id.consent_webview);
-		myWebView.setWebViewClient(new WebViewClient());
+		myWebView.setWebViewClient(new MyWebViewClient());
+//		myWebView.getSettings().setJavaScriptEnabled(true);
+//		myWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+//		myWebView.getSettings().setSupportMultipleWindows(true);
 
 		if (lang.equals("ca"))
 			myWebView.loadUrl(CONSENT_URL_OFFLINE_CA);
@@ -162,4 +158,13 @@ public class Consent extends Activity {
 		return false;
 	}
 
+	class MyWebViewClient extends WebViewClient {
+		@Override
+		public boolean shouldOverrideUrlLoading(WebView view, String url) {
+			// open all links in normal browser
+			Intent i = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(i);
+			return true;
+		}
+	}
 }

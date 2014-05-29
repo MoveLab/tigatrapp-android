@@ -61,8 +61,6 @@ public class TaskActivity extends Activity {
 		lv.addHeaderView(header);
 		lv.addFooterView(footer);
 
-		Util.overrideFonts(this, findViewById(android.R.id.content));
-
 		responses = new JSONObject();
 
 		taskTitle = (TextView) findViewById(R.id.taskTitle);
@@ -248,7 +246,6 @@ public class TaskActivity extends Activity {
 										Tasks.KEY_RESPONSES_JSON,
 										responses.toString());
 
-								Log.i("ITEMTEXT 1", responses.toString());
 								// For site report, user must select something
 								// for
 								// each question to send it. So testing that
@@ -260,7 +257,6 @@ public class TaskActivity extends Activity {
 									try {
 										JSONObject thisItem = responses
 												.getJSONObject(key);
-										Log.i("ITEMTEXT 2", thisItem.toString());
 
 										if (!thisItem
 												.getString(
@@ -419,6 +415,8 @@ public class TaskActivity extends Activity {
 						context.sendBroadcast(i);
 					}
 					// TODO UPLOAD
+					
+					c.close();
 
 					if (thisUrl != null) {
 						Intent i = new Intent(Intent.ACTION_VIEW);
@@ -464,6 +462,7 @@ public class TaskActivity extends Activity {
 								TigerBroadcastReceiver.TIGER_TASK_CLEAR);
 						context.sendBroadcast(i);
 					}
+					c.close();
 					finish();
 					// TODO mark task as completed and/or delete from
 					// phone's database

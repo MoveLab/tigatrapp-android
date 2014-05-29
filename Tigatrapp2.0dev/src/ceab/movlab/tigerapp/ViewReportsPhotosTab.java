@@ -44,7 +44,6 @@ public class ViewReportsPhotosTab extends Activity {
 				final JSONArray jsonPhotos = new JSONArray(
 						b.getString(Reports.KEY_PHOTO_URIS));
 
-				Log.d("PHOTOTAB", b.getString(Reports.KEY_PHOTO_URIS));
 
 				textview.setVisibility(View.GONE);
 				GridView gridview = new GridView(this);

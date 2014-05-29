@@ -159,18 +159,18 @@ public class Util {
 	/**
 	 * RSS URL for Spanish.
 	 */
-	private static final String URL_RSS_ES = "http://atrapaeltigre.com/web/feed/";
+	public static final String URL_RSS_ES = "http://atrapaeltigre.com/web/feed/";
 	
 	/**
 	 * RSS URL for Catalan.
 	 */
-	private static final String URL_RSS_CA = "http://atrapaeltigre.com/web/ca/feed/";
+	public static final String URL_RSS_CA = "http://atrapaeltigre.com/web/ca/feed/";
 	
 	
 	/**
 	 * Server API URL.
 	 */
-	private static final String URL_TIGASERVER_API_ROOT = "http://tigaserver.atrapaeltigre.com/api/";
+	public static final String URL_TIGASERVER_API_ROOT = "http://tigaserver.atrapaeltigre.com/api/";
 
 	/**
 	 * API user endpoint.
@@ -425,7 +425,6 @@ public class Util {
 	public static void toast(Context context, String msg) {
 
 		TextView tv = new TextView(context);
-		overrideFonts(context, tv);
 		tv.setText(msg);
 		Drawable bknd = context.getResources().getDrawable(
 				R.drawable.white_border);
@@ -455,7 +454,6 @@ public class Util {
 		final int thisImage = image;
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.check_help);
-		Util.overrideFonts(context, dialog.findViewById(android.R.id.content));
 		TextView mText = (TextView) dialog.findViewById(R.id.checkHelpText);
 		mText.setText(Html.fromHtml(message, null, new TigaTagHandler()));
 		final ImageView mImage = (ImageView) dialog
@@ -500,7 +498,6 @@ public class Util {
 		final Dialog dialog = new Dialog(context);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.check_help);
-		Util.overrideFonts(context, dialog.findViewById(android.R.id.content));
 		TextView mText = (TextView) dialog.findViewById(R.id.checkHelpText);
 		mText.setText(Html.fromHtml(message, null, new TigaTagHandler()));
 		final ImageView mImage = (ImageView) dialog
@@ -674,65 +671,6 @@ public class Util {
 
 	}
 
-	public static String csvFixes(Cursor c) {
-
-		int accuracy = c.getColumnIndexOrThrow("accuracy");
-		int altitude = c.getColumnIndexOrThrow("altitude");
-		int latitude = c.getColumnIndexOrThrow("latitude");
-		int longitude = c.getColumnIndexOrThrow("longitude");
-		int provider = c.getColumnIndexOrThrow("provider");
-		int timestamp = c.getColumnIndexOrThrow("timestamp");
-		StringBuilder sb = new StringBuilder("");
-		sb.append("accuracy").append(",");
-		sb.append("altitude").append(",");
-		sb.append("latitude").append(",");
-		sb.append("longitude").append(",");
-		sb.append("provider").append(",");
-		sb.append("timestamp");
-
-		c.moveToFirst();
-		while (!c.isAfterLast()) {
-			sb.append("\n");
-			sb.append(doubleFieldVal(c, accuracy)).append(",");
-			sb.append(doubleFieldVal(c, altitude)).append(",");
-			sb.append(doubleFieldVal(c, latitude)).append(",");
-			sb.append(doubleFieldVal(c, longitude)).append(",");
-			sb.append(Util.enquote(c.getString(provider))).append(",");
-			sb.append(Util.enquote(c.getString(timestamp).trim()));
-			c.moveToNext();
-		}
-		return sb.toString();
-	}
-
-	/**
-	 * Converts the supposedly double value contained in the row, at which the
-	 * given Cursor is pointing, and the col(umn) specified to its String
-	 * representation.
-	 * 
-	 * @return The String representation of the value contained in the cell
-	 *         [c.getPosition(), col]
-	 */
-	private static String doubleFieldVal(Cursor c, int col) {
-		Double val = (Double) c.getDouble(col);
-		return (val == null) ? "" : val.toString();
-	}
-
-	public static void overrideFonts(final Context context, final View v) {
-
-		// turning this off for now
-		/*
-		 * try { if (v instanceof ViewGroup) { ViewGroup vg = (ViewGroup) v;
-		 * 
-		 * for (int i = 0; i < vg.getChildCount(); i++) { View child =
-		 * vg.getChildAt(i); overrideFonts(context, child); }
-		 * 
-		 * } else if (v instanceof TextView) { ((TextView)
-		 * v).setTypeface(Typeface.createFromAsset( context.getAssets(),
-		 * "fonts/RobotoCondensed-Regular.ttf")); }
-		 * 
-		 * } catch (Exception e) { }
-		 */
-	}
 
 	/**
 	 * Checks if the phone has an internet connection.
@@ -747,117 +685,10 @@ public class Util {
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo netInfo = cm.getActiveNetworkInfo();
 		if (netInfo != null && netInfo.isConnected()) {
-			Log.i("UTIL ONLINE", "true");
 			return true;
 		}
 		Log.i("UTIL ONLINE", "false");
 		return false;
-	}
-
-	public static boolean uploadFile(byte[] bytes, String filename,
-			String uploadurl) {
-
-		HttpURLConnection conn = null;
-		DataOutputStream dos = null;
-		// DataInputStream inStream = null;
-
-		String lineEnd = "\r\n";
-		String twoHyphens = "--";
-		String boundary = "*****";
-
-		int bytesRead, bytesAvailable, bufferSize;
-		byte[] buffer;
-		int maxBufferSize = 64 * 1024; // old value 1024*1024
-		ByteArrayInputStream byteArrayInputStream = null;
-		boolean isSuccess = true;
-		try {
-			// ------------------ CLIENT REQUEST
-
-			byteArrayInputStream = new ByteArrayInputStream(bytes);
-
-			// open a URL connection to the Servlet
-			URL url = new URL(uploadurl);
-			// Open a HTTP connection to the URL
-			conn = (HttpURLConnection) url.openConnection();
-			// Allow Inputs
-			conn.setDoInput(true);
-			// Allow Outputs
-			conn.setDoOutput(true);
-			// Don't use a cached copy.
-			conn.setUseCaches(false);
-			// set timeout
-			conn.setConnectTimeout(60000);
-			conn.setReadTimeout(60000);
-			// Use a post method.
-			conn.setRequestMethod("POST");
-			conn.setRequestProperty("Connection", "Keep-Alive");
-			conn.setRequestProperty("Content-Type",
-					"multipart/form-data;boundary=" + boundary);
-
-			dos = new DataOutputStream(conn.getOutputStream());
-			dos.writeBytes(twoHyphens + boundary + lineEnd);
-			dos.writeBytes("Content-Disposition: form-data; name=\"uploadedfile\";filename=\""
-					+ filename + "\"" + lineEnd);
-			dos.writeBytes(lineEnd);
-
-			// create a buffer of maximum size
-			bytesAvailable = byteArrayInputStream.available();
-			bufferSize = Math.min(bytesAvailable, maxBufferSize);
-			buffer = new byte[bufferSize];
-
-			// read file and write it into form...
-			bytesRead = byteArrayInputStream.read(buffer, 0, bufferSize);
-			while (bytesRead > 0) {
-				dos.write(buffer, 0, bufferSize);
-				bytesAvailable = byteArrayInputStream.available();
-				bufferSize = Math.min(bytesAvailable, maxBufferSize);
-				bytesRead = byteArrayInputStream.read(buffer, 0, bufferSize);
-			}
-
-			// send multipart form data necesssary after file data...
-			dos.writeBytes(lineEnd);
-			dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-
-			// close streams
-			// Log.e(TAG,"UploadService Runnable:File is written");
-			// fileInputStream.close();
-			// dos.flush();
-			// dos.close();
-		} catch (Exception e) {
-			// Log.e(TAG, "UploadService Runnable:Client Request error", e);
-			isSuccess = false;
-		} finally {
-			if (dos != null) {
-				try {
-					dos.close();
-				} catch (IOException e) {
-					// Log.e(TAG, "exception" + e);
-
-				}
-			}
-			if (byteArrayInputStream != null) {
-				try {
-					byteArrayInputStream.close();
-				} catch (IOException e) {
-					// Log.e(TAG, "exception" + e);
-
-				}
-			}
-
-		}
-
-		// ------------------ read the SERVER RESPONSE
-		try {
-
-			if (conn.getResponseCode() != 200) {
-				isSuccess = false;
-			}
-		} catch (IOException e) {
-			// Log.e(TAG, "Connection error", e);
-			isSuccess = false;
-		}
-
-		return isSuccess;
 	}
 
 	public static int getBatteryLevel(Context context) {
@@ -1014,6 +845,115 @@ public class Util {
 		}
 		return lang;
 	}
+	
+	
+	public static boolean postPhoto(byte[] bytes, String filename,
+			String uploadurl) {
+
+		HttpURLConnection conn = null;
+		DataOutputStream dos = null;
+		// DataInputStream inStream = null;
+
+		String lineEnd = "\r\n";
+		String twoHyphens = "--";
+		String boundary = "*****";
+
+		int bytesRead, bytesAvailable, bufferSize;
+		byte[] buffer;
+		int maxBufferSize = 64 * 1024; // old value 1024*1024
+		ByteArrayInputStream byteArrayInputStream = null;
+		boolean isSuccess = true;
+		try {
+			// ------------------ CLIENT REQUEST
+
+			byteArrayInputStream = new ByteArrayInputStream(bytes);
+
+			// open a URL connection to the Servlet
+			URL url = new URL(uploadurl);
+			// Open a HTTP connection to the URL
+			conn = (HttpURLConnection) url.openConnection();
+			// Allow Inputs
+			conn.setDoInput(true);
+			// Allow Outputs
+			conn.setDoOutput(true);
+			// Don't use a cached copy.
+			conn.setUseCaches(false);
+			// set timeout
+			conn.setConnectTimeout(60000);
+			conn.setReadTimeout(60000);
+			// Use a post method.
+			conn.setRequestMethod("POST");
+			conn.setRequestProperty("Connection", "Keep-Alive");
+			conn.setRequestProperty("Content-Type",
+					"multipart/form-data;boundary=" + boundary);
+
+			dos = new DataOutputStream(conn.getOutputStream());
+			dos.writeBytes(twoHyphens + boundary + lineEnd);
+			dos.writeBytes("Content-Disposition: form-data; name=\"uploadedfile\";filename=\""
+					+ filename + "\"" + lineEnd);
+			dos.writeBytes(lineEnd);
+
+			// create a buffer of maximum size
+			bytesAvailable = byteArrayInputStream.available();
+			bufferSize = Math.min(bytesAvailable, maxBufferSize);
+			buffer = new byte[bufferSize];
+
+			// read file and write it into form...
+			bytesRead = byteArrayInputStream.read(buffer, 0, bufferSize);
+			while (bytesRead > 0) {
+				dos.write(buffer, 0, bufferSize);
+				bytesAvailable = byteArrayInputStream.available();
+				bufferSize = Math.min(bytesAvailable, maxBufferSize);
+				bytesRead = byteArrayInputStream.read(buffer, 0, bufferSize);
+			}
+
+			// send multipart form data necesssary after file data...
+			dos.writeBytes(lineEnd);
+			dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
+
+			// close streams
+			// Log.e(TAG,"UploadService Runnable:File is written");
+			// fileInputStream.close();
+			// dos.flush();
+			// dos.close();
+		} catch (Exception e) {
+			// Log.e(TAG, "UploadService Runnable:Client Request error", e);
+			isSuccess = false;
+		} finally {
+			if (dos != null) {
+				try {
+					dos.close();
+				} catch (IOException e) {
+					// Log.e(TAG, "exception" + e);
+
+				}
+			}
+			if (byteArrayInputStream != null) {
+				try {
+					byteArrayInputStream.close();
+				} catch (IOException e) {
+					// Log.e(TAG, "exception" + e);
+
+				}
+			}
+
+		}
+
+		// ------------------ read the SERVER RESPONSE
+		try {
+
+			if (conn.getResponseCode() != 200) {
+				isSuccess = false;
+			}
+		} catch (IOException e) {
+			// Log.e(TAG, "Connection error", e);
+			isSuccess = false;
+		}
+
+		return isSuccess;
+	}
+
+
 
 	/**
 	 * Uploads JSONObject to Tigaserver API using HTTP PUT request

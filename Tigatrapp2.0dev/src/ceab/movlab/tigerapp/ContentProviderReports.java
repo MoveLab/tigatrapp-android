@@ -65,7 +65,8 @@ public class ContentProviderReports extends ContentProvider {
 	/** The SQL command to create the reportsTable */
 	private static final String DATABASE_CREATE = "create table reportsTable ("
 			+ Reports.KEY_ROW_ID + " integer primary key autoincrement" + COMMA
-			+ Reports.KEY_VERSION_UUID + TYPE_TEXT + COMMA + Reports.KEY_USER_ID + TYPE_TEXT + COMMA + Reports.KEY_REPORT_ID
+			+ Reports.KEY_VERSION_UUID + TYPE_TEXT + COMMA
+			+ Reports.KEY_USER_ID + TYPE_TEXT + COMMA + Reports.KEY_REPORT_ID
 			+ TYPE_TEXT + COMMA + Reports.KEY_REPORT_VERSION + TYPE_INTEGER
 			+ COMMA + Reports.KEY_REPORT_TIME + TYPE_INTEGER + COMMA
 			+ Reports.KEY_CREATION_TIME + TYPE_TEXT + COMMA
@@ -118,7 +119,7 @@ public class ContentProviderReports extends ContentProvider {
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			db.execSQL(DATABASE_CREATE);
-			
+
 		}
 
 		@Override
@@ -136,17 +137,19 @@ public class ContentProviderReports extends ContentProvider {
 		sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 		sUriMatcher.addURI(AUTHORITY, DATABASE_TABLE, REPORTS);
 		sUriMatcher.addURI(AUTHORITY, DATABASE_TABLE + "/#", ROW_ID);
-		sUriMatcher.addURI(AUTHORITY, DATABASE_TABLE + "/#", REPORT_ID);
+		sUriMatcher
+				.addURI(AUTHORITY, DATABASE_TABLE + "report_id/#", REPORT_ID);
 
 		reportsProjectionMap = new HashMap<String, String>();
 		reportsProjectionMap.put(Reports.KEY_ROW_ID, Reports.KEY_ROW_ID);
-		reportsProjectionMap.put(Reports.KEY_VERSION_UUID, Reports.KEY_VERSION_UUID);
+		reportsProjectionMap.put(Reports.KEY_VERSION_UUID,
+				Reports.KEY_VERSION_UUID);
 
 		reportsProjectionMap.put(Reports.KEY_USER_ID, Reports.KEY_USER_ID);
 		reportsProjectionMap.put(Reports.KEY_REPORT_ID, Reports.KEY_REPORT_ID);
 		reportsProjectionMap.put(Reports.KEY_REPORT_VERSION,
 				Reports.KEY_REPORT_VERSION);
-		
+
 		reportsProjectionMap.put(Reports.KEY_CREATION_TIME,
 				Reports.KEY_CREATION_TIME);
 
@@ -196,18 +199,20 @@ public class ContentProviderReports extends ContentProvider {
 		reportsProjectionMap.put(Reports.KEY_OS, Reports.KEY_OS);
 		reportsProjectionMap
 				.put(Reports.KEY_OS_VERSION, Reports.KEY_OS_VERSION);
-		reportsProjectionMap
-		.put(Reports.KEY_OS_LANGUAGE, Reports.KEY_OS_LANGUAGE);
-		reportsProjectionMap
-		.put(Reports.KEY_APP_LANGUAGE, Reports.KEY_APP_LANGUAGE);
+		reportsProjectionMap.put(Reports.KEY_OS_LANGUAGE,
+				Reports.KEY_OS_LANGUAGE);
+		reportsProjectionMap.put(Reports.KEY_APP_LANGUAGE,
+				Reports.KEY_APP_LANGUAGE);
 
-		reportsProjectionMap
-		.put(Reports.KEY_MISSION_UUID, Reports.KEY_MISSION_UUID);
+		reportsProjectionMap.put(Reports.KEY_MISSION_UUID,
+				Reports.KEY_MISSION_UUID);
 	}
 
 	@Override
 	public int delete(Uri uri, String where, String[] whereArgs) {
 		SQLiteDatabase db = mDbHelper.getWritableDatabase();
+		if (where == null)
+			where = "";
 		switch (sUriMatcher.match(uri)) {
 		case REPORTS:
 			break;
@@ -270,6 +275,8 @@ public class ContentProviderReports extends ContentProvider {
 	@Override
 	public Cursor query(Uri uri, String[] projection, String selection,
 			String[] selectionArgs, String sortOrder) {
+		if (selection == null)
+			selection = "";
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 		qb.setTables(DATABASE_TABLE);
 		qb.setProjectionMap(reportsProjectionMap);
@@ -300,15 +307,22 @@ public class ContentProviderReports extends ContentProvider {
 	public int update(Uri uri, ContentValues values, String where,
 			String[] whereArgs) {
 		SQLiteDatabase db = mDbHelper.getWritableDatabase();
+		if (where == null)
+			where = "";
 		int count;
 		switch (sUriMatcher.match(uri)) {
 		case REPORTS:
-			count = db.update(DATABASE_TABLE, values, where, whereArgs);
+			break;
+		case ROW_ID:
+			where = where + "_id = " + uri.getLastPathSegment();
+			break;
+		case REPORT_ID:
+			where = where + "report_id = " + uri.getLastPathSegment();
 			break;
 		default:
 			throw new IllegalArgumentException("Unknown URI " + uri);
 		}
-
+		count = db.update(DATABASE_TABLE, values, where, whereArgs);
 		getContext().getContentResolver().notifyChange(uri, null);
 		return count;
 	}

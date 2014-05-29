@@ -139,7 +139,8 @@ public class RSSActivity extends Activity {
 				connection.setDoInput(true);
 				connection.connect();
 				int response = connection.getResponseCode();
-				Log.d("debug", "The response is: " + response);
+				if (response >= 300 || response < 200)
+					return RSSPostList;
 
 				is = connection.getInputStream();
 
@@ -242,14 +243,15 @@ public class RSSActivity extends Activity {
 
 		@Override
 		protected void onPostExecute(ArrayList<RSSPost> result) {
-			// TODO Auto-generated method stub
-			for (int i = 0; i < result.size(); i++) {
-				listData.add(result.get(i));
+
+			if (result != null && result.size() > 0) {
+				// TODO Auto-generated method stub
+				for (int i = 0; i < result.size(); i++) {
+					listData.add(result.get(i));
+				}
+				itemAdapter.notifyDataSetChanged();
+				setInfoDisplay(context, false, null);
 			}
-
-			itemAdapter.notifyDataSetChanged();
-
-			setInfoDisplay(context, false, null);
 		}
 
 		public InputStream getInputStream(URL url) {

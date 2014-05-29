@@ -59,8 +59,6 @@ public class ContentProviderValuesReports {
 		initialValues.put(Reports.KEY_VERSION_TIME, rep.versionTime);
 
 		initialValues.put(Reports.KEY_VERSION_TIME_STRING, rep.versionTimeString);
-
-		Log.e("INITIAL VALUES VT", ""+ rep.versionTimeString);
 		
 		initialValues.put(Reports.KEY_TYPE, rep.type);
 

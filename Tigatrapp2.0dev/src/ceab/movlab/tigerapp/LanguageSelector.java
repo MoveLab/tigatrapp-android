@@ -53,8 +53,6 @@ public class LanguageSelector extends Activity {
 
 		setContentView(R.layout.language_selector);
 
-		Util.overrideFonts(context, findViewById(android.R.id.content));
-
 		final RadioGroup languageRadioGroup = (RadioGroup) findViewById(R.id.languageRadioGroup);
 
 		Button positive = (Button) findViewById(R.id.languageOK);

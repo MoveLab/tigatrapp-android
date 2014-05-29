@@ -158,8 +158,6 @@ public class SyncData extends Service {
 						for (int i = 0; i < missions.length(); i++) {
 							JSONObject mission = missions.getJSONObject(i);
 
-							Log.i("Mission Got", mission.toString());
-
 							cr = context.getContentResolver();
 							cr.insert(Tasks.CONTENT_URI,
 									ContentProviderValuesTasks

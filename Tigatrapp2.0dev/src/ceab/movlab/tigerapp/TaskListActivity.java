@@ -97,10 +97,6 @@ public class TaskListActivity extends FragmentActivity implements
 					int position, long id) {
 				Cursor c = (Cursor) listView.getItemAtPosition(position);
 
-				Log.i("LPT",
-						""
-								+ c.getLong(c
-										.getColumnIndexOrThrow(Tasks.KEY_EXPIRATION_TIME)));
 
 				if (c.getLong(c
 						.getColumnIndexOrThrow(Tasks.KEY_EXPIRATION_TIME)) >= System
@@ -132,6 +128,7 @@ public class TaskListActivity extends FragmentActivity implements
 							getResources().getString(
 									R.string.toast_mission_expired));
 				}
+//				c.close();
 			}
 		});
 

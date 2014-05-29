@@ -51,8 +51,6 @@ public class ViewReportsChecklistTab extends Activity {
 					try {
 						JSONObject thisItem = responses.getJSONObject(key);
 						
-						
-						Log.i("ITEMTEXT", thisItem.toString());
 
 						taskData.add(new TaskItemModel(context, thisItem));
 					} catch (JSONException e) {

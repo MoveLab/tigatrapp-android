@@ -119,8 +119,6 @@ public class MapSelector extends MapActivity {
 
 		setContentView(R.layout.map_selector_dialog);
 
-		Util.overrideFonts(this, findViewById(android.R.id.content));
-
 		mapView = (MapView) findViewById(R.id.mapview);
 		mapView.setBuiltInZoomControls(true);
 		satToggle = true;

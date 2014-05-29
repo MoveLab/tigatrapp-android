@@ -131,8 +131,6 @@ public class MapData extends MapActivity {
 		this.setTitle(context.getResources().getString(
 				R.string.activity_label_map));
 
-		Util.overrideFonts(this, findViewById(android.R.id.content));
-
 		mapView = (MapView) findViewById(R.id.mapview);
 		mapView.setBuiltInZoomControls(true);
 
@@ -553,9 +551,6 @@ public class MapData extends MapActivity {
 									: currentLocationLonCol) * 1E6;
 					GeoPoint point = new GeoPoint(geoLat.intValue(),
 							geoLon.intValue());
-
-					Log.i("VDA", "locationChoice = " + locationChoice);
-					Log.i("VDA", "geolat = " + geoLat);
 
 					final int thisType = c.getInt(typeCol);
 

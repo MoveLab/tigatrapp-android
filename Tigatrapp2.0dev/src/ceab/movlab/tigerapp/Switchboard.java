@@ -106,8 +106,6 @@ public class Switchboard extends Activity {
 
 			setContentView(R.layout.switchboard);
 
-			Util.overrideFonts(this, findViewById(android.R.id.content));
-
 			reportButtonAdult = (RelativeLayout) findViewById(R.id.reportButtonAdult);
 			reportButtonAdult.setOnClickListener(new View.OnClickListener() {
 
@@ -251,8 +249,12 @@ public class Switchboard extends Activity {
 			Intent i = new Intent(Switchboard.this, RSSActivity.class);
 			i.putExtra(RSSActivity.RSSEXTRA_TITLE,
 					getResources().getString(R.string.rss_title_tigatrapp));
-			i.putExtra(RSSActivity.RSSEXTRA_URL,
-					"http://atrapaeltigre.com/web/feed/");
+			if (lang.equals("ca"))
+				i.putExtra(RSSActivity.RSSEXTRA_URL, Util.URL_RSS_CA);
+			// Note we are only doing the blog in Catalan or Spanish, so if user
+			// is in English or Spanish, both will go to Spanish RSS feed
+			else
+				i.putExtra(RSSActivity.RSSEXTRA_URL, Util.URL_RSS_ES);
 			i.putExtra(RSSActivity.RSSEXTRA_DEFAULT_THUMB,
 					R.drawable.ic_launcher);
 			startActivity(i);
@@ -298,7 +300,8 @@ public class Switchboard extends Activity {
 					"Tigatrapp");
 
 			// build the body of the message to be shared
-			String shareMessage = getResources().getString(R.string.project_website);
+			String shareMessage = getResources().getString(
+					R.string.project_website);
 
 			// add the message
 			shareIntent.putExtra(android.content.Intent.EXTRA_TEXT,

@@ -201,7 +201,7 @@ public class FixGet extends Service {
 					|| locationManager
 							.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 
-				new CountDownTimer(0, Util.LISTENER_WINDOW) {
+				new CountDownTimer(Util.LISTENER_WINDOW, Util.LISTENER_WINDOW) {
 
 					public void onTick(long millisUntilFinished) {
 						// nothing
@@ -245,7 +245,6 @@ public class FixGet extends Service {
 			unregisterReceiver(stopReceiver);
 		} catch (IllegalArgumentException e) {
 			Log.e("Unregister receiver error: ", e.getMessage());
-
 		}
 
 		unWakeLock();

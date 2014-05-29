@@ -93,7 +93,6 @@ public class Help extends FragmentActivity {
 		myWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
 
 		if (Build.VERSION.SDK_INT >= 7) {
-			Log.e("help build ", "bv =" + Build.VERSION.SDK_INT);
 			WebViewApi7.api7settings(myWebView, context);
 		}
 

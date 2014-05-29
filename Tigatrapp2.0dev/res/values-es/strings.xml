@@ -58,7 +58,7 @@
         y el mosquito adulto emerge de la pupa hacia el medio aéreo.</item>
     </string-array>
     <!-- Toasts -->
-    <string name="toast_report_before_submitting">Para enviar este lugar de cría:</string>
+    <string name="toast_report_before_submitting_site">Para enviar este lugar de cría:</string>
     <string name="toast_report_before_submitting_adult">Para enviar este avistamiento de adulto:</string>
     <string name="toast_complete_checklist">- Completa descripción</string>
     <string name="toast_specify_location">- Especifica posición</string>
@@ -238,8 +238,8 @@
 
     <!-- Settings -->
     <string name="settings_language_title">Idioma</string>
-    <string name="settings_language_detail">Elija idioma</string>
-    <string name="settings_language_button">Elija</string>
+    <string name="settings_language_detail">Selecciona idioma</string>
+    <string name="settings_language_button">Selecciona</string>
     <string name="settings_sync_title">Sincroniza</string>
     <string name="settings_sync_detail">Forzar conexión con servidor para enviar datos y descargar misiones</string>
     <string name="settings_sync_button">Sinc.</string>

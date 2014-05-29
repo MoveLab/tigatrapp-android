@@ -63,8 +63,9 @@
     </string-array>
 
     <!-- Toasts -->
-    <string name="toast_report_before_submitting">Before submitting your report, please:</string>
-    <string name="toast_complete_checklist">- complete the checklist</string>
+        <string name="toast_report_before_submitting_site">Before submitting this breeding site report, please:</string>
+    <string name="toast_report_before_submitting_adult">Before submitting this tiger mosquito report, please:</string>
+        <string name="toast_complete_checklist">- complete the checklist</string>
     <string name="toast_specify_location">- specify a location</string>
     <string name="toast_attach_photo">- attach a photo of the breeding site</string>
 

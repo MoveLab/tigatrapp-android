@@ -48,7 +48,6 @@ public class ViewResponsesAdapter extends ArrayAdapter<TaskItemModel> {
 			viewHolder = (ViewHolder) convertView.getTag();
 		}
 
-		Log.i("ITEMTEXT", data.get(position).getItemText().toString());
 		
 		viewHolder.itemQuestion.setText(data.get(position).getItemText());
 		viewHolder.itemResponse.setText(data.get(position).getItemResponse());

@@ -33,7 +33,6 @@ public class TigaTagHandler implements Html.TagHandler {
     	  if(opening) {
     		  output.setSpan(new TypefaceSpan("monospace"), output.length(), output.length(), Spannable.SPAN_MARK_MARK);
     	  } else {
-    		  Log.d("COde Tag","Code tag encountered");
     		 Object obj = getLast(output, TypefaceSpan.class);
     		 int where = output.getSpanStart(obj);
     		 

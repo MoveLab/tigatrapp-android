@@ -79,7 +79,7 @@ import ceab.movlab.tigerapp.ContentProviderContractTasks.Tasks;
 
 public class ReportTool extends Activity {
 
-	private CountDownTimer countDownTimer;
+	private MyCountDownTimer countDownTimer;
 
 	private boolean gpsAvailable;
 	private boolean networkLocationAvailable;
@@ -257,9 +257,6 @@ public class ReportTool extends Activity {
 						c.getString(appLanguageCol),
 						c.getString(missionUUIDCol));
 
-				Log.i("BBB", thisReport.confirmation);
-
-				Log.e("ON READING VT", "" + thisReport.versionTimeString);
 
 			}
 			c.close();
@@ -324,8 +321,6 @@ public class ReportTool extends Activity {
 									type == Report.TYPE_BREEDING_SITE ? R.string.report_title_site
 											: R.string.report_title_adult));
 		}
-
-		Util.overrideFonts(this, findViewById(android.R.id.content));
 
 		if (icicle != null) {
 			thisReport.reportId = icicle.getString("reportId");
@@ -555,7 +550,7 @@ public class ReportTool extends Activity {
 							getResources()
 									.getString(
 											(type == Report.TYPE_ADULT ? R.string.toast_report_before_submitting_adult
-													: R.string.toast_report_before_submitting))
+													: R.string.toast_report_before_submitting_site))
 									+ "\n\n"
 									+ (reportConfirmationCheck.isChecked() ? ""
 											: (getResources()
@@ -577,7 +572,7 @@ public class ReportTool extends Activity {
 			}
 		});
 
-		countDownTimer = new MyCountDownTimer(5 * 60 * 1000, 5 * 30 * 1000);
+		countDownTimer = new MyCountDownTimer(5 * 60 * 1000, 5 * 60 * 1000);
 
 	}
 
@@ -610,6 +605,13 @@ public class ReportTool extends Activity {
 				if (location.getAccuracy() < 100) {
 					removeLocationUpdate("gps");
 					removeLocationUpdate("network");
+					try {
+						countDownTimer.cancel();
+					} catch (Exception e) {
+
+						Log.e("ReportTool",
+								"exception cancelling countdown timer");
+					}
 					countDownTimer.start();
 
 				}
@@ -644,6 +646,12 @@ public class ReportTool extends Activity {
 			 */
 			if (status == LocationProvider.OUT_OF_SERVICE) {
 				removeLocationUpdate(provider);
+				try {
+					countDownTimer.cancel();
+				} catch (Exception e) {
+
+					Log.e("ReportTool", "exception cancelling countdown timer");
+				}
 				countDownTimer.start();
 			}
 		}
@@ -741,32 +749,24 @@ public class ReportTool extends Activity {
 
 	@Override
 	public void onPause() {
-
-		removeLocationUpdate("gps");
-
-		removeLocationUpdate("network");
-
-		locationListener1 = null;
-		locationListener2 = null;
-		locationManager = null;
-
 		super.onPause();
+		removeLocationUpdate("gps");
+		removeLocationUpdate("network");
+		// locationListener1 = null;
+		// locationListener2 = null;
+		// locationManager = null;
 
 	}
 
 	@Override
 	public void onDestroy() {
-		removeLocationUpdate("gps");
-
-		removeLocationUpdate("network");
-
-		locationListener1 = null;
-		locationListener2 = null;
-		locationManager = null;
-
-		clearFields();
 		super.onDestroy();
-
+		clearFields();
+		removeLocationUpdate("gps");
+		removeLocationUpdate("network");
+		// locationListener1 = null;
+		// locationListener2 = null;
+		// locationManager = null;
 	}
 
 	// utilities
@@ -803,8 +803,6 @@ public class ReportTool extends Activity {
 			@Override
 			public void onClick(View v) {
 
-				Log.i("report tool", "click");
-
 				removeLocationUpdate("gps");
 				// Log.e(TAG,
 				// "gps listener stopped by onDestroy");
@@ -833,12 +831,10 @@ public class ReportTool extends Activity {
 				 */
 				// uploadReport(thisReport, Util.SERVER);
 
-				Log.i("report tool", "click b");
 
 				if (thisReport.reportTime == Report.MISSING)
 					thisReport.reportTime = System.currentTimeMillis();
 
-				Log.i("report tool", "about to upload");
 
 				new ReportUploadTask().execute(context);
 
@@ -969,8 +965,6 @@ public class ReportTool extends Activity {
 		@Override
 		protected void onPreExecute() {
 
-			Log.i("report tool", "pre ex");
-
 			PropertyHolder.init(context);
 			resultFlag = SUCCESS;
 
@@ -983,8 +977,6 @@ public class ReportTool extends Activity {
 
 			myProgress = 0;
 
-			Log.i("report tool", "pre ex b");
-
 		}
 
 		protected Boolean doInBackground(Context... context) {
@@ -995,7 +987,6 @@ public class ReportTool extends Activity {
 
 			thisReport.versionTimeString = Util.ecma262(System
 					.currentTimeMillis());
-			Log.e("JUST MADE VT", "" + thisReport.versionTimeString);
 
 			try {
 				PackageInfo pInfo = getPackageManager().getPackageInfo(
@@ -1017,7 +1008,7 @@ public class ReportTool extends Activity {
 			ContentResolver cr = getContentResolver();
 			Uri repUri = Reports.CONTENT_URI;
 
-			cr.insert(repUri,
+			Uri thisReportUri = cr.insert(repUri,
 					ContentProviderValuesReports.createReport(thisReport));
 
 			Uri photosUri = TigaPhotos.CONTENT_URI;
@@ -1032,31 +1023,33 @@ public class ReportTool extends Activity {
 
 			cr.update(repUri, cv, sc, null);
 
-			Log.i("report tool", "1");
 
 			if (!Util.privateMode) {
 
-				Log.i("report tool", "2");
 
 				// now test if there is a data connection
 				if (!Util.isOnline(context[0])) {
 
 					resultFlag = OFFLINE;
-					Log.i("report flag", "offline");
 					return false;
 
 				}
-				Log.i("report tool", "3");
 				if (!PropertyHolder.isRegistered())
 					Util.registerOnServer(context[0]);
 
 				int statusCode = Util.getResponseStatusCode(thisReport
 						.upload(context[0]));
 
-				Log.i("report tool", "status= " + statusCode);
 
-				if (statusCode < 300 && statusCode != 0)
+				if (statusCode < 300 && statusCode != 0){
+				// mark as uploaded
+					cv = new ContentValues();
+					cv.put(Reports.KEY_UPLOADED, 1);
+					int nUpdated = cr.update(thisReportUri, cv, null, null);
+					Log.d("REPORT TOOL", "report uri " + thisReportUri);
+					Log.d("REPORT TOOL", "n updated " + nUpdated);
 					resultFlag = SUCCESS;
+				}
 				else
 					resultFlag = UPLOAD_ERROR;
 
@@ -1138,7 +1131,6 @@ public class ReportTool extends Activity {
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		dialog.setContentView(R.layout.add_note);
-		Util.overrideFonts(context, dialog.findViewById(android.R.id.content));
 
 		final EditText noteText = (EditText) dialog
 				.findViewById(R.id.noteEditText);
@@ -1173,8 +1165,6 @@ public class ReportTool extends Activity {
 
 		dialog.setContentView(R.layout.custom_alert);
 
-		Util.overrideFonts(context, dialog.findViewById(android.R.id.content));
-
 		dialog.setCancelable(false);
 
 		TextView alertText = (TextView) dialog.findViewById(R.id.alertText);
@@ -1206,8 +1196,6 @@ public class ReportTool extends Activity {
 
 		dialog.setContentView(R.layout.custom_alert);
 
-		Util.overrideFonts(context, dialog.findViewById(android.R.id.content));
-
 		dialog.setCancelable(false);
 
 		TextView alertText = (TextView) dialog.findViewById(R.id.alertText);
@@ -1237,8 +1225,6 @@ public class ReportTool extends Activity {
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		dialog.setContentView(R.layout.location_menu);
-
-		Util.overrideFonts(context, dialog.findViewById(android.R.id.content));
 
 		dialog.setCancelable(true);
 
@@ -1318,8 +1304,6 @@ public class ReportTool extends Activity {
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
 		dialog.setContentView(R.layout.custom_alert);
-
-		Util.overrideFonts(context, dialog.findViewById(android.R.id.content));
 
 		dialog.setCancelable(false);
 

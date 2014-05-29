@@ -59,7 +59,7 @@
         i el mosquit adult emergeix de la pupa cap al medi aeri. </item>
     </string-array>
     <!-- Toasts -->
-    <string name="toast_report_before_submitting">Per enviar aquest lloc de cria:</string>
+    <string name="toast_report_before_submitting_site">Per enviar aquest lloc de cria:</string>
     <string name="toast_report_before_submitting_adult">Per enviar aquest albirament d\'adult:</string>
     <string name="toast_complete_checklist">- Completa descripció</string>
     <string name="toast_specify_location">- Especifica posició</string>
@@ -238,8 +238,8 @@
 
     <!-- Settings -->
     <string name="settings_language_title">Idioma</string>
-    <string name="settings_language_detail">Tria idioma</string>
-    <string name="settings_language_button">Tria</string>
+    <string name="settings_language_detail">Selecciona idioma</string>
+    <string name="settings_language_button">Selecciona</string>
     <string name="settings_sync_title">Sincronitza</string>
     <string name="settings_sync_detail">Forçar connexió amb servidor per enviar dades i descarregar missions</string>
     <string name="settings_sync_button">Sinc.</string>

@@ -42,14 +42,18 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
-        android:padding="2dp" >
+ 
+        android:paddingTop="4dp"
+        android:paddingBottom="1dp"
+        android:paddingLeft="1dp"
+        android:paddingRight="1dp" >
 
         <Button
             android:id="@+id/consent_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:minHeight="70dip"
+            android:minHeight="80dip"
             android:text="@string/consent_button_label" />
 
         <Button
@@ -57,7 +61,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:minHeight="70dip"
+            android:minHeight="80dip"
             android:text="@string/decline_button_label" />
     </LinearLayout>
 

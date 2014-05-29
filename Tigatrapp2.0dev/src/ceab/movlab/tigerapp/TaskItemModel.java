@@ -72,14 +72,12 @@ public class TaskItemModel {
 				JSONArray itemChoicesJson = item
 						.getJSONArray(KEY_ANSWER_CHOICES);
 
-				Log.i("CHOICES", "choices: " + itemChoicesJson.toString());
 				String[] itemChoicesTemp = new String[itemChoicesJson.length() + 1];
 				// Making the first row blank so that Spinner default is no
 				// selection
 				itemChoicesTemp[0] = context.getResources().getString(
 						R.string.spinner_nothing_selected);
 				for (int i = 0; i < itemChoicesJson.length(); i++) {
-					Log.i("CHOICES", "choice: " + itemChoicesJson.getString(i));
 
 					itemChoicesTemp[i + 1] = itemChoicesJson.getString(i);
 				}
@@ -115,12 +113,9 @@ public class TaskItemModel {
 				try {
 
 					if (item.has(KEY_ANSWER_CHOICES_CATALAN)) {
-						Log.i("ITEM CHOICES HAS CA", "true");
 
 						String theseChoices = item
 								.getString(KEY_ANSWER_CHOICES_CATALAN);
-
-						Log.i("ITEM CHOICES: ", "these: " + theseChoices);
 
 						JSONArray itemChoicesJson = new JSONArray(theseChoices);
 						String[] itemChoicesTemp = new String[itemChoicesJson
@@ -164,12 +159,10 @@ public class TaskItemModel {
 				try {
 
 					if (item.has(KEY_ANSWER_CHOICES_SPANISH)) {
-						Log.i("ITEM CHOICES HAS ES", "true");
 
 						String theseChoices = item
 								.getString(KEY_ANSWER_CHOICES_SPANISH);
 
-						Log.i("ITEM CHOICES: ", "these: " + theseChoices);
 
 						JSONArray itemChoicesJson = new JSONArray(theseChoices);
 						String[] itemChoicesTemp = new String[itemChoicesJson
@@ -214,12 +207,10 @@ public class TaskItemModel {
 				try {
 
 					if (item.has(KEY_ANSWER_CHOICES_ENGLISH)) {
-						Log.i("ITEM CHOICES HAS EN", "true");
 
 						String theseChoices = item
 								.getString(KEY_ANSWER_CHOICES_ENGLISH);
 
-						Log.i("ITEM CHOICES: ", "these: " + theseChoices);
 
 						JSONArray itemChoicesJson = new JSONArray(theseChoices);
 						String[] itemChoicesTemp = new String[itemChoicesJson
@@ -243,7 +234,6 @@ public class TaskItemModel {
 
 			}
 
-			Log.e("ITEM", "item text BBB: " + this.itemText);
 
 		}
 
@@ -251,7 +241,11 @@ public class TaskItemModel {
 		try {
 
 			if (item.has(KEY_PREPOSITIONED_IMAGE_REFERENCE))
-				if (item.getString(KEY_PREPOSITIONED_IMAGE_REFERENCE) != null)
+				if (item.getString(KEY_PREPOSITIONED_IMAGE_REFERENCE) != null
+						&& item.getString(KEY_PREPOSITIONED_IMAGE_REFERENCE)
+								.length() > 0
+						&& !item.getString(KEY_PREPOSITIONED_IMAGE_REFERENCE)
+								.equals("null"))
 					this.itemHelpImage = item
 							.getInt(KEY_PREPOSITIONED_IMAGE_REFERENCE);
 		} catch (JSONException e) {
@@ -333,11 +327,6 @@ public class TaskItemModel {
 				if (thisResponse != null)
 					result = Arrays.asList(getItemChoices()).indexOf(
 							thisResponse);
-				Log.d("TIM1", "" + result);
-				Log.d("TIM2", this.itemResponse);
-				for (String s : getItemChoices()) {
-					Log.d("TIM3", s);
-				}
 
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block

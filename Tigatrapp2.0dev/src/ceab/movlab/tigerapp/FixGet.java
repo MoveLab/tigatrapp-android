@@ -123,8 +123,6 @@ public class FixGet extends Service {
 	WifiLock wifiLock;
 	WakeLock wakeLock;
 
-	StopReceiver stopReceiver;
-	IntentFilter stopFilter;
 	Context context;
 
 	boolean fixInProgress = false;
@@ -166,13 +164,24 @@ public class FixGet extends Service {
 			stopSelf();
 		}
 
-		if (fixInProgress == false) {
-			fixInProgress = true;
+		String action = intent.getAction();
 
-			stopFilter = new IntentFilter(
-					TigerBroadcastReceiver.STOP_FIXGET_MESSAGE);
-			stopReceiver = new StopReceiver();
-			registerReceiver(stopReceiver, stopFilter);
+		if (action != null && action.contains(Messages.stopFixAction(context))) {
+			removeLocationUpdate("gps");
+			removeLocationUpdate("network");
+			unWakeLock();
+			locationListener1 = null;
+			locationListener2 = null;
+			locationManager = null;
+			if (bestLocation != null
+					&& bestLocation.getAccuracy() < Util.MIN_ACCURACY) {
+				useFix(context, bestLocation);
+			}
+			stopSelf();
+		}
+
+		if (!fixInProgress) {
+			fixInProgress = true;
 
 			// stopListening = null;
 			bestLocation = null;
@@ -210,17 +219,11 @@ public class FixGet extends Service {
 					public void onFinish() {
 						removeLocationUpdate("gps");
 						removeLocationUpdate("network");
-						try {
-							unregisterReceiver(stopReceiver);
-						} catch (IllegalArgumentException e) {
-							Log.e("Unregister receiver error: ", e.getMessage());
-
-						}
 						unWakeLock();
 						locationListener1 = null;
 						locationListener2 = null;
 						locationManager = null;
-						fixInProgress = false;
+
 						if (bestLocation != null
 								&& bestLocation.getAccuracy() < Util.MIN_ACCURACY) {
 							useFix(context, bestLocation);
@@ -241,18 +244,11 @@ public class FixGet extends Service {
 		removeLocationUpdate("gps");
 		removeLocationUpdate("network");
 
-		try {
-			unregisterReceiver(stopReceiver);
-		} catch (IllegalArgumentException e) {
-			Log.e("Unregister receiver error: ", e.getMessage());
-		}
-
 		unWakeLock();
 
 		locationListener1 = null;
 		locationListener2 = null;
 		locationManager = null;
-		fixInProgress = false;
 
 	}
 
@@ -312,7 +308,6 @@ public class FixGet extends Service {
 					removeLocationUpdate("gps");
 					removeLocationUpdate("network");
 					useFix(context, location);
-					fixInProgress = false;
 
 					stopSelf();
 				} else {
@@ -344,8 +339,6 @@ public class FixGet extends Service {
 		 */
 		public void onProviderDisabled(String provider) {
 			removeLocationUpdate(provider);
-			if (locationListener1 == null && locationListener2 == null)
-				fixInProgress = false;
 			stopSelf();
 		}
 
@@ -366,9 +359,6 @@ public class FixGet extends Service {
 			 */
 			if (status == LocationProvider.OUT_OF_SERVICE) {
 				removeLocationUpdate(provider);
-				if (locationListener1 == null && locationListener2 == null)
-					fixInProgress = false;
-
 				stopSelf();
 			}
 		}
@@ -454,7 +444,7 @@ public class FixGet extends Service {
 						cr.update(Tasks.CONTENT_URI, cv, sc, null);
 
 						Intent intent = new Intent(
-								TigerBroadcastReceiver.TIGER_TASK_MESSAGE);
+								Messages.SHOW_TASK_NOTIFICATION);
 						if (PropertyHolder.getLanguage().equals("ca")) {
 							intent.putExtra(
 									Tasks.KEY_TITLE,
@@ -522,45 +512,6 @@ public class FixGet extends Service {
 			wifiLock.release();
 
 		}
-	}
-
-	public void injectNewXTRA() {
-		Bundle bundle = new Bundle();
-		locationManager.sendExtraCommand("gps", "force_xtra_injection", bundle);
-		locationManager.sendExtraCommand("gps", "force_time_injection", bundle);
-
-	}
-
-	public void clearGPS() {
-		locationManager.sendExtraCommand(LocationManager.GPS_PROVIDER,
-				"delete_aiding_data", null);
-	}
-
-	public class StopReceiver extends BroadcastReceiver {
-
-		@Override
-		public void onReceive(Context context, Intent intent) {
-
-			removeLocationUpdate("gps");
-			removeLocationUpdate("network");
-			try {
-				unregisterReceiver(stopReceiver);
-			} catch (IllegalArgumentException e) {
-				Log.e("Unregister receiver error: ", e.getMessage());
-
-			}
-			unWakeLock();
-			locationListener1 = null;
-			locationListener2 = null;
-			locationManager = null;
-			fixInProgress = false;
-			if (bestLocation != null
-					&& bestLocation.getAccuracy() < Util.MIN_ACCURACY) {
-				useFix(context, bestLocation);
-			}
-			stopSelf();
-		}
-
 	}
 
 }

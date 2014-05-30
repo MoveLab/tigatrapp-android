@@ -101,9 +101,7 @@ public class Switchboard extends Activity {
 
 				long lastScheduleTime = PropertyHolder.lastSampleSchedleMade();
 				if (System.currentTimeMillis() - lastScheduleTime > 1000 * 60 * 60 * 24) {
-					Intent scheduleService = new Intent(
-							TigerBroadcastReceiver.START_SAMPLING_MESSAGE);
-					sendBroadcast(scheduleService);
+					Util.internalBroadcast(context, Messages.START_DAILY_SAMPLING);
 				}
 
 			}
@@ -194,9 +192,6 @@ public class Switchboard extends Activity {
 			galleryButton.startAnimation(animation);
 			websiteButton.startAnimation(animation);
 			menuButton.startAnimation(animation);
-
-			Intent i = new Intent(TigerBroadcastReceiver.START_SAMPLING_MESSAGE);
-			sendBroadcast(i);
 
 		}
 

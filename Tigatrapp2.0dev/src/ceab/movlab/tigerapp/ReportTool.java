@@ -31,6 +31,7 @@ import org.json.JSONException;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -993,7 +994,7 @@ public class ReportTool extends Activity {
 			cr.update(repUri, cv, sc, null);
 
 
-			if (!Util.privateMode) {
+			if (!Util.privateMode(context[0])) {
 
 
 				// now test if there is a data connection
@@ -1018,6 +1019,9 @@ public class ReportTool extends Activity {
 					Log.d("REPORT TOOL", "report uri " + thisReportUri);
 					Log.d("REPORT TOOL", "n updated " + nUpdated);
 					resultFlag = SUCCESS;
+					
+					// try sync and make sure daily syncs are scheduled
+					Util.internalBroadcast(context[0], Messages.START_DAILY_SYNC);
 				}
 				else
 					resultFlag = UPLOAD_ERROR;
@@ -1050,10 +1054,6 @@ public class ReportTool extends Activity {
 			} else {
 
 				if (resultFlag == OFFLINE) {
-
-					Intent uploadSchedulerIntent = new Intent(
-							TigerBroadcastReceiver.UPLOADS_NEEDED_MESSAGE);
-					context.sendBroadcast(uploadSchedulerIntent);
 
 					buildCustomAlert(getResources().getString(
 							R.string.offline_report));

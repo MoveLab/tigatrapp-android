@@ -159,6 +159,41 @@ public class Util {
 
 	private static String TAG = "Util";
 
+	public final static boolean testingMode = true;
+
+	public static boolean privateMode(Context context) {
+		boolean result = false;
+		if (context.getResources().getString(R.string.private_mode)
+				.equals("true"))
+			result = true;
+		return result;
+	}
+
+	public static boolean debugMode(Context context) {
+		boolean result = false;
+		if (context.getResources().getString(R.string.debug_mode)
+				.equals("true"))
+			result = true;
+		return result;
+	}
+
+	public static void logError(Context context, String tag, String message) {
+		if (debugMode(context))
+			Log.e(tag, message);
+	}
+
+	public static void logInfo(Context context, String tag, String message) {
+		if (debugMode(context))
+			Log.i(tag, message);
+	}
+
+	public static void internalBroadcast(Context context, String message){
+		Intent i = new Intent(Messages.internalAction(context));
+		i.putExtra(Messages.INTERNAL_MESSAGE_EXTRA, message);
+		context.sendBroadcast(i);
+		return;
+	}
+	
 	/**
 	 * RSS URL for Spanish.
 	 */
@@ -220,16 +255,12 @@ public class Util {
 	public final static double latMask = 0.5;
 	public final static double lonMask = 0.5;
 
-	public final static boolean testingMode = false;
-
 	public static String[] ALPHA_NUMERIC_DIGITS = { "0", "1", "2", "3", "4",
 			"5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H",
 			"I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
 			"V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h",
 			"i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u",
 			"v", "w", "x", "y", "z" };
-	
-	public static boolean privateMode = false;
 
 	public static int DEFAULT_SAMPLES_PER_DAY = 5;
 
@@ -311,10 +342,10 @@ public class Util {
 			result = d.getTime();
 
 		} catch (ParseException e) {
-			Log.e("DATE parsing",
-					"exception: " + e + " using: " + sdf.toLocalizedPattern());
-			e.printStackTrace();
-		} // ICU4J;
+			
+			// just leave result as 0 in this case
+
+		}
 
 		return result;
 	}
@@ -1126,39 +1157,36 @@ public class Util {
 		return result;
 	}
 
-	public static String makeReportId(){
-	Random mRandom = new Random();
+	public static String makeReportId() {
+		Random mRandom = new Random();
 
-	// I am removing potentially confusing characters 0, o, and O
-	String[] digits = { "1", "2", "3", "4", "5", "6", "7", "8", "9",
-			"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L",
-			"M", "N", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y",
-			"Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
-			"l", "m", "n", "p", "q", "r", "s", "t", "u", "v", "w", "x",
-			"y", "z" };
+		// I am removing potentially confusing characters 0, o, and O
+		String[] digits = { "1", "2", "3", "4", "5", "6", "7", "8", "9", "A",
+				"B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M",
+				"N", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z",
+				"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l",
+				"m", "n", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z" };
 
-	/*
-	 * I am giving the report IDs 4 digits using the set of 62
-	 * alphanumeric characters taking (capitalization into account). If
-	 * we would receive 1000 reports, the probability of at least two
-	 * ending up with the same random ID is about .03 (based on the
-	 * Taylor approximation solution to the birthday paradox: 1-
-	 * exp((-(1000^2))/((62^4)*2))). For 100 reports, the probability is
-	 * about .0003. Since each report is also linked to a unique userID,
-	 * and since the only consequence of a double ID would be to make it
-	 * harder for us to link a mailed sample to a report -- assuming the
-	 * report with the double ID included a mailed sample -- this seems
-	 * like a reasonable risk to take. We could reduce the probability
-	 * by adding digits, but then it would be harder for users to record
-	 * their report IDs.
-	 * 
-	 * UPDATE: I now removed 0 and o and O to avoid confusion, so the
-	 * probabilities would need to be recaclulated...
-	 */
+		/*
+		 * I am giving the report IDs 4 digits using the set of 62 alphanumeric
+		 * characters taking (capitalization into account). If we would receive
+		 * 1000 reports, the probability of at least two ending up with the same
+		 * random ID is about .03 (based on the Taylor approximation solution to
+		 * the birthday paradox: 1- exp((-(1000^2))/((62^4)*2))). For 100
+		 * reports, the probability is about .0003. Since each report is also
+		 * linked to a unique userID, and since the only consequence of a double
+		 * ID would be to make it harder for us to link a mailed sample to a
+		 * report -- assuming the report with the double ID included a mailed
+		 * sample -- this seems like a reasonable risk to take. We could reduce
+		 * the probability by adding digits, but then it would be harder for
+		 * users to record their report IDs.
+		 * 
+		 * UPDATE: I now removed 0 and o and O to avoid confusion, so the
+		 * probabilities would need to be recaclulated...
+		 */
 
-	return digits[mRandom.nextInt(58)]
-			+ digits[mRandom.nextInt(58)] + digits[mRandom.nextInt(58)]
-			+ digits[mRandom.nextInt(58)];
+		return digits[mRandom.nextInt(58)] + digits[mRandom.nextInt(58)]
+				+ digits[mRandom.nextInt(58)] + digits[mRandom.nextInt(58)];
 	}
-	
+
 }

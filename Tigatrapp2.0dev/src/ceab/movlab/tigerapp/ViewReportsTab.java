@@ -120,6 +120,8 @@ public class ViewReportsTab extends TabActivity {
 										ContentValues cv = new ContentValues();
 										String sc = Reports.KEY_REPORT_ID
 												+ " = '" + reportId + "'";
+										cr.delete(Reports.CONTENT_URI, sc, null);
+										
 										cv.put(Reports.KEY_DELETE_REPORT, 1);
 										cr.update(Reports.CONTENT_URI, cv, sc,
 												null);

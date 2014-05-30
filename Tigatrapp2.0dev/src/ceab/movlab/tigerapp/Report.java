@@ -234,6 +234,8 @@ public class Report {
 
 	}
 
+
+	
 	public void clear() {
 
 		versionUUID = null;
@@ -479,11 +481,13 @@ public class Report {
 			Log.i(TAG, "Report JSON conversion:" + data.toString());
 			HttpResponse response = Util
 					.putJSON(data, Util.API_REPORT, context);
+			if(response != null){
 			int statusCode1 = response.getStatusLine().getStatusCode();
 			if (statusCode1 >= 200 && statusCode1 < 300) {
 				result = UPLOADED_REPORT_ONLY;
 				Log.d(TAG, "statusCode1: " + statusCode1);
 				result = uploadPhotos();
+			}
 			}
 		} else if (this.uploaded == UPLOADED_REPORT_ONLY) {
 			result = uploadPhotos();
@@ -515,4 +519,5 @@ public class Report {
 		return result;
 	}
 
+	
 }

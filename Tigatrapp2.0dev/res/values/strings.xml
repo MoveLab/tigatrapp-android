@@ -17,12 +17,14 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
     <!-- DO NOT TRANSLATE -->
-    <string name="internal_message_id" translatable="false">csic.ceab.movelab.tigatrapp</string>
+    <string name="internal_action" translatable="false">net.movelab.tigatrapp.tigatrapp2014.full.INTERNAL_ACTION</string>
+    <string name="private_mode" translatable="false">false</string>
+    <string name="debug_mode" translatable="true">true</string>
     <string name="language_selector_english" translatable="false">English</string>
     <string name="language_selector_catalan" translatable="false">Català</string>
     <string name="language_selector_spanish" translatable="false">Español</string>
@@ -63,9 +65,9 @@
     </string-array>
 
     <!-- Toasts -->
-        <string name="toast_report_before_submitting_site">Before submitting this breeding site report, please:</string>
+    <string name="toast_report_before_submitting_site">Before submitting this breeding site report, please:</string>
     <string name="toast_report_before_submitting_adult">Before submitting this tiger mosquito report, please:</string>
-        <string name="toast_complete_checklist">- complete the checklist</string>
+    <string name="toast_complete_checklist">- complete the checklist</string>
     <string name="toast_specify_location">- specify a location</string>
     <string name="toast_attach_photo">- attach a photo of the breeding site</string>
 
@@ -75,7 +77,7 @@
 
     <!-- Switchboard -->
     <string name="dataMap_CD">My Data</string>
-     <string name="switchboard_button_text_report">REPORT</string>
+    <string name="switchboard_button_text_report">REPORT</string>
     <string name="switchboard_button_text_sites">BREEDING SITE</string>
     <string name="switchboard_button_text_adult">TIGER MOSQUITO</string>
     <string name="switchboard_button_text_map">MY MAP</string>
@@ -242,9 +244,9 @@
     <string name="menu_map_share">Share</string>
     <string name="menu_toggle_view">Satellite</string>
     <string name="menu_option_refresh">Refresh</string>
-    
+
     <!-- Settings -->
-    
+
     <string name="settings_language_title">Language</string>
     <string name="settings_language_detail">Choose language</string>
     <string name="settings_language_button">Choose</string>
@@ -298,7 +300,6 @@
     <string name="gpl_heading">GPL</string>
     <string name="LGPL">View LGPL</string>
     <string name="license">License</string>
-    
     <string name="mailing_spec_title">Send sample</string>
     <string name="movelab">MoveLab\nCentre d\'Estudis Avançats de Blanes (CEAB-CSIC)</string>
     <string name="movelab_address1">C/ d\'accés a la Cala St. Francesc, 14</string>

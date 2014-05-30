@@ -66,12 +66,12 @@ import ceab.movlab.tigerapp.ContentProviderContractTracks.Fixes;
  * 
  */
 public class SyncData extends Service {
+
+	private static String TAG = "SyncData";
+
 	private boolean uploading = false;
 
 	Context context;
-	boolean reportUploadsNeeded = true;
-	boolean trackUploadsNeeded = true;
-	boolean tripUploadsNeeded = true;
 
 	ContentResolver cr;
 	Cursor c;
@@ -79,7 +79,9 @@ public class SyncData extends Service {
 	@Override
 	public void onStart(Intent intent, int startId) {
 
-		if (!uploading && !Util.privateMode) {
+		Util.logInfo(context, TAG, "on start");
+
+		if (!uploading && !Util.privateMode(context)) {
 			uploading = true;
 
 			Thread uploadThread = new Thread(null, doFileUploading,
@@ -113,11 +115,13 @@ public class SyncData extends Service {
 	private void tryUploads() {
 
 		if (Util.isOnline(context)) {
-			// Log.e(TAG, "FileUploader online.");
+			Util.logInfo(context, TAG, "online");
 
 			// Check if user has registered on server - if not, try to register
 			// first and only do other uploads once this is done
 			if (PropertyHolder.isRegistered() || Util.registerOnServer(context)) {
+
+				Util.logInfo(context, TAG, "registered");
 
 				// try to get config
 				try {
@@ -126,12 +130,13 @@ public class SyncData extends Service {
 					if (configJson != null && configJson.has("samples_per_day")) {
 						int samplesPerDay = configJson
 								.getInt("samples_per_day");
+						Util.logInfo(context, TAG, "samples per day:"
+								+ samplesPerDay);
 
 						if (samplesPerDay != PropertyHolder.getSamplesPerDay()) {
-							Intent i = new Intent(
-									TigerBroadcastReceiver.START_SAMPLING_MESSAGE);
-							sendBroadcast(i);
+							Util.internalBroadcast(context, Messages.START_DAILY_SAMPLING);
 							PropertyHolder.setSamplesPerDay(samplesPerDay);
+							Util.logInfo(context, TAG, "set property holder");
 						}
 
 					}
@@ -169,7 +174,10 @@ public class SyncData extends Service {
 
 								if (theseTriggers.length() == 0) {
 									Intent intent = new Intent(
-											TigerBroadcastReceiver.TIGER_TASK_MESSAGE);
+											Messages.internalAction(context));
+									intent.putExtra(
+											Messages.INTERNAL_MESSAGE_EXTRA,
+											Messages.SHOW_TASK_NOTIFICATION);
 									if (PropertyHolder.getLanguage().equals(
 											"ca")) {
 										intent.putExtra(
@@ -214,7 +222,6 @@ public class SyncData extends Service {
 
 				if (!c.moveToFirst()) {
 					c.close();
-					trackUploadsNeeded = false;
 				}
 
 				int idIndex = c.getColumnIndexOrThrow(Fixes.KEY_ROWID);
@@ -254,12 +261,11 @@ public class SyncData extends Service {
 
 				// now reports
 				c = cr.query(Reports.CONTENT_URI, Reports.KEYS_ALL,
-						Reports.KEY_UPLOADED + " != " + Report.UPLOADED_ALL, null, null);
+						Reports.KEY_UPLOADED + " != " + Report.UPLOADED_ALL,
+						null, null);
 
 				if (!c.moveToFirst()) {
 					c.close();
-					// 
-					reportUploadsNeeded = false;
 				}
 
 				int rowIdCol = c.getColumnIndexOrThrow(Reports.KEY_ROW_ID);
@@ -349,8 +355,7 @@ public class SyncData extends Service {
 							c.getString(phoneModelCol), c.getString(osCol),
 							c.getString(osVersionCol),
 							c.getString(osLanguageCol),
-							c.getString(appLanguageCol),
-							c.getInt(missionIDCol));
+							c.getString(appLanguageCol), c.getInt(missionIDCol));
 
 					int uploadResult = report.upload(context);
 					if (uploadResult > 0) {
@@ -371,19 +376,6 @@ public class SyncData extends Service {
 			}
 
 			uploading = false;
-
-			if (reportUploadsNeeded == false && trackUploadsNeeded == false
-					&& tripUploadsNeeded == false) {
-				Intent uploadSchedulerIntent = new Intent(
-						"ceab.movelab.tigerapp.UPLOADS_NOT_NEEDED");
-				context.sendBroadcast(uploadSchedulerIntent);
-
-			} else {
-				Intent uploadSchedulerIntent = new Intent(
-						TigerBroadcastReceiver.UPLOADS_NEEDED_MESSAGE);
-				context.sendBroadcast(uploadSchedulerIntent);
-
-			}
 
 		}
 

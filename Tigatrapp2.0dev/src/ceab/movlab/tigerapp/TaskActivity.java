@@ -90,7 +90,7 @@ public class TaskActivity extends Activity {
 			currentResponses = b.getString(Tasks.KEY_RESPONSES_JSON);
 
 		}
-		
+
 		if (b.containsKey(Tasks.KEY_ID)) {
 			missionId = b.getInt(Tasks.KEY_ID);
 
@@ -424,17 +424,15 @@ public class TaskActivity extends Activity {
 					Cursor c = cr.query(Tasks.CONTENT_URI, Tasks.KEYS_DONE, sc,
 							null, null);
 					if (c.getCount() == 0) {
-						Intent i = new Intent(
-								TigerBroadcastReceiver.TIGER_TASK_CLEAR);
-						context.sendBroadcast(i);
+						Util.internalBroadcast(context,
+								Messages.REMOVE_TASK_NOTIFICATION);
 					}
 
-
 					c.close();
-					
+
 					long currentTime = System.currentTimeMillis();
 					String currentTimeString = Util.ecma262(currentTime);
-					
+
 					String packageName = "";
 					int packageVersion = Report.MISSING;
 					try {
@@ -452,19 +450,23 @@ public class TaskActivity extends Activity {
 					String osversion = Integer.toString(Build.VERSION.SDK_INT);
 					String osLanguage = Locale.getDefault().getLanguage();
 					String appLanguage = PropertyHolder.getLanguage();
-					
-					Report missionReport = new Report(UUID.randomUUID().toString(), PropertyHolder.getUserId(), 
-							Util.makeReportId(), 0, currentTime, currentTimeString
-							, currentTimeString, Report.TYPE_MISSION, responses.toString(), Report.CONFIRMATION_CODE_MISSING, 
-							Report.LOCATION_CHOICE_MISSING, Report.MISSING, Report.MISSING,
-							Report.MISSING, Report.MISSING, Report.NO, null, null, Report.UPLOADED_NONE, Report.MISSING, Report.NO,
-							Report.YES, packageName, packageVersion, phoneManufacturer, phoneModel, os, osversion, osLanguage, appLanguage, missionId);
 
+					Report missionReport = new Report(UUID.randomUUID()
+							.toString(), PropertyHolder.getUserId(),
+							Util.makeReportId(), 0, currentTime,
+							currentTimeString, currentTimeString,
+							Report.TYPE_MISSION, responses.toString(),
+							Report.CONFIRMATION_CODE_MISSING,
+							Report.LOCATION_CHOICE_MISSING, Report.MISSING,
+							Report.MISSING, Report.MISSING, Report.MISSING,
+							Report.NO, null, null, Report.UPLOADED_NONE,
+							Report.MISSING, Report.NO, Report.YES, packageName,
+							packageVersion, phoneManufacturer, phoneModel, os,
+							osversion, osLanguage, appLanguage, missionId);
 
 					// First save report to internal DB
-					cr.insert(Reports.CONTENT_URI,
-							ContentProviderValuesReports.createReport(missionReport));
-					
+					cr.insert(Reports.CONTENT_URI, ContentProviderValuesReports
+							.createReport(missionReport));
 
 					if (thisUrl != null) {
 						Intent i = new Intent(Intent.ACTION_VIEW);
@@ -473,12 +475,11 @@ public class TaskActivity extends Activity {
 					}
 
 					// take 1 fix for this task
-					Intent taskFixIntent = new Intent(
-							TigerBroadcastReceiver.DO_TASK_FIX_MESSAGE);
-					sendBroadcast(taskFixIntent);
-					
+					Util.internalBroadcast(context, Messages.START_TASK_FIX);
+
 					// Now trigger sync task
-					Intent syncIntent = new Intent(TaskActivity.this, SyncData.class);
+					Intent syncIntent = new Intent(TaskActivity.this,
+							SyncData.class);
 					startService(syncIntent);
 
 					finish();
@@ -511,9 +512,8 @@ public class TaskActivity extends Activity {
 					Cursor c = cr.query(Tasks.CONTENT_URI, Tasks.KEYS_DONE, sc,
 							null, null);
 					if (c.getCount() == 0) {
-						Intent i = new Intent(
-								TigerBroadcastReceiver.TIGER_TASK_CLEAR);
-						context.sendBroadcast(i);
+						Util.internalBroadcast(context,
+								Messages.REMOVE_TASK_NOTIFICATION);
 					}
 					c.close();
 					finish();
@@ -526,5 +526,5 @@ public class TaskActivity extends Activity {
 		}
 		return result;
 	}
-	
+
 }

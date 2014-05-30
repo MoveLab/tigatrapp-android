@@ -95,7 +95,14 @@ public class Consent extends Activity {
 				// set user_UUID
 				String userId = UUID.randomUUID().toString();
 				PropertyHolder.setUserId(userId);
+				
+				// start daily sampling
+				Util.internalBroadcast(context, Messages.START_DAILY_SAMPLING);
 
+				// start daily sync
+				Util.internalBroadcast(context, Messages.START_DAILY_SYNC);
+
+				// launch switchboard
 				Intent i = new Intent(Consent.this, Switchboard.class);
 				startActivity(i);
 				finish();

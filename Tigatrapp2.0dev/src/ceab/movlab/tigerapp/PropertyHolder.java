@@ -146,7 +146,8 @@ public class PropertyHolder {
 	// TESTING
 
 	public static void setCurrentFixTimes(String[] _times) {
-		String input = "";
+		String input = "Samples per day: " + PropertyHolder.getSamplesPerDay()
+				+ "\n";
 		for (int i = 0; i < _times.length; i++) {
 			input = input + _times[i] + "\n";
 		}
@@ -155,7 +156,7 @@ public class PropertyHolder {
 	}
 
 	public static String getCurrentFixTimes() {
-		return sharedPreferences.getString("CURRENT_FIX_TIMES", null);
+		return sharedPreferences.getString("CURRENT_FIX_TIMES", "");
 	}
 
 	/**

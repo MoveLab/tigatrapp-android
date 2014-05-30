@@ -2,19 +2,26 @@ package ceab.movlab.tigerapp;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.Locale;
+import java.util.UUID;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -25,6 +32,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import ceab.movelab.tigerapp.R;
+import ceab.movlab.tigerapp.ContentProviderContractPhotos.TigaPhotos;
 import ceab.movlab.tigerapp.ContentProviderContractReports.Reports;
 import ceab.movlab.tigerapp.ContentProviderContractTasks.Tasks;
 
@@ -32,6 +40,7 @@ public class TaskActivity extends Activity {
 	Context context = this;
 	String lang;
 	ListView lv;
+	int missionId;
 	TextView taskTitle;
 	TextView taskDetail;
 	LinearLayout taskHeader;
@@ -81,6 +90,12 @@ public class TaskActivity extends Activity {
 			currentResponses = b.getString(Tasks.KEY_RESPONSES_JSON);
 
 		}
+		
+		if (b.containsKey(Tasks.KEY_ID)) {
+			missionId = b.getInt(Tasks.KEY_ID);
+
+		}
+
 		final JSONObject thisTask;
 
 		try {
@@ -286,36 +301,35 @@ public class TaskActivity extends Activity {
 			} else {
 
 				// LEFT BUTTON
-					buttonLeft.setVisibility(View.VISIBLE);
+				buttonLeft.setVisibility(View.VISIBLE);
 
-					if (thisTask.has(TaskModel.KEY_TASK_BUTTON_LEFT_TEXT)) {
-						int buttonCode = thisTask
-								.getInt(TaskModel.KEY_TASK_BUTTON_LEFT_TEXT);
-						buttonLeft
-								.setText(buttonCode == TaskModel.BUTTONTEXT_MARK_COMPLETE ? getResources()
-										.getString(
-												R.string.mission_button_mark_complete)
-										: (buttonCode == TaskModel.BUTTONTEXT_URL_TASK ? getResources()
-												.getString(
-														R.string.mission_button_left_url)
-												: getResources()
-														.getString(
-																R.string.mission_button_left_survey)));
-					} else {
-						buttonLeft.setText(getResources().getString(
-								R.string.mission_button_left_survey));
-					}
-					if (thisTask.has(TaskModel.KEY_TASK_BUTTON_LEFT_ACTION)) {
-						String leftUrl = thisTask
-								.has(TaskModel.KEY_TASK_BUTTON_LEFT_URL) ? thisTask
-								.getString(TaskModel.KEY_TASK_BUTTON_LEFT_URL)
-								: null;
-						buttonLeft
-								.setOnClickListener(makeOnClickListener(
-										thisTask.getInt(TaskModel.KEY_TASK_BUTTON_LEFT_ACTION),
-										b, leftUrl));
-					}
-				
+				if (thisTask.has(TaskModel.KEY_TASK_BUTTON_LEFT_TEXT)) {
+					int buttonCode = thisTask
+							.getInt(TaskModel.KEY_TASK_BUTTON_LEFT_TEXT);
+					buttonLeft
+							.setText(buttonCode == TaskModel.BUTTONTEXT_MARK_COMPLETE ? getResources()
+									.getString(
+											R.string.mission_button_mark_complete)
+									: (buttonCode == TaskModel.BUTTONTEXT_URL_TASK ? getResources()
+											.getString(
+													R.string.mission_button_left_url)
+											: getResources()
+													.getString(
+															R.string.mission_button_left_survey)));
+				} else {
+					buttonLeft.setText(getResources().getString(
+							R.string.mission_button_left_survey));
+				}
+				if (thisTask.has(TaskModel.KEY_TASK_BUTTON_LEFT_ACTION)) {
+					String leftUrl = thisTask
+							.has(TaskModel.KEY_TASK_BUTTON_LEFT_URL) ? thisTask
+							.getString(TaskModel.KEY_TASK_BUTTON_LEFT_URL)
+							: null;
+					buttonLeft.setOnClickListener(makeOnClickListener(thisTask
+							.getInt(TaskModel.KEY_TASK_BUTTON_LEFT_ACTION), b,
+							leftUrl));
+				}
+
 				// MIDDLE BUTTON
 				if (!thisTask.has(TaskModel.KEY_TASK_BUTTON_MIDDLE_VISIBLE)
 						|| thisTask
@@ -414,9 +428,43 @@ public class TaskActivity extends Activity {
 								TigerBroadcastReceiver.TIGER_TASK_CLEAR);
 						context.sendBroadcast(i);
 					}
-					// TODO UPLOAD
-					
+
+
 					c.close();
+					
+					long currentTime = System.currentTimeMillis();
+					String currentTimeString = Util.ecma262(currentTime);
+					
+					String packageName = "";
+					int packageVersion = Report.MISSING;
+					try {
+						PackageInfo pInfo = getPackageManager().getPackageInfo(
+								getPackageName(), 0);
+						packageName = pInfo.packageName;
+						packageVersion = pInfo.versionCode;
+					} catch (NameNotFoundException e) {
+					}
+
+					String phoneManufacturer = Build.MANUFACTURER;
+					String phoneModel = Build.MODEL;
+
+					String os = "Android";
+					String osversion = Integer.toString(Build.VERSION.SDK_INT);
+					String osLanguage = Locale.getDefault().getLanguage();
+					String appLanguage = PropertyHolder.getLanguage();
+					
+					Report missionReport = new Report(UUID.randomUUID().toString(), PropertyHolder.getUserId(), 
+							Util.makeReportId(), 0, currentTime, currentTimeString
+							, currentTimeString, Report.TYPE_MISSION, responses.toString(), Report.CONFIRMATION_CODE_MISSING, 
+							Report.LOCATION_CHOICE_MISSING, Report.MISSING, Report.MISSING,
+							Report.MISSING, Report.MISSING, Report.NO, null, null, Report.UPLOADED_NONE, Report.MISSING, Report.NO,
+							Report.YES, packageName, packageVersion, phoneManufacturer, phoneModel, os, osversion, osLanguage, appLanguage, missionId);
+
+
+					// First save report to internal DB
+					cr.insert(Reports.CONTENT_URI,
+							ContentProviderValuesReports.createReport(missionReport));
+					
 
 					if (thisUrl != null) {
 						Intent i = new Intent(Intent.ACTION_VIEW);
@@ -428,6 +476,11 @@ public class TaskActivity extends Activity {
 					Intent taskFixIntent = new Intent(
 							TigerBroadcastReceiver.DO_TASK_FIX_MESSAGE);
 					sendBroadcast(taskFixIntent);
+					
+					// Now trigger sync task
+					Intent syncIntent = new Intent(TaskActivity.this, SyncData.class);
+					startService(syncIntent);
+
 					finish();
 				}
 			};
@@ -473,4 +526,5 @@ public class TaskActivity extends Activity {
 		}
 		return result;
 	}
+	
 }

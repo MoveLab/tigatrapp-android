@@ -125,8 +125,8 @@ public class ContentProviderValuesReports {
 		if (rep.appLanguage != null)
 			initialValues.put(Reports.KEY_APP_LANGUAGE, rep.appLanguage);
 
-		if (rep.missionUUID != null)
-			initialValues.put(Reports.KEY_MISSION_UUID, rep.missionUUID);
+		if (rep.missionId != Report.MISSING)
+			initialValues.put(Reports.KEY_MISSION_ID, rep.missionId);
 
 		return initialValues;
 	}

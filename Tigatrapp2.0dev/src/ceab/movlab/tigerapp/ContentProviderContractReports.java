@@ -162,7 +162,7 @@ public class ContentProviderContractReports {
 		public static final String KEY_OS_LANGUAGE = "os_language";
 		public static final String KEY_APP_LANGUAGE = "app_language";
 
-		public static final String KEY_MISSION_UUID = "mission_uuid";
+		public static final String KEY_MISSION_ID = "mission_id";
 			
 
 		/**
@@ -178,7 +178,7 @@ public class ContentProviderContractReports {
 				KEY_PHOTO_ATTACHED, KEY_PHOTO_URIS, KEY_NOTE, KEY_UPLOADED,
 				KEY_SERVER_TIMESTAMP, KEY_DELETE_REPORT, KEY_LATEST_VERSION,
 				KEY_PACKAGE_NAME, KEY_PACKAGE_VERSION, KEY_PHONE_MANUFACTURER,
-				KEY_PHONE_MODEL, KEY_OS, KEY_OS_VERSION, KEY_OS_LANGUAGE, KEY_APP_LANGUAGE, KEY_VERSION_UUID, KEY_MISSION_UUID };
+				KEY_PHONE_MODEL, KEY_OS, KEY_OS_VERSION, KEY_OS_LANGUAGE, KEY_APP_LANGUAGE, KEY_VERSION_UUID, KEY_MISSION_ID };
 
 	}
 

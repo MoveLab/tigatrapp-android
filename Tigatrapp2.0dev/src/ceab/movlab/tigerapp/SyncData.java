@@ -254,10 +254,11 @@ public class SyncData extends Service {
 
 				// now reports
 				c = cr.query(Reports.CONTENT_URI, Reports.KEYS_ALL,
-						Reports.KEY_UPLOADED + " = 0", null, null);
+						Reports.KEY_UPLOADED + " != " + Report.UPLOADED_ALL, null, null);
 
 				if (!c.moveToFirst()) {
 					c.close();
+					// 
 					reportUploadsNeeded = false;
 				}
 
@@ -318,8 +319,8 @@ public class SyncData extends Service {
 						.getColumnIndexOrThrow(Reports.KEY_OS_LANGUAGE);
 				int appLanguageCol = c
 						.getColumnIndexOrThrow(Reports.KEY_APP_LANGUAGE);
-				int missionUUIDCol = c
-						.getColumnIndexOrThrow(Reports.KEY_MISSION_UUID);
+				int missionIDCol = c
+						.getColumnIndexOrThrow(Reports.KEY_MISSION_ID);
 
 				while (!c.isAfterLast()) {
 
@@ -349,21 +350,15 @@ public class SyncData extends Service {
 							c.getString(osVersionCol),
 							c.getString(osLanguageCol),
 							c.getString(appLanguageCol),
-							c.getString(missionUUIDCol));
+							c.getInt(missionIDCol));
 
-					HttpResponse response = report.upload(context);
-					int statusCode = Util.getResponseStatusCode(response);
-					// TODO make this better. FOR NOW as long as we were online
-					// and got some response from the server, mark it as
-					// uploaded (I know this is ugly, but until I deal with
-					// parsing all the possible responses and find ways to try
-					// again, better to delete it and stop trying to upload.
-					if (statusCode > 0) {
+					int uploadResult = report.upload(context);
+					if (uploadResult > 0) {
 						// mark record as uploaded
 						ContentValues cv = new ContentValues();
 						String sc = Reports.KEY_ROW_ID + " = "
 								+ c.getInt(rowIdCol);
-						cv.put(Reports.KEY_UPLOADED, 1);
+						cv.put(Reports.KEY_UPLOADED, uploadResult);
 						cr.update(Reports.CONTENT_URI, cv, sc, null);
 
 					}

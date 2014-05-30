@@ -51,7 +51,7 @@ public class ContentProviderTasks extends ContentProvider {
 	private static final String DATABASE_NAME = "tasksDB";
 
 	/** The database version */
-	private static final int DATABASE_VERSION = 7;
+	private static final int DATABASE_VERSION = 8;
 
 	private static final String DATABASE_TABLE = "tasksTable";
 
@@ -63,7 +63,7 @@ public class ContentProviderTasks extends ContentProvider {
 	/** The SQL command to create the tasksTable */
 	private static final String DATABASE_CREATE = "create table "
 			+ DATABASE_TABLE + " (" + Tasks.KEY_ROW_ID + TYPE_INTEGER
-			+ " primary key autoincrement" + COMMA + Tasks.KEY_ID + TYPE_TEXT
+			+ " primary key autoincrement" + COMMA + Tasks.KEY_ID + TYPE_INTEGER
 			+ COMMA + Tasks.KEY_TITLE_CATALAN + TYPE_TEXT + COMMA
 			+ Tasks.KEY_TITLE_SPANISH + TYPE_TEXT + COMMA
 			+ Tasks.KEY_TITLE_ENGLISH + TYPE_TEXT + COMMA

@@ -98,7 +98,7 @@ public class ContentProviderContractTasks {
 
 		public static final String[] KEYS_ROW_ID = { KEY_ROW_ID };
 
-		public static final String[] KEYS_TASKS_LIST = { KEY_ROW_ID,
+		public static final String[] KEYS_TASKS_LIST = { KEY_ROW_ID, KEY_ID,
 				KEY_TITLE_CATALAN, KEY_SHORT_DESCRIPTION_CATALAN,
 				KEY_TITLE_SPANISH, KEY_SHORT_DESCRIPTION_SPANISH,
 				KEY_TITLE_ENGLISH, KEY_SHORT_DESCRIPTION_ENGLISH,

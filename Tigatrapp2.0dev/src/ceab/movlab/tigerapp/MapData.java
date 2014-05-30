@@ -390,18 +390,17 @@ public class MapData extends MapActivity {
 				share.setType("image/jpeg");
 
 				share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(f));
-				
+
 				// add a subject
 				share.putExtra(android.content.Intent.EXTRA_SUBJECT,
 						"Tigatrapp");
 
 				// build the body of the message to be shared
-				String shareMessage = getResources().getString(R.string.project_website);
+				String shareMessage = getResources().getString(
+						R.string.project_website);
 
 				// add the message
-				share.putExtra(android.content.Intent.EXTRA_TEXT,
-						shareMessage);
-
+				share.putExtra(android.content.Intent.EXTRA_TEXT, shareMessage);
 
 				startActivity(Intent.createChooser(share, getResources()
 						.getText(R.string.share_with)));
@@ -500,7 +499,8 @@ public class MapData extends MapActivity {
 
 			ContentResolver cr = getContentResolver();
 			String sc = Reports.KEY_DELETE_REPORT + " = 0 AND "
-					+ Reports.KEY_LATEST_VERSION + " = 1";
+					+ Reports.KEY_LATEST_VERSION + " = 1 AND "
+					+ Reports.KEY_TYPE + " < 2";
 			Cursor c = cr.query(Reports.CONTENT_URI, Reports.KEYS_ALL, sc,
 					null, null);
 

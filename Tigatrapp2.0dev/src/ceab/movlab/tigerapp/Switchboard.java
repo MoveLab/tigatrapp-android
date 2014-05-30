@@ -43,6 +43,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import ceab.movelab.tigerapp.R;
 import ceab.movlab.tigerapp.ContentProviderContractReports.Reports;
+import ceab.movlab.tigerapp.ContentProviderContractTasks.Tasks;
 
 /**
  * Main menu screen for app.
@@ -87,9 +88,12 @@ public class Switchboard extends Activity {
 				PropertyHolder.setUserId(userId);
 			}
 
-			// open and close database in order to trigger any updates
+			// open and close databases in order to trigger any updates
 			ContentResolver cr = getContentResolver();
 			Cursor c = cr.query(Reports.CONTENT_URI,
+					new String[] { Reports.KEY_ROW_ID }, null, null, null);
+			c.close();
+			c = cr.query(Tasks.CONTENT_URI,
 					new String[] { Reports.KEY_ROW_ID }, null, null, null);
 			c.close();
 

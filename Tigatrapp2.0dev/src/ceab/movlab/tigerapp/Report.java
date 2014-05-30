@@ -21,6 +21,7 @@
 
 package ceab.movlab.tigerapp;
 
+import java.net.ResponseCache;
 import java.util.Iterator;
 import java.util.UUID;
 
@@ -30,6 +31,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.net.Uri;
 import android.util.Log;
 
 /**
@@ -39,6 +41,8 @@ import android.util.Log;
  * 
  */
 public class Report {
+	
+	private static String TAG = "Report";
 
 	public static int MISSING = -1;
 	public static int NO = 0;
@@ -48,6 +52,7 @@ public class Report {
 	public static int TYPE_BREEDING_SITE = 1;
 	public static int TYPE_MISSION = 2;
 
+	public static int LOCATION_CHOICE_MISSING = -1;
 	public static int LOCATION_CHOICE_CURRENT = 0;
 	public static int LOCATION_CHOICE_SELECTED = 1;
 
@@ -58,6 +63,10 @@ public class Report {
 	// model for photo uri json arrays:
 	public static String KEY_PHOTO_URI = "photo_uri";
 	public static String KEY_PHOTO_TIME = "photo_time";
+
+	public static int UPLOADED_NONE = 0;
+	public static int UPLOADED_REPORT_ONLY = 1;
+	public static int UPLOADED_ALL = 2;
 
 	String userId;
 	String reportId;
@@ -96,7 +105,7 @@ public class Report {
 	String osversion;
 	String osLanguage;
 	String appLanguage;
-	String missionUUID;
+	int missionId;
 
 	Report(String version_UUID, String userId, String reportId,
 			int reportVersion, long reportTime, String creation_time,
@@ -108,7 +117,7 @@ public class Report {
 			long serverTimestamp, int deleteReport, int latestVersion,
 			String packageName, int packageVersion, String phoneManufacturer,
 			String phoneModel, String OS, String OSversion, String osLanguage,
-			String appLanguage, String mission_UUID) {
+			String appLanguage, int missionId) {
 
 		this.versionUUID = version_UUID;
 
@@ -153,7 +162,7 @@ public class Report {
 		this.osLanguage = osLanguage;
 		this.appLanguage = appLanguage;
 
-		this.missionUUID = mission_UUID;
+		this.missionId = missionId;
 	}
 
 	Report(int type, String userId) {
@@ -187,8 +196,7 @@ public class Report {
 		this.osversion = null;
 		this.osLanguage = null;
 		this.appLanguage = null;
-		this.missionUUID = null;
-
+		this.missionId = Report.MISSING;
 	}
 
 	Report(String reportId, int reportVersion) {
@@ -222,7 +230,7 @@ public class Report {
 		this.osversion = null;
 		this.osLanguage = null;
 		this.appLanguage = null;
-		this.missionUUID = null;
+		this.missionId = Report.MISSING;
 
 	}
 
@@ -258,8 +266,7 @@ public class Report {
 		this.osversion = null;
 		this.osLanguage = null;
 		this.appLanguage = null;
-		this.missionUUID = null;
-
+		this.missionId = Report.MISSING;
 	}
 
 	public boolean setPhotoUris(String photoUris) {
@@ -404,7 +411,7 @@ public class Report {
 					Util.ecma262(System.currentTimeMillis()));
 			result.put("creation_time", this.creation_time);
 			result.put("version_time", this.versionTimeString);
-			
+
 			result.put("type", Util.reportType2String(this.type));
 			result.put("location_choice",
 					Util.locationChoice2String(this.locationChoice));
@@ -455,24 +462,57 @@ public class Report {
 			}
 			result.put("user", PropertyHolder.getUserId());
 			if (this.type == TYPE_MISSION)
-				result.put("mission", this.missionUUID);
+				result.put("mission", this.missionId);
 
 		} catch (JSONException e) {
 		}
 		return result;
 	}
 
-	public HttpResponse upload(Context context) {
+	public int upload(Context context) {
 
-		HttpResponse result = null;
+		int result = UPLOADED_NONE;
 
-		// TESTING ONLY NOW
-		JSONObject data = this.exportJSON(context);
-		Log.i("Report JSON conversion:", data.toString());
-		result = Util.putJSON(data, Util.API_REPORT, context);
-
+		if (this.uploaded == UPLOADED_NONE) {
+			// TESTING ONLY NOW
+			JSONObject data = this.exportJSON(context);
+			Log.i(TAG, "Report JSON conversion:" + data.toString());
+			HttpResponse response = Util
+					.putJSON(data, Util.API_REPORT, context);
+			int statusCode1 = response.getStatusLine().getStatusCode();
+			if (statusCode1 >= 200 && statusCode1 < 300) {
+				result = UPLOADED_REPORT_ONLY;
+				Log.d(TAG, "statusCode1: " + statusCode1);
+				result = uploadPhotos();
+			}
+		} else if (this.uploaded == UPLOADED_REPORT_ONLY) {
+			result = uploadPhotos();
+		}
 		return result;
+	}
 
+	private int uploadPhotos() {
+		int result = UPLOADED_NONE;
+		if (this.photoUrisJson != null && this.photoUrisJson.length() > 0) {
+			for (int i = 0; i < this.photoUrisJson.length(); i++) {
+				try {
+					String thisUri = this.photoUrisJson.getJSONObject(i)
+							.getString(Report.KEY_PHOTO_URI);
+				
+					int statusCode2 = Util.postPhoto(thisUri, Uri.parse(thisUri).getLastPathSegment(),
+							this.versionUUID);
+					Log.d(TAG, "statusCode2: " + statusCode2);
+					if (statusCode2 >= 200 && statusCode2 < 300) {
+						result = UPLOADED_ALL;
+					} else {
+						result = UPLOADED_REPORT_ONLY;
+					}
+				} catch (JSONException e) {
+					Log.d(TAG, "JSON exception: " + e);
+				}
+			}
+		}
+		return result;
 	}
 
 }

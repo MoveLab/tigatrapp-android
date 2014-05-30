@@ -52,7 +52,7 @@ public class ContentProviderReports extends ContentProvider {
 	private static final String DATABASE_NAME = "reportsDB";
 
 	/** The database version */
-	private static final int DATABASE_VERSION = 11;
+	private static final int DATABASE_VERSION = 12;
 
 	/** The location fix table name; currently "reportsTable" */
 	public static final String DATABASE_TABLE = "reportsTable";
@@ -89,7 +89,7 @@ public class ContentProviderReports extends ContentProvider {
 			+ Reports.KEY_PACKAGE_NAME + TYPE_TEXT + COMMA
 			+ Reports.KEY_PACKAGE_VERSION + TYPE_INTEGER + COMMA
 			+ Reports.KEY_PHONE_MANUFACTURER + TYPE_TEXT + COMMA
-			+ Reports.KEY_MISSION_UUID + TYPE_TEXT + COMMA
+			+ Reports.KEY_MISSION_ID + TYPE_INTEGER + COMMA
 			+ Reports.KEY_OS_LANGUAGE + TYPE_TEXT + COMMA
 			+ Reports.KEY_APP_LANGUAGE + TYPE_TEXT + COMMA
 			+ Reports.KEY_PHONE_MODEL + TYPE_TEXT + COMMA + Reports.KEY_OS
@@ -204,8 +204,8 @@ public class ContentProviderReports extends ContentProvider {
 		reportsProjectionMap.put(Reports.KEY_APP_LANGUAGE,
 				Reports.KEY_APP_LANGUAGE);
 
-		reportsProjectionMap.put(Reports.KEY_MISSION_UUID,
-				Reports.KEY_MISSION_UUID);
+		reportsProjectionMap.put(Reports.KEY_MISSION_ID,
+				Reports.KEY_MISSION_ID);
 	}
 
 	@Override

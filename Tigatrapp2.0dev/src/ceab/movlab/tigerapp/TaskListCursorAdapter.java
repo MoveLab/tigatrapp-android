@@ -61,8 +61,11 @@ public class TaskListCursorAdapter extends SimpleCursorAdapter {
 		String date = Util.userDate(new Date((c.getLong(c
 				.getColumnIndex(Tasks.KEY_CREATION_TIME)))));
 
-		String expirationDate = Util.userDate(new Date((c.getLong(c
-				.getColumnIndex(Tasks.KEY_EXPIRATION_TIME)))));
+		String expirationDateString = "";
+		long expirationDate = c.getLong(c
+				.getColumnIndex(Tasks.KEY_EXPIRATION_TIME));
+		if(expirationDate > 0)
+			expirationDateString = " - " + Util.userDate(new Date((expirationDate)));
 
 		String taskTitle = "";
 		if (lang.equals("ca"))
@@ -103,9 +106,7 @@ public class TaskListCursorAdapter extends SimpleCursorAdapter {
 		String thisDateRange = "";
 		if (date != null) {
 			thisDateRange = date;
-			if (expirationDate != null) {
-				thisDateRange = date + " - " + expirationDate;
-			}
+				thisDateRange = date + expirationDateString;
 			dateView.setText(thisDateRange);
 		}
 

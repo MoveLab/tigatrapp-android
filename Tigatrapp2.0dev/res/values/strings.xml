@@ -209,7 +209,7 @@
     <string name="rss_title_tigatrapp">Latest from TigaTrapp!</string>
 
     <!-- Tasks -->
-    <string name="task_list_title">Mission List</string>
+    <string name="task_list_title">Missions</string>
     <string name="task_list_pending">Pending</string>
     <string name="task_list_completed">Complete</string>
     <string name="delete_task_from_list_question">Delete mission from list?</string>
@@ -224,7 +224,7 @@
     <string name="toast_mission_expired">This mission has expired.</string>
 
     <!-- Menu -->
-    <string name="menu_option_task_list">Mission List</string>
+    <string name="menu_option_task_list">Missions</string>
     <string name="menu_option_tigatrapp_news">News</string>
     <string name="menu_option_settings">Settings</string>
     <string name="menu_option_help">Help</string>

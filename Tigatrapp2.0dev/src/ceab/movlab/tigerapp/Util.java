@@ -94,6 +94,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
+import java.util.Random;
 import java.util.UUID;
 
 import javax.crypto.BadPaddingException;
@@ -120,7 +121,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -131,6 +131,7 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.text.Html;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -156,17 +157,18 @@ import com.google.android.maps.GeoPoint;
  */
 public class Util {
 
+	private static String TAG = "Util";
+
 	/**
 	 * RSS URL for Spanish.
 	 */
 	public static final String URL_RSS_ES = "http://atrapaeltigre.com/web/feed/";
-	
+
 	/**
 	 * RSS URL for Catalan.
 	 */
 	public static final String URL_RSS_CA = "http://atrapaeltigre.com/web/ca/feed/";
-	
-	
+
 	/**
 	 * Server API URL.
 	 */
@@ -226,7 +228,7 @@ public class Util {
 			"V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h",
 			"i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u",
 			"v", "w", "x", "y", "z" };
-
+	
 	public static boolean privateMode = false;
 
 	public static int DEFAULT_SAMPLES_PER_DAY = 5;
@@ -671,7 +673,6 @@ public class Util {
 
 	}
 
-
 	/**
 	 * Checks if the phone has an internet connection.
 	 * 
@@ -845,11 +846,10 @@ public class Util {
 		}
 		return lang;
 	}
-	
-	
-	public static boolean postPhoto(byte[] bytes, String filename,
-			String uploadurl) {
 
+	public static int postPhoto(String uri, String filename, String versionUUID) {
+
+		int response = 0;
 		HttpURLConnection conn = null;
 		DataOutputStream dos = null;
 		// DataInputStream inStream = null;
@@ -861,15 +861,14 @@ public class Util {
 		int bytesRead, bytesAvailable, bufferSize;
 		byte[] buffer;
 		int maxBufferSize = 64 * 1024; // old value 1024*1024
-		ByteArrayInputStream byteArrayInputStream = null;
-		boolean isSuccess = true;
+		FileInputStream fileInputStream = null;
 		try {
 			// ------------------ CLIENT REQUEST
 
-			byteArrayInputStream = new ByteArrayInputStream(bytes);
+			fileInputStream = new FileInputStream(uri);
 
 			// open a URL connection to the Servlet
-			URL url = new URL(uploadurl);
+			URL url = new URL(URL_TIGASERVER_API_ROOT + API_PHOTO);
 			// Open a HTTP connection to the URL
 			conn = (HttpURLConnection) url.openConnection();
 			// Allow Inputs
@@ -883,56 +882,55 @@ public class Util {
 			conn.setReadTimeout(60000);
 			// Use a post method.
 			conn.setRequestMethod("POST");
-			conn.setRequestProperty("Connection", "Keep-Alive");
+			// conn.setRequestProperty("Connection", "Keep-Alive");
+
+			conn.setRequestProperty("Authorization", TIGASERVER_AUTHORIZATION);
 			conn.setRequestProperty("Content-Type",
 					"multipart/form-data;boundary=" + boundary);
 
 			dos = new DataOutputStream(conn.getOutputStream());
 			dos.writeBytes(twoHyphens + boundary + lineEnd);
-			dos.writeBytes("Content-Disposition: form-data; name=\"uploadedfile\";filename=\""
+			dos.writeBytes("Content-Disposition: form-data; name=\"report\""
+					+ lineEnd + lineEnd);
+			dos.writeBytes(versionUUID + lineEnd);
+
+			dos.writeBytes(twoHyphens + boundary + lineEnd);
+
+			dos.writeBytes("Content-Disposition: form-data; name=\"photo\";filename=\""
 					+ filename + "\"" + lineEnd);
 			dos.writeBytes(lineEnd);
 
 			// create a buffer of maximum size
-			bytesAvailable = byteArrayInputStream.available();
+			bytesAvailable = fileInputStream.available();
 			bufferSize = Math.min(bytesAvailable, maxBufferSize);
 			buffer = new byte[bufferSize];
 
 			// read file and write it into form...
-			bytesRead = byteArrayInputStream.read(buffer, 0, bufferSize);
+			bytesRead = fileInputStream.read(buffer, 0, bufferSize);
 			while (bytesRead > 0) {
 				dos.write(buffer, 0, bufferSize);
-				bytesAvailable = byteArrayInputStream.available();
+				bytesAvailable = fileInputStream.available();
 				bufferSize = Math.min(bytesAvailable, maxBufferSize);
-				bytesRead = byteArrayInputStream.read(buffer, 0, bufferSize);
+				bytesRead = fileInputStream.read(buffer, 0, bufferSize);
 			}
 
-			// send multipart form data necesssary after file data...
-			dos.writeBytes(lineEnd);
-			dos.writeBytes(twoHyphens + boundary + twoHyphens + lineEnd);
-
-			// close streams
-			// Log.e(TAG,"UploadService Runnable:File is written");
-			// fileInputStream.close();
-			// dos.flush();
-			// dos.close();
+			dos.writeBytes(twoHyphens + boundary + lineEnd);
 		} catch (Exception e) {
-			// Log.e(TAG, "UploadService Runnable:Client Request error", e);
-			isSuccess = false;
+			Log.e(TAG, "UploadService Runnable:Client Request error", e);
 		} finally {
 			if (dos != null) {
 				try {
 					dos.close();
 				} catch (IOException e) {
-					// Log.e(TAG, "exception" + e);
+					Log.e(TAG, "exception" + e);
 
 				}
 			}
-			if (byteArrayInputStream != null) {
+			if (fileInputStream != null) {
 				try {
-					byteArrayInputStream.close();
+					fileInputStream.close();
 				} catch (IOException e) {
-					// Log.e(TAG, "exception" + e);
+					Log.e(TAG, "exception" + e);
 
 				}
 			}
@@ -942,18 +940,15 @@ public class Util {
 		// ------------------ read the SERVER RESPONSE
 		try {
 
-			if (conn.getResponseCode() != 200) {
-				isSuccess = false;
-			}
+			response = conn.getResponseCode();
+			Log.d(TAG, "response: " + conn.getResponseMessage());
+
 		} catch (IOException e) {
-			// Log.e(TAG, "Connection error", e);
-			isSuccess = false;
+			Log.e(TAG, "Connection error", e);
 		}
 
-		return isSuccess;
+		return response;
 	}
-
-
 
 	/**
 	 * Uploads JSONObject to Tigaserver API using HTTP PUT request
@@ -1111,8 +1106,9 @@ public class Util {
 		try {
 			jsonUUID = new JSONObject();
 			jsonUUID.put("user_UUID", PropertyHolder.getUserId());
-			int statusCode = Util.getResponseStatusCode(Util.putJSON(jsonUUID, Util.API_USER, context));
-			if (statusCode <300 && statusCode > 0) {
+			int statusCode = Util.getResponseStatusCode(Util.putJSON(jsonUUID,
+					Util.API_USER, context));
+			if (statusCode < 300 && statusCode > 0) {
 				PropertyHolder.setRegistered(true);
 				result = true;
 			} else {
@@ -1129,4 +1125,40 @@ public class Util {
 		}
 		return result;
 	}
+
+	public static String makeReportId(){
+	Random mRandom = new Random();
+
+	// I am removing potentially confusing characters 0, o, and O
+	String[] digits = { "1", "2", "3", "4", "5", "6", "7", "8", "9",
+			"A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L",
+			"M", "N", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y",
+			"Z", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
+			"l", "m", "n", "p", "q", "r", "s", "t", "u", "v", "w", "x",
+			"y", "z" };
+
+	/*
+	 * I am giving the report IDs 4 digits using the set of 62
+	 * alphanumeric characters taking (capitalization into account). If
+	 * we would receive 1000 reports, the probability of at least two
+	 * ending up with the same random ID is about .03 (based on the
+	 * Taylor approximation solution to the birthday paradox: 1-
+	 * exp((-(1000^2))/((62^4)*2))). For 100 reports, the probability is
+	 * about .0003. Since each report is also linked to a unique userID,
+	 * and since the only consequence of a double ID would be to make it
+	 * harder for us to link a mailed sample to a report -- assuming the
+	 * report with the double ID included a mailed sample -- this seems
+	 * like a reasonable risk to take. We could reduce the probability
+	 * by adding digits, but then it would be harder for users to record
+	 * their report IDs.
+	 * 
+	 * UPDATE: I now removed 0 and o and O to avoid confusion, so the
+	 * probabilities would need to be recaclulated...
+	 */
+
+	return digits[mRandom.nextInt(58)]
+			+ digits[mRandom.nextInt(58)] + digits[mRandom.nextInt(58)]
+			+ digits[mRandom.nextInt(58)];
+	}
+	
 }

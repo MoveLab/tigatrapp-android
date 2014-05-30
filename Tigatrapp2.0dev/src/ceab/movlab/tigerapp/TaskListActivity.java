@@ -96,10 +96,10 @@ public class TaskListActivity extends FragmentActivity implements
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				Cursor c = (Cursor) listView.getItemAtPosition(position);
-
-
-				if (c.getLong(c
-						.getColumnIndexOrThrow(Tasks.KEY_EXPIRATION_TIME)) >= System
+				
+				long expirationDate = c.getLong(c
+						.getColumnIndexOrThrow(Tasks.KEY_EXPIRATION_TIME));
+				if (expirationDate == 0 || expirationDate >= System
 						.currentTimeMillis()) {
 
 					if (c.getInt(c.getColumnIndexOrThrow(Tasks.KEY_DONE)) == 0) {
@@ -107,11 +107,14 @@ public class TaskListActivity extends FragmentActivity implements
 								.getColumnIndexOrThrow(Tasks.KEY_TASK_JSON));
 						int rowId = c.getInt(c
 								.getColumnIndexOrThrow(Tasks.KEY_ROW_ID));
+						int missionId = c.getInt(c
+								.getColumnIndexOrThrow(Tasks.KEY_ID));
 
 						Intent i = new Intent(TaskListActivity.this,
 								TaskActivity.class);
 						i.putExtra(Tasks.KEY_TASK_JSON, taskJson);
 						i.putExtra(Tasks.KEY_ROW_ID, rowId);
+						i.putExtra(Tasks.KEY_ID, missionId);
 						startActivity(i);
 
 						// TODO put in strings
@@ -128,7 +131,7 @@ public class TaskListActivity extends FragmentActivity implements
 							getResources().getString(
 									R.string.toast_mission_expired));
 				}
-//				c.close();
+				// c.close();
 			}
 		});
 

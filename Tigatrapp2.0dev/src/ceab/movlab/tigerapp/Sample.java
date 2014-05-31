@@ -61,11 +61,9 @@ import android.os.SystemClock;
  * 
  */
 public class Sample extends Service {
-	private boolean uploading = false;
 
 	private String TAG = "Sample";
 	Context context;
-
 	private static final int ALARM_ID_START_FIX = 1;
 	private static final int ALARM_ID_STOP_FIX = -1;
 
@@ -77,14 +75,11 @@ public class Sample extends Service {
 
 		Util.logInfo(context, TAG, "on start");
 
-		if (!uploading && !Util.privateMode(context)) {
-			uploading = true;
-
 			Thread uploadThread = new Thread(null, doSampling,
 					"sampleBackground");
 			uploadThread.start();
 
-		}
+		
 	};
 
 	private Runnable doSampling = new Runnable() {

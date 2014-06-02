@@ -18,21 +18,6 @@
  * 
  * You should have received a copy of the GNU General Public License along 
  * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -146,11 +131,11 @@
         <service android:name="ceab.movelab.tigabib.FixGet" />
         <service android:name="ceab.movelab.tigabib.SyncData" />
         <service android:name="ceab.movelab.tigabib.Sample" />
-        
+
         <provider
-           android:name="ceab.movelab.tigatrapp.TigatrappMissionsCP"
+            android:name="ceab.movelab.tigatrapp.TigatrappMissionsCP"
             android:authorities="ceab.movelab.tigatrapp.cp.missions"
-             android:enabled="true"
+            android:enabled="true"
             android:exported="false" >
         </provider>
         <provider

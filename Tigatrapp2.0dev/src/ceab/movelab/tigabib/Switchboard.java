@@ -22,7 +22,6 @@
 package ceab.movelab.tigabib;
 
 import java.util.UUID;
-
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -41,9 +40,8 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import ceab.movelab.tigabib.R;
 import ceab.movelab.tigabib.ContProvContractReports.Reports;
-import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
+import ceab.movelab.tigabib.R;
 
 /**
  * Main menu screen for app.

@@ -186,6 +186,9 @@ public class FixGet extends Service {
 			// stopListening = null;
 			bestLocation = null;
 
+			if (locationManager == null)
+				locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+
 			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 
 				locationListener1 = new mLocationListener();
@@ -393,14 +396,13 @@ public class FixGet extends Service {
 
 		int thisHour = Util.hour(location.getTime());
 
-		Log.i("FG", "thisHour: " + thisHour);
-
 		String sc1 = Tasks.KEY_TRIGGERS + " IS NOT NULL AND "
-				+ Tasks.KEY_ACTIVE + " = 0 AND " + Tasks.KEY_DONE + " = 0 AND "
-				+ Tasks.KEY_EXPIRATION_TIME + " >= "
-				+ System.currentTimeMillis();
+				+ Tasks.KEY_ACTIVE + " = 0 AND " + Tasks.KEY_DONE
+				+ " = 0 AND (" + Tasks.KEY_EXPIRATION_TIME + " >= "
+				+ System.currentTimeMillis() + " OR "
+				+ Tasks.KEY_EXPIRATION_TIME + " = 0)";
 
-		Log.i("FG", sc1);
+		Util.logInfo(context, TAG, "sql: " + sc1);
 
 		// grab tasks that have location triggers, that are not yet active, that
 		// are not yet done, and that have not expired
@@ -417,22 +419,39 @@ public class FixGet extends Service {
 
 					JSONObject thisTrigger = theseTriggers.getJSONObject(i);
 
-					Log.i("FG", "thisTrigger: " + thisTrigger.toString());
+					Util.logInfo(context, TAG,
+							"thisTrigger: " + thisTrigger.toString());
+					Util.logInfo(context, TAG, "thisLoc Lat:" + thisLat
+							+ " Lon:" + thisLon);
+
+					Util.logInfo(
+							context,
+							TAG,
+							"this trigger time lower bound equals null "
+									+ (thisTrigger
+											.getString(TaskModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND)
+											.equals("null")));
 
 					if (thisLat >= thisTrigger
 							.getDouble(TaskModel.KEY_TASK_TRIGGER_LAT_LOWERBOUND)
 							&& thisLat <= thisTrigger
-									.getDouble(TaskModel.KEY_TASK_TRIGGER_LON_UPPERBOUND)
+									.getDouble(TaskModel.KEY_TASK_TRIGGER_LAT_UPPERBOUND)
 							&& thisLon >= thisTrigger
-									.getDouble(TaskModel.KEY_TASK_TRIGGER_LAT_LOWERBOUND)
+									.getDouble(TaskModel.KEY_TASK_TRIGGER_LON_LOWERBOUND)
 							&& thisLon <= thisTrigger
 									.getDouble(TaskModel.KEY_TASK_TRIGGER_LON_UPPERBOUND)
-							&& thisHour >= Util
+							&& (thisTrigger.getString(
+									TaskModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND)
+									.equals("null") || (thisHour >= Util
 									.triggerTime2HourInt(thisTrigger
-											.getString(TaskModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND))
-							&& thisHour <= Util
+											.getString(TaskModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND))))
+							&& (thisTrigger.getString(
+									TaskModel.KEY_TASK_TRIGGER_TIME_UPPERBOUND)
+									.equals("null") || (thisHour <= Util
 									.triggerTime2HourInt(thisTrigger
-											.getString(TaskModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND))) {
+											.getString(TaskModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND)))
+
+							)) {
 
 						Log.i("FG", "task triggered");
 
@@ -444,6 +463,8 @@ public class FixGet extends Service {
 						cr.update(Tasks.CONTENT_URI, cv, sc, null);
 
 						Intent intent = new Intent(
+								Messages.internalAction(context));
+						intent.putExtra(Messages.INTERNAL_MESSAGE_EXTRA,
 								Messages.SHOW_TASK_NOTIFICATION);
 						if (PropertyHolder.getLanguage().equals("ca")) {
 							intent.putExtra(

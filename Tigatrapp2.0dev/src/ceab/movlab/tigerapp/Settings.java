@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import ceab.movelab.tigerapp.R;
@@ -26,7 +27,9 @@ public class Settings extends Activity {
 	Boolean on;
 	TextView tv;
 
+	LinearLayout debugView;
 	TextView sampleView;
+	Button fixButton;
 
 	Button syncButton;
 	Button languageButton;
@@ -101,11 +104,21 @@ public class Settings extends Activity {
 
 		});
 
+		debugView = (LinearLayout) findViewById(R.id.debugView);
 		if (Util.debugMode(context)) {
+			debugView.setVisibility(View.VISIBLE);
 			sampleView = (TextView) findViewById(R.id.sampleView);
-			sampleView.setVisibility(View.VISIBLE);
 			sampleView.setText(PropertyHolder.getCurrentFixTimes());
-		}
+			fixButton = (Button) findViewById(R.id.fixButton);
+			fixButton.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Util.internalBroadcast(context, Messages.START_TASK_FIX);
+				}
+			});
+		} else
+			debugView.setVisibility(View.GONE);
+
 	}
 
 	@Override
@@ -117,7 +130,8 @@ public class Settings extends Activity {
 		}
 
 		IntentFilter newSamplesFilter;
-		newSamplesFilter = new IntentFilter(Messages.newSamplesReadyAction(context));
+		newSamplesFilter = new IntentFilter(
+				Messages.newSamplesReadyAction(context));
 		newSamplesReceiver = new NewSamplesReceiver();
 		registerReceiver(newSamplesReceiver, newSamplesFilter);
 

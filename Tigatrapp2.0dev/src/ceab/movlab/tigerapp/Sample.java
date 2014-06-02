@@ -42,6 +42,7 @@
 
 package ceab.movlab.tigerapp;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import android.app.AlarmManager;
@@ -75,11 +76,9 @@ public class Sample extends Service {
 
 		Util.logInfo(context, TAG, "on start");
 
-			Thread uploadThread = new Thread(null, doSampling,
-					"sampleBackground");
-			uploadThread.start();
+		Thread uploadThread = new Thread(null, doSampling, "sampleBackground");
+		uploadThread.start();
 
-		
 	};
 
 	private Runnable doSampling = new Runnable() {
@@ -91,11 +90,12 @@ public class Sample extends Service {
 	@Override
 	public void onCreate() {
 
-		Util.logInfo(context, TAG, "Sample onCreate.");
-
 		context = getApplicationContext();
 		if (PropertyHolder.isInit() == false)
 			PropertyHolder.init(context);
+
+		Util.logInfo(context, TAG, "Sample onCreate.");
+
 	}
 
 	@Override
@@ -113,16 +113,19 @@ public class Sample extends Service {
 
 		int alarmType = AlarmManager.ELAPSED_REALTIME_WAKEUP;
 		long baseTimeElapsed = SystemClock.elapsedRealtime();
-		long baseTimeNow = SystemClock.currentThreadTimeMillis();
+		long baseTimeNow = System.currentTimeMillis();
 
+		long thisRandomMinute;
 		long thisTriggerTime;
 		Random mRandom = new Random();
 
 		String[] currentSamplingTimes = new String[samplesPerDay];
 
 		for (int i = 0; i < samplesPerDay; i++) {
-			thisTriggerTime = baseTimeElapsed + mRandom.nextInt(24 * 60) * 60
-					* 1000;
+			thisRandomMinute = mRandom.nextInt(24 * 60) * 60 * 1000;
+			thisTriggerTime = baseTimeElapsed + thisRandomMinute;
+			currentSamplingTimes[i] = Util.iso8601(baseTimeNow
+					+ thisRandomMinute);
 
 			Intent intent2StopFixGet = new Intent(context, FixGet.class);
 			intent2StopFixGet.setAction(Messages.stopFixAction(context));
@@ -136,11 +139,8 @@ public class Sample extends Service {
 					PendingIntent.getService(context, (ALARM_ID_STOP_FIX * i),
 							new Intent(context, FixGet.class),
 							PendingIntent.FLAG_CANCEL_CURRENT));
-			currentSamplingTimes[i] = Util.iso8601(baseTimeNow
-					+ thisTriggerTime);
-			Util.logInfo(context, TAG, "sampling time: "
-					+ currentSamplingTimes[i]);
 		}
+		Arrays.sort(currentSamplingTimes);
 		PropertyHolder.setCurrentFixTimes(currentSamplingTimes);
 		Intent i = new Intent(Messages.newSamplesReadyAction(context));
 		sendBroadcast(i);

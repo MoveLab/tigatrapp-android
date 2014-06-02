@@ -78,7 +78,7 @@ public class SyncData extends Service {
 
 	@Override
 	public void onStart(Intent intent, int startId) {
-
+		
 		Util.logInfo(context, TAG, "on start");
 
 		if (!uploading && !Util.privateMode(context)) {

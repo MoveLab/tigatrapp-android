@@ -22,23 +22,11 @@
 
 <resources>
 
-    <color name="TopHeadings">#D77546</color>
-    <color name="red">#FF0000</color>
-    <color name="light_green">#97F497</color>
     <color name="discolor">#F7E89E</color>
-    <color name="light_yellow">#F7E89E</color>
-    <color name="dark_yellow">#F7D00E</color>
     <color name="white">#FFFFFF</color>
-    <color name="blue">#0066FF</color>
     <color name="light_orange">#FF9900</color>
-    <color name="dark_green">#006600</color>
     <color name="black">#000000</color>
-    <color name="light_grey">#EFEFA2</color>
     <color name="dark_grey">#313433</color>
-    <color name="brown">#000000</color>
-    <color name="green_glow">#5500ff00</color>
-    <color name="orange_glow">#55ffff00</color>
-    <color name="blue_glow">#9975d8ff</color>
     <color name="switchboard_button_text">#444</color>
     
 </resources>

@@ -245,7 +245,7 @@ public class RSSActivity extends Activity {
 		protected void onPostExecute(ArrayList<RSSPost> result) {
 
 			if (result != null && result.size() > 0) {
-				// TODO Auto-generated method stub
+				listData.clear();
 				for (int i = 0; i < result.size(); i++) {
 					listData.add(result.get(i));
 				}
@@ -278,7 +278,7 @@ public class RSSActivity extends Activity {
 
 		switch (item.getItemId()) {
 		case (REFRESH): {
-
+			
 			setInfoDisplay(context, true, thisUrl);
 
 			return true;

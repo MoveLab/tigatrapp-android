@@ -107,8 +107,9 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 		if (PropertyHolder.hasConsented() && !Util.privateMode(context)) {
 
 			String action = intent.getAction();
-			String extra = intent
-					.getStringExtra(Messages.INTERNAL_MESSAGE_EXTRA);
+			String extra = "";
+			if (intent.hasExtra(Messages.INTERNAL_MESSAGE_EXTRA))
+				extra = intent.getStringExtra(Messages.INTERNAL_MESSAGE_EXTRA);
 
 			AlarmManager alarmManager = (AlarmManager) context
 					.getSystemService(Context.ALARM_SERVICE);
@@ -122,16 +123,14 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 			PendingIntent pi2sync = PendingIntent.getService(context,
 					ALARM_ID_SYNC, i2sync, PendingIntent.FLAG_UPDATE_CURRENT);
 
-			Intent i2fix = new Intent(context, FixGet.class);
-			PendingIntent pi2fix = PendingIntent.getService(context,
-					ALARM_ID_FIX, i2fix, PendingIntent.FLAG_UPDATE_CURRENT);
-
 			Intent i2stopfix = new Intent(context, FixGet.class);
 			i2stopfix.setAction(Messages.stopFixAction(context));
 			PendingIntent pi2stopfix = PendingIntent.getService(context,
 					ALARM_ID_FIX, i2stopfix, PendingIntent.FLAG_UPDATE_CURRENT);
 
 			if (extra.contains(Messages.START_DAILY_SAMPLING)) {
+				// first sample now
+				context.startService(new Intent(context, Sample.class));
 				int alarmType = AlarmManager.ELAPSED_REALTIME_WAKEUP;
 				alarmManager.setRepeating(alarmType,
 						SystemClock.elapsedRealtime(), DAILY_INTERVAL,
@@ -145,6 +144,9 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 				PropertyHolder.setServiceOn(false);
 				context.stopService(i2stopfix);
 			} else if (extra.contains(Messages.START_DAILY_SYNC)) {
+				// first sync now
+				context.startService(new Intent(context, SyncData.class));
+
 				int alarmType = AlarmManager.ELAPSED_REALTIME_WAKEUP;
 				alarmManager.setRepeating(alarmType,
 						SystemClock.elapsedRealtime(), DAILY_INTERVAL, pi2sync);
@@ -152,9 +154,8 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 			} else if (extra.contains(Messages.STOP_DAILY_SYNC)) {
 				alarmManager.cancel(pi2sync);
 			} else if (extra.contains(Messages.START_TASK_FIX)) {
+				context.startService(new Intent(context, FixGet.class));
 				long baseTime = SystemClock.elapsedRealtime();
-				alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-						baseTime, pi2fix);
 				alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, baseTime
 						+ Util.TASK_FIX_WINDOW, pi2stopfix);
 
@@ -171,10 +172,11 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 				}
 				Util.internalBroadcast(context, Messages.START_DAILY_SYNC);
 			} else if (action.contains(Intent.ACTION_POWER_CONNECTED)) {
-				context.startActivity(i2sync);
+				context.startService(new Intent(context, SyncData.class));
 			}
 		}
 	}
+
 
 	@SuppressWarnings("deprecation")
 	public void createNotification(Context context, String taskTitle) {

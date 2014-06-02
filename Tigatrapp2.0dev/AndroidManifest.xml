@@ -123,7 +123,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.LAUNCHER" />
-                <action android:name="android.intent.action.POWER_CONNECTED" />
+                <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
                 <action android:name="net.movelab.tigatrapp.tigatrapp2014.full.INTERNAL_ACTION" />
             </intent-filter>
         </receiver>

@@ -187,13 +187,13 @@ public class Util {
 			Log.i(tag, message);
 	}
 
-	public static void internalBroadcast(Context context, String message){
+	public static void internalBroadcast(Context context, String message) {
 		Intent i = new Intent(Messages.internalAction(context));
 		i.putExtra(Messages.INTERNAL_MESSAGE_EXTRA, message);
 		context.sendBroadcast(i);
 		return;
 	}
-	
+
 	/**
 	 * RSS URL for Spanish.
 	 */
@@ -314,18 +314,6 @@ public class Util {
 		return sb.toString();
 	}
 
-	/**
-	 * Formats the given coordinate and converts to String form. Taken from
-	 * Human Mobility Project code written by Chang Y. Chung and Necati E.
-	 * Ozgencil.
-	 * 
-	 * @param coord
-	 *            The coordinate value to be formatted.
-	 * @return The properly formatted coordinate in String form
-	 */
-	public static String fmtCoord(double coord) {
-		return String.format("%1$11.6f", coord);
-	}
 
 	public static String ecma262(long time) {
 		String format = "yyyy-MM-dd'T'HH:mm:ss.SSZ";
@@ -342,7 +330,7 @@ public class Util {
 			result = d.getTime();
 
 		} catch (ParseException e) {
-			
+
 			// just leave result as 0 in this case
 
 		}
@@ -548,93 +536,6 @@ public class Util {
 		// dialog.setCanceledOnTouchOutside(true);
 		dialog.show();
 	}
-
-	/**
-	 * Encrypt a byte array using RSA. Relies on the public key file stored in
-	 * the raw folder (which is not included in the public source code).
-	 * 
-	 * @param context
-	 *            The application context.
-	 * @param in
-	 *            The byte array to be encrypted.
-	 * @return An encrypted byte array.
-	 */
-	public static byte[] encryptRSA(Context context, byte[] in) {
-		// String TAG = "Util.encryptRSA";
-		BufferedInputStream is = null;
-		ByteArrayOutputStream bos = null;
-		byte[] pk;
-		byte[] result = null;
-
-		try {
-			is = new BufferedInputStream(context.getResources()
-					.openRawResource(R.raw.pubkey));
-			bos = new ByteArrayOutputStream();
-			while (is.available() > 0) {
-				bos.write(is.read());
-			}
-
-			pk = bos.toByteArray();
-
-			X509EncodedKeySpec publicKeySpec = new X509EncodedKeySpec(pk);
-
-			KeyFactory kf;
-			kf = KeyFactory.getInstance("RSA");
-			PublicKey pkPublic;
-
-			pkPublic = kf.generatePublic(publicKeySpec);
-
-			// Encrypt
-			Cipher pkCipher;
-
-			pkCipher = Cipher.getInstance("RSA/ECB/PKCS1PADDING");
-
-			pkCipher.init(Cipher.ENCRYPT_MODE, pkPublic);
-
-			result = pkCipher.doFinal(in);
-		} catch (IllegalBlockSizeException e) {
-			// logging exception, and simply letting the result return as null.
-			// Log.e(TAG, "Exception " + e);
-		} catch (BadPaddingException e) {
-			// logging exception, and simply letting the result return as null.
-			// Log.e(TAG, "Exception " + e);
-		} catch (InvalidKeyException e) {
-			// logging exception, and simply letting the result return as null.
-			// Log.e(TAG, "Exception " + e);
-		} catch (NoSuchAlgorithmException e) {
-			// logging exception, and simply letting the result return as null.
-			// Log.e(TAG, "Exception " + e);
-		} catch (NoSuchPaddingException e) {
-			// logging exception, and simply letting the result return as null.
-			// Log.e(TAG, "Exception " + e);
-		} catch (InvalidKeySpecException e) {
-			// logging exception, and simply letting the result return as null.
-			// Log.e(TAG, "Exception " + e);
-		} catch (IOException e) {
-			// logging exception, and simply letting the result return as null.
-			// Log.e(TAG, "Exception " + e);
-		} finally {
-			if (bos != null) {
-				try {
-					bos.close();
-				} catch (IOException e) {
-					// logging exception
-					// Log.e(TAG, "Exception " + e);
-				}
-			}
-
-			if (is != null) {
-				try {
-					is.close();
-				} catch (IOException e) {
-					// logging exception
-					// Log.e(TAG, "Exception " + e);
-				}
-			}
-		}
-		return result;
-	}
-
 	/**
 	 * Saves a byte array to the internal storage directory.
 	 * 
@@ -676,33 +577,6 @@ public class Util {
 
 	}
 
-	/**
-	 * Saves a string to the internal storage, placing it in line to be
-	 * uploaded.
-	 * 
-	 * @param context
-	 *            Application context.
-	 * @param input
-	 *            String to be saved.
-	 * @param filePrefix
-	 *            Prefix to place on the file. (So that it can be easily
-	 *            identified later in data processing.
-	 */
-	public static void saveInput(Context context, String input,
-			String filePrefix) {
-		byte[] inputEnc;
-		String FILENAME;
-		if (PropertyHolder.isInit() == false)
-			PropertyHolder.init(context);
-		try {
-			inputEnc = encryptRSA(context, input.getBytes("UTF-8"));
-			FILENAME = filePrefix + PropertyHolder.getUserId() + "_"
-					+ fileNameDate(System.currentTimeMillis());
-			saveBytes(context, FILENAME, inputEnc);
-		} catch (Exception e) {
-		}
-
-	}
 
 	/**
 	 * Checks if the phone has an internet connection.

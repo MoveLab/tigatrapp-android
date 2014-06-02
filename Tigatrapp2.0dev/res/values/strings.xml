@@ -17,14 +17,16 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
+
 <resources>
 
     <!-- DO NOT TRANSLATE -->
-    <string name="internal_action" translatable="false">net.movelab.tigatrapp.tigatrapp2014.full.INTERNAL_ACTION</string>
+
+    <string name="debug_mode" translatable="false">true</string>
     <string name="private_mode" translatable="false">false</string>
-    <string name="debug_mode" translatable="true">true</string>
+    <string name="internal_action" translatable="false">net.movelab.tigatrapp.tigatrapp2014.full.INTERNAL_ACTION</string>
     <string name="language_selector_english" translatable="false">English</string>
     <string name="language_selector_catalan" translatable="false">Català</string>
     <string name="language_selector_spanish" translatable="false">Español</string>
@@ -208,7 +210,7 @@
 
     <!-- RSS Feeds -->
     <string name="rss_internet_connection_warning">No internet connection.\n\nTo view the feed, please connect to the internet and select \'refresh\' from the menu.</string>
-    <string name="rss_title_tigatrapp">Latest from TigaTrapp!</string>
+    <string name="rss_title_tigatrapp">News from AtrapaelTigre.com</string>
 
     <!-- Tasks -->
     <string name="task_list_title">Missions</string>

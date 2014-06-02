@@ -23,19 +23,5 @@
 <resources>
 
     <dimen name="heading_size">24sp</dimen>
-    <dimen name="lang_pads">10dip</dimen>
-    <dimen name="mainpads">3dip</dimen>
-    <dimen name="surveypads">10dip</dimen>
-    <dimen name="radio_leftpads">37dip</dimen>
-    <dimen name="radio_rightpads">9dip</dimen>
-    <dimen name="text_input_width">40dip</dimen>
-    <dimen name="text_rightpads">50dip</dimen>
-    <dimen name="datamenupads">40dip</dimen>
-    <dimen name="dispads">3dip</dimen>
-    <dimen name="small_button_widths">100dip</dimen>
-    <dimen name="textsize_normal">15sp</dimen>
-    <dimen name="textsize_url">12sp</dimen>
-    <dimen name="activity_horizontal_margin">16dp</dimen>
-    <dimen name="activity_vertical_margin">16dp</dimen>
 
 </resources>

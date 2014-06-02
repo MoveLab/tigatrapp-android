@@ -157,7 +157,7 @@ public class FixGet extends Service {
 
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
-		if (!PropertyHolder.hasConsented()) {
+		if (!PropertyHolder.hasConsented() || Util.privateMode(context)) {
 			stopSelf();
 		}
 

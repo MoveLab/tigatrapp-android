@@ -64,7 +64,6 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import ceab.movelab.tigerapp.R;
-import ceab.movlab.tigerapp.ContentProviderContractPhotos.TigaPhotos;
 import ceab.movlab.tigerapp.ContentProviderContractReports.Reports;
 import ceab.movlab.tigerapp.ContentProviderContractTasks.Tasks;
 
@@ -181,8 +180,6 @@ public class ReportTool extends Activity {
 						.getColumnIndexOrThrow(Reports.KEY_CREATION_TIME);
 				int reportVersionCol = c
 						.getColumnIndexOrThrow(Reports.KEY_REPORT_VERSION);
-				int versionTimeCol = c
-						.getColumnIndexOrThrow(Reports.KEY_VERSION_TIME);
 				int versionTimeStringCol = c
 						.getColumnIndexOrThrow(Reports.KEY_VERSION_TIME_STRING);
 				int typeCol = c.getColumnIndexOrThrow(Reports.KEY_TYPE);
@@ -245,7 +242,7 @@ public class ReportTool extends Activity {
 						c.getFloat(selectedLocationLatCol),
 						c.getFloat(selectedLocationLonCol),
 						c.getInt(photoAttachedCol), c.getString(photoUrisCol),
-						c.getString(noteCol), c.getInt(uploadedCol),
+						c.getString(noteCol), Report.UPLOADED_NONE,
 						c.getLong(serverTimestampCol),
 						c.getInt(deleteReportCol), c.getInt(latestVersionCol),
 						c.getString(packageNameCol),
@@ -253,9 +250,7 @@ public class ReportTool extends Activity {
 						c.getString(phoneManufacturerCol),
 						c.getString(phoneModelCol), c.getString(osCol),
 						c.getString(osVersionCol), c.getString(osLanguageCol),
-						c.getString(appLanguageCol),
-						c.getInt(missionIDCol));
-
+						c.getString(appLanguageCol), c.getInt(missionIDCol));
 
 			}
 			c.close();
@@ -340,7 +335,8 @@ public class ReportTool extends Activity {
 						.getFloat("selectedLocationLon");
 			thisReport.photoAttached = icicle.getInt("photoAttached");
 			thisReport.note = icicle.getString("note");
-			thisReport.setPhotoUris(context, icicle.getString(Reports.KEY_PHOTO_URIS));
+			thisReport.setPhotoUris(context,
+					icicle.getString(Reports.KEY_PHOTO_URIS));
 		}
 
 		if (thisReport.reportId == null) {
@@ -508,7 +504,9 @@ public class ReportTool extends Activity {
 			@Override
 			public void onClick(View v) {
 
-				if (!reportConfirmationCheck.isChecked()
+				if (thisReport.confirmation == null
+						|| thisReport.confirmation.equals("")
+						|| !reportConfirmationCheck.isChecked()
 						|| !reportLocationCheck.isChecked()
 						|| (type == Report.TYPE_BREEDING_SITE && !reportPhotoCheck
 								.isChecked())) {
@@ -576,7 +574,7 @@ public class ReportTool extends Activity {
 						countDownTimer.cancel();
 					} catch (Exception e) {
 
-						Util.logError(context,TAG,
+						Util.logError(context, TAG,
 								"exception cancelling countdown timer");
 					}
 					countDownTimer.start();
@@ -617,7 +615,8 @@ public class ReportTool extends Activity {
 					countDownTimer.cancel();
 				} catch (Exception e) {
 
-					Util.logError(context,TAG, "exception cancelling countdown timer");
+					Util.logError(context, TAG,
+							"exception cancelling countdown timer");
 				}
 				countDownTimer.start();
 			}
@@ -798,10 +797,8 @@ public class ReportTool extends Activity {
 				 */
 				// uploadReport(thisReport, Util.SERVER);
 
-
 				if (thisReport.reportTime == Report.MISSING)
 					thisReport.reportTime = System.currentTimeMillis();
-
 
 				new ReportUploadTask().execute(context);
 
@@ -838,8 +835,8 @@ public class ReportTool extends Activity {
 							.getStringExtra(Reports.KEY_PHOTO_URIS);
 
 					if (incomingPhotoUris.length() > 0) {
-						thisReport.setPhotoUris(context, data
-								.getStringExtra(Reports.KEY_PHOTO_URIS));
+						thisReport.setPhotoUris(context,
+								data.getStringExtra(Reports.KEY_PHOTO_URIS));
 						photoCount.setVisibility(View.VISIBLE);
 						photoCount.setText(String
 								.valueOf(thisReport.photoUrisJson.length()));
@@ -948,12 +945,18 @@ public class ReportTool extends Activity {
 
 		protected Boolean doInBackground(Context... context) {
 
+			myProgress = 2;
+			publishProgress(myProgress);
+			
 			if (!editing)
 				thisReport.creation_time = Util.ecma262(System
 						.currentTimeMillis());
 
 			thisReport.versionTimeString = Util.ecma262(System
 					.currentTimeMillis());
+
+			myProgress = 4;
+			publishProgress(myProgress);
 
 			try {
 				PackageInfo pInfo = getPackageManager().getPackageInfo(
@@ -971,14 +974,15 @@ public class ReportTool extends Activity {
 			thisReport.osLanguage = Locale.getDefault().getLanguage();
 			thisReport.appLanguage = PropertyHolder.getLanguage();
 
+			myProgress = 10;
+			publishProgress(myProgress);
+
 			// First save report to internal DB
 			ContentResolver cr = getContentResolver();
 			Uri repUri = Reports.CONTENT_URI;
 
 			Uri thisReportUri = cr.insert(repUri,
 					ContentProviderValuesReports.createReport(thisReport));
-
-			Uri photosUri = TigaPhotos.CONTENT_URI;
 
 			// now mark all prior reports as not latest version
 			String sc = Reports.KEY_REPORT_ID + " = '" + thisReport.reportId
@@ -990,9 +994,10 @@ public class ReportTool extends Activity {
 
 			cr.update(repUri, cv, sc, null);
 
+			myProgress = 20;
+			publishProgress(myProgress);
 
 			if (!Util.privateMode(context[0])) {
-
 
 				// now test if there is a data connection
 				if (!Util.isOnline(context[0])) {
@@ -1004,28 +1009,37 @@ public class ReportTool extends Activity {
 				if (!PropertyHolder.isRegistered())
 					Util.registerOnServer(context[0]);
 
-				int uploadResult = thisReport
-						.upload(context[0]);
+				myProgress = 30;
+				publishProgress(myProgress);
 
+				
+				int uploadResult = thisReport.upload(context[0]);
 
-				if (uploadResult > 0){
-				// mark as uploaded
+				myProgress = 90;
+				publishProgress(myProgress);
+
+				if (uploadResult == Report.UPLOADED_ALL) {
+					// mark as uploaded
 					cv = new ContentValues();
 					cv.put(Reports.KEY_UPLOADED, uploadResult);
 					int nUpdated = cr.update(thisReportUri, cv, null, null);
-					Util.logInfo(context[0],TAG, "report uri " + thisReportUri);
-					Util.logInfo(context[0],TAG, "n updated " + nUpdated);
+					Util.logInfo(context[0], TAG, "report uri " + thisReportUri);
+					Util.logInfo(context[0], TAG, "n updated " + nUpdated);
 					resultFlag = SUCCESS;
-					
+
 					// try sync and make sure daily syncs are scheduled
-					Util.internalBroadcast(context[0], Messages.START_DAILY_SYNC);
-				}
-				else
+					Util.internalBroadcast(context[0],
+							Messages.START_DAILY_SYNC);
+				} else
 					resultFlag = UPLOAD_ERROR;
 
 			} else {
 				resultFlag = PRIVATE_MODE;
 			}
+			
+			myProgress = 100;
+			publishProgress(myProgress);
+
 			return true;
 		}
 

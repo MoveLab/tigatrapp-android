@@ -538,7 +538,14 @@ public class MapData extends MapActivity {
 				int serverTimestampCol = c
 						.getColumnIndexOrThrow(Reports.KEY_SERVER_TIMESTAMP);
 
+				int currentRecord = 0;
+				int nRecords = c.getCount();
+				
 				while (!c.isAfterLast()) {
+					
+					myProgress = (int) (((currentRecord++) / (float) nRecords) * 100);
+
+					publishProgress(myProgress);
 
 					int locationChoice = c.getInt(locationChoiceCol);
 

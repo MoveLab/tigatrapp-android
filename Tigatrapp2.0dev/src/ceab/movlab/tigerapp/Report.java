@@ -105,17 +105,18 @@ public class Report {
 	String appLanguage;
 	int missionId;
 
-	Report(Context context, String version_UUID, String userId, String reportId,
-			int reportVersion, long reportTime, String creation_time,
-			String version_time_string, int type, String confirmation,
-			int confirmationCode, int locationChoice, float currentLocationLat,
-			float currentLocationLon, float selectedLocationLat,
-			float selectedLocationLon, int photoAttached,
-			String photoUrisString, String note, int uploaded,
-			long serverTimestamp, int deleteReport, int latestVersion,
-			String packageName, int packageVersion, String phoneManufacturer,
-			String phoneModel, String OS, String OSversion, String osLanguage,
-			String appLanguage, int missionId) {
+	Report(Context context, String version_UUID, String userId,
+			String reportId, int reportVersion, long reportTime,
+			String creation_time, String version_time_string, int type,
+			String confirmation, int confirmationCode, int locationChoice,
+			float currentLocationLat, float currentLocationLon,
+			float selectedLocationLat, float selectedLocationLon,
+			int photoAttached, String photoUrisString, String note,
+			int uploaded, long serverTimestamp, int deleteReport,
+			int latestVersion, String packageName, int packageVersion,
+			String phoneManufacturer, String phoneModel, String OS,
+			String OSversion, String osLanguage, String appLanguage,
+			int missionId) {
 
 		this.versionUUID = version_UUID;
 
@@ -181,7 +182,7 @@ public class Report {
 		this.photoAttached = NO;
 		this.photoUrisJson = new JSONArray();
 		this.note = null;
-		this.uploaded = NO;
+		this.uploaded = UPLOADED_NONE;
 		this.serverTimestamp = -1;
 		this.deleteReport = NO;
 		this.latestVersion = YES;
@@ -215,7 +216,7 @@ public class Report {
 		this.photoAttached = MISSING;
 		this.photoUrisJson = new JSONArray();
 		this.note = null;
-		this.uploaded = MISSING;
+		this.uploaded = UPLOADED_NONE;
 		this.serverTimestamp = MISSING;
 		this.deleteReport = MISSING;
 		this.latestVersion = MISSING;
@@ -322,7 +323,8 @@ public class Report {
 		return result;
 	}
 
-	public static String getPhotoUri(Context context, JSONArray jsonPhotos, int position) {
+	public static String getPhotoUri(Context context, JSONArray jsonPhotos,
+			int position) {
 		String result = null;
 		if (jsonPhotos == null || jsonPhotos.length() < 1) {
 			// nothing
@@ -337,8 +339,8 @@ public class Report {
 		return result;
 	}
 
-	public static JSONArray deletePhoto(Context context, JSONArray jsonPhotos, String photoUri,
-			int photoTime) {
+	public static JSONArray deletePhoto(Context context, JSONArray jsonPhotos,
+			String photoUri, int photoTime) {
 		JSONArray result = null;
 		try {
 			if (jsonPhotos == null) {
@@ -363,7 +365,8 @@ public class Report {
 		return result;
 	}
 
-	public static JSONArray deletePhoto(Context context, JSONArray jsonPhotos, int pos) {
+	public static JSONArray deletePhoto(Context context, JSONArray jsonPhotos,
+			int pos) {
 		JSONArray result = null;
 		try {
 			if (jsonPhotos == null) {
@@ -476,6 +479,12 @@ public class Report {
 					result = UPLOADED_REPORT_ONLY;
 					Util.logInfo(context, TAG, "statusCode1: " + statusCode1);
 					result = uploadPhotos(context);
+				} else {
+					Util.logError(context, TAG, "fail upload, status code: "
+							+ this.uploaded);
+
+					Util.logError(context, TAG, "failed to upload report: "
+							+ this.exportJSON(context).toString());
 				}
 			}
 		} else if (this.uploaded == UPLOADED_REPORT_ONLY) {
@@ -500,13 +509,19 @@ public class Report {
 						result = UPLOADED_ALL;
 					} else {
 						result = UPLOADED_REPORT_ONLY;
+						Util.logError(context, TAG,
+								"fail upload, status code: " + this.uploaded);
+
+						Util.logError(context, TAG, "failed to upload photos: "
+								+ this.photoUrisJson.toString());
 					}
 				} catch (JSONException e) {
 					Util.logError(context, TAG, "JSON exception: " + e);
 				}
 			}
+		} else{
+			result = UPLOADED_ALL;
 		}
 		return result;
 	}
-
 }

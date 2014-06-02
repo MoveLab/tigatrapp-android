@@ -150,12 +150,6 @@
             android:enabled="true"
             android:exported="false" >
         </provider>
-        <provider
-            android:name="ceab.movlab.tigerapp.ContentProviderPhotos"
-            android:authorities="ceab.movelab.tigerapp.providers.tigerphotosprovider"
-            android:enabled="true"
-            android:exported="false" >
-        </provider>
     </application>
 
 </manifest>

@@ -70,12 +70,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Service;
-import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.database.Cursor;
 import android.location.GpsStatus;
 import android.location.Location;
@@ -92,7 +90,6 @@ import android.os.Parcel;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.os.RemoteException;
-import android.util.Log;
 import ceab.movlab.tigerapp.ContentProviderContractTasks.Tasks;
 import ceab.movlab.tigerapp.ContentProviderContractTracks.Fixes;
 
@@ -453,7 +450,7 @@ public class FixGet extends Service {
 
 							)) {
 
-						Log.i("FG", "task triggered");
+						Util.logInfo(context, TAG, "task triggered");
 
 						ContentValues cv = new ContentValues();
 						int rowId = c.getInt(c
@@ -487,11 +484,9 @@ public class FixGet extends Service {
 				}
 
 			} catch (IllegalArgumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Util.logError(context, TAG, "error: " + e);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Util.logError(context, TAG, "error: " + e);
 			}
 
 		}

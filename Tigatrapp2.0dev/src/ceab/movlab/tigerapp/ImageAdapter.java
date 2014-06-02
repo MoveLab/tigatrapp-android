@@ -1,6 +1,5 @@
 package ceab.movlab.tigerapp;
 
-import ceab.movelab.tigerapp.R;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.TextView;
+import ceab.movelab.tigerapp.R;
 
 public class ImageAdapter extends BaseAdapter {
 

@@ -8,7 +8,6 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -24,7 +23,7 @@ import ceab.movelab.tigerapp.R;
 
 /********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
 public class TaskAdapter extends BaseAdapter implements OnClickListener {
-
+	
 	/*********** Declare Used Variables *********/
 	private Activity activity;
 	private ArrayList data;
@@ -161,8 +160,7 @@ public class TaskAdapter extends BaseAdapter implements OnClickListener {
 								TaskActivity ta = (TaskActivity) activity;
 								ta.responses.put(holder.itemId, thisResponse);
 							} catch (JSONException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
+								// TODO
 							}
 						}
 

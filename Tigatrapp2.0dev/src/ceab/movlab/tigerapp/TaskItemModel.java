@@ -7,10 +7,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
-import android.util.Log;
 import ceab.movelab.tigerapp.R;
 
 public class TaskItemModel {
+
+	private static String TAG = "TaskItemModel";
 
 	private String itemId;
 	private String itemText;
@@ -50,8 +51,7 @@ public class TaskItemModel {
 			if (item.has(KEY_ITEM_ID))
 				this.itemId = item.getString(KEY_ITEM_ID);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Util.logError(context, TAG, "error: " + e);
 		}
 
 		// if answered, then language already decided:
@@ -59,8 +59,7 @@ public class TaskItemModel {
 			try {
 				this.itemText = item.getString(KEY_ITEM_TEXT);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Util.logError(context, TAG, "error: " + e);
 			}
 			// if preset, then language already decided:
 		} else if (item.has(KEY_ANSWER_CHOICES) && item.has(KEY_HELP_TEXT)
@@ -84,8 +83,7 @@ public class TaskItemModel {
 				itemChoices = itemChoicesTemp;
 
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Util.logError(context, TAG, "error: " + e);
 			}
 
 		} else {
@@ -98,16 +96,14 @@ public class TaskItemModel {
 					if (item.has(KEY_QUESTION_CATALAN))
 						this.itemText = item.getString(KEY_QUESTION_CATALAN);
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Util.logError(context, TAG, "error: " + e);
 				}
 				try {
 
 					if (item.has(KEY_HELP_TEXT_CATALAN))
 						this.itemHelp = item.getString(KEY_HELP_TEXT_CATALAN);
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Util.logError(context, TAG, "error: " + e);
 				}
 
 				try {
@@ -133,8 +129,7 @@ public class TaskItemModel {
 					}
 
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Util.logError(context, TAG, "error: " + e);
 				}
 
 			} else if (currentLang.equals("es")) {
@@ -144,16 +139,14 @@ public class TaskItemModel {
 					if (item.has(KEY_QUESTION_SPANISH))
 						this.itemText = item.getString(KEY_QUESTION_SPANISH);
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Util.logError(context, TAG, "error: " + e);
 				}
 				try {
 
 					if (item.has(KEY_HELP_TEXT_SPANISH))
 						this.itemHelp = item.getString(KEY_HELP_TEXT_SPANISH);
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Util.logError(context, TAG, "error: " + e);
 				}
 
 				try {
@@ -163,7 +156,6 @@ public class TaskItemModel {
 						String theseChoices = item
 								.getString(KEY_ANSWER_CHOICES_SPANISH);
 
-
 						JSONArray itemChoicesJson = new JSONArray(theseChoices);
 						String[] itemChoicesTemp = new String[itemChoicesJson
 								.length() + 1];
@@ -181,8 +173,7 @@ public class TaskItemModel {
 					}
 
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Util.logError(context, TAG, "error: " + e);
 				}
 
 			} else if (currentLang.equals("en")) {
@@ -192,16 +183,14 @@ public class TaskItemModel {
 					if (item.has(KEY_QUESTION_ENGLISH))
 						this.itemText = item.getString(KEY_QUESTION_ENGLISH);
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Util.logError(context, TAG, "error: " + e);
 				}
 				try {
 
 					if (item.has(KEY_HELP_TEXT_ENGLISH))
 						this.itemHelp = item.getString(KEY_HELP_TEXT_ENGLISH);
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Util.logError(context, TAG, "error: " + e);
 				}
 
 				try {
@@ -210,7 +199,6 @@ public class TaskItemModel {
 
 						String theseChoices = item
 								.getString(KEY_ANSWER_CHOICES_ENGLISH);
-
 
 						JSONArray itemChoicesJson = new JSONArray(theseChoices);
 						String[] itemChoicesTemp = new String[itemChoicesJson
@@ -228,12 +216,10 @@ public class TaskItemModel {
 					}
 
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Util.logError(context, TAG, "error: " + e);
 				}
 
 			}
-
 
 		}
 
@@ -249,8 +235,7 @@ public class TaskItemModel {
 					this.itemHelpImage = item
 							.getInt(KEY_PREPOSITIONED_IMAGE_REFERENCE);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Util.logError(context, TAG, "error: " + e);
 		}
 
 		try {
@@ -258,8 +243,7 @@ public class TaskItemModel {
 			if (item.has(KEY_ITEM_RESPONSE))
 				this.itemResponse = item.getString(KEY_ITEM_RESPONSE);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Util.logError(context, TAG, "error: " + e);
 		}
 
 	}
@@ -329,8 +313,7 @@ public class TaskItemModel {
 							thisResponse);
 
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				// TODO
 			}
 		}
 		return result;

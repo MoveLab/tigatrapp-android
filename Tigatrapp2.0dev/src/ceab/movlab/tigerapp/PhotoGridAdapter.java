@@ -14,7 +14,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +23,7 @@ import android.widget.ImageView;
 import ceab.movelab.tigerapp.R;
 
 public class PhotoGridAdapter extends BaseAdapter {
+	private static String TAG = "PhotoGridAdapter";
 	private Context mContext;
 	private JSONArray jsonPhotos;
 	private Bitmap mPlaceHolderBitmap;
@@ -45,10 +45,10 @@ public class PhotoGridAdapter extends BaseAdapter {
 		String result = "";
 
 		try {
-			result = jsonPhotos.getJSONObject(position).getString(Report.KEY_PHOTO_URI);
+			result = jsonPhotos.getJSONObject(position).getString(
+					Report.KEY_PHOTO_URI);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Util.logError(mContext, TAG, "error: " + e);
 		}
 		return result;
 	}
@@ -75,15 +75,14 @@ public class PhotoGridAdapter extends BaseAdapter {
 
 			try {
 
-				thisUri = jsonPhotos.getJSONObject(position).getString(Report.KEY_PHOTO_URI);
+				thisUri = jsonPhotos.getJSONObject(position).getString(
+						Report.KEY_PHOTO_URI);
 				loadBitmap(thisUri, imageView);
 
 				// imageView.setImageBitmap(Util.getSmallerBitmap(new File(
 				// jsonPhotos.getString(position)), mContext, 85));
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-
+				Util.logError(mContext, TAG, "error: " + e);
 			}
 		}
 
@@ -121,16 +120,16 @@ public class PhotoGridAdapter extends BaseAdapter {
 
 		if (bitmapWorkerTask != null) {
 			final String bitmapData = bitmapWorkerTask.data;
-			
-			if(bitmapData != null){
-			if (!bitmapData.equals(data)) {
-				// Cancel previous task
-				bitmapWorkerTask.cancel(true);
-			} else {
-				// The same work is already in progress
-				return false;
+
+			if (bitmapData != null) {
+				if (!bitmapData.equals(data)) {
+					// Cancel previous task
+					bitmapWorkerTask.cancel(true);
+				} else {
+					// The same work is already in progress
+					return false;
+				}
 			}
-		}
 		}
 		// No task associated with the ImageView, or an existing task was
 		// cancelled
@@ -168,11 +167,9 @@ public class PhotoGridAdapter extends BaseAdapter {
 			try {
 				result = Util.getSmallerBitmap(new File(data), mContext, 85);
 			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Util.logError(mContext, TAG, "error: " + e);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Util.logError(mContext, TAG, "error: " + e);
 			}
 			return result;
 		}

@@ -23,7 +23,6 @@ package ceab.movlab.tigerapp;
 
 import java.util.Date;
 import java.util.Locale;
-import java.util.Random;
 import java.util.UUID;
 
 import org.json.JSONException;
@@ -31,7 +30,6 @@ import org.json.JSONException;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -52,7 +50,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Html;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -80,6 +77,7 @@ import ceab.movlab.tigerapp.ContentProviderContractTasks.Tasks;
 
 public class ReportTool extends Activity {
 
+	private static String TAG = "ReportTool";
 	private MyCountDownTimer countDownTimer;
 
 	private boolean gpsAvailable;
@@ -234,7 +232,7 @@ public class ReportTool extends Activity {
 						.getColumnIndexOrThrow(Reports.KEY_MISSION_ID);
 
 				// note that we increment the version number here
-				thisReport = new Report(UUID.randomUUID().toString(),
+				thisReport = new Report(context, UUID.randomUUID().toString(),
 						c.getString(userIdCol), c.getString(reportIdCol),
 						(c.getInt(reportVersionCol) + 1),
 						c.getLong(reportTimeCol), c.getString(creationTimeCol),
@@ -342,7 +340,7 @@ public class ReportTool extends Activity {
 						.getFloat("selectedLocationLon");
 			thisReport.photoAttached = icicle.getInt("photoAttached");
 			thisReport.note = icicle.getString("note");
-			thisReport.setPhotoUris(icicle.getString(Reports.KEY_PHOTO_URIS));
+			thisReport.setPhotoUris(context, icicle.getString(Reports.KEY_PHOTO_URIS));
 		}
 
 		if (thisReport.reportId == null) {
@@ -381,8 +379,7 @@ public class ReportTool extends Activity {
 						startActivityForResult(i, REQUEST_CODE_REPORT_RESPONSES);
 
 					} catch (JSONException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+						Util.logError(context, TAG, "error: " + e1);
 					}
 					return;
 				}
@@ -579,7 +576,7 @@ public class ReportTool extends Activity {
 						countDownTimer.cancel();
 					} catch (Exception e) {
 
-						Log.e("ReportTool",
+						Util.logError(context,TAG,
 								"exception cancelling countdown timer");
 					}
 					countDownTimer.start();
@@ -620,7 +617,7 @@ public class ReportTool extends Activity {
 					countDownTimer.cancel();
 				} catch (Exception e) {
 
-					Log.e("ReportTool", "exception cancelling countdown timer");
+					Util.logError(context,TAG, "exception cancelling countdown timer");
 				}
 				countDownTimer.start();
 			}
@@ -841,7 +838,7 @@ public class ReportTool extends Activity {
 							.getStringExtra(Reports.KEY_PHOTO_URIS);
 
 					if (incomingPhotoUris.length() > 0) {
-						thisReport.setPhotoUris(data
+						thisReport.setPhotoUris(context, data
 								.getStringExtra(Reports.KEY_PHOTO_URIS));
 						photoCount.setVisibility(View.VISIBLE);
 						photoCount.setText(String
@@ -1016,8 +1013,8 @@ public class ReportTool extends Activity {
 					cv = new ContentValues();
 					cv.put(Reports.KEY_UPLOADED, uploadResult);
 					int nUpdated = cr.update(thisReportUri, cv, null, null);
-					Log.d("REPORT TOOL", "report uri " + thisReportUri);
-					Log.d("REPORT TOOL", "n updated " + nUpdated);
+					Util.logInfo(context[0],TAG, "report uri " + thisReportUri);
+					Util.logInfo(context[0],TAG, "n updated " + nUpdated);
 					resultFlag = SUCCESS;
 					
 					// try sync and make sure daily syncs are scheduled

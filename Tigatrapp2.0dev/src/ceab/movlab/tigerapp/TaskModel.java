@@ -6,13 +6,12 @@ import org.json.JSONObject;
 
 import android.content.ContentResolver;
 import android.content.Context;
-import android.text.Html;
-import android.util.Log;
 import ceab.movelab.tigerapp.R;
 import ceab.movlab.tigerapp.ContentProviderContractTasks.Tasks;
 
 public class TaskModel {
 
+	private static String TAG = "TaskModel";
 	public static final String KEY_TITLE = "title";
 	public static final String KEY_TITLE_CATALAN = "title_catalan";
 	public static final String KEY_TITLE_SPANISH = "title_spanish";
@@ -31,13 +30,13 @@ public class TaskModel {
 	public static final String KEY_ITEMS = "items";
 	public static final String KEY_PRESET_CONFIGURATION = "preset_configuation";
 
-	// This is the key that will be fed from current api. I will then map it always to left button in TaskActivity
+	// This is the key that will be fed from current api. I will then map it
+	// always to left button in TaskActivity
 	public static final String KEY_URL = "url";
 
 	// TO DO: implement this in the task activity
 	public static final String KEY_PHOTO_MISSION = "photo_mission";
 
-	
 	public static final String KEY_TASK_BUTTON_LEFT_VISIBLE = "mission_button_left_visible";
 	public static final String KEY_TASK_BUTTON_MIDDLE_VISIBLE = "mission_button_middle_visible";
 	public static final String KEY_TASK_BUTTON_RIGHT_VISIBLE = "mission_button_right_visible";
@@ -50,7 +49,7 @@ public class TaskModel {
 	public static final String KEY_TASK_BUTTON_RIGHT_TEXT = "mission_button_right_text";
 	public static final String KEY_TASK_BUTTON_RIGHT_ACTION = "mission_button_right_action";
 	public static final String KEY_TASK_BUTTON_RIGHT_URL = "mission_button_right_url";
-	
+
 	public static final String KEY_TASK_TRIGGER_LON_LOWERBOUND = "lon_lower_bound";
 	public static final String KEY_TASK_TRIGGER_LON_UPPERBOUND = "lon_upper_bound";
 	public static final String KEY_TASK_TRIGGER_LAT_LOWERBOUND = "lat_lower_bound";
@@ -65,7 +64,6 @@ public class TaskModel {
 	public static final int BUTTONTEXT_DO_TASK_LATER = 3;
 	public static final int BUTTONTEXT_DELETE_TASK = 4;
 
-	
 	public static final int BUTTONACTIONS_DO_TASK = 0;
 	// This button marks task complete, uploads any responses, goes to url (if
 	// there is a url for this button), and removes notification if there are no
@@ -80,8 +78,6 @@ public class TaskModel {
 
 	public static final int PRECONFIRUATION_SITES = 0;
 	public static final int PRECONFIRUATION_ADULTS = 1;
-
-
 
 	public static JSONObject makeSiteConfirmation(Context context) {
 
@@ -161,8 +157,7 @@ public class TaskModel {
 			task.put(Tasks.KEY_TASK_JSON, taskJson);
 
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Util.logError(context, TAG, "error: " + e);
 		}
 
 		return task;
@@ -237,8 +232,7 @@ public class TaskModel {
 			task.put(Tasks.KEY_TASK_JSON, taskJson);
 
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Util.logError(context, TAG, "error: " + e);
 		}
 
 		return task;

@@ -24,7 +24,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -39,6 +38,7 @@ import ceab.movlab.tigerapp.ContentProviderContractReports.Reports;
 
 public class AttachedPhotos extends Activity {
 
+	private static String TAG = "AttachedPhotos";
 	Context context = this;
 	File root;
 	File directory;
@@ -94,7 +94,7 @@ public class AttachedPhotos extends Activity {
 					public void onItemClick(AdapterView<?> parent, View v,
 							int position, long id) {
 
-						String thisPhotoUri = Report.getPhotoUri(jsonPhotos,
+						String thisPhotoUri = Report.getPhotoUri(context, jsonPhotos,
 								position);
 						if (thisPhotoUri != null) {
 
@@ -117,11 +117,9 @@ public class AttachedPhotos extends Activity {
 								dialog.setCancelable(true);
 								dialog.show();
 							} catch (FileNotFoundException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
+								Util.logError(context, TAG, "error: " + e);
 							} catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
+								Util.logError(context, TAG, "error: " + e);
 							}
 						}
 
@@ -156,7 +154,7 @@ public class AttachedPhotos extends Activity {
 									public void onClick(DialogInterface d,
 											int arg1) {
 
-										jsonPhotos = Report.deletePhoto(
+										jsonPhotos = Report.deletePhoto(context, 
 												jsonPhotos, pos);
 										// I realize this is ugly, but it is the
 										// quickest fix right now to get the
@@ -223,8 +221,7 @@ public class AttachedPhotos extends Activity {
 									newPhoto.put(Report.KEY_PHOTO_URI, m_chosen);
 									jsonPhotos.put(newPhoto);
 								} catch (JSONException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
+									Util.logError(context, TAG, "error: " + e);
 								}
 
 								// I realize this is ugly, but it is the
@@ -332,7 +329,7 @@ public class AttachedPhotos extends Activity {
 			takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
 
 		} catch (Exception e) {
-			Log.e("ReportTool", "photo exception: " + e);
+			Util.logError(context, TAG, "photo exception: " + e);
 		}
 
 		startActivityForResult(takePictureIntent, actionCode);
@@ -367,8 +364,7 @@ public class AttachedPhotos extends Activity {
 							System.currentTimeMillis());
 					jsonPhotos.put(newPhoto);
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Util.logError(context, TAG, "error: " + e);
 				}
 
 				// I realize this is ugly, but it is the

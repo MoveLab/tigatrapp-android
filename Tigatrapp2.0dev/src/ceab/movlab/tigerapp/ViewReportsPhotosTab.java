@@ -13,7 +13,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
@@ -26,6 +25,7 @@ import ceab.movlab.tigerapp.ContentProviderContractReports.Reports;
 
 public class ViewReportsPhotosTab extends Activity {
 
+	private static String TAG = "ViewReportsPhotosTab";
 	Context context = this;
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -44,7 +44,6 @@ public class ViewReportsPhotosTab extends Activity {
 				final JSONArray jsonPhotos = new JSONArray(
 						b.getString(Reports.KEY_PHOTO_URIS));
 
-
 				textview.setVisibility(View.GONE);
 				GridView gridview = new GridView(this);
 				gridview.setColumnWidth(86);
@@ -59,8 +58,8 @@ public class ViewReportsPhotosTab extends Activity {
 					public void onItemClick(AdapterView<?> parent, View v,
 							int position, long id) {
 
-						String thisPhotoUri = Report.getPhotoUri(jsonPhotos,
-								position);
+						String thisPhotoUri = Report.getPhotoUri(context,
+								jsonPhotos, position);
 						if (thisPhotoUri != null) {
 
 							try {
@@ -83,11 +82,9 @@ public class ViewReportsPhotosTab extends Activity {
 								dialog.setCancelable(true);
 								dialog.show();
 							} catch (FileNotFoundException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
+								Util.logError(context, TAG, "error: " + e);
 							} catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
+								Util.logError(context, TAG, "error: " + e);
 							}
 						}
 
@@ -95,8 +92,7 @@ public class ViewReportsPhotosTab extends Activity {
 				});
 
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Util.logError(context, TAG, "error: " + e);
 			}
 		}
 

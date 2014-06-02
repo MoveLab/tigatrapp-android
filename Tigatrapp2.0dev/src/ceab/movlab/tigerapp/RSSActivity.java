@@ -22,7 +22,6 @@ import android.net.ParseException;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,6 +33,7 @@ import android.widget.TextView;
 import ceab.movelab.tigerapp.R;
 
 public class RSSActivity extends Activity {
+	private static String TAG = "RSSActivity";
 	private ArrayList<RSSPost> listData;
 	final int IGNORETAG = 0;
 	final int TITLE = 1;
@@ -182,7 +182,6 @@ public class RSSActivity extends Activity {
 					} else if (eventType == XmlPullParser.TEXT) {
 						String content = xpp.getText();
 						content = content.trim();
-						Log.d("debug", content);
 						if (pdData != null) {
 							switch (currentTag) {
 							case TITLE:
@@ -220,22 +219,16 @@ public class RSSActivity extends Activity {
 
 					eventType = xpp.next();
 				}
-				Log.v("tst", String.valueOf((RSSPostList.size())));
 			} catch (MalformedURLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Util.logError(context, TAG, "error: " + e);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Util.logError(context, TAG, "error: " + e);
 			} catch (XmlPullParserException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Util.logError(context, TAG, "error: " + e);
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Util.logError(context, TAG, "error: " + e);
 			} catch (java.text.ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Util.logError(context, TAG, "error: " + e);
 			}
 
 			return RSSPostList;
@@ -278,7 +271,7 @@ public class RSSActivity extends Activity {
 
 		switch (item.getItemId()) {
 		case (REFRESH): {
-			
+
 			setInfoDisplay(context, true, thisUrl);
 
 			return true;

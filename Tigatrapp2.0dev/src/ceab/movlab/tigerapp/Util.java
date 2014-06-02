@@ -65,10 +65,7 @@
 
 package ceab.movlab.tigerapp;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -80,12 +77,6 @@ import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.security.InvalidKeyException;
-import java.security.KeyFactory;
-import java.security.NoSuchAlgorithmException;
-import java.security.PublicKey;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.X509EncodedKeySpec;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
@@ -96,11 +87,6 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Random;
 import java.util.UUID;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -131,7 +117,6 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.text.Html;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -314,7 +299,6 @@ public class Util {
 		return sb.toString();
 	}
 
-
 	public static String ecma262(long time) {
 		String format = "yyyy-MM-dd'T'HH:mm:ss.SSZ";
 		SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
@@ -338,7 +322,7 @@ public class Util {
 		return result;
 	}
 
-	public static long ecma262String2Long(String ecma262) {
+	public static long ecma262String2Long(Context context, String ecma262) {
 		long result = 0;
 		String format = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
 		SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
@@ -351,9 +335,8 @@ public class Util {
 			else
 				result = d.getTime();
 		} catch (ParseException e) {
-			Log.e("DATE parsing", "exception: " + e);
-			e.printStackTrace();
-		} // ICU4J;
+			Util.logError(context, TAG, "exception: " + e);
+		}
 		return result;
 	}
 
@@ -536,6 +519,7 @@ public class Util {
 		// dialog.setCanceledOnTouchOutside(true);
 		dialog.show();
 	}
+
 	/**
 	 * Saves a byte array to the internal storage directory.
 	 * 
@@ -577,7 +561,6 @@ public class Util {
 
 	}
 
-
 	/**
 	 * Checks if the phone has an internet connection.
 	 * 
@@ -593,7 +576,7 @@ public class Util {
 		if (netInfo != null && netInfo.isConnected()) {
 			return true;
 		}
-		Log.i("UTIL ONLINE", "false");
+		Util.logInfo(context,TAG, "Not online");
 		return false;
 	}
 
@@ -752,7 +735,7 @@ public class Util {
 		return lang;
 	}
 
-	public static int postPhoto(String uri, String filename, String versionUUID) {
+	public static int postPhoto(Context context, String uri, String filename, String versionUUID) {
 
 		int response = 0;
 		HttpURLConnection conn = null;
@@ -821,7 +804,7 @@ public class Util {
 
 			dos.writeBytes(twoHyphens + boundary + lineEnd);
 		} catch (Exception e) {
-			Log.e(TAG, "UploadService Runnable:Client Request error", e);
+			Util.logError(context,TAG, "error: " + e);
 		} finally {
 			if (dos != null) {
 				try {
@@ -865,7 +848,7 @@ public class Util {
 	 * @param path
 	 *            String representing URL to the server API.
 	 */
-	public static HttpResponse putJSON(JSONObject jsonData, String apiEndpoint,
+	public static HttpResponse postJSON(JSONObject jsonData, String apiEndpoint,
 			Context context) {
 		HttpResponse result = null;
 		if (!isOnline(context)) {
@@ -882,19 +865,14 @@ public class Util {
 				httpost.setHeader("Content-type", "application/json");
 				httpost.setHeader("Authorization", TIGASERVER_AUTHORIZATION);
 
-				Log.i("ABOUT TO POST TO", "URI: " + httpost.getURI());
-
 				result = httpclient.execute(httpost);
 
 			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Util.logError(context,TAG, "error: " + e);
 			} catch (ClientProtocolException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Util.logError(context,TAG, "error: " + e);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Util.logError(context,TAG, "error: " + e);
 			}
 			return result;
 		}
@@ -906,12 +884,11 @@ public class Util {
 		if (httpResponse != null) {
 			StatusLine status = httpResponse.getStatusLine();
 			statusCode = status.getStatusCode();
-			Log.i("Util.putJSON", "Status Code: " + statusCode);
 		}
 		return statusCode;
 	}
 
-	public static JSONObject parseResponse(HttpResponse response) {
+	public static JSONObject parseResponse(Context context, HttpResponse response) {
 		JSONObject json = new JSONObject();
 		if (response != null) {
 			BufferedReader reader;
@@ -923,20 +900,15 @@ public class Util {
 					builder.append(line).append("\n");
 				}
 				json = new JSONObject(builder.toString());
-				Log.i("Util.putJSON", "Response: " + json.toString());
-
+		
 			} catch (UnsupportedEncodingException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Util.logError(context,TAG, "error: " + e);
 			} catch (IllegalStateException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Util.logError(context,TAG, "error: " + e);
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Util.logError(context,TAG, "error: " + e);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Util.logError(context,TAG, "error: " + e);
 			}
 		}
 		return json;
@@ -960,7 +932,7 @@ public class Util {
 				HttpResponse response = client.execute(httpGet);
 				StatusLine statusLine = response.getStatusLine();
 				int statusCode = statusLine.getStatusCode();
-				Log.i("getJson", "Status code:" + statusCode);
+				Util.logInfo(context, TAG, "Status code:" + statusCode);
 
 				if (statusCode == 200) {
 					HttpEntity entity = response.getEntity();
@@ -972,12 +944,12 @@ public class Util {
 						builder.append(line);
 					}
 				} else {
-					Log.e("getJson", "Failed to download json data");
+					Util.logInfo(context, TAG, "failed to get JSON data");
 				}
 			} catch (ClientProtocolException e) {
-				e.printStackTrace();
+				Util.logError(context, TAG, "error: " + e);
 			} catch (IOException e) {
-				e.printStackTrace();
+				Util.logError(context, TAG, "error: " + e);
 			}
 
 			return builder.toString();
@@ -1011,7 +983,7 @@ public class Util {
 		try {
 			jsonUUID = new JSONObject();
 			jsonUUID.put("user_UUID", PropertyHolder.getUserId());
-			int statusCode = Util.getResponseStatusCode(Util.putJSON(jsonUUID,
+			int statusCode = Util.getResponseStatusCode(Util.postJSON(jsonUUID,
 					Util.API_USER, context));
 			if (statusCode < 300 && statusCode > 0) {
 				PropertyHolder.setRegistered(true);
@@ -1020,8 +992,7 @@ public class Util {
 				result = false;
 			}
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Util.logError(context, TAG, "error: " + e);
 			// try creating UUID again
 			PropertyHolder.setUserId(UUID.randomUUID().toString());
 			// consider looping back but make sure this will not lead to chaos.

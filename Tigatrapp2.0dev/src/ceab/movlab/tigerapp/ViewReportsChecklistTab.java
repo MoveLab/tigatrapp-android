@@ -13,13 +13,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ListView;
 import ceab.movelab.tigerapp.R;
 import ceab.movlab.tigerapp.ContentProviderContractReports.Reports;
 
 public class ViewReportsChecklistTab extends Activity {
 
+	private static String TAG = "ViewReportsCheckListTab";
 	Resources res;
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -54,15 +54,13 @@ public class ViewReportsChecklistTab extends Activity {
 
 						taskData.add(new TaskItemModel(context, thisItem));
 					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						Util.logError(context, TAG, "error: " + e);
 					}
 
 				}
 
 			} catch (JSONException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				Util.logError(context, TAG, "error: " + e1);
 			}
 
 			if (taskData != null)

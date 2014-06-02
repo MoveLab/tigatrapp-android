@@ -10,7 +10,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -20,10 +19,8 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -32,11 +29,11 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import ceab.movelab.tigerapp.R;
-import ceab.movlab.tigerapp.ContentProviderContractPhotos.TigaPhotos;
 import ceab.movlab.tigerapp.ContentProviderContractReports.Reports;
 import ceab.movlab.tigerapp.ContentProviderContractTasks.Tasks;
 
 public class TaskActivity extends Activity {
+	private static String TAG = "TaskActivity";
 	Context context = this;
 	String lang;
 	ListView lv;
@@ -380,8 +377,7 @@ public class TaskActivity extends Activity {
 			}
 
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Util.logError(context, TAG, "error: " + e);
 		}
 
 	}
@@ -451,7 +447,7 @@ public class TaskActivity extends Activity {
 					String osLanguage = Locale.getDefault().getLanguage();
 					String appLanguage = PropertyHolder.getLanguage();
 
-					Report missionReport = new Report(UUID.randomUUID()
+					Report missionReport = new Report(context, UUID.randomUUID()
 							.toString(), PropertyHolder.getUserId(),
 							Util.makeReportId(), 0, currentTime,
 							currentTimeString, currentTimeString,

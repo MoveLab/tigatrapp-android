@@ -14,7 +14,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Gallery;
 import android.widget.TextView;
 import ceab.movelab.tigerapp.R;
-import ceab.movelab.tigerapp.R.array;
 
 public class PhotoGallery extends Activity {
 	private Gallery galleryView;

@@ -1,5 +1,9 @@
 package ceab.movlab.tigerapp;
 
+/* 
+ * Taken from https://gist.github.com/mlakkadshaw/5983704 */
+import java.util.Vector;
+
 import org.xml.sax.XMLReader;
 
 import android.text.Editable;
@@ -8,10 +12,6 @@ import android.text.Spannable;
 import android.text.style.BulletSpan;
 import android.text.style.LeadingMarginSpan;
 import android.text.style.TypefaceSpan;
-import android.util.Log;
-/* 
- * Taken from https://gist.github.com/mlakkadshaw/5983704 */
-import java.util.Vector;
  
 public class TigaTagHandler implements Html.TagHandler {
   private int mListItemCount = 0;

@@ -82,8 +82,7 @@ public class ContentProviderValuesTasks {
 			initialValues.put(Tasks.KEY_DONE, 0);
 			initialValues.put(Tasks.KEY_UPLOADED, 0);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// TODO 
 		}
 		return initialValues;
 	}
@@ -212,8 +211,7 @@ public class ContentProviderValuesTasks {
 			initialValues.put(Tasks.KEY_DONE, 0);
 			initialValues.put(Tasks.KEY_UPLOADED, 0);
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			// TODO
 		}
 		return initialValues;
 	}

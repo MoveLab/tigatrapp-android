@@ -21,7 +21,6 @@
 
 package ceab.movlab.tigerapp;
 
-import java.net.ResponseCache;
 import java.util.Iterator;
 import java.util.UUID;
 
@@ -32,7 +31,6 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 
 /**
  * Defines map point objects used in DriverMapActivity.
@@ -41,7 +39,7 @@ import android.util.Log;
  * 
  */
 public class Report {
-	
+
 	private static String TAG = "Report";
 
 	public static int MISSING = -1;
@@ -107,7 +105,7 @@ public class Report {
 	String appLanguage;
 	int missionId;
 
-	Report(String version_UUID, String userId, String reportId,
+	Report(Context context, String version_UUID, String userId, String reportId,
 			int reportVersion, long reportTime, String creation_time,
 			String version_time_string, int type, String confirmation,
 			int confirmationCode, int locationChoice, float currentLocationLat,
@@ -143,8 +141,7 @@ public class Report {
 			try {
 				this.photoUrisJson = new JSONArray(photoUrisString);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Util.logError(context, TAG, "error: " + e);
 			}
 		}
 
@@ -234,8 +231,6 @@ public class Report {
 
 	}
 
-
-	
 	public void clear() {
 
 		versionUUID = null;
@@ -271,19 +266,18 @@ public class Report {
 		this.missionId = Report.MISSING;
 	}
 
-	public boolean setPhotoUris(String photoUris) {
+	public boolean setPhotoUris(Context context, String photoUris) {
 		boolean result = false;
 		try {
 			this.photoUrisJson = new JSONArray(photoUris);
 			result = true;
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Util.logError(context, TAG, "error: " + e);
 		}
 		return result;
 	}
 
-	public boolean addPhoto(String photoUri, int photoTime) {
+	public boolean addPhoto(Context context, String photoUri, int photoTime) {
 		boolean result = false;
 		try {
 			if (this.photoUrisJson == null) {
@@ -297,13 +291,12 @@ public class Report {
 			}
 			result = true;
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Util.logError(context, TAG, "error: " + e);
 		}
 		return result;
 	}
 
-	public boolean deletePhoto(String photoUri, int photoTime) {
+	public boolean deletePhoto(Context context, String photoUri, int photoTime) {
 		boolean result = false;
 		try {
 			if (this.photoUrisJson == null) {
@@ -324,13 +317,12 @@ public class Report {
 			}
 			result = true;
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Util.logError(context, TAG, "error: " + e);
 		}
 		return result;
 	}
 
-	public static String getPhotoUri(JSONArray jsonPhotos, int position) {
+	public static String getPhotoUri(Context context, JSONArray jsonPhotos, int position) {
 		String result = null;
 		if (jsonPhotos == null || jsonPhotos.length() < 1) {
 			// nothing
@@ -339,14 +331,13 @@ public class Report {
 				result = jsonPhotos.getJSONObject(position).getString(
 						KEY_PHOTO_URI);
 			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Util.logError(context, TAG, "error: " + e);
 			}
 		}
 		return result;
 	}
 
-	public static JSONArray deletePhoto(JSONArray jsonPhotos, String photoUri,
+	public static JSONArray deletePhoto(Context context, JSONArray jsonPhotos, String photoUri,
 			int photoTime) {
 		JSONArray result = null;
 		try {
@@ -367,13 +358,12 @@ public class Report {
 				result = newArray;
 			}
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Util.logError(context, TAG, "error: " + e);
 		}
 		return result;
 	}
 
-	public static JSONArray deletePhoto(JSONArray jsonPhotos, int pos) {
+	public static JSONArray deletePhoto(Context context, JSONArray jsonPhotos, int pos) {
 		JSONArray result = null;
 		try {
 			if (jsonPhotos == null) {
@@ -392,8 +382,7 @@ public class Report {
 				result = newArray;
 			}
 		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Util.logError(context, TAG, "error: " + e);
 		}
 		return result;
 	}
@@ -455,8 +444,7 @@ public class Report {
 						responsesArray.put(innerJSON);
 
 					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+						Util.logError(context, TAG, "error: " + e);
 					}
 				}
 
@@ -478,46 +466,47 @@ public class Report {
 		if (this.uploaded == UPLOADED_NONE) {
 			// TESTING ONLY NOW
 			JSONObject data = this.exportJSON(context);
-			Log.i(TAG, "Report JSON conversion:" + data.toString());
-			HttpResponse response = Util
-					.putJSON(data, Util.API_REPORT, context);
-			if(response != null){
-			int statusCode1 = response.getStatusLine().getStatusCode();
-			if (statusCode1 >= 200 && statusCode1 < 300) {
-				result = UPLOADED_REPORT_ONLY;
-				Log.d(TAG, "statusCode1: " + statusCode1);
-				result = uploadPhotos();
-			}
+			Util.logInfo(context, TAG,
+					"Report JSON conversion:" + data.toString());
+			HttpResponse response = Util.postJSON(data, Util.API_REPORT,
+					context);
+			if (response != null) {
+				int statusCode1 = response.getStatusLine().getStatusCode();
+				if (statusCode1 >= 200 && statusCode1 < 300) {
+					result = UPLOADED_REPORT_ONLY;
+					Util.logInfo(context, TAG, "statusCode1: " + statusCode1);
+					result = uploadPhotos(context);
+				}
 			}
 		} else if (this.uploaded == UPLOADED_REPORT_ONLY) {
-			result = uploadPhotos();
+			result = uploadPhotos(context);
 		}
 		return result;
 	}
 
-	private int uploadPhotos() {
+	private int uploadPhotos(Context context) {
 		int result = UPLOADED_NONE;
 		if (this.photoUrisJson != null && this.photoUrisJson.length() > 0) {
 			for (int i = 0; i < this.photoUrisJson.length(); i++) {
 				try {
 					String thisUri = this.photoUrisJson.getJSONObject(i)
 							.getString(Report.KEY_PHOTO_URI);
-				
-					int statusCode2 = Util.postPhoto(thisUri, Uri.parse(thisUri).getLastPathSegment(),
+
+					int statusCode2 = Util.postPhoto(context, thisUri, Uri
+							.parse(thisUri).getLastPathSegment(),
 							this.versionUUID);
-					Log.d(TAG, "statusCode2: " + statusCode2);
+					Util.logInfo(context, TAG, "statusCode2: " + statusCode2);
 					if (statusCode2 >= 200 && statusCode2 < 300) {
 						result = UPLOADED_ALL;
 					} else {
 						result = UPLOADED_REPORT_ONLY;
 					}
 				} catch (JSONException e) {
-					Log.d(TAG, "JSON exception: " + e);
+					Util.logError(context, TAG, "JSON exception: " + e);
 				}
 			}
 		}
 		return result;
 	}
 
-	
 }

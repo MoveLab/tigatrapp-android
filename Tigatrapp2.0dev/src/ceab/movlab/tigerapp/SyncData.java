@@ -42,7 +42,6 @@
 
 package ceab.movlab.tigerapp;
 
-import org.apache.http.HttpResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -54,7 +53,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.IBinder;
-import android.util.Log;
 import ceab.movlab.tigerapp.ContentProviderContractReports.Reports;
 import ceab.movlab.tigerapp.ContentProviderContractTasks.Tasks;
 import ceab.movlab.tigerapp.ContentProviderContractTracks.Fixes;
@@ -141,8 +139,7 @@ public class SyncData extends Service {
 
 					}
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Util.logError(context, TAG, "error: " + e);
 				}
 
 				// try to get missions
@@ -210,8 +207,7 @@ public class SyncData extends Service {
 					}
 
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					Util.logError(context, TAG, "error: " + e);
 				}
 
 				cr = getContentResolver();
@@ -330,7 +326,7 @@ public class SyncData extends Service {
 
 				while (!c.isAfterLast()) {
 
-					Report report = new Report(c.getString(versionUUIDCol),
+					Report report = new Report(context, c.getString(versionUUIDCol),
 							c.getString(userIdCol), c.getString(reportIdCol),
 							c.getInt(reportVersionCol),
 							c.getLong(reportTimeCol),

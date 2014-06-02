@@ -19,7 +19,6 @@ public class RSSAdapter extends ArrayAdapter<RSSPost> {
 
 	public RSSAdapter(Context context, int textViewResourceId, ArrayList<RSSPost> data, int defaultThumb) {
 		super(context, textViewResourceId, data);
-		// TODO Auto-generated constructor stub
 		myContext = (Activity) context;
 		this.data = data;
 		this.defaultThumb = defaultThumb;

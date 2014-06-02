@@ -24,7 +24,6 @@ package ceab.movlab.tigerapp;
 import java.util.Date;
 
 import android.content.ContentValues;
-import android.location.Location;
 import ceab.movlab.tigerapp.ContentProviderContractTracks.Fixes;
 
 /**

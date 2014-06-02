@@ -17,11 +17,26 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="ceab.movelab.tigerapp"
+    package="ceab.movelab.tigabib"
     android:versionCode="23"
     android:versionName="1.0-beta" >
 
@@ -49,38 +64,38 @@
         android:theme="@style/DarkThemeSelector" >
         <uses-library android:name="com.google.android.maps" />
 
-        <activity android:name="ceab.movlab.tigerapp.Settings" >
+        <activity android:name="ceab.movelab.tigabib.Settings" >
         </activity>
         <activity
-            android:name="ceab.movlab.tigerapp.LanguageSelector"
+            android:name="ceab.movelab.tigabib.LanguageSelector"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
-        <activity android:name="ceab.movlab.tigerapp.Consent" >
+        <activity android:name="ceab.movelab.tigabib.Consent" >
         </activity>
-        <activity android:name="ceab.movlab.tigerapp.Help" >
+        <activity android:name="ceab.movelab.tigabib.Help" >
         </activity>
-        <activity android:name="ceab.movlab.tigerapp.ViewReportsChecklistTab" >
+        <activity android:name="ceab.movelab.tigabib.ViewReportsChecklistTab" >
         </activity>
-        <activity android:name="ceab.movlab.tigerapp.ViewReportsPhotosTab" >
+        <activity android:name="ceab.movelab.tigabib.ViewReportsPhotosTab" >
         </activity>
-        <activity android:name="ceab.movlab.tigerapp.ViewReportsNotesTab" >
+        <activity android:name="ceab.movelab.tigabib.ViewReportsNotesTab" >
         </activity>
         <activity
-            android:name="ceab.movlab.tigerapp.ViewReportsTab"
+            android:name="ceab.movelab.tigabib.ViewReportsTab"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
-        <activity android:name="ceab.movlab.tigerapp.TaskListActivity" >
+        <activity android:name="ceab.movelab.tigabib.MissionListActivity" >
         </activity>
-        <activity android:name="ceab.movlab.tigerapp.TaskActivity" >
+        <activity android:name="ceab.movelab.tigabib.MissionActivity" >
         </activity>
-        <activity android:name="ceab.movlab.tigerapp.AttachedPhotos" >
+        <activity android:name="ceab.movelab.tigabib.AttachedPhotos" >
         </activity>
-        <activity android:name="ceab.movlab.tigerapp.ReportTool" >
+        <activity android:name="ceab.movelab.tigabib.ReportTool" >
         </activity>
-        <activity android:name="ceab.movlab.tigerapp.GPLView" >
+        <activity android:name="ceab.movelab.tigabib.GPLView" >
         </activity>
         <activity
-            android:name="ceab.movlab.tigerapp.Switchboard"
+            android:name="ceab.movelab.tigabib.Switchboard"
             android:allowTaskReparenting="true"
             android:launchMode="singleInstance" >
             <intent-filter>
@@ -90,36 +105,36 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="ceab.movlab.tigerapp.MapData"
+            android:name="ceab.movelab.tigabib.MapData"
             android:hardwareAccelerated="false" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Switchboard" />
         </activity>
-        <activity android:name="ceab.movlab.tigerapp.PhotoGallery" >
+        <activity android:name="ceab.movelab.tigabib.PhotoGallery" >
         </activity>
-        <activity android:name="ceab.movlab.tigerapp.MapSelector" >
+        <activity android:name="ceab.movelab.tigabib.MapSelector" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ReportTool" />
         </activity>
         <activity
-            android:name="ceab.movlab.tigerapp.About"
+            android:name="ceab.movelab.tigabib.About"
             android:allowTaskReparenting="true" >
         </activity>
         <activity
-            android:name="ceab.movlab.tigerapp.License"
+            android:name="ceab.movelab.tigabib.License"
             android:allowTaskReparenting="true" >
         </activity>
         <activity
-            android:name="ceab.movlab.tigerapp.RSSActivity"
+            android:name="ceab.movelab.tigabib.RSSActivity"
             android:parentActivityName="Switchboard" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="Switchboard" />
         </activity>
 
-        <receiver android:name="ceab.movlab.tigerapp.TigerBroadcastReceiver" >
+        <receiver android:name="ceab.movelab.tigabib.TigerBroadcastReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.LAUNCHER" />
@@ -128,24 +143,24 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="ceab.movlab.tigerapp.FixGet" />
-        <service android:name="ceab.movlab.tigerapp.SyncData" />
-        <service android:name="ceab.movlab.tigerapp.Sample" />
+        <service android:name="ceab.movelab.tigabib.FixGet" />
+        <service android:name="ceab.movelab.tigabib.SyncData" />
+        <service android:name="ceab.movelab.tigabib.Sample" />
         
         <provider
-            android:name="ceab.movlab.tigerapp.ContentProviderTasks"
+            android:name="ceab.movelab.tigabib.ContProvMissions"
             android:authorities="ceab.movelab.tigerapp.providers.tigertasksprovider"
             android:enabled="true"
             android:exported="false" >
         </provider>
         <provider
-            android:name="ceab.movlab.tigerapp.ContentProviderTracks"
+            android:name="ceab.movelab.tigabib.ContProvTracks"
             android:authorities="ceab.movelab.tigerapp.providers.tigertracksprovider"
             android:enabled="true"
             android:exported="false" >
         </provider>
         <provider
-            android:name="ceab.movlab.tigerapp.ContentProviderReports"
+            android:name="ceab.movelab.tigabib.ContProvReports"
             android:authorities="ceab.movelab.tigerapp.providers.tigerreportsprovider"
             android:enabled="true"
             android:exported="false" >

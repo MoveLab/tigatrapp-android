@@ -1,0 +1,12 @@
+<resources>
+
+    <string name="app_name" translatable="false">Tigatrapp Demo</string>
+    <string name="app_directory" translatable="false">Tigademo</string>
+    <string name="debug_mode" translatable="false">false</string>
+    <string name="private_mode" translatable="false">true</string>
+    <string name="content_provider_auth_missions" translatable="false">ceab.movelab.tigademo.cp.missions</string>
+    <string name="content_provider_auth_reports" translatable="false">ceab.movelab.tigademo.cp.reports</string>
+    <string name="content_provider_auth_tracks" translatable="false">ceab.movelab.tigademo.cp.tracks</string>
+    <string name="internal_action" translatable="false">ceab.movelab.tigademo.INTERNAL_ACTION</string>
+
+</resources>

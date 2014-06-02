@@ -24,9 +24,14 @@
 
     <!-- DO NOT TRANSLATE -->
 
+    <string name="app_name" translatable="false">Tigatrapp</string>
+    <string name="app_directory" translatable="false">Tigatrapp</string>
     <string name="debug_mode" translatable="false">true</string>
     <string name="private_mode" translatable="false">false</string>
-    <string name="internal_action" translatable="false">net.movelab.tigatrapp.tigatrapp2014.full.INTERNAL_ACTION</string>
+    <string name="content_provider_auth_missions" translatable="false">ceab.movelab.tigabib.cp.missions</string>
+    <string name="content_provider_auth_reports" translatable="false">ceab.movelab.tigabib.cp.reports</string>
+    <string name="content_provider_auth_tracks" translatable="false">ceab.movelab.tigabib.cp.tracks</string>
+    <string name="internal_action" translatable="false">ceab.movelab.tigatrapp.tigabib.INTERNAL_ACTION</string>
     <string name="language_selector_english" translatable="false">English</string>
     <string name="language_selector_catalan" translatable="false">Català</string>
     <string name="language_selector_spanish" translatable="false">Español</string>
@@ -284,8 +289,6 @@
     <string name="offline_report">No internet connection. Your report will be sent automatically when there is a connection available. Thank you!</string>
     <string name="about">About</string>
     <string name="add_note">If you want, you can write a message here for the research team. For example, you can describe the  mosquito in more detail.</string>
-    <string name="app_directory">Tigatrapp</string>
-    <string name="app_name">Tigatrapp</string>
     <string name="button_submit_CD">Button for sending report to research center</string>
     <string name="cancel">Cancel</string>
     <string name="ceab_CD">CEAB logo</string>

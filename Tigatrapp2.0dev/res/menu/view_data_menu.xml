@@ -24,8 +24,8 @@
         android:id="@+id/shareMap"
         android:title="@string/menu_option_share_map"/>
     <item
-        android:id="@+id/settings"
-        android:title="@string/menu_option_settings">
+        android:id="@+id/language"
+        android:title="@string/settings_language_title">
     </item>
     
     

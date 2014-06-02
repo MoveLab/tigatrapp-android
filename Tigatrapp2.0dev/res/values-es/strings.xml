@@ -272,8 +272,6 @@
     <string name="offline_report">Sin conexión a internet. Tu informe se enviará automáticamente cuando vuelva la conexión. Gracias por participar</string>
     <string name="about">Información</string>
     <string name="add_note">Descripción o nota opcional para acompañar tu informe</string>
-    <string name="app_directory">Tigatrapp</string>
-    <string name="app_name">Tigatrapp</string>
     <string name="button_submit_CD">Botón para enviar tu informe al centro de investigación</string>
     <string name="cancel">Anula</string>
     <string name="ceab_CD">CEAB logo</string>

@@ -404,6 +404,7 @@ public class MissionActivity extends Activity {
 			result = new OnClickListener() {
 				@Override
 				public void onClick(View v) {
+					Util.logInfo(context, TAG, "do task clicked");
 					ContentResolver cr = getContentResolver();
 					ContentValues cv = new ContentValues();
 					int rowId = thisBundle.getInt(Tasks.KEY_ROW_ID);
@@ -414,14 +415,17 @@ public class MissionActivity extends Activity {
 					cv.put(Tasks.KEY_DONE, 1);
 					cr.update(Util.getMissionsUri(context), cv, sc, null);
 					// CHECK IF NOTIFICATIONS SHOULD BE REMOVED
-					sc = Tasks.KEY_DONE + " = " + "0 AND "
+					sc = Tasks.KEY_ACTIVE + " = 1 AND " + Tasks.KEY_DONE + " = " + "0 AND "
 							+ Tasks.KEY_EXPIRATION_TIME + " <="
 							+ System.currentTimeMillis();
 					Cursor c = cr.query(Util.getMissionsUri(context), Tasks.KEYS_DONE, sc,
 							null, null);
+					Util.logInfo(context, TAG, "remaining tasks: " + c.getCount());
 					if (c.getCount() == 0) {
 						Util.internalBroadcast(context,
 								Messages.REMOVE_TASK_NOTIFICATION);
+						Util.logInfo(context, TAG, "just broadcast:" + Messages.REMOVE_TASK_NOTIFICATION);
+
 					}
 
 					c.close();

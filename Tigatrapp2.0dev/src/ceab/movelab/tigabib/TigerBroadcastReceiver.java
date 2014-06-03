@@ -108,9 +108,10 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 
 			String action = intent.getAction();
 			String extra = "";
-			if (intent.hasExtra(Messages.INTERNAL_MESSAGE_EXTRA))
+			if (intent.hasExtra(Messages.INTERNAL_MESSAGE_EXTRA)){
 				extra = intent.getStringExtra(Messages.INTERNAL_MESSAGE_EXTRA);
-
+				Util.logInfo(context, TAG, "extra: " + extra);
+			}
 			AlarmManager alarmManager = (AlarmManager) context
 					.getSystemService(Context.ALARM_SERVICE);
 
@@ -143,36 +144,40 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 				alarmManager.cancel(pi2sample);
 				PropertyHolder.setServiceOn(false);
 				context.stopService(i2stopfix);
+				Util.logInfo(context, TAG, "stopped sampling");
 			} else if (extra.contains(Messages.START_DAILY_SYNC)) {
 				// first sync now
 				context.startService(new Intent(context, SyncData.class));
-
 				int alarmType = AlarmManager.ELAPSED_REALTIME_WAKEUP;
 				alarmManager.setRepeating(alarmType,
 						SystemClock.elapsedRealtime(), DAILY_INTERVAL, pi2sync);
 				Util.logInfo(context, TAG, "started daily sync");
 			} else if (extra.contains(Messages.STOP_DAILY_SYNC)) {
 				alarmManager.cancel(pi2sync);
+				Util.logInfo(context, TAG, "stop sync");
 			} else if (extra.contains(Messages.START_TASK_FIX)) {
 				context.startService(new Intent(context, FixGet.class));
 				long baseTime = SystemClock.elapsedRealtime();
 				alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, baseTime
 						+ Util.TASK_FIX_WINDOW, pi2stopfix);
-
+				Util.logInfo(context, TAG, "start task fix");
 			} else if (extra.contains(Messages.SHOW_TASK_NOTIFICATION)) {
 				final String taskTitle = intent.getStringExtra(Tasks.KEY_TITLE);
 				createNotification(context, taskTitle);
-
+				Util.logInfo(context, TAG, "show task notification");
 			} else if (extra.contains(Messages.REMOVE_TASK_NOTIFICATION)) {
 				cancelNotification(context);
+				Util.logInfo(context, TAG, "remove task notification");
 			} else if (action.contains(Intent.ACTION_BOOT_COMPLETED)) {
 				if (PropertyHolder.isServiceOn()) {
 					Util.internalBroadcast(context,
 							Messages.START_DAILY_SAMPLING);
 				}
 				Util.internalBroadcast(context, Messages.START_DAILY_SYNC);
+				Util.logInfo(context, TAG, "boot completed");
 			} else if (action.contains(Intent.ACTION_POWER_CONNECTED)) {
 				context.startService(new Intent(context, SyncData.class));
+				Util.logInfo(context, TAG, "power connected");
 			}
 		}
 	}
@@ -180,6 +185,8 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 
 	@SuppressWarnings("deprecation")
 	public void createNotification(Context context, String taskTitle) {
+
+		Util.logInfo(context, TAG, "create notification");
 
 		Resources res = context.getResources();
 		Util.setDisplayLanguage(res);
@@ -210,10 +217,10 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 	}
 
 	public void cancelNotification(Context context) {
+		Util.logInfo(context, TAG, "cancel notification");
 		NotificationManager notificationManager = (NotificationManager) context
 				.getSystemService(Context.NOTIFICATION_SERVICE);
 		notificationManager.cancel(NOTIFICATION_ID_MISSION);
-
 	}
 
 }

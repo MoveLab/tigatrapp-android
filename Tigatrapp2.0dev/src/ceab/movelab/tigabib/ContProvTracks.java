@@ -53,7 +53,7 @@ public abstract class ContProvTracks extends ContentProvider {
 	 * The URI for this content provider.
 	 */
 	public Uri CONTENT_URI = Uri.parse("content://" + getAuthority()
-			+ "/trackssTable");
+			+ "/" + DATABASE_TABLE);
 
 	private static final String DATABASE_NAME = "tracksDB";
 

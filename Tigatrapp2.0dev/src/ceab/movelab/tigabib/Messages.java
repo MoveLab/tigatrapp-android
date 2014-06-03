@@ -4,9 +4,11 @@ import ceab.movelab.tigabib.R;
 import android.content.Context;
 
 public class Messages {
+	private static String TAG = "Messages";
 
 	// IMPORTANT: THIS MUST BE SET IN STRING AND IN MANIFEST IDENTICALLY
 	public static String internalAction(Context context) {
+		Util.logInfo(context, TAG, "internal action string: " + context.getResources().getString(R.string.internal_action));
 		return context.getResources().getString(R.string.internal_action);
 	}
 

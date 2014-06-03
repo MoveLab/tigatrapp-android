@@ -137,7 +137,7 @@ public class Sample extends Service {
 
 			alarmManager.set(alarmType, thisTriggerTime + Util.LISTENER_WINDOW,
 					PendingIntent.getService(context, (ALARM_ID_STOP_FIX * i),
-							new Intent(context, FixGet.class),
+							intent2StopFixGet,
 							PendingIntent.FLAG_CANCEL_CURRENT));
 		}
 		Arrays.sort(currentSamplingTimes);

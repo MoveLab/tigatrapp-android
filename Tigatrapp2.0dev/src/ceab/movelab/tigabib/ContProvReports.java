@@ -50,8 +50,8 @@ public abstract class ContProvReports extends ContentProvider {
 	/**
 	 * The URI for this content provider.
 	 */
-	public Uri CONTENT_URI = Uri.parse("content://"
-			+ getAuthority() + "/reportsTable");
+	public Uri CONTENT_URI = Uri.parse("content://" + getAuthority() + "/"
+			+ DATABASE_TABLE);
 
 	private static final String TAG = "ContentProviderReports";
 
@@ -262,8 +262,7 @@ public abstract class ContProvReports extends ContentProvider {
 		SQLiteDatabase db = mDbHelper.getWritableDatabase();
 		long rowId = db.insert(DATABASE_TABLE, null, values);
 		if (rowId > 0) {
-			Uri noteUri = ContentUris
-					.withAppendedId(CONTENT_URI, rowId);
+			Uri noteUri = ContentUris.withAppendedId(CONTENT_URI, rowId);
 			getContext().getContentResolver().notifyChange(noteUri, null);
 			return noteUri;
 		}

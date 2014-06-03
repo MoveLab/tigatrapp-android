@@ -161,20 +161,25 @@ public class FixGet extends Service {
 			stopSelf();
 		}
 
-		String action = intent.getAction();
+		if (intent != null) {
+			String action = intent.getAction();
 
-		if (action != null && action.contains(Messages.stopFixAction(context))) {
-			removeLocationUpdate("gps");
-			removeLocationUpdate("network");
-			unWakeLock();
-			locationListener1 = null;
-			locationListener2 = null;
-			locationManager = null;
-			if (bestLocation != null
-					&& bestLocation.getAccuracy() < Util.MIN_ACCURACY) {
-				useFix(context, bestLocation);
+			if (action != null
+					&& action.contains(Messages.stopFixAction(context))) {
+				Util.logInfo(context, TAG, "stop fixget received");
+				removeLocationUpdate("gps");
+				removeLocationUpdate("network");
+				unWakeLock();
+				locationListener1 = null;
+				locationListener2 = null;
+				locationManager = null;
+				if (bestLocation != null
+						&& bestLocation.getAccuracy() < Util.MIN_ACCURACY) {
+					useFix(context, bestLocation);
+				}
+				stopSelf();
 			}
-			stopSelf();
+
 		}
 
 		if (!fixInProgress) {
@@ -403,8 +408,8 @@ public class FixGet extends Service {
 
 		// grab tasks that have location triggers, that are not yet active, that
 		// are not yet done, and that have not expired
-		Cursor c = cr.query(Util.getMissionsUri(context), Tasks.KEYS_TRIGGERS, sc1, null,
-				null);
+		Cursor c = cr.query(Util.getMissionsUri(context), Tasks.KEYS_TRIGGERS,
+				sc1, null, null);
 
 		while (c.moveToNext()) {
 
@@ -437,13 +442,15 @@ public class FixGet extends Service {
 									.getDouble(MissionModel.KEY_TASK_TRIGGER_LON_LOWERBOUND)
 							&& thisLon <= thisTrigger
 									.getDouble(MissionModel.KEY_TASK_TRIGGER_LON_UPPERBOUND)
-							&& (thisTrigger.getString(
-									MissionModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND)
+							&& (thisTrigger
+									.getString(
+											MissionModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND)
 									.equals("null") || (thisHour >= Util
 									.triggerTime2HourInt(thisTrigger
 											.getString(MissionModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND))))
-							&& (thisTrigger.getString(
-									MissionModel.KEY_TASK_TRIGGER_TIME_UPPERBOUND)
+							&& (thisTrigger
+									.getString(
+											MissionModel.KEY_TASK_TRIGGER_TIME_UPPERBOUND)
 									.equals("null") || (thisHour <= Util
 									.triggerTime2HourInt(thisTrigger
 											.getString(MissionModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND)))
@@ -492,7 +499,6 @@ public class FixGet extends Service {
 		}
 
 		c.close();
-		thisFix.upload(context);
 
 		unWakeLock();
 	}

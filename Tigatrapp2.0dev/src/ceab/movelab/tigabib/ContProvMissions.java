@@ -53,7 +53,7 @@ public abstract class ContProvMissions extends ContentProvider {
 	 * The URI for this content provider.
 	 */
 	public Uri CONTENT_URI = Uri.parse("content://" + getAuthority()
-			+ "/tasksTable");
+			+ "/" + DATABASE_TABLE);
 
 	/** The SQLite database name */
 	private static final String DATABASE_NAME = "tasksDB";

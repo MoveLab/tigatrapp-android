@@ -234,8 +234,8 @@ public class Util {
 	public final static GeoPoint CEAB_COORDINATES = new GeoPoint(41686600,
 			2799600);
 
-	public final static double latMask = 0.5;
-	public final static double lonMask = 0.5;
+	public final static double latMask = 0.05;
+	public final static double lonMask = 0.05;
 
 	public static String[] ALPHA_NUMERIC_DIGITS = { "0", "1", "2", "3", "4",
 			"5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H",
@@ -972,6 +972,8 @@ public class Util {
 			result = "current";
 		else if (locationChoice == Report.LOCATION_CHOICE_SELECTED)
 			result = "selected";
+		else if (locationChoice == Report.LOCATION_CHOICE_MISSING)
+			result = "missing";
 		return result;
 	}
 

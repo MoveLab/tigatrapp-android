@@ -208,11 +208,11 @@
     <string name="delete_task_from_list_question">Elimina misión de la lista</string>
     <string name="delete">Elimina</string>
     <string name="new_mission">Nueva misión Tigatrapp!</string>
-    <string name="mission_button_left_survey">Envia respuestas</string>
-    <string name="mission_button_left_url">Visite la página</string>
-    <string name="mission_button_middle">Hazlo más adelante</string>
+    <string name="mission_button_left_survey">Envía ahora</string>
+    <string name="mission_button_left_url">Visita la página</string>
+    <string name="mission_button_middle">Envía más tarde</string>
     <string name="mission_button_right">Elimina misión</string>
-    <string name="mission_button_mark_complete">Marca la como completada</string>
+    <string name="mission_button_mark_complete">Misión realizada</string>
     <string name="toast__mission_already_complete">Esta misión ya ha sido realizada. ¡Gracias!</string>
     <string name="toast_mission_expired">Esta misión ha expirado.</string>
 

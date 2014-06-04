@@ -37,8 +37,8 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ceab.movelab.tigerapp"
-    android:versionCode="1"
-    android:versionName="T1" >
+    android:versionCode="24"
+    android:versionName="Tigatrapp Demo 1.0" >
 
     <uses-sdk
         android:minSdkVersion="4"

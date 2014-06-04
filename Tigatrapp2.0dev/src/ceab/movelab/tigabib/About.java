@@ -44,6 +44,8 @@ import ceab.movelab.tigabib.R;
  */
 public class About extends Activity {
 
+	private static String TAG = "About";
+
 	Context context = this;
 
 	private static final String ABOUT_URL_EN = "http://tigaserver.atrapaeltigre.com/about/android/en";
@@ -63,6 +65,7 @@ public class About extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+		
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
 
@@ -80,6 +83,7 @@ public class About extends Activity {
 	@Override
 	protected void onResume() {
 
+
 		res = getResources();
 		if (!Util.setDisplayLanguage(res).equals(lang)) {
 			finish();
@@ -87,9 +91,9 @@ public class About extends Activity {
 		}
 
 		// if (Util.isOnline(context)) {
-		setContentView(R.layout.about);
+		setContentView(R.layout.webview);
 
-		myWebView = (WebView) findViewById(R.id.about_webview);
+		myWebView = (WebView) findViewById(R.id.webview);
 		myWebView.setWebViewClient(new WebViewClient() {
 			public void onReceivedError(WebView view, int errorCode,
 					String description, String failingUrl) {

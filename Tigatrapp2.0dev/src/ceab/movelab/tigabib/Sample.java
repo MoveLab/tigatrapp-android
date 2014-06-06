@@ -76,8 +76,10 @@ public class Sample extends Service {
 
 		Util.logInfo(context, TAG, "on start");
 
+		if(!Util.privateMode(context)){
 		Thread uploadThread = new Thread(null, doSampling, "sampleBackground");
 		uploadThread.start();
+		}
 
 	};
 

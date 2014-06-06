@@ -110,8 +110,8 @@ import ceab.movelab.tigabib.ContProvContractTracks.Fixes;
 public class FixGet extends Service {
 	private static final String TAG = "FixGet";
 	private LocationManager locationManager;
-	private LocationListener locationListener1; // gps
-	private LocationListener locationListener2; // network
+	private LocationListener gpsListener; // gps
+	private LocationListener networkListener; // network
 
 	GpsStatusListener mGpsStatusListener;
 
@@ -167,12 +167,8 @@ public class FixGet extends Service {
 			if (action != null
 					&& action.contains(Messages.stopFixAction(context))) {
 				Util.logInfo(context, TAG, "stop fixget received");
-				removeLocationUpdate("gps");
-				removeLocationUpdate("network");
+				removeLocationUpdates();
 				unWakeLock();
-				locationListener1 = null;
-				locationListener2 = null;
-				locationManager = null;
 				if (bestLocation != null
 						&& bestLocation.getAccuracy() < Util.MIN_ACCURACY) {
 					useFix(context, bestLocation);
@@ -193,9 +189,9 @@ public class FixGet extends Service {
 
 			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 
-				locationListener1 = new mLocationListener();
+				gpsListener = new mLocationListener();
 				locationManager.requestLocationUpdates(
-						LocationManager.GPS_PROVIDER, 0, 0, locationListener1);
+						LocationManager.GPS_PROVIDER, 0, 0, gpsListener);
 
 				// mGpsStatusListener= new GpsStatusListener();
 				// locationManager.addGpsStatusListener(mGpsStatusListener);
@@ -204,10 +200,10 @@ public class FixGet extends Service {
 
 			if (locationManager
 					.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-				locationListener2 = new mLocationListener();
+				networkListener = new mLocationListener();
 				locationManager.requestLocationUpdates(
 						LocationManager.NETWORK_PROVIDER, 0, 0,
-						locationListener2);
+						networkListener);
 
 			}
 
@@ -222,12 +218,8 @@ public class FixGet extends Service {
 					}
 
 					public void onFinish() {
-						removeLocationUpdate("gps");
-						removeLocationUpdate("network");
+						removeLocationUpdates();
 						unWakeLock();
-						locationListener1 = null;
-						locationListener2 = null;
-						locationManager = null;
 
 						if (bestLocation != null
 								&& bestLocation.getAccuracy() < Util.MIN_ACCURACY) {
@@ -246,14 +238,8 @@ public class FixGet extends Service {
 	 */
 	@Override
 	public void onDestroy() {
-		removeLocationUpdate("gps");
-		removeLocationUpdate("network");
-
+		removeLocationUpdates();
 		unWakeLock();
-
-		locationListener1 = null;
-		locationListener2 = null;
-		locationManager = null;
 
 	}
 
@@ -310,8 +296,7 @@ public class FixGet extends Service {
 				// then use it and stop.
 				if ((location.getAccuracy() <= Util.OPT_ACCURACY)) {
 
-					removeLocationUpdate("gps");
-					removeLocationUpdate("network");
+					removeLocationUpdates();
 					useFix(context, location);
 
 					stopSelf();
@@ -371,12 +356,43 @@ public class FixGet extends Service {
 	}
 
 	// utilities
-	private void removeLocationUpdate(String provider) {
-		LocationListener listener = provider.equals("gps") ? locationListener1
-				: locationListener2;
-		if (listener != null)
-			locationManager.removeUpdates(listener);
+	private void removeLocationUpdates() {
+		if (locationManager != null) {
+			if (gpsListener != null)
+				locationManager.removeUpdates(gpsListener);
+			if (networkListener != null)
+				locationManager.removeUpdates(networkListener);
+		} else {
+			locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+			if (gpsListener != null)
+				locationManager.removeUpdates(gpsListener);
+			if (networkListener != null)
+				locationManager.removeUpdates(networkListener);
+		}
 	}
+
+	// utilities
+	private void removeLocationUpdate(String provider) {
+		if (locationManager != null) {
+			if (provider == LocationManager.NETWORK_PROVIDER) {
+				if (networkListener != null)
+					locationManager.removeUpdates(networkListener);
+			} else {
+				if (gpsListener != null)
+					locationManager.removeUpdates(gpsListener);
+			}
+		} else {
+			locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+			if (provider == LocationManager.NETWORK_PROVIDER) {
+				if (networkListener != null)
+					locationManager.removeUpdates(networkListener);
+			} else {
+				if (gpsListener != null)
+					locationManager.removeUpdates(gpsListener);
+			}
+		}
+	}
+
 
 	private void useFix(Context context, Location location) {
 		if (PropertyHolder.isInit() == false)

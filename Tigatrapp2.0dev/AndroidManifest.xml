@@ -109,14 +109,16 @@
             android:hardwareAccelerated="false" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Switchboard" />
+                android:value=".Switchboard" 
+                android:process=":p2"/>
         </activity>
         <activity android:name="ceab.movelab.tigabib.PhotoGallery" >
         </activity>
         <activity android:name="ceab.movelab.tigabib.MapSelector" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ReportTool" />
+                android:value=".ReportTool"
+                android:process=":p1" />
         </activity>
         <activity
             android:name="ceab.movelab.tigabib.About"

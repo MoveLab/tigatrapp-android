@@ -92,20 +92,25 @@ public class MapSelector extends MapActivity {
 
 	static boolean satToggle;
 
-	Context context;
+	Context context = this;
 
 	Button mOKB;
 	Button mCancelB;
 
 	LocationManager locationManager;
-	LocationListener locationListener1;
-	LocationListener locationListener2;
+	LocationListener gpsListener;
+	LocationListener networkListener;
 	Location currentLocation;
 
 	public static final String LAT = "lat";
 	public static final String LON = "lon";
 	Resources res;
 	String lang;
+
+	Double previous_lat = null;
+	Double previous_lon = null;
+
+	private GeoPoint selectedPoint;
 
 	@Override
 	public void onCreate(Bundle icicle) {
@@ -119,13 +124,30 @@ public class MapSelector extends MapActivity {
 
 		setContentView(R.layout.map_selector_dialog);
 
+		Bundle b = getIntent().getExtras();
+		if (b.containsKey(Messages.makeIntentExtraKey(context,
+				ReportTool.PREVIOUS_LAT))) {
+			previous_lat = b.getFloat(Messages.makeIntentExtraKey(context,
+					ReportTool.PREVIOUS_LAT)) * 1E6;
+		}
+		if (b.containsKey(Messages.makeIntentExtraKey(context,
+				ReportTool.PREVIOUS_LON))) {
+			previous_lon = b.getFloat(Messages.makeIntentExtraKey(context,
+					ReportTool.PREVIOUS_LON)) * 1E6;
+		}
 		mapView = (MapView) findViewById(R.id.mapview);
 		mapView.setBuiltInZoomControls(true);
 		satToggle = true;
 		mapView.setSatellite(satToggle);
 
 		myMapController = mapView.getController();
-		myMapController.setCenter(Util.CEAB_COORDINATES);
+
+		if (previous_lat != null && previous_lon != null) {
+			selectedPoint = new GeoPoint(previous_lat.intValue(),
+					previous_lon.intValue());
+			myMapController.setCenter(selectedPoint);
+		} else
+			myMapController.setCenter(Util.CEAB_COORDINATES);
 
 		myMapController.setZoom(15);
 
@@ -148,8 +170,6 @@ public class MapSelector extends MapActivity {
 			finish();
 			startActivity(getIntent());
 		}
-
-		context = getApplicationContext();
 
 		mapOverlays = mapView.getOverlays();
 
@@ -189,29 +209,33 @@ public class MapSelector extends MapActivity {
 
 		});
 
+		if(selectedPoint == null){
+		
 		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
 		if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-			locationListener1 = new mLocationListener();
+			gpsListener = new mLocationListener();
 			locationManager.requestLocationUpdates(
-					LocationManager.GPS_PROVIDER, 0, 0, locationListener1);
+					LocationManager.GPS_PROVIDER, 0, 0, gpsListener);
 			// Log.e(TAG, "gps listener started");
 		}
 
 		if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-			locationListener2 = new mLocationListener();
+			networkListener = new mLocationListener();
 			locationManager.requestLocationUpdates(
-					LocationManager.NETWORK_PROVIDER, 0, 0, locationListener2);
+					LocationManager.NETWORK_PROVIDER, 0, 0, networkListener);
 			// Log.e(TAG, "network listener started");
 
 		}
-
+		}
 		super.onResume();
 
 	}
 
 	@Override
 	protected void onPause() {
+
+		removeLocationUpdates();
 
 		super.onPause();
 	}
@@ -260,8 +284,6 @@ public class MapSelector extends MapActivity {
 
 		private Bitmap fixPin;
 
-		private GeoPoint selectedPoint;
-
 		MapOverlay() {
 
 			fixPin = BitmapFactory.decodeResource(getResources(),
@@ -292,8 +314,7 @@ public class MapSelector extends MapActivity {
 		@Override
 		public boolean onTouchEvent(MotionEvent evt, MapView mapView) {
 			super.onTouchEvent(evt, mapView);
-			removeLocationUpdate("gps");
-			removeLocationUpdate("network");
+			removeLocationUpdates();
 			return false;
 
 		}
@@ -301,8 +322,7 @@ public class MapSelector extends MapActivity {
 		@Override
 		public boolean onTap(GeoPoint p, MapView mapview) {
 
-			removeLocationUpdate("gps");
-			removeLocationUpdate("network");
+			removeLocationUpdates();
 			selectedPoint = new GeoPoint(p.getLatitudeE6(), p.getLongitudeE6());
 			return true;
 
@@ -318,8 +338,8 @@ public class MapSelector extends MapActivity {
 		 */
 		public void onLocationChanged(Location location) {
 
-			// Quick return if given location is null or has an invalid time
-			if (location == null || location.getTime() < 0) {
+			// Quick return if given location is null or has an invalid time or if there is already a selected point
+			if (selectedPoint != null || location == null || location.getTime() < 0) {
 
 				return;
 			} else {
@@ -332,8 +352,7 @@ public class MapSelector extends MapActivity {
 				}
 
 				if (location.getAccuracy() < 5000) {
-					removeLocationUpdate("gps");
-					removeLocationUpdate("network");
+					removeLocationUpdates();
 
 					Double geoLat = currentLocation.getLatitude() * 1E6;
 					Double geoLon = currentLocation.getLongitude() * 1E6;
@@ -379,11 +398,41 @@ public class MapSelector extends MapActivity {
 	}
 
 	// utilities
+	private void removeLocationUpdates() {
+		if (locationManager != null) {
+			if (gpsListener != null)
+				locationManager.removeUpdates(gpsListener);
+			if (networkListener != null)
+				locationManager.removeUpdates(networkListener);
+		} else {
+			locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+			if (gpsListener != null)
+				locationManager.removeUpdates(gpsListener);
+			if (networkListener != null)
+				locationManager.removeUpdates(networkListener);
+		}
+	}
+
+	// utilities
 	private void removeLocationUpdate(String provider) {
-		LocationListener listener = provider.equals("gps") ? locationListener1
-				: locationListener2;
-		if (locationManager != null && listener != null)
-			locationManager.removeUpdates(listener);
+		if (locationManager != null) {
+			if (provider == LocationManager.NETWORK_PROVIDER) {
+				if (networkListener != null)
+					locationManager.removeUpdates(networkListener);
+			} else {
+				if (gpsListener != null)
+					locationManager.removeUpdates(gpsListener);
+			}
+		} else {
+			locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+			if (provider == LocationManager.NETWORK_PROVIDER) {
+				if (networkListener != null)
+					locationManager.removeUpdates(networkListener);
+			} else {
+				if (gpsListener != null)
+					locationManager.removeUpdates(gpsListener);
+			}
+		}
 	}
 
 }

@@ -2,8 +2,9 @@
 
     <string name="app_name" translatable="false">Tigatrapp</string>
     <string name="app_directory" translatable="false">Tigatrapp</string>
-    <string name="debug_mode" translatable="false">true</string>
+    <string name="debug_mode" translatable="false">false</string>
     <string name="private_mode" translatable="false">false</string>
+    <string name="package_prefix" translatable="false">ceab.movelab.tigatrapp.</string>
     <string name="content_provider_auth_missions" translatable="false">ceab.movelab.tigatrapp.cp.missions</string>
     <string name="content_provider_auth_reports" translatable="false">ceab.movelab.tigatrapp.cp.reports</string>
     <string name="content_provider_auth_tracks" translatable="false">ceab.movelab.tigatrapp.cp.tracks</string>

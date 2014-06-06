@@ -6,6 +6,10 @@ import android.content.Context;
 public class Messages {
 	private static String TAG = "Messages";
 
+	public static String makeIntentExtraKey(Context context, String simpleKey){
+		return context.getResources().getString(R.string.package_prefix) + simpleKey;
+	}
+	
 	// IMPORTANT: THIS MUST BE SET IN STRING AND IN MANIFEST IDENTICALLY
 	public static String internalAction(Context context) {
 		Util.logInfo(context, TAG, "internal action string: " + context.getResources().getString(R.string.internal_action));

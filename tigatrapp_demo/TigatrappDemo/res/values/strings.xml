@@ -4,6 +4,7 @@
     <string name="app_directory" translatable="false">Tigademo</string>
     <string name="debug_mode" translatable="false">false</string>
     <string name="private_mode" translatable="false">true</string>
+    <string name="package_prefix" translatable="false">ceab.movelab.tigerapp.</string>
     <string name="content_provider_auth_missions" translatable="false">ceab.movelab.tigademo.cp.missions</string>
     <string name="content_provider_auth_reports" translatable="false">ceab.movelab.tigademo.cp.reports</string>
     <string name="content_provider_auth_tracks" translatable="false">ceab.movelab.tigademo.cp.tracks</string>

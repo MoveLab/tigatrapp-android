@@ -79,17 +79,22 @@ public class SyncData extends Service {
 		
 		Util.logInfo(context, TAG, "on start");
 
+		if (!Util.isOnline(context) || Util.privateMode(context)) {
+			Util.logInfo(context, TAG, "offline or private mode, stopping service");
+			stopSelf();
+		}
+		
 		if (!uploading && !Util.privateMode(context)) {
 			uploading = true;
 
-			Thread uploadThread = new Thread(null, doFileUploading,
+			Thread uploadThread = new Thread(null, doSyncing,
 					"uploadBackground");
 			uploadThread.start();
 
 		}
 	};
 
-	private Runnable doFileUploading = new Runnable() {
+	private Runnable doSyncing = new Runnable() {
 		public void run() {
 			tryUploads();
 		}
@@ -108,12 +113,11 @@ public class SyncData extends Service {
 	@Override
 	public void onDestroy() {
 
+		super.onDestroy();
 	}
 
 	private void tryUploads() {
 
-		if (Util.isOnline(context)) {
-			Util.logInfo(context, TAG, "online");
 
 			// Check if user has registered on server - if not, try to register
 			// first and only do other uploads once this is done
@@ -369,13 +373,15 @@ public class SyncData extends Service {
 
 				c.close();
 
+			} else{
+				stopSelf();
 			}
 
 			uploading = false;
 
 		}
 
-	}
+	
 
 	@Override
 	public IBinder onBind(Intent arg0) {

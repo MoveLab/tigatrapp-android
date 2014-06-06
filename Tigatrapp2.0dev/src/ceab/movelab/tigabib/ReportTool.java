@@ -87,8 +87,8 @@ public class ReportTool extends Activity {
 	private Report thisReport;
 
 	LocationManager locationManager;
-	LocationListener locationListener1;
-	LocationListener locationListener2;
+	LocationListener gpsListener;
+	LocationListener networkListener;
 	Location currentLocation;
 
 	int type = -1;
@@ -139,6 +139,11 @@ public class ReportTool extends Activity {
 	public static final String EXTRA_REPORT_ID = "reportId";
 	public static final String EXTRA_REPORT_VERSION = "reportVersions";
 
+	public static final String PREVIOUS_LAT = "previous_lat";
+	public static final String PREVIOUS_LON = "previous_lon";
+
+	private boolean has_edited_location = false;
+
 	Resources res;
 	String lang;
 
@@ -166,8 +171,8 @@ public class ReportTool extends Activity {
 					+ Reports.KEY_LATEST_VERSION + " = 1 AND "
 					+ Reports.KEY_DELETE_REPORT + "= 0";
 
-			Cursor c = cr.query(Util.getReportsUri(context), Reports.KEYS_ALL, sc,
-					null, null);
+			Cursor c = cr.query(Util.getReportsUri(context), Reports.KEYS_ALL,
+					sc, null, null);
 
 			if (c.moveToLast()) {
 
@@ -202,8 +207,6 @@ public class ReportTool extends Activity {
 						.getColumnIndexOrThrow(Reports.KEY_PHOTO_ATTACHED);
 				int photoUrisCol = c
 						.getColumnIndexOrThrow(Reports.KEY_PHOTO_URIS);
-
-				int uploadedCol = c.getColumnIndexOrThrow(Reports.KEY_UPLOADED);
 				int serverTimestampCol = c
 						.getColumnIndexOrThrow(Reports.KEY_SERVER_TIMESTAMP);
 				int deleteReportCol = c
@@ -317,6 +320,7 @@ public class ReportTool extends Activity {
 		}
 
 		if (icicle != null) {
+			has_edited_location = icicle.getBoolean("has_edited_location");
 			thisReport.reportId = icicle.getString("reportId");
 			thisReport.confirmation = icicle.getString("confirmation");
 			thisReport.confirmationCode = icicle.getInt("confirmation_code");
@@ -401,6 +405,7 @@ public class ReportTool extends Activity {
 					} else {
 
 						locationRadioGroup.check(R.id.whereRadioButtonHere);
+						has_edited_location = true;
 						reportLocationCheck.setChecked(true);
 						final float clat = (float) currentLocation
 								.getLatitude();
@@ -434,8 +439,7 @@ public class ReportTool extends Activity {
 
 					return;
 				} else if (v.getId() == R.id.reportSelectedLocationRow) {
-					Intent i = new Intent(ReportTool.this, MapSelector.class);
-					startActivityForResult(i, REQUEST_CODE_MAPSELECTOR);
+					goToMapSelector();
 					return;
 				} else if (v.getId() == R.id.reportPhotoRow) {
 
@@ -464,11 +468,12 @@ public class ReportTool extends Activity {
 
 		reportConfirmationCheck.setChecked(thisReport.confirmationCode > 0);
 
-		if (thisReport.locationChoice == Report.LOCATION_CHOICE_CURRENT)
-			locationRadioGroup.check(R.id.whereRadioButtonHere);
-		else if (thisReport.locationChoice == Report.LOCATION_CHOICE_SELECTED)
-			locationRadioGroup.check(R.id.whereRadioButtonOtherPlace);
-
+		if (has_edited_location) {
+			if (thisReport.locationChoice == Report.LOCATION_CHOICE_CURRENT)
+				locationRadioGroup.check(R.id.whereRadioButtonHere);
+			else if (thisReport.locationChoice == Report.LOCATION_CHOICE_SELECTED)
+				locationRadioGroup.check(R.id.whereRadioButtonOtherPlace);
+		}
 		reportLocationCheck
 				.setChecked(thisReport.locationChoice != Report.MISSING);
 
@@ -560,8 +565,7 @@ public class ReportTool extends Activity {
 				}
 
 				if (location.getAccuracy() < 100) {
-					removeLocationUpdate("gps");
-					removeLocationUpdate("network");
+					removeLocationUpdates();
 					try {
 						countDownTimer.cancel();
 					} catch (Exception e) {
@@ -619,6 +623,7 @@ public class ReportTool extends Activity {
 	@Override
 	protected void onSaveInstanceState(Bundle icicle) {
 		super.onSaveInstanceState(icicle);
+		icicle.putBoolean("has_edited_location", has_edited_location);
 		icicle.putString("reportId", thisReport.reportId);
 		icicle.putString("confirmation", thisReport.confirmation);
 		icicle.putInt("confirmation_code", thisReport.confirmationCode);
@@ -664,15 +669,15 @@ public class ReportTool extends Activity {
 		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
 		if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-			locationListener1 = new mLocationListener();
+			gpsListener = new mLocationListener();
 			locationManager.requestLocationUpdates(
-					LocationManager.GPS_PROVIDER, 0, 0, locationListener1);
+					LocationManager.GPS_PROVIDER, 0, 0, gpsListener);
 			gpsAvailable = true;
 		}
 		if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-			locationListener2 = new mLocationListener();
+			networkListener = new mLocationListener();
 			locationManager.requestLocationUpdates(
-					LocationManager.NETWORK_PROVIDER, 0, 0, locationListener2);
+					LocationManager.NETWORK_PROVIDER, 0, 0, networkListener);
 			networkLocationAvailable = true;
 		}
 
@@ -708,11 +713,7 @@ public class ReportTool extends Activity {
 	@Override
 	public void onPause() {
 		super.onPause();
-		removeLocationUpdate("gps");
-		removeLocationUpdate("network");
-		// locationListener1 = null;
-		// locationListener2 = null;
-		// locationManager = null;
+		removeLocationUpdates();
 
 	}
 
@@ -720,19 +721,45 @@ public class ReportTool extends Activity {
 	public void onDestroy() {
 		super.onDestroy();
 		clearFields();
-		removeLocationUpdate("gps");
-		removeLocationUpdate("network");
-		// locationListener1 = null;
-		// locationListener2 = null;
-		// locationManager = null;
+
+	}
+
+	// utilities
+	private void removeLocationUpdates() {
+		if (locationManager != null) {
+			if (gpsListener != null)
+				locationManager.removeUpdates(gpsListener);
+			if (networkListener != null)
+				locationManager.removeUpdates(networkListener);
+		} else {
+			locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+			if (gpsListener != null)
+				locationManager.removeUpdates(gpsListener);
+			if (networkListener != null)
+				locationManager.removeUpdates(networkListener);
+		}
 	}
 
 	// utilities
 	private void removeLocationUpdate(String provider) {
-		LocationListener listener = provider.equals("gps") ? locationListener1
-				: locationListener2;
-		if (locationManager != null && listener != null)
-			locationManager.removeUpdates(listener);
+		if (locationManager != null) {
+			if (provider == LocationManager.NETWORK_PROVIDER) {
+				if (networkListener != null)
+					locationManager.removeUpdates(networkListener);
+			} else {
+				if (gpsListener != null)
+					locationManager.removeUpdates(gpsListener);
+			}
+		} else {
+			locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+			if (provider == LocationManager.NETWORK_PROVIDER) {
+				if (networkListener != null)
+					locationManager.removeUpdates(networkListener);
+			} else {
+				if (gpsListener != null)
+					locationManager.removeUpdates(gpsListener);
+			}
+		}
 	}
 
 	private void buildMailMessage(String message) {
@@ -761,17 +788,7 @@ public class ReportTool extends Activity {
 			@Override
 			public void onClick(View v) {
 
-				removeLocationUpdate("gps");
-				// Log.e(TAG,
-				// "gps listener stopped by onDestroy");
-
-				removeLocationUpdate("network");
-				// Log.e(TAG,
-				// "network listener stopped by onDestroy");
-
-				locationListener1 = null;
-				locationListener2 = null;
-				locationManager = null;
+				removeLocationUpdates();
 
 				// Intent goHome = new Intent(ReportTool.this,
 				// Switchboard.class);
@@ -874,6 +891,7 @@ public class ReportTool extends Activity {
 				locationRadioGroup.check(R.id.whereRadioButtonOtherPlace);
 				reportLocationCheck.setChecked(true);
 				thisReport.locationChoice = LOCATION_CHOICE_SELECTED;
+				has_edited_location = true;
 			}
 			break;
 		}
@@ -1225,6 +1243,7 @@ public class ReportTool extends Activity {
 
 					locationRadioGroup.check(R.id.whereRadioButtonHere);
 					reportLocationCheck.setChecked(true);
+					has_edited_location = true;
 					final float clat = (float) currentLocation.getLatitude();
 					final float clon = (float) currentLocation.getLongitude();
 
@@ -1258,8 +1277,7 @@ public class ReportTool extends Activity {
 		selectB.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				Intent i = new Intent(ReportTool.this, MapSelector.class);
-				startActivityForResult(i, REQUEST_CODE_MAPSELECTOR);
+				goToMapSelector();
 				dialog.cancel();
 			}
 		});
@@ -1322,17 +1340,18 @@ public class ReportTool extends Activity {
 			}
 
 			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-				locationListener1 = new mLocationListener();
+				gpsListener = new mLocationListener();
 				locationManager.requestLocationUpdates(
-						LocationManager.GPS_PROVIDER, 0, 0, locationListener1);
+						LocationManager.GPS_PROVIDER, 0, 0, gpsListener);
 				gpsAvailable = true;
 			}
 			if (locationManager
 					.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-				locationListener2 = new mLocationListener();
-				locationManager.requestLocationUpdates(
-						LocationManager.NETWORK_PROVIDER, 0, 0,
-						locationListener2);
+				networkListener = new mLocationListener();
+				locationManager
+						.requestLocationUpdates(
+								LocationManager.NETWORK_PROVIDER, 0, 0,
+								networkListener);
 				networkLocationAvailable = true;
 			}
 		}
@@ -1376,6 +1395,47 @@ public class ReportTool extends Activity {
 
 	}
 
+	private void goToMapSelector() {
+		Intent i = new Intent(ReportTool.this, MapSelector.class);
+		Bundle b = new Bundle();
+		if (editing) {
+			Util.logInfo(context, TAG, "about to put location extras");
+			if (thisReport.locationChoice == Report.LOCATION_CHOICE_CURRENT) {
+				Util.logInfo(context, TAG, "current location");
+				if (thisReport.currentLocationLat != null) {
+					Util.logInfo(context, TAG, "current lat: "
+							+ thisReport.currentLocationLat);
+					b.putFloat(
+							Messages.makeIntentExtraKey(context, PREVIOUS_LAT),
+							thisReport.currentLocationLat);
+				}
+				if (thisReport.currentLocationLon != null) {
+					Util.logInfo(context, TAG, "current lon: "
+							+ thisReport.currentLocationLon);
+					b.putFloat(
+							Messages.makeIntentExtraKey(context, PREVIOUS_LON),
+							thisReport.currentLocationLon);
+				}
+			} else if (thisReport.locationChoice == Report.LOCATION_CHOICE_SELECTED) {
+				if (thisReport.selectedLocationLat != null) {
+					Util.logInfo(context, TAG, "selected lat: "
+							+ thisReport.selectedLocationLat);
+					b.putFloat(
+							Messages.makeIntentExtraKey(context, PREVIOUS_LAT),
+							thisReport.selectedLocationLat);
+				}
+				if (thisReport.selectedLocationLon != null) {
+					Util.logInfo(context, TAG, "selected lon: "
+							+ thisReport.selectedLocationLon);
+					b.putFloat(
+							Messages.makeIntentExtraKey(context, PREVIOUS_LON),
+							thisReport.selectedLocationLon);
+				}
+			}
+		}
+		i.putExtras(b);
+		startActivityForResult(i, REQUEST_CODE_MAPSELECTOR);
+	}
 	/*
 	 * @Override public boolean onKeyDown(int keyCode, KeyEvent event) { if
 	 * (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {

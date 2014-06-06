@@ -18,27 +18,12 @@
  * 
  * You should have received a copy of the GNU General Public License along 
  * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ceab.movelab.tigerapp"
-    android:versionCode="24"
-    android:versionName="Tigatrapp Demo 1.0" >
+    android:versionCode="25"
+    android:versionName="Tigatrapp Demo 1.01" >
 
     <uses-sdk
         android:minSdkVersion="4"
@@ -109,6 +94,7 @@
             android:hardwareAccelerated="false" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
+                android:process=":p2"
                 android:value=".Switchboard" />
         </activity>
         <activity android:name="ceab.movelab.tigabib.PhotoGallery" >
@@ -116,6 +102,7 @@
         <activity android:name="ceab.movelab.tigabib.MapSelector" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
+                android:process=":p1"
                 android:value=".ReportTool" />
         </activity>
         <activity
@@ -146,11 +133,11 @@
         <service android:name="ceab.movelab.tigabib.FixGet" />
         <service android:name="ceab.movelab.tigabib.SyncData" />
         <service android:name="ceab.movelab.tigabib.Sample" />
-        
+
         <provider
-           android:name="ceab.movelab.tigerapp.TigademoMissionsCP"
+            android:name="ceab.movelab.tigerapp.TigademoMissionsCP"
             android:authorities="ceab.movelab.tigademo.cp.missions"
-             android:enabled="true"
+            android:enabled="true"
             android:exported="false" >
         </provider>
         <provider

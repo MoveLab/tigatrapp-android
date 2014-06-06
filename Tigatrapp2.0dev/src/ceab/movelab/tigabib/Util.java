@@ -87,6 +87,7 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Random;
 import java.util.UUID;
+
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.StatusLine;
@@ -96,9 +97,13 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -127,7 +132,7 @@ import android.view.Window;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-import ceab.movelab.tigabib.R;
+
 import com.google.android.maps.GeoPoint;
 
 /**
@@ -854,7 +859,13 @@ public class Util {
 		} else {
 
 			try {
-				DefaultHttpClient httpclient = new DefaultHttpClient();
+				HttpParams httpParameters = new BasicHttpParams();
+				int timeoutConnection = 3000;
+				HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
+				int timeoutSocket = 3000;
+				HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
+				
+				DefaultHttpClient httpclient = new DefaultHttpClient(httpParameters);
 				HttpPost httpost = new HttpPost(URL_TIGASERVER_API_ROOT
 						+ apiEndpoint);
 				StringEntity se = new StringEntity(jsonData.toString(), "UTF-8");
@@ -919,8 +930,14 @@ public class Util {
 			return "";
 		} else {
 
+			HttpParams httpParameters = new BasicHttpParams();
+			int timeoutConnection = 3000;
+			HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
+			int timeoutSocket = 3000;
+			HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
+			
 			StringBuilder builder = new StringBuilder();
-			HttpClient client = new DefaultHttpClient();
+			HttpClient client = new DefaultHttpClient(httpParameters);
 			HttpGet httpGet = new HttpGet(URL_TIGASERVER_API_ROOT + apiEndpoint);
 
 			httpGet.setHeader("Accept", "application/json");

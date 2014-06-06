@@ -23,7 +23,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ceab.movelab.tigatrapp"
     android:versionCode="1"
-    android:versionName="T1" >
+    android:versionName="0.01 Beta" >
 
     <uses-sdk
         android:minSdkVersion="4"
@@ -94,6 +94,7 @@
             android:hardwareAccelerated="false" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
+                android:process=":p2"
                 android:value=".Switchboard" />
         </activity>
         <activity android:name="ceab.movelab.tigabib.PhotoGallery" >
@@ -101,6 +102,7 @@
         <activity android:name="ceab.movelab.tigabib.MapSelector" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
+                android:process=":p1"
                 android:value=".ReportTool" />
         </activity>
         <activity

@@ -98,6 +98,10 @@ public class Settings extends Activity {
 				} else {
 					Util.internalBroadcast(context,
 							Messages.STOP_DAILY_SAMPLING);
+					// I am setting this here even though it is also set by the
+					// broadcast receiver because in the demo version the
+					// broadcast receiver never makes it to that stage
+					PropertyHolder.setServiceOn(false);
 				}
 
 			}

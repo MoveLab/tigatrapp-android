@@ -261,12 +261,17 @@
     <string name="settings_sync_title">Synchronize</string>
     <string name="settings_sync_detail">Synchronize data with the Tigatrapp server to receive new missions and the latest Tigatrapp news.</string>
     <string name="settings_sync_button">Sync.</string>
-    <string name="settings_syncing">Synchronizing data.</string>
+    <string name="settings_syncing">Synchronizing</string>
     <string name="on">On</string>
     <string name="off">Off</string>
     <string name="sample_my_locations">Sample my locations</string>
     <string name="sampling_is_off">Location sampling is off</string>
     <string name="sampling_is_on">Location sampling is on</string>
+    
+    <string name="sync_error">Transmission error. Your data will be synchronized later automatically.</string>
+    <string name="offline_sync">No internet connection. Your data will be synchronized automatically when there is a connection available.</string>
+    <string name="sync_success">Synchronized</string>
+    
 
     <!-- Misc -->
 

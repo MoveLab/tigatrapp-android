@@ -46,9 +46,9 @@ public class GPLView extends Activity {
 	@Override
 	protected void onResume() {
 
-		setContentView(R.layout.gpl);
+		setContentView(R.layout.webview);
 
-		myWebView = (WebView) findViewById(R.id.gpl_webview);
+		myWebView = (WebView) findViewById(R.id.webview);
 		myWebView.setWebViewClient(new WebViewClient());
 		myWebView.loadUrl("file:///android_asset/html/gpl.html");
 

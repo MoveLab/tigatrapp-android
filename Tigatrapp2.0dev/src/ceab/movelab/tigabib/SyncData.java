@@ -120,10 +120,9 @@ public class SyncData extends Service {
 
 
 			// Check if user has registered on server - if not, try to register
-			// first and only do other uploads once this is done
-			if (PropertyHolder.isRegistered() || Util.registerOnServer(context)) {
+			if (!PropertyHolder.isRegistered())
+				Util.registerOnServer(context);
 
-				Util.logInfo(context, TAG, "registered");
 
 				// try to get config
 				try {
@@ -373,9 +372,6 @@ public class SyncData extends Service {
 
 				c.close();
 
-			} else{
-				stopSelf();
-			}
 
 			uploading = false;
 

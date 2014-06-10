@@ -148,8 +148,10 @@ public class PropertyHolder {
 	public static void setCurrentFixTimes(String[] _times) {
 		String input = "Samples per day: " + PropertyHolder.getSamplesPerDay()
 				+ "\n";
-		for (int i = 0; i < _times.length; i++) {
-			input = input + _times[i] + "\n";
+		if (_times.length > 0) {
+			for (int i = 0; i < _times.length; i++) {
+				input = input + _times[i] + "\n";
+			}
 		}
 		editor.putString("CURRENT_FIX_TIMES", input);
 		editor.commit();

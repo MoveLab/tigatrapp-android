@@ -1019,15 +1019,15 @@ public class ReportTool extends Activity {
 				if (!PropertyHolder.isRegistered())
 					Util.registerOnServer(context[0]);
 
-				myProgress = 30;
+				myProgress = 50;
 				publishProgress(myProgress);
 
 				int uploadResult = thisReport.upload(context[0]);
 
-				myProgress = 90;
-				publishProgress(myProgress);
 
 				if (uploadResult == Report.UPLOADED_ALL) {
+					myProgress = 100;
+					publishProgress(myProgress);
 					// mark as uploaded
 					cv = new ContentValues();
 					cv.put(Reports.KEY_UPLOADED, uploadResult);
@@ -1046,8 +1046,6 @@ public class ReportTool extends Activity {
 				resultFlag = PRIVATE_MODE;
 			}
 
-			myProgress = 100;
-			publishProgress(myProgress);
 
 			return true;
 		}

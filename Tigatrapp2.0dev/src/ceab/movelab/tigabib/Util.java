@@ -129,6 +129,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -146,7 +147,6 @@ import com.google.android.maps.GeoPoint;
 public class Util {
 
 	private static String TAG = "Util";
-
 
 	public static boolean privateMode(Context context) {
 		boolean result = false;
@@ -256,7 +256,7 @@ public class Util {
 	 */
 	public static final long ALARM_INTERVAL = 1000 * 60 * 60; // 1 hour
 
-	public static final long TASK_FIX_WINDOW = 1000 * 60 * 1; // 1 minute
+	public static final long TASK_FIX_WINDOW = 1000 * 15; // 15 seconds
 
 	public static final long UPLOAD_INTERVAL = 1000 * 60 * 60; // 1 hour
 
@@ -609,8 +609,10 @@ public class Util {
 			return -1;
 		}
 
-		float powerProportion = level / scale;
-
+		float powerProportion = (float) level / scale;
+		Util.logInfo(context, TAG, "battery level: " + level);
+		Util.logInfo(context, TAG, "battery scale: " + scale);
+		Util.logInfo(context, TAG, "battery prop: " + powerProportion);
 		return powerProportion;
 	}
 
@@ -861,11 +863,14 @@ public class Util {
 			try {
 				HttpParams httpParameters = new BasicHttpParams();
 				int timeoutConnection = 3000;
-				HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
+				HttpConnectionParams.setConnectionTimeout(httpParameters,
+						timeoutConnection);
 				int timeoutSocket = 3000;
-				HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
-				
-				DefaultHttpClient httpclient = new DefaultHttpClient(httpParameters);
+				HttpConnectionParams
+						.setSoTimeout(httpParameters, timeoutSocket);
+
+				DefaultHttpClient httpclient = new DefaultHttpClient(
+						httpParameters);
 				HttpPost httpost = new HttpPost(URL_TIGASERVER_API_ROOT
 						+ apiEndpoint);
 				StringEntity se = new StringEntity(jsonData.toString(), "UTF-8");
@@ -932,10 +937,11 @@ public class Util {
 
 			HttpParams httpParameters = new BasicHttpParams();
 			int timeoutConnection = 3000;
-			HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
+			HttpConnectionParams.setConnectionTimeout(httpParameters,
+					timeoutConnection);
 			int timeoutSocket = 3000;
 			HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
-			
+
 			StringBuilder builder = new StringBuilder();
 			HttpClient client = new DefaultHttpClient(httpParameters);
 			HttpGet httpGet = new HttpGet(URL_TIGASERVER_API_ROOT + apiEndpoint);
@@ -996,13 +1002,18 @@ public class Util {
 
 	public static Boolean registerOnServer(Context context) {
 
+		Util.logInfo(context, TAG, "register on server");
+
 		Boolean result = false;
 		JSONObject jsonUUID;
 		try {
 			jsonUUID = new JSONObject();
 			jsonUUID.put("user_UUID", PropertyHolder.getUserId());
+			Util.logInfo(context, TAG, "register json: " + jsonUUID.toString());
 			int statusCode = Util.getResponseStatusCode(Util.postJSON(jsonUUID,
 					Util.API_USER, context));
+			Util.logInfo(context, TAG, "register status code: " + statusCode);
+
 			if (statusCode < 300 && statusCode > 0) {
 				PropertyHolder.setRegistered(true);
 				result = true;
@@ -1072,5 +1083,36 @@ public class Util {
 						R.string.content_provider_auth_tracks) + "/"
 				+ ContProvTracks.DATABASE_TABLE);
 	}
+
 	
+	public static void buildCustomAlert(Context context, String message) {
+
+		final Dialog dialog = new Dialog(context);
+
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+		dialog.setContentView(R.layout.custom_alert);
+
+		dialog.setCancelable(false);
+
+		TextView alertText = (TextView) dialog.findViewById(R.id.alertText);
+		alertText.setText(message);
+
+		Button positive = (Button) dialog.findViewById(R.id.alertOK);
+		Button negative = (Button) dialog.findViewById(R.id.alertCancel);
+		negative.setVisibility(View.GONE);
+
+		positive.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+				dialog.cancel();
+
+			}
+		});
+
+		dialog.show();
+
+	}
+
 }

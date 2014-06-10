@@ -250,6 +250,12 @@
     <string name="sampling_is_off">Permitir envío de datos aproximados de mi localización en background</string>
     <string name="sampling_is_on">Permitir envío de datos aproximados de mi localización en background</string>
 
+    <string name="sync_error">Error de conexión a internet. Tus datos se enviarán automáticamente más tarde.</string>
+    <string name="offline_sync">Sin conexión a internet. Tus datos se enviarán automáticamente cuando vuelva la conexión.</string>
+    <string name="sync_success">Sincronizado</string>
+    
+    
+    
     <!-- Misc -->
 
     <string name="added_current_loc">Posición actual guardada</string>

@@ -87,9 +87,9 @@ public class License extends Activity {
 		}
 
 		// if (Util.isOnline(context)) {
-		setContentView(R.layout.license);
+		setContentView(R.layout.webview);
 
-		myWebView = (WebView) findViewById(R.id.license_webview);
+		myWebView = (WebView) findViewById(R.id.webview);
 		myWebView.setWebViewClient(new WebViewClient() {
 			public void onReceivedError(WebView view, int errorCode,
 					String description, String failingUrl) {
@@ -163,7 +163,7 @@ public class License extends Activity {
 			Intent i = new Intent(License.this, LanguageSelector.class);
 			startActivity(i);
 			return true;
-		} else if (item.getItemId() == R.id.license) {
+		} else if (item.getItemId() == R.id.gpl) {
 
 			Intent i = new Intent(License.this, GPLView.class);
 			startActivity(i);

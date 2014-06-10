@@ -131,6 +131,7 @@
         </receiver>
 
         <service android:name="ceab.movelab.tigabib.FixGet" />
+        <service android:name="ceab.movelab.tigabib.FixUse" />
         <service android:name="ceab.movelab.tigabib.SyncData" />
         <service android:name="ceab.movelab.tigabib.Sample" />
 

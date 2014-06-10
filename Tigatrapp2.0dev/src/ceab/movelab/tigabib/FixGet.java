@@ -122,6 +122,11 @@ public class FixGet extends Service {
 
 	Context context;
 
+	public static String KEY_LAT = "extra_lat";
+	public static String KEY_LON = "extra_lon";
+	public static String KEY_TIME = "extra_time";
+	public static String KEY_POWER = "extra_power";
+
 	boolean fixInProgress = false;
 
 	/**
@@ -157,11 +162,11 @@ public class FixGet extends Service {
 
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
+
 		if (!PropertyHolder.hasConsented() || Util.privateMode(context)) {
 			stopSelf();
-		}
+		} else {
 
-		if (intent != null) {
 			String action = intent.getAction();
 
 			if (action != null
@@ -174,61 +179,66 @@ public class FixGet extends Service {
 					useFix(context, bestLocation);
 				}
 				stopSelf();
-			}
+			} else {
 
-		}
+				if (!fixInProgress) {
+					fixInProgress = true;
 
-		if (!fixInProgress) {
-			fixInProgress = true;
+					// stopListening = null;
+					bestLocation = null;
 
-			// stopListening = null;
-			bestLocation = null;
+					if (locationManager == null)
+						locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-			if (locationManager == null)
-				locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+					if (locationManager
+							.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 
-			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+						gpsListener = new mLocationListener();
+						locationManager
+								.requestLocationUpdates(
+										LocationManager.GPS_PROVIDER, 0, 0,
+										gpsListener);
 
-				gpsListener = new mLocationListener();
-				locationManager.requestLocationUpdates(
-						LocationManager.GPS_PROVIDER, 0, 0, gpsListener);
+						// mGpsStatusListener= new GpsStatusListener();
+						// locationManager.addGpsStatusListener(mGpsStatusListener);
 
-				// mGpsStatusListener= new GpsStatusListener();
-				// locationManager.addGpsStatusListener(mGpsStatusListener);
+					}
 
-			}
-
-			if (locationManager
-					.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-				networkListener = new mLocationListener();
-				locationManager.requestLocationUpdates(
-						LocationManager.NETWORK_PROVIDER, 0, 0,
-						networkListener);
-
-			}
-
-			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-					|| locationManager
+					if (locationManager
 							.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+						networkListener = new mLocationListener();
+						locationManager.requestLocationUpdates(
+								LocationManager.NETWORK_PROVIDER, 0, 0,
+								networkListener);
 
-				new CountDownTimer(Util.LISTENER_WINDOW, Util.LISTENER_WINDOW) {
-
-					public void onTick(long millisUntilFinished) {
-						// nothing
 					}
 
-					public void onFinish() {
-						removeLocationUpdates();
-						unWakeLock();
+					if (locationManager
+							.isProviderEnabled(LocationManager.GPS_PROVIDER)
+							|| locationManager
+									.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 
-						if (bestLocation != null
-								&& bestLocation.getAccuracy() < Util.MIN_ACCURACY) {
-							useFix(context, bestLocation);
-						}
-						stopSelf();
+						new CountDownTimer(Util.LISTENER_WINDOW,
+								Util.LISTENER_WINDOW) {
+
+							public void onTick(long millisUntilFinished) {
+								// nothing
+							}
+
+							public void onFinish() {
+								removeLocationUpdates();
+								unWakeLock();
+
+								if (bestLocation != null
+										&& bestLocation.getAccuracy() < Util.MIN_ACCURACY) {
+									useFix(context, bestLocation);
+								}
+								stopSelf();
+							}
+						}.start();
+
 					}
-				}.start();
-
+				}
 			}
 		}
 	};
@@ -298,7 +308,6 @@ public class FixGet extends Service {
 
 					removeLocationUpdates();
 					useFix(context, location);
-
 					stopSelf();
 				} else {
 
@@ -393,129 +402,19 @@ public class FixGet extends Service {
 		}
 	}
 
-
 	private void useFix(Context context, Location location) {
-		if (PropertyHolder.isInit() == false)
-			PropertyHolder.init(context);
-		ContentResolver cr = getContentResolver();
-
-		double thisLat = location.getLatitude();
-		double maskedLat = Math.floor(thisLat / Util.latMask) * Util.latMask;
-		double thisLon = location.getLongitude();
-		double maskedLon = Math.floor(thisLon / Util.lonMask) * Util.lonMask;
-
-		Fix thisFix = new Fix(maskedLat, maskedLon, location.getTime(),
+		Util.logInfo(context, TAG, "useFix");
+		Intent ufi = new Intent(context, FixUse.class);
+		ufi.putExtra(Messages.makeIntentExtraKey(context, FixGet.KEY_LAT),
+				location.getLatitude());
+		ufi.putExtra(Messages.makeIntentExtraKey(context, FixGet.KEY_LON),
+				location.getLongitude());
+		ufi.putExtra(Messages.makeIntentExtraKey(context, FixGet.KEY_TIME),
+				location.getTime());
+		ufi.putExtra(Messages.makeIntentExtraKey(context, FixGet.KEY_POWER),
 				Util.getBatteryProportion(context));
-
-		cr.insert(Util.getTracksUri(context), ContProvValuesTracks.createFix(
-				thisFix.lat, thisFix.lng, thisFix.time, thisFix.pow));
-
-		// Check for location-based tasks
-
-		int thisHour = Util.hour(location.getTime());
-
-		String sc1 = Tasks.KEY_TRIGGERS + " IS NOT NULL AND "
-				+ Tasks.KEY_ACTIVE + " = 0 AND " + Tasks.KEY_DONE
-				+ " = 0 AND (" + Tasks.KEY_EXPIRATION_TIME + " >= "
-				+ System.currentTimeMillis() + " OR "
-				+ Tasks.KEY_EXPIRATION_TIME + " = 0)";
-
-		Util.logInfo(context, TAG, "sql: " + sc1);
-
-		// grab tasks that have location triggers, that are not yet active, that
-		// are not yet done, and that have not expired
-		Cursor c = cr.query(Util.getMissionsUri(context), Tasks.KEYS_TRIGGERS,
-				sc1, null, null);
-
-		while (c.moveToNext()) {
-
-			try {
-				JSONArray theseTriggers = new JSONArray(c.getString(c
-						.getColumnIndexOrThrow(Tasks.KEY_TRIGGERS)));
-
-				for (int i = 0; i < theseTriggers.length(); i++) {
-
-					JSONObject thisTrigger = theseTriggers.getJSONObject(i);
-
-					Util.logInfo(context, TAG,
-							"thisTrigger: " + thisTrigger.toString());
-					Util.logInfo(context, TAG, "thisLoc Lat:" + thisLat
-							+ " Lon:" + thisLon);
-
-					Util.logInfo(
-							context,
-							TAG,
-							"this trigger time lower bound equals null "
-									+ (thisTrigger
-											.getString(MissionModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND)
-											.equals("null")));
-
-					if (thisLat >= thisTrigger
-							.getDouble(MissionModel.KEY_TASK_TRIGGER_LAT_LOWERBOUND)
-							&& thisLat <= thisTrigger
-									.getDouble(MissionModel.KEY_TASK_TRIGGER_LAT_UPPERBOUND)
-							&& thisLon >= thisTrigger
-									.getDouble(MissionModel.KEY_TASK_TRIGGER_LON_LOWERBOUND)
-							&& thisLon <= thisTrigger
-									.getDouble(MissionModel.KEY_TASK_TRIGGER_LON_UPPERBOUND)
-							&& (thisTrigger
-									.getString(
-											MissionModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND)
-									.equals("null") || (thisHour >= Util
-									.triggerTime2HourInt(thisTrigger
-											.getString(MissionModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND))))
-							&& (thisTrigger
-									.getString(
-											MissionModel.KEY_TASK_TRIGGER_TIME_UPPERBOUND)
-									.equals("null") || (thisHour <= Util
-									.triggerTime2HourInt(thisTrigger
-											.getString(MissionModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND)))
-
-							)) {
-
-						Util.logInfo(context, TAG, "task triggered");
-
-						ContentValues cv = new ContentValues();
-						int rowId = c.getInt(c
-								.getColumnIndexOrThrow(Tasks.KEY_ROW_ID));
-						String sc = Tasks.KEY_ROW_ID + " = " + rowId;
-						cv.put(Tasks.KEY_ACTIVE, 1);
-						cr.update(Util.getMissionsUri(context), cv, sc, null);
-
-						Intent intent = new Intent(
-								Messages.internalAction(context));
-						intent.putExtra(Messages.INTERNAL_MESSAGE_EXTRA,
-								Messages.SHOW_TASK_NOTIFICATION);
-						if (PropertyHolder.getLanguage().equals("ca")) {
-							intent.putExtra(
-									Tasks.KEY_TITLE,
-									c.getString(c
-											.getColumnIndexOrThrow(Tasks.KEY_TITLE_CATALAN)));
-						} else if (PropertyHolder.getLanguage().equals("es")) {
-							intent.putExtra(
-									Tasks.KEY_TITLE,
-									c.getString(c
-											.getColumnIndexOrThrow(Tasks.KEY_TITLE_SPANISH)));
-						} else if (PropertyHolder.getLanguage().equals("en")) {
-							intent.putExtra(
-									Tasks.KEY_TITLE,
-									c.getString(c
-											.getColumnIndexOrThrow(Tasks.KEY_TITLE_ENGLISH)));
-						}
-						context.sendBroadcast(intent);
-					}
-				}
-
-			} catch (IllegalArgumentException e) {
-				Util.logError(context, TAG, "error: " + e);
-			} catch (JSONException e) {
-				Util.logError(context, TAG, "error: " + e);
-			}
-
-		}
-
-		c.close();
-
+		getApplication().startService(ufi);
+		Util.logInfo(context, TAG, "just started fixusse");
 		unWakeLock();
 	}
 

@@ -39,13 +39,15 @@ public class Fix {
 	double lng;
 	long time;
 	float pow;
+	boolean taskFix;
 
-	Fix(double _lat, double _lng, long _time, float _pow) {
+	Fix(double _lat, double _lng, long _time, float _pow, boolean _task_fix) {
 
 		lat = _lat;
 		lng = _lng;
 		time = _time;
 		pow = _pow;
+		taskFix = _task_fix;
 
 	}
 
@@ -55,7 +57,11 @@ public class Fix {
 
 		JSONObject result = new JSONObject();
 		try {
-			result.put("user", PropertyHolder.getUserId());
+			if(taskFix)
+				result.put("user_coverage_uuid", PropertyHolder.getUserId());
+			else
+				result.put("user_coverage_uuid", PropertyHolder.getUserCoverageId());
+			
 			result.put("fix_time", Util.ecma262(this.time));
 			result.put("phone_upload_time", Util.ecma262(System.currentTimeMillis()));
 			result.put("masked_lon", this.lng);

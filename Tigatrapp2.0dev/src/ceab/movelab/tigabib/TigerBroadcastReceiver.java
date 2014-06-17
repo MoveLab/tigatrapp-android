@@ -108,7 +108,7 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 
 			String action = intent.getAction();
 			String extra = "";
-			if (intent.hasExtra(Messages.INTERNAL_MESSAGE_EXTRA)){
+			if (intent.hasExtra(Messages.INTERNAL_MESSAGE_EXTRA)) {
 				extra = intent.getStringExtra(Messages.INTERNAL_MESSAGE_EXTRA);
 				Util.logInfo(context, TAG, "extra: " + extra);
 			}
@@ -117,17 +117,16 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 
 			Intent i2sample = new Intent(context, Sample.class);
 			PendingIntent pi2sample = PendingIntent.getBroadcast(context,
-					ALARM_ID_SAMPLING, i2sample,
-					PendingIntent.FLAG_UPDATE_CURRENT);
+					ALARM_ID_SAMPLING, i2sample, 0);
 
 			Intent i2sync = new Intent(context, SyncData.class);
 			PendingIntent pi2sync = PendingIntent.getService(context,
-					ALARM_ID_SYNC, i2sync, PendingIntent.FLAG_UPDATE_CURRENT);
+					ALARM_ID_SYNC, i2sync, 0);
 
 			Intent i2stopfix = new Intent(context, FixGet.class);
 			i2stopfix.setAction(Messages.stopFixAction(context));
 			PendingIntent pi2stopfix = PendingIntent.getService(context,
-					ALARM_ID_FIX, i2stopfix, PendingIntent.FLAG_UPDATE_CURRENT);
+					ALARM_ID_FIX, i2stopfix, 0);
 
 			if (extra.contains(Messages.START_DAILY_SAMPLING)) {
 				// first sample now
@@ -156,10 +155,13 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 				alarmManager.cancel(pi2sync);
 				Util.logInfo(context, TAG, "stop sync");
 			} else if (extra.contains(Messages.START_TASK_FIX)) {
-				context.startService(new Intent(context, FixGet.class));
-				long baseTime = SystemClock.elapsedRealtime();
-				alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, baseTime
-						+ Util.TASK_FIX_WINDOW, pi2stopfix);
+				Intent tfi = new Intent(context, FixGet.class);
+				tfi.setAction(Messages.taskFixAction(context));
+				context.startService(tfi);
+				// long baseTime = SystemClock.elapsedRealtime();
+				// alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+				// baseTime
+				// + Util.TASK_FIX_WINDOW, pi2stopfix);
 				Util.logInfo(context, TAG, "start task fix");
 			} else if (extra.contains(Messages.SHOW_TASK_NOTIFICATION)) {
 				final String taskTitle = intent.getStringExtra(Tasks.KEY_TITLE);
@@ -181,7 +183,6 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 			}
 		}
 	}
-
 
 	@SuppressWarnings("deprecation")
 	public void createNotification(Context context, String taskTitle) {

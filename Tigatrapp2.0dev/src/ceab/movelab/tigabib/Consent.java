@@ -96,6 +96,7 @@ public class Consent extends Activity {
 				String userId = UUID.randomUUID().toString();
 				PropertyHolder.setUserId(userId);
 
+				
 				// start daily sampling
 				Util.internalBroadcast(context, Messages.START_DAILY_SAMPLING);
 

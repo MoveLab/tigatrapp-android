@@ -23,14 +23,14 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import ceab.movelab.tigabib.R;
-import ceab.movelab.tigabib.ContProvContractReports.Reports;
 import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
+import ceab.movelab.tigabib.ContProvContractReports.Reports;
 
 public class MissionActivity extends Activity {
 	private static String TAG = "TaskActivity";
@@ -195,6 +195,8 @@ public class MissionActivity extends Activity {
 
 					buttonLeft.setVisibility(View.GONE);
 					buttonMiddle.setVisibility(View.GONE);
+					buttonRight.setMinHeight(1);
+					buttonRight.setMinimumHeight(1);
 					buttonRight.setVisibility(View.VISIBLE);
 					buttonRight.setText(getResources().getString(R.string.ok));
 					buttonRight.setOnClickListener(new OnClickListener() {

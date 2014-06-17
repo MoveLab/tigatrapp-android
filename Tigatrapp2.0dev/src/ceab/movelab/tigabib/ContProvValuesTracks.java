@@ -36,7 +36,7 @@ import ceab.movelab.tigabib.ContProvContractTracks.Fixes;
 public class ContProvValuesTracks {
 
 	public static ContentValues createFix(double latitude, double longitude,
-			long time, float power_proportion) {
+			long time, float power_proportion, boolean task_fix) {
 		Date usertime = new Date(time);
 		ContentValues initialValues = new ContentValues();
 		initialValues.put(Fixes.KEY_LATITUDE, (double) latitude);
@@ -44,6 +44,8 @@ public class ContProvValuesTracks {
 		initialValues.put(Fixes.KEY_TIME, (long) time);
 		initialValues.put(Fixes.KEY_POWER_LEVEL, power_proportion);
 		initialValues.put(Fixes.KEY_UPLOADED, 0);
+		initialValues.put(Fixes.KEY_TASK_FIX, task_fix?1:0);
+		
 
 		return initialValues;
 	}

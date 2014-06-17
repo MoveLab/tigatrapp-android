@@ -66,7 +66,6 @@ public class Sample extends Service {
 	private String TAG = "Sample";
 	Context context;
 	private static final int ALARM_ID_START_FIX = 1;
-	private static final int ALARM_ID_STOP_FIX = -1;
 
 	ContentResolver cr;
 	Cursor c;
@@ -76,9 +75,10 @@ public class Sample extends Service {
 
 		Util.logInfo(context, TAG, "on start");
 
-		if(!Util.privateMode(context)){
-		Thread uploadThread = new Thread(null, doSampling, "sampleBackground");
-		uploadThread.start();
+		if (!Util.privateMode(context)) {
+			Thread uploadThread = new Thread(null, doSampling,
+					"sampleBackground");
+			uploadThread.start();
 		}
 
 	};
@@ -129,18 +129,9 @@ public class Sample extends Service {
 			currentSamplingTimes[i] = Util.iso8601(baseTimeNow
 					+ thisRandomMinute);
 
-			Intent intent2StopFixGet = new Intent(context, FixGet.class);
-			intent2StopFixGet.setAction(Messages.stopFixAction(context));
-
 			alarmManager.set(alarmType, thisTriggerTime, PendingIntent
 					.getService(context, (ALARM_ID_START_FIX * i), new Intent(
-							context, FixGet.class),
-							PendingIntent.FLAG_CANCEL_CURRENT));
-
-			alarmManager.set(alarmType, thisTriggerTime + Util.LISTENER_WINDOW,
-					PendingIntent.getService(context, (ALARM_ID_STOP_FIX * i),
-							intent2StopFixGet,
-							PendingIntent.FLAG_CANCEL_CURRENT));
+							context, FixGet.class), 0));
 		}
 		Arrays.sort(currentSamplingTimes);
 		PropertyHolder.setCurrentFixTimes(currentSamplingTimes);

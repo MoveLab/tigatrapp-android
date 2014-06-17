@@ -269,16 +269,21 @@ public class Settings extends Activity {
 				// check last id on phone
 				int latest_id = PropertyHolder.getLatestMissionId();
 
-				// TODO filter missions by phone type on the server side and
-				// here in the request, using URL parameter.
+				String missionUrl = Util.API_MISSION + "?"
+						+ (latest_id > 0 ? ("id_gt=" + latest_id) : "") + "&platform="
+						+ (Util.debugMode(context[0]) ? "beta" : "and") + "&version_lte="
+						+ Util.MAX_MISSION_VERSION;
+
+				Util.logInfo(context[0], TAG, "mission array: " + missionUrl);
 
 				try {
 
 					JSONArray missions = new JSONArray(
-							Util.getJSON(
-									Util.API_MISSION
-											+ (latest_id > 0 ? ("?id_greater_than=" + latest_id)
-													: ""), context[0]));
+							Util.getJSON(missionUrl, context[0]));
+
+					Util.logInfo(context[0], TAG, "missions: " + missions.toString());
+
+
 					if (missions != null && missions.length() > 0) {
 						for (int i = 0; i < missions.length(); i++) {
 							JSONObject mission = missions.getJSONObject(i);
@@ -351,6 +356,7 @@ public class Settings extends Activity {
 				int lngIndex = c.getColumnIndexOrThrow(Fixes.KEY_LONGITUDE);
 				int powIndex = c.getColumnIndexOrThrow(Fixes.KEY_POWER_LEVEL);
 				int timeIndex = c.getColumnIndexOrThrow(Fixes.KEY_TIME);
+				int taskFixIndex = c.getColumnIndexOrThrow(Fixes.KEY_TASK_FIX);
 
 				int fixtotal = c.getCount();
 				int fixcounter = 1;
@@ -365,7 +371,7 @@ public class Settings extends Activity {
 
 					Fix thisFix = new Fix(c.getDouble(latIndex),
 							c.getDouble(lngIndex), c.getLong(timeIndex),
-							c.getFloat(powIndex));
+							c.getFloat(powIndex), (c.getInt(taskFixIndex)==1));
 
 					thisFix.exportJSON(context[0]);
 

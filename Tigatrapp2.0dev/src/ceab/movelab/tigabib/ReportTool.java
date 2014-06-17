@@ -31,11 +31,13 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
@@ -50,6 +52,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Html;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -63,9 +66,8 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import ceab.movelab.tigabib.R;
-import ceab.movelab.tigabib.ContProvContractReports.Reports;
 import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
+import ceab.movelab.tigabib.ContProvContractReports.Reports;
 
 /**
  * Activity for identifying and reporting tiger mosquitoes.
@@ -150,6 +152,9 @@ public class ReportTool extends Activity {
 	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
+
+		Util.logInfo(context, TAG, "on create");
+
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
 
@@ -566,12 +571,17 @@ public class ReportTool extends Activity {
 
 				if (location.getAccuracy() < 100) {
 					removeLocationUpdates();
-					try {
-						countDownTimer.cancel();
-					} catch (Exception e) {
+					if (countDownTimer != null) {
+						try {
+							countDownTimer.cancel();
+						} catch (Exception e) {
 
-						Util.logError(context, TAG,
-								"exception cancelling countdown timer");
+							Util.logError(context, TAG,
+									"exception cancelling countdown timer");
+						}
+					} else {
+						countDownTimer = new MyCountDownTimer(5 * 60 * 1000,
+								5 * 60 * 1000);
 					}
 					countDownTimer.start();
 
@@ -605,14 +615,19 @@ public class ReportTool extends Activity {
 			 * If provider service is no longer available, stop trying to get
 			 * updates from both providers but start timer.
 			 */
-			if (status == LocationProvider.OUT_OF_SERVICE) {
+			if (status != LocationProvider.AVAILABLE) {
 				removeLocationUpdate(provider);
-				try {
-					countDownTimer.cancel();
-				} catch (Exception e) {
+				if (countDownTimer != null) {
+					try {
+						countDownTimer.cancel();
+					} catch (Exception e) {
 
-					Util.logError(context, TAG,
-							"exception cancelling countdown timer");
+						Util.logError(context, TAG,
+								"exception cancelling countdown timer");
+					}
+				} else {
+					countDownTimer = new MyCountDownTimer(5 * 60 * 1000,
+							5 * 60 * 1000);
 				}
 				countDownTimer.start();
 			}
@@ -656,6 +671,8 @@ public class ReportTool extends Activity {
 
 	@Override
 	protected void onResume() {
+
+		Util.logInfo(context, TAG, "on resume");
 
 		res = getResources();
 		if (!Util.setDisplayLanguage(res).equals(lang)) {
@@ -713,51 +730,101 @@ public class ReportTool extends Activity {
 	@Override
 	public void onPause() {
 		super.onPause();
-		removeLocationUpdates();
+		Util.logInfo(context, TAG, "on pause");
 
+		removeLocationUpdates();
+		try {
+			countDownTimer.cancel();
+		} catch (Exception e) {
+
+			Util.logError(context, TAG, "exception cancelling countdown timer");
+		}
+		countDownTimer = null;
+
+	}
+
+	@Override
+	public void onStop() {
+		super.onStop();
+
+		Util.logInfo(context, TAG, "on stop");
+
+		removeLocationUpdates();
+		try {
+			countDownTimer.cancel();
+		} catch (Exception e) {
+
+			Util.logError(context, TAG, "exception cancelling countdown timer");
+		}
+		countDownTimer = null;
 	}
 
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
+		Util.logInfo(context, TAG, "on destroy");
+
+		removeLocationUpdates();
 		clearFields();
+		try {
+			countDownTimer.cancel();
+		} catch (Exception e) {
+
+			Util.logError(context, TAG, "exception cancelling countdown timer");
+		}
+		countDownTimer = null;
 
 	}
 
 	// utilities
 	private void removeLocationUpdates() {
+		Util.logInfo(context, TAG, "remove location updates");
+
 		if (locationManager != null) {
+			Util.logInfo(context, TAG, "remove location updates 1");
 			if (gpsListener != null)
 				locationManager.removeUpdates(gpsListener);
 			if (networkListener != null)
 				locationManager.removeUpdates(networkListener);
 		} else {
+			Util.logInfo(context, TAG, "remove location updates 2");
 			locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 			if (gpsListener != null)
 				locationManager.removeUpdates(gpsListener);
 			if (networkListener != null)
 				locationManager.removeUpdates(networkListener);
 		}
+		gpsListener = null;
+		networkListener = null;
+		locationManager = null;
 	}
 
 	// utilities
 	private void removeLocationUpdate(String provider) {
 		if (locationManager != null) {
 			if (provider == LocationManager.NETWORK_PROVIDER) {
-				if (networkListener != null)
+				if (networkListener != null) {
 					locationManager.removeUpdates(networkListener);
+					networkListener = null;
+				}
 			} else {
-				if (gpsListener != null)
+				if (gpsListener != null) {
 					locationManager.removeUpdates(gpsListener);
+					gpsListener = null;
+				}
 			}
 		} else {
 			locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 			if (provider == LocationManager.NETWORK_PROVIDER) {
-				if (networkListener != null)
+				if (networkListener != null) {
 					locationManager.removeUpdates(networkListener);
+					networkListener = null;
+				}
 			} else {
-				if (gpsListener != null)
+				if (gpsListener != null) {
 					locationManager.removeUpdates(gpsListener);
+					gpsListener = null;
+				}
 			}
 		}
 	}
@@ -1019,11 +1086,10 @@ public class ReportTool extends Activity {
 				if (!PropertyHolder.isRegistered())
 					Util.registerOnServer(context[0]);
 
-				myProgress = 50;
+				myProgress = 90;
 				publishProgress(myProgress);
 
 				int uploadResult = thisReport.upload(context[0]);
-
 
 				if (uploadResult == Report.UPLOADED_ALL) {
 					myProgress = 100;
@@ -1045,7 +1111,6 @@ public class ReportTool extends Activity {
 			} else {
 				resultFlag = PRIVATE_MODE;
 			}
-
 
 			return true;
 		}
@@ -1434,13 +1499,5 @@ public class ReportTool extends Activity {
 		i.putExtras(b);
 		startActivityForResult(i, REQUEST_CODE_MAPSELECTOR);
 	}
-	/*
-	 * @Override public boolean onKeyDown(int keyCode, KeyEvent event) { if
-	 * (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-	 * 
-	 * buildLeaveReportWarning(); return true; }
-	 * 
-	 * return super.onKeyDown(keyCode, event); }
-	 */
 
 }

@@ -57,7 +57,7 @@ public abstract class ContProvTracks extends ContentProvider {
 
 	private static final String DATABASE_NAME = "tracksDB";
 
-	private static final int DATABASE_VERSION = 4;
+	private static final int DATABASE_VERSION = 6;
 
 	public static final String DATABASE_TABLE = "tracksTable";
 
@@ -72,12 +72,6 @@ public abstract class ContProvTracks extends ContentProvider {
 
 	private static HashMap<String, String> fixesProjectionMap;
 
-	/**
-	 * DatabaseHelper class. Manages the DriverMapActivity SQLite database
-	 * creation and upgrades.
-	 * 
-	 * @author Chang Y. Chung
-	 */
 	private static class DatabaseHelper extends SQLiteOpenHelper {
 		DatabaseHelper(Context context) {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -110,6 +104,7 @@ public abstract class ContProvTracks extends ContentProvider {
 		fixesProjectionMap.put(Fixes.KEY_TIME, Fixes.KEY_TIME);
 		fixesProjectionMap.put(Fixes.KEY_POWER_LEVEL, Fixes.KEY_POWER_LEVEL);
 		fixesProjectionMap.put(Fixes.KEY_UPLOADED, Fixes.KEY_UPLOADED);
+		fixesProjectionMap.put(Fixes.KEY_TASK_FIX, Fixes.KEY_TASK_FIX);
 
 	}
 

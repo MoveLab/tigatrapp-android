@@ -148,6 +148,12 @@ public class Util {
 
 	private static String TAG = "Util";
 
+	public static final int MAX_MISSION_VERSION = 1;
+	
+	// if we ignore fixes above 60 degrees latitude or below -60 degrees latitude, then the size of the 
+	// .05x.05 degree areas should all be larger than 15.5 km. See http://msi.nga.mil/MSISiteContent/StaticFiles/Calculators/degree.html
+	public static int FIX_LAT_CUTOFF = 60;
+	
 	public static boolean privateMode(Context context) {
 		boolean result = false;
 		if (context.getResources().getString(R.string.private_mode)
@@ -194,45 +200,44 @@ public class Util {
 	/**
 	 * Server API URL.
 	 */
-	public static final String URL_TIGASERVER_API_ROOT = "http://tigaserver.atrapaeltigre.com/api/";
+	public static final String URL_TIGASERVER_API_ROOT = UtilLocal.URL_TIGASERVER_API_ROOT;
 
 	/**
 	 * API user endpoint.
 	 */
-	public static final String API_USER = "users/";
+	public static final String API_USER = UtilLocal.API_USER;
 
 	/**
 	 * API report endpoint.
 	 */
-	public static final String API_REPORT = "reports/";
+	public static final String API_REPORT = UtilLocal.API_REPORT;
 
 	/**
 	 * API photo endpoint.
 	 */
-	public static final String API_PHOTO = "photos/";
+	public static final String API_PHOTO = UtilLocal.API_PHOTO;
 
 	/**
 	 * API fix endpoint.
 	 */
-	public static final String API_FIXES = "fixes/";
+	public static final String API_FIXES = UtilLocal.API_FIXES;
 
 	/**
 	 * API mission endpoint.
 	 */
-	public static final String API_MISSION = "missions/";
+	public static final String API_MISSION = UtilLocal.API_MISSION;
 
 	/**
 	 * API c endpoint.
 	 */
-	public static final String API_CONFIGURATION = "configuration/";
+	public static final String API_CONFIGURATION = UtilLocal.API_CONFIGURATION;
 
 	/**
 	 * Server authorization.
 	 */
-	private final static String TIGASERVER_API_KEY = "3791ad3995d31cfb56add03030a804a7436079cc";
-	private final static String TIGASERVER_CLIENT_ID = "test_client";
-	private final static String TIGASERVER_AUTHORIZATION = "Token "
-			+ TIGASERVER_API_KEY;
+	public final static String TIGASERVER_API_KEY = UtilLocal.TIGASERVER_API_KEY;
+	public final static String TIGASERVER_CLIENT_ID = UtilLocal.TIGASERVER_CLIENT_ID;
+	public final static String TIGASERVER_AUTHORIZATION = UtilLocal.TIGASERVER_AUTHORIZATION;
 
 	public final static String EXTENSION = ".dat";
 
@@ -281,7 +286,7 @@ public class Util {
 	/**
 	 * Minimum accuracy necessary for location to be used.
 	 */
-	public static final float MIN_ACCURACY = 2000;
+	public static final float MIN_ACCURACY = 5000;
 
 	/**
 	 * Surrounds the given string in quotation marks. Taken from Human Mobility
@@ -1115,4 +1120,5 @@ public class Util {
 
 	}
 
+	
 }

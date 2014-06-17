@@ -20,6 +20,11 @@ public class Messages {
 		return internalAction(context) + ".stop_fix_action";
 	}
 
+	public static String taskFixAction(Context context) {
+		return internalAction(context) + ".task_fix_action";
+	}
+
+	
 	public static String newSamplesReadyAction(Context context) {
 		return internalAction(context) + "new_samples_ready_action";
 	}

@@ -28,7 +28,7 @@ public class FixUse extends Service {
 	double lon = 0;
 	long time = 0;
 	float power = 0;
-
+	boolean taskFix = false;
 	@Override
 	public void onStart(Intent intent, int startId) {
 
@@ -45,6 +45,8 @@ public class FixUse extends Service {
 					Messages.makeIntentExtraKey(context, FixGet.KEY_TIME), 0);
 			this.power = intent.getFloatExtra(
 					Messages.makeIntentExtraKey(context, FixGet.KEY_POWER), 0);
+			this.taskFix = intent.getBooleanExtra(
+					Messages.makeIntentExtraKey(context, FixGet.KEY_TASK_FIX), false);
 
 			Thread uploadThread = new Thread(null, doUseFix, "useFixBackground");
 			uploadThread.start();
@@ -76,6 +78,8 @@ public class FixUse extends Service {
 
 	private void useFix() {
 
+		if(Math.abs(lat)<Util.FIX_LAT_CUTOFF){
+		
 		if (PropertyHolder.isInit() == false)
 			PropertyHolder.init(context);
 		ContentResolver cr = getContentResolver();
@@ -83,13 +87,13 @@ public class FixUse extends Service {
 		double maskedLat = Math.floor(lat / Util.latMask) * Util.latMask;
 		double maskedLon = Math.floor(lon / Util.lonMask) * Util.lonMask;
 
-		Fix thisFix = new Fix(maskedLat, maskedLon, time, power);
+		Fix thisFix = new Fix(maskedLat, maskedLon, time, power, taskFix);
 
 		Util.logInfo(context, TAG, "this fix: " + thisFix.lat + ';'
 				+ thisFix.lng + ';' + thisFix.time + ';' + thisFix.pow);
 
 		cr.insert(Util.getTracksUri(context), ContProvValuesTracks.createFix(
-				thisFix.lat, thisFix.lng, thisFix.time, thisFix.pow));
+				thisFix.lat, thisFix.lng, thisFix.time, thisFix.pow, taskFix));
 
 		// Check for location-based tasks
 
@@ -196,7 +200,8 @@ public class FixUse extends Service {
 		}
 
 		c.close();
-
+		}
+		
 		inUse = false;
 
 	}

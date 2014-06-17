@@ -22,8 +22,8 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ceab.movelab.tigerapp"
-    android:versionCode="25"
-    android:versionName="Tigatrapp Demo 1.01" >
+    android:versionCode="26"
+    android:versionName="Tigatrapp Demo 1.02" >
 
     <uses-sdk
         android:minSdkVersion="4"
@@ -91,18 +91,19 @@
         </activity>
         <activity
             android:name="ceab.movelab.tigabib.MapData"
-            android:hardwareAccelerated="false" >
+            android:hardwareAccelerated="false"
+            android:process=":p2" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:process=":p2"
                 android:value=".Switchboard" />
         </activity>
         <activity android:name="ceab.movelab.tigabib.PhotoGallery" >
         </activity>
-        <activity android:name="ceab.movelab.tigabib.MapSelector" >
+        <activity
+            android:name="ceab.movelab.tigabib.MapSelector"
+            android:process=":p1" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:process=":p1"
                 android:value=".ReportTool" />
         </activity>
         <activity

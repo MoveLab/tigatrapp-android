@@ -65,17 +65,11 @@
 
 package ceab.movelab.tigabib;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.app.Service;
-import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
-import android.location.GpsStatus;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -90,8 +84,7 @@ import android.os.Parcel;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
 import android.os.RemoteException;
-import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
-import ceab.movelab.tigabib.ContProvContractTracks.Fixes;
+import android.os.SystemClock;
 
 /**
  * Space Mapper's location recording service.
@@ -113,8 +106,6 @@ public class FixGet extends Service {
 	private LocationListener gpsListener; // gps
 	private LocationListener networkListener; // network
 
-	GpsStatusListener mGpsStatusListener;
-
 	Location bestLocation;
 
 	WifiLock wifiLock;
@@ -126,8 +117,13 @@ public class FixGet extends Service {
 	public static String KEY_LON = "extra_lon";
 	public static String KEY_TIME = "extra_time";
 	public static String KEY_POWER = "extra_power";
+	public static String KEY_TASK_FIX = "task_fix";
+
+	private static final int ALARM_ID_STOP_FIX = -1123;
 
 	boolean fixInProgress = false;
+
+	boolean taskFix = false;
 
 	/**
 	 * Creates a new FixGet service instance.<br>
@@ -178,14 +174,51 @@ public class FixGet extends Service {
 						&& bestLocation.getAccuracy() < Util.MIN_ACCURACY) {
 					useFix(context, bestLocation);
 				}
+				fixInProgress = false;
 				stopSelf();
 			} else {
 
 				if (!fixInProgress) {
 					fixInProgress = true;
 
+					if (action != null
+							&& action.contains(Messages.taskFixAction(context))) {
+						taskFix = true;
+					}
+
+					Util.logInfo(
+							context,
+							TAG,
+							"test");
+					
+					long thisWindow = taskFix ? Util.TASK_FIX_WINDOW
+							: Util.LISTENER_WINDOW;
+
+					AlarmManager alarmManager = (AlarmManager) context
+							.getSystemService(Context.ALARM_SERVICE);
+					int alarmType = AlarmManager.ELAPSED_REALTIME_WAKEUP;
+
+					Intent intent2StopFixGet = new Intent(context, FixGet.class);
+					intent2StopFixGet
+							.setAction(Messages.stopFixAction(context));
+
+					alarmManager.set(alarmType,
+							(SystemClock.elapsedRealtime() + thisWindow),
+							PendingIntent.getService(context,
+									ALARM_ID_STOP_FIX, intent2StopFixGet, 0));
+
+					Util.logInfo(
+							context,
+							TAG,
+							"set alarm to stop self at "
+									+ Util.iso8601(System.currentTimeMillis()
+											+ thisWindow));
+
 					// stopListening = null;
 					bestLocation = null;
+
+					gpsListener = null;
+					networkListener = null;
 
 					if (locationManager == null)
 						locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -218,14 +251,14 @@ public class FixGet extends Service {
 							|| locationManager
 									.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 
-						new CountDownTimer(Util.LISTENER_WINDOW,
-								Util.LISTENER_WINDOW) {
+						new CountDownTimer(thisWindow, (thisWindow / 2)) {
 
 							public void onTick(long millisUntilFinished) {
 								// nothing
 							}
 
 							public void onFinish() {
+								fixInProgress = false;
 								removeLocationUpdates();
 								unWakeLock();
 
@@ -248,6 +281,7 @@ public class FixGet extends Service {
 	 */
 	@Override
 	public void onDestroy() {
+		fixInProgress = false;
 		removeLocationUpdates();
 		unWakeLock();
 
@@ -271,16 +305,6 @@ public class FixGet extends Service {
 			return super.onTransact(code, data, reply, flags);
 		}
 	};
-
-	private class GpsStatusListener implements GpsStatus.Listener {
-
-		@Override
-		public void onGpsStatusChanged(int event) {
-			// TODO Auto-generated method stub
-
-		}
-
-	}
 
 	/**
 	 * Inner class to listen to LocationManager. <br>
@@ -356,7 +380,7 @@ public class FixGet extends Service {
 			 * If provider service is no longer available, stop trying to get
 			 * updates from both providers and quit.
 			 */
-			if (status == LocationProvider.OUT_OF_SERVICE) {
+			if (status != LocationProvider.AVAILABLE) {
 				removeLocationUpdate(provider);
 				stopSelf();
 			}
@@ -378,26 +402,37 @@ public class FixGet extends Service {
 			if (networkListener != null)
 				locationManager.removeUpdates(networkListener);
 		}
+		gpsListener = null;
+		networkListener = null;
+		fixInProgress = false;
 	}
 
 	// utilities
 	private void removeLocationUpdate(String provider) {
 		if (locationManager != null) {
 			if (provider == LocationManager.NETWORK_PROVIDER) {
-				if (networkListener != null)
+				if (networkListener != null) {
 					locationManager.removeUpdates(networkListener);
+					networkListener = null;
+				}
 			} else {
-				if (gpsListener != null)
+				if (gpsListener != null) {
 					locationManager.removeUpdates(gpsListener);
+					gpsListener = null;
+				}
 			}
 		} else {
 			locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 			if (provider == LocationManager.NETWORK_PROVIDER) {
-				if (networkListener != null)
+				if (networkListener != null) {
 					locationManager.removeUpdates(networkListener);
+					networkListener = null;
+				}
 			} else {
-				if (gpsListener != null)
+				if (gpsListener != null) {
 					locationManager.removeUpdates(gpsListener);
+					gpsListener = null;
+				}
 			}
 		}
 	}
@@ -413,6 +448,8 @@ public class FixGet extends Service {
 				location.getTime());
 		ufi.putExtra(Messages.makeIntentExtraKey(context, FixGet.KEY_POWER),
 				Util.getBatteryProportion(context));
+		ufi.putExtra(Messages.makeIntentExtraKey(context, FixGet.KEY_TASK_FIX),
+				taskFix);
 		getApplication().startService(ufi);
 		Util.logInfo(context, TAG, "just started fixusse");
 		unWakeLock();

@@ -63,33 +63,32 @@ public class MyItemizedOverlay extends ItemizedOverlay {
 	protected boolean onTap(int index) {
 		thisItem = index;
 		final MyOverlayItem item = mOverlays.get(index);
-		
+
 		Intent i = new Intent(context, ViewReportsTab.class);
 		if (item.photoUris != null) {
-		i.putExtra(Reports.KEY_PHOTO_URIS, item.photoUris);
+			i.putExtra(Reports.KEY_PHOTO_URIS, item.photoUris);
 		}
 		if (item.responses != null) {
 			i.putExtra(Reports.KEY_CONFIRMATION, item.responses);
-			}
-			
-		
-		if(item.reportId != null){
-			i.putExtra(Reports.KEY_REPORT_ID, item.reportId);	
 		}
-		if(item.type != Report.MISSING){
-			i.putExtra(Reports.KEY_TYPE, item.type);	
+
+		if (item.reportId != null) {
+			i.putExtra(Reports.KEY_REPORT_ID, item.reportId);
 		}
-		if(item.getSnippet() != null){
-			i.putExtra(Reports.KEY_NOTE, item.getSnippet());	
+		if (item.type != Report.MISSING) {
+			i.putExtra(Reports.KEY_TYPE, item.type);
 		}
-		if(item.getTitle() != null){
-			i.putExtra("title", item.getTitle());	
+		if (item.getSnippet() != null) {
+			i.putExtra(Reports.KEY_NOTE, item.getSnippet());
 		}
-		
+		if (item.getTitle() != null) {
+			i.putExtra("title", item.getTitle());
+		}
+		i.putExtra("report_time", item.getReportTime());
 
 		context.startActivity(i);
 
-			return true;
+		return true;
 	}
 
 	public void addOverlay(MyOverlayItem overlay) {

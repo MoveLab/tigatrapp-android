@@ -566,7 +566,8 @@ public class MapData extends MapActivity {
 											.getLong(reportTimeCol))),
 							c.getString(noteCol), c.getString(reportIdCol),
 							c.getInt(typeCol), c.getString(photoUrisCol),
-							c.getString(confirmationCol));
+							c.getString(confirmationCol),
+							c.getLong(reportTimeCol));
 					currentCenter = point;
 					if (thisType == Report.TYPE_ADULT)
 						myAdultOverlaylist.add(overlayitem);

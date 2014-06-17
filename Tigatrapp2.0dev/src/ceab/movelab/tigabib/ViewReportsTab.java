@@ -42,6 +42,8 @@
 package ceab.movelab.tigabib;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.app.TabActivity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -49,6 +51,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -57,10 +61,11 @@ import android.widget.Button;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
-import ceab.movelab.tigabib.R;
 import ceab.movelab.tigabib.ContProvContractReports.Reports;
 
 public class ViewReportsTab extends TabActivity {
+
+	private static String TAG = "View Reports Tab";
 
 	Context context = this;
 	String reportId;
@@ -68,6 +73,7 @@ public class ViewReportsTab extends TabActivity {
 	int type;
 	Resources res;
 	String lang;
+	long reportTime;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -88,6 +94,7 @@ public class ViewReportsTab extends TabActivity {
 		reportId = b.getString(Reports.KEY_REPORT_ID);
 		type = b.getInt(Reports.KEY_TYPE);
 		title = b.getString("title");
+		reportTime = b.getLong("report_time");
 
 		((TextView) findViewById(R.id.title)).setText(title);
 
@@ -109,25 +116,9 @@ public class ViewReportsTab extends TabActivity {
 									public void onClick(DialogInterface d,
 											int arg1) {
 
-										Util.toast(
-												context,
-												getResources()
-														.getString(
-																R.string.report_deleted));
+										new ReportDeleteTask().execute(context);
 
-										ContentResolver cr = context
-												.getContentResolver();
-										ContentValues cv = new ContentValues();
-										String sc = Reports.KEY_REPORT_ID
-												+ " = '" + reportId + "'";
-										cr.delete(Util.getReportsUri(context), sc, null);
-										
-										cv.put(Reports.KEY_DELETE_REPORT, 1);
-										cr.update(Util.getReportsUri(context), cv, sc,
-												null);
-										// TODO sync deletion to server
 										d.dismiss();
-										finish();
 									}
 
 								});
@@ -233,4 +224,180 @@ public class ViewReportsTab extends TabActivity {
 		super.onResume();
 	}
 
+	public class ReportDeleteTask extends AsyncTask<Context, Integer, Boolean> {
+
+		ProgressDialog prog;
+
+		int myProgress;
+
+		int resultFlag;
+
+		int OFFLINE = 0;
+		int UPLOAD_ERROR = 1;
+		int DATABASE_ERROR = 2;
+		int SUCCESS = 3;
+		int PRIVATE_MODE = 4;
+
+		@Override
+		protected void onPreExecute() {
+
+			PropertyHolder.init(context);
+			resultFlag = SUCCESS;
+
+			prog = new ProgressDialog(context);
+			prog.setTitle(getResources().getString(R.string.progtitle_report));
+			prog.setIndeterminate(false);
+			prog.setMax(100);
+			prog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+			prog.show();
+
+			myProgress = 0;
+
+		}
+
+		protected Boolean doInBackground(Context... context) {
+
+			myProgress = 2;
+			publishProgress(myProgress);
+
+			myProgress = 4;
+			publishProgress(myProgress);
+
+			myProgress = 10;
+			publishProgress(myProgress);
+
+			myProgress = 20;
+			publishProgress(myProgress);
+
+			Report dReport = new Report(context[0],
+					reportId, type, reportTime);
+			
+			ContentResolver cr = context[0].getContentResolver();
+			ContentValues cv = new ContentValues();
+			String sc = Reports.KEY_REPORT_ID + " = '" + reportId + "'";
+			cv.put(Reports.KEY_DELETE_REPORT, 1);
+			cv.put(Reports.KEY_REPORT_VERSION, -1);
+			int nupdated = cr.update(Util.getReportsUri(context[0]),
+					cv, sc, null);
+			Util.logInfo(context[0], TAG, "n updated: " + nupdated);
+			Uri repUri = Util.getReportsUri(context[0]);
+			cr.insert(repUri,
+					ContProvValuesReports.createReport(dReport));
+
+
+			myProgress = 50;
+			publishProgress(myProgress);
+
+
+			if (!Util.privateMode(context[0])) {
+
+				// now test if there is a data connection
+				if (!Util.isOnline(context[0])) {
+
+					resultFlag = OFFLINE;
+					return false;
+
+				}
+				if (!PropertyHolder.isRegistered())
+					Util.registerOnServer(context[0]);
+
+				Util.logInfo(context[0], TAG, sc);
+
+				int uploadResult = dReport.upload(context[0]);
+
+				if (uploadResult != Report.UPLOADED_ALL) {
+					myProgress = 90;
+					publishProgress(myProgress);
+					startService(new Intent(context[0], SyncData.class));
+					resultFlag = UPLOAD_ERROR;
+
+				} else {
+					
+					int ndeleted = cr.delete(Util.getReportsUri(context[0]),
+							sc, null);
+					Util.logInfo(context[0], TAG, "n deleted: " + ndeleted);
+					resultFlag = SUCCESS;
+
+					myProgress = 100;
+					publishProgress(myProgress);
+
+				}
+
+			} else {
+				myProgress = 100;
+				publishProgress(myProgress);
+
+				resultFlag = PRIVATE_MODE;
+			}
+
+			return true;
+		}
+
+		protected void onProgressUpdate(Integer... progress) {
+
+			prog.setProgress(progress[0]);
+		}
+
+		protected void onPostExecute(Boolean result) {
+
+			prog.dismiss();
+
+			if ((result && resultFlag == SUCCESS) || resultFlag == PRIVATE_MODE) {
+				Util.toast(context,
+						getResources().getString(R.string.report_deleted));
+
+				finish();
+
+			} else {
+
+				if (resultFlag == OFFLINE) {
+
+					buildDeletionAlert(getResources().getString(R.string.deletion_no_network));
+
+				}
+
+				if (resultFlag == UPLOAD_ERROR) {
+
+					buildDeletionAlert(getResources().getString(R.string.deletion_network_error));
+
+				}
+
+			}
+
+		}
+	}
+
+	public void buildDeletionAlert(String message) {
+
+		final Dialog dialog = new Dialog(context);
+
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+		dialog.setContentView(R.layout.custom_alert);
+
+		dialog.setCancelable(false);
+
+		TextView alertText = (TextView) dialog.findViewById(R.id.alertText);
+		alertText.setText(message);
+
+		Button positive = (Button) dialog.findViewById(R.id.alertOK);
+		Button negative = (Button) dialog.findViewById(R.id.alertCancel);
+		negative.setVisibility(View.GONE);
+
+		positive.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+				dialog.cancel();
+				finish();
+
+			}
+		});
+
+		dialog.show();
+
+	}
+
+
+	
 }

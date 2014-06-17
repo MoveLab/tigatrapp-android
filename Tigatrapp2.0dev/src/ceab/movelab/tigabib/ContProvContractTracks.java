@@ -48,16 +48,18 @@ public class ContProvContractTracks {
 		public static final String KEY_TIME = "time";
 		public static final String KEY_POWER_LEVEL = "power_level";
 		public static final String KEY_UPLOADED = "uploaded";
+		public static final String KEY_TASK_FIX = "task_fix";
 
 		public static final String DB_CREATE_STATEMENT = "create table "
 				+ ContProvTracks.DATABASE_TABLE + " ( " + KEY_ROWID
 				+ " integer primary key autoincrement, " + KEY_LATITUDE
 				+ " real, " + KEY_LONGITUDE + " real, " + KEY_TIME + " long,  "
-				+ KEY_POWER_LEVEL + " real," + KEY_UPLOADED + " integer);";
+				+ KEY_POWER_LEVEL + " real," + KEY_UPLOADED + " integer,"
+				+ KEY_TASK_FIX + " integer);";
 
 		/** The names of all the fields contained in the location tracks table */
 		public static final String[] KEYS_ALL = { KEY_ROWID, KEY_LATITUDE,
-				KEY_LONGITUDE, KEY_TIME, KEY_POWER_LEVEL, KEY_UPLOADED };
+				KEY_LONGITUDE, KEY_TIME, KEY_POWER_LEVEL, KEY_UPLOADED, KEY_TASK_FIX };
 
 		public static final String[] KEYS_LATLON = { KEY_ROWID, KEY_LATITUDE,
 				KEY_LONGITUDE };

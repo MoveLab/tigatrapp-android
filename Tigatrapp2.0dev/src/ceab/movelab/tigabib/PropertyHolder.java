@@ -66,6 +66,7 @@
 package ceab.movelab.tigabib;
 
 import java.util.Locale;
+import java.util.UUID;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -110,6 +111,18 @@ public class PropertyHolder {
 		editor.commit();
 	}
 
+	static String LAST_DEMO_POPUP_TIME = "last_demo_popup_time";
+	
+	public static void setLastDemoPopUpTime(long time){
+		editor.putLong(LAST_DEMO_POPUP_TIME, time);
+		editor.commit();
+	}
+
+	public static long getLastDemoPopUpTime(){
+		return sharedPreferences.getLong(LAST_DEMO_POPUP_TIME, 0);
+	}
+
+	
 	static String LATEST_MISSION_ID = "latest_mission_id";
 
 	public static void setLatestMissionId(int latestMissionId) {
@@ -292,6 +305,21 @@ public class PropertyHolder {
 		editor.commit();
 	}
 
+	
+	public static String getUserCoverageId() {
+		if (sharedPreferences.getString("USER_COVERAGE_ID", null)==null){
+			setUserCoverageId(UUID.randomUUID().toString());
+		}
+		return sharedPreferences.getString("USER_COVERAGE_ID", UUID.randomUUID().toString());
+	}
+
+	public static void setUserCoverageId(String _userCovId) {
+		editor.putString("USER_COVERAGE_ID", _userCovId);
+		editor.commit();
+	}
+
+
+	
 	/**
 	 * Gets the user ID stored in shared preferences. This user ID refers to the
 	 * unique row ID for this user in the User table of the PMP mobility

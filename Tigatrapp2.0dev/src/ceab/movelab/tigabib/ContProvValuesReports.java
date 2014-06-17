@@ -63,8 +63,6 @@ public class ContProvValuesReports {
 
 		if (rep.confirmation != null)
 			initialValues.put(Reports.KEY_CONFIRMATION, rep.confirmation);
-		else 
-			initialValues.put(Reports.KEY_CONFIRMATION, "none");
 
 		initialValues.put(Reports.KEY_CONFIRMATION_CODE, rep.confirmationCode);
 

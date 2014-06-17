@@ -28,7 +28,7 @@
     <string name="app_directory" translatable="false">Tigatrapp</string>
     <string name="debug_mode" translatable="false">true</string>
     <string name="private_mode" translatable="false">false</string>
-    <string name="package_prefix" translatable="false">ceab.movelab.tigabib.</string>    
+    <string name="package_prefix" translatable="false">ceab.movelab.tigabib.</string>
     <string name="content_provider_auth_missions" translatable="false">ceab.movelab.tigabib.cp.missions</string>
     <string name="content_provider_auth_reports" translatable="false">ceab.movelab.tigabib.cp.reports</string>
     <string name="content_provider_auth_tracks" translatable="false">ceab.movelab.tigabib.cp.tracks</string>
@@ -90,6 +90,8 @@
     <string name="switchboard_button_text_adult">TIGER MOSQUITO</string>
     <string name="switchboard_button_text_map">MY MAP</string>
     <string name="switchboard_button_text_gallery">GALLERY</string>
+    <string name="switchboard_demo_popup">This is the demo version of Tigatrapp. With this version you cannot share data. If you want to participate in the project by contributing data, please click OK to install the full Tigatrapp application. (If you already have the full version, you can uninstall the demo at any time.)</string>
+    
 
     <!-- activity labels -->
     <string name="activity_label_report_editing">Tigatrapp: Report Editor</string>
@@ -267,11 +269,11 @@
     <string name="sample_my_locations">Sample my locations</string>
     <string name="sampling_is_off">Location sampling is off</string>
     <string name="sampling_is_on">Location sampling is on</string>
-    
     <string name="sync_error">Transmission error. Your data will be synchronized later automatically.</string>
     <string name="offline_sync">No internet connection. Your data will be synchronized automatically when there is a connection available.</string>
     <string name="sync_success">Synchronized</string>
-    
+    <string name="deletion_network_error">Report deleted from phone but there was a transmission error. Your data will be synchronized later automatically.</string>
+    <string name="deletion_no_network">Report deleted from phone but there is no internet connection. Your data will be synchronized automatically when there is a connection available.</string>
 
     <!-- Misc -->
 

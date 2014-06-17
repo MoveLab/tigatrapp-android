@@ -22,6 +22,7 @@
 package ceab.movelab.tigabib;
 
 import java.util.Iterator;
+import java.util.Locale;
 import java.util.UUID;
 
 import org.apache.http.HttpResponse;
@@ -30,7 +31,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.net.Uri;
+import android.os.Build;
 
 /**
  * Defines map point objects used in DriverMapActivity.
@@ -197,16 +201,10 @@ public class Report {
 		this.missionId = Report.MISSING;
 	}
 
-	Report(String reportId, int reportVersion) {
+	Report(Context context, String reportId, int type, long reportTime) {
 		this.versionUUID = UUID.randomUUID().toString();
 		this.reportId = reportId;
-		this.userId = null;
-		this.reportVersion = reportVersion;
-		this.reportTime = MISSING;
-		this.creation_time = null;
-		this.versionTimeString = null;
-		this.type = MISSING;
-		this.confirmation = null;
+		this.reportVersion = -1;
 		this.confirmationCode = -1;
 		this.locationChoice = MISSING;
 		this.currentLocationLat = null;
@@ -218,18 +216,29 @@ public class Report {
 		this.note = null;
 		this.uploaded = UPLOADED_NONE;
 		this.serverTimestamp = MISSING;
-		this.deleteReport = MISSING;
 		this.latestVersion = MISSING;
-		this.packageName = null;
-		this.packageVersion = MISSING;
-		this.phoneManufacturer = null;
-		this.phoneModel = null;
-		this.os = null;
-		this.osversion = null;
-		this.osLanguage = null;
-		this.appLanguage = null;
-		this.missionId = Report.MISSING;
+		this.reportTime = reportTime;
+		this.creation_time = Util.ecma262(reportTime);
+		;
+		this.versionTimeString = Util.ecma262(System.currentTimeMillis());
+		;
+		this.type = type;
+		this.deleteReport = 1;
+		this.confirmation = null;
+		try {
+			PackageInfo pInfo = context.getPackageManager().getPackageInfo(
+					context.getPackageName(), 0);
+			this.packageName = pInfo.packageName;
+			this.packageVersion = pInfo.versionCode;
+		} catch (NameNotFoundException e) {
+		}
+		this.phoneManufacturer = Build.MANUFACTURER;
+		this.phoneModel = Build.MODEL;
 
+		this.os = "Android";
+		this.osversion = Integer.toString(Build.VERSION.SDK_INT);
+		this.osLanguage = Locale.getDefault().getLanguage();
+		this.appLanguage = PropertyHolder.getLanguage();
 	}
 
 	public void clear() {
@@ -396,6 +405,8 @@ public class Report {
 
 		JSONObject result = new JSONObject();
 		try {
+			result.put("user", PropertyHolder.getUserId());
+			Util.logInfo(context, TAG, PropertyHolder.getUserId());
 			result.put("version_UUID", this.versionUUID);
 			result.put("version_number", this.reportVersion);
 			result.put("report_id", this.reportId);
@@ -428,8 +439,14 @@ public class Report {
 			result.put("app_language", this.appLanguage);
 
 			// making responses array
-			if (this.confirmation != null) {
-				JSONArray responsesArray = new JSONArray();
+
+			JSONArray responsesArray = new JSONArray();
+			if (this.confirmation == null || this.confirmation.equals("none")) {
+				JSONObject thisConfirmation = new JSONObject();
+				thisConfirmation.put("question", "none");
+				thisConfirmation.put("answer", "none");
+				responsesArray.put(thisConfirmation);
+			} else {
 				JSONObject thisConfirmation = new JSONObject(this.confirmation);
 				Iterator<String> iter = thisConfirmation.keys();
 				while (iter.hasNext()) {
@@ -441,8 +458,8 @@ public class Report {
 								.getJSONObject(key);
 						innerJSON.put("question",
 								itemJSON.get(MissionItemModel.KEY_ITEM_TEXT));
-						innerJSON.put("answer",
-								itemJSON.get(MissionItemModel.KEY_ITEM_RESPONSE));
+						innerJSON.put("answer", itemJSON
+								.get(MissionItemModel.KEY_ITEM_RESPONSE));
 
 						responsesArray.put(innerJSON);
 
@@ -450,10 +467,9 @@ public class Report {
 						Util.logError(context, TAG, "error: " + e);
 					}
 				}
-
-				result.put("responses", responsesArray);
 			}
-			result.put("user", PropertyHolder.getUserId());
+			result.put("responses", responsesArray);
+
 			if (this.type == TYPE_MISSION)
 				result.put("mission", this.missionId);
 
@@ -519,7 +535,7 @@ public class Report {
 					Util.logError(context, TAG, "JSON exception: " + e);
 				}
 			}
-		} else{
+		} else {
 			result = UPLOADED_ALL;
 		}
 		return result;

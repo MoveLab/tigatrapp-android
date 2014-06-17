@@ -22,7 +22,9 @@
 package ceab.movelab.tigabib;
 
 import java.util.UUID;
+
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -36,10 +38,14 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.View.OnClickListener;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import ceab.movelab.tigabib.ContProvContractReports.Reports;
 import ceab.movelab.tigabib.R;
 
@@ -84,6 +90,59 @@ public class Switchboard extends Activity {
 			if (PropertyHolder.getUserId() == null) {
 				String userId = UUID.randomUUID().toString();
 				PropertyHolder.setUserId(userId);
+			}
+
+			if (Util.privateMode(context)) {
+
+				final long now = System.currentTimeMillis();
+
+
+				if ((now - PropertyHolder.getLastDemoPopUpTime()) > Util.DAYS) {
+
+					final Dialog dialog = new Dialog(context);
+
+					dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+					dialog.setContentView(R.layout.custom_alert);
+
+					dialog.setCancelable(true);
+
+					TextView alertText = (TextView) dialog
+							.findViewById(R.id.alertText);
+					alertText.setText(getResources().getString(
+							R.string.switchboard_demo_popup));
+
+					Button positive = (Button) dialog
+							.findViewById(R.id.alertOK);
+					Button negative = (Button) dialog
+							.findViewById(R.id.alertCancel);
+
+					negative.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+
+							PropertyHolder.setLastDemoPopUpTime(now);
+							dialog.cancel();
+
+						}
+
+					});
+
+					positive.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+
+							Intent intent = new Intent(Intent.ACTION_VIEW);
+							intent.setData(Uri
+									.parse("market://details?id=ceab.movelab.tigatrapp"));
+							startActivity(intent);
+
+						}
+					});
+
+					dialog.show();
+
+				}
 			}
 
 			// open and close databases in order to trigger any updates

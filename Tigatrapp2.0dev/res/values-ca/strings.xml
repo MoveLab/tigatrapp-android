@@ -17,7 +17,7 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
@@ -72,7 +72,9 @@
     <string name="switchboard_button_text_adult">MOSQUIT TIGRE</string>
     <string name="switchboard_button_text_map">EL MEU MAPA</string>
     <string name="switchboard_button_text_gallery">GALERIA</string>
-
+    <string name="switchboard_demo_popup">Estàs utilitzant la versió demo (de proves) de Tigatrapp. Amb aquesta versió antiga no es poden enviar dades. Si vols participar al projecte compartint dades, clica OK per instal·lar-te la versió completa (si ja la tens instal·lada, pots desinstal·lar-te la versió demo quan vulguis).</string>
+    
+    
     <!-- activity labels -->
     <string name="activity_label_report_editing">Tigatrapp: Edita informe</string>
     <string name="activity_label_report_new">Tigatrapp: Nou informe</string>
@@ -102,7 +104,7 @@
     <string name="photo_label">Imatges</string>
     <string name="photo_label_star">Imatges*</string>
     <string name="site_report_q1">Selecciona lloc de cria</string>
-    <string name="site_report_q2">Conté aigua?</string>
+    <string name="site_report_q2">Conté aigua estancada?</string>
     <string name="site_report_q3">Conté larves o pupes de mosquit (de qualsevol espècie)?</string>
     <string name="adult_report_q3">Té ratlles blanques a l\'abdomen i a les potes?</string>
     <string name="q3_headthorax_text">El mosquit tigre té una ratlla blanca al cap i al tòrax. Evita enviar dades d\'altres insectes.</string>
@@ -249,13 +251,12 @@
     <string name="sample_my_locations">Geolocalització</string>
     <string name="sampling_is_off">Permetre enviament de dades aproximades de la meva localització en background</string>
     <string name="sampling_is_on">Permetre enviament de dades aproximades de la meva localització en background</string>
-
-     <string name="sync_error">Error de connexió a internet. Les teves dades s\'enviaran automàticament més tard.</string>
+    <string name="sync_error">Error de connexió a internet. Les teves dades s\'enviaran automàticament més tard.</string>
     <string name="offline_sync">Sense connexió a internet. Les teves dades s\'enviaran automàticament quan torni la connexió.</string>
     <string name="sync_success">Sincronitzat</string>
-    
-  
-    
+    <string name="deletion_network_error">Informe borrado pero error de conexión en internet. Tus datos se enviarán automáticamente más tarde.</string>
+    <string name="deletion_no_network">Informe borrado pero sin conexión en internet. Tus datos se enviarán automáticamente cuando vuelva la conexión.</string>
+
     <!-- Misc -->
 
     <string name="added_current_loc">Posició actual guardada</string>
@@ -294,7 +295,6 @@
     <string name="gpl_heading">GPL</string>
     <string name="LGPL">Veure LGPL</string>
     <string name="license">Llicència</string>
-   
     <string name="mailing_spec_title">Envia una mostra</string>
     <string name="movelab">MoveLab\nCentre d\'Estudis Avançats de Blanes (CEAB-CSIC)</string>
     <string name="movelab_address1">C/ d\'accés a la Cala St. Francesc, 14</string>

@@ -17,7 +17,7 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
@@ -71,6 +71,7 @@
     <string name="switchboard_button_text_adult">MOSQUITO TIGRE</string>
     <string name="switchboard_button_text_map">MI MAPA</string>
     <string name="switchboard_button_text_gallery">GALERIA</string>
+    <string name="switchboard_demo_popup">Estás utilizando la versión demo (versión de prueba) de Tigatrapp. Con esta versión antigua no se pueden enviar datos. Si quieres participar en el proyecto compartiendo datos, clica OK para instalarte la versión completa (si ya tienes la versión completa, puedes desinstalarte la versión demo cuando quieras).</string>
 
     <!-- activity labels -->
     <string name="activity_label_report_editing">Tigatrapp: Edita informe</string>
@@ -101,7 +102,7 @@
     <string name="photo_label">Imágenes</string>
     <string name="photo_label_star">Imágenes*</string>
     <string name="site_report_q1">Tipo de lugar de cría</string>
-    <string name="site_report_q2">¿Contiene agua?</string>
+    <string name="site_report_q2">¿Contiene agua estancada?</string>
     <string name="site_report_q3">¿Contiene larvas o pupas de mosquito (de cualquier especie)?</string>
     <string name="adult_report_q3">¿Tiene rayas blancas en el abdomen y en las patas?</string>
     <string name="q3_headthorax_text">El mosquito tigre tiene una raya blanca en la cabeza y en el tórax. Evita enviar datos de mosquitos que no sean tigre.</string>
@@ -249,13 +250,11 @@
     <string name="sample_my_locations">Geolocalización</string>
     <string name="sampling_is_off">Permitir envío de datos aproximados de mi localización en background</string>
     <string name="sampling_is_on">Permitir envío de datos aproximados de mi localización en background</string>
-
     <string name="sync_error">Error de conexión a internet. Tus datos se enviarán automáticamente más tarde.</string>
     <string name="offline_sync">Sin conexión a internet. Tus datos se enviarán automáticamente cuando vuelva la conexión.</string>
     <string name="sync_success">Sincronizado</string>
-    
-    
-    
+    <string name="deletion_network_error">Informe borrado pero error de conexión a internet. Tus datos se enviarán automáticamente más tarde.</string>
+    <string name="deletion_no_network">Informe borrado pero sin conexión a internet. Tus datos se enviarán automáticamente cuando vuelva la conexión.</string>
     <!-- Misc -->
 
     <string name="added_current_loc">Posición actual guardada</string>

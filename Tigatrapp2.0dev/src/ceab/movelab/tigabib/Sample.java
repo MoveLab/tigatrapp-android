@@ -43,6 +43,7 @@
 package ceab.movelab.tigabib;
 
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Random;
 
 import android.app.AlarmManager;
@@ -113,21 +114,47 @@ public class Sample extends Service {
 		AlarmManager alarmManager = (AlarmManager) context
 				.getSystemService(Context.ALARM_SERVICE);
 
-		int alarmType = AlarmManager.ELAPSED_REALTIME_WAKEUP;
-		long baseTimeElapsed = SystemClock.elapsedRealtime();
-		long baseTimeNow = System.currentTimeMillis();
+		int alarmType = AlarmManager.RTC_WAKEUP;
+		Calendar c;
 
-		long thisRandomMinute;
+		int thisRandomMinute;
+		int thisRandomHour;
+		int thisRandomMinuteIndex;
 		long thisTriggerTime;
 		Random mRandom = new Random();
 
 		String[] currentSamplingTimes = new String[samplesPerDay];
 
 		for (int i = 0; i < samplesPerDay; i++) {
-			thisRandomMinute = mRandom.nextInt(24 * 60) * 60 * 1000;
-			thisTriggerTime = baseTimeElapsed + thisRandomMinute;
-			currentSamplingTimes[i] = Util.iso8601(baseTimeNow
-					+ thisRandomMinute);
+			// draw random minute index from all minutes in 15 hour period
+			thisRandomMinuteIndex = mRandom.nextInt(15 * 60);
+
+			// figure out the hour of day this corresponds to when minute index
+			// 0 is 00:00
+			thisRandomHour = (int) Math.floor(thisRandomMinuteIndex
+					/ ((double) 60));
+
+			// figure out the minute of the hour
+			if (thisRandomHour > 0)
+				thisRandomMinute = thisRandomMinuteIndex % thisRandomHour;
+			else
+				thisRandomMinute = thisRandomMinuteIndex;
+
+			// push the hour forward so it starts at 07:00 am
+			thisRandomHour += 7;
+
+			c = Calendar.getInstance();
+			c.set(Calendar.HOUR_OF_DAY, thisRandomHour);
+			c.set(Calendar.MINUTE, thisRandomMinute);
+
+			// If it is already after 7 am in the user's local time, set this
+			// sample for the next day
+			if (c.getTimeInMillis() < System.currentTimeMillis())
+				c.add(Calendar.DATE, 1);
+
+			thisTriggerTime = c.getTimeInMillis();
+
+			currentSamplingTimes[i] = Util.iso8601(thisTriggerTime);
 
 			alarmManager.set(alarmType, thisTriggerTime, PendingIntent
 					.getService(context, (ALARM_ID_START_FIX * i), new Intent(

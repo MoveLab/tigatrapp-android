@@ -138,6 +138,8 @@ public class Settings extends Activity {
 				@Override
 				public void onClick(View v) {
 					Util.internalBroadcast(context, Messages.START_TASK_FIX);
+					Util.internalBroadcast(context,
+							Messages.START_DAILY_SAMPLING);
 				}
 			});
 		} else

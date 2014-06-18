@@ -22,8 +22,8 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ceab.movelab.tigerapp"
-    android:versionCode="26"
-    android:versionName="Tigatrapp Demo 1.02" >
+    android:versionCode="27"
+    android:versionName="Tigatrapp Demo 1.03" >
 
     <uses-sdk
         android:minSdkVersion="4"

@@ -1122,7 +1122,14 @@ public class ReportTool extends Activity {
 
 		protected void onPostExecute(Boolean result) {
 
-			prog.dismiss();
+			try {
+				prog.dismiss();
+				prog = null;
+			} catch (Exception e) {
+				// I realize this is ugly, but it is a solution to the problem
+				// discussed here:
+				// https://stackoverflow.com/questions/2745061/java-lang-illegalargumentexception-view-not-attached-to-window-manager/5102572#5102572
+			}
 
 			if (result && resultFlag == SUCCESS) {
 				Util.toast(

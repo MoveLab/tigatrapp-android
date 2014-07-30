@@ -102,9 +102,10 @@ public class MissionActivity extends Activity {
 			thisTask = new JSONObject(taskJson);
 
 			if (thisTask.has(MissionModel.KEY_TITLE)
-					&& Util.getString(thisTask, MissionModel.KEY_TITLE).length() > 0) {
-				taskTitle
-						.setText(Util.getString(thisTask, MissionModel.KEY_TITLE));
+					&& Util.getString(thisTask, MissionModel.KEY_TITLE)
+							.length() > 0) {
+				taskTitle.setText(Util.getString(thisTask,
+						MissionModel.KEY_TITLE));
 			} else if (thisTask.has(MissionModel.KEY_TITLE_CATALAN)
 					&& thisTask.has(MissionModel.KEY_TITLE_SPANISH)
 					&& thisTask.has(MissionModel.KEY_TITLE_ENGLISH)) {
@@ -166,8 +167,8 @@ public class MissionActivity extends Activity {
 				JSONArray theseItems = new JSONArray(
 						thisTask.getString(MissionModel.KEY_ITEMS));
 				for (int i = 0; i < theseItems.length(); i++) {
-					MissionItemModel thisTaskItem = new MissionItemModel(context,
-							new JSONObject(theseItems.getString(i)));
+					MissionItemModel thisTaskItem = new MissionItemModel(
+							context, new JSONObject(theseItems.getString(i)));
 
 					if (currentResponses != null) {
 						JSONObject cr = new JSONObject(currentResponses);
@@ -244,7 +245,8 @@ public class MissionActivity extends Activity {
 						}
 					});
 
-				} else if (thisTask.getInt(MissionModel.KEY_PRESET_CONFIGURATION) == MissionModel.PRECONFIRUATION_SITES) {
+				} else if (thisTask
+						.getInt(MissionModel.KEY_PRESET_CONFIGURATION) == MissionModel.PRECONFIRUATION_SITES) {
 
 					buttonLeft.setVisibility(View.GONE);
 					buttonMiddle.setVisibility(View.GONE);
@@ -325,8 +327,8 @@ public class MissionActivity extends Activity {
 							.getString(MissionModel.KEY_TASK_BUTTON_LEFT_URL)
 							: null;
 					buttonLeft.setOnClickListener(makeOnClickListener(thisTask
-							.getInt(MissionModel.KEY_TASK_BUTTON_LEFT_ACTION), b,
-							leftUrl));
+							.getInt(MissionModel.KEY_TASK_BUTTON_LEFT_ACTION),
+							b, leftUrl));
 				}
 
 				// MIDDLE BUTTON
@@ -337,10 +339,19 @@ public class MissionActivity extends Activity {
 				else {
 					buttonMiddle.setVisibility(View.VISIBLE);
 
-					// FOR NOW ONLY ONE OPTION FOR MIDDLE AND RIGHT TEXT
-					buttonMiddle.setText(getResources().getString(
-							R.string.mission_button_middle));
-					if (thisTask.has(MissionModel.KEY_TASK_BUTTON_MIDDLE_ACTION)) {
+					// FOR NOW MIDDLE TEXT FIXED DEPENDING ON TASK TYPE
+					if (buttonLeft.getText().equals(
+							getResources().getString(
+									R.string.mission_button_left_url))) {
+						buttonMiddle.setText(getResources().getString(
+								R.string.mission_button_mark_complete));
+					} else {
+
+						buttonMiddle.setText(getResources().getString(
+								R.string.mission_button_middle));
+					}
+					if (thisTask
+							.has(MissionModel.KEY_TASK_BUTTON_MIDDLE_ACTION)) {
 						String middleUrl = thisTask
 								.has(MissionModel.KEY_TASK_BUTTON_MIDDLE_URL) ? thisTask
 								.getString(MissionModel.KEY_TASK_BUTTON_MIDDLE_URL)
@@ -360,7 +371,7 @@ public class MissionActivity extends Activity {
 				else {
 					buttonRight.setVisibility(View.VISIBLE);
 
-					// FOR NOW ONLY ONE OPTION FOR MIDDLE AND RIGHT TEXT
+					// FOR NOW ONLY ONE OPTION FOR RIGHT TEXT
 					buttonRight.setText(getResources().getString(
 							R.string.mission_button_right));
 
@@ -417,16 +428,18 @@ public class MissionActivity extends Activity {
 					cv.put(Tasks.KEY_DONE, 1);
 					cr.update(Util.getMissionsUri(context), cv, sc, null);
 					// CHECK IF NOTIFICATIONS SHOULD BE REMOVED
-					sc = Tasks.KEY_ACTIVE + " = 1 AND " + Tasks.KEY_DONE + " = " + "0 AND "
-							+ Tasks.KEY_EXPIRATION_TIME + " <="
-							+ System.currentTimeMillis();
-					Cursor c = cr.query(Util.getMissionsUri(context), Tasks.KEYS_DONE, sc,
-							null, null);
-					Util.logInfo(context, TAG, "remaining tasks: " + c.getCount());
+					sc = Tasks.KEY_ACTIVE + " = 1 AND " + Tasks.KEY_DONE
+							+ " = " + "0 AND " + Tasks.KEY_EXPIRATION_TIME
+							+ " <=" + System.currentTimeMillis();
+					Cursor c = cr.query(Util.getMissionsUri(context),
+							Tasks.KEYS_DONE, sc, null, null);
+					Util.logInfo(context, TAG,
+							"remaining tasks: " + c.getCount());
 					if (c.getCount() == 0) {
 						Util.internalBroadcast(context,
 								Messages.REMOVE_TASK_NOTIFICATION);
-						Util.logInfo(context, TAG, "just broadcast:" + Messages.REMOVE_TASK_NOTIFICATION);
+						Util.logInfo(context, TAG, "just broadcast:"
+								+ Messages.REMOVE_TASK_NOTIFICATION);
 
 					}
 
@@ -453,10 +466,10 @@ public class MissionActivity extends Activity {
 					String osLanguage = Locale.getDefault().getLanguage();
 					String appLanguage = PropertyHolder.getLanguage();
 
-					Report missionReport = new Report(context, UUID.randomUUID()
-							.toString(), PropertyHolder.getUserId(),
-							Util.makeReportId(), 0, currentTime,
-							currentTimeString, currentTimeString,
+					Report missionReport = new Report(context, UUID
+							.randomUUID().toString(),
+							PropertyHolder.getUserId(), Util.makeReportId(), 0,
+							currentTime, currentTimeString, currentTimeString,
 							Report.TYPE_MISSION, responses.toString(),
 							Report.CONFIRMATION_CODE_MISSING,
 							Report.LOCATION_CHOICE_MISSING, Report.MISSING,
@@ -467,8 +480,8 @@ public class MissionActivity extends Activity {
 							osversion, osLanguage, appLanguage, missionId);
 
 					// First save report to internal DB
-					cr.insert(Util.getReportsUri(context), ContProvValuesReports
-							.createReport(missionReport));
+					cr.insert(Util.getReportsUri(context),
+							ContProvValuesReports.createReport(missionReport));
 
 					if (thisUrl != null) {
 						Intent i = new Intent(Intent.ACTION_VIEW);
@@ -511,8 +524,8 @@ public class MissionActivity extends Activity {
 					sc = Tasks.KEY_DONE + " = " + "0 AND "
 							+ Tasks.KEY_EXPIRATION_TIME + " <="
 							+ System.currentTimeMillis();
-					Cursor c = cr.query(Util.getMissionsUri(context), Tasks.KEYS_DONE, sc,
-							null, null);
+					Cursor c = cr.query(Util.getMissionsUri(context),
+							Tasks.KEYS_DONE, sc, null, null);
 					if (c.getCount() == 0) {
 						Util.internalBroadcast(context,
 								Messages.REMOVE_TASK_NOTIFICATION);
@@ -523,6 +536,103 @@ public class MissionActivity extends Activity {
 			};
 			break;
 		}
+		case (MissionModel.BUTTONACTIONS_GO_TO_URL): {
+			result = new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if (thisUrl != null) {
+						Intent i = new Intent(Intent.ACTION_VIEW);
+						i.setData(Uri.parse(thisUrl));
+						startActivity(i);
+					}
+				}
+			};
+			break;
+		}
+		case (MissionModel.BUTTONACTIONS_MARK_COMPLETE): {
+			result = new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Util.logInfo(context, TAG, "do task clicked");
+					ContentResolver cr = getContentResolver();
+					ContentValues cv = new ContentValues();
+					int rowId = thisBundle.getInt(Tasks.KEY_ROW_ID);
+					String sc = Tasks.KEY_ROW_ID + " = " + rowId;
+					if (responses.length() > 0) {
+						cv.put(Tasks.KEY_RESPONSES_JSON, responses.toString());
+					}
+					cv.put(Tasks.KEY_DONE, 1);
+					cr.update(Util.getMissionsUri(context), cv, sc, null);
+					// CHECK IF NOTIFICATIONS SHOULD BE REMOVED
+					sc = Tasks.KEY_ACTIVE + " = 1 AND " + Tasks.KEY_DONE
+							+ " = " + "0 AND " + Tasks.KEY_EXPIRATION_TIME
+							+ " <=" + System.currentTimeMillis();
+					Cursor c = cr.query(Util.getMissionsUri(context),
+							Tasks.KEYS_DONE, sc, null, null);
+					Util.logInfo(context, TAG,
+							"remaining tasks: " + c.getCount());
+					if (c.getCount() == 0) {
+						Util.internalBroadcast(context,
+								Messages.REMOVE_TASK_NOTIFICATION);
+						Util.logInfo(context, TAG, "just broadcast:"
+								+ Messages.REMOVE_TASK_NOTIFICATION);
+
+					}
+
+					c.close();
+
+					long currentTime = System.currentTimeMillis();
+					String currentTimeString = Util.ecma262(currentTime);
+
+					String packageName = "";
+					int packageVersion = Report.MISSING;
+					try {
+						PackageInfo pInfo = getPackageManager().getPackageInfo(
+								getPackageName(), 0);
+						packageName = pInfo.packageName;
+						packageVersion = pInfo.versionCode;
+					} catch (NameNotFoundException e) {
+					}
+
+					String phoneManufacturer = Build.MANUFACTURER;
+					String phoneModel = Build.MODEL;
+
+					String os = "Android";
+					String osversion = Integer.toString(Build.VERSION.SDK_INT);
+					String osLanguage = Locale.getDefault().getLanguage();
+					String appLanguage = PropertyHolder.getLanguage();
+
+					Report missionReport = new Report(context, UUID
+							.randomUUID().toString(),
+							PropertyHolder.getUserId(), Util.makeReportId(), 0,
+							currentTime, currentTimeString, currentTimeString,
+							Report.TYPE_MISSION, responses.toString(),
+							Report.CONFIRMATION_CODE_MISSING,
+							Report.LOCATION_CHOICE_MISSING, Report.MISSING,
+							Report.MISSING, Report.MISSING, Report.MISSING,
+							Report.NO, null, null, Report.UPLOADED_NONE,
+							Report.MISSING, Report.NO, Report.YES, packageName,
+							packageVersion, phoneManufacturer, phoneModel, os,
+							osversion, osLanguage, appLanguage, missionId);
+
+					// First save report to internal DB
+					cr.insert(Util.getReportsUri(context),
+							ContProvValuesReports.createReport(missionReport));
+
+					// take 1 fix for this task
+					Util.internalBroadcast(context, Messages.START_TASK_FIX);
+
+					// Now trigger sync task
+					Intent syncIntent = new Intent(MissionActivity.this,
+							SyncData.class);
+					startService(syncIntent);
+
+					finish();
+				}
+			};
+			break;
+		}
+
 		}
 		return result;
 	}

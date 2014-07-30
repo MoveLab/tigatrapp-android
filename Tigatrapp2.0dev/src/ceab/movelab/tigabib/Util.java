@@ -149,11 +149,13 @@ public class Util {
 	private static String TAG = "Util";
 
 	public static final int MAX_MISSION_VERSION = 1;
-	
-	// if we ignore fixes above 60 degrees latitude or below -60 degrees latitude, then the size of the 
-	// .05x.05 degree areas should all be larger than 15.5 km. See http://msi.nga.mil/MSISiteContent/StaticFiles/Calculators/degree.html
+
+	// if we ignore fixes above 60 degrees latitude or below -60 degrees
+	// latitude, then the size of the
+	// .05x.05 degree areas should all be larger than 15.5 km. See
+	// http://msi.nga.mil/MSISiteContent/StaticFiles/Calculators/degree.html
 	public static int FIX_LAT_CUTOFF = 60;
-	
+
 	public static boolean privateMode(Context context) {
 		boolean result = false;
 		if (context.getResources().getString(R.string.private_mode)
@@ -838,9 +840,10 @@ public class Util {
 		// ------------------ read the SERVER RESPONSE
 		try {
 
-			response = conn.getResponseCode();
-			Log.d(TAG, "response: " + conn.getResponseMessage());
-
+			if (conn != null) {
+				response = conn.getResponseCode();
+				Log.d(TAG, "response: " + conn.getResponseMessage());
+			}
 		} catch (IOException e) {
 			Log.e(TAG, "Connection error", e);
 		}
@@ -1089,7 +1092,6 @@ public class Util {
 				+ ContProvTracks.DATABASE_TABLE);
 	}
 
-	
 	public static void buildCustomAlert(Context context, String message) {
 
 		final Dialog dialog = new Dialog(context);
@@ -1120,5 +1122,4 @@ public class Util {
 
 	}
 
-	
 }

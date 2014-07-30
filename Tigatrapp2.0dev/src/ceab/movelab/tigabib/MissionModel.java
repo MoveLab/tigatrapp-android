@@ -75,6 +75,13 @@ public class MissionModel {
 	public static final int BUTTONACTIONS_DELETE_TASK = 2;
 	// This button deletes the task from phone and removes notification if there
 	// are no other pending tasks.
+	
+	public static final int BUTTONACTIONS_GO_TO_URL = 3;
+	// This button just goes to the URL but does not mark task as complete
+
+	public static final int BUTTONACTIONS_MARK_COMPLETE = 4;
+	// This button marks task as complete
+
 
 	public static final int PRECONFIRUATION_SITES = 0;
 	public static final int PRECONFIRUATION_ADULTS = 1;

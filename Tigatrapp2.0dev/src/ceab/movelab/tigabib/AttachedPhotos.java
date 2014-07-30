@@ -94,8 +94,8 @@ public class AttachedPhotos extends Activity {
 					public void onItemClick(AdapterView<?> parent, View v,
 							int position, long id) {
 
-						String thisPhotoUri = Report.getPhotoUri(context, jsonPhotos,
-								position);
+						String thisPhotoUri = Report.getPhotoUri(context,
+								jsonPhotos, position);
 						if (thisPhotoUri != null) {
 
 							try {
@@ -154,8 +154,8 @@ public class AttachedPhotos extends Activity {
 									public void onClick(DialogInterface d,
 											int arg1) {
 
-										jsonPhotos = Report.deletePhoto(context, 
-												jsonPhotos, pos);
+										jsonPhotos = Report.deletePhoto(
+												context, jsonPhotos, pos);
 										// I realize this is ugly, but it is the
 										// quickest fix right now to get the
 										// grid
@@ -216,20 +216,25 @@ public class AttachedPhotos extends Activity {
 								// when the dialog OK button is pushed
 								m_chosen = chosenDir;
 
-								JSONObject newPhoto = new JSONObject();
-								try {
-									newPhoto.put(Report.KEY_PHOTO_URI, m_chosen);
-									jsonPhotos.put(newPhoto);
-								} catch (JSONException e) {
-									Util.logError(context, TAG, "error: " + e);
-								}
+								if ((new File(m_chosen)).isFile()) {
 
-								// I realize this is ugly, but it is the
-								// quickest fix right now to get the grid
-								// updated...
-								adapter = new PhotoGridAdapter(context,
-										jsonPhotos);
-								gridview.setAdapter(adapter);
+									JSONObject newPhoto = new JSONObject();
+									try {
+										newPhoto.put(Report.KEY_PHOTO_URI,
+												m_chosen);
+										jsonPhotos.put(newPhoto);
+									} catch (JSONException e) {
+										Util.logError(context, TAG, "error: "
+												+ e);
+									}
+
+									// I realize this is ugly, but it is the
+									// quickest fix right now to get the grid
+									// updated...
+									adapter = new PhotoGridAdapter(context,
+											jsonPhotos);
+									gridview.setAdapter(adapter);
+								}
 
 							}
 
@@ -308,8 +313,11 @@ public class AttachedPhotos extends Activity {
 	@Override
 	protected void onSaveInstanceState(Bundle icicle) {
 		super.onSaveInstanceState(icicle);
-		icicle.putString(Reports.KEY_PHOTO_URIS, jsonPhotos.toString());
-		icicle.putString("photoUri", photoUri.getPath());
+		if (jsonPhotos != null)
+			icicle.putString(Reports.KEY_PHOTO_URIS, jsonPhotos.toString());
+
+		if (photoUri != null)
+			icicle.putString("photoUri", photoUri.getPath());
 
 	}
 

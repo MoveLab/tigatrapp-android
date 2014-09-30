@@ -175,27 +175,23 @@ public class ContProvValuesMissions {
 				taskObject.put(MissionModel.KEY_TASK_BUTTON_LEFT_TEXT,
 						MissionModel.BUTTONTEXT_URL_TASK);
 				taskObject.put(MissionModel.KEY_TASK_BUTTON_LEFT_ACTION,
-						MissionModel.BUTTONACTIONS_GO_TO_URL);
+						MissionModel.BUTTONTEXT_URL_TASK);
 				taskObject.put(MissionModel.KEY_TASK_BUTTON_LEFT_VISIBLE, 1);
-				taskObject.put(MissionModel.KEY_TASK_BUTTON_MIDDLE_TEXT,
-						MissionModel.BUTTONTEXT_MARK_COMPLETE);
-				taskObject.put(MissionModel.KEY_TASK_BUTTON_MIDDLE_ACTION,
-						MissionModel.BUTTONACTIONS_MARK_COMPLETE);
-				taskObject.put(MissionModel.KEY_TASK_BUTTON_MIDDLE_VISIBLE, 1);
 			} else {
 				taskObject.put(MissionModel.KEY_TASK_BUTTON_LEFT_TEXT,
 						MissionModel.BUTTONTEXT_SURVEY_TASK);
 				taskObject.put(MissionModel.KEY_TASK_BUTTON_LEFT_ACTION,
 						MissionModel.BUTTONACTIONS_DO_TASK);
 				taskObject.put(MissionModel.KEY_TASK_BUTTON_LEFT_VISIBLE, 1);
-				taskObject.put(MissionModel.KEY_TASK_BUTTON_MIDDLE_TEXT,
-						MissionModel.BUTTONTEXT_DO_TASK_LATER);
-				taskObject.put(MissionModel.KEY_TASK_BUTTON_MIDDLE_ACTION,
-						MissionModel.BUTTONACTIONS_DO_TASK_LATER);
-				taskObject.put(MissionModel.KEY_TASK_BUTTON_MIDDLE_VISIBLE, 1);
 			}
 
-			// FOR NOW, all right button will always be the same
+			// FOR NOW, all other buttons will aways be the same
+			taskObject.put(MissionModel.KEY_TASK_BUTTON_MIDDLE_TEXT,
+					MissionModel.BUTTONTEXT_DO_TASK_LATER);
+			taskObject.put(MissionModel.KEY_TASK_BUTTON_MIDDLE_ACTION,
+					MissionModel.BUTTONACTIONS_DO_TASK_LATER);
+			taskObject.put(MissionModel.KEY_TASK_BUTTON_MIDDLE_VISIBLE, 1);
+
 			taskObject.put(MissionModel.KEY_TASK_BUTTON_RIGHT_TEXT,
 					MissionModel.BUTTONTEXT_DELETE_TASK);
 			taskObject.put(MissionModel.KEY_TASK_BUTTON_RIGHT_ACTION,

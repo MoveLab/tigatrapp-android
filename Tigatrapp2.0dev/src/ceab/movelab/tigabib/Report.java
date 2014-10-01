@@ -495,9 +495,14 @@ public class Report {
 					result = UPLOADED_REPORT_ONLY;
 					Util.logInfo(context, TAG, "statusCode1: " + statusCode1);
 					result = uploadPhotos(context);
+				} else if(statusCode1 == 400){
+					// mark report as uploaded because in any case there is no point in sending it back to server.
+					result = UPLOADED_REPORT_ONLY;
+					Util.logInfo(context, TAG, "statusCode1: " + statusCode1);
+					result = uploadPhotos(context);
 				} else {
 					Util.logError(context, TAG, "fail upload, status code: "
-							+ this.uploaded);
+							+ statusCode1 + "uploaded: " + this.uploaded);
 
 					Util.logError(context, TAG, "failed to upload report: "
 							+ this.exportJSON(context).toString());

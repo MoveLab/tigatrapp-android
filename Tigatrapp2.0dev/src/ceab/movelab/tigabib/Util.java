@@ -778,8 +778,8 @@ public class Util {
 			// Don't use a cached copy.
 			conn.setUseCaches(false);
 			// set timeout
-			conn.setConnectTimeout(60000);
-			conn.setReadTimeout(60000);
+			conn.setConnectTimeout(240000);
+			conn.setReadTimeout(240000);
 			// Use a post method.
 			conn.setRequestMethod("POST");
 			// conn.setRequestProperty("Connection", "Keep-Alive");

@@ -204,49 +204,14 @@ public class AttachedPhotos extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// ///////////////////////////////////////////////////////////////////////////////////////////////
-				// Create FileOpenDialog and register a callback
-				// ///////////////////////////////////////////////////////////////////////////////////////////////
-				SimpleFileDialog FileOpenDialog = new SimpleFileDialog(
-						AttachedPhotos.this, "FileOpen",
-						new SimpleFileDialog.SimpleFileDialogListener() {
-							@Override
-							public void onChosenDir(String chosenDir) {
-								// The code in this function will be executed
-								// when the dialog OK button is pushed
-								m_chosen = chosenDir;
 
-								if ((new File(m_chosen)).isFile()) {
-
-									JSONObject newPhoto = new JSONObject();
-									try {
-										newPhoto.put(Report.KEY_PHOTO_URI,
-												m_chosen);
-										jsonPhotos.put(newPhoto);
-									} catch (JSONException e) {
-										Util.logError(context, TAG, "error: "
-												+ e);
-									}
-
-									// I realize this is ugly, but it is the
-									// quickest fix right now to get the grid
-									// updated...
-									adapter = new PhotoGridAdapter(context,
-											jsonPhotos);
-									gridview.setAdapter(adapter);
-								}
-
-							}
-
-						});
-
-				// You can change the default filename using the public variable
-				// "Default_File_Name"
-				FileOpenDialog.Default_File_Name = "";
-				FileOpenDialog.chooseFile_or_Dir();
-
-				// ///////////////////////////////////////////////////////////////////////////////////////////////
-
+				Intent intent = new Intent();
+				// Show only images, no videos or anything else
+				intent.setType("image/*");
+				intent.setAction(Intent.ACTION_GET_CONTENT);
+				// Always show the chooser (if there are multiple options available)
+				startActivityForResult(Intent.createChooser(intent, getResources().getString(R.string.photo_selector_attach_photo_button)), ReportTool.REQUEST_CODE_GET_PHOTO_FROM_GALLERY);
+				
 			}
 		});
 
@@ -385,6 +350,35 @@ public class AttachedPhotos extends Activity {
 			break;
 
 		}
+		case (ReportTool.REQUEST_CODE_GET_PHOTO_FROM_GALLERY): {
+			
+			Uri this_uri = data.getData();
+			
+			if (resultCode == RESULT_OK && this_uri != null) {
+
+				JSONObject newPhoto = new JSONObject();
+				try {
+					newPhoto.put(Report.KEY_PHOTO_URI, this_uri.getPath());
+					newPhoto.put(Report.KEY_PHOTO_TIME,
+							System.currentTimeMillis());
+					jsonPhotos.put(newPhoto);
+				} catch (JSONException e) {
+					Util.logError(context, TAG, "error: " + e);
+				}
+
+				// I realize this is ugly, but it is the
+				// quickest fix right now to get the grid
+				// updated...
+				adapter = new PhotoGridAdapter(context, jsonPhotos);
+				gridview.setAdapter(adapter);
+
+			}
+			break;
+
+		}
+		
+
+		
 
 		}
 

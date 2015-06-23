@@ -135,7 +135,9 @@ public class ReportTool extends Activity {
 	public static final int REQUEST_CODE_MAPSELECTOR = 2;
 	public static final int REQUEST_CODE_ATTACHED_PHOTOS = 3;
 	public static final int REQUEST_CODE_REPORT_RESPONSES = 4;
+	public static final int REQUEST_CODE_GET_PHOTO_FROM_GALLERY = 5;
 
+	
 	public static final String EXTRA_PHOTO_URI_ARRAY = "photoUriArray";
 	public static final String EXTRA_PHOTO_TIME_ARRAY = "photoTimeArray";
 	public static final String EXTRA_REPORT_ID = "reportId";

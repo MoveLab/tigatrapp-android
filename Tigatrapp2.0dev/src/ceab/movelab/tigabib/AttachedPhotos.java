@@ -21,6 +21,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -209,6 +210,7 @@ public class AttachedPhotos extends Activity {
 				// Show only images, no videos or anything else
 				intent.setType("image/*");
 				intent.setAction(Intent.ACTION_GET_CONTENT);
+				intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
 				// Always show the chooser (if there are multiple options available)
 				startActivityForResult(Intent.createChooser(intent, getResources().getString(R.string.photo_selector_attach_photo_button)), ReportTool.REQUEST_CODE_GET_PHOTO_FROM_GALLERY);
 				
@@ -352,7 +354,23 @@ public class AttachedPhotos extends Activity {
 		}
 		case (ReportTool.REQUEST_CODE_GET_PHOTO_FROM_GALLERY): {
 			
-			Uri this_uri = data.getData();
+		     String realPath;
+	            // SDK < API11
+	            if (Build.VERSION.SDK_INT < 11)
+	                realPath = Util.getRealPathFromURI_BelowAPI11(this, data.getData());
+	            
+	            // SDK >= 11 && SDK < 19
+	            else if (Build.VERSION.SDK_INT < 19)
+	                realPath = RealPathFromURI_API11to18.getRealPathFromURI_API11to18(this, data.getData());
+	            
+	            // SDK > 19 (Android 4.4)
+	            else
+	                realPath = RealPathFromURI_API19.getRealPathFromURI_API19(this, data.getData());
+			
+	        Uri this_uri = null;
+	        if(realPath != null && realPath != ""){
+	        	this_uri =  Uri.fromFile(new File(realPath));
+	        }
 			
 			if (resultCode == RESULT_OK && this_uri != null) {
 

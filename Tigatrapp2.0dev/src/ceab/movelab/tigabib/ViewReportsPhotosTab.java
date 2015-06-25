@@ -12,11 +12,14 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -58,7 +61,7 @@ public class ViewReportsPhotosTab extends Activity {
 					public void onItemClick(AdapterView<?> parent, View v,
 							int position, long id) {
 
-						String thisPhotoUri = Report.getPhotoUri(context,
+						final String thisPhotoUri = Report.getPhotoUri(context,
 								jsonPhotos, position);
 						if (thisPhotoUri != null) {
 
@@ -73,12 +76,51 @@ public class ViewReportsPhotosTab extends Activity {
 								// based on screen
 								iv.setImageBitmap(Util.getSmallerBitmap(
 										new File(thisPhotoUri), context, 300));
-								iv.setOnClickListener(new View.OnClickListener() {
-									public void onClick(View View3) {
-										dialog.dismiss();
+
+
+								Button positive = (Button) dialog.findViewById(R.id.share);
+								Button negative = (Button) dialog.findViewById(R.id.alertCancel);
+
+								positive.setOnClickListener(new OnClickListener() {
+									@Override
+									public void onClick(View v) {
+										Uri imageUri = Uri.fromFile(new File(thisPhotoUri)); 		
+										Intent shareIntent = new Intent();
+										shareIntent.setAction(Intent.ACTION_SEND);
+										shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+										shareIntent.setType("image/*");
+										// add a subject
+										shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
+												"Tigatrapp");
+
+										// build the body of the message to be shared
+										String shareMessage = getResources().getString(
+												R.string.project_website);
+
+										// add the message
+										shareIntent.putExtra(android.content.Intent.EXTRA_TEXT,
+												shareMessage);
+										
+
+										// start the chooser for sharing
+										startActivity(Intent.createChooser(shareIntent, getResources()
+												.getText(R.string.share_with)));
+
+										
+
 									}
 								});
-								dialog.setCanceledOnTouchOutside(true);
+
+								negative.setOnClickListener(new OnClickListener() {
+									@Override
+									public void onClick(View v) {
+
+										dialog.cancel();
+
+									}
+								});
+								
+
 								dialog.setCancelable(true);
 								dialog.show();
 							} catch (FileNotFoundException e) {

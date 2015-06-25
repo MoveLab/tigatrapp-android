@@ -1,8 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+    
+<ImageView 
     android:id="@+id/photoView"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
     
 
 </ImageView>
+
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal"
+            android:padding="10dip" >
+
+            <Button
+                android:id="@+id/share"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/menu_option_share" />
+
+            <Button
+                android:id="@+id/alertCancel"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/cancel" />
+        </LinearLayout>
+
+
+</RelativeLayout>

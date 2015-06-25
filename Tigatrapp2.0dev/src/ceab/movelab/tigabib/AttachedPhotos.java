@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +26,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -95,7 +99,7 @@ public class AttachedPhotos extends Activity {
 					public void onItemClick(AdapterView<?> parent, View v,
 							int position, long id) {
 
-						String thisPhotoUri = Report.getPhotoUri(context,
+						final String thisPhotoUri = Report.getPhotoUri(context,
 								jsonPhotos, position);
 						if (thisPhotoUri != null) {
 
@@ -109,12 +113,49 @@ public class AttachedPhotos extends Activity {
 								// size -- based on screen
 								iv.setImageBitmap(Util.getSmallerBitmap(
 										new File(thisPhotoUri), context, 300));
-								iv.setOnClickListener(new View.OnClickListener() {
-									public void onClick(View View3) {
-										dialog.dismiss();
+
+								Button positive = (Button) dialog.findViewById(R.id.share);
+								Button negative = (Button) dialog.findViewById(R.id.alertCancel);
+
+								positive.setOnClickListener(new OnClickListener() {
+									@Override
+									public void onClick(View v) {
+										Uri imageUri = Uri.fromFile(new File(thisPhotoUri)); 		
+										Intent shareIntent = new Intent();
+										shareIntent.setAction(Intent.ACTION_SEND);
+										shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+										shareIntent.setType("image/*");
+										// add a subject
+										shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
+												"Tigatrapp");
+
+										// build the body of the message to be shared
+										String shareMessage = getResources().getString(
+												R.string.project_website);
+
+										// add the message
+										shareIntent.putExtra(android.content.Intent.EXTRA_TEXT,
+												shareMessage);
+										
+
+										// start the chooser for sharing
+										startActivity(Intent.createChooser(shareIntent, getResources()
+												.getText(R.string.share_with)));
+
+										
+
 									}
 								});
-								dialog.setCanceledOnTouchOutside(true);
+
+								negative.setOnClickListener(new OnClickListener() {
+									@Override
+									public void onClick(View v) {
+
+										dialog.cancel();
+
+									}
+								});
+								
 								dialog.setCancelable(true);
 								dialog.show();
 							} catch (FileNotFoundException e) {
@@ -211,9 +252,14 @@ public class AttachedPhotos extends Activity {
 				intent.setType("image/*");
 				intent.setAction(Intent.ACTION_GET_CONTENT);
 				intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
-				// Always show the chooser (if there are multiple options available)
-				startActivityForResult(Intent.createChooser(intent, getResources().getString(R.string.photo_selector_attach_photo_button)), ReportTool.REQUEST_CODE_GET_PHOTO_FROM_GALLERY);
-				
+				// Always show the chooser (if there are multiple options
+				// available)
+				startActivityForResult(Intent.createChooser(
+						intent,
+						getResources().getString(
+								R.string.photo_selector_attach_photo_button)),
+						ReportTool.REQUEST_CODE_GET_PHOTO_FROM_GALLERY);
+
 			}
 		});
 
@@ -353,25 +399,28 @@ public class AttachedPhotos extends Activity {
 
 		}
 		case (ReportTool.REQUEST_CODE_GET_PHOTO_FROM_GALLERY): {
-			
-		     String realPath;
-	            // SDK < API11
-	            if (Build.VERSION.SDK_INT < 11)
-	                realPath = Util.getRealPathFromURI_BelowAPI11(this, data.getData());
-	            
-	            // SDK >= 11 && SDK < 19
-	            else if (Build.VERSION.SDK_INT < 19)
-	                realPath = RealPathFromURI_API11to18.getRealPathFromURI_API11to18(this, data.getData());
-	            
-	            // SDK > 19 (Android 4.4)
-	            else
-	                realPath = RealPathFromURI_API19.getRealPathFromURI_API19(this, data.getData());
-			
-	        Uri this_uri = null;
-	        if(realPath != null && realPath != ""){
-	        	this_uri =  Uri.fromFile(new File(realPath));
-	        }
-			
+
+			String realPath;
+			// SDK < API11
+			if (Build.VERSION.SDK_INT < 11)
+				realPath = Util.getRealPathFromURI_BelowAPI11(this,
+						data.getData());
+
+			// SDK >= 11 && SDK < 19
+			else if (Build.VERSION.SDK_INT < 19)
+				realPath = RealPathFromURI_API11to18
+						.getRealPathFromURI_API11to18(this, data.getData());
+
+			// SDK > 19 (Android 4.4)
+			else
+				realPath = RealPathFromURI_API19.getRealPathFromURI_API19(this,
+						data.getData());
+
+			Uri this_uri = null;
+			if (realPath != null && realPath != "") {
+				this_uri = Uri.fromFile(new File(realPath));
+			}
+
 			if (resultCode == RESULT_OK && this_uri != null) {
 
 				JSONObject newPhoto = new JSONObject();
@@ -394,11 +443,12 @@ public class AttachedPhotos extends Activity {
 			break;
 
 		}
-		
-
-		
 
 		}
 
 	}
+	
+	
+
+
 }

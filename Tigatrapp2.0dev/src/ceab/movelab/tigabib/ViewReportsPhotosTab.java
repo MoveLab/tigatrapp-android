@@ -95,7 +95,7 @@ public class ViewReportsPhotosTab extends Activity {
 
 										// build the body of the message to be shared
 										String shareMessage = getResources().getString(
-												R.string.project_website);
+												R.string.project_website) + " #atrapaeltigre";
 
 										// add the message
 										shareIntent.putExtra(android.content.Intent.EXTRA_TEXT,

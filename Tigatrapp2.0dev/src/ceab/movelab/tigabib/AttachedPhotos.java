@@ -400,6 +400,10 @@ public class AttachedPhotos extends Activity {
 		}
 		case (ReportTool.REQUEST_CODE_GET_PHOTO_FROM_GALLERY): {
 
+			if(data != null){
+				Uri this_data = data.getData();
+				if(this_data != null){
+			
 			String realPath;
 			// SDK < API11
 			if (Build.VERSION.SDK_INT < 11)
@@ -411,7 +415,7 @@ public class AttachedPhotos extends Activity {
 				realPath = RealPathFromURI_API11to18
 						.getRealPathFromURI_API11to18(this, data.getData());
 
-			// SDK > 19 (Android 4.4)
+			// SDK >= 19 (Android 4.4)
 			else
 				realPath = RealPathFromURI_API19.getRealPathFromURI_API19(this,
 						data.getData());
@@ -438,7 +442,8 @@ public class AttachedPhotos extends Activity {
 				// updated...
 				adapter = new PhotoGridAdapter(context, jsonPhotos);
 				gridview.setAdapter(adapter);
-
+			}
+			}
 			}
 			break;
 

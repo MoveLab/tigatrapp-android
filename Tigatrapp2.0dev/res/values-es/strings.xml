@@ -307,7 +307,7 @@
     <string name="report_sent">Si clicas OK, tus datos se enviarán al grupo de investigación responsable del proyecto. Parte de los datos se harán públicos en el mapa web del mosquito tigre en la pàgina web www.atrapaeltigre.com</string>
     <string name="report_sent_confirmation">Gracias por participar</string>
     <string name="reportGallery_CD">Botón para acceder a la galería de imágenes del mosquito tigre</string>
-    <string name="saved_image_prefix">MiMapa</string>
+    <string name="saved_image_prefix">tigatrapp</string>
     <string name="scm_CD">SCM logo</string>
     <string name="send_spec_text">¿Enviarás tu mosquito por correo postal al centro de investigación?</string>
     <string name="share_with">Comparte</string>

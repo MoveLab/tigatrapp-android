@@ -111,14 +111,7 @@ public class ViewReportsPhotosTab extends Activity {
 									}
 								});
 
-								negative.setOnClickListener(new OnClickListener() {
-									@Override
-									public void onClick(View v) {
-
-										dialog.cancel();
-
-									}
-								});
+								negative.setVisibility(View.GONE);;
 								
 
 								dialog.setCancelable(true);

@@ -36,7 +36,8 @@
     <string name="language_selector_english" translatable="false">English</string>
     <string name="language_selector_catalan" translatable="false">Català</string>
     <string name="language_selector_spanish" translatable="false">Español</string>
-
+    <string name="photo_share_message" translatable="false">via @Atrapaeltigre</string>
+    
     <!-- Gallery -->
     <string-array name="gallery_array">
         <item>Female tiger mosquito. Tiger mosquitoes (1) are small and black with white stripes, 
@@ -327,7 +328,7 @@
     <string name="report_sent">If you select OK, your report will be sent to the lab.</string>
     <string name="report_sent_confirmation">Report sent. Thank you!</string>
     <string name="reportGallery_CD">Image gallery button</string>
-    <string name="saved_image_prefix">myMap</string>
+    <string name="saved_image_prefix">tigatrapp</string>
     <string name="scm_CD">SCM logo</string>
     <string name="send_spec_text">Will you send your mosquito by post to the lab?</string>
     <string name="share_with">Share</string>

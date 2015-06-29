@@ -101,6 +101,8 @@ public class AttachedPhotos extends Activity {
 
 						final String thisPhotoUri = Report.getPhotoUri(context,
 								jsonPhotos, position);
+						final int pos = position;
+
 						if (thisPhotoUri != null) {
 
 							try {
@@ -126,12 +128,12 @@ public class AttachedPhotos extends Activity {
 										shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
 										shareIntent.setType("image/*");
 										// add a subject
-										shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
-												"Tigatrapp");
+//										shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
+//												"Tigatrapp");
 
 										// build the body of the message to be shared
 										String shareMessage = getResources().getString(
-												R.string.project_website) + " #atrapaeltigre";
+												R.string.photo_share_message);
 
 										// add the message
 										shareIntent.putExtra(android.content.Intent.EXTRA_TEXT,
@@ -151,7 +153,17 @@ public class AttachedPhotos extends Activity {
 									@Override
 									public void onClick(View v) {
 
-										dialog.cancel();
+										jsonPhotos = Report.deletePhoto(
+												context, jsonPhotos, pos);
+										// I realize this is ugly, but it is the
+										// quickest fix right now to get the
+										// grid
+										// updated...
+										adapter = new PhotoGridAdapter(context,
+												jsonPhotos);
+										gridview.setAdapter(adapter);
+
+										dialog.dismiss();
 
 									}
 								});

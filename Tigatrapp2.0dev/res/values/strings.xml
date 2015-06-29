@@ -123,26 +123,29 @@
     <string name="photo_label">Photo(s)</string>
     <string name="photo_label_star">Photo(s)*</string>
     <string name="site_report_q1">Type of breeding site</string>
-    <string name="site_report_q2">Does it have stagnant water inside?</string>
-    <string name="site_report_q3">Have you seen mosquito larvae (not necessarily tiger mosquito) inside?</string>
-    <string name="q2_abdomenlegs_text">Tiger mosquitoes have white stripes on their abdomens and legs.</string>
+    <string name="site_report_q2">Is it in a public area?</string>
+    <string name="site_report_q3">Does it contain stagnant water and/or mosquito larvae or pupae (any mosquito species)?</string>
+    <string name="site_report_q4">Have you seen adult mosquitoes around the breeding site?</string>
+	<string name="site_report_q3_response1">Yes, stagnant water with larvae or pupae.</string>    
+	<string name="site_report_q3_response2">Yes, stagnant water, but no larvae or pupae.</string>    
+	<string name="site_report_q3_response3">No, neither stagnant water nor larve nor pupae.</string>    
+		<string name="q2_abdomenlegs_text">Tiger mosquitoes have white stripes on their abdomens and legs.</string>
     <string name="identifying_mosquitoes_title">Identifying Tiger Mosquitoes</string>
     <string name="confirmation_q1_adult_sizecolor">Is it small and black with white stripes?</string>
     <string name="q1_sizecolor_text">Tiger mosquitoes are small and black with white stripes.</string>
     <string name="confirmation_q2_adult_headthorax">Does it have a white stripe on the head and thorax?</string>
     <string name="adult_report_q3">Does it have white stripes on the abdomen and legs?</string>
-    <string name="embornals">Storm drain</string>
+    <string name="embornals">Storm drain or similar receptacle</string>
     <string name="fonts">Fountain</string>
-    <string name="basses">Basin</string>
-    <string name="bidons">Bucket</string>
-    <string name="pous">Well</string>
+    <string name="basses">Small basin or similar receptacle</string>
+    <string name="bidons">Small container</string>
     <string name="altres">Other</string>
     <string name="report_checklist_title_adult">Adult Checklist</string>
     <string name="report_checklist_title_site">Site Checklist</string>
     <string name="adult_report_help_html">
 <![CDATA[        
 <p><b>HELP:</b> <br/> 
-<b>Think you\'ve found a tiger mosquito? Fill out this report and send in your data. Fields marked with an asterisk (*) are required.</b> 
+<b>A tiger mosquito is small and black, with white stripes. It has a white stripe on the head and thorax. If you have found one, fill out this report and send in your data. Fields marked with an asterisk (*) are required.</b> 
 </p> 
 <p> 
 <ul> 
@@ -150,7 +153,7 @@
 <br/> 
 <li><b>Location</b>: Choose current location if you are still in the place where you found the mosquito. (Make sure you have GPS enabled on your phone.) Otherwise, select the mosquito\'s location on the map.</li> 
 <br/> 
-<li><b>Photo(s)</b>: Take a photo of the mosquito now or attach one from a file.</li> 
+<li><b>Photo(s)</b>: Take a photo of the mosquito now or attach one from a file. The most important thing is to photograph the white stripe on the head and thorax. To do this, grab the legs and focus well. If necessary, move the camera a little bit away from the mosquito. You can attach more than one photo, and it is useful if you can capture images from different angles.</li> 
 <br/> 
 <li><b>Notes</b>: Add a note if you want to send additional information about your finding.</li> 
 </ul> 
@@ -161,7 +164,7 @@
     <string name="site_report_help_html">
 <![CDATA[
 <p><b>HELP:</b> <br/> 
-<b>Found a public space where you think the tiger mosquito can breed? Fill out this report and send in your data. Fields marked with an asterisk (*) are required.</b> 
+<b>A tiger mosquito breeding site is a small, outdoor pool or receptacle of stagnant water. If you have found one, fill out this report and send in your data. Fields marked with an asterisk (*) are required.</b> 
 </p> 
 <p> 
 <ul> 
@@ -169,7 +172,7 @@
 <br/> 
 <li><b>Location</b>: Choose current location if you are still at the site. (Make sure you have GPS enabled on your phone.) Otherwise, select the site\'s location on the map.</li> 
 <br/> 
-<li><b>Photo(s)</b>: Take a photo of the site now or attach one from a file.</li> 
+<li><b>Photo(s)</b>: Take a photo of the site now or attach one from a file. If you can, take a picture in which the site can be recognized, and another showing the stagnant water and/or larvae or pupae.</li> 
 <br/> 
 <li><b>Notes</b>: Add a note if you want to send additional information about your finding.</li> 
 </ul> 

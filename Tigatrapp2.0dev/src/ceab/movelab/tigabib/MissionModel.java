@@ -94,6 +94,7 @@ public class MissionModel {
 		JSONObject item1 = new JSONObject();
 		JSONObject item2 = new JSONObject();
 		JSONObject item3 = new JSONObject();
+		JSONObject item4 = new JSONObject();
 
 		try {
 
@@ -125,7 +126,6 @@ public class MissionModel {
 					+ context.getResources().getString(R.string.basses)
 					+ "', '"
 					+ context.getResources().getString(R.string.bidons)
-					+ "', '" + context.getResources().getString(R.string.pous)
 					+ "', '"
 					+ context.getResources().getString(R.string.altres) + "']"));
 
@@ -139,7 +139,10 @@ public class MissionModel {
 					.getString(R.string.site_report_item_help_2));
 			item2.put(MissionItemModel.KEY_ANSWER_CHOICES, new JSONArray("['"
 					+ context.getResources().getString(R.string.yes) + "','"
-					+ context.getResources().getString(R.string.no) + "']"));
+					+ context.getResources().getString(R.string.no) + "','"
+					+ context.getResources().getString(R.string.dontknow)
+					+ "']"));
+
 
 			item3.put(MissionItemModel.KEY_ITEM_ID, "Item3");
 			item3.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE,
@@ -150,14 +153,29 @@ public class MissionModel {
 			item3.put(MissionItemModel.KEY_HELP_TEXT, context.getResources()
 					.getString(R.string.site_report_item_help_3));
 			item3.put(MissionItemModel.KEY_ANSWER_CHOICES, new JSONArray("['"
+					+ context.getResources().getString(R.string.site_report_q3_response1) + "','"
+					+ context.getResources().getString(R.string.site_report_q3_response2) + "','"
+					+ context.getResources().getString(R.string.site_report_q3_response3) + "']"));
+
+			
+			item4.put(MissionItemModel.KEY_ITEM_ID, "Item4");
+			item4.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE,
+			R.drawable.checklist_image_sites_3);
+			item4.put(MissionItemModel.KEY_QUESTION, context.getResources()
+					.getString(R.string.site_report_q4));
+			item4.put(MissionItemModel.KEY_HELP_TEXT, context.getResources()
+					.getString(R.string.site_report_item_help_3));
+			item4.put(MissionItemModel.KEY_ANSWER_CHOICES, new JSONArray("['"
 					+ context.getResources().getString(R.string.yes) + "','"
 					+ context.getResources().getString(R.string.no) + "','"
 					+ context.getResources().getString(R.string.dontknow)
 					+ "']"));
 
+			
 			items.put(item1);
 			items.put(item2);
 			items.put(item3);
+			items.put(item4);
 
 			taskJson.put(KEY_ITEMS, items);
 

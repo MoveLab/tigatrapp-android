@@ -104,8 +104,12 @@
     <string name="photo_label">Imatges</string>
     <string name="photo_label_star">Imatges*</string>
     <string name="site_report_q1">Selecciona lloc de cria</string>
-    <string name="site_report_q2">Conté aigua estancada?</string>
-    <string name="site_report_q3">Conté larves o pupes de mosquit (de qualsevol espècie)?</string>
+    <string name="site_report_q2">Es troba a la via pública?</string>
+    <string name="site_report_q3">Conté aigua estancada y/o larves o pupes de mosquit (qualsevol espècie)?</string>
+    <string name="site_report_q4">Has vist mosquits a prop?</string>
+	<string name="site_report_q3_response1">Sí, aigua i larves o pupes.</string>    
+	<string name="site_report_q3_response2">Sí, aigua sense larves ni pupes.</string>    
+	<string name="site_report_q3_response3">No, ni aigua ni larves o pupes.</string>    
     <string name="adult_report_q3">Té ratlles blanques a l\'abdomen i a les potes?</string>
     <string name="q3_headthorax_text">El mosquit tigre té una ratlla blanca al cap i al tòrax. Evita enviar dades d\'altres insectes.</string>
     <string name="q2_abdomenlegs_text">El mosquit tigre té ratlles blanques a l\'abdomen i a les potes. Evita enviar dades d\'altres insectes.</string>
@@ -115,7 +119,7 @@
     <string name="adult_report_help_html">
 <![CDATA[
 <p><b>AJUDA:</b><br/>
-<b>Creus que has trobat un mosquit tigre? Respon l\'informe i envia les dades. Els camps amb asterisc (*) són obligatoris.</b>
+<b>El mosquit tigre és petit, negre i amb ratlles blanques. Té una única ratlla blanca al cap i al tòrax. Si n\'has trobat un, respon l\'informe i envia les dades. Els camps amb asterisc (*) són obligatoris.</b>
 </p>
 <p>
 <ul>
@@ -123,7 +127,7 @@
 <br/>
 <li><b>Localització</b>: escull posició actual si el mosquit l\'has atrapat al lloc on es troba el telèfon, o senyala la posició al mapa si l\'has trobat a un altre lloc. Activa el GPS si vols que la posició de la teva troballa sigui més precisa.</li>  
 <br/>
-<li><b>Imatges</b>: fes una foto  o adjunta una foto del mosquit que hagis fet amb un altre dispositiu.</li>
+<li><b>Imatges</b>: fes una foto  o adjunta una foto del mosquit que hagis fet amb un altre dispositiu. El més important és fotografiar la ratlla blanca al cap i al tòrax. Per fer-ho, agafa\'l per les potes i enfoca\'l bé, si fa falta allunya\'t una mica. Pots adjuntar més d\'1 foto des de diferents angles.</li>
 <br/>
 <li><b>Notes</b>: si vols, descriu millor la teva troballa.</li>
 </ul>
@@ -134,14 +138,14 @@
     <string name="site_report_help_html">
 <![CDATA[
 <p><b>AJUDA:</b><br/> 
-<b>Has trobat un lloc públic on creus que el mosquit tigre pot criar? Respon l\'informe i envia les dades. És necessari completar els camps amb asterisc (*).</b>
+<b>Un lloc de cria de mosquit tigre és un recipient o dipòsit petit i d’exterior amb aigua estancada, que conté larves y/o pupes de mosquit. Si n\'has trobat un, respon l\'informe i envia les dades. És necessari completar els camps amb asterisc (*).</b>
 </p>
 <ul> 
 <li><b>Descripció</b>: respon el formulari per facilitar la interpretació de les dades.</li> 
 <br/>
 <li><b>Localització</b>: escull posició actual si el lloc de cria es troba al lloc on tens el telèfon, o senyala la posició al mapa si l\'has trobat a un altre lloc. Activa el GPS si vols que la posició de la teva troballa sigui més precisa.</li>  
 <br/>
-<li><b>Imatges</b>: fes una foto o adjunta una foto de lloc de cria feta amb un altre dispositiu.</li> 
+<li><b>Imatges</b>: fes una foto o adjunta una foto de lloc de cria feta amb un altre dispositiu. Si pots, adjunta una foto general que ajudi a reconèixer el lloc, i una altra on es vegi l\'aigua estancada i les larves o pupes.</li> 
 <br/>
 <li><b>Notes</b>: si vols, descriu millor la teva troballa.</li>
 </ul> 
@@ -167,11 +171,10 @@
 <p>Si trobes larves de mosquit en un recipient (de qualsevol espècie), has trobat un potencial lloc de cria de mosquit tigre. Si evites tenir petites acumulacions d\'aigua a casa teva, estaràs combatent el mosquit tigre.</p> 
        ]]>
     </string>
-    <string name="embornals">Embornals</string>
-    <string name="fonts">Fonts</string>
-    <string name="basses">Basses artificials petites</string>
-    <string name="bidons">Bidons</string>
-    <string name="pous">Pous</string>
+    <string name="embornals">Embornal o similar</string>
+    <string name="fonts">Font ornamental</string>
+    <string name="basses">Bassa petita o similar</string>
+    <string name="bidons">Recipient petit</string>
     <string name="altres">Altres</string>
     <string name="report_checklist_title_adult">Descripció del mosquit</string>
     <string name="report_checklist_title_site">Descripció del lloc de cria</string>

@@ -102,8 +102,12 @@
     <string name="photo_label">Imágenes</string>
     <string name="photo_label_star">Imágenes*</string>
     <string name="site_report_q1">Tipo de lugar de cría</string>
-    <string name="site_report_q2">¿Contiene agua estancada?</string>
-    <string name="site_report_q3">¿Contiene larvas o pupas de mosquito (de cualquier especie)?</string>
+    <string name="site_report_q2">¿Se encuentra en la vía pública?</string>
+    <string name="site_report_q3">Contiene agua estancada y/o larvas o pupas de mosquito (cualquier especie)?</string>
+    <string name="site_report_q4">¿Has visto mosquitos cerca?</string>
+    <string name="site_report_q3_response1">Sí, agua y larvas o pupas.</string>    
+	<string name="site_report_q3_response2">Sí, agua sin larvas ni pupas.</string>    
+	<string name="site_report_q3_response3">No, no contiene agua.</string>    
     <string name="adult_report_q3">¿Tiene rayas blancas en el abdomen y en las patas?</string>
     <string name="q3_headthorax_text">El mosquito tigre tiene una raya blanca en la cabeza y en el tórax. Evita enviar datos de mosquitos que no sean tigre.</string>
     <string name="q2_abdomenlegs_text">El mosquito tigre tiene rayas blancas en el abdomen y en las patas. Evita enviar datos de mosquitos que no sean tigre.</string>
@@ -114,7 +118,7 @@
 <![CDATA[
 
 <p><b>AYUDA:</b><br/>
-<b>¿Crees que has encontrado un mosquito tigre? Responde el informe y envía los datos. Es necesario completar los campos con asterisco (*).</b>
+<b>El mosquito tigre es pequeño, negro y con rayas blancas. Tiene una única raya blanca en la cabeza y tórax. Si has encontrado uno, responde el informe y envía los datos. Es necesario completar los campos con asterisco (*).</b>
 </p>
 <p>
 <ul>
@@ -122,7 +126,7 @@
 <br/>
 <li><b>Localización</b>: elige posición actual si el mosquito lo has atrapado en el lugar donde se encuentra el teléfono, o señala la posición en el mapa si lo has encontrado en otro lugar. Activa el GPS si quieres que la posición de tu hallazgo sea más precisa.</li>  
 <br/>
-<li><b>Imágenes</b>: haz una foto o adjunta una foto de tu mosquito que hayas hecho con otro dispositivo.</li>
+<li><b>Imágenes</b>: haz una foto o adjunta una foto de tu mosquito que hayas hecho con otro dispositivo. Lo más importante es fotografiar la raya blanca de la cabeza y el tórax. Para ello, agarra tu mosquito por las patas y enfócalo bien, si hace falta aléjate un poco. Puedes adjuntar más de 1 foto desde diferentes ángulos.</li>
 <br/>
 <li><b>Notas</b>: si quieres, describe mejor tu hallazgo.</li>
 </ul>
@@ -133,14 +137,14 @@
     <string name="site_report_help_html">
 <![CDATA[
 <p><b>AYUDA:</b><br/>
-<b>¿Has encontrado un lugar público donde crees que el mosquito tigre puede criar? Responde el informe y envía los datos. Es necesario completar los campos con asterisco (*).</b>
+<b>Un lugar de cría de mosquito tigre es un recipiente o depósito pequeño y de exterior con agua estancada, que contiene larvas y/o pupas de mosquito. Si has encontrado uno, responde el informe y envía los datos. Es necesario completar los campos con asterisco (*).</b>
 </p>
 <ul> 
 <li><b>Descripción</b>: responde el formulario para facilitar la interpretación de los datos.</li> 
 <br/>
 <li><b>Localización</b>: elige posición actual si el lugar de cría se encuentra en el lugar donde tienes el teléfono, o señala la posición en el mapa si lo has encontrado en otro lugar. Activa el GPS si quieres que la posición de tu hallazgo sea más precisa.</li>  
 <br/>
-<li><b>Imágenes</b>: haz una foto o adjunta una foto del lugar de cría hecha con otro dispositivo.</li> 
+<li><b>Imágenes</b>: haz una foto o adjunta una foto del lugar de cría hecha con otro dispositivo. Si puedes, adjunta una foto general que ayude a reconocer el lugar y otra en la que se vea el agua estancada y las larvas y/o pupas.</li> 
 <br/>
 <li><b>Notas</b>: si quieres, describe mejor tu hallazgo.</li>
 </ul> 
@@ -166,11 +170,10 @@
 <p>Si encuentras larvas de mosquito en un recipiente (de cualquier especie), has encontrado un lugar potencial de cría de mosquito tigre. Si evitas tener pequeñas acumulaciones de agua en tu casa estarás combatiendo el mosquito tigre.</p> 
        ]]>
     </string>
-    <string name="embornals">Sumideros</string>
-    <string name="fonts">Fuentes</string>
-    <string name="basses">Pequeñas balsas artificiales</string>
-    <string name="bidons">Bidones</string>
-    <string name="pous">Pozos</string>
+    <string name="embornals">Sumidero o imbornal</string>
+    <string name="fonts">Fuente ornamental</string>
+    <string name="basses">Balsa pequeña o similar</string>
+    <string name="bidons">Recipiente pequeño</string>
     <string name="altres">Otros</string>
     <string name="report_checklist_title_adult">Descripción del mosquito</string>
     <string name="report_checklist_title_site">Descripción del lugar de cría</string>

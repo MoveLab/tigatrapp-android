@@ -287,7 +287,7 @@ public class MissionActivity extends Activity {
 									}
 
 								}
-								if (responseCount == 3) {
+								if (responseCount == 4) {
 
 									dataForReport.putExtra(
 											Reports.KEY_CONFIRMATION_CODE,

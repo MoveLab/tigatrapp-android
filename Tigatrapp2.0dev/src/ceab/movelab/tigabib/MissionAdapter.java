@@ -122,7 +122,7 @@ public class MissionAdapter extends BaseAdapter implements OnClickListener {
 					activity, android.R.layout.simple_spinner_item,
 					tempValues.getItemChoices());
 			choicesAdapter
-					.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+					.setDropDownViewResource(R.layout.multiline_spinner_dropdown_item);
 
 			holder.itemId = tempValues.getItemId();
 			holder.itemChoices.setAdapter(choicesAdapter);

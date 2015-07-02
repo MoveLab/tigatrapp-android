@@ -38,6 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="5dip"
         android:layout_marginTop="5dip"
+        android:spinnerMode="dialog"
         android:ellipsize="marquee"
         android:prompt="@string/spinner_prompt" />
 

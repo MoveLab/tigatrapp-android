@@ -38,6 +38,7 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import ceab.movelab.tigabib.R;
 import ceab.movelab.tigabib.ContProvContractReports.Reports;
 
@@ -115,7 +116,9 @@ public class AttachedPhotos extends Activity {
 								// size -- based on screen
 								iv.setImageBitmap(Util.getSmallerBitmap(
 										new File(thisPhotoUri), context, 300));
-
+								
+								LinearLayout button_area = (LinearLayout) dialog.findViewById(R.id.photo_button_area);
+								button_area.setVisibility(View.VISIBLE);
 								Button positive = (Button) dialog.findViewById(R.id.share);
 								Button negative = (Button) dialog.findViewById(R.id.alertCancel);
 

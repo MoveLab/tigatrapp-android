@@ -106,7 +106,7 @@
     <string name="site_report_q1">Selecciona lloc de cria</string>
     <string name="site_report_q2">Es troba a la via pública?</string>
     <string name="site_report_q3">Conté aigua estancada y/o larves o pupes de mosquit (qualsevol espècie)?</string>
-    <string name="site_report_q4">Has vist mosquits a prop?</string>
+    <string name="site_report_q4">Has vist mosquits a prop (a &lt;10metres)?</string>
 	<string name="site_report_q3_response1">Sí, aigua i larves o pupes.</string>    
 	<string name="site_report_q3_response2">Sí, aigua sense larves ni pupes.</string>    
 	<string name="site_report_q3_response3">No, ni aigua ni larves o pupes.</string>    
@@ -155,20 +155,24 @@
     </string>
     <string name="site_report_item_help_1">
 <![CDATA[  
-<p>Les larves i pupes de mosquit tigre viuen en dipòsits o recipients petits, amb aigua estancada o bruta (sense peixos). Exemples: embornals, fonts, dipòsits, pous, galledes, etc.</p> 
-<p>El mosquit tigre no cria a la platja, ni als rius, ni als llacs, ni als aiguamolls o estanys. Les larves que hi trobis no són de mosquit tigre.</p>    
+<p>Un lloc de cria de mosquit tigre és un <b>recipient o dipòsit petit i d\'exterior amb aigua estancada</b>, que conté <b>larves i/o pupes</b> de mosquit, com alguns embornals, basses o fonts. Poden estar tant a la via pública com en propietats privades.</p>
+<p>El mosquit tigre no cria en platges, rius, llacs o aiguamolls. Les larves que trobis allà no són de mosquit tigre.</p>  
        ]]>
     </string>
     <string name="site_report_item_help_2">
 <![CDATA[      
-<p>Les larves i pupes necessiten aigua estancada i amb matèria orgànica (aliment) per viure. Evita tenir petites acumulacions d\'aigua a casa teva.</p> 
+<p>Via pública són els espais de lliure concurrència púbica com carrers, places, parcs o espais verds. No són via pública els solars i/o propietats privades.</p> 
 ]]>
     </string>
-    <string name="site_report_item_help_3">
+       <string name="site_report_item_help_3">
 <![CDATA[      
-<p>Les larves de mosquit són fàcils de reconèixer. Són allargades, més petites que una moneda d\'1 cèntim i naden fent piruetes. Es belluguen molt i pugen a la superfície de l\'aigua per respirar.</p>
-
-<p>Si trobes larves de mosquit en un recipient (de qualsevol espècie), has trobat un potencial lloc de cria de mosquit tigre. Si evites tenir petites acumulacions d\'aigua a casa teva, estaràs combatent el mosquit tigre.</p> 
+<p>Las larvas y las pupas necesitan agua estancada con materia orgánica (alimento) para vivir. Evita tener pequeñas acumulaciones de agua en tu casa para combatir el mosquito tigre.</p> 
+]]>
+    </string>
+    
+    <string name="site_report_item_help_4">
+<![CDATA[      
+<p>El mosquit tigre normalment no es desplaça gaire, per això els adults i els seus llocs de cria es troben a prop.</p> 
        ]]>
     </string>
     <string name="embornals">Embornal o similar</string>

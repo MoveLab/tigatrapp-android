@@ -125,7 +125,7 @@
     <string name="site_report_q1">Type of breeding site</string>
     <string name="site_report_q2">Is it in a public area?</string>
     <string name="site_report_q3">Does it contain stagnant water and/or mosquito larvae or pupae (any mosquito species)?</string>
-    <string name="site_report_q4">Have you seen adult mosquitoes around the breeding site?</string>
+    <string name="site_report_q4">Have you seen adult mosquitoes nearby (&lt;10 meters)?</string>
 	<string name="site_report_q3_response1">Yes, stagnant water with larvae or pupae.</string>    
 	<string name="site_report_q3_response2">Yes, stagnant water, but no larvae or pupae.</string>    
 	<string name="site_report_q3_response3">No, neither stagnant water nor larve nor pupae.</string>    
@@ -182,18 +182,27 @@
     </string>
     <string name="site_report_item_help_1">
 <![CDATA[      
-<p>Tiger mosquito larvae and pupae live in deposits and small containers of standing water that is dirty (and has no fish). Examples: storm drains, fountains, basins, wells, buckets, etc.. </ P> 
-<p>Tiger mosquito larvae are generally not found on the beach or in rivers, lakes, ponds, or wetlands (although you may find other types of larvae in these places).</p>       
+<p>A tiger mosquito breeding site is a small, outdoor container or deposit of stagnant water containing mosquito larvae or pupae, such as certain storm drains, basins, and fountains. They may be in public or private areas.</p>
+<p>Tiger mosquitoes to not breed on beaches or in rivers, lakes, ponds, or wetlands (although you may find other types of larvae in these places).</p>       
 ]]>
     </string>
-    <string name="site_report_item_help_2">
+
+        <string name="site_report_item_help_2">
+<![CDATA[   
+<p>Public areas are those with free access to the public, like roads, squares, parks, and green spaces. They do not include private lots and or other private properties.</p>
+   ]]>
+    </string>
+    
+    <string name="site_report_item_help_3">
 <![CDATA[   
 <p>The larvae and pupae need stagnant water and organic matter (food) to survive. Avoid letting water accumulate in or around you home.</p>
    ]]>
     </string>
-    <string name="site_report_item_help_3">
+    <string name="site_report_item_help_4">
 <![CDATA[     
-<p>The mosquito larvae are easy to recognize. They are elongated and smaller than a 1-cent coin, and they swim and do pirouettes in the water. They move a lot and come to the surface of the water to breathe.</p>    
+
+El mosquit tigre normalment no es desplaça gaire, per això els adults i els seus llocs de cria es troben a prop.
+<p>The tiger mosquito does not normally travel far, so adults are often found near their breeding sites.</p>    
 ]]>
     </string>
 

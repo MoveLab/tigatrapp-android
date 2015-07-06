@@ -114,7 +114,6 @@ public class MissionModel {
 			item1.put(MissionItemModel.KEY_ITEM_ID, "Item1");
 			item1.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE,
 					R.drawable.checklist_image_sites_1);
-
 			item1.put(MissionItemModel.KEY_QUESTION, context.getResources()
 					.getString(R.string.site_report_q1));
 			item1.put(MissionItemModel.KEY_HELP_TEXT, context.getResources()
@@ -130,19 +129,15 @@ public class MissionModel {
 					+ context.getResources().getString(R.string.altres) + "']"));
 
 			item2.put(MissionItemModel.KEY_ITEM_ID, "Item2");
-			item2.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE,
-					R.drawable.checklist_image_sites_2);
-
+			item2.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE,-1);
 			item2.put(MissionItemModel.KEY_QUESTION, context.getResources()
 					.getString(R.string.site_report_q2));
 			item2.put(MissionItemModel.KEY_HELP_TEXT, context.getResources()
 					.getString(R.string.site_report_item_help_2));
 			item2.put(MissionItemModel.KEY_ANSWER_CHOICES, new JSONArray("['"
 					+ context.getResources().getString(R.string.yes) + "','"
-					+ context.getResources().getString(R.string.no) + "','"
-					+ context.getResources().getString(R.string.dontknow)
+					+ context.getResources().getString(R.string.no) 
 					+ "']"));
-
 
 			item3.put(MissionItemModel.KEY_ITEM_ID, "Item3");
 			item3.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE,
@@ -159,16 +154,14 @@ public class MissionModel {
 
 			
 			item4.put(MissionItemModel.KEY_ITEM_ID, "Item4");
-			item4.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE,
-			R.drawable.checklist_image_sites_3);
+			item4.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE,-1);
 			item4.put(MissionItemModel.KEY_QUESTION, context.getResources()
 					.getString(R.string.site_report_q4));
 			item4.put(MissionItemModel.KEY_HELP_TEXT, context.getResources()
-					.getString(R.string.site_report_item_help_3));
+					.getString(R.string.site_report_item_help_4));
 			item4.put(MissionItemModel.KEY_ANSWER_CHOICES, new JSONArray("['"
 					+ context.getResources().getString(R.string.yes) + "','"
-					+ context.getResources().getString(R.string.no) + "','"
-					+ context.getResources().getString(R.string.dontknow)
+					+ context.getResources().getString(R.string.no)
 					+ "']"));
 
 			

@@ -104,7 +104,7 @@
     <string name="site_report_q1">Tipo de lugar de cría</string>
     <string name="site_report_q2">¿Se encuentra en la vía pública?</string>
     <string name="site_report_q3">Contiene agua estancada y/o larvas o pupas de mosquito (cualquier especie)?</string>
-    <string name="site_report_q4">¿Has visto mosquitos cerca?</string>
+    <string name="site_report_q4">¿Has visto mosquitos cerca (a &lt;10 metros)?</string>
     <string name="site_report_q3_response1">Sí, agua y larvas o pupas.</string>    
 	<string name="site_report_q3_response2">Sí, agua sin larvas ni pupas.</string>    
 	<string name="site_report_q3_response3">No, no contiene agua.</string>    
@@ -154,20 +154,24 @@
     </string>
     <string name="site_report_item_help_1">
 <![CDATA[  
-<p>Las larvas y pupas de mosquito tigre viven en depósitos o recipientes pequeños, con agua estancada o sucia (sin peces). Ejemplos: sumideros, fuentes, depósitos, pozos, cubos, etc.</p> 
-<p>El mosquito tigre no cría en playas, ríos, lagos, humedales o estanques. Las larvas que encuentres allí no son de mosquito tigre.</p>    
+<p>Un lugar de cría de mosquito tigre es un <b>recipiente o depósito pequeño y de exterior con agua estancada</b>, que contiene <b>larvas y/o pupas</b> de mosquito, como algunos sumideros o imbornales, balsas o fuentes. Pueden estar tanto en la vía pública como en propiedades privadas.</p> 
+<p>El mosquito tigre no cría en playas, ríos, lagos o humedales. Las larvas que encuentres allí no son de mosquito tigre.</p>    
        ]]>
     </string>
     <string name="site_report_item_help_2">
 <![CDATA[      
-<p>Las larvas y las pupas necesitan agua estancada con materia orgánica (alimento) para vivir. Evita tener pequeñas acumulaciones de agua en tu casa para combatir el mosquito tigre.</p> 
+<p>Vía pública son los espacios de libre concurrencia pública como calles, plazas, parques o espacios verdes. No son vía pública los solares, y/o propiedades privadas.</p> 
 ]]>
     </string>
-    <string name="site_report_item_help_3">
+    
+      <string name="site_report_item_help_3">
 <![CDATA[      
-<p>Las larvas de mosquito son muy fáciles de reconocer. Son alargadas, más pequeñas que una moneda de 1 céntimo y nadan haciendo piruetas. Se mueven mucho y suben a la superficie del agua para respirar.</p>
-
-<p>Si encuentras larvas de mosquito en un recipiente (de cualquier especie), has encontrado un lugar potencial de cría de mosquito tigre. Si evitas tener pequeñas acumulaciones de agua en tu casa estarás combatiendo el mosquito tigre.</p> 
+<p>Les larves i pupes necessiten aigua estancada i amb matèria orgànica (aliment) per viure. Evita tenir petites acumulacions d\'aigua a casa teva.</p> 
+]]>
+    </string>
+    <string name="site_report_item_help_4">
+<![CDATA[      
+<p>El mosquito tigre normalmente no se desplaza mucho, por lo que los adultos y sus lugares de cría se encuentran cercanos.</p> 
        ]]>
     </string>
     <string name="embornals">Sumidero o imbornal</string>

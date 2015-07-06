@@ -100,12 +100,28 @@ public class MissionAdapter extends BaseAdapter implements OnClickListener {
 			holder.itemText.setVisibility(View.GONE);
 			holder.helpIcon.setVisibility(View.GONE);
 			holder.itemChoices.setVisibility(View.GONE);
+			
 
 		} else {
 			/***** Get each Model object from Arraylist ********/
 			tempValues = null;
 			tempValues = (MissionItemModel) data.get(position);
+			
+			holder.helpIcon.setOnClickListener(new OnClickListener(){
 
+				@Override
+				public void onClick(View v) {
+					if (tempValues.getItemHelpImage() != -1) {
+						Util.showHelp(activity, tempValues.getItemHelp(),
+								tempValues.getItemHelpImage());
+					} else
+						Util.showHelp(activity, tempValues.getItemHelp());
+
+				}
+								
+			});
+			
+			
 			/************ Set Model values in Holder elements ***********/
 
 			String lang = PropertyHolder.getLanguage();
@@ -174,7 +190,9 @@ public class MissionAdapter extends BaseAdapter implements OnClickListener {
 
 			/******** Set Item Click Listner for LayoutInflater for each row *******/
 
-			vi.setOnClickListener(new OnItemClickListener(position));
+//			vi.setOnClickListener(new OnItemClickListener(position));
+			
+
 		}
 		return vi;
 	}
@@ -185,6 +203,7 @@ public class MissionAdapter extends BaseAdapter implements OnClickListener {
 	}
 
 	/********* Called when Item click in ListView ************/
+/*
 	private class OnItemClickListener implements OnClickListener {
 		private int mPosition;
 
@@ -206,4 +225,6 @@ public class MissionAdapter extends BaseAdapter implements OnClickListener {
 			return;
 		}
 	}
+	
+	*/
 }

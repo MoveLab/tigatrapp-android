@@ -415,7 +415,9 @@ public class AttachedPhotos extends Activity {
 
 		}
 		case (ReportTool.REQUEST_CODE_GET_PHOTO_FROM_GALLERY): {
-
+			
+		// this is ugly, but a quick safety to avoid crashes
+		try{
 			if(data != null){
 				Uri this_data = data.getData();
 				if(this_data != null){
@@ -461,6 +463,10 @@ public class AttachedPhotos extends Activity {
 			}
 			}
 			}
+			
+		} catch (Exception e){
+			// do nothing for now... TODO
+		}
 			break;
 
 		}

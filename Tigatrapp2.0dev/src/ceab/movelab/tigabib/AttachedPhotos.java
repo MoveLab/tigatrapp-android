@@ -262,6 +262,7 @@ public class AttachedPhotos extends Activity {
 			@Override
 			public void onClick(View v) {
 
+				
 				Intent intent = new Intent();
 				// Show only images, no videos or anything else
 				intent.setType("image/*");
@@ -271,8 +272,8 @@ public class AttachedPhotos extends Activity {
 				// available)
 				startActivityForResult(Intent.createChooser(
 						intent,
-						getResources().getString(
-								R.string.photo_selector_attach_photo_button)),
+					getResources().getString(
+						R.string.photo_selector_attach_photo_button)),
 						ReportTool.REQUEST_CODE_GET_PHOTO_FROM_GALLERY);
 
 			}

@@ -17,6 +17,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import ceab.movelab.tigabib.R;
@@ -67,6 +68,7 @@ public class MissionAdapter extends BaseAdapter implements OnClickListener {
 
 		public TextView itemText;
 		public ImageView helpIcon;
+		public RelativeLayout helpIconRow;
 		public Spinner itemChoices;
 
 		public String itemId;
@@ -89,6 +91,7 @@ public class MissionAdapter extends BaseAdapter implements OnClickListener {
 			holder = new ViewHolder();
 			holder.itemText = (TextView) vi.findViewById(R.id.itemText);
 			holder.helpIcon = (ImageView) vi.findViewById(R.id.helpIcon);
+			holder.helpIconRow = (RelativeLayout) vi.findViewById(R.id.helpIconRow);
 			holder.itemChoices = (Spinner) vi.findViewById(R.id.itemChoices);
 
 			/************ Set holder with LayoutInflater ************/
@@ -107,19 +110,6 @@ public class MissionAdapter extends BaseAdapter implements OnClickListener {
 			tempValues = null;
 			tempValues = (MissionItemModel) data.get(position);
 			
-			holder.helpIcon.setOnClickListener(new OnClickListener(){
-
-				@Override
-				public void onClick(View v) {
-					if (tempValues.getItemHelpImage() != -1) {
-						Util.showHelp(activity, tempValues.getItemHelp(),
-								tempValues.getItemHelpImage());
-					} else
-						Util.showHelp(activity, tempValues.getItemHelp());
-
-				}
-								
-			});
 			
 			
 			/************ Set Model values in Holder elements ***********/
@@ -130,10 +120,12 @@ public class MissionAdapter extends BaseAdapter implements OnClickListener {
 
 			holder.itemId = tempValues.getItemId();
 
-			if (tempValues.getItemHelp() == null || tempValues.getItemHelp().equals(""))
-				holder.helpIcon.setVisibility(View.GONE);
+			if (tempValues.getItemHelp() == null || tempValues.getItemHelp().equals("")){
+				holder.helpIcon.setVisibility(View.GONE);} else{
+					holder.helpIconRow.setOnClickListener(new OnItemClickListener(position));
 
-
+				}
+			
 			ArrayAdapter<String> choicesAdapter = new ArrayAdapter<String>(
 					activity, android.R.layout.simple_spinner_item,
 					tempValues.getItemChoices());
@@ -203,7 +195,7 @@ public class MissionAdapter extends BaseAdapter implements OnClickListener {
 	}
 
 	/********* Called when Item click in ListView ************/
-/*
+
 	private class OnItemClickListener implements OnClickListener {
 		private int mPosition;
 
@@ -226,5 +218,5 @@ public class MissionAdapter extends BaseAdapter implements OnClickListener {
 		}
 	}
 	
-	*/
+	
 }

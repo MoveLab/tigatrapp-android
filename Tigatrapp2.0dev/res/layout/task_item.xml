@@ -14,6 +14,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
 	    android:clickable="true"
+	    android:background="@drawable/selectorcolors"
         android:padding="2dip" >
 
         <ImageView
@@ -36,9 +37,9 @@
 
     <Spinner
         android:id="@+id/itemChoices"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:minHeight="10dip"
+        android:minHeight="50dip"
         android:layout_marginBottom="5dip"
         android:layout_marginTop="5dip"
         android:spinnerMode="dialog"

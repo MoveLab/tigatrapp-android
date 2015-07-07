@@ -2,7 +2,7 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/selectorcolors"
-    android:clickable="true"
+    android:clickable="false"
     android:orientation="vertical"
     android:paddingBottom="30dip"
     android:paddingLeft="6dip"
@@ -10,8 +10,11 @@
     android:paddingTop="30dip" >
 
     <RelativeLayout
+        android:id="@+id/helpIconRow"       
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+ 	    android:background="@drawable/selectorcolors"
+    	android:clickable="true"
         android:padding="5dip" >
 
         <ImageView
@@ -35,8 +38,9 @@
 
     <Spinner
         android:id="@+id/itemChoices"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:minHeight="50dip"
         android:layout_marginBottom="8dip"
         android:layout_marginTop="8dip"
         android:ellipsize="marquee"

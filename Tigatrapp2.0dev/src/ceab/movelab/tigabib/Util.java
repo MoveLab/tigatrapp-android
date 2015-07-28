@@ -197,12 +197,12 @@ public class Util {
 	/**
 	 * RSS URL for Spanish.
 	 */
-	public static final String URL_RSS_ES = "http://atrapaeltigre.com/web/feed/";
+	public static final String URL_RSS_ES = "http://atrapaeltigre.com/feed/";
 
 	/**
 	 * RSS URL for Catalan.
 	 */
-	public static final String URL_RSS_CA = "http://atrapaeltigre.com/web/ca/feed/";
+	public static final String URL_RSS_CA = "http://atrapaeltigre.com/feed/";
 
 	/**
 	 * Server API URL.

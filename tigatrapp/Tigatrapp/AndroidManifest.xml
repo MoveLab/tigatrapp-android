@@ -22,8 +22,8 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ceab.movelab.tigatrapp"
-    android:versionCode="12"
-    android:versionName="1.07" >
+    android:versionCode="13"
+    android:versionName="1.08" >
 
     <uses-sdk
         android:minSdkVersion="4"

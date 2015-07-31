@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -153,8 +154,9 @@ public class RSSActivity extends Activity {
 
 				int eventType = xpp.getEventType();
 				RSSPost pdData = null;
-				SimpleDateFormat dateFormat = new SimpleDateFormat(
-						"EEE, DD MMM yyyy HH:mm:ss", Locale.US);
+				SimpleDateFormat inputDateFormat = new SimpleDateFormat(
+						"EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
+				DateFormat outputDateFomat = DateFormat.getDateTimeInstance();
 				while (eventType != XmlPullParser.END_DOCUMENT) {
 					if (eventType == XmlPullParser.START_DOCUMENT) {
 
@@ -173,8 +175,8 @@ public class RSSActivity extends Activity {
 						if (xpp.getName().equals("item")) {
 							// format the data here, otherwise format data in
 							// Adapter
-							Date postDate = dateFormat.parse(pdData.postDate);
-							pdData.postDate = dateFormat.format(postDate);
+							Date postDate = inputDateFormat.parse(pdData.postDate);
+							pdData.postDate = outputDateFomat.format(postDate);
 							RSSPostList.add(pdData);
 						} else {
 							currentTag = IGNORETAG;

@@ -65,6 +65,8 @@
 
 package ceab.movelab.tigabib;
 
+import java.util.Random;
+
 import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
@@ -95,6 +97,10 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 	private static final int NOTIFICATION_ID_MISSION = 0;
 
 	private static final long DAILY_INTERVAL = 1000 * 60 * 60 * 24;
+	
+	long this_jitter;
+	
+	Random mRandom = new Random();
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
@@ -147,9 +153,11 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 			} else if (extra.contains(Messages.START_DAILY_SYNC)) {
 				// first sync now
 				context.startService(new Intent(context, SyncData.class));
+				// now set daily alarm for random time
+				this_jitter = mRandom.nextInt(24 * 60)*60*1000;
 				int alarmType = AlarmManager.ELAPSED_REALTIME_WAKEUP;
-				alarmManager.setRepeating(alarmType,
-						SystemClock.elapsedRealtime(), DAILY_INTERVAL, pi2sync);
+				alarmManager.setInexactRepeating(alarmType,
+						SystemClock.elapsedRealtime() + this_jitter, DAILY_INTERVAL, pi2sync);
 				Util.logInfo(context, TAG, "started daily sync");
 			} else if (extra.contains(Messages.STOP_DAILY_SYNC)) {
 				alarmManager.cancel(pi2sync);

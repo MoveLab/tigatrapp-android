@@ -120,11 +120,6 @@ public class MissionModel {
 					.getString(R.string.site_report_item_help_1));
 			item1.put(MissionItemModel.KEY_ANSWER_CHOICES, new JSONArray("['"
 					+ context.getResources().getString(R.string.embornals)
-					+ "', '" + context.getResources().getString(R.string.fonts)
-					+ "', '"
-					+ context.getResources().getString(R.string.basses)
-					+ "', '"
-					+ context.getResources().getString(R.string.bidons)
 					+ "', '"
 					+ context.getResources().getString(R.string.altres) + "']"));
 

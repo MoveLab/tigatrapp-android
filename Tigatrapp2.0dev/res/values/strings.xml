@@ -1,31 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
- * Tigatrapp
+ * Mosquito Alert
  * Copyright (C) 2013, 2014  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
- * Contact: info@atrapaeltigre.com
+ * Contact: info@mosquitoalert.com
  * 
- * This file is part of Tigatrapp.
+ * This file is part of Mosquito Alert.
  * 
- * Tigatrapp is free software: you can redistribute it and/or modify 
+ * Mosquito Alert is free software: you can redistribute it and/or modify 
  * it under the terms of the GNU General Public License as published by 
  * the Free Software Foundation, either version 3 of the License, or (at 
  * your option) any later version.
  * 
- * Tigatrapp is distributed in the hope that it will be useful, but 
+ * Mosquito Alert is distributed in the hope that it will be useful, but 
  * WITHOUT ANY WARRANTY; without even the implied warranty of 
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Mosquito Alert.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
 <resources>
 
     <!-- DO NOT TRANSLATE -->
 
-    <string name="app_name" translatable="false">Tigatrapp</string>
-    <string name="app_directory" translatable="false">Tigatrapp</string>
+    <string name="app_name" translatable="false">Mosquito Alert</string>
+    <string name="app_directory" translatable="false">MosquitoAlert</string>
     <string name="debug_mode" translatable="false">true</string>
     <string name="private_mode" translatable="false">false</string>
     <string name="package_prefix" translatable="false">ceab.movelab.tigabib.</string>
@@ -88,24 +88,24 @@
     <string name="dataMap_CD">My Data</string>
     <string name="switchboard_button_text_report">REPORT</string>
     <string name="switchboard_button_text_sites">BREEDING SITE</string>
-    <string name="switchboard_button_text_adult">TIGER MOSQUITO</string>
+    <string name="switchboard_button_text_adult">MOSQUITO</string>
     <string name="switchboard_button_text_map">MY MAP</string>
     <string name="switchboard_button_text_gallery">GALLERY</string>
-    <string name="switchboard_demo_popup">This is the demo version of Tigatrapp. With this version you cannot share data. If you want to participate in the project by contributing data, please click OK to install the full Tigatrapp application. (If you already have the full version, you can uninstall the demo at any time.)</string>
+    <string name="switchboard_demo_popup">This is the demo version of Mosquito Alert. With this version you cannot share data. If you want to participate in the project by contributing data, please click OK to install the full Mosquito Alert application. (If you already have the full version, you can uninstall the demo at any time.)</string>
     
 
     <!-- activity labels -->
-    <string name="activity_label_report_editing">Tigatrapp: Report Editor</string>
-    <string name="activity_label_report_new">Tigatrapp: New Report</string>
-    <string name="activity_label_map">Tigatrapp: My Report Map</string>
-    <string name="activity_label_gallery">Tigatrapp: Gallery</string>
+    <string name="activity_label_report_editing">Mosquito Alert: Report Editor</string>
+    <string name="activity_label_report_new">Mosquito Alert: New Report</string>
+    <string name="activity_label_map">Mosquito Alert: My Report Map</string>
+    <string name="activity_label_gallery">Mosquito Alert: Gallery</string>
 
     <!-- Reports -->
     <string name="checklist_label_editing">Description*</string>
     <string name="location_label_editing">Location*</string>
     <string name="photo_check_label_editing">Photo(s)</string>
     <string name="note_check_label_editing">Note</string>
-    <string name="report_title_adult">Tiger Mosquito</string>
+    <string name="report_title_adult">Mosquito</string>
     <string name="report_title_site">Breeding Site</string>
     <string name="checklist_label">Add description*</string>
     <string name="location_label">Add location*</string>
@@ -158,7 +158,7 @@
 <li><b>Notes</b>: Add a note if you want to send additional information about your finding.</li> 
 </ul> 
 </p> 
-<p>Once sent, you can view and edit your report on your phone by selecting the map activity from the main screen and then clicking on a report icon. The information you submit will also be published map on a public tiger mosquito map at <a href="www.atrapaeltigre.com"> www.atrapaeltigre.com </a>.</p>
+<p>Once sent, you can view and edit your report on your phone by selecting the map activity from the main screen and then clicking on a report icon. The information you submit will also be published map on a public tiger mosquito map at <a href="www.mosquitoalert.com"> www.mosquitoalert.com </a>.</p>
    ]]>
     </string>
     <string name="site_report_help_html">
@@ -177,7 +177,7 @@
 <li><b>Notes</b>: Add a note if you want to send additional information about your finding.</li> 
 </ul> 
 </p> 
-<p>Once sent, you can view and edit your report on your phone by selecting the map activity from the main screen and then clicking on a report icon. The information you submit will also be published map on a public tiger mosquito map at <a href="www.atrapaeltigre.com"> www.atrapaeltigre.com </a>.</p>
+<p>Once sent, you can view and edit your report on your phone by selecting the map activity from the main screen and then clicking on a report icon. The information you submit will also be published map on a public tiger mosquito map at <a href="www.mosquitoalert.com"> www.mosquitoalert.com </a>.</p>
        ]]>
     </string>
     <string name="site_report_item_help_1">
@@ -231,7 +231,7 @@ El mosquit tigre normalment no es desplaça gaire, per això els adults i els se
 
     <!-- RSS Feeds -->
     <string name="rss_internet_connection_warning">No internet connection.\n\nTo view the feed, please connect to the internet and select \'refresh\' from the menu.</string>
-    <string name="rss_title_tigatrapp">News from AtrapaelTigre.com</string>
+    <string name="rss_title_tigatrapp">News from MosquitoAlert.com</string>
 
     <!-- Tasks -->
     <string name="task_list_title">Missions</string>
@@ -239,7 +239,7 @@ El mosquit tigre normalment no es desplaça gaire, per això els adults i els se
     <string name="task_list_completed">Complete</string>
     <string name="delete_task_from_list_question">Delete mission from list?</string>
     <string name="delete">Delete</string>
-    <string name="new_mission">New Tigatrapp mission!</string>
+    <string name="new_mission">New Mosquito Alert mission!</string>
     <string name="mission_button_left_survey">Submit responses</string>
     <string name="mission_button_left_url">Visit webpage</string>
     <string name="mission_button_middle">Do mission later</string>
@@ -274,7 +274,7 @@ El mosquit tigre normalment no es desplaça gaire, per això els adults i els se
     <string name="settings_language_detail">Choose language</string>
     <string name="settings_language_button">Choose</string>
     <string name="settings_sync_title">Synchronize</string>
-    <string name="settings_sync_detail">Synchronize data with the Tigatrapp server to receive new missions and the latest Tigatrapp news.</string>
+    <string name="settings_sync_detail">Synchronize data with the Mosquito Alert server to receive new missions and the latest Mosquito Alert news.</string>
     <string name="settings_sync_button">Sync.</string>
     <string name="settings_syncing">Synchronizing</string>
     <string name="on">On</string>
@@ -335,8 +335,8 @@ El mosquit tigre normalment no es desplaça gaire, per això els adults i els se
     <string name="noGPSnoNetAlert">Your GPS and network receivers are off so it Is not possible to detect your location. Activate them now?</string>
     <string name="notes_title">Message</string>
     <string name="ok">OK</string>
-    <string name="project_email">info@atrapaeltigre.com</string>
-    <string name="project_website">http://atrapaeltigre.com/</string>
+    <string name="project_email">info@mosquitoalert.com</string>
+    <string name="project_website">http://mosquitoalert.com/</string>
     <string name="report_sent">If you select OK, your report will be sent to the lab.</string>
     <string name="report_sent_confirmation">Report sent. Thank you!</string>
     <string name="reportGallery_CD">Image gallery button</string>
@@ -351,7 +351,7 @@ El mosquit tigre normalment no es desplaça gaire, per això els adults i els se
     <string name="view_gpl_english">View Official Version of GPL</string>
     <string name="yes">Yes</string>
     <string name="your_report_id_is">"Your report ID is: "</string>
-    <string name="photo_credits">The photographs in Tigatrapp were provided by R. Eritja (www.eritja.com).</string>
+    <string name="photo_credits">The photographs in Mosquito Alert were provided by R. Eritja (www.eritja.com).</string>
     <string name="copyright">
 <![CDATA[
 <p>Copyright &#169; 2013, 2014 John R.B. Palmer, Aitana Oltra, Joan Garriga ansd Frederic Bartumeus</p>

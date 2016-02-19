@@ -1,7 +1,7 @@
 <resources>
 
-    <string name="app_name" translatable="false">Tigatrapp</string>
-    <string name="app_directory" translatable="false">Tigatrapp</string>
+    <string name="app_name" translatable="false">Mosquito Alert</string>
+    <string name="app_directory" translatable="false">MosquitoAlert</string>
     <string name="debug_mode" translatable="false">true</string>
     <string name="private_mode" translatable="false">true</string>
     <string name="package_prefix" translatable="false">ceab.movelab.tigatrapp.</string>

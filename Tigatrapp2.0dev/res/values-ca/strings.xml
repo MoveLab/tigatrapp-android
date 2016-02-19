@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
- * Tigatrapp
+ * Mosquito Alert
  * Copyright (C) 2013, 2014  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
- * Contact: info@atrapaeltigre.com
+ * Contact: info@mosquitoalert.com
  * 
- * This file is part of Tigatrapp.
+ * This file is part of Mosquito Alert.
  * 
- * Tigatrapp is free software: you can redistribute it and/or modify 
+ * Mosquito Alert is free software: you can redistribute it and/or modify 
  * it under the terms of the GNU General Public License as published by 
  * the Free Software Foundation, either version 3 of the License, or (at 
  * your option) any later version.
  * 
- * Tigatrapp is distributed in the hope that it will be useful, but 
+ * Mosquito Alert is distributed in the hope that it will be useful, but 
  * WITHOUT ANY WARRANTY; without even the implied warranty of 
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+ * with Mosquito Alert.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <resources>
 
@@ -69,24 +69,24 @@
     <string name="dataMap_CD">Les meves dades</string>
     <string name="switchboard_button_text_report">ENVIA</string>
     <string name="switchboard_button_text_sites">LLOC DE CRIA</string>
-    <string name="switchboard_button_text_adult">MOSQUIT TIGRE</string>
+    <string name="switchboard_button_text_adult">MOSQUIT</string>
     <string name="switchboard_button_text_map">EL MEU MAPA</string>
     <string name="switchboard_button_text_gallery">GALERIA</string>
-    <string name="switchboard_demo_popup">Estàs utilitzant la versió demo (de proves) de Tigatrapp. Amb aquesta versió antiga no es poden enviar dades. Si vols participar al projecte compartint dades, clica OK per instal·lar-te la versió completa (si ja la tens instal·lada, pots desinstal·lar-te la versió demo quan vulguis).</string>
+    <string name="switchboard_demo_popup">Estàs utilitzant la versió demo (de proves) de Mosquito Alert. Amb aquesta versió antiga no es poden enviar dades. Si vols participar al projecte compartint dades, clica OK per instal·lar-te la versió completa (si ja la tens instal·lada, pots desinstal·lar-te la versió demo quan vulguis).</string>
     
     
     <!-- activity labels -->
-    <string name="activity_label_report_editing">Tigatrapp: Edita informe</string>
-    <string name="activity_label_report_new">Tigatrapp: Nou informe</string>
-    <string name="activity_label_map">Tigatrapp: El meu Mapa</string>
-    <string name="activity_label_gallery">Tigatrapp: Galeria</string>
+    <string name="activity_label_report_editing">Mosquito Alert: Edita informe</string>
+    <string name="activity_label_report_new">Mosquito Alert: Nou informe</string>
+    <string name="activity_label_map">Mosquito Alert: El meu Mapa</string>
+    <string name="activity_label_gallery">Mosquito Alert: Galeria</string>
 
     <!-- Reports -->
     <string name="checklist_label_editing">Descripció*</string>
     <string name="location_label_editing">Localització*</string>
     <string name="photo_check_label_editing">Imatges</string>
     <string name="note_check_label_editing">Nota</string>
-    <string name="report_title_adult">Mosquit tigre</string>
+    <string name="report_title_adult">Mosquit</string>
     <string name="report_title_site">Lloc de cria</string>
     <string name="checklist_label">Completa descripció*</string>
     <string name="location_label">Afegeix localització*</string>
@@ -132,7 +132,7 @@
 <li><b>Notes</b>: si vols, descriu millor la teva troballa.</li>
 </ul>
 </p> 
-<p>Un cop enviat, podràs consultar i editar l\'informe al teu mapa. Les dades que enviïs seran publicades al mapa del mosquit tigre a la web <a href="www.atrapaeltigre.com">www.atrapaeltigre.com</a>.</p>        
+<p>Un cop enviat, podràs consultar i editar l\'informe al teu mapa. Les dades que enviïs seran publicades al mapa del mosquit tigre a la web <a href="www.mosquitoalert.com">www.mosquitoalert.com</a>.</p>        
    ]]>
     </string>
     <string name="site_report_help_html">
@@ -150,7 +150,7 @@
 <li><b>Notes</b>: si vols, descriu millor la teva troballa.</li>
 </ul> 
 </p>
-<p>Un cop enviat, podràs consultar i editar l\'informe al teu mapa. Les dades que enviïs seran publicades al mapa del mosquit tigre a la web www.atrapaeltigre.com.</p>        
+<p>Un cop enviat, podràs consultar i editar l\'informe al teu mapa. Les dades que enviïs seran publicades al mapa del mosquit tigre a la web www.mosquitoalert.com.</p>        
        ]]>
     </string>
     <string name="site_report_item_help_1">
@@ -216,7 +216,7 @@
     <string name="task_list_completed">Completades</string>
     <string name="delete_task_from_list_question">Elimina missió de la llista</string>
     <string name="delete">Elimina</string>
-    <string name="new_mission">Nova missió Tigatrapp!</string>
+    <string name="new_mission">Nova missió Mosquito Alert!</string>
     <string name="mission_button_left_survey">Envia ara</string>
     <string name="mission_button_left_url">Visita la pàgina</string>
     <string name="mission_button_middle">Envia més tard</string>
@@ -311,12 +311,12 @@
     <string name="noGPSnoNetAlert">El GPS i la recepció de xarxa telefònica estan desactivats. No se\'t pot localitzar sense com a mínim un d\'ells activat. Vols activar-los?</string>
     <string name="notes_title">Missatge</string>
     <string name="ok">OK</string>
-    <string name="project_email">info@atrapaeltigre.com</string>
-    <string name="project_website">http://atrapaeltigre.com/</string>
-    <string name="report_sent">Si cliques OK, les teves dades s\'enviaran al grup de recerca responsable del projecte. Part de les dades es faran públiques al mapa web del mosquit tigre a la pàgina web www.atrapaeltigre.com</string>
+    <string name="project_email">info@mosquitoalert.com</string>
+    <string name="project_website">http://mosquitoalert.com/</string>
+    <string name="report_sent">Si cliques OK, les teves dades s\'enviaran al grup de recerca responsable del projecte. Part de les dades es faran públiques al mapa web del mosquit tigre a la pàgina web www.mosquitoalert.com</string>
     <string name="report_sent_confirmation">Gràcies per participar</string>
     <string name="reportGallery_CD">Botó per accedir a la galeria d\'imatges del mosquit tigre</string>
-    <string name="saved_image_prefix">tigatrapp</string>
+    <string name="saved_image_prefix">mosquitoalert</string>
     <string name="scm_CD">SCM logo</string>
     <string name="send_spec_text">Enviaràs el teu mosquit per correu postal al centre de recerca?</string>
     <string name="share_with">Comparteix</string>
@@ -327,7 +327,7 @@
     <string name="view_gpl_english">Veure GPL versió oficial</string>
     <string name="yes">Sí</string>
     <string name="your_report_id_is">"El codi de la teva Tigre troballa és: "</string>
-    <string name="photo_credits">Les fotografies de l\'App Tigatrapp han estat cedides per R. Eritja (www.eritja.com).</string>
+    <string name="photo_credits">Les fotografies de l\'App Mosquito Alert han estat cedides per R. Eritja (www.eritja.com).</string>
     <string name="copyright">
 <![CDATA[
 <p>Copyright &#169; 2013, 2014 John R.B. Palmer, Aitana Oltra, Joan Garriga i Frederic Bartumeus</p>

@@ -15,7 +15,7 @@ public class ImageAdapter extends BaseAdapter {
 	private static LayoutInflater inflater = null;
 	public Integer[] data = { R.drawable.a, R.drawable.c, R.drawable.d,
 			R.drawable.e, R.drawable.f, R.drawable.g, R.drawable.h,
-			R.drawable.i, R.drawable.k, R.drawable.j, R.drawable.l, };
+			R.drawable.i, R.drawable.k, R.drawable.j, R.drawable.l,  R.drawable.m, R.drawable.n, R.drawable.o,};
 
 	public String[] captions;
 

@@ -135,6 +135,13 @@
     <string name="q1_sizecolor_text">Tiger mosquitoes are small and black with white stripes.</string>
     <string name="confirmation_q2_adult_headthorax">Does it have a white stripe on the head and thorax?</string>
     <string name="adult_report_q3">Does it have white stripes on the abdomen and legs?</string>
+    
+    <string name="adult_report_q3a1">Abdomen parecido a <i>Ae. albopictus</i></string>
+	<string name="adult_report_q3a2">Abdomen parecido a <i>Ae. aegypti</i></string>
+	<string name="adult_report_q3a3">Ninguno de los dos</string>
+	<string name="adult_report_q3a4">No sé</string>   
+    
+    
     <string name="embornals">Storm drain or similar receptacle</string>
     <string name="fonts">Fountain</string>
     <string name="basses">Small basin or similar receptacle</string>

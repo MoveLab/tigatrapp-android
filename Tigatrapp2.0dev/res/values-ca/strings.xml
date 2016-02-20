@@ -111,6 +111,13 @@
 	<string name="site_report_q3_response2">Sí, aigua sense larves ni pupes.</string>    
 	<string name="site_report_q3_response3">No, ni aigua ni larves o pupes.</string>    
     <string name="adult_report_q3">Té ratlles blanques a l\'abdomen i a les potes?</string>
+    
+    <string name="adult_report_q3a1">Abdomen parecido a <i>Ae. albopictus</i></string>
+	<string name="adult_report_q3a2">Abdomen parecido a <i>Ae. aegypti</i></string>
+	<string name="adult_report_q3a3">Ninguno de los dos</string>
+	<string name="adult_report_q3a4">No sé</string>   
+    
+    
     <string name="q3_headthorax_text">El mosquit tigre té una ratlla blanca al cap i al tòrax. Evita enviar dades d\'altres insectes.</string>
     <string name="q2_abdomenlegs_text">El mosquit tigre té ratlles blanques a l\'abdomen i a les potes. Evita enviar dades d\'altres insectes.</string>
     <string name="identifying_mosquitoes_title">Descripció del mosquit</string>

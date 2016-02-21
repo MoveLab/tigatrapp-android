@@ -40,38 +40,35 @@
     
     <!-- Gallery -->
     <string-array name="gallery_array">
-        <item>Female tiger mosquito. Tiger mosquitoes (1) are small and black with white stripes, 
-        (2) they have a white stripe on the head and thorax, and (3) they have white stripes on the abdomen 
-        and legs. There are other similar insects, so it is important to avoid confusing them!</item>
-        <item>Female tiger mosquito. Note the stripes on the abdomen. 
-        Remember that the tiger mosquito is very small, 
-        not more than 5 mm (including legs, about half the size of a 1 cent coin).</item>
-        <item>Female tiger mosquito ready to bite. 
-        Note the white stripe on the head and thorax, and the stripes on the legs .</item>
-        <item>Female tiger mosquito biting. Note 
-        the characteristic white stripe on the head and thorax. </item>
-        <item>Female tiger mosquito biting. 
-        Note the characteristic white stripe on the head and thorax. </item>
-        <item>Two female tiger mosquitoes biting. Remember that only the females bite. 
-        Tiger mosquitoes usually bite during the day (not when it\'s dark)
-         and they usually bite legs.</item>
-        <item>Female tiger mosquito biting. 
-        The blood that accumulates in the abdomen will trigger the laying of eggs.</item>
-        <item>Tiger mosquito laying eggs. Note the eggs\' dark color and elongated shape. 
-        The eggs are so small that they are almost invisible to the naked eye. 
-        Remember that the tiger mosquito lays eggs in small containers, 
-        on dry walls by stagnant and dirty water.</item>
-        <item>Tiger mosquito larvae (more elongated) and pupae (more rounded).
-        Note that they are aquatic. 
-        The larvae emerge from the eggs when they are covered with water and eventually make 
-        the transition to pupae.</item>
-        <item>Tiger mosquito larvae (more elongated) and pupae (more rounded). 
-        Remember that to keep tiger mosquitos out of your home you need to avoid having standing 
-        water in which the larvae can develop!</item>
-        <item>Two tiger mosquito pupae. 
-        This is the phase in which metamorphosis occurs, and the adult
-         mosquito emerges from the pupa and enters the aerial environment.</item>
-    </string-array>
+        <item><![CDATA[Hembra de mosquito tigre (<i>Aedes albopictus</i>). Sólo los mosquitos que: 1) son pequeños, 
+        negros y con rayas blancas, 2) tienen una raya blanca en la cabeza y en el tórax y 3) tienen rayas blancas en el abdomen y en las patas son mosquito tigre. Hay otros 
+        insectos parecidos, ¡no los confundas!]]></item>
+        <item><![CDATA[Hembra de mosquito tigre. Observa las rayas en el abdomen. 
+           Recuerda que tanto el mosquito tigre como el mosquito de la fiebre amarilla son muy pequeños, 
+           no miden más de 5 mm (con patas incluidas, aproximadamente la mitad de una moneda de 1 céntimo de euro).]]></item>
+        <item><![CDATA[Hembra de mosquito tigre preparada para picar. 
+              Observa la raya blanca en la cabeza y en el tórax y las rayas en las patas.]]></item>
+        <item><![CDATA[Hembra de mosquito tigre picando. 
+        Observa la característica raya blanca en la cabeza y en el tórax.]]></item>
+        <item><![CDATA[Hembra de mosquito tigre picando. 
+        Observa la característica raya blanca en la cabeza y en el tórax.]]></item>
+        <item><![CDATA[Dos hembras de mosquito tigre picando. Recuerda que sólo pican las hembras de mosquito. En el caso de los &lt;i>Aedes</i> urbanos (&lt;i>Ae. albopictus</i>/&lt;i>aegypti</i>), acostumbran a hacerlo durante el día (y no cuando oscurece) y normalmente pican en las piernas.]]></item>
+        <item><![CDATA[Hembra de mosquito tigre picando. La sangre que acumula en el abdomen 
+        servirá para generar una puesta de huevos.]]></item>
+        <item><![CDATA[Puesta de huevos de <i>Aedes</i>. Observa el color oscuro y la forma alargada. 
+        Los huevos son tan pequeños que son casi invisibles a simple vista. 
+        Recuerda que los <i>Aedes</i> urbanos (<i>Ae. albopictus</i>/<i>aegypti</i>) ponen los huevos en recipientes pequeños, en paredes  
+        secas cerca de agua estancada y sucia.]]></item>
+        <item><![CDATA[Larvas (más alargadas) y pupas (más redondeadas) de <i>Aedes</i>. Observa que son acuáticas. 
+        Las larvas emergen de los huevos cuando éstos quedan cubiertos de agua y con el tiempo mudan a pupas.]]></item>
+        <item><![CDATA[Larvas (más alargadas) y pupas (más redondeadas) de <i>Aedes</i>. 
+        Recuerda evitar tener pequeñas acumulaciones de agua en casa.]]></item>
+        <item><![CDATA[Dos pupas de <i>Aedes</i>. En esta fase se produce la metamorfosis, 
+        y el mosquito adulto emerge de la pupa hacia el medio aéreo.]]></item>
+<item><![CDATA[Hembra de mosquito de la fiebre amarilla (<i>Aedes aegypti</i>) picando. A diferencia del mosquito tigre, <i>Ae. aegypti</i> tiene en su torso un dibujo en forma de lira y su cuerpo es generalmente de color marrón muy oscuro.]]></item>
+<item><![CDATA[Diferencia entre el mosquito de la fiebre amarilla (izquierda) y el mosquito tigre (derecha): <i>Ae. aegypti</i> (izquierda) tiene un dibujo en forma de lira en el tórax, mientras que <i>Ae. albopictus</i> (derecha) tiene una sola raya blanca.]]></item>
+<item><![CDATA[Hembra del mosquito de la fiebre amarilla (<i>Aedes aegypti</i>) picando. Fíjate que en general, su cuerpo es oscuro pero de color marrón, mientras que el mosquito tigre es completamente negro.]]></item>
+        </string-array>
 
     <!-- Toasts -->
     <string name="toast_report_before_submitting_site">Before submitting this breeding site report, please:</string>
@@ -132,6 +129,13 @@
 		<string name="q2_abdomenlegs_text">Tiger mosquitoes have white stripes on their abdomens and legs.</string>
     <string name="identifying_mosquitoes_title">Identifying Tiger Mosquitoes</string>
     <string name="confirmation_q1_adult_sizecolor">Is it small and black with white stripes?</string>
+
+    <string name="adult_report_q1a1"><![CDATA[Se parece a <i>Ae. albopictus</i>]]></string>
+    <string name="adult_report_q1a2"><![CDATA[Se parece a <i>Ae. aegypti</i>]]></string>
+    <string name="adult_report_q1a3">Ninguno de los dos</string>
+    <string name="adult_report_q1a4">No sé</string>   
+
+    
     <string name="q1_sizecolor_text">Tiger mosquitoes are small and black with white stripes.</string>
     <string name="confirmation_q2_adult_headthorax">Does it have a white stripe on the head and thorax?</string>
     <string name="adult_report_q3">Does it have white stripes on the abdomen and legs?</string>

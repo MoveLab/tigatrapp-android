@@ -17,7 +17,12 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Mosquito Alert.  If not, see <http://www.gnu.org/licenses/>.
+ * with Mosquito Alert.  If not, see <http://www.gnu.org/licenses/>.
+
+
+
+
+
 -->
 <resources>
 
@@ -27,37 +32,36 @@
 
     <!-- Gallery -->
     <string-array name="gallery_array">
-        <item>Femella de mosquit tigre. Només els mosquits que: 1) són petits, 
-        negres i amb ratlles blanques, 2) tenen una ratlla blanca al cap i al tòrax i 3) tenen 
-        ratlles blanques a l\'abdomen i a 
-        les potes són mosquit tigre. Hi ha altres 
-        insectes semblants, cal evitar confondre\'ls!</item>
-        <item>Femella de mosquit tigre. Observa les ratlles a l\'abdomen. 
-           Recorda que el mosquit tigre és molt petit, 
-           no fa més de 5 mm (amb potes incloses, aproximadament la meitat d\'una moneda d\'1 cèntim).</item>
-        <item>Femella de mosquit tigre preparada per picar. 
-              Observa la ratlla blanca al cap i al tòrax i les ratlles a les potes.</item>
-        <item>Femella de mosquit tigre picant. 
-        Observa la característica ratlla blanca al cap i al tòrax. </item>
-        <item>Femella de mosquit tigre picant. 
-        Observa la característica ratlla blanca al cap i al tòrax. </item>
-        <item>Dues femelles de mosquit tigre picant. Recorda que només piquen les femelles. 
-        En el cas del mosquit tigre, acostumen a fer-ho durant el dia (i no quan és fosc) i normalment 
-        piquen a les cames. </item>
-        <item>Femella de mosquit tigre picant. La sang que acumula a l\'abdomen 
-        servirà per generar una posta d\'ous. </item>
-        <item>Posta d\'ous de mosquit tigre. Observa el color fosc i la forma allargada. 
-        Els ous són tan petits que són quasi invisibles a ull nu. 
-        Recorda que el mosquit tigre posa els ous en recipients petits, en parets 
-        seques prop d\'aigua estancada i bruta. </item>
-        <item>Larves (més allargades) i pupes (més arrodonides) de mosquit tigre. Observa que són aquàtiques. 
-        Les larves emergeixen dels ous quan aquests queden coberts d\'aigua i amb el temps fan la muda a pupes. </item>
-        <item>Larves (més allargades) i pupes (més arrodonides) de mosquit tigre. 
-        Recorda que per evitar tenir mosquit tigre a casa, 
-        cal evitar les petites acumulacions d\'aigua.</item>
-        <item>Dues pupes de mosquit tigre. En aquesta fase es produeix la metamorfosi, 
-        i el mosquit adult emergeix de la pupa cap al medi aeri. </item>
-    </string-array>
+        <item><![CDATA[Hembra de mosquito tigre (<i>Aedes albopictus</i>). Sólo los mosquitos que: 1) son pequeños, 
+        negros y con rayas blancas, 2) tienen una raya blanca en la cabeza y en el tórax y 3) tienen rayas blancas en el abdomen y en las patas son mosquito tigre. Hay otros 
+        insectos parecidos, ¡no los confundas!]]></item>
+        <item><![CDATA[Hembra de mosquito tigre. Observa las rayas en el abdomen. 
+           Recuerda que tanto el mosquito tigre como el mosquito de la fiebre amarilla son muy pequeños, 
+           no miden más de 5 mm (con patas incluidas, aproximadamente la mitad de una moneda de 1 céntimo de euro).]]></item>
+        <item><![CDATA[Hembra de mosquito tigre preparada para picar. 
+              Observa la raya blanca en la cabeza y en el tórax y las rayas en las patas.]]></item>
+        <item><![CDATA[Hembra de mosquito tigre picando. 
+        Observa la característica raya blanca en la cabeza y en el tórax.]]></item>
+        <item><![CDATA[Hembra de mosquito tigre picando. 
+        Observa la característica raya blanca en la cabeza y en el tórax.]]></item>
+        <item><![CDATA[Dos hembras de mosquito tigre picando. Recuerda que sólo pican las hembras de mosquito. En el caso de los &lt;i>Aedes</i> urbanos (&lt;i>Ae. albopictus</i>/&lt;i>aegypti</i>), acostumbran a hacerlo durante el día (y no cuando oscurece) y normalmente pican en las piernas.]]></item>
+        <item><![CDATA[Hembra de mosquito tigre picando. La sangre que acumula en el abdomen 
+        servirá para generar una puesta de huevos.]]></item>
+        <item><![CDATA[Puesta de huevos de <i>Aedes</i>. Observa el color oscuro y la forma alargada. 
+        Los huevos son tan pequeños que son casi invisibles a simple vista. 
+        Recuerda que los <i>Aedes</i> urbanos (<i>Ae. albopictus</i>/<i>aegypti</i>) ponen los huevos en recipientes pequeños, en paredes  
+        secas cerca de agua estancada y sucia.]]></item>
+        <item><![CDATA[Larvas (más alargadas) y pupas (más redondeadas) de <i>Aedes</i>. Observa que son acuáticas. 
+        Las larvas emergen de los huevos cuando éstos quedan cubiertos de agua y con el tiempo mudan a pupas.]]></item>
+        <item><![CDATA[Larvas (más alargadas) y pupas (más redondeadas) de <i>Aedes</i>. 
+        Recuerda evitar tener pequeñas acumulaciones de agua en casa.]]></item>
+        <item><![CDATA[Dos pupas de <i>Aedes</i>. En esta fase se produce la metamorfosis, 
+        y el mosquito adulto emerge de la pupa hacia el medio aéreo.]]></item>
+<item><![CDATA[Hembra de mosquito de la fiebre amarilla (<i>Aedes aegypti</i>) picando. A diferencia del mosquito tigre, <i>Ae. aegypti</i> tiene en su torso un dibujo en forma de lira y su cuerpo es generalmente de color marrón muy oscuro.]]></item>
+<item><![CDATA[Diferencia entre el mosquito de la fiebre amarilla (izquierda) y el mosquito tigre (derecha): <i>Ae. aegypti</i> (izquierda) tiene un dibujo en forma de lira en el tórax, mientras que <i>Ae. albopictus</i> (derecha) tiene una sola raya blanca.]]></item>
+<item><![CDATA[Hembra del mosquito de la fiebre amarilla (<i>Aedes aegypti</i>) picando. Fíjate que en general, su cuerpo es oscuro pero de color marrón, mientras que el mosquito tigre es completamente negro.]]></item>
+        </string-array>
+
     <!-- Toasts -->
     <string name="toast_report_before_submitting_site">Per enviar aquest lloc de cria:</string>
     <string name="toast_report_before_submitting_adult">Per enviar aquest albirament d\'adult:</string>
@@ -122,6 +126,13 @@
     <string name="q2_abdomenlegs_text">El mosquit tigre té ratlles blanques a l\'abdomen i a les potes. Evita enviar dades d\'altres insectes.</string>
     <string name="identifying_mosquitoes_title">Descripció del mosquit</string>
     <string name="confirmation_q1_adult_sizecolor">És petit i negre amb ratlles blanques?</string>
+
+    <string name="adult_report_q1a1">Se parece a <i>Ae. albopictus</i></string>
+    <string name="adult_report_q1a2">Se parece a <i>Ae. aegypti</i></string>
+    <string name="adult_report_q1a3">Ninguno de los dos</string>
+    <string name="adult_report_q1a4">No sé</string>   
+
+
     <string name="q1_sizecolor_text">El mosquit tigre és petit i negre amb ratlles blanques. Normalment és actiu només de dia i acostuma a picar a les cames. Evita enviar dades d\'altres insectes.</string>
     <string name="adult_report_help_html">
 <![CDATA[

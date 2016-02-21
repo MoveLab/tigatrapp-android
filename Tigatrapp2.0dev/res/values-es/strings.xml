@@ -17,7 +17,11 @@
  * See the GNU General Public License for more details.
  * 
  * You should have received a copy of the GNU General Public License along 
- * with Mosquito Alert.  If not, see <http://www.gnu.org/licenses/>.
+ * with Mosquito Alert.  If not, see <http://www.gnu.org/licenses/>.
+
+
+
+
 -->
 <resources>
 
@@ -27,39 +31,34 @@
 
     <!-- Gallery -->
     <string-array name="gallery_array">
-        <item>Hembra de mosquito tigre (<i>Aedes albopictus</i>). Sólo los mosquitos que: 1) son pequeños, 
-        negros y con rayas blancas, 2) tienen una raya blanca en la cabeza y en el tórax y 3) tienen  
-        rayas blancas en el abdomen y en 
-        las patas son mosquito tigre. Hay otros 
-        insectos parecidos, ¡no los confundas!</item>
-        <item>Hembra de mosquito tigre. Observa las rayas en el abdomen. 
+        <item><![CDATA[Hembra de mosquito tigre (<i>Aedes albopictus</i>). Sólo los mosquitos que: 1) son pequeños, 
+        negros y con rayas blancas, 2) tienen una raya blanca en la cabeza y en el tórax y 3) tienen rayas blancas en el abdomen y en las patas son mosquito tigre. Hay otros 
+        insectos parecidos, ¡no los confundas!]]></item>
+        <item><![CDATA[Hembra de mosquito tigre. Observa las rayas en el abdomen. 
            Recuerda que tanto el mosquito tigre como el mosquito de la fiebre amarilla son muy pequeños, 
-           no miden más de 5 mm (con patas incluidas, aproximadamente la mitad de una moneda de 1 céntimo de euro).</item>
-        <item>Hembra de mosquito tigre preparada para picar. 
-              Observa la raya blanca en la cabeza y en el tórax y las rayas en las patas.</item>
-        <item>Hembra de mosquito tigre picando. 
-        Observa la característica raya blanca en la cabeza y en el tórax.</item>
-        <item>Hembra de mosquito tigre picando. 
-        Observa la característica raya blanca en la cabeza y en el tórax.</item>
-        <item>Dos hembras de mosquito tigre picando. Recuerda que sólo pican las hembras de mosquito. 
-        En el caso de los <i>Aedes</i> urbanos (<i>Ae. albopictus</i>/<i>aegypti</i>), acostumbran a hacerlo durante el día (y no cuando oscurece) y normalmente 
-        pican en las piernas.</item>
-        <item>Hembra de mosquito tigre picando. La sangre que acumula en el abdomen 
-        servirá para generar una puesta de huevos.</item>
-        <item>Puesta de huevos de <i>Aedes</i>. Observa el color oscuro y la forma alargada. 
+           no miden más de 5 mm (con patas incluidas, aproximadamente la mitad de una moneda de 1 céntimo de euro).]]></item>
+        <item><![CDATA[Hembra de mosquito tigre preparada para picar. 
+              Observa la raya blanca en la cabeza y en el tórax y las rayas en las patas.]]></item>
+        <item><![CDATA[Hembra de mosquito tigre picando. 
+        Observa la característica raya blanca en la cabeza y en el tórax.]]></item>
+        <item><![CDATA[Hembra de mosquito tigre picando. 
+        Observa la característica raya blanca en la cabeza y en el tórax.]]></item>
+        <item><![CDATA[Dos hembras de mosquito tigre picando. Recuerda que sólo pican las hembras de mosquito. En el caso de los <i>Aedes</i> urbanos (<i>Ae. albopictus</i>/<i>aegypti</i>), acostumbran a hacerlo durante el día (y no cuando oscurece) y normalmente pican en las piernas.]]></item>
+        <item><![CDATA[Hembra de mosquito tigre picando. La sangre que acumula en el abdomen 
+        servirá para generar una puesta de huevos.]]></item>
+        <item><![CDATA[Puesta de huevos de <i>Aedes</i>. Observa el color oscuro y la forma alargada. 
         Los huevos son tan pequeños que son casi invisibles a simple vista. 
         Recuerda que los <i>Aedes</i> urbanos (<i>Ae. albopictus</i>/<i>aegypti</i>) ponen los huevos en recipientes pequeños, en paredes  
-        secas cerca de agua estancada y sucia.</item>
-        <item>Larvas (más alargadas) y pupas (más redondeadas) de <i>Aedes</i>. Observa que son acuáticas. 
-        Las larvas emergen de los huevos cuando éstos quedan cubiertos de agua y con el tiempo mudan a pupas.</item>
-        <item>Larvas (más alargadas) y pupas (más redondeadas) de <i>Aedes</i>. 
-        Recuerda evitar tener pequeñas acumulaciones de agua en casa.</item>
-        <item>Dos pupas de <i>Aedes</i>. En esta fase se produce la metamorfosis, 
-        y el mosquito adulto emerge de la pupa hacia el medio aéreo.</item>
-<item>Hembra de mosquito de la fiebre amarilla (<i>Aedes aegypti</i>) picando. A diferencia del mosquito tigre, <i>Ae. aegypti</i> tiene en su torso un dibujo en forma de lira y su cuerpo es generalmente de color marrón muy oscuro.</item>
-<item>Diferencia entre el mosquito de la fiebre amarilla (izquierda) y el mosquito tigre (derecha): <i>Ae. aegypti</i> (izquierda) tiene un dibujo en forma de lira en el tórax, mientras que <i>Ae. albopictus</i> (derecha) tiene una sola raya blanca. </item>
-<item>Hembra del mosquito de la fiebre amarilla (<i>Aedes aegypti</i>) picando. Fíjate que en general, su cuerpo es oscuro pero de color marrón, mientras que el mosquito tigre es completamente negro.</item>
-
+        secas cerca de agua estancada y sucia.]]></item>
+        <item><![CDATA[Larvas (más alargadas) y pupas (más redondeadas) de <i>Aedes</i>. Observa que son acuáticas. 
+        Las larvas emergen de los huevos cuando éstos quedan cubiertos de agua y con el tiempo mudan a pupas.]]></item>
+        <item><![CDATA[Larvas (más alargadas) y pupas (más redondeadas) de <i>Aedes</i>. 
+        Recuerda evitar tener pequeñas acumulaciones de agua en casa.]]></item>
+        <item><![CDATA[Dos pupas de <i>Aedes</i>. En esta fase se produce la metamorfosis, 
+        y el mosquito adulto emerge de la pupa hacia el medio aéreo.]]></item>
+<item><![CDATA[Hembra de mosquito de la fiebre amarilla (<i>Aedes aegypti</i>) picando. A diferencia del mosquito tigre, <i>Ae. aegypti</i> tiene en su torso un dibujo en forma de lira y su cuerpo es generalmente de color marrón muy oscuro.]]></item>
+<item><![CDATA[Diferencia entre el mosquito de la fiebre amarilla (izquierda) y el mosquito tigre (derecha): <i>Ae. aegypti</i> (izquierda) tiene un dibujo en forma de lira en el tórax, mientras que <i>Ae. albopictus</i> (derecha) tiene una sola raya blanca.]]></item>
+<item><![CDATA[Hembra del mosquito de la fiebre amarilla (<i>Aedes aegypti</i>) picando. Fíjate que en general, su cuerpo es oscuro pero de color marrón, mientras que el mosquito tigre es completamente negro.]]></item>
         </string-array>
     <!-- Toasts -->
     <string name="toast_report_before_submitting_site">Para enviar este lugar de cría:</string>
@@ -108,22 +107,28 @@
     <string name="site_report_q1">Tipo de lugar de cría</string>
     <string name="site_report_q2">¿Se encuentra en la vía pública?</string>
     <string name="site_report_q3">Contiene agua estancada y/o larvas o pupas de mosquito (cualquier especie)?</string>
-    <string name="site_report_q4">¿Has visto mosquitos cerca (a &lt;10 metros)?</string>
+    <string name="site_report_q4"><![CDATA[¿Has visto mosquitos cerca (a <10 metros)?]]></string>
     <string name="site_report_q3_response1">Sí, agua y larvas o pupas.</string>    
 	<string name="site_report_q3_response2">Sí, agua sin larvas ni pupas.</string>    
 	<string name="site_report_q3_response3">No, no contiene agua.</string>    
     <string name="adult_report_q3">Observa el abdomen de tu mosquito y compáralo con la información que encontrarás en el botón (i). Selecciona la respuesta más adecuada para tu mosquito:</string>
     
-    <string name="adult_report_q3a1">Abdomen parecido a <i>Ae. albopictus</i></string>
+    <string name="adult_report_q3a1"><![CDATA[Abdomen parecido a <i>Ae. albopictus</i>]]></string>
 	<string name="adult_report_q3a2">Abdomen parecido a <i>Ae. aegypti</i></string>
 	<string name="adult_report_q3a3">Ninguno de los dos</string>
 	<string name="adult_report_q3a4">No sé</string>   
 	 
-    <string name="q3_headthorax_text">El mosquito tigre (<i>Ae. albopictus</i>) tiene una raya blanca en la cabeza y en el tórax. En cambio, el mosquito de la fiebre amarilla (<i>Ae. aegypti</i>), tiene varias rayas blancas en el tórax que dibujan una lira. Evita enviar datos de mosquitos que no cumplan estas características.</string>
-    <string name="q2_abdomenlegs_text">Los <i>Aedes</i> urbanos tienen rayas o manchas blancas en el abdomen y en las patas, pero el patrón de color (el dibujo blanco) y el color de fondo es ligeramente diferente entre especies. Evita enviar datos de mosquitos que no cumplan estas características.</string>
+    <string name="q3_headthorax_text"><![CDATA[El mosquito tigre (<i>Ae. albopictus</i>) tiene una raya blanca en la cabeza y en el tórax. En cambio, el mosquito de la fiebre amarilla (<i>Ae. aegypti</i>), tiene varias rayas blancas en el tórax que dibujan una lira. Evita enviar datos de mosquitos que no cumplan estas características.]]></string>
+    <string name="q2_abdomenlegs_text"><![CDATA[Los <i>Aedes</i> urbanos tienen rayas o manchas blancas en el abdomen y en las patas, pero el patrón de color (el dibujo blanco) y el color de fondo es ligeramente diferente entre especies. Evita enviar datos de mosquitos que no cumplan estas características.]]></string>
     <string name="identifying_mosquitoes_title">Descripción del mosquito</string>
     <string name="confirmation_q1_adult_sizecolor">Observa tu mosquito y compáralo con la información que encontrarás en el botón (i). Selecciona la respuesta más adecuada para tu mosquito:</string>
-    <string name="q1_sizecolor_text">El mosquito tigre (<i>Ae. albopictus</i>) y el mosquito de la fiebre amarilla (<i>Ae. aegypti</i>) son parecidos: ambos son pequeños (menos que una moneda de céntimo de euro), de color oscuro con rayas o manchas blancas en el cuerpo. El cuerpo de <i>Ae. albopictus</i> es generalmente de color negro de fondo, mientras que el de <i>Ae. aegypti</i> es generalmente de color marrón oscuro. Ambos son generalmente agresivos, pican de día y a menudo en las piernas, vuelan bajo y se encuentran cerca de casas, en jardines o en las calles.Evita enviar datos de mosquitos que no cumplan estas características.</string>
+
+    <string name="adult_report_q1a1">Se parece a <i>Ae. albopictus</i></string>
+    <string name="adult_report_q1a2">Se parece a <i>Ae. aegypti</i></string>
+    <string name="adult_report_q1a3">Ninguno de los dos</string>
+    <string name="adult_report_q1a4">No sé</string>   
+
+    <string name="q1_sizecolor_text"><![CDATA[El mosquito tigre (<i>Ae. albopictus</i>) y el mosquito de la fiebre amarilla (<i>Ae. aegypti</i>) son parecidos: ambos son pequeños (menos que una moneda de céntimo de euro), de color oscuro con rayas o manchas blancas en el cuerpo. El cuerpo de <i>Ae. albopictus</i> es generalmente de color negro de fondo, mientras que el de <i>Ae. aegypti</i> es generalmente de color marrón oscuro. Ambos son generalmente agresivos, pican de día y a menudo en las piernas, vuelan bajo y se encuentran cerca de casas, en jardines o en las calles.Evita enviar datos de mosquitos que no cumplan estas características.]]></string>
     <string name="adult_report_help_html">
 <![CDATA[
 
@@ -340,5 +345,4 @@
 <p>Copyright &#169; 2013, 2014 John R.B. Palmer, Aitana Oltra, Joan Garriga y Frederic Bartumeus</p>
     ]]>
     </string>
-
 </resources>

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -44,7 +45,7 @@ public class PhotoGallery extends Activity {
 
 		galleryView = (Gallery) findViewById(R.id.galleryid);
 		captionView = (TextView) findViewById(R.id.captionid);
-		captionView.setText(captions[0]);
+		captionView.setText(Html.fromHtml(captions[0]));
 		ImageAdapter adapter = new ImageAdapter(this, captions);
 		galleryView.setAdapter(adapter);
 		galleryView.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -53,7 +54,7 @@ public class PhotoGallery extends Activity {
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
 
-				captionView.setText(captions[arg2]);
+				captionView.setText(Html.fromHtml(captions[arg2]));
 
 			}
 

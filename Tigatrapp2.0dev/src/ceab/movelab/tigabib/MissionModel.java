@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import android.content.ContentResolver;
 import android.content.Context;
+import android.text.Html;
 import ceab.movelab.tigabib.R;
 import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
 
@@ -205,9 +206,10 @@ public class MissionModel {
 			item1.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE,
 					R.drawable.checklist_image_adult_1);
 			item1.put(MissionItemModel.KEY_ANSWER_CHOICES, new JSONArray("['"
-					+ context.getResources().getString(R.string.yes) + "','"
-					+ context.getResources().getString(R.string.no) + "','"
-					+ context.getResources().getString(R.string.dontknow)
+					+ context.getResources().getString(R.string.adult_report_q1a1) + "','"
+					+ context.getResources().getString(R.string.adult_report_q1a2) + "','"
+					+ context.getResources().getString(R.string.adult_report_q1a3) + "','"
+					+ context.getResources().getString(R.string.adult_report_q1a4)
 					+ "']"));
 
 			item2.put(MissionItemModel.KEY_ITEM_ID, "item2");
@@ -231,9 +233,10 @@ public class MissionModel {
 			item3.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE,
 					R.drawable.checklist_image_adult_3);
 			item3.put(MissionItemModel.KEY_ANSWER_CHOICES, new JSONArray("['"
-					+ context.getResources().getString(R.string.yes) + "','"
-					+ context.getResources().getString(R.string.no) + "','"
-					+ context.getResources().getString(R.string.dontknow)
+					+ Html.fromHtml(context.getResources().getString(R.string.adult_report_q3a1)) + "','"
+					+ context.getResources().getString(R.string.adult_report_q3a2) + "','"
+					+ context.getResources().getString(R.string.adult_report_q3a3) + "','"
+					+ context.getResources().getString(R.string.adult_report_q3a4)
 					+ "']"));
 
 			items.put(item1);

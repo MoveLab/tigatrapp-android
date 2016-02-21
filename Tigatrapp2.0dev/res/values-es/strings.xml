@@ -19,9 +19,6 @@
  * You should have received a copy of the GNU General Public License along 
  * with Mosquito Alert.  If not, see <http://www.gnu.org/licenses/>.
 
-
-
-
 -->
 <resources>
 
@@ -107,7 +104,7 @@
     <string name="site_report_q1">Tipo de lugar de cría</string>
     <string name="site_report_q2">¿Se encuentra en la vía pública?</string>
     <string name="site_report_q3">Contiene agua estancada y/o larvas o pupas de mosquito (cualquier especie)?</string>
-    <string name="site_report_q4"><![CDATA[¿Has visto mosquitos cerca (a <10 metros)?]]></string>
+    <string name="site_report_q4">¿Has visto mosquitos cerca (a &lt;10 metros)?</string>
     <string name="site_report_q3_response1">Sí, agua y larvas o pupas.</string>    
 	<string name="site_report_q3_response2">Sí, agua sin larvas ni pupas.</string>    
 	<string name="site_report_q3_response3">No, no contiene agua.</string>    
@@ -122,7 +119,6 @@
     <string name="q2_abdomenlegs_text"><![CDATA[Los <i>Aedes</i> urbanos tienen rayas o manchas blancas en el abdomen y en las patas, pero el patrón de color (el dibujo blanco) y el color de fondo es ligeramente diferente entre especies. Evita enviar datos de mosquitos que no cumplan estas características.]]></string>
     <string name="identifying_mosquitoes_title">Descripción del mosquito</string>
     <string name="confirmation_q1_adult_sizecolor">Observa tu mosquito y compáralo con la información que encontrarás en el botón (i). Selecciona la respuesta más adecuada para tu mosquito:</string>
-
     <string name="adult_report_q1a1">Se parece a <i>Ae. albopictus</i></string>
     <string name="adult_report_q1a2">Se parece a <i>Ae. aegypti</i></string>
     <string name="adult_report_q1a3">Ninguno de los dos</string>

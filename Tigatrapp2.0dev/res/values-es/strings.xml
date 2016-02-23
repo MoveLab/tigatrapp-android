@@ -25,7 +25,16 @@
     <!-- Intro and Consent -->
     <string name="consent_button_label">He leído y acepto las condiciones de uso</string>
     <string name="decline_button_label">No estoy de acuerdo</string>
-
+    <string name="mosquito_alert_pop">
+<![CDATA[
+<p><b>¡AtrapaelTigre es ahora Mosquito Alert!</b></p>
+<p>Somos los mismos, pero el proyecto ha crecido. Con este cambio, hemos incorporado un nuevo protagonista: ya no solamente podréis notificar posibles hallazgos de mosquito tigre (<i>Aedes albopictus</i>), sinó también del mosquito de la fiebre amarilla (<i>Aedes aegypti</i>).<p>
+<p>Encontraréis toda la información en www.mosquitoalert.com.</p>
+<p>Gracias por vuestro interés y participación,</p>
+<p>Equipo coordinador Mosquito Alert</p>
+]]>
+</string>
+    
     <!-- Gallery -->
     <string-array name="gallery_array">
         <item><![CDATA[Hembra de mosquito tigre (<i>Aedes albopictus</i>). Sólo los mosquitos que: 1) son pequeños, 
@@ -110,11 +119,12 @@
 	<string name="site_report_q3_response3">No, no contiene agua.</string>    
     <string name="adult_report_q3">Observa el abdomen de tu mosquito y compáralo con la información que encontrarás en el botón (i). Selecciona la respuesta más adecuada para tu mosquito:</string>
     
-    <string name="adult_report_q3a1"><![CDATA[Abdomen parecido a <i>Ae. albopictus</i>]]></string>
-	<string name="adult_report_q3a2">Abdomen parecido a <i>Ae. aegypti</i></string>
+    <string name="adult_report_q3a1"><![CDATA[Abdomen como a <i>Ae. albopictus</i>]]></string>
+	<string name="adult_report_q3a2">Abdomen como a <i>Ae. aegypti</i></string>
 	<string name="adult_report_q3a3">Ninguno de los dos</string>
 	<string name="adult_report_q3a4">No sé</string>   
-	 
+    <string name="confirmation_q2_adult_headthorax">Observa la cabeza y el tórax de tu mosquito y compáralos con la información que encontrarás en el botón (i). Selecciona la respuesta más adecuada para tu mosquito:</string>
+		 
     <string name="q3_headthorax_text"><![CDATA[El mosquito tigre (<i>Ae. albopictus</i>) tiene una raya blanca en la cabeza y en el tórax. En cambio, el mosquito de la fiebre amarilla (<i>Ae. aegypti</i>), tiene varias rayas blancas en el tórax que dibujan una lira. Evita enviar datos de mosquitos que no cumplan estas características.]]></string>
     <string name="q2_abdomenlegs_text"><![CDATA[Los <i>Aedes</i> urbanos tienen rayas o manchas blancas en el abdomen y en las patas, pero el patrón de color (el dibujo blanco) y el color de fondo es ligeramente diferente entre especies. Evita enviar datos de mosquitos que no cumplan estas características.]]></string>
     <string name="identifying_mosquitoes_title">Descripción del mosquito</string>
@@ -123,13 +133,17 @@
     <string name="adult_report_q1a2">Se parece a <i>Ae. aegypti</i></string>
     <string name="adult_report_q1a3">Ninguno de los dos</string>
     <string name="adult_report_q1a4">No sé</string>   
-
+<string name="adult_report_q2a1">Tórax como a <i>Ae. albopictus</i></string>
+    <string name="adult_report_q2a2">Tórax como a <i>Ae. aegypti</i></string>
+    <string name="adult_report_q2a3">Ninguno de los dos</string>
+    <string name="adult_report_q2a4">No sé</string>   
+    
     <string name="q1_sizecolor_text"><![CDATA[El mosquito tigre (<i>Ae. albopictus</i>) y el mosquito de la fiebre amarilla (<i>Ae. aegypti</i>) son parecidos: ambos son pequeños (menos que una moneda de céntimo de euro), de color oscuro con rayas o manchas blancas en el cuerpo. El cuerpo de <i>Ae. albopictus</i> es generalmente de color negro de fondo, mientras que el de <i>Ae. aegypti</i> es generalmente de color marrón oscuro. Ambos son generalmente agresivos, pican de día y a menudo en las piernas, vuelan bajo y se encuentran cerca de casas, en jardines o en las calles.Evita enviar datos de mosquitos que no cumplan estas características.]]></string>
     <string name="adult_report_help_html">
 <![CDATA[
 
 <p><b>AYUDA:</b><br/>
-<b>Los <i>Aedes urbanos</i>, el mosquito tigre (<i>Ae. albopictus</i>) y el mosquito de la fiebre amarilla (<i>Ae. aegypti</i>) son pequeños (menos que una moneda de céntimo de euro), de color oscuro (negro o marrón oscuro) con rayas o manchas blancas en el cuerpo. Normalmente son agresivos, pican de día y a menudo en las piernas, vuelan bajo y se encuentran cerca de casas, en jardines o en las calles. Si has encontrado uno, responde el informe y envía los datos. Es necesario completar los campos con asterisco (*).</b>
+<b>Los <i>Aedes</i> urbanos, el mosquito tigre (<i>Ae. albopictus</i>) y el mosquito de la fiebre amarilla (<i>Ae. aegypti</i>) son pequeños (menos que una moneda de céntimo de euro), de color oscuro (negro o marrón oscuro) con rayas o manchas blancas en el cuerpo. Normalmente son agresivos, pican de día y a menudo en las piernas, vuelan bajo y se encuentran cerca de casas, en jardines o en las calles. Si has encontrado uno, responde el informe y envía los datos. Es necesario completar los campos con asterisco (*).</b>
 </p>
 <p>
 <ul>
@@ -137,7 +151,7 @@
 <br/>
 <li><b>Localización</b>: elige posición actual si el mosquito lo has atrapado en el lugar donde se encuentra el teléfono, o señala la posición en el mapa si lo has encontrado en otro lugar. Activa el GPS si quieres que la posición de tu hallazgo sea más precisa.</li>  
 <br/>
-<li><b>Imágenes</b>: haz una foto o adjunta una foto de tu mosquito hecha por ti. Lo más importante es fotografiar su tórax, esto es, la raya blanca de la cabeza y el tórax en el caso de <i>Ae. albopictus</i> o el dibujo en forma de lira en el caso de <i>Ae. aegypti</i>. Para ello, agarra tu mosquito por las patas y enfócalo bien, si hace falta aléjate un poco. Puedes adjuntar más de 1 foto desde diferentes ángulos. Encontrarás más trucos en la página web</li>
+<li><b>Imágenes</b>: haz una foto o adjunta una foto de tu mosquito hecha por ti. Lo más importante es fotografiar su tórax, esto es, la raya blanca de la cabeza y el tórax en el caso de <i>Ae. albopictus</i> o el dibujo en forma de lira en el caso de <i>Ae. aegypti</i>. Para ello, agarra tu mosquito por las patas y enfócalo bien, si hace falta aléjate un poco. Puedes adjuntar más de 1 foto desde diferentes ángulos. Encontrarás más trucos en la página web.</li>
 <br/>
 <li><b>Notas</b>: si quieres, describe mejor tu hallazgo. No añadas información o datos personales.</li>
 </ul>
@@ -148,7 +162,7 @@
     <string name="site_report_help_html">
 <![CDATA[
 <p><b>AYUDA:</b><br/>
-<b>Los <i>Aedes</i> urbanos (<i>Ae. albopictus</i> y <i>Ae. aegypti</i>) crían en recipientes o depósitos pequeños (¡incluso más pequeños que un cubo de fregona!) y normalmente de exterior, con agua estancada. La presencia de agua durante unos días es necesaria para el desarrollo de sus larvas y/o pupas, antes de hacer la metamorfosis a mosquitos. Si has encontrado un posible lugar de cría, responde el informe y envía los datos. Es necesario completar los campos con asterisco (*).</b>
+<b>Los <i>Aedes</i> urbanos (<i>Ae. albopictus</i> y <i>Ae. aegypti</i>) crían en recipientes o depósitos pequeños (¡incluso más pequeños que un cubo de fregona!) y normalmente de exterior, con agua estancada. La presencia de agua durante unos días es necesaria para el desarrollo de sus larvas y/o pupas, antes de hacer la metamorfosis a mosquitos. Si has encontrado un posible lugar de cría, y especialmente un imbornal en la vía pública, responde el informe y envía los datos. Es necesario completar los campos con asterisco (*).</b>
 </p>
 <ul> 
 <li><b>Descripción</b>: responde el formulario para facilitar la interpretación de los datos.</li> 
@@ -165,7 +179,7 @@
     </string>
     <string name="site_report_item_help_1">
 <![CDATA[  
-<p>Los <i>Aedes</i> urbanos (<i>Ae. albopictus</i> y <i>Ae. aegypti</i>) crían en recipientes o depósitos pequeños (¡incluso más pequeños que un cubo de fregona!) y normalmente de exterior, con agua estancada. La presencia de agua durante unos días es necesaria para el desarrollo de sus larvas y/o pupas, antes de hacer la metamorfosis a mosquitos.<p> Los Aedes urbanos El mosquito tigre no crían en playas, ríos, lagos o humedales. Las larvas que encuentres allí no son de mosquito tigre.</p>  
+<p>Los <i>Aedes</i> urbanos (<i>Ae. albopictus</i> y <i>Ae. aegypti</i>) crían en recipientes o depósitos pequeños (¡incluso más pequeños que un cubo de fregona!) y normalmente de exterior, con agua estancada. Los imbornales (lugares por donde entra el agua de la calle en las cloacas) que acumulan agua pueden ser importantes lugares de cría de estas especies. La presencia de agua estancada durante unos días en estos y otros recipientes es necesaria para el desarrollo de sus larvas y/o pupas, antes de hacer la metamorfosis a mosquitos.<p>Recuerda que los Aedes urbanos no crían en playas, ríos, lagos o humedales. Las larvas que encuentres allí no son de estas especies.</p>  
        ]]>
     </string>
     <string name="site_report_item_help_2">
@@ -176,7 +190,7 @@
     
       <string name="site_report_item_help_3">
 <![CDATA[      
-<p>Las larvas y las pupas necesitan agua estancada durante unos días, con materia orgánica (alimento) para vivir. Evita tener pequeñas acumulaciones de agua en tu casa para combatir el mosquito tigre.</p> 
+<p>Las larvas y las pupas de <i>Aedes</i> urbanos necesitan agua estancada durante unos días, con materia orgánica (alimento) para vivir. Evita tener pequeñas acumulaciones de agua en tu casa para combatir estas especies.</p> 
 ]]>
     </string>
     <string name="site_report_item_help_4">
@@ -217,7 +231,7 @@
 
     <!-- RSS Feeds -->
     <string name="rss_internet_connection_warning">Sin conexión a internet.\n\nPara ver el contenido, conéctate y selecciona \'actualiza\' en el menú</string>
-    <string name="rss_title_tigatrapp">Noticias de MosquitoAlert.com</string>
+    <string name="rss_title_tigatrapp">Noticias de mosquitoalert.com</string>
 
     <!-- Tasks -->
     <string name="task_list_title">Misiones</string>
@@ -322,7 +336,7 @@
     <string name="project_email">info@mosquitoalert.com</string>
     <string name="project_website">http://mosquitoalert.com/</string>
     <string name="report_sent">Si clicas OK, tus datos se enviarán al grupo de investigación responsable del proyecto. Parte de los datos se harán públicos en el mapa web del mosquito tigre en la página web www.mosquitoalert.com</string>
-    <string name="report_sent_confirmation">Gracias por participar</string>
+    <string name="report_sent_confirmation">Gracias por participar. Recuerda que en la página web del proyecto encontrarás más información sobre tu participación, además de trucos para combatir a los Aedes urbanos en tu casa.</string>
     <string name="reportGallery_CD">Botón para acceder a la galería de imágenes del mosquito tigre</string>
     <string name="saved_image_prefix">mosquitoalert</string>
     <string name="scm_CD">SCM logo</string>
@@ -330,7 +344,6 @@
     <string name="share_with">Comparte</string>
     <string name="submit">Envía</string>
     <string name="supported_by">Con el apoyo de:</string>
-    <string name="confirmation_q2_adult_headthorax">¿Tiene una raya blanca en la cabeza y en el tórax?</string>
     <string name="type_here">Utiliza este espacio para añadir una nota o comentario si es necesario. No añadas información o datos personales</string>
     <string name="view_gpl_english">Ver GPL versión oficial</string>
     <string name="yes">Sí</string>

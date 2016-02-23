@@ -29,7 +29,16 @@
     <!-- Intro and Consent -->
     <string name="consent_button_label">He llegit i accepto les condicions d\'ús</string>
     <string name="decline_button_label">No hi estic d\'acord</string>
-
+    <string name="mosquito_alert_pop">
+<![CDATA[
+<p><b>¡AtrapaelTigre es ahora Mosquito Alert!</b></p>
+<p>Somos los mismos, pero el proyecto ha crecido. Con este cambio, hemos incorporado un nuevo protagonista: ya no solamente podréis notificar posibles hallazgos de mosquito tigre (Aedes albopictus), sinó también del mosquito de la fiebre amarilla (Aedes aegypti).<p>
+<p>Encontraréis toda la información en www.mosquitoalert.com</p>
+<p>Gracias por vuestro interés y participación,</p>
+<p>Equipo coordinador Mosquito Alert</p>
+]]>
+</string>
+    
     <!-- Gallery -->
     <string-array name="gallery_array">
         <item><![CDATA[Hembra de mosquito tigre (<i>Aedes albopictus</i>). Sólo los mosquitos que: 1) son pequeños, 
@@ -121,7 +130,12 @@
 	<string name="adult_report_q3a3">Ninguno de los dos</string>
 	<string name="adult_report_q3a4">No sé</string>   
     
-    
+    <string name="adult_report_q2a1">Tórax como a <i>Ae. albopictus</i></string>
+    <string name="adult_report_q2a2">Tórax como a <i>Ae. aegypti</i></string>
+    <string name="adult_report_q2a3">Ninguno de los dos</string>
+    <string name="adult_report_q2a4">No sé</string>   
+	
+	
     <string name="q3_headthorax_text">El mosquit tigre té una ratlla blanca al cap i al tòrax. Evita enviar dades d\'altres insectes.</string>
     <string name="q2_abdomenlegs_text">El mosquit tigre té ratlles blanques a l\'abdomen i a les potes. Evita enviar dades d\'altres insectes.</string>
     <string name="identifying_mosquitoes_title">Descripció del mosquit</string>

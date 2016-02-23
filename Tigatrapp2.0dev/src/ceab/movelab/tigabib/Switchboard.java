@@ -33,6 +33,8 @@ import android.database.Cursor;
 import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Html;
+import android.text.util.Linkify;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -90,7 +92,36 @@ public class Switchboard extends Activity {
 			if (PropertyHolder.getUserId() == null) {
 				String userId = UUID.randomUUID().toString();
 				PropertyHolder.setUserId(userId);
+				PropertyHolder.setNeedsMosquitoAlertPop(false);
+			} else{
+				
+				if (PropertyHolder.needsMosquitoAlertPop() == true) {
+
+					final Dialog dialog = new Dialog(context);
+					dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+					dialog.setContentView(R.layout.custom_alert);
+					dialog.setCancelable(true);
+					TextView alertText = (TextView) dialog
+							.findViewById(R.id.alertText);
+					alertText.setText(Html.fromHtml(getResources().getString(
+							R.string.mosquito_alert_pop)));
+					Linkify.addLinks(alertText, Linkify.ALL);
+					Button positive = (Button) dialog
+							.findViewById(R.id.alertOK);
+					Button negative = (Button) dialog
+							.findViewById(R.id.alertCancel);
+					negative.setVisibility(View.GONE);
+					positive.setOnClickListener(new OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							PropertyHolder.setNeedsMosquitoAlertPop(false);
+							dialog.cancel();
+						}
+					});
+					dialog.show();
+				}
 			}
+			
 
 			if (Util.privateMode(context)) {
 

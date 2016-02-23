@@ -220,9 +220,10 @@ public class MissionModel {
 			item2.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE,
 					R.drawable.checklist_image_adult_2);
 			item2.put(MissionItemModel.KEY_ANSWER_CHOICES, new JSONArray("['"
-					+ context.getResources().getString(R.string.yes) + "','"
-					+ context.getResources().getString(R.string.no) + "','"
-					+ context.getResources().getString(R.string.dontknow)
+					+ context.getResources().getString(R.string.adult_report_q2a1) + "','"
+					+ context.getResources().getString(R.string.adult_report_q2a2) + "','"
+					+ context.getResources().getString(R.string.adult_report_q2a3) + "','"
+					+ context.getResources().getString(R.string.adult_report_q2a4)
 					+ "']"));
 
 			item3.put(MissionItemModel.KEY_ITEM_ID, "item3");

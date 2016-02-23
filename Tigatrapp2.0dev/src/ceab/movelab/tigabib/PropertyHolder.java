@@ -111,6 +111,18 @@ public class PropertyHolder {
 		editor.commit();
 	}
 
+	static String NEEDS_MOSQUITO_ALERT_POP = "needs_mosquito_alert_pop";
+	
+	public static void setNeedsMosquitoAlertPop(boolean tf){
+		editor.putBoolean(NEEDS_MOSQUITO_ALERT_POP, tf);
+		editor.commit();
+	}
+
+	public static boolean needsMosquitoAlertPop(){
+		return sharedPreferences.getBoolean(NEEDS_MOSQUITO_ALERT_POP, true);
+	}
+
+	
 	static String LAST_DEMO_POPUP_TIME = "last_demo_popup_time";
 	
 	public static void setLastDemoPopUpTime(long time){

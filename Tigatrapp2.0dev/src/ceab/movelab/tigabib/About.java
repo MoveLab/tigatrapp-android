@@ -48,9 +48,9 @@ public class About extends Activity {
 
 	Context context = this;
 
-	private static final String ABOUT_URL_EN = "http://tigaserver.atrapaeltigre.com/about/android/en";
-	private static final String ABOUT_URL_CA = "http://tigaserver.atrapaeltigre.com/about/android/ca";
-	private static final String ABOUT_URL_ES = "http://tigaserver.atrapaeltigre.com/about/android/es";
+	private static final String ABOUT_URL_EN = UtilLocal.URL_TIGASERVER + "about/android/en";
+	private static final String ABOUT_URL_CA = UtilLocal.URL_TIGASERVER + "about/android/ca";
+	private static final String ABOUT_URL_ES = UtilLocal.URL_TIGASERVER + "about/android/es";
 
 	private static final String ABOUT_URL_OFFLINE_EN = "file:///android_asset/html/about_en.html";
 	private static final String ABOUT_URL_OFFLINE_CA = "file:///android_asset/html/about_ca.html";

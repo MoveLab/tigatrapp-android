@@ -24,9 +24,9 @@ public class Help extends FragmentActivity {
 
 	Context context = this;
 
-	private static final String TIGER_HELP_URL_EN = "http://tigaserver.atrapaeltigre.com/help/android/en";
-	private static final String TIGER_HELP_URL_CA = "http://tigaserver.atrapaeltigre.com/help/android/ca";
-	private static final String TIGER_HELP_URL_ES = "http://tigaserver.atrapaeltigre.com/help/android/es";
+	private static final String TIGER_HELP_URL_EN = UtilLocal.URL_TIGASERVER + "help/android/en";
+	private static final String TIGER_HELP_URL_CA = UtilLocal.URL_TIGASERVER + "help/android/ca";
+	private static final String TIGER_HELP_URL_ES = UtilLocal.URL_TIGASERVER + "help/android/es";
 
 	private static final String TIGER_HELP_URL_OFFLINE_EN = "file:///android_asset/html/help_en.html";
 	private static final String TIGER_HELP_URL_OFFLINE_CA = "file:///android_asset/html/help_ca.html";

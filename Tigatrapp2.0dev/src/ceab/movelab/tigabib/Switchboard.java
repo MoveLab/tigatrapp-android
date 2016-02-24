@@ -254,7 +254,7 @@ public class Switchboard extends Activity {
 
 				@Override
 				public void onClick(View v) {
-					String url = "http://atrapaeltigre.com";
+					String url = UtilLocal.URL_PROJECT;
 					Intent i = new Intent(Intent.ACTION_VIEW);
 					i.setData(Uri.parse(url));
 					startActivity(i);

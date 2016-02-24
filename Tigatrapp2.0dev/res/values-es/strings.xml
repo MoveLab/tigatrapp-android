@@ -37,34 +37,36 @@
     
     <!-- Gallery -->
     <string-array name="gallery_array">
+<item><![CDATA[Diferencia entre el mosquito de la fiebre amarilla (izquierda) y el mosquito tigre (derecha): <i>Ae. aegypti</i> (izquierda) tiene un dibujo en forma de lira en el tórax, mientras que <i>Ae. albopictus</i> (derecha) tiene una sola raya blanca. <b>Foto: Vincent Robert (CC BY 2.0)</b>]]></item>
         <item><![CDATA[Hembra de mosquito tigre (<i>Aedes albopictus</i>). Sólo los mosquitos que: 1) son pequeños, 
         negros y con rayas blancas, 2) tienen una raya blanca en la cabeza y en el tórax y 3) tienen rayas blancas en el abdomen y en las patas son mosquito tigre. Hay otros 
-        insectos parecidos, ¡no los confundas!]]></item>
+        insectos parecidos, ¡no los confundas! <b>Foto: Roger Eritja</b>]]></item>
+<item><![CDATA[Hembra de mosquito de la fiebre amarilla (<i>Aedes aegypti</i>) picando. A diferencia del mosquito tigre, <i>Ae. aegypti</i> tiene en su torso un dibujo en forma de lira y su cuerpo es generalmente de color marrón muy oscuro. <b>Foto: Mark Yokoyama (CC BY-NC-ND 2.0)</b>]]></item>
+
         <item><![CDATA[Hembra de mosquito tigre. Observa las rayas en el abdomen. 
            Recuerda que tanto el mosquito tigre como el mosquito de la fiebre amarilla son muy pequeños, 
-           no miden más de 5 mm (con patas incluidas, aproximadamente la mitad de una moneda de 1 céntimo de euro).]]></item>
+           no miden más de 5 mm (con patas incluidas, aproximadamente la mitad de una moneda de 1 céntimo de euro). <b>Foto: Roger Eritja</b>]]></item>
+<item><![CDATA[Hembra del mosquito de la fiebre amarilla (<i>Aedes aegypti</i>) picando. Fíjate que en general, su cuerpo es oscuro pero de color marrón, mientras que el mosquito tigre es completamente negro. <b>Foto: Mark Yokoyama (CC BY 2.0)</b>]]></item>
+
         <item><![CDATA[Hembra de mosquito tigre preparada para picar. 
-              Observa la raya blanca en la cabeza y en el tórax y las rayas en las patas.]]></item>
+              Observa la raya blanca en la cabeza y en el tórax y las rayas en las patas. <b>Foto: Roger Eritja</b>]]></item>
         <item><![CDATA[Hembra de mosquito tigre picando. 
-        Observa la característica raya blanca en la cabeza y en el tórax.]]></item>
+        Observa la característica raya blanca en la cabeza y en el tórax. <b>Foto: Roger Eritja</b>]]></item>
         <item><![CDATA[Hembra de mosquito tigre picando. 
-        Observa la característica raya blanca en la cabeza y en el tórax.]]></item>
-        <item><![CDATA[Dos hembras de mosquito tigre picando. Recuerda que sólo pican las hembras de mosquito. En el caso de los <i>Aedes</i> urbanos (<i>Ae. albopictus</i>/<i>aegypti</i>), acostumbran a hacerlo durante el día (y no cuando oscurece) y normalmente pican en las piernas.]]></item>
+        Observa la característica raya blanca en la cabeza y en el tórax. <b>Foto: Roger Eritja</b>]]></item>
+        <item><![CDATA[Dos hembras de mosquito tigre picando. Recuerda que sólo pican las hembras de mosquito. En el caso de los <i>Aedes</i> urbanos (<i>Ae. albopictus</i>/<i>aegypti</i>), acostumbran a hacerlo durante el día (y no cuando oscurece) y normalmente pican en las piernas. <b>Foto: Roger Eritja</b>]]></item>
         <item><![CDATA[Hembra de mosquito tigre picando. La sangre que acumula en el abdomen 
-        servirá para generar una puesta de huevos.]]></item>
+        servirá para generar una puesta de huevos. <b>Foto: Roger Eritja</b>]]></item>
         <item><![CDATA[Puesta de huevos de <i>Aedes</i>. Observa el color oscuro y la forma alargada. 
         Los huevos son tan pequeños que son casi invisibles a simple vista. 
         Recuerda que los <i>Aedes</i> urbanos (<i>Ae. albopictus</i>/<i>aegypti</i>) ponen los huevos en recipientes pequeños, en paredes  
-        secas cerca de agua estancada y sucia.]]></item>
+        secas cerca de agua estancada y sucia. <b>Foto: Roger Eritja</b>]]></item>
         <item><![CDATA[Larvas (más alargadas) y pupas (más redondeadas) de <i>Aedes</i>. Observa que son acuáticas. 
-        Las larvas emergen de los huevos cuando éstos quedan cubiertos de agua y con el tiempo mudan a pupas.]]></item>
+        Las larvas emergen de los huevos cuando éstos quedan cubiertos de agua y con el tiempo mudan a pupas. <b>Foto: Roger Eritja</b>]]></item>
         <item><![CDATA[Larvas (más alargadas) y pupas (más redondeadas) de <i>Aedes</i>. 
-        Recuerda evitar tener pequeñas acumulaciones de agua en casa.]]></item>
+        Recuerda evitar tener pequeñas acumulaciones de agua en casa. <b>Foto: Roger Eritja</b>]]></item>
         <item><![CDATA[Dos pupas de <i>Aedes</i>. En esta fase se produce la metamorfosis, 
-        y el mosquito adulto emerge de la pupa hacia el medio aéreo.]]></item>
-<item><![CDATA[Hembra de mosquito de la fiebre amarilla (<i>Aedes aegypti</i>) picando. A diferencia del mosquito tigre, <i>Ae. aegypti</i> tiene en su torso un dibujo en forma de lira y su cuerpo es generalmente de color marrón muy oscuro.]]></item>
-<item><![CDATA[Diferencia entre el mosquito de la fiebre amarilla (izquierda) y el mosquito tigre (derecha): <i>Ae. aegypti</i> (izquierda) tiene un dibujo en forma de lira en el tórax, mientras que <i>Ae. albopictus</i> (derecha) tiene una sola raya blanca.]]></item>
-<item><![CDATA[Hembra del mosquito de la fiebre amarilla (<i>Aedes aegypti</i>) picando. Fíjate que en general, su cuerpo es oscuro pero de color marrón, mientras que el mosquito tigre es completamente negro.]]></item>
+        y el mosquito adulto emerge de la pupa hacia el medio aéreo. <b>Foto: Roger Eritja</b>]]></item>
         </string-array>
     <!-- Toasts -->
     <string name="toast_report_before_submitting_site">Para enviar este lugar de cría:</string>
@@ -143,7 +145,7 @@
 <![CDATA[
 
 <p><b>AYUDA:</b><br/>
-<b>Los <i>Aedes</i> urbanos, el mosquito tigre (<i>Ae. albopictus</i>) y el mosquito de la fiebre amarilla (<i>Ae. aegypti</i>) son pequeños (menos que una moneda de céntimo de euro), de color oscuro (negro o marrón oscuro) con rayas o manchas blancas en el cuerpo. Normalmente son agresivos, pican de día y a menudo en las piernas, vuelan bajo y se encuentran cerca de casas, en jardines o en las calles. Si has encontrado uno, responde el informe y envía los datos. Es necesario completar los campos con asterisco (*).</b>
+Los <i>Aedes</i> urbanos, el mosquito tigre (<i>Ae. albopictus</i>) y el mosquito de la fiebre amarilla (<i>Ae. aegypti</i>) son pequeños (menos que una moneda de céntimo de euro), de color oscuro (negro o marrón oscuro) con rayas o manchas blancas en el cuerpo. Normalmente son agresivos, pican de día y a menudo en las piernas, vuelan bajo y se encuentran cerca de casas, en jardines o en las calles. Si has encontrado uno, responde el informe y envía los datos. Es necesario completar los campos con asterisco (*).
 </p>
 <p>
 <ul>
@@ -162,7 +164,7 @@
     <string name="site_report_help_html">
 <![CDATA[
 <p><b>AYUDA:</b><br/>
-<b>Los <i>Aedes</i> urbanos (<i>Ae. albopictus</i> y <i>Ae. aegypti</i>) crían en recipientes o depósitos pequeños (¡incluso más pequeños que un cubo de fregona!) y normalmente de exterior, con agua estancada. La presencia de agua durante unos días es necesaria para el desarrollo de sus larvas y/o pupas, antes de hacer la metamorfosis a mosquitos. Si has encontrado un posible lugar de cría, y especialmente un imbornal en la vía pública, responde el informe y envía los datos. Es necesario completar los campos con asterisco (*).</b>
+Los <i>Aedes</i> urbanos (<i>Ae. albopictus</i> y <i>Ae. aegypti</i>) crían en recipientes o depósitos pequeños (¡incluso más pequeños que un cubo de fregona!) y normalmente de exterior, con agua estancada. La presencia de agua durante unos días es necesaria para el desarrollo de sus larvas y/o pupas, antes de hacer la metamorfosis a mosquitos. Si has encontrado un posible lugar de cría, y especialmente un imbornal en la vía pública, responde el informe y envía los datos. Es necesario completar los campos con asterisco (*).
 </p>
 <ul> 
 <li><b>Descripción</b>: responde el formulario para facilitar la interpretación de los datos.</li> 
@@ -335,7 +337,7 @@
     <string name="ok">OK</string>
     <string name="project_email">info@mosquitoalert.com</string>
     <string name="project_website">http://mosquitoalert.com/</string>
-    <string name="report_sent">Si clicas OK, tus datos se enviarán al grupo de investigación responsable del proyecto. Parte de los datos se harán públicos en el mapa web del mosquito tigre en la página web www.mosquitoalert.com</string>
+    <string name="report_sent">Si clicas OK, tus datos se enviarán al grupo de investigación responsable del proyecto. Parte de los datos se harán públicos en el mapa web a www.mosquitoalert.com</string>
     <string name="report_sent_confirmation">Gracias por participar. Recuerda que en la página web del proyecto encontrarás más información sobre tu participación, además de trucos para combatir a los Aedes urbanos en tu casa.</string>
     <string name="reportGallery_CD">Botón para acceder a la galería de imágenes del mosquito tigre</string>
     <string name="saved_image_prefix">mosquitoalert</string>

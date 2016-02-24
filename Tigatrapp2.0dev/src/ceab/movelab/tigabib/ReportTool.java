@@ -66,6 +66,7 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
 import ceab.movelab.tigabib.ContProvContractReports.Reports;
 
@@ -1134,10 +1135,10 @@ public class ReportTool extends Activity {
 			}
 
 			if (result && resultFlag == SUCCESS) {
-				Util.toast(
+				Util.toastTimed(
 						context,
 						getResources().getString(
-								R.string.report_sent_confirmation));
+								R.string.report_sent_confirmation), Toast.LENGTH_LONG);
 
 				thisReport.clear();
 				clearFields();

@@ -46,9 +46,9 @@ public class License extends Activity {
 
 	Context context = this;
 
-	private static final String LICENSE_URL_EN = "http://tigaserver.atrapaeltigre.com/license/android/en";
-	private static final String LICENSE_URL_CA = "http://tigaserver.atrapaeltigre.com/license/android/ca";
-	private static final String LICENSE_URL_ES = "http://tigaserver.atrapaeltigre.com/license/android/es";
+	private static final String LICENSE_URL_EN = UtilLocal.URL_TIGASERVER + "license/android/en";
+	private static final String LICENSE_URL_CA = UtilLocal.URL_TIGASERVER + "license/android/ca";
+	private static final String LICENSE_URL_ES = UtilLocal.URL_TIGASERVER + "license/android/es";
 
 	private static final String LICENSE_URL_OFFLINE_EN = "file:///android_asset/html/license_en.html";
 	private static final String LICENSE_URL_OFFLINE_CA = "file:///android_asset/html/license_ca.html";

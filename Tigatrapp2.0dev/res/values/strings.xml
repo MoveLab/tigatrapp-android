@@ -43,29 +43,35 @@
     <string name="decline_button_label">I decline to consent</string>
     <string name="mosquito_alert_pop">
 <![CDATA[
-<p><b>¡AtrapaelTigre es ahora Mosquito Alert!</b></p>
-<p>Somos los mismos, pero el proyecto ha crecido. Con este cambio, hemos incorporado un nuevo protagonista: ya no solamente podréis notificar posibles hallazgos de mosquito tigre (Aedes albopictus), sinó también del mosquito de la fiebre amarilla (Aedes aegypti).<p>
-<p>Encontraréis toda la información en www.mosquitoalert.com</p>
-<p>Gracias por vuestro interés y participación,</p>
-<p>Equipo coordinador Mosquito Alert</p>
+<p><b>AtrapaelTigre is now Mosquito Alert!</b></p>
+<p>We are the same team but the project has grown to incorporate a new character: Now you can send reports of not only tiger mosquitoes (<i>Aedes albopictus</i>) but also yellow fever mosquitoes (<i>Aedes aegypti</i>).<p>
+<p>You can find more information at www.mosquitoalert.com</p>
+<p>Thanks for your interest and participation,</p>
+<p>The Mosquito Alert Team</p>
 ]]>
 </string>
     
     <!-- Gallery -->
     <string-array name="gallery_array">
-        <item><![CDATA[Hembra de mosquito tigre (<i>Aedes albopictus</i>). Sólo los mosquitos que: 1) son pequeños, 
-        negros y con rayas blancas, 2) tienen una raya blanca en la cabeza y en el tórax y 3) tienen rayas blancas en el abdomen y en las patas son mosquito tigre. Hay otros 
-        insectos parecidos, ¡no los confundas!]]></item>
-        <item><![CDATA[Hembra de mosquito tigre. Observa las rayas en el abdomen. 
-           Recuerda que tanto el mosquito tigre como el mosquito de la fiebre amarilla son muy pequeños, 
-           no miden más de 5 mm (con patas incluidas, aproximadamente la mitad de una moneda de 1 céntimo de euro).]]></item>
-        <item><![CDATA[Hembra de mosquito tigre preparada para picar. 
-              Observa la raya blanca en la cabeza y en el tórax y las rayas en las patas.]]></item>
-        <item><![CDATA[Hembra de mosquito tigre picando. 
-        Observa la característica raya blanca en la cabeza y en el tórax.]]></item>
-        <item><![CDATA[Hembra de mosquito tigre picando. 
-        Observa la característica raya blanca en la cabeza y en el tórax.]]></item>
-        <item><![CDATA[Dos hembras de mosquito tigre picando. Recuerda que sólo pican las hembras de mosquito. En el caso de los &lt;i>Aedes</i> urbanos (&lt;i>Ae. albopictus</i>/&lt;i>aegypti</i>), acostumbran a hacerlo durante el día (y no cuando oscurece) y normalmente pican en las piernas.]]></item>
+<item><![CDATA[Comparison of yellow fever mosquito (left) with tiger mosquito (right): The yellow fever mosquito (<i>Ae. aegypti</i>) has a lire-shaped mark on its thorax while the tiger mosquito (<i>Ae. albopictus</i>) has a single white stripe.]]></item>
+        <item><![CDATA[Female tiger mosquito (<i>Aedes albopictus</i>). Tiger mosquitoes (1) are small and black with white stripes, 
+        (2) they have a white stripe on the head and thorax, and (3) they have white stripes on the abdomen 
+        and legs. There are other similar insects, so it is important to avoid confusing them!]]></item>
+<item><![CDATA[Hembra de mosquito de la fiebre amarilla (<i>Aedes aegypti</i>) picando. A diferencia del mosquito tigre, <i>Ae. aegypti</i> tiene en su torso un dibujo en forma de lira y su cuerpo es generalmente de color marrón muy oscuro.]]></item>
+
+        <item><![CDATA[Female tiger mosquito. Note the stripes on the abdomen. 
+        Remember that the tiger mosquito, like the yellow fever mosquito, is very small, 
+        not more than 5 mm (including legs, about half the size of a 1 cent euro coin).]]></item>
+<item><![CDATA[Hembra del mosquito de la fiebre amarilla (<i>Aedes aegypti</i>) picando. Fíjate que en general, su cuerpo es oscuro pero de color marrón, mientras que el mosquito tigre es completamente negro.]]></item>
+
+        <item><![CDATA[Female tiger mosquito ready to bite. 
+        Note the white stripe on the head and thorax, and the stripes on the legs .]]></item>
+        <item><![CDATA[Female tiger mosquito biting. Note 
+        the characteristic white stripe on the head and thorax.]]></item>
+        <item><![CDATA[Female tiger mosquito biting. 
+        Note the characteristic white stripe on the head and thorax.]]></item>
+        <item><![CDATA[Two female tiger mosquitoes biting. Remember that only female mosquitoes bite. <i>Aedes urbanos</i> (<i> Ae. albopictus</i>/<i>aegypti</i>) usually bite during the day (not when it\'s dark)
+         and they usually bite legs.]]></item>
         <item><![CDATA[Hembra de mosquito tigre picando. La sangre que acumula en el abdomen 
         servirá para generar una puesta de huevos.]]></item>
         <item><![CDATA[Puesta de huevos de <i>Aedes</i>. Observa el color oscuro y la forma alargada. 
@@ -78,9 +84,6 @@
         Recuerda evitar tener pequeñas acumulaciones de agua en casa.]]></item>
         <item><![CDATA[Dos pupas de <i>Aedes</i>. En esta fase se produce la metamorfosis, 
         y el mosquito adulto emerge de la pupa hacia el medio aéreo.]]></item>
-<item><![CDATA[Hembra de mosquito de la fiebre amarilla (<i>Aedes aegypti</i>) picando. A diferencia del mosquito tigre, <i>Ae. aegypti</i> tiene en su torso un dibujo en forma de lira y su cuerpo es generalmente de color marrón muy oscuro.]]></item>
-<item><![CDATA[Diferencia entre el mosquito de la fiebre amarilla (izquierda) y el mosquito tigre (derecha): <i>Ae. aegypti</i> (izquierda) tiene un dibujo en forma de lira en el tórax, mientras que <i>Ae. albopictus</i> (derecha) tiene una sola raya blanca.]]></item>
-<item><![CDATA[Hembra del mosquito de la fiebre amarilla (<i>Aedes aegypti</i>) picando. Fíjate que en general, su cuerpo es oscuro pero de color marrón, mientras que el mosquito tigre es completamente negro.]]></item>
         </string-array>
 
     <!-- Toasts -->
@@ -190,7 +193,7 @@
     <string name="site_report_help_html">
 <![CDATA[
 <p><b>HELP:</b> <br/> 
-<b>A tiger mosquito breeding site is a small, outdoor pool or receptacle of stagnant water containing mosquito larvae or pupae. If you have found one, fill out this report and send in your data. Fields marked with an asterisk (*) are required.</b> 
+A tiger mosquito breeding site is a small, outdoor pool or receptacle of stagnant water containing mosquito larvae or pupae. If you have found one, fill out this report and send in your data. Fields marked with an asterisk (*) are required.
 </p> 
 <p> 
 <ul> 
@@ -363,7 +366,7 @@ El mosquit tigre normalment no es desplaça gaire, per això els adults i els se
     <string name="ok">OK</string>
     <string name="project_email">info@mosquitoalert.com</string>
     <string name="project_website">http://mosquitoalert.com/</string>
-    <string name="report_sent">If you select OK, your report will be sent to the lab.</string>
+    <string name="report_sent">If you select OK, your report will be sent to the project team and parts of it will be published on the public web map at www.mosquitoalert.com.</string>
     <string name="report_sent_confirmation">Report sent. Thank you!</string>
     <string name="reportGallery_CD">Image gallery button</string>
     <string name="saved_image_prefix">tigatrapp</string>

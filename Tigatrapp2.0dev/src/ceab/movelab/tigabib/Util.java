@@ -197,12 +197,12 @@ public class Util {
 	/**
 	 * RSS URL for Spanish.
 	 */
-	public static final String URL_RSS_ES = "http://atrapaeltigre.com/feed/";
+	public static final String URL_RSS_ES = UtilLocal.URL_PROJECT + "feed/";
 
 	/**
 	 * RSS URL for Catalan.
 	 */
-	public static final String URL_RSS_CA = "http://atrapaeltigre.com/feed/";
+	public static final String URL_RSS_CA = UtilLocal.URL_PROJECT + "feed/";
 
 	/**
 	 * Server API URL.
@@ -441,6 +441,10 @@ public class Util {
 	 *            The message to be displayed to the user
 	 */
 	public static void toast(Context context, String msg) {
+		toastTimed(context, msg, Toast.LENGTH_SHORT);
+	}
+
+	public static void toastTimed(Context context, String msg, int time) {
 
 		TextView tv = new TextView(context);
 		tv.setText(msg);
@@ -451,7 +455,7 @@ public class Util {
 		tv.setTextSize(20);
 
 		final Toast t = new Toast(context);
-		t.setDuration(Toast.LENGTH_SHORT);
+		t.setDuration(time);
 		t.setView(tv);
 		tv.setOnTouchListener(new OnTouchListener() {
 
@@ -466,6 +470,7 @@ public class Util {
 		t.show();
 	}
 
+	
 	public static void showHelp(Context context, String message, int image) {
 		final Context thisContext = context;
 		final Dialog dialog = new Dialog(thisContext);

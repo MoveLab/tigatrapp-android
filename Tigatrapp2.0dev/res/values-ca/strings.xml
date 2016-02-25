@@ -5,7 +5,7 @@
  Release: Working copy
  Locale: hi_FJ, Hindi (Fiji)
  Exported by: John Palmer
- Exported at: Thu, 25 Feb 2016 13:27:22 +0000
+ Exported at: Thu, 25 Feb 2016 14:06:44 +0000
 -->
 <resources>
     <!-- Intro and Consent -->
@@ -16,11 +16,18 @@
         <!-- Gallery -->
         <item name="gallery_array[0]">Diferència entre el mosquit de la febre groga, &lt;i&gt;Ae. aegypti&lt;/i&gt; i el mosquit tigre, &lt;i&gt;Ae. albopictus&lt;/i&gt;: &lt;i&gt;Ae. aegypti&lt;/i&gt; (esquerra) té un dibuix en forma de lira al tòrax, mentre que &lt;i&gt;Ae. albopictus&lt;/i&gt; (dreta) té una sola línia blanca. &lt;b&gt;Foto: Vincent Robert (CC BY 2.0)&lt;/b&gt;</item>
         <item name="gallery_array[1]">Mosquit tigre (&lt;i&gt;Aedes albopictus&lt;/i&gt;). La característica principal és el cos de color negre amb taques blanques i la ratlla blanca al cap i al tòrax. &lt;b&gt;Foto: Roger Eritja&lt;/b&gt;</item>
+        <item name="gallery_array[2]">Mosquit de la febre groga (&lt;i&gt;Aedes aegypti&lt;/i&gt;). A diferència del mosquit tigre, &lt;i&gt;Ae. aegypti&lt;/i&gt; té un dibuix en forma de lira al seu tors, i el seu cos és generalment de color marró molt fosc. &lt;b&gt;Foto: Mark Yokoyama (CC BY-NC-ND 2.0)&lt;/b&gt;</item>
         <item name="gallery_array[3]">Observa el color de l\'abdomen d\'aquesta femella de mosquit tigre: és negre amb taques blanques. &lt;b&gt;Foto: Roger Eritja&lt;/b&gt;</item>
+        <item name="gallery_array[4]">Observa el color d\'aquesta femella del mosquit de la febre groga picant. El seu cos és de color marró fosc, mentre que el del mosquit tigre és negre. &lt;b&gt;Foto: Mark Yokoyama (CC BY 2.0)&lt;/b&gt;</item>
         <item name="gallery_array[5]">Femella de mosquit tigre preparada per a picar. \n\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020Observa la ratlla blanca al cap i al tòrax i les ratlles a les potes.</item>
         <item name="gallery_array[6]">Femella de mosquit tigre picant. \n\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020Observa la característica ratlla blanca al cap i al tòrax. &lt;b&gt;Foto: Roger Eritja&lt;/b&gt;</item>
         <item name="gallery_array[7]">Observa la característica ratlla blanca al cap i al tòrax d\'aquesta femella de mosquit tigre picant. &lt;b&gt;Foto: Roger Eritja&lt;/b&gt;</item>
         <item name="gallery_array[8]">Qui pica? Només les femelles de mosquit. Els &lt;i&gt;Aedes&lt;/i&gt; urbans (&lt;i&gt;Ae. albopictus&lt;/i&gt;/&lt;i&gt;aegypti&lt;/i&gt;) acostumen a picar durant el dia (no de nit) i a les cames. &lt;b&gt;Foto: Roger Eritja&lt;/b&gt;</item>
+        <item name="gallery_array[9]">Mosquit de la febre groga (&lt;i&gt;Ae. aegypti&lt;/i&gt;). &lt;b&gt;Foto: Roger Eritja&lt;/b&gt;</item>
+        <item name="gallery_array[10]">Posta d’ous d’&lt;i&gt;Aedes&lt;/i&gt;. Els ous són tan petits que són quasi invisibles a ull nu. Els &lt;i&gt;Aedes&lt;/i&gt; urbans (&lt;i&gt;Ae. albopictus&lt;/i&gt;/&lt;i&gt;aegypti&lt;/i&gt;) ponen els ous en sec, sobre les parets de recipients petits, propers a l\'aigua estancada. &lt;b&gt;Foto: Roger Eritja&lt;/b&gt;</item>
+        <item name="gallery_array[11]">Larves (més allargades) i pupes (més arrodonides) d’&lt;i&gt;Aedes&lt;/i&gt;. Observa que són aquàtiques. \n\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020Les larves emergeixen dels ous quan es cobreixen d’aigua, i amb el temps muden a pupes. &lt;b&gt;Foto: Roger Eritja&lt;/b&gt;</item>
+        <item name="gallery_array[12]">Larves (més allargades) i pupes (més arrodonides) d’&lt;i&gt;Aedes&lt;/i&gt;. \n\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020Recorda que cal evitar tenir aigua estancada a casa. &lt;b&gt;Foto: Roger Eritja&lt;/b&gt;</item>
+        <item name="gallery_array[13]">Dues pupes d’&lt;i&gt;Aedes&lt;/i&gt;. En aquesta fase es produeix la metamorfosi, i el mosquit adult emergeix de la pupa cap al medi aeri. &lt;b&gt;Foto: Roger Eritja&lt;/b&gt;</item>
     </string-array>
     <!-- Toasts -->
     <string name="toast_report_before_submitting_site">Per enviar aquest lloc de cria:</string>

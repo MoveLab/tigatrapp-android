@@ -5,7 +5,7 @@
  Release: Working copy
  Locale: es_ES, Spanish
  Exported by: John Palmer
- Exported at: Thu, 25 Feb 2016 13:27:22 +0000
+ Exported at: Thu, 25 Feb 2016 14:06:44 +0000
 -->
 <resources>
     <!-- Intro and Consent -->
@@ -16,11 +16,18 @@
         <!-- Gallery -->
         <item name="gallery_array[0]">Diferencia entre el mosquito de la fiebre amarilla, &lt;i&gt;Ae. aegypti&lt;/i&gt; y el mosquito tigre, &lt;i&gt;Ae. albopictus&lt;/i&gt;: &lt;i&gt;Ae. aegypti&lt;/i&gt; (izquierda) tiene un dibujo en forma de lira en el tórax, mientras que &lt;i&gt;Ae. albopictus&lt;/i&gt; (derecha) tiene una sola raya blanca. &lt;b&gt;Foto: Vincent Robert (CC BY 2.0)&lt;/b&gt;</item>
         <item name="gallery_array[1]">Mosquito tigre (&lt;i&gt;Aedes albopictus&lt;/i&gt;). Su característica principal es el cuerpo de color negro con manchas blancas y la raya blanca en la cabeza y en el tórax. &lt;b&gt;Foto: Roger Eritja&lt;/b&gt;</item>
+        <item name="gallery_array[2]">Mosquito de la fiebre amarilla (&lt;i&gt;Aedes aegypti&lt;/i&gt;). A diferencia del mosquito tigre, &lt;i&gt;Ae. aegypti&lt;/i&gt; tiene en su torso un dibujo en forma de lira y su cuerpo es generalmente de color marrón muy oscuro. &lt;b&gt;Foto: Mark Yokoyama (CC BY-NC-ND 2.0)&lt;/b&gt;</item>
         <item name="gallery_array[3]">Observa el color del abdomen de esta hembra de mosquito tigre: es negro con manchas blancas. \n\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020&lt;b&gt;Foto: Roger Eritja&lt;/b&gt;</item>
+        <item name="gallery_array[4]">Observa el color de esta hembra del mosquito de la fiebre amarilla picando: su cuerpo es de color marrón oscuro, mientras que el mosquito tigre es negro. &lt;b&gt;Foto: Mark Yokoyama (CC BY 2.0)&lt;/b&gt;</item>
         <item name="gallery_array[5]">Hembra de mosquito tigre preparada para picar. \n\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020Observa la raya blanca en la cabeza y en el tórax y las rayas en las patas. &lt;b&gt;Foto: Roger Eritja&lt;/b&gt;</item>
         <item name="gallery_array[6]">Hembra de mosquito tigre picando. \n\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020Observa la característica raya blanca en la cabeza y en el tórax. &lt;b&gt;Foto: Roger Eritja&lt;/b&gt;</item>
         <item name="gallery_array[7]">Observa la característica raya blanca en la cabeza y en el tórax de esta hembra de mosquito tigre picando. &lt;b&gt;Foto: Roger Eritja&lt;/b&gt;</item>
         <item name="gallery_array[8]">¿Quién pica? Solo las hembras de mosquito. Los &lt;i&gt;Aedes&lt;/i&gt; urbanos (&lt;i&gt;Ae. albopictus&lt;/i&gt;/&lt;i&gt;aegypti&lt;/i&gt;) acostumbran a picar durante el día (no de noche) y en las piernas. &lt;b&gt;Foto: Roger Eritja&lt;/b&gt;</item>
+        <item name="gallery_array[9]">Mosquito de la fiebre amarilla (&lt;i&gt;Ae. aegypti&lt;/i&gt;). &lt;b&gt;Foto: Roger Eritja&lt;/b&gt;</item>
+        <item name="gallery_array[10]">Puesta de huevos de &lt;i&gt;Aedes&lt;/i&gt;. Los huevos son tan pequeños que son casi invisibles a simple vista. Los &lt;i&gt;Aedes&lt;/i&gt; urbanos (&lt;i&gt;Ae. albopictus&lt;/i&gt;/&lt;i&gt;aegypti&lt;/i&gt;) ponen los huevos en seco, sobre paredes de pequeños recipientes, cerca de agua estancada. &lt;b&gt;Foto: Roger Eritja&lt;/b&gt;</item>
+        <item name="gallery_array[11]">Larvas (más alargadas) y pupas (más redondeadas) de &lt;i&gt;Aedes&lt;/i&gt;. Observa que son acuáticas. \n\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020Las larvas emergen de los huevos cuando se cubren de agua y con el tiempo mudan a pupas. &lt;b&gt;Foto: Roger Eritja&lt;/b&gt;</item>
+        <item name="gallery_array[12]">Larvas (más alargadas) y pupas (más redondeadas) de &lt;i&gt;Aedes&lt;/i&gt;. \n\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020Evita tener pequeñas acumulaciones de agua en casa. &lt;b&gt;Foto: Roger Eritja&lt;/b&gt;</item>
+        <item name="gallery_array[13]">Dos pupas de &lt;i&gt;Aedes&lt;/i&gt;. En esta fase se produce la metamorfosis, y el mosquito adulto emerge de la pupa hacia el medio aéreo. &lt;b&gt;Foto: Roger Eritja&lt;/b&gt;</item>
     </string-array>
     <!-- Toasts -->
     <string name="toast_report_before_submitting_site">Para enviar este lugar de cría:</string>

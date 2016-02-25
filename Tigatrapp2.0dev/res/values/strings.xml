@@ -5,7 +5,7 @@
  Release: Working copy
  Locale: en_US, English (USA)
  Exported by: John Palmer
- Exported at: Thu, 25 Feb 2016 13:27:22 +0000
+ Exported at: Thu, 25 Feb 2016 14:06:44 +0000
 -->
 <resources>
     <!-- Intro and Consent -->
@@ -14,13 +14,20 @@
     <string name="mosquito_alert_pop">\n&lt;![CDATA[\n&lt;p&gt;&lt;b&gt;AtrapaelTigre is now Mosquito Alert!&lt;/b&gt;&lt;/p&gt;\n&lt;p&gt;We are the same team but the project has grown to incorporate a new character: Now you can send reports of not only tiger mosquitoes (&lt;i&gt;Aedes albopictus&lt;/i&gt;) but also yellow fever mosquitoes (&lt;i&gt;Aedes aegypti&lt;/i&gt;).&lt;p&gt;\n&lt;p&gt;You can find more information at www.mosquitoalert.com&lt;/p&gt;\n&lt;p&gt;Thanks for your interest and participation,&lt;/p&gt;\n&lt;p&gt;The Mosquito Alert Team&lt;/p&gt;\n]]&gt;\n</string>
     <string-array name="gallery_array">
         <!-- Gallery -->
-        <item name="gallery_array[0]">Comparison of yellow fever mosquito (left) with tiger mosquito (right): The yellow fever mosquito (&lt;i&gt;Ae. aegypti&lt;/i&gt;) has a lire-shaped mark on its thorax while the tiger mosquito (&lt;i&gt;Ae. albopictus&lt;/i&gt;) has a single white stripe.</item>
-        <item name="gallery_array[1]">Female tiger mosquito (&lt;i&gt;Aedes albopictus&lt;/i&gt;). Tiger mosquitoes (1) are small and black with white stripes, \n\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020(2) they have a white stripe on the head and thorax, and (3) they have white stripes on the abdomen \n\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020and legs. There are other similar insects, so it is important to avoid confusing them!</item>
-        <item name="gallery_array[3]">Female tiger mosquito. Note the stripes on the abdomen. \n\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020Remember that the tiger mosquito, like the yellow fever mosquito, is very small, \n\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020not more than 5 mm (including legs, about half the size of a 1 cent euro coin).</item>
-        <item name="gallery_array[5]">Female tiger mosquito ready to bite. \n\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020Note the white stripe on the head and thorax, and the stripes on the legs .</item>
-        <item name="gallery_array[6]">Female tiger mosquito biting. Note \n\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020the characteristic white stripe on the head and thorax.</item>
-        <item name="gallery_array[7]">Female tiger mosquito biting. \n\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020Note the characteristic white stripe on the head and thorax.</item>
-        <item name="gallery_array[8]">Two female tiger mosquitoes biting. Remember that only female mosquitoes bite. &lt;i&gt;Aedes urbanos&lt;/i&gt; (&lt;i&gt; Ae. albopictus&lt;/i&gt;/&lt;i&gt;aegypti&lt;/i&gt;) usually bite during the day (not when it\'s dark)\n\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020and they usually bite legs.</item>
+        <item name="gallery_array[0]">Comparison of yellow fever mosquito (left) with tiger mosquito (right): The yellow fever mosquito (&lt;i&gt;Ae. aegypti&lt;/i&gt;) has a lyre-shaped mark on its thorax while the tiger mosquito (&lt;i&gt;Ae. albopictus&lt;/i&gt;) has a single white stripe.\u0020\u0020&lt;b&gt;Foto: Vincent Robert (CC BY 2.0)&lt;/b&gt;</item>
+        <item name="gallery_array[1]">Tiger mosquito (&lt;i&gt;Aedes albopictus&lt;/i&gt;). Its main characteristic is its black body with white spots and a white stripe on the head and thorax. &lt;b&gt; Photo: Roger Eritja &lt;/ b&gt;</item>
+        <item name="gallery_array[2]">Yellow fever mosquito (&lt;i&gt;Aedes aegypti&lt;/i&gt;). In contrast to the tiger mosquito, &lt;i&gt;Ae. aegypti&lt;/i&gt; has a lyre-shaped mark on its thorax and its body is generally dark brown. &lt;b&gt;Photo: Mark Yokoyama (CC BY-NC-ND 2.0)&lt;/b&gt;</item>
+        <item name="gallery_array[3]">Observe the color of the abdomen of this female tiger mosquito: it is black with white stripes. &lt;b&gt;Photo: Roger Eritja&lt;/b&gt;</item>
+        <item name="gallery_array[4]">Observe the color of this female yellow fever mosquito as it bites. Its body is dark brown, while the tiger mosquito is black. &lt;b&gt;Foto: Mark Yokoyama (CC BY 2.0)&lt;/b&gt;</item>
+        <item name="gallery_array[5]">Female tiger mosquito ready to bite. Note the white stripe on the head and thorax, and the stripes on the legs.\u0020\u0020&lt;b&gt;Photo: Roger Eritja&lt;/b&gt;</item>
+        <item name="gallery_array[6]">Female tiger mosquito biting. Note the characteristic white stripe on the head and thorax. &lt;b&gt;Photo: Roger Eritja&lt;/b&gt;\n</item>
+        <item name="gallery_array[7]">Note the characteristic white stripe on the head and thorax of this female tiger mosquito as it bites. &lt;b&gt;Photo: Roger Eritja&lt;/b&gt;\n</item>
+        <item name="gallery_array[8]">Who bites? Only female mosquitoes. Urban &lt;i&gt;Aedes&lt;/i&gt; (&lt;i&gt;Ae. albopictus&lt;/i&gt;/&lt;i&gt;aegypti&lt;/i&gt;) usually bite during the day (not when it\'s dark), and they usually bite legs. &lt;b&gt;Photo: Roger Eritja&lt;/b&gt;</item>
+        <item name="gallery_array[9]">Yellow fever mosquito (&lt;i&gt;Aedes aegypti&lt;/i&gt;). &lt;b&gt;Photo: Roger Eritja&lt;/b&gt;</item>
+        <item name="gallery_array[10]">&lt;i&gt;Aedes&lt;/i&gt; laying eggs. The eggs are so small they are almost invisible to the naked eye. The urban &lt;i&gt;Aedes&lt;/i&gt; (&lt;i&gt; Ae. Albopictus&lt;/i&gt; / &lt;i&gt;aegypti&lt;/i&gt;) lay eggs the dry walls of small vessels near stagnant water. &lt;b&gt;Photo: Roger Eritja &lt;/b&gt;</item>
+        <item name="gallery_array[11]">&lt;i&gt;Aedes&lt;/i&gt; larvae (longer) and pupae (rounder). Notice that they are aquatic. The larvae emerge from the eggs when the eggs are covered with water, and they eventually turn into pupae. &lt;b&gt;Photo: Roger Eritja&lt;/b&gt;</item>
+        <item name="gallery_array[12]">&lt;i&gt;Aedes&lt;/i&gt; larvae (longer) and pupae (rounder). Remember to avoid keeping standing water around the house. &lt;b&gt;Photo: Roger Eritja&lt;/b&gt;</item>
+        <item name="gallery_array[13]">Two &lt;i&gt;Aedes&lt;/i&gt; pupae. This is metamorphosis phase from which the adult mosquito will emerge and take to the air. &lt;b&gt;Photo: Roger Eritja&lt;/b&gt;</item>
     </string-array>
     <!-- Toasts -->
     <string name="toast_report_before_submitting_site">Before submitting this breeding site report, please:</string>
@@ -241,17 +248,17 @@
     <string name="photo_credits">The photographs in Mosquito Alert were provided by R. Eritja (www.eritja.com).</string>
     <string name="copyright">\n&lt;![CDATA[\n&lt;p&gt;Copyright &amp;#169; 2013, 2014 John R.B. Palmer, Aitana Oltra, Joan Garriga ansd Frederic Bartumeus&lt;/p&gt;\n\u0020\u0020\u0020\u0020]]&gt;\n\u0020\u0020\u0020\u0020</string>
     <!-- DO NOT TRANSLATE -->
-    <string name="app_name" translatable="false">Mosquito Alert</string>
-    <string name="app_directory" translatable="false">MosquitoAlert</string>
-    <string name="debug_mode" translatable="false">true</string>
-    <string name="private_mode" translatable="false">false</string>
-    <string name="package_prefix" translatable="false">ceab.movelab.tigabib.</string>
-    <string name="content_provider_auth_missions" translatable="false">ceab.movelab.tigabib.cp.missions</string>
-    <string name="content_provider_auth_reports" translatable="false">ceab.movelab.tigabib.cp.reports</string>
-    <string name="content_provider_auth_tracks" translatable="false">ceab.movelab.tigabib.cp.tracks</string>
-    <string name="internal_action" translatable="false">ceab.movelab.tigatrapp.tigabib.INTERNAL_ACTION</string>
-    <string name="language_selector_english" translatable="false">English</string>
-    <string name="language_selector_catalan" translatable="false">Català</string>
-    <string name="language_selector_spanish" translatable="false">Español</string>
-    <string name="photo_share_message" translatable="false">via @Atrapaeltigre</string>
+    <string name="app_name">Mosquito Alert</string>
+    <string name="app_directory">MosquitoAlert</string>
+    <string name="debug_mode">true</string>
+    <string name="private_mode">false</string>
+    <string name="package_prefix">ceab.movelab.tigabib.</string>
+    <string name="content_provider_auth_missions">ceab.movelab.tigabib.cp.missions</string>
+    <string name="content_provider_auth_reports">ceab.movelab.tigabib.cp.reports</string>
+    <string name="content_provider_auth_tracks">ceab.movelab.tigabib.cp.tracks</string>
+    <string name="internal_action">ceab.movelab.tigatrapp.tigabib.INTERNAL_ACTION</string>
+    <string name="language_selector_english">English</string>
+    <string name="language_selector_catalan">Català</string>
+    <string name="language_selector_spanish">Español</string>
+    <string name="photo_share_message">via @Atrapaeltigre</string>
 </resources>

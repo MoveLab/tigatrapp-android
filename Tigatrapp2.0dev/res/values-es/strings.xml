@@ -1,80 +1,33 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
- * Mosquito Alert
- * Copyright (C) 2013, 2014  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus 
- * Contact: info@mosquitoalert.com
- * 
- * This file is part of Mosquito Alert.
- * 
- * Mosquito Alert is free software: you can redistribute it and/or modify 
- * it under the terms of the GNU General Public License as published by 
- * the Free Software Foundation, either version 3 of the License, or (at 
- * your option) any later version.
- * 
- * Mosquito Alert is distributed in the hope that it will be useful, but 
- * WITHOUT ANY WARRANTY; without even the implied warranty of 
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
- * See the GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License along 
- * with Mosquito Alert.  If not, see <http://www.gnu.org/licenses/>.
-
+ Loco xml export: Android string resources
+ Project: Tigatrapp
+ Release: Working copy
+ Locale: es_ES, Spanish
+ Exported by: John Palmer
+ Exported at: Wed, 24 Feb 2016 18:07:42 +0000
 -->
 <resources>
-
     <!-- Intro and Consent -->
     <string name="consent_button_label">He leído y acepto las condiciones de uso</string>
     <string name="decline_button_label">No estoy de acuerdo</string>
-    <string name="mosquito_alert_pop">
-<![CDATA[
-<p><b>¡AtrapaelTigre es ahora Mosquito Alert!</b></p>
-<p>Somos los mismos, pero el proyecto ha crecido. Con este cambio, hemos incorporado un nuevo protagonista: ya no solamente podréis notificar posibles hallazgos de mosquito tigre (<i>Aedes albopictus</i>), sinó también del mosquito de la fiebre amarilla (<i>Aedes aegypti</i>).<p>
-<p>Encontraréis toda la información en www.mosquitoalert.com.</p>
-<p>Gracias por vuestro interés y participación,</p>
-<p>Equipo coordinador Mosquito Alert</p>
-]]>
-</string>
-    
-    <!-- Gallery -->
+    <string name="mosquito_alert_pop">&lt;![CDATA[\n&lt;p&gt;&lt;b&gt;¡AtrapaelTigre es ahora Mosquito Alert!&lt;/b&gt;&lt;/p&gt;\n&lt;p&gt;Somos los mismos, pero el proyecto ha crecido. Con este cambio, hemos incorporado un nuevo protagonista: ya no solamente podréis notificar posibles hallazgos de mosquito tigre (&lt;i&gt;Aedes albopictus&lt;/i&gt;), sinó también del mosquito de la fiebre amarilla (&lt;i&gt;Aedes aegypti&lt;/i&gt;).&lt;p&gt;\n&lt;p&gt;Encontraréis toda la información en www.mosquitoalert.com.&lt;/p&gt;\n&lt;p&gt;Gracias por vuestro interés y participación,&lt;/p&gt;\n&lt;p&gt;Equipo coordinador Mosquito Alert&lt;/p&gt;\n]]&gt;\n</string>
     <string-array name="gallery_array">
-<item><![CDATA[Diferencia entre el mosquito de la fiebre amarilla (izquierda) y el mosquito tigre (derecha): <i>Ae. aegypti</i> (izquierda) tiene un dibujo en forma de lira en el tórax, mientras que <i>Ae. albopictus</i> (derecha) tiene una sola raya blanca. <b>Foto: Vincent Robert (CC BY 2.0)</b>]]></item>
-        <item><![CDATA[Hembra de mosquito tigre (<i>Aedes albopictus</i>). Sólo los mosquitos que: 1) son pequeños, 
-        negros y con rayas blancas, 2) tienen una raya blanca en la cabeza y en el tórax y 3) tienen rayas blancas en el abdomen y en las patas son mosquito tigre. Hay otros 
-        insectos parecidos, ¡no los confundas! <b>Foto: Roger Eritja</b>]]></item>
-<item><![CDATA[Hembra de mosquito de la fiebre amarilla (<i>Aedes aegypti</i>) picando. A diferencia del mosquito tigre, <i>Ae. aegypti</i> tiene en su torso un dibujo en forma de lira y su cuerpo es generalmente de color marrón muy oscuro. <b>Foto: Mark Yokoyama (CC BY-NC-ND 2.0)</b>]]></item>
-
-        <item><![CDATA[Hembra de mosquito tigre. Observa las rayas en el abdomen. 
-           Recuerda que tanto el mosquito tigre como el mosquito de la fiebre amarilla son muy pequeños, 
-           no miden más de 5 mm (con patas incluidas, aproximadamente la mitad de una moneda de 1 céntimo de euro). <b>Foto: Roger Eritja</b>]]></item>
-<item><![CDATA[Hembra del mosquito de la fiebre amarilla (<i>Aedes aegypti</i>) picando. Fíjate que en general, su cuerpo es oscuro pero de color marrón, mientras que el mosquito tigre es completamente negro. <b>Foto: Mark Yokoyama (CC BY 2.0)</b>]]></item>
-
-        <item><![CDATA[Hembra de mosquito tigre preparada para picar. 
-              Observa la raya blanca en la cabeza y en el tórax y las rayas en las patas. <b>Foto: Roger Eritja</b>]]></item>
-        <item><![CDATA[Hembra de mosquito tigre picando. 
-        Observa la característica raya blanca en la cabeza y en el tórax. <b>Foto: Roger Eritja</b>]]></item>
-        <item><![CDATA[Hembra de mosquito tigre picando. 
-        Observa la característica raya blanca en la cabeza y en el tórax. <b>Foto: Roger Eritja</b>]]></item>
-        <item><![CDATA[Dos hembras de mosquito tigre picando. Recuerda que sólo pican las hembras de mosquito. En el caso de los <i>Aedes</i> urbanos (<i>Ae. albopictus</i>/<i>aegypti</i>), acostumbran a hacerlo durante el día (y no cuando oscurece) y normalmente pican en las piernas. <b>Foto: Roger Eritja</b>]]></item>
-        <item><![CDATA[Hembra de mosquito tigre picando. La sangre que acumula en el abdomen 
-        servirá para generar una puesta de huevos. <b>Foto: Roger Eritja</b>]]></item>
-        <item><![CDATA[Puesta de huevos de <i>Aedes</i>. Observa el color oscuro y la forma alargada. 
-        Los huevos son tan pequeños que son casi invisibles a simple vista. 
-        Recuerda que los <i>Aedes</i> urbanos (<i>Ae. albopictus</i>/<i>aegypti</i>) ponen los huevos en recipientes pequeños, en paredes  
-        secas cerca de agua estancada y sucia. <b>Foto: Roger Eritja</b>]]></item>
-        <item><![CDATA[Larvas (más alargadas) y pupas (más redondeadas) de <i>Aedes</i>. Observa que son acuáticas. 
-        Las larvas emergen de los huevos cuando éstos quedan cubiertos de agua y con el tiempo mudan a pupas. <b>Foto: Roger Eritja</b>]]></item>
-        <item><![CDATA[Larvas (más alargadas) y pupas (más redondeadas) de <i>Aedes</i>. 
-        Recuerda evitar tener pequeñas acumulaciones de agua en casa. <b>Foto: Roger Eritja</b>]]></item>
-        <item><![CDATA[Dos pupas de <i>Aedes</i>. En esta fase se produce la metamorfosis, 
-        y el mosquito adulto emerge de la pupa hacia el medio aéreo. <b>Foto: Roger Eritja</b>]]></item>
-        </string-array>
+        <!-- Gallery -->
+        <item name="gallery_array[0]">Diferencia entre el mosquito de la fiebre amarilla, &lt;i&gt;Ae. aegypti&lt;/i&gt; y el mosquito tigre, &lt;i&gt;Ae. albopictus&lt;/i&gt;: &lt;i&gt;Ae. aegypti&lt;/i&gt; (izquierda) tiene un dibujo en forma de lira en el tórax, mientras que &lt;i&gt;Ae. albopictus&lt;/i&gt; (derecha) tiene una sola raya blanca. &lt;b&gt;Foto: Vincent Robert (CC BY 2.0)&lt;/b&gt;</item>
+        <item name="gallery_array[1]">Mosquito tigre (&lt;i&gt;Aedes albopictus&lt;/i&gt;). Su característica principal es el cuerpo de color negro con manchas blancas y la raya blanca en la cabeza y en el tórax. &lt;b&gt;Foto: Roger Eritja&lt;/b&gt;</item>
+        <item name="gallery_array[3]">Observa el color del abdomen de esta hembra de mosquito tigre: es negro con manchas blancas. \n\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020&lt;b&gt;Foto: Roger Eritja&lt;/b&gt;</item>
+        <item name="gallery_array[5]">Hembra de mosquito tigre preparada para picar. \n\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020Observa la raya blanca en la cabeza y en el tórax y las rayas en las patas. &lt;b&gt;Foto: Roger Eritja&lt;/b&gt;</item>
+        <item name="gallery_array[6]">Hembra de mosquito tigre picando. \n\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020Observa la característica raya blanca en la cabeza y en el tórax. &lt;b&gt;Foto: Roger Eritja&lt;/b&gt;</item>
+        <item name="gallery_array[7]">Observa la característica raya blanca en la cabeza y en el tórax de esta hembra de mosquito tigre picando. &lt;b&gt;Foto: Roger Eritja&lt;/b&gt;</item>
+        <item name="gallery_array[8]">¿Quién pica? Solo las hembras de mosquito. Los &lt;i&gt;Aedes&lt;/i&gt; urbanos (&lt;i&gt;Ae. albopictus&lt;/i&gt;/&lt;i&gt;aegypti&lt;/i&gt;) acostumbran a picar durante el día (no de noche) y en las piernas. &lt;b&gt;Foto: Roger Eritja&lt;/b&gt;</item>
+    </string-array>
     <!-- Toasts -->
     <string name="toast_report_before_submitting_site">Para enviar este lugar de cría:</string>
-    <string name="toast_report_before_submitting_adult">Para enviar este avistamiento de adulto:</string>
+    <string name="toast_report_before_submitting_adult">Para enviar este hallazgo de adulto:</string>
     <string name="toast_complete_checklist">- Completa descripción</string>
     <string name="toast_specify_location">- Especifica posición</string>
     <string name="toast_attach_photo">- Adjunta imagen</string>
-
     <!-- Switchboard -->
     <string name="dataMap_CD">Mis datos</string>
     <string name="switchboard_button_text_report">ENVIA</string>
@@ -83,13 +36,11 @@
     <string name="switchboard_button_text_map">MI MAPA</string>
     <string name="switchboard_button_text_gallery">GALERIA</string>
     <string name="switchboard_demo_popup">Estás utilizando la versión demo (versión de prueba) de Mosquito Alert. Con esta versión antigua no se pueden enviar datos. Si quieres participar en el proyecto compartiendo datos, clica OK para instalarte la versión completa (si ya tienes la versión completa, puedes desinstalarte la versión demo cuando quieras).</string>
-
     <!-- activity labels -->
     <string name="activity_label_report_editing">Mosquito Alert: Edita informe</string>
     <string name="activity_label_report_new">Mosquito Alert: Nuevo informe</string>
     <string name="activity_label_map">Mosquito Alert: Mi Mapa</string>
     <string name="activity_label_gallery">Mosquito Alert: Galeria</string>
-
     <!-- Reports -->
     <string name="checklist_label_editing">Descripción*</string>
     <string name="location_label_editing">Localización*</string>
@@ -116,90 +67,34 @@
     <string name="site_report_q2">¿Se encuentra en la vía pública?</string>
     <string name="site_report_q3">Contiene agua estancada y/o larvas o pupas de mosquito (cualquier especie)?</string>
     <string name="site_report_q4">¿Has visto mosquitos cerca (a &lt;10 metros)?</string>
-    <string name="site_report_q3_response1">Sí, agua y larvas o pupas.</string>    
-	<string name="site_report_q3_response2">Sí, agua sin larvas ni pupas.</string>    
-	<string name="site_report_q3_response3">No, no contiene agua.</string>    
-    <string name="adult_report_q3">Observa el abdomen de tu mosquito y compáralo con la información que encontrarás en el botón (i). Selecciona la respuesta más adecuada para tu mosquito:</string>
-    
-    <string name="adult_report_q3a1"><![CDATA[Abdomen como a <i>Ae. albopictus</i>]]></string>
-	<string name="adult_report_q3a2">Abdomen como a <i>Ae. aegypti</i></string>
-	<string name="adult_report_q3a3">Ninguno de los dos</string>
-	<string name="adult_report_q3a4">No sé</string>   
-    <string name="confirmation_q2_adult_headthorax">Observa la cabeza y el tórax de tu mosquito y compáralos con la información que encontrarás en el botón (i). Selecciona la respuesta más adecuada para tu mosquito:</string>
-		 
-    <string name="q3_headthorax_text"><![CDATA[El mosquito tigre (<i>Ae. albopictus</i>) tiene una raya blanca en la cabeza y en el tórax. En cambio, el mosquito de la fiebre amarilla (<i>Ae. aegypti</i>), tiene varias rayas blancas en el tórax que dibujan una lira. Evita enviar datos de mosquitos que no cumplan estas características.]]></string>
-    <string name="q2_abdomenlegs_text"><![CDATA[Los <i>Aedes</i> urbanos tienen rayas o manchas blancas en el abdomen y en las patas, pero el patrón de color (el dibujo blanco) y el color de fondo es ligeramente diferente entre especies. Evita enviar datos de mosquitos que no cumplan estas características.]]></string>
+    <string name="site_report_q3_response1">Sí, agua y larvas o pupas.</string>
+    <string name="site_report_q3_response2">Sí, agua sin larvas ni pupas.</string>
+    <string name="site_report_q3_response3">No, no contiene agua.</string>
+    <string name="adult_report_q3">¿Cómo es el abdomen de tu mosquito? Consulta el botón (i) y selecciona una respuesta:</string>
+    <string name="adult_report_q3a1">Abdomen como &lt;i&gt;Ae. albopictus&lt;/i&gt;</string>
+    <string name="adult_report_q3a2">Abdomen como <i>Ae. aegypti</i></string>
+    <string name="adult_report_q3a3">Ninguno de los dos</string>
+    <string name="adult_report_q3a4">No sé</string>
+    <string name="confirmation_q2_adult_headthorax">¿Cómo es el tórax de tu mosquito? Consulta el botón (i) y selecciona una respuesta:</string>
+    <string name="q3_headthorax_text">El mosquito tigre (&lt;i&gt;Ae. albopictus&lt;/i&gt;) tiene una raya blanca en la cabeza y en el tórax. En cambio, el mosquito de la fiebre amarilla (&lt;i&gt;Ae. aegypti&lt;/i&gt;), tiene varias rayas blancas en el tórax que dibujan una lira. Evita enviar datos de mosquitos que no cumplan estas características.</string>
+    <string name="q2_abdomenlegs_text">Los &lt;i&gt;Aedes&lt;/i&gt; urbanos tienen manchas blancas en el abdomen y en las patas, pero el el dibujo blanco y el color de fondo del abdomen es ligeramente diferente. Evita enviar datos de mosquitos que no cumplan estas características.</string>
     <string name="identifying_mosquitoes_title">Descripción del mosquito</string>
-    <string name="confirmation_q1_adult_sizecolor">Observa tu mosquito y compáralo con la información que encontrarás en el botón (i). Selecciona la respuesta más adecuada para tu mosquito:</string>
-    <string name="adult_report_q1a1">Se parece a <i>Ae. albopictus</i></string>
-    <string name="adult_report_q1a2">Se parece a <i>Ae. aegypti</i></string>
+    <string name="confirmation_q1_adult_sizecolor">¿Cómo es tu mosquito? Consulta el botón (i) y selecciona una respuesta:</string>
+    <string name="adult_report_q1a1">Como <i>Ae. albopictus</i></string>
+    <string name="adult_report_q1a2">Como <i>Ae. aegypti</i></string>
     <string name="adult_report_q1a3">Ninguno de los dos</string>
-    <string name="adult_report_q1a4">No sé</string>   
-<string name="adult_report_q2a1">Tórax como a <i>Ae. albopictus</i></string>
-    <string name="adult_report_q2a2">Tórax como a <i>Ae. aegypti</i></string>
+    <string name="adult_report_q1a4">No sé</string>
+    <string name="adult_report_q2a1">Tórax como <i>Ae. albopictus</i></string>
+    <string name="adult_report_q2a2">Tórax como <i>Ae. aegypti</i></string>
     <string name="adult_report_q2a3">Ninguno de los dos</string>
-    <string name="adult_report_q2a4">No sé</string>   
-    
-    <string name="q1_sizecolor_text"><![CDATA[El mosquito tigre (<i>Ae. albopictus</i>) y el mosquito de la fiebre amarilla (<i>Ae. aegypti</i>) son parecidos: ambos son pequeños (menos que una moneda de céntimo de euro), de color oscuro con rayas o manchas blancas en el cuerpo. El cuerpo de <i>Ae. albopictus</i> es generalmente de color negro de fondo, mientras que el de <i>Ae. aegypti</i> es generalmente de color marrón oscuro. Ambos son generalmente agresivos, pican de día y a menudo en las piernas, vuelan bajo y se encuentran cerca de casas, en jardines o en las calles.Evita enviar datos de mosquitos que no cumplan estas características.]]></string>
-    <string name="adult_report_help_html">
-<![CDATA[
-
-<p><b>AYUDA:</b><br/>
-Los <i>Aedes</i> urbanos, el mosquito tigre (<i>Ae. albopictus</i>) y el mosquito de la fiebre amarilla (<i>Ae. aegypti</i>) son pequeños (menos que una moneda de céntimo de euro), de color oscuro (negro o marrón oscuro) con rayas o manchas blancas en el cuerpo. Normalmente son agresivos, pican de día y a menudo en las piernas, vuelan bajo y se encuentran cerca de casas, en jardines o en las calles. Si has encontrado uno, responde el informe y envía los datos. Es necesario completar los campos con asterisco (*).
-</p>
-<p>
-<ul>
-<li><b>Descripción</b>: responde el formulario, te ayudará a saber si es <i>Ae. albopictus</i> o <i>Ae. aegypti</i> y facilitará la interpretación de los datos.</li> 
-<br/>
-<li><b>Localización</b>: elige posición actual si el mosquito lo has atrapado en el lugar donde se encuentra el teléfono, o señala la posición en el mapa si lo has encontrado en otro lugar. Activa el GPS si quieres que la posición de tu hallazgo sea más precisa.</li>  
-<br/>
-<li><b>Imágenes</b>: haz una foto o adjunta una foto de tu mosquito hecha por ti. Lo más importante es fotografiar su tórax, esto es, la raya blanca de la cabeza y el tórax en el caso de <i>Ae. albopictus</i> o el dibujo en forma de lira en el caso de <i>Ae. aegypti</i>. Para ello, agarra tu mosquito por las patas y enfócalo bien, si hace falta aléjate un poco. Puedes adjuntar más de 1 foto desde diferentes ángulos. Encontrarás más trucos en la página web.</li>
-<br/>
-<li><b>Notas</b>: si quieres, describe mejor tu hallazgo. No añadas información o datos personales.</li>
-</ul>
-</p> 
-<p>Una vez enviado, podrás consultar y editar el informe en tu mapa. Los datos que envíes serán publicados en el mapa web del proyecto <a href="www.mosquitoalert.com">www.mosquitoalert.com</a>.</p>        
-   ]]>
-    </string>
-    <string name="site_report_help_html">
-<![CDATA[
-<p><b>AYUDA:</b><br/>
-Los <i>Aedes</i> urbanos (<i>Ae. albopictus</i> y <i>Ae. aegypti</i>) crían en recipientes o depósitos pequeños (¡incluso más pequeños que un cubo de fregona!) y normalmente de exterior, con agua estancada. La presencia de agua durante unos días es necesaria para el desarrollo de sus larvas y/o pupas, antes de hacer la metamorfosis a mosquitos. Si has encontrado un posible lugar de cría, y especialmente un imbornal en la vía pública, responde el informe y envía los datos. Es necesario completar los campos con asterisco (*).
-</p>
-<ul> 
-<li><b>Descripción</b>: responde el formulario para facilitar la interpretación de los datos.</li> 
-<br/>
-<li><b>Localización</b>: elige posición actual si el lugar de cría se encuentra en el lugar donde tienes el teléfono, o señala la posición en el mapa si lo has encontrado en otro lugar. Activa el GPS si quieres que la posición de tu hallazgo sea más precisa.</li>  
-<br/>
-<li><b>Imágenes</b>: haz una foto o adjunta una foto del lugar de cría hecha por ti. Si puedes, adjunta una foto general que ayude a reconocer el lugar y otra en la que se vea el agua estancada y las larvas y/o pupas.</li> 
-<br/>
-<li><b>Notas</b>: si quieres, describe mejor tu hallazgo. No añadas información o datos personales.</</li>
-</ul> 
-</p>
-<p>Una vez enviado, podrás consultar y editar el informe en tu mapa. Los datos que envíes serán publicados en el mapa web www.mosquitoalert.com.</p>        
-       ]]>
-    </string>
-    <string name="site_report_item_help_1">
-<![CDATA[  
-<p>Los <i>Aedes</i> urbanos (<i>Ae. albopictus</i> y <i>Ae. aegypti</i>) crían en recipientes o depósitos pequeños (¡incluso más pequeños que un cubo de fregona!) y normalmente de exterior, con agua estancada. Los imbornales (lugares por donde entra el agua de la calle en las cloacas) que acumulan agua pueden ser importantes lugares de cría de estas especies. La presencia de agua estancada durante unos días en estos y otros recipientes es necesaria para el desarrollo de sus larvas y/o pupas, antes de hacer la metamorfosis a mosquitos.<p>Recuerda que los Aedes urbanos no crían en playas, ríos, lagos o humedales. Las larvas que encuentres allí no son de estas especies.</p>  
-       ]]>
-    </string>
-    <string name="site_report_item_help_2">
-<![CDATA[      
-<p>Vía pública son los espacios de libre concurrencia pública como calles, plazas, parques o espacios verdes. No son vía pública los solares, y/o propiedades privadas.</p> 
-]]>
-    </string>
-    
-      <string name="site_report_item_help_3">
-<![CDATA[      
-<p>Las larvas y las pupas de <i>Aedes</i> urbanos necesitan agua estancada durante unos días, con materia orgánica (alimento) para vivir. Evita tener pequeñas acumulaciones de agua en tu casa para combatir estas especies.</p> 
-]]>
-    </string>
-    <string name="site_report_item_help_4">
-<![CDATA[      
-<p>Los <i>Aedes</i> urbanos normalmente no se desplazan mucho, por lo que los adultos y sus lugares de cría se encuentran cercanos.</p> 
-       ]]>
-    </string>
+    <string name="adult_report_q2a4">No sé</string>
+    <string name="q1_sizecolor_text">El mosquito tigre (&lt;i&gt;Ae. albopictus&lt;/i&gt;) y el mosquito de la fiebre amarilla (&lt;i&gt;Ae. aegypti&lt;/i&gt;) son pequeños y de color oscuro con manchas blancas. El cuerpo de &lt;i&gt;Ae. albopictus&lt;/i&gt; es de color negro, mientras que el de &lt;i&gt;Ae. aegypti&lt;/i&gt; es de color marrón oscuro. Evita enviar datos de mosquitos que no cumplan estas características.</string>
+    <string name="adult_report_help_html">&lt;![CDATA[\n\n&lt;p&gt;&lt;b&gt;AYUDA:&lt;/b&gt;&lt;br/&gt;\nLos &lt;i&gt;Aedes&lt;/i&gt; urbanos, el mosquito tigre (&lt;i&gt;Ae. albopictus&lt;/i&gt;) y el mosquito de la fiebre amarilla (&lt;i&gt;Ae. aegypti&lt;/i&gt;) son pequeños (menos que una moneda de céntimo de euro), de color oscuro (negro o marrón oscuro) con rayas o manchas blancas en el cuerpo. Normalmente son agresivos, pican de día y a menudo en las piernas, vuelan bajo y se encuentran cerca de casas, en jardines o en las calles. Si has encontrado uno, responde el informe y envía los datos. Es necesario completar los campos con asterisco (*).\n&lt;/p&gt;\n&lt;p&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;b&gt;Descripción&lt;/b&gt;: responde el formulario, te ayudará a saber si es &lt;i&gt;Ae. albopictus&lt;/i&gt; o &lt;i&gt;Ae. aegypti&lt;/i&gt;.&lt;/li&gt; \n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;Localización&lt;/b&gt;: elige posición actual si el mosquito lo has atrapado en el lugar donde se encuentra el teléfono, o señala la posición en el mapa si lo has encontrado en otro lugar. Activa el GPS si quieres que la posición de tu hallazgo sea más precisa.&lt;/li&gt;\u0020\u0020\n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;Imágenes&lt;/b&gt;: haz una foto o adjunta una foto de tu mosquito hecha por ti. Lo más importante es fotografiar su tórax para que se vea la raya blanca en el caso de &lt;i&gt;Ae. albopictus&lt;/i&gt; o el dibujo en forma de lira en el caso de &lt;i&gt;Ae. aegypti&lt;/i&gt;. Para ello, agarra tu mosquito por las patas y enfócalo bien, si hace falta aléjate un poco. Puedes adjuntar más de una foto desde diferentes ángulos. Encontrarás más trucos en la página web.&lt;/li&gt;\n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;Notas&lt;/b&gt;: si quieres, describe mejor tu hallazgo. No añadas información o datos personales.&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/p&gt; \n&lt;p&gt;Una vez enviado, podrás consultar y editar el informe en tu mapa. Los datos que envíes serán publicados en el mapa web del proyecto &lt;a href=\"www.mosquitoalert.com\"&gt;www.mosquitoalert.com&lt;/a&gt;.&lt;/p&gt;\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\n\u0020\u0020\u0020]]&gt;\n\u0020\u0020\u0020\u0020</string>
+    <string name="site_report_help_html">&lt;![CDATA[\n&lt;p&gt;&lt;b&gt;AYUDA:&lt;/b&gt;&lt;br/&gt;\nLos &lt;i&gt;Aedes&lt;/i&gt; urbanos (&lt;i&gt;Ae. albopictus&lt;/i&gt; y &lt;i&gt;Ae. aegypti&lt;/i&gt;) crían en recipientes o depósitos pequeños (incluso más pequeños que un cubo) y normalmente de exterior, con agua estancada. La presencia de agua durante unos días es necesaria para el desarrollo de sus larvas y/o pupas, antes de hacer la metamorfosis a mosquitos. Si has encontrado un posible lugar de cría, y especialmente un imbornal en la vía pública, responde el informe y envía los datos. Es necesario completar los campos con asterisco (*).\n&lt;/p&gt;\n&lt;ul&gt; \n&lt;li&gt;&lt;b&gt;Descripción&lt;/b&gt;: responde el formulario.&lt;/li&gt; \n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;Localización&lt;/b&gt;: elige posición actual si el lugar de cría se encuentra en el lugar donde tienes el teléfono, o señala la posición en el mapa si lo has encontrado en otro lugar. Activa el GPS si quieres que la posición de tu hallazgo sea más precisa.&lt;/li&gt;\u0020\u0020\n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;Imágenes&lt;/b&gt;: haz una foto o adjunta una foto del lugar de cría hecha por ti. Si puedes, adjunta una foto general que ayude a reconocer el lugar y otra en la que se vea el agua estancada y las larvas y/o pupas.&lt;/li&gt; \n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;Notas&lt;/b&gt;: si quieres, describe mejor tu hallazgo. No añadas información o datos personales.&lt;/&lt;/li&gt;\n&lt;/ul&gt; \n&lt;/p&gt;\n&lt;p&gt;Una vez enviado, podrás consultar y editar el informe en tu mapa. Los datos que envíes serán publicados en el mapa web www.mosquitoalert.com.&lt;/p&gt;\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020\n\u0020\u0020\u0020\u0020\u0020\u0020\u0020]]&gt;\n\u0020\u0020\u0020\u0020</string>
+    <string name="site_report_item_help_1">&lt;![CDATA[\u0020\u0020\n&lt;p&gt;Los &lt;i&gt;Aedes&lt;/i&gt; urbanos (&lt;i&gt;Ae. albopictus&lt;/i&gt; y &lt;i&gt;Ae. aegypti&lt;/i&gt;) crían en recipientes o depósitos pequeños (incluso más pequeños que un cubo) y normalmente de exterior, con agua estancada. Los imbornales (lugares por donde entra el agua de la calle en las cloacas) que acumulan agua también pueden ser importantes lugares de cría de estas especies. &lt;p&gt;Recuerda que los &lt;i&gt;Aedes&lt;/i&gt; urbanos no crían en playas, ríos, lagos o humedales.&lt;/p&gt;\u0020\u0020\n\u0020\u0020\u0020\u0020\u0020\u0020\u0020]]&gt;\n\u0020\u0020\u0020\u0020</string>
+    <string name="site_report_item_help_2">&lt;![CDATA[\u0020\u0020\u0020\u0020\u0020\u0020\n&lt;p&gt;Vía pública son los espacios de libre concurrencia de la gente como calles, plazas, parques o espacios verdes. No son vía pública los solares, y/o propiedades privadas.&lt;/p&gt; \n]]&gt;\n\u0020\u0020\u0020\u0020</string>
+    <string name="site_report_item_help_3">&lt;![CDATA[\u0020\u0020\u0020\u0020\u0020\u0020\n&lt;p&gt;Las larvas y las pupas de &lt;i&gt;Aedes&lt;/i&gt; urbanos necesitan agua estancada durante unos días, con materia orgánica (alimento) para vivir, antes de hacer la metamorfosis a mosquitos.&lt;/p&gt; \n]]&gt;\n\u0020\u0020\u0020\u0020</string>
+    <string name="site_report_item_help_4">&lt;![CDATA[\u0020\u0020\u0020\u0020\u0020\u0020\n&lt;p&gt;Los &lt;i&gt;Aedes&lt;/i&gt; urbanos normalmente no se desplazan mucho, por eso los adultos se encuentran cerca de sus lugares de cría.&lt;/p&gt; \n\u0020\u0020\u0020\u0020\u0020\u0020\u0020]]&gt;\n\u0020\u0020\u0020\u0020</string>
     <string name="embornals">Sumidero o imbornal</string>
     <string name="fonts">Fuente ornamental</string>
     <string name="basses">Balsa pequeña o similar</string>
@@ -207,7 +102,6 @@ Los <i>Aedes</i> urbanos (<i>Ae. albopictus</i> y <i>Ae. aegypti</i>) crían en 
     <string name="altres">Otros</string>
     <string name="report_checklist_title_adult">Descripción del mosquito</string>
     <string name="report_checklist_title_site">Descripción del lugar de cría</string>
-
     <!-- View Report -->
     <string name="return_to_map">Atrás</string>
     <string name="delete_report">Elimina</string>
@@ -221,7 +115,6 @@ Los <i>Aedes</i> urbanos (<i>Ae. albopictus</i> y <i>Ae. aegypti</i>) crían en 
     <string name="notes_tab_title">Notas</string>
     <string name="view_report_title_adult">Hallazgo de <i>Aedes</i> urbano</string>
     <string name="view_report_title_site">Lugar de cría</string>
-
     <!-- Photo Selector -->
     <string name="photo_selector_title">Añade imágenes</string>
     <string name="photo_selector_take_photo_button">Haz foto</string>
@@ -230,11 +123,9 @@ Los <i>Aedes</i> urbanos (<i>Ae. albopictus</i> y <i>Ae. aegypti</i>) crían en 
     <string name="photo_selector_remove_this_photo">Elimina</string>
     <string name="photo_selector_from_thisreport">de este informe</string>
     <string name="photo_selector_remove_button_label">Elimina</string>
-
     <!-- RSS Feeds -->
     <string name="rss_internet_connection_warning">Sin conexión a internet.\n\nPara ver el contenido, conéctate y selecciona \'actualiza\' en el menú</string>
     <string name="rss_title_tigatrapp">Noticias de mosquitoalert.com</string>
-
     <!-- Tasks -->
     <string name="task_list_title">Misiones</string>
     <string name="task_list_pending">Pendientes</string>
@@ -249,7 +140,6 @@ Los <i>Aedes</i> urbanos (<i>Ae. albopictus</i> y <i>Ae. aegypti</i>) crían en 
     <string name="mission_button_mark_complete">Misión realizada</string>
     <string name="toast__mission_already_complete">Esta misión ya ha sido realizada. ¡Gracias!</string>
     <string name="toast_mission_expired">Esta misión ha expirado.</string>
-
     <!-- Menu -->
     <string name="menu_option_task_list">Misiones</string>
     <string name="menu_option_tigatrapp_news">Noticias</string>
@@ -269,7 +159,6 @@ Los <i>Aedes</i> urbanos (<i>Ae. albopictus</i> y <i>Ae. aegypti</i>) crían en 
     <string name="menu_map_share">Comparte</string>
     <string name="menu_toggle_view">Imagen</string>
     <string name="menu_option_refresh">Actualiza</string>
-
     <!-- Settings -->
     <string name="settings_language_title">Idioma</string>
     <string name="settings_language_detail">Selecciona idioma</string>
@@ -289,7 +178,6 @@ Los <i>Aedes</i> urbanos (<i>Ae. albopictus</i> y <i>Ae. aegypti</i>) crían en 
     <string name="deletion_network_error">Informe borrado pero error de conexión a internet. Tus datos se enviarán automáticamente más tarde.</string>
     <string name="deletion_no_network">Informe borrado pero sin conexión a internet. Tus datos se enviarán automáticamente cuando vuelva la conexión.</string>
     <!-- Misc -->
-
     <string name="added_current_loc">Posición actual guardada</string>
     <string name="refresh">Actualiza</string>
     <string name="report_deleted">Informe borrado</string>
@@ -313,13 +201,13 @@ Los <i>Aedes</i> urbanos (<i>Ae. albopictus</i> y <i>Ae. aegypti</i>) crían en 
     <string name="button_submit_CD">Botón para enviar tu informe al centro de investigación</string>
     <string name="cancel">Anula</string>
     <string name="ceab_CD">CEAB logo</string>
-    <string name="data_saved">Datos guardados como </string>
+    <string name="data_saved">Datos guardados como\u0020</string>
     <string name="data_SD_error">Error al guardar el archivo en la tarjeta SD</string>
     <string name="data_SD_unavailable">Tarjeta SD No Disponible – el archivo no se puede guardar</string>
     <string name="dipsalut_CD">Dipsalut logo</string>
     <string name="dontknow">No lo sé</string>
     <string name="fecyt_CD">FECYT logo</string>
-    <string name="funded_by">Financiado por: </string>
+    <string name="funded_by">Financiado por:\u0020</string>
     <string name="funding_and_support">Financiación y Apoyo</string>
     <string name="gallery">Galería de Imágenes</string>
     <string name="GPL">Ver GPL</string>
@@ -339,7 +227,7 @@ Los <i>Aedes</i> urbanos (<i>Ae. albopictus</i> y <i>Ae. aegypti</i>) crían en 
     <string name="project_website">http://mosquitoalert.com/</string>
     <string name="report_sent">Si clicas OK, tus datos se enviarán al grupo de investigación responsable del proyecto. Parte de los datos se harán públicos en el mapa web a www.mosquitoalert.com</string>
     <string name="report_sent_confirmation">Gracias por participar. Recuerda que en la página web del proyecto encontrarás más información sobre tu participación, además de trucos para combatir a los Aedes urbanos en tu casa.</string>
-    <string name="reportGallery_CD">Botón para acceder a la galería de imágenes del mosquito tigre</string>
+    <string name="reportGallery_CD">Botón para acceder a la galería de imágenes</string>
     <string name="saved_image_prefix">mosquitoalert</string>
     <string name="scm_CD">SCM logo</string>
     <string name="send_spec_text">¿Enviarás tu mosquito por correo postal al centro de investigación?</string>
@@ -349,11 +237,11 @@ Los <i>Aedes</i> urbanos (<i>Ae. albopictus</i> y <i>Ae. aegypti</i>) crían en 
     <string name="type_here">Utiliza este espacio para añadir una nota o comentario si es necesario. No añadas información o datos personales</string>
     <string name="view_gpl_english">Ver GPL versión oficial</string>
     <string name="yes">Sí</string>
-    <string name="your_report_id_is">"El código de tu hallazgo es: "</string>
-    <string name="photo_credits">Las fotografías de la App Mosquito Alert han sido cedidas por R. Eritja (www.eritja.com).</string>
-    <string name="copyright">
-<![CDATA[
-<p>Copyright &#169; 2013, 2014 John R.B. Palmer, Aitana Oltra, Joan Garriga y Frederic Bartumeus</p>
-    ]]>
-    </string>
+    <string name="your_report_id_is">El código de tu hallazgo es:\u0020</string>
+    <string name="photo_credits">Parte de las fotografías de la App Mosquito Alert han sido cedidas por R. Eritja (www.eritja.com).</string>
+    <string name="copyright">\n&lt;![CDATA[\n&lt;p&gt;Copyright &amp;#169; 2013, 2014 John R.B. Palmer, Aitana Oltra, Joan Garriga y Frederic Bartumeus&lt;/p&gt;\n\u0020\u0020\u0020\u0020]]&gt;\n\u0020\u0020\u0020\u0020</string>
+    <string name="language_selector_english"></string>
+    <string name="language_selector_catalan"></string>
+    <string name="language_selector_spanish"></string>
+    <string name="photo_share_message"></string>
 </resources>

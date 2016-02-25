@@ -9,5 +9,5 @@
     <string name="content_provider_auth_reports" translatable="false">ceab.movelab.tigatrapp.cp.reports</string>
     <string name="content_provider_auth_tracks" translatable="false">ceab.movelab.tigatrapp.cp.tracks</string>
     <string name="internal_action" translatable="false">ceab.movelab.tigatrapp.INTERNAL_ACTION</string>
-
+    
 </resources>

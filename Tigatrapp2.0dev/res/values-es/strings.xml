@@ -247,18 +247,4 @@
     <string name="your_report_id_is">El código de tu hallazgo es:\u0020</string>
     <string name="photo_credits">Parte de las fotografías de la App Mosquito Alert han sido cedidas por R. Eritja (www.eritja.com).</string>
     <string name="copyright">\n&lt;![CDATA[\n&lt;p&gt;Copyright &amp;#169; 2013, 2014 John R.B. Palmer, Aitana Oltra, Joan Garriga y Frederic Bartumeus&lt;/p&gt;\n\u0020\u0020\u0020\u0020]]&gt;\n\u0020\u0020\u0020\u0020</string>
-    <!-- DO NOT TRANSLATE -->
-    <string name="app_name"></string>
-    <string name="app_directory"></string>
-    <string name="debug_mode"></string>
-    <string name="private_mode"></string>
-    <string name="package_prefix"></string>
-    <string name="content_provider_auth_missions"></string>
-    <string name="content_provider_auth_reports"></string>
-    <string name="content_provider_auth_tracks"></string>
-    <string name="internal_action"></string>
-    <string name="language_selector_english"></string>
-    <string name="language_selector_catalan"></string>
-    <string name="language_selector_spanish"></string>
-    <string name="photo_share_message"></string>
 </resources>

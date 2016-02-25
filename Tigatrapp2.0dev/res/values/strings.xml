@@ -5,7 +5,7 @@
  Release: Working copy
  Locale: en_US, English (USA)
  Exported by: John Palmer
- Exported at: Thu, 25 Feb 2016 15:17:52 +0000
+ Exported at: Thu, 25 Feb 2016 17:41:01 +0000
 -->
 <resources>
     <!-- Intro and Consent -->
@@ -83,8 +83,8 @@
     <string name="adult_report_q3a3">Ninguno de los dos</string>
     <string name="adult_report_q3a4">No sé</string>
     <string name="confirmation_q2_adult_headthorax">Does it have a white stripe on the head and thorax?</string>
-    <string name="q3_headthorax_text">Tiger\u0020\u0020mosquitoes have a white stripe on the head and thorax.</string>
-    <string name="q2_abdomenlegs_text">Tiger mosquitoes have white stripes on their abdomens and legs.</string>
+    <string name="q3_headthorax_text">Tiger\u0020\u0020mosquitoes have a white stripe on the head and thorax.\n\nIllustrations: J.Luis Ordóñez, CREAF (CC-BY-NC 3.0)</string>
+    <string name="q2_abdomenlegs_text">Tiger mosquitoes have white stripes on their abdomens and legs.\n\nIllustrations: J.Luis Ordóñez, CREAF (CC-BY-NC 3.0)</string>
     <string name="identifying_mosquitoes_title">Identifying Tiger Mosquitoes</string>
     <string name="confirmation_q1_adult_sizecolor">Is it small and black with white stripes?</string>
     <string name="adult_report_q1a1">Se parece a <i>Ae. albopictus</i></string>
@@ -95,7 +95,7 @@
     <string name="adult_report_q2a2">Tórax como a <i>Ae. aegypti</i></string>
     <string name="adult_report_q2a3">Ninguno de los dos</string>
     <string name="adult_report_q2a4">No sé</string>
-    <string name="q1_sizecolor_text">Tiger mosquitoes are small and black with white stripes.</string>
+    <string name="q1_sizecolor_text">Tiger mosquitoes are small and black with white stripes.\n\nIllustrations: J.Luis Ordóñez, CREAF (CC-BY-NC 3.0)</string>
     <string name="adult_report_help_html">&lt;p&gt;&lt;b&gt;HELP:&lt;/b&gt; &lt;br/&gt; \n&lt;b&gt;A tiger mosquito is small and black, with white stripes. It has a white stripe on the head and thorax. If you have found one, fill out this report and send in your data. Fields marked with an asterisk (*) are required.&lt;/b&gt; \n&lt;/p&gt; \n&lt;p&gt; \n&lt;ul&gt; \n&lt;li&gt;&lt;b&gt;Description&lt;/b&gt;: The questions here will help you decide if what you\'ve found is really a tiger mosquito.&lt;/li&gt; \n&lt;br/&gt; \n&lt;li&gt;&lt;b&gt;Location&lt;/b&gt;: Choose current location if you are still in the place where you found the mosquito. (Make sure you have GPS enabled on your phone.) Otherwise, select the mosquito\'s location on the map.&lt;/li&gt; \n&lt;br/&gt; \n&lt;li&gt;&lt;b&gt;Photo(s)&lt;/b&gt;: Take a photo of the mosquito now or attach one from a file. The most important thing is to photograph the white stripe on the head and thorax. To do this, grab the legs and focus well. If necessary, move the camera a little bit away from the mosquito. You can attach more than one photo, and it is useful if you can capture images from different angles.&lt;/li&gt; \n&lt;br/&gt; \n&lt;li&gt;&lt;b&gt;Notes&lt;/b&gt;: Add a note if you want to send additional information about your finding.&lt;/li&gt; \n&lt;/ul&gt; \n&lt;/p&gt; \n&lt;p&gt;Once sent, you can view and edit your report on your phone by selecting the map activity from the main screen and then clicking on a report icon. The information you submit will also be published map on a public tiger mosquito map at &lt;a href=\"www.mosquitoalert.com\"&gt; www.mosquitoalert.com &lt;/a&gt;.&lt;/p&gt;\n\u0020\u0020\u0020\u0020</string>
     <string name="site_report_help_html">&lt;p&gt;&lt;b&gt;HELP:&lt;/b&gt; &lt;br/&gt; \nA tiger mosquito breeding site is a small, outdoor pool or receptacle of stagnant water containing mosquito larvae or pupae. If you have found one, fill out this report and send in your data. Fields marked with an asterisk (*) are required.\n&lt;/p&gt; \n&lt;p&gt; \n&lt;ul&gt; \n&lt;li&gt;&lt;b&gt;Description&lt;/b&gt;: The questions here will help you decide if what you\'ve found is really a tiger mosquito breeding site.&lt;/li&gt; \n&lt;br/&gt; \n&lt;li&gt;&lt;b&gt;Location&lt;/b&gt;: Choose current location if you are still at the site. (Make sure you have GPS enabled on your phone.) Otherwise, select the site\'s location on the map.&lt;/li&gt; \n&lt;br/&gt; \n&lt;li&gt;&lt;b&gt;Photo(s)&lt;/b&gt;: Take a photo of the site now or attach one from a file. If you can, take a picture in which the site can be recognized, and another showing the stagnant water and/or larvae or pupae.&lt;/li&gt; \n&lt;br/&gt; \n&lt;li&gt;&lt;b&gt;Notes&lt;/b&gt;: Add a note if you want to send additional information about your finding.&lt;/li&gt; \n&lt;/ul&gt; \n&lt;/p&gt; \n&lt;p&gt;Once sent, you can view and edit your report on your phone by selecting the map activity from the main screen and then clicking on a report icon. The information you submit will also be published map on a public tiger mosquito map at &lt;a href=\"www.mosquitoalert.com\"&gt; www.mosquitoalert.com &lt;/a&gt;.&lt;/p&gt;\n\u0020\u0020\u0020\u0020</string>
     <string name="site_report_item_help_1">&lt;p&gt;A tiger mosquito breeding site is a small, outdoor container or deposit of stagnant water containing mosquito larvae or pupae, such as certain storm drains, basins, and fountains. They may be in public or private areas.&lt;/p&gt;\n&lt;p&gt;Tiger mosquitoes to not breed on beaches or in rivers, lakes, ponds, or wetlands (although you may find other types of larvae in these places).&lt;/p&gt;\u0020\u0020\u0020\u0020\u0020\u0020\u0020\n\u0020\u0020\u0020\u0020</string>
@@ -248,18 +248,17 @@
     <string name="photo_credits">The photographs in Mosquito Alert were provided by R. Eritja (www.eritja.com).</string>
     <string name="copyright">Copyright &amp;#169; 2013, 2014 John R.B. Palmer, Aitana Oltra, Joan Garriga ansd Frederic Bartumeus\n\u0020\u0020\u0020\u0020</string>
     <!-- DO NOT TRANSLATE -->
-    <string name="app_name" translatable="false">Mosquito Alert</string>
-    <string name="app_directory" translatable="false">MosquitoAlert</string>
-    <string name="debug_mode" translatable="false">true</string>
-    <string name="private_mode" translatable="false">false</string>
-    <string name="package_prefix" translatable="false">ceab.movelab.tigabib.</string>
-    <string name="content_provider_auth_missions" translatable="false">ceab.movelab.tigabib.cp.missions</string>
-    <string name="content_provider_auth_reports" translatable="false">ceab.movelab.tigabib.cp.reports</string>
-    <string name="content_provider_auth_tracks" translatable="false">ceab.movelab.tigabib.cp.tracks</string>
-    <string name="internal_action" translatable="false">ceab.movelab.tigatrapp.tigabib.INTERNAL_ACTION</string>
-    <string name="language_selector_english" translatable="false">English</string>
-    <string name="language_selector_catalan" translatable="false">Català</string>
-    <string name="language_selector_spanish" translatable="false">Español</string>
-    <string name="photo_share_message" translatable="false">via @Atrapaeltigre</string>
-    
+    <string name="app_name">Mosquito Alert</string>
+    <string name="app_directory">MosquitoAlert</string>
+    <string name="debug_mode">true</string>
+    <string name="private_mode">false</string>
+    <string name="package_prefix">ceab.movelab.tigabib.</string>
+    <string name="content_provider_auth_missions">ceab.movelab.tigabib.cp.missions</string>
+    <string name="content_provider_auth_reports">ceab.movelab.tigabib.cp.reports</string>
+    <string name="content_provider_auth_tracks">ceab.movelab.tigabib.cp.tracks</string>
+    <string name="internal_action">ceab.movelab.tigatrapp.tigabib.INTERNAL_ACTION</string>
+    <string name="language_selector_english">English</string>
+    <string name="language_selector_catalan">Català</string>
+    <string name="language_selector_spanish">Español</string>
+    <string name="photo_share_message">via @Atrapaeltigre</string>
 </resources>

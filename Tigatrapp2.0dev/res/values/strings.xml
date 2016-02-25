@@ -248,17 +248,18 @@
     <string name="photo_credits">The photographs in Mosquito Alert were provided by R. Eritja (www.eritja.com).</string>
     <string name="copyright">Copyright &amp;#169; 2013, 2014 John R.B. Palmer, Aitana Oltra, Joan Garriga ansd Frederic Bartumeus\n\u0020\u0020\u0020\u0020</string>
     <!-- DO NOT TRANSLATE -->
-    <string name="app_name">Mosquito Alert</string>
-    <string name="app_directory">MosquitoAlert</string>
-    <string name="debug_mode">true</string>
-    <string name="private_mode">false</string>
-    <string name="package_prefix">ceab.movelab.tigabib.</string>
-    <string name="content_provider_auth_missions">ceab.movelab.tigabib.cp.missions</string>
-    <string name="content_provider_auth_reports">ceab.movelab.tigabib.cp.reports</string>
-    <string name="content_provider_auth_tracks">ceab.movelab.tigabib.cp.tracks</string>
-    <string name="internal_action">ceab.movelab.tigatrapp.tigabib.INTERNAL_ACTION</string>
-    <string name="language_selector_english">English</string>
-    <string name="language_selector_catalan">Català</string>
-    <string name="language_selector_spanish">Español</string>
-    <string name="photo_share_message">via @Atrapaeltigre</string>
+    <string name="app_name" translatable="false">Mosquito Alert</string>
+    <string name="app_directory" translatable="false">MosquitoAlert</string>
+    <string name="debug_mode" translatable="false">true</string>
+    <string name="private_mode" translatable="false">false</string>
+    <string name="package_prefix" translatable="false">ceab.movelab.tigabib.</string>
+    <string name="content_provider_auth_missions" translatable="false">ceab.movelab.tigabib.cp.missions</string>
+    <string name="content_provider_auth_reports" translatable="false">ceab.movelab.tigabib.cp.reports</string>
+    <string name="content_provider_auth_tracks" translatable="false">ceab.movelab.tigabib.cp.tracks</string>
+    <string name="internal_action" translatable="false">ceab.movelab.tigatrapp.tigabib.INTERNAL_ACTION</string>
+    <string name="language_selector_english" translatable="false">English</string>
+    <string name="language_selector_catalan" translatable="false">Català</string>
+    <string name="language_selector_spanish" translatable="false">Español</string>
+    <string name="photo_share_message" translatable="false">via @Atrapaeltigre</string>
+    
 </resources>

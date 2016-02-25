@@ -247,18 +247,4 @@
     <string name="your_report_id_is">El código de tu hallazgo es:\u0020</string>
     <string name="photo_credits">Parte de las fotografías de la App Mosquito Alert han sido cedidas por R. Eritja (www.eritja.com).</string>
     <string name="copyright">&lt;p&gt;Copyright &amp;#169; 2013, 2014 John R.B. Palmer, Aitana Oltra, Joan Garriga y Frederic Bartumeus&lt;/p&gt;\n\u0020\u0020\u0020\u0020</string>
-    <!-- DO NOT TRANSLATE -->
-    <string name="app_name">Mosquito Alert</string>
-    <string name="app_directory">MosquitoAlert</string>
-    <string name="debug_mode">true</string>
-    <string name="private_mode">false</string>
-    <string name="package_prefix">ceab.movelab.tigabib.</string>
-    <string name="content_provider_auth_missions">ceab.movelab.tigabib.cp.missions</string>
-    <string name="content_provider_auth_reports">ceab.movelab.tigabib.cp.reports</string>
-    <string name="content_provider_auth_tracks">ceab.movelab.tigabib.cp.tracks</string>
-    <string name="internal_action">ceab.movelab.tigatrapp.tigabib.INTERNAL_ACTION</string>
-    <string name="language_selector_english">English</string>
-    <string name="language_selector_catalan">Català</string>
-    <string name="language_selector_spanish">Español</string>
-    <string name="photo_share_message">via @Atrapaeltigre</string>
 </resources>

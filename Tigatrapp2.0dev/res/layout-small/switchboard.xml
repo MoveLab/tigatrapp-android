@@ -174,9 +174,9 @@
         <ImageView
             android:id="@+id/mainSiteButton"
             android:layout_width="match_parent"
-            android:layout_height="70dip"
+            android:layout_height="62dip"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="2dp"
+            android:layout_margin="5dp"
             android:background="@drawable/selectorcolors_clear"
             android:gravity="center_vertical|center_horizontal"
             android:padding="0dip"

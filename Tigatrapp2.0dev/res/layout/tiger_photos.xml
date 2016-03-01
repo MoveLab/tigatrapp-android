@@ -49,18 +49,6 @@
         android:layout_height="wrap_content"
         android:spacing="2dp" />
 
-        <TextView
-        android:id="@+id/photoCredit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:adjustViewBounds="true"
-        android:maxWidth="600dp"
-        android:padding="10dip"
-        android:layout_marginBottom="15dp"
-        android:textColor="@color/white"
-        android:textSize="12sp" 
-        android:text="@string/photo_credit_gallery"/>
     
     
 </LinearLayout>

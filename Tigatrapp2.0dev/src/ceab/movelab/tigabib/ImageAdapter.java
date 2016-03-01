@@ -13,9 +13,10 @@ public class ImageAdapter extends BaseAdapter {
 
 	private Activity activity;
 	private static LayoutInflater inflater = null;
-	public Integer[] data = {R.drawable.n, R.drawable.a, R.drawable.m, R.drawable.c, R.drawable.o, R.drawable.d,
-			R.drawable.e, R.drawable.f, R.drawable.g, R.drawable.h,
-			R.drawable.i, R.drawable.k, R.drawable.j, R.drawable.l, };
+	public Integer[] data = { R.drawable.a, R.drawable.b, R.drawable.c,
+			R.drawable.d, R.drawable.e, R.drawable.f, R.drawable.g,
+			R.drawable.h, R.drawable.i, R.drawable.j, R.drawable.k,
+			R.drawable.l, };
 
 	public String[] captions;
 

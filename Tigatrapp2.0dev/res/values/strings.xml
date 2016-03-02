@@ -5,7 +5,7 @@
  Release: Working copy
  Locale: en_US, English (USA)
  Exported by: John Palmer
- Exported at: Mon, 29 Feb 2016 23:30:41 +0000
+ Exported at: Tue, 01 Mar 2016 13:20:07 +0000
 -->
 <resources>
     <!-- Intro and Consent -->
@@ -15,17 +15,17 @@
     <string-array name="gallery_array">
         <!-- Gallery -->
         <item name="gallery_array[0]">The main difference between the yellow fever mosquito, &lt;i&gt;Ae. aegypti&lt;/i&gt; (left), and the tiger mosquito. &lt;i&gt;Ae. albopictus&lt;/i&gt; (right), is in the thorax: The yellow fever mosquito has a lyre-shaped mark, while the tiger mosquito has a single white stripe.\u0020\u0020&lt;b&gt;Foto: Vincent Robert (CC BY 2.0)&lt;/b&gt;</item>
-        <item name="gallery_array[1]">Tiger mosquito (&lt;i&gt;Aedes albopictus&lt;/i&gt;). Its main characteristic is its black body with white spots and a white stripe on the head and thorax. &lt;b&gt; Photo: Roger Eritja &lt;/ b&gt;</item>
+        <item name="gallery_array[1]">Tiger mosquito (&lt;i&gt;Aedes albopictus&lt;/i&gt;). Its main characteristic is its black body with white spots and a white stripe on the head and thorax. &lt;b&gt; Photo: Roger Eritja (©)&lt;/ b&gt;</item>
         <item name="gallery_array[2]">Yellow fever mosquito (&lt;i&gt;Aedes aegypti&lt;/i&gt;). Recognized by its dark brown color with white spots and the lyre-shaped mark on its torso. Observe the previous image and compare the colors. &lt;b&gt;Photo: James Gathany (ECDC, domini públic)&lt;/b&gt;</item>
-        <item name="gallery_array[3]">Observe the black color that characterizes &lt;i&gt;Ae. albopictus&lt;/i&gt;. &lt;b&gt;Photo: Roger Eritja&lt;/b&gt;</item>
+        <item name="gallery_array[3]">Observe the black color that characterizes &lt;i&gt;Ae. albopictus&lt;/i&gt;. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;</item>
         <item name="gallery_array[4]">Observe the brown color of &lt;i&gt;Ae. aegypti&lt;/i&gt;. &lt;b&gt;Foto: Mark Yokoyama (CC BY 2.0)&lt;/b&gt;</item>
-        <item name="gallery_array[5]">Who bites? Only female mosquitoes, and in this case &lt;i&gt;Ae. albopictus&lt;/i&gt;. Urban &lt;i&gt;Aedes&lt;/i&gt; usually bite during the day (not at night), and they usually bite legs. &lt;b&gt;Photo: Roger Eritja&lt;/b&gt;</item>
-        <item name="gallery_array[6]">Two female &lt;i&gt;Ae. aegypti&lt;/i&gt;. &lt;b&gt;Photo: Roger Eritja&lt;/b&gt;\n</item>
-        <item name="gallery_array[7]">Difference between male (left) and female (right( &lt;i&gt;Ae. albopictus&lt;/i&gt;. The males have plumes on their heads. &lt;b&gt;Photo: Roger Eritja&lt;/b&gt;\n</item>
-        <item name="gallery_array[8]">&lt;i&gt;Aedes&lt;/i&gt; laying eggs. The eggs are so small they are almost invisible to the naked eye. Urban &lt;i&gt;Aedes&lt;/i&gt; lay eggs the dry walls of small vessels near stagnant water. &lt;b&gt;Photo: Roger Eritja&lt;/b&gt;</item>
-        <item name="gallery_array[9]">&lt;i&gt;Aedes&lt;/i&gt; larvae (longer) and pupae (rounder). Notice that they are aquatic. The larvae emerge from the eggs when the eggs are covered with water, and they eventually turn into pupae. &lt;b&gt;Photo: Roger Eritja&lt;/b&gt;</item>
-        <item name="gallery_array[10]">&lt;i&gt;Aedes&lt;/i&gt; larvae (longer) and pupae (rounder) in the water. &lt;b&gt;Photo: Roger Eritja &lt;/b&gt;</item>
-        <item name="gallery_array[11]">Metamorphosis: Adult mosquito (&lt;i&gt;Ae. albopictus&lt;/i&gt;) emerges from pupae into the air. To avoid urban &lt;i&gt;Aedes&lt;/i&gt; around your home, remove standing water and flip containers that might accumulate water when it rains or when you water the garden. &lt;b&gt;Photo: Roger Eritja&lt;/b&gt;</item>
+        <item name="gallery_array[5]">Who bites? Only female mosquitoes, and in this case &lt;i&gt;Ae. albopictus&lt;/i&gt;. Urban &lt;i&gt;Aedes&lt;/i&gt; usually bite during the day (not at night), and they usually bite legs. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;</item>
+        <item name="gallery_array[6]">Two female &lt;i&gt;Ae. aegypti&lt;/i&gt;. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;\n</item>
+        <item name="gallery_array[7]">Difference between male (left) and female (right) &lt;i&gt;Ae. albopictus&lt;/i&gt;. The males have plumes on their heads. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;\n</item>
+        <item name="gallery_array[8]">&lt;i&gt;Aedes&lt;/i&gt; eggs. The eggs are so small they are almost invisible to the naked eye. Urban &lt;i&gt;Aedes&lt;/i&gt; lay eggs on the dry walls of small vessels near stagnant water. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;</item>
+        <item name="gallery_array[9]">&lt;i&gt;Aedes&lt;/i&gt; larvae (longer) and pupae (rounder). Notice that they are aquatic. The larvae emerge from the eggs when the eggs are covered with water, and they eventually turn into pupae. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;</item>
+        <item name="gallery_array[10]">&lt;i&gt;Aedes&lt;/i&gt; larvae (longer) and pupae (rounder) in the water. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;</item>
+        <item name="gallery_array[11]">Metamorphosis: Adult mosquito (&lt;i&gt;Ae. albopictus&lt;/i&gt;) emerges from pupae into the air. To avoid urban &lt;i&gt;Aedes&lt;/i&gt; around your home, remove standing water and flip containers that might accumulate water when it rains or when you water the garden. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;</item>
     </string-array>
     <!-- Toasts -->
     <string name="toast_report_before_submitting_site">Before submitting this breeding site report, please:</string>
@@ -89,8 +89,8 @@
     <string name="adult_report_q1a2">Like<i> Ae. aegypti</i></string>
     <string name="adult_report_q1a3">Neither</string>
     <string name="adult_report_q1a4">Not sure</string>
-    <string name="adult_report_q2a1">Tórax like <i>Ae. albopictus</i></string>
-    <string name="adult_report_q2a2">Tórax like <i>Ae. aegypti</i></string>
+    <string name="adult_report_q2a1">Thorax like <i>Ae. albopictus</i></string>
+    <string name="adult_report_q2a2">Thorax like <i>Ae. aegypti</i></string>
     <string name="adult_report_q2a3">Neither</string>
     <string name="adult_report_q2a4">Not sure</string>
     <string name="q1_sizecolor_text">&lt;p&gt;The tiger mosquito (&lt;i&gt;Ae. albopictus&lt;/i&gt;) and the yellow fever mosquito (&lt;i&gt;Ae. aegypti&lt;/i&gt;) are small and dark with white spots. The body of &lt;i&gt;Ae. albopictus&lt;/i&gt; is black, while that of &lt;i&gt;Ae. aegypti&lt;/i&gt; is dark brown. Try not to send reports on mosquitoes that do not have these characteristics.&lt;/p&gt;\n&lt;p&gt;&lt;b&gt;Illustrations: J.Luis Ordóñez, CREAF (CC-BY-NC 3.0)&lt;/b&gt;&lt;/p&gt;</string>
@@ -197,7 +197,7 @@
     <string name="photo_credit_gallery">Photo by R. Eritja (www.eritja.com)</string>
     <string name="photo_credit">Fotografies de R. Eritja (www.eritja.com)</string>
     <string name="nolocnogps_alert">Your locatioin cannot be detected because GPS and network receivers are both off. Please activate them or choose a location on the map.</string>
-    <string name="progtitle_report">Enviant</string>
+    <string name="progtitle_report">Sending</string>
     <string name="nolocation_alert_report">Your location has not yet been detected. Please wait a few more seconds and try again or else select location from map..</string>
     <string name="upload_error_report">Transmission error. Your data has been saved on the device and will be sent later. Thank you!</string>
     <string name="offline_report">No internet connection. Your report will be sent automatically when there is a connection available. Thank you!</string>
@@ -258,5 +258,5 @@
     <string name="language_selector_english" translatable="false">English</string>
     <string name="language_selector_catalan" translatable="false">Català</string>
     <string name="language_selector_spanish" translatable="false">Español</string>
-    <string name="photo_share_message" translatable="false">via @Atrapaeltigre</string>
+    <string name="photo_share_message" translatable="false">via @Mosquito_Alert</string>
 </resources>

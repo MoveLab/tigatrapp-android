@@ -22,8 +22,8 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ceab.movelab.tigatrapp"
-    android:versionCode="14"
-    android:versionName="1.09beta" >
+    android:versionCode="15"
+    android:versionName="1.10" >
 
     <uses-sdk
         android:minSdkVersion="4"

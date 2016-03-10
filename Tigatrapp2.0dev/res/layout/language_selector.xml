@@ -51,7 +51,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/language_selector_english" />
-    </RadioGroup>
+
+        <RadioButton
+            android:id="@+id/zhButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/language_selector_chinese_hk" />
+        
+        </RadioGroup>
 
     <LinearLayout
         android:id="@+id/buttonRow"

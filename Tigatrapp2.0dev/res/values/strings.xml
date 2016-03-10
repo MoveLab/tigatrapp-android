@@ -5,7 +5,7 @@
  Release: Working copy
  Locale: en_US, English (USA)
  Exported by: John Palmer
- Exported at: Tue, 01 Mar 2016 13:20:07 +0000
+ Exported at: Thu, 10 Mar 2016 19:09:18 +0000
 -->
 <resources>
     <!-- Intro and Consent -->
@@ -259,4 +259,5 @@
     <string name="language_selector_catalan" translatable="false">Català</string>
     <string name="language_selector_spanish" translatable="false">Español</string>
     <string name="photo_share_message" translatable="false">via @Mosquito_Alert</string>
+    <string name="language_selector_chinese_hk" translatable="false">中文 (香港)</string>
 </resources>

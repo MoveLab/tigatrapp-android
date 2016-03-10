@@ -71,6 +71,10 @@ public class LanguageSelector extends Activity {
 					PropertyHolder.setLanguage("en");
 					finish();
 					return;
+				} else if (languageRadioGroup.getCheckedRadioButtonId() == R.id.zhButton) {
+					PropertyHolder.setLanguage("zh");
+					finish();
+					return;
 				} else {
 					// do nothing
 				}

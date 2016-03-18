@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/MosquitoAlert.iml" filepath="$PROJECT_DIR$/MosquitoAlert.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mosquitoAlert/mosquitoAlert.iml" filepath="$PROJECT_DIR$/mosquitoAlert/mosquitoAlert.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mosquitoAlertDemo/mosquitoAlertDemo.iml" filepath="$PROJECT_DIR$/mosquitoAlertDemo/mosquitoAlertDemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tigabib/tigabib.iml" filepath="$PROJECT_DIR$/tigabib/tigabib.iml" />
+    </modules>
+  </component>
+</project>

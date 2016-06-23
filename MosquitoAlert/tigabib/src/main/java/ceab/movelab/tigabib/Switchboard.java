@@ -21,8 +21,6 @@
 
 package ceab.movelab.tigabib;
 
-import java.util.UUID;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentResolver;
@@ -40,16 +38,18 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.util.UUID;
+
 import ceab.movelab.tigabib.ContProvContractReports.Reports;
-import ceab.movelab.tigabib.R;
 
 /**
  * Main menu screen for app.
@@ -64,8 +64,10 @@ public class Switchboard extends Activity {
 	private RelativeLayout reportButtonSite;
 	private RelativeLayout galleryButton;
 	private RelativeLayout mapButton;
+	private ImageView pybossaButton;
 	private ImageView websiteButton;
 	private ImageView menuButton;
+
 
 	final Context context = this;
 	AnimationDrawable ad;
@@ -127,34 +129,25 @@ public class Switchboard extends Activity {
 
 				final long now = System.currentTimeMillis();
 
-
 				if ((now - PropertyHolder.getLastDemoPopUpTime()) > Util.DAYS) {
 
 					final Dialog dialog = new Dialog(context);
 
 					dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 					dialog.setContentView(R.layout.custom_alert);
-
 					dialog.setCancelable(true);
 
-					TextView alertText = (TextView) dialog
-							.findViewById(R.id.alertText);
+					TextView alertText = (TextView) dialog.findViewById(R.id.alertText);
 					alertText.setText(getResources().getString(
 							R.string.switchboard_demo_popup));
 
-					Button positive = (Button) dialog
-							.findViewById(R.id.alertOK);
-					Button negative = (Button) dialog
-							.findViewById(R.id.alertCancel);
-
+					Button positive = (Button) dialog.findViewById(R.id.alertOK);
+					Button negative = (Button) dialog.findViewById(R.id.alertCancel);
 					negative.setOnClickListener(new OnClickListener() {
 						@Override
 						public void onClick(View v) {
-
 							PropertyHolder.setLastDemoPopUpTime(now);
 							dialog.cancel();
-
 						}
 
 					});
@@ -162,12 +155,9 @@ public class Switchboard extends Activity {
 					positive.setOnClickListener(new OnClickListener() {
 						@Override
 						public void onClick(View v) {
-
 							Intent intent = new Intent(Intent.ACTION_VIEW);
-							intent.setData(Uri
-									.parse("market://details?id=ceab.movelab.tigatrapp"));
+							intent.setData(Uri.parse("market://details?id=ceab.movelab.tigatrapp"));
 							startActivity(intent);
-
 						}
 					});
 
@@ -178,21 +168,16 @@ public class Switchboard extends Activity {
 
 			// open and close databases in order to trigger any updates
 			ContentResolver cr = getContentResolver();
-			Cursor c = cr.query(Util.getReportsUri(context),
-					new String[] { Reports.KEY_ROW_ID }, null, null, null);
+			Cursor c = cr.query(Util.getReportsUri(context), new String[] { Reports.KEY_ROW_ID }, null, null, null);
 			c.close();
-			c = cr.query(Util.getMissionsUri(context),
-					new String[] { Reports.KEY_ROW_ID }, null, null, null);
+			c = cr.query(Util.getMissionsUri(context), new String[] { Reports.KEY_ROW_ID }, null, null, null);
 			c.close();
 
 			if (PropertyHolder.isServiceOn()) {
-
-				long lastScheduleTime = PropertyHolder.lastSampleSchedleMade();
-				if (System.currentTimeMillis() - lastScheduleTime > 1000 * 60 * 60 * 24) {
-					Util.internalBroadcast(context,
-							Messages.START_DAILY_SAMPLING);
+				long lastScheduleTime = PropertyHolder.lastSampleScheduleMade();
+				if (System.currentTimeMillis() - lastScheduleTime > (1000 * 60 * 60 * 24)) {
+					Util.internalBroadcast(context, Messages.START_DAILY_SAMPLING);
 				}
-
 			}
 
 			setContentView(R.layout.switchboard);
@@ -231,10 +216,8 @@ public class Switchboard extends Activity {
 
 				@Override
 				public void onClick(View v) {
-
 					Intent i = new Intent(Switchboard.this, MapData.class);
 					startActivity(i);
-
 				}
 			});
 
@@ -243,12 +226,11 @@ public class Switchboard extends Activity {
 
 				@Override
 				public void onClick(View v) {
-
 					Intent i = new Intent(Switchboard.this, PhotoGallery.class);
 					startActivity(i);
-
 				}
 			});
+
 			websiteButton = (ImageView) findViewById(R.id.mainSiteButton);
 			websiteButton.setOnClickListener(new View.OnClickListener() {
 
@@ -259,6 +241,16 @@ public class Switchboard extends Activity {
 					i.setData(Uri.parse(url));
 					startActivity(i);
 
+				}
+			});
+
+			pybossaButton = (ImageView) findViewById(R.id.pybossaButton);
+			pybossaButton.setOnClickListener(new View.OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					Intent i = new Intent(Switchboard.this, PhotoValidationActivity.class);
+					startActivity(i);
 				}
 			});
 
@@ -300,7 +292,6 @@ public class Switchboard extends Activity {
 	@Override
 	protected void onPause() {
 		super.onPause();
-
 	}
 
 	@Override
@@ -331,37 +322,30 @@ public class Switchboard extends Activity {
 		super.onOptionsItemSelected(item);
 
 		if (item.getItemId() == R.id.tigatrappNews) {
-
 			Intent i = new Intent(Switchboard.this, RSSActivity.class);
-			i.putExtra(RSSActivity.RSSEXTRA_TITLE,
-					getResources().getString(R.string.rss_title_tigatrapp));
+			i.putExtra(RSSActivity.RSSEXTRA_TITLE, getResources().getString(R.string.rss_title_tigatrapp));
 			if (lang.equals("ca"))
 				i.putExtra(RSSActivity.RSSEXTRA_URL, Util.URL_RSS_CA);
 			// Note we are only doing the blog in Catalan or Spanish, so if user
 			// is in English or Spanish, both will go to Spanish RSS feed
 			else
 				i.putExtra(RSSActivity.RSSEXTRA_URL, Util.URL_RSS_ES);
-			i.putExtra(RSSActivity.RSSEXTRA_DEFAULT_THUMB,
-					R.drawable.ic_launcher);
+			i.putExtra(RSSActivity.RSSEXTRA_DEFAULT_THUMB, R.drawable.ic_launcher);
 			startActivity(i);
 			return true;
 		} else if (item.getItemId() == R.id.taskList) {
-
 			Intent i = new Intent(Switchboard.this, MissionListActivity.class);
 			startActivity(i);
 			return true;
 		} else if (item.getItemId() == R.id.settings) {
-
 			Intent i = new Intent(Switchboard.this, Settings.class);
 			startActivity(i);
 			return true;
 		} else if (item.getItemId() == R.id.help) {
-
 			Intent i = new Intent(Switchboard.this, Help.class);
 			startActivity(i);
 			return true;
 		} else if (item.getItemId() == R.id.about) {
-
 			Intent i = new Intent(Switchboard.this, About.class);
 			startActivity(i);
 			return true;

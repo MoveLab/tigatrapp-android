@@ -1,11 +1,13 @@
 apply plugin: 'com.android.library'
 
 android {
-    compileSdkVersion 'Google Inc.:Google APIs (x86 System Image):19'
-    buildToolsVersion "24.0.0 rc1"
+    useLibrary 'org.apache.http.legacy'
+
+    compileSdkVersion 'Google Apis:Google Apis:23'
+    buildToolsVersion "24.0.0"
     defaultConfig {
         minSdkVersion 9
-        targetSdkVersion 19
+        targetSdkVersion 24
     }
     buildTypes {
         release {
@@ -18,7 +20,9 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:23'
-    compile 'com.google.android.gms:play-services-maps:8.4.0'
+    /*    compile 'com.android.support:support-v4:24.0.0'
+        compile 'com.google.android.gms:play-services-maps:8.4.0'*/
+    compile 'com.android.support:support-v4:24.0.0'
+    compile 'com.google.android.gms:play-services-maps:9.0.2'
     compile 'org.apache:apache:17'
 }

@@ -1,7 +1,5 @@
 package ceab.movelab.tigabib;
 
-import java.util.Locale;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,13 +12,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,11 +22,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
-import ceab.movelab.tigabib.R;
+
 import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
 import ceab.movelab.tigabib.ContProvContractReports.Reports;
 import ceab.movelab.tigabib.ContProvContractTracks.Fixes;
-import ceab.movelab.tigabib.ReportTool.ReportUploadTask;
 
 public class Settings extends Activity {
 
@@ -110,7 +103,7 @@ public class Settings extends Activity {
 				tb.setChecked(on);
 				if (on) {
 					long lastScheduleTime = PropertyHolder
-							.lastSampleSchedleMade();
+							.lastSampleScheduleMade();
 					if (System.currentTimeMillis() - lastScheduleTime > 1000 * 60 * 60 * 24) {
 						Util.internalBroadcast(context,
 								Messages.START_DAILY_SAMPLING);

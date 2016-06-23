@@ -75,7 +75,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.SystemClock;
 import android.support.v4.app.TaskStackBuilder;
-import ceab.movelab.tigabib.R;
+
 import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
 
 /**
@@ -138,7 +138,7 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 				PropertyHolder.setServiceOn(true);
 				Util.logInfo(context, TAG, "started daily sampling");
 				PropertyHolder
-						.lastSampleSchedleMade(System.currentTimeMillis());
+						.lastSampleScheduleMade(System.currentTimeMillis());
 			} else if (extra.contains(Messages.STOP_DAILY_SAMPLING)) {
 				alarmManager.cancel(pi2sample);
 				PropertyHolder.setServiceOn(false);
@@ -211,8 +211,10 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 
 		// PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
 		// intent, PendingIntent.FLAG_CANCEL_CURRENT);
+		//
+/*		MG- setLatestEventInfo removed from API23
 		notification.setLatestEventInfo(context,
-				res.getString(R.string.new_mission), taskTitle, pendingIntent);
+				res.getString(R.string.new_mission), taskTitle, pendingIntent);*/
 		notificationManager.notify(NOTIFICATION_ID_MISSION, notification);
 
 	}

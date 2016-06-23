@@ -65,12 +65,12 @@
 
 package ceab.movelab.tigabib;
 
-import java.util.Locale;
-import java.util.UUID;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+
+import java.util.Locale;
+import java.util.UUID;
 
 /**
  * Manipulates the application's shared preferences, values that must persist
@@ -97,8 +97,7 @@ public class PropertyHolder {
 	 *            Interface to application environment
 	 */
 	public static void init(Context context) {
-		sharedPreferences = context.getSharedPreferences("PROPERTIES",
-				Context.MODE_PRIVATE);
+		sharedPreferences = context.getSharedPreferences("PROPERTIES", Context.MODE_PRIVATE);
 		editor = sharedPreferences.edit();
 	}
 
@@ -159,12 +158,12 @@ public class PropertyHolder {
 				Util.DEFAULT_SAMPLES_PER_DAY);
 	}
 
-	public static void lastSampleSchedleMade(long time) {
+	public static void lastSampleScheduleMade(long time) {
 		editor.putLong("LAST_SCHEDULE", time);
 		editor.commit();
 	}
 
-	public static long lastSampleSchedleMade() {
+	public static long lastSampleScheduleMade() {
 		return sharedPreferences.getLong("LAST_SCHEDULE", -1);
 	}
 
@@ -317,7 +316,7 @@ public class PropertyHolder {
 		editor.commit();
 	}
 
-	
+
 	public static String getUserCoverageId() {
 		if (sharedPreferences.getString("USER_COVERAGE_ID", null)==null){
 			setUserCoverageId(UUID.randomUUID().toString());
@@ -331,13 +330,12 @@ public class PropertyHolder {
 	}
 
 
-	
 	/**
 	 * Gets the user ID stored in shared preferences. This user ID refers to the
 	 * unique row ID for this user in the User table of the PMP mobility
 	 * database. Returns a default value of -1 if the USER_ID flag has not been
 	 * explicitly set previously.
-	 * 
+	 *
 	 * @return The logged in user's user ID if a user is logged in, -1 if no one
 	 *         is logged in.
 	 */
@@ -347,7 +345,7 @@ public class PropertyHolder {
 
 	/**
 	 * Sets the USER_ID in the shared preferences to the given value.
-	 * 
+	 *
 	 * @param _userId
 	 *            The value to which to set the USER_ID.
 	 */
@@ -369,7 +367,7 @@ public class PropertyHolder {
 	 * Sets the public key in the shared preferences to the given value.
 	 * 
 	 * @param _pk
-	 *            The value to which to set the oublic key.
+	 *            The value to which to set the public key.
 	 */
 	public static void setPublicKey(String _pk) {
 		editor.putString("PK", _pk);

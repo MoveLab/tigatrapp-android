@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 'Google Inc.:Google APIs (x86 System Image):19'
-    buildToolsVersion "24.0.0 rc1"
+    compileSdkVersion 'Google Apis:Google Apis:23'
+    buildToolsVersion "24.0.0"
     defaultConfig {
         applicationId "ceab.movelab.tigerapp"
         minSdkVersion 9
-        targetSdkVersion 19
+        targetSdkVersion 24
     }
     buildTypes {
         release {
@@ -20,5 +20,6 @@ android {
 
 dependencies {
     compile project(':tigabib')
-    compile 'com.android.support:support-v4:23'
+    compile 'com.android.support:support-v4:24.0.0'
+    compile 'com.google.android.gms:play-services-maps:8.4.0'
 }

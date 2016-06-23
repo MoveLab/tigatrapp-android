@@ -589,8 +589,7 @@ public class Util {
 	 */
 	public static boolean isOnline(Context context) {
 
-		ConnectivityManager cm = (ConnectivityManager) context
-				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo netInfo = cm.getActiveNetworkInfo();
 		if (netInfo != null && netInfo.isConnected()) {
 			return true;
@@ -1028,8 +1027,7 @@ public class Util {
 			jsonUUID = new JSONObject();
 			jsonUUID.put("user_UUID", PropertyHolder.getUserId());
 			Util.logInfo(context, TAG, "register json: " + jsonUUID.toString());
-			int statusCode = Util.getResponseStatusCode(Util.postJSON(jsonUUID,
-					Util.API_USER, context));
+			int statusCode = Util.getResponseStatusCode(Util.postJSON(jsonUUID, Util.API_USER, context));
 			Util.logInfo(context, TAG, "register status code: " + statusCode);
 
 			if (statusCode < 300 && statusCode > 0) {

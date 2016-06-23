@@ -21,11 +21,11 @@
 
 package ceab.movelab.tigabib;
 
+import android.content.Context;
+
 import org.apache.http.HttpResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import android.content.Context;
 
 /**
  * Defines map point objects used in DriverMapActivity.
@@ -41,7 +41,7 @@ public class Fix {
 	float pow;
 	boolean taskFix;
 
-	Fix(double _lat, double _lng, long _time, float _pow, boolean _task_fix) {
+	public Fix(double _lat, double _lng, long _time, float _pow, boolean _task_fix) {
 
 		lat = _lat;
 		lng = _lng;

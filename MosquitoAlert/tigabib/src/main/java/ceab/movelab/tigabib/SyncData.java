@@ -42,10 +42,6 @@
 
 package ceab.movelab.tigabib;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Service;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -53,8 +49,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.IBinder;
-import ceab.movelab.tigabib.ContProvContractReports.Reports;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
+import ceab.movelab.tigabib.ContProvContractReports.Reports;
 import ceab.movelab.tigabib.ContProvContractTracks.Fixes;
 
 /**
@@ -126,15 +127,13 @@ public class SyncData extends Service {
 
 		// try to get config
 		try {
-			JSONObject configJson = new JSONObject(Util.getJSON(
-					Util.API_CONFIGURATION, context));
+			JSONObject configJson = new JSONObject(Util.getJSON(Util.API_CONFIGURATION, context));
 			if (configJson != null && configJson.has("samples_per_day")) {
 				int samplesPerDay = configJson.getInt("samples_per_day");
 				Util.logInfo(context, TAG, "samples per day:" + samplesPerDay);
 
 				if (samplesPerDay != PropertyHolder.getSamplesPerDay()) {
-					Util.internalBroadcast(context,
-							Messages.START_DAILY_SAMPLING);
+					Util.internalBroadcast(context, Messages.START_DAILY_SAMPLING);
 					PropertyHolder.setSamplesPerDay(samplesPerDay);
 					Util.logInfo(context, TAG, "set property holder");
 				}

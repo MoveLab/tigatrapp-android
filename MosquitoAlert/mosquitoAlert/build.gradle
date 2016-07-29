@@ -1,25 +1,44 @@
 apply plugin: 'com.android.application'
 
 android {
+    signingConfigs {
+        config {
+            keyAlias 'tigakeys'
+            keyPassword '2=U:8QZw'
+            storeFile file('D:/Projectes/MosquitoAlert/tigakeys')
+            storePassword '=2qC+6!R'
+        }
+    }
+
     compileSdkVersion 'Google Apis:Google Apis:23'
-    buildToolsVersion "24.0.0"
+    buildToolsVersion "24.0.1"
     defaultConfig {
         applicationId "ceab.movelab.tigatrapp"
         minSdkVersion 9
         targetSdkVersion 24
+        versionCode 15  /* 15 is current production code */
+        versionName "1.50"
     }
     buildTypes {
+        debug {
+            debuggable true
+            //signingConfig signingConfigs.config
+        }
         release {
+            signingConfig signingConfigs.config
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+            debuggable false
         }
     }
+
     productFlavors {
     }
 }
 
 dependencies {
     compile project(':tigabib')
-    compile 'com.android.support:support-v4:24.0.0'
-    compile 'com.google.android.gms:play-services-maps:8.4.0'
+    compile 'com.android.support:support-v4:24.1.1'
+    compile 'com.android.support:appcompat-v7:24.1.1'
+    //compile 'com.google.android.gms:play-services-maps:9.2.1'
 }

@@ -25,7 +25,6 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import ceab.movelab.tigabib.R;
 
 /**
  * Displays the About screen.
@@ -40,7 +39,6 @@ public class GPLView extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 	}
 
 	@Override

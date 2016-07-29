@@ -21,16 +21,21 @@
 
 package ceab.movelab.tigabib;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.graphics.drawable.AnimationDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.text.util.Linkify;
 import android.view.KeyEvent;
@@ -38,7 +43,6 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -47,9 +51,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.UUID;
-
-import ceab.movelab.tigabib.ContProvContractReports.Reports;
 
 /**
  * Main menu screen for app.
@@ -57,7 +60,6 @@ import ceab.movelab.tigabib.ContProvContractReports.Reports;
  * @author John R.B. Palmer
  *
  */
-
 public class Switchboard extends Activity {
 
 	private RelativeLayout reportButtonAdult;
@@ -68,11 +70,14 @@ public class Switchboard extends Activity {
 	private ImageView websiteButton;
 	private ImageView menuButton;
 
-
 	final Context context = this;
-	AnimationDrawable ad;
+	//AnimationDrawable ad;
 	Resources res;
 	String lang;
+
+	final private static int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 555;
+	private ArrayList<String> mPermissionsDenied;
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -84,36 +89,41 @@ public class Switchboard extends Activity {
 		res = getResources();
 		lang = Util.setDisplayLanguage(res);
 
+		/// Android 6.0 check for permissions first of all
+		mPermissionsDenied = getDeniedPermissions();
+		if ( mPermissionsDenied.size() > 0 ) {
+			askForPermissions();
+		}
+		else {
+			onCreateWithPermissions();
+		}
+	}
+
+	private void onCreateWithPermissions() {
 		if (!Util.privateMode(context) && !PropertyHolder.hasConsented()) {
 			Intent i2c = new Intent(Switchboard.this, Consent.class);
 			startActivity(i2c);
 			finish();
-
 		} else {
-
 			if (PropertyHolder.getUserId() == null) {
 				String userId = UUID.randomUUID().toString();
 				PropertyHolder.setUserId(userId);
 				PropertyHolder.setNeedsMosquitoAlertPop(false);
-			} else{
-
-				if (PropertyHolder.needsMosquitoAlertPop() == true) {
-
+			} else {
+				if (PropertyHolder.needsMosquitoAlertPop()) {
 					final Dialog dialog = new Dialog(context);
 					dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 					dialog.setContentView(R.layout.custom_alert);
 					dialog.setCancelable(true);
-					TextView alertText = (TextView) dialog
-							.findViewById(R.id.alertText);
-					alertText.setText(Html.fromHtml(getResources().getString(
-							R.string.mosquito_alert_pop)));
+
+					TextView alertText = (TextView) dialog.findViewById(R.id.alertText);
+					alertText.setText(Html.fromHtml(getResources().getString(R.string.mosquito_alert_pop)));
 					Linkify.addLinks(alertText, Linkify.ALL);
-					Button positive = (Button) dialog
-							.findViewById(R.id.alertOK);
-					Button negative = (Button) dialog
-							.findViewById(R.id.alertCancel);
+
+					Button positive = (Button) dialog.findViewById(R.id.alertOK);
+					Button negative = (Button) dialog.findViewById(R.id.alertCancel);
 					negative.setVisibility(View.GONE);
-					positive.setOnClickListener(new OnClickListener() {
+					positive.setOnClickListener(new View.OnClickListener() {
 						@Override
 						public void onClick(View v) {
 							PropertyHolder.setNeedsMosquitoAlertPop(false);
@@ -123,7 +133,6 @@ public class Switchboard extends Activity {
 					dialog.show();
 				}
 			}
-
 
 			if (Util.privateMode(context)) {
 
@@ -138,21 +147,19 @@ public class Switchboard extends Activity {
 					dialog.setCancelable(true);
 
 					TextView alertText = (TextView) dialog.findViewById(R.id.alertText);
-					alertText.setText(getResources().getString(
-							R.string.switchboard_demo_popup));
+					alertText.setText(getResources().getString(R.string.switchboard_demo_popup));
 
 					Button positive = (Button) dialog.findViewById(R.id.alertOK);
 					Button negative = (Button) dialog.findViewById(R.id.alertCancel);
-					negative.setOnClickListener(new OnClickListener() {
+					negative.setOnClickListener(new View.OnClickListener() {
 						@Override
 						public void onClick(View v) {
 							PropertyHolder.setLastDemoPopUpTime(now);
 							dialog.cancel();
 						}
-
 					});
 
-					positive.setOnClickListener(new OnClickListener() {
+					positive.setOnClickListener(new View.OnClickListener() {
 						@Override
 						public void onClick(View v) {
 							Intent intent = new Intent(Intent.ACTION_VIEW);
@@ -162,15 +169,14 @@ public class Switchboard extends Activity {
 					});
 
 					dialog.show();
-
 				}
 			}
 
 			// open and close databases in order to trigger any updates
 			ContentResolver cr = getContentResolver();
-			Cursor c = cr.query(Util.getReportsUri(context), new String[] { Reports.KEY_ROW_ID }, null, null, null);
+			Cursor c = cr.query(Util.getReportsUri(context), new String[]{ContProvContractReports.Reports.KEY_ROW_ID}, null, null, null);
 			c.close();
-			c = cr.query(Util.getMissionsUri(context), new String[] { Reports.KEY_ROW_ID }, null, null, null);
+			c = cr.query(Util.getMissionsUri(context), new String[]{ContProvContractReports.Reports.KEY_ROW_ID}, null, null, null);
 			c.close();
 
 			if (PropertyHolder.isServiceOn()) {
@@ -187,7 +193,6 @@ public class Switchboard extends Activity {
 
 				@Override
 				public void onClick(View v) {
-
 					Intent i = new Intent(Switchboard.this, ReportTool.class);
 					Bundle b = new Bundle();
 					b.putInt("type", Report.TYPE_ADULT);
@@ -202,7 +207,6 @@ public class Switchboard extends Activity {
 
 				@Override
 				public void onClick(View v) {
-
 					Intent i = new Intent(Switchboard.this, ReportTool.class);
 					Bundle b = new Bundle();
 					b.putInt("type", Report.TYPE_BREEDING_SITE);
@@ -216,7 +220,7 @@ public class Switchboard extends Activity {
 
 				@Override
 				public void onClick(View v) {
-					Intent i = new Intent(Switchboard.this, MapData.class);
+					Intent i = new Intent(Switchboard.this, MapDataV2.class);
 					startActivity(i);
 				}
 			});
@@ -246,7 +250,6 @@ public class Switchboard extends Activity {
 
 			pybossaButton = (ImageView) findViewById(R.id.pybossaButton);
 			pybossaButton.setOnClickListener(new View.OnClickListener() {
-
 				@Override
 				public void onClick(View v) {
 					Intent i = new Intent(Switchboard.this, PhotoValidationActivity.class);
@@ -273,9 +276,7 @@ public class Switchboard extends Activity {
 			galleryButton.startAnimation(animation);
 			websiteButton.startAnimation(animation);
 			menuButton.startAnimation(animation);
-
 		}
-
 	}
 
 	@Override
@@ -314,7 +315,6 @@ public class Switchboard extends Activity {
 		inflater.inflate(R.menu.switchboard_menu, menu);
 
 		return true;
-
 	}
 
 	@Override
@@ -352,29 +352,86 @@ public class Switchboard extends Activity {
 		} else if (item.getItemId() == R.id.shareApp) {
 
 			Intent shareIntent = new Intent(Intent.ACTION_SEND);
-
 			// set the type
 			shareIntent.setType("text/plain");
-
 			// add a subject
-			shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
-					"Tigatrapp");
-
+			shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "MosquitoAlert");
 			// build the body of the message to be shared
-			String shareMessage = getResources().getString(
-					R.string.project_website);
-
+			String shareMessage = getResources().getString(R.string.project_website);
 			// add the message
-			shareIntent.putExtra(android.content.Intent.EXTRA_TEXT,
-					shareMessage);
-
+			shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareMessage);
 			// start the chooser for sharing
-			startActivity(Intent.createChooser(shareIntent, getResources()
-					.getText(R.string.share_with)));
+			startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.share_with)));
 
 			return true;
 		}
 		return false;
 	}
 
+	public void askForPermissions() {
+		String[] permissionsArray = mPermissionsDenied.toArray(new String[mPermissionsDenied.size()]);
+		if (permissionsArray.length > 0) {
+			ActivityCompat.requestPermissions(Switchboard.this, permissionsArray, REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+		}
+	}
+
+	@Override
+	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+		switch (requestCode) {
+			case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS:
+			{
+				boolean allGranted = true;
+				// Cbeck for all granted permissions
+				for (int i = 0; i < grantResults.length; i++)
+					allGranted = allGranted && (grantResults[i] == PackageManager.PERMISSION_GRANTED);
+
+				if ( allGranted ) {
+					onCreateWithPermissions();
+				}
+				else {
+					// Permission Denied
+					mPermissionsDenied = getDeniedPermissions();
+//Toast.makeText(Switchboard.this, "Some Permission is Denied", Toast.LENGTH_SHORT).show();
+					new Handler().postDelayed(new Runnable() {
+						@Override
+						public void run() {
+							askForPermissions();
+						}
+					}, 2000);
+				}
+			}
+			break;
+			default:
+				super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+		}
+
+	}
+
+	// https://github.com/tajchert/Nammu/blob/master/nammu/src/main/java/pl/tajchert/nammu/Nammu.java
+	public ArrayList<String> getDeniedPermissions() {
+		ArrayList<String> permissions = new ArrayList<String>();
+		ArrayList<String> permissionsDenied = new ArrayList<String>();
+		//Group location
+		permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
+		permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
+		//Group ??
+		//permissions.add(Manifest.permission.BATTERY_STATS);
+		//Group Storage
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+			permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
+		}
+		permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+		for (String permission : permissions) {
+			if (!hasPermission(this, permission)) {
+				permissionsDenied.add(permission);
+			}
+			//else
+			//	Toast.makeText(this, "Permission granted\n" + permission, Toast.LENGTH_SHORT).show();
+		}
+		return permissionsDenied;
+	}
+
+	public boolean hasPermission(Activity activity, String permission) {
+		return ContextCompat.checkSelfPermission(activity, permission) == 0;
+	}
 }

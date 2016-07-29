@@ -34,7 +34,6 @@ import android.view.MenuItem;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import ceab.movelab.tigabib.R;
 
 /**
  * Displays the About screen.
@@ -120,8 +119,7 @@ public class About extends Activity {
 		}
 
 		if (!Util.isOnline(context)) { // loading offline only if not online
-			myWebView.getSettings().setCacheMode(
-					WebSettings.LOAD_CACHE_ELSE_NETWORK);
+			myWebView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 		}
 
 		if (lang.equals("ca"))

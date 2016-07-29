@@ -146,11 +146,8 @@ public class FixGet extends Service {
 				.getSystemService(Context.WIFI_SERVICE)).createWifiLock(
 				WifiManager.WIFI_MODE_SCAN_ONLY, "MosquitTigreWifiLock");
 
-		wakeLock = ((PowerManager) context
-				.getSystemService(Context.POWER_SERVICE)).newWakeLock(
-				PowerManager.SCREEN_DIM_WAKE_LOCK
-						| PowerManager.ACQUIRE_CAUSES_WAKEUP,
-				"MosquitTigreScreenDimWakeLock");
+		wakeLock = ((PowerManager) context.getSystemService(Context.POWER_SERVICE)).newWakeLock(
+				PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "MosquitTigreScreenDimWakeLock");
 
 	}
 
@@ -186,33 +183,22 @@ public class FixGet extends Service {
 						taskFix = true;
 					}
 
-					Util.logInfo(
-							context,
-							TAG,
-							"test");
+					Util.logInfo(context, TAG, "test");
 					
-					long thisWindow = taskFix ? Util.TASK_FIX_WINDOW
-							: Util.LISTENER_WINDOW;
+					long thisWindow = taskFix ? Util.TASK_FIX_WINDOW : Util.LISTENER_WINDOW;
 
-					AlarmManager alarmManager = (AlarmManager) context
-							.getSystemService(Context.ALARM_SERVICE);
+					AlarmManager alarmManager = (AlarmManager) context .getSystemService(Context.ALARM_SERVICE);
 					int alarmType = AlarmManager.ELAPSED_REALTIME_WAKEUP;
 
 					Intent intent2StopFixGet = new Intent(context, FixGet.class);
-					intent2StopFixGet
-							.setAction(Messages.stopFixAction(context));
+					intent2StopFixGet.setAction(Messages.stopFixAction(context));
 
 					alarmManager.set(alarmType,
 							(SystemClock.elapsedRealtime() + thisWindow),
-							PendingIntent.getService(context,
-									ALARM_ID_STOP_FIX, intent2StopFixGet, 0));
+							PendingIntent.getService(context, ALARM_ID_STOP_FIX, intent2StopFixGet, 0));
 
-					Util.logInfo(
-							context,
-							TAG,
-							"set alarm to stop self at "
-									+ Util.iso8601(System.currentTimeMillis()
-											+ thisWindow));
+					Util.logInfo(context, TAG, "set alarm to stop self at "
+									+ Util.iso8601(System.currentTimeMillis() + thisWindow));
 
 					// stopListening = null;
 					bestLocation = null;
@@ -223,33 +209,22 @@ public class FixGet extends Service {
 					if (locationManager == null)
 						locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-					if (locationManager
-							.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-
+					if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 						gpsListener = new mLocationListener();
-						locationManager
-								.requestLocationUpdates(
-										LocationManager.GPS_PROVIDER, 0, 0,
-										gpsListener);
+						locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, gpsListener);
 
 						// mGpsStatusListener= new GpsStatusListener();
 						// locationManager.addGpsStatusListener(mGpsStatusListener);
-
 					}
 
-					if (locationManager
-							.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+					if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 						networkListener = new mLocationListener();
-						locationManager.requestLocationUpdates(
-								LocationManager.NETWORK_PROVIDER, 0, 0,
-								networkListener);
+						locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, networkListener);
 
 					}
 
-					if (locationManager
-							.isProviderEnabled(LocationManager.GPS_PROVIDER)
-							|| locationManager
-									.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+					if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+							|| locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 
 						new CountDownTimer(thisWindow, (thisWindow / 2)) {
 

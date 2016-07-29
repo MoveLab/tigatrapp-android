@@ -25,20 +25,15 @@
     android:versionCode="23"
     android:versionName="1.0-beta" >
 
-    <uses-sdk
-        android:minSdkVersion="4"
-        android:targetSdkVersion="24" />
+<!--    <uses-sdk android:minSdkVersion="4"android:targetSdkVersion="24" />-->
 
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /> <!-- normal -->
     <uses-permission android:name="android.permission.BATTERY_STATS" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" /> <!-- normal -->
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" /> <!-- normal -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- normal -->
+    <uses-permission android:name="android.permission.VIBRATE" /> <!-- normal -->
 
     <uses-feature android:name="android.hardware.camera" />
 
@@ -100,6 +95,12 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Switchboard" />
         </activity>
+        <activity
+            android:name="ceab.movelab.tigabib.MapDataV2">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Switchboard" />
+        </activity>
         <activity android:name="ceab.movelab.tigabib.PhotoGallery" >
         </activity>
         <activity
@@ -138,6 +139,7 @@
         <service android:name="ceab.movelab.tigabib.FixUse" />
         <service android:name="ceab.movelab.tigabib.SyncData" />
         <service android:name="ceab.movelab.tigabib.Sample" />
+
     </application>
 
 </manifest>

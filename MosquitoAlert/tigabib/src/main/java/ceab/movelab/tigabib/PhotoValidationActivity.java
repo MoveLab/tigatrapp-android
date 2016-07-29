@@ -25,13 +25,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 
 /**
@@ -46,7 +44,7 @@ public class PhotoValidationActivity extends Activity {
 
 	Context context = this;
 
-	private static final String PYBOSSA_URL = "http://crowdcrafting.org/project/mosquito-alert/task/1383572";
+	private static final String PYBOSSA_URL = "http://www.google.cat";
 
 	private WebView myWebView;
 
@@ -84,17 +82,17 @@ public class PhotoValidationActivity extends Activity {
 		myWebView = (WebView) findViewById(R.id.webview);
 		/*myWebView.setWebViewClient(new WebViewClient() {
 			public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-				myWebView.loadUrl(PYBOSSA_URL);
+				Toast.makeText(PhotoValidationActivity.this, "error", Toast.LENGTH_SHORT).show();
 			}
 		});*/
 
-		myWebView.getSettings().setAllowFileAccess(true);
+		//myWebView.getSettings().setAllowFileAccess(true);
 		myWebView.getSettings().setJavaScriptEnabled(true);
-		myWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
+		//myWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
 
-		if (Build.VERSION.SDK_INT >= 7) {
+		/*if (Build.VERSION.SDK_INT >= 7) {
 			WebViewApi7.api7settings(myWebView, context);
-		}
+		}*/
 
 		/*if (!Util.isOnline(context)) { // loading offline only if not online
 			myWebView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);

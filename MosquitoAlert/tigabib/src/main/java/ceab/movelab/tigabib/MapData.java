@@ -41,14 +41,6 @@
 
 package ceab.movelab.tigabib;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
@@ -68,14 +60,22 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
-import ceab.movelab.tigabib.R;
-import ceab.movelab.tigabib.ContProvContractReports.Reports;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+
+import ceab.movelab.tigabib.ContProvContractReports.Reports;
 
 /**
  * Allows user to view their own data in a map (from the database on their phone
@@ -495,39 +495,25 @@ public class MapData extends MapActivity {
 					Reports.KEYS_ALL, sc, null, null);
 
 			if (c.moveToFirst()) {
-				int deleteReportCol = c
-						.getColumnIndexOrThrow(Reports.KEY_DELETE_REPORT);
-				int latestVersionCol = c
-						.getColumnIndexOrThrow(Reports.KEY_LATEST_VERSION);
+				int deleteReportCol = c.getColumnIndexOrThrow(Reports.KEY_DELETE_REPORT);
+				int latestVersionCol = c.getColumnIndexOrThrow(Reports.KEY_LATEST_VERSION);
 				int rowIdCol = c.getColumnIndexOrThrow(Reports.KEY_ROW_ID);
 				int userIdCol = c.getColumnIndexOrThrow(Reports.KEY_USER_ID);
-				int reportIdCol = c
-						.getColumnIndexOrThrow(Reports.KEY_REPORT_ID);
-				int reportTimeCol = c
-						.getColumnIndexOrThrow(Reports.KEY_REPORT_TIME);
-				int reportVersionCol = c
-						.getColumnIndexOrThrow(Reports.KEY_REPORT_VERSION);
+				int reportIdCol = c.getColumnIndexOrThrow(Reports.KEY_REPORT_ID);
+				int reportTimeCol = c.getColumnIndexOrThrow(Reports.KEY_REPORT_TIME);
+				int reportVersionCol = c.getColumnIndexOrThrow(Reports.KEY_REPORT_VERSION);
 				int typeCol = c.getColumnIndexOrThrow(Reports.KEY_TYPE);
-				int confirmationCol = c
-						.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION);
-				int locationChoiceCol = c
-						.getColumnIndexOrThrow(Reports.KEY_LOCATION_CHOICE);
-				int currentLocationLonCol = c
-						.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LON);
-				int currentLocationLatCol = c
-						.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LAT);
-				int selectedLocationLonCol = c
-						.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LON);
-				int selectedLocationLatCol = c
-						.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LAT);
+				int confirmationCol = c.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION);
+				int locationChoiceCol = c.getColumnIndexOrThrow(Reports.KEY_LOCATION_CHOICE);
+				int currentLocationLonCol = c.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LON);
+				int currentLocationLatCol = c.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LAT);
+				int selectedLocationLonCol = c.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LON);
+				int selectedLocationLatCol = c.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LAT);
 				int noteCol = c.getColumnIndexOrThrow(Reports.KEY_NOTE);
-				int photoAttachedCol = c
-						.getColumnIndexOrThrow(Reports.KEY_PHOTO_ATTACHED);
-				int photoUrisCol = c
-						.getColumnIndexOrThrow(Reports.KEY_PHOTO_URIS);
+				int photoAttachedCol = c.getColumnIndexOrThrow(Reports.KEY_PHOTO_ATTACHED);
+				int photoUrisCol = c.getColumnIndexOrThrow(Reports.KEY_PHOTO_URIS);
 				int uploadedCol = c.getColumnIndexOrThrow(Reports.KEY_UPLOADED);
-				int serverTimestampCol = c
-						.getColumnIndexOrThrow(Reports.KEY_SERVER_TIMESTAMP);
+				int serverTimestampCol = c.getColumnIndexOrThrow(Reports.KEY_SERVER_TIMESTAMP);
 
 				int currentRecord = 0;
 				int nRecords = c.getCount();

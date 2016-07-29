@@ -71,8 +71,8 @@ public class UtilLocal {
 
 	public static final String URL_PROJECT = "http://mosquitoalert.com/";
 
-	
-	public static final String URL_TIGASERVER = "http://webserver.mosquitoalert.com/";
+	//public static final String URL_TIGASERVER = "http://webserver.mosquitoalert.com/";
+	public static final String URL_TIGASERVER = "http://humboldt.ceab.csic.es/";
 	/**
 	 * Server API URL.
 	 */
@@ -112,8 +112,7 @@ public class UtilLocal {
 	 * Server authorization.
 	 */
 	public final static String TIGASERVER_API_KEY = "69P76S700C48256gQue4Z6KK92MC9gM7l8b";
-	public final static String TIGASERVER_CLIENT_ID = "tigatrapp_android_client";
-	public final static String TIGASERVER_AUTHORIZATION = "Token "
-			+ TIGASERVER_API_KEY;
+	//public final static String TIGASERVER_CLIENT_ID = "tigatrapp_android_client";
+	public final static String TIGASERVER_AUTHORIZATION = "Token " + TIGASERVER_API_KEY;
 	
 }

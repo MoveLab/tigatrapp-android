@@ -65,6 +65,56 @@
 
 package ceab.movelab.tigabib;
 
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.text.Html;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
+import android.view.Window;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.maps.GeoPoint;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.StatusLine;
+import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.BasicHttpParams;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -88,58 +138,6 @@ import java.util.Locale;
 import java.util.Random;
 import java.util.UUID;
 
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpConnectionParams;
-import org.apache.http.params.HttpParams;
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.annotation.SuppressLint;
-import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
-import android.net.Uri;
-import android.provider.DocumentsContract;
-import android.provider.MediaStore;
-import android.support.v4.content.CursorLoader;
-import android.text.Html;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
-import android.view.Window;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import com.google.android.maps.GeoPoint;
 
 /**
  * Various static fields and methods used in the application, some taken from
@@ -162,19 +160,17 @@ public class Util {
 	public static int FIX_LAT_CUTOFF = 60;
 
 	public static boolean privateMode(Context context) {
-		boolean result = false;
-		if (context.getResources().getString(R.string.private_mode)
-				.equals("true"))
-			result = true;
-		return result;
+//		boolean result = false;
+//		if (context.getResources().getString(R.string.private_mode).equals("true"))
+//			result = true;
+		return BuildConfig.PRIVATE_MODE;
 	}
 
 	public static boolean debugMode(Context context) {
-		boolean result = false;
-		if (context.getResources().getString(R.string.debug_mode)
-				.equals("true"))
-			result = true;
-		return result;
+//		boolean result = false;
+//		if (context.getResources().getString(R.string.debug_mode).equals("true"))
+//			result = true;
+		return BuildConfig.DEBUG;
 	}
 
 	public static void logError(Context context, String tag, String message) {
@@ -243,13 +239,12 @@ public class Util {
 	 * Server authorization.
 	 */
 	public final static String TIGASERVER_API_KEY = UtilLocal.TIGASERVER_API_KEY;
-	public final static String TIGASERVER_CLIENT_ID = UtilLocal.TIGASERVER_CLIENT_ID;
+	//public final static String TIGASERVER_CLIENT_ID = UtilLocal.TIGASERVER_CLIENT_ID;
 	public final static String TIGASERVER_AUTHORIZATION = UtilLocal.TIGASERVER_AUTHORIZATION;
 
 	public final static String EXTENSION = ".dat";
 
-	public final static GeoPoint CEAB_COORDINATES = new GeoPoint(41686600,
-			2799600);
+	public final static GeoPoint CEAB_COORDINATES = new GeoPoint(41686600,2799600);
 
 	public final static double latMask = 0.05;
 	public final static double lonMask = 0.05;
@@ -588,7 +583,6 @@ public class Util {
 	 * @return True if phone has a connection; false if not.
 	 */
 	public static boolean isOnline(Context context) {
-
 		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo netInfo = cm.getActiveNetworkInfo();
 		if (netInfo != null && netInfo.isConnected()) {
@@ -599,8 +593,7 @@ public class Util {
 	}
 
 	public static int getBatteryLevel(Context context) {
-		Intent batteryIntent = context.registerReceiver(null, new IntentFilter(
-				Intent.ACTION_BATTERY_CHANGED));
+		Intent batteryIntent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 		int level = batteryIntent.getIntExtra("level", -1);
 		int scale = batteryIntent.getIntExtra("scale", -1);
 
@@ -870,8 +863,7 @@ public class Util {
 	 * @param path
 	 *            String representing URL to the server API.
 	 */
-	public static HttpResponse postJSON(JSONObject jsonData,
-			String apiEndpoint, Context context) {
+	public static HttpResponse postJSON(JSONObject jsonData, String apiEndpoint, Context context) {
 		HttpResponse result = null;
 		if (!isOnline(context)) {
 			return null;
@@ -880,16 +872,12 @@ public class Util {
 			try {
 				HttpParams httpParameters = new BasicHttpParams();
 				int timeoutConnection = 3000;
-				HttpConnectionParams.setConnectionTimeout(httpParameters,
-						timeoutConnection);
+				HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
 				int timeoutSocket = 3000;
-				HttpConnectionParams
-						.setSoTimeout(httpParameters, timeoutSocket);
+				HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
 
-				DefaultHttpClient httpclient = new DefaultHttpClient(
-						httpParameters);
-				HttpPost httpost = new HttpPost(URL_TIGASERVER_API_ROOT
-						+ apiEndpoint);
+				DefaultHttpClient httpclient = new DefaultHttpClient(httpParameters);
+				HttpPost httpost = new HttpPost(URL_TIGASERVER_API_ROOT + apiEndpoint);
 				StringEntity se = new StringEntity(jsonData.toString(), "UTF-8");
 				httpost.setEntity(se);
 				httpost.setHeader("Accept", "application/json");
@@ -925,8 +913,7 @@ public class Util {
 		if (response != null) {
 			BufferedReader reader;
 			try {
-				reader = new BufferedReader(new InputStreamReader(response
-						.getEntity().getContent(), "UTF-8"));
+				reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent(), "UTF-8"));
 				StringBuilder builder = new StringBuilder();
 				for (String line = null; (line = reader.readLine()) != null;) {
 					builder.append(line).append("\n");

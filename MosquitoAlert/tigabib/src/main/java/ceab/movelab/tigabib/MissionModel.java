@@ -1,13 +1,12 @@
 package ceab.movelab.tigabib;
 
+import android.content.Context;
+import android.text.Html;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.ContentResolver;
-import android.content.Context;
-import android.text.Html;
-import ceab.movelab.tigabib.R;
 import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
 
 public class MissionModel {
@@ -83,7 +82,6 @@ public class MissionModel {
 	public static final int BUTTONACTIONS_MARK_COMPLETE = 4;
 	// This button marks task as complete
 
-
 	public static final int PRECONFIRUATION_SITES = 0;
 	public static final int PRECONFIRUATION_ADULTS = 1;
 
@@ -98,27 +96,20 @@ public class MissionModel {
 		JSONObject item4 = new JSONObject();
 
 		try {
-
 			task.put(Tasks.KEY_ID, "breedingSiteChecklist");
 			task.put(Tasks.KEY_TITLE, "");
-			task.put(Tasks.KEY_SHORT_DESCRIPTION,
-					"Checklist for confirming breeding site");
+			task.put(Tasks.KEY_SHORT_DESCRIPTION, "Checklist for confirming breeding site");
 			task.put(Tasks.KEY_CREATION_TIME, -1);
 			task.put(Tasks.KEY_EXPIRATION_TIME, -1);
 
-			taskJson.put(
-					KEY_TITLE,
-					context.getResources().getString(
-							R.string.report_checklist_title_site));
+			taskJson.put(KEY_TITLE, context.getResources().getString(R.string.report_checklist_title_site));
 			taskJson.put(KEY_PRESET_CONFIGURATION, PRECONFIRUATION_SITES);
 
 			item1.put(MissionItemModel.KEY_ITEM_ID, "Item1");
-			item1.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE,
-					R.drawable.checklist_image_sites_1);
+			item1.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE, R.drawable.checklist_image_sites_1);
 			item1.put(MissionItemModel.KEY_QUESTION, context.getResources()
 					.getString(R.string.site_report_q1));
-			item1.put(MissionItemModel.KEY_HELP_TEXT, context.getResources()
-					.getString(R.string.site_report_item_help_1));
+			item1.put(MissionItemModel.KEY_HELP_TEXT, context.getResources().getString(R.string.site_report_item_help_1));
 			item1.put(MissionItemModel.KEY_ANSWER_CHOICES, new JSONArray("['"
 					+ context.getResources().getString(R.string.embornals)
 					+ "', '"
@@ -148,7 +139,6 @@ public class MissionModel {
 					+ context.getResources().getString(R.string.site_report_q3_response2) + "','"
 					+ context.getResources().getString(R.string.site_report_q3_response3) + "']"));
 
-			
 			item4.put(MissionItemModel.KEY_ITEM_ID, "Item4");
 			item4.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE,-1);
 			item4.put(MissionItemModel.KEY_QUESTION, context.getResources()
@@ -160,7 +150,6 @@ public class MissionModel {
 					+ context.getResources().getString(R.string.no)
 					+ "']"));
 
-			
 			items.put(item1);
 			items.put(item2);
 			items.put(item3);
@@ -187,24 +176,20 @@ public class MissionModel {
 		try {
 			task.put(Tasks.KEY_ID, "adultChecklist");
 			task.put(Tasks.KEY_TITLE, "");
-			task.put(Tasks.KEY_SHORT_DESCRIPTION,
-					"Checklist for confirming adult mosquito");
+			task.put(Tasks.KEY_SHORT_DESCRIPTION, "Checklist for confirming adult mosquito");
 			task.put(Tasks.KEY_CREATION_TIME, -1);
 			task.put(Tasks.KEY_EXPIRATION_TIME, -1);
 
-			taskJson.put(
-					KEY_TITLE,
-					context.getResources().getString(
-							R.string.report_checklist_title_adult));
+			taskJson.put(KEY_TITLE, context.getResources().getString(R.string.report_checklist_title_adult));
 			taskJson.put(KEY_PRESET_CONFIGURATION, PRECONFIRUATION_ADULTS);
 
 			item1.put(MissionItemModel.KEY_ITEM_ID, "Item1");
-			item1.put(MissionItemModel.KEY_QUESTION, context.getResources()
-					.getString(R.string.confirmation_q1_adult_sizecolor));
-			item1.put(MissionItemModel.KEY_HELP_TEXT, context.getResources()
-					.getString(R.string.q1_sizecolor_text));
-			item1.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE,
-					R.drawable.checklist_image_adult_1);
+			item1.put(MissionItemModel.KEY_QUESTION, context.getResources().getString(R.string.confirmation_q1_adult_sizecolor));
+			item1.put(MissionItemModel.KEY_HELP_TEXT, context.getResources().getString(R.string.q1_sizecolor_text));
+			item1.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE, R.drawable.checklist_image_adult_1_default); // latin is default image
+			item1.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE_CATALAN, R.drawable.checklist_image_adult_1_cat);
+			item1.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE_SPANISH, R.drawable.checklist_image_adult_1_esp);
+			item1.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE_ENGLISH, R.drawable.checklist_image_adult_1_eng);
 			item1.put(MissionItemModel.KEY_ANSWER_CHOICES, new JSONArray("['"
 					+ context.getResources().getString(R.string.adult_report_q1a1) + "','"
 					+ context.getResources().getString(R.string.adult_report_q1a2) + "','"
@@ -217,8 +202,10 @@ public class MissionModel {
 					.getString(R.string.confirmation_q2_adult_headthorax));
 			item2.put(MissionItemModel.KEY_HELP_TEXT, context.getResources()
 					.getString(R.string.q3_headthorax_text));
-			item2.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE,
-					R.drawable.checklist_image_adult_2);
+			item2.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE, R.drawable.checklist_image_adult_2_default);	// latin is default image
+			item2.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE_CATALAN, R.drawable.checklist_image_adult_2_cat);
+			item2.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE_SPANISH, R.drawable.checklist_image_adult_2_esp);
+			item2.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE_ENGLISH, R.drawable.checklist_image_adult_2_eng);
 			item2.put(MissionItemModel.KEY_ANSWER_CHOICES, new JSONArray("['"
 					+ context.getResources().getString(R.string.adult_report_q2a1) + "','"
 					+ context.getResources().getString(R.string.adult_report_q2a2) + "','"
@@ -231,8 +218,10 @@ public class MissionModel {
 					.getString(R.string.adult_report_q3));
 			item3.put(MissionItemModel.KEY_HELP_TEXT, context.getResources()
 					.getString(R.string.q2_abdomenlegs_text));
-			item3.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE,
-					R.drawable.checklist_image_adult_3);
+			item3.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE, R.drawable.checklist_image_adult_3_default); // latin is default image
+			item3.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE_CATALAN, R.drawable.checklist_image_adult_3_cat);
+			item3.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE_SPANISH, R.drawable.checklist_image_adult_3_esp);
+			item3.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE_ENGLISH, R.drawable.checklist_image_adult_3_eng);
 			item3.put(MissionItemModel.KEY_ANSWER_CHOICES, new JSONArray("['"
 					+ Html.fromHtml(context.getResources().getString(R.string.adult_report_q3a1)) + "','"
 					+ context.getResources().getString(R.string.adult_report_q3a2) + "','"
@@ -255,12 +244,9 @@ public class MissionModel {
 		return task;
 	}
 
-	public static void storeTask(Context context, String task) {
-
+/*	public static void storeTask(Context context, String task) {
 		ContentResolver cr = context.getContentResolver();
-		cr.insert(Util.getMissionsUri(context),
-				ContProvValuesMissions.createTask(task));
-
-	}
+		cr.insert(Util.getMissionsUri(context), ContProvValuesMissions.createTask(task));
+	}*/
 
 }

@@ -1,13 +1,12 @@
 package ceab.movelab.tigabib;
 
-import java.util.Arrays;
+import android.content.Context;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Context;
-import ceab.movelab.tigabib.R;
+import java.util.Arrays;
 
 public class MissionItemModel {
 
@@ -35,6 +34,10 @@ public class MissionItemModel {
 	public static final String KEY_HELP_TEXT_ENGLISH = "help_text_english";
 
 	public static final String KEY_PREPOSITIONED_IMAGE_REFERENCE = "prepositioned_image_reference";
+	public static final String KEY_PREPOSITIONED_IMAGE_REFERENCE_CATALAN = "prepositioned_image_reference_catalan";
+	public static final String KEY_PREPOSITIONED_IMAGE_REFERENCE_SPANISH = "prepositioned_image_reference_spanish";
+	public static final String KEY_PREPOSITIONED_IMAGE_REFERENCE_ENGLISH = "prepositioned_image_reference_english";
+
 	public static final String KEY_ANSWER_CHOICES = "answer_choices";
 	public static final String KEY_ANSWER_CHOICES_CATALAN = "answer_choices_catalan";
 	public static final String KEY_ANSWER_CHOICES_SPANISH = "answer_choices_spanish";
@@ -47,9 +50,43 @@ public class MissionItemModel {
 	public MissionItemModel(Context context, JSONObject item) {
 
 		try {
-
 			if (item.has(KEY_ITEM_ID))
 				this.itemId = item.getString(KEY_ITEM_ID);
+		} catch (JSONException e) {
+			Util.logError(context, TAG, "error: " + e);
+		}
+
+		String currentLang = PropertyHolder.getLanguage();
+
+		try {
+			if (item.has(KEY_PREPOSITIONED_IMAGE_REFERENCE))
+				if (item.getString(KEY_PREPOSITIONED_IMAGE_REFERENCE) != null
+						&& item.getString(KEY_PREPOSITIONED_IMAGE_REFERENCE).length() > 0
+						&& !item.getString(KEY_PREPOSITIONED_IMAGE_REFERENCE).equals("null")) {
+					this.itemHelpImage = item.getInt(KEY_PREPOSITIONED_IMAGE_REFERENCE);
+					if (currentLang.equals("ca")) {
+						try {
+							if (item.has(KEY_PREPOSITIONED_IMAGE_REFERENCE_CATALAN))
+								this.itemHelpImage = item.getInt(KEY_PREPOSITIONED_IMAGE_REFERENCE_CATALAN);
+						} catch (JSONException e) {
+							Util.logError(context, TAG, "error: " + e);
+						}
+					} else if  (currentLang.equals("es")) {
+						try {
+							if (item.has(KEY_PREPOSITIONED_IMAGE_REFERENCE_SPANISH))
+								this.itemHelpImage = item.getInt(KEY_PREPOSITIONED_IMAGE_REFERENCE_SPANISH);
+						} catch (JSONException e) {
+							Util.logError(context, TAG, "error: " + e);
+						}
+					} else if  (currentLang.equals("en")) {
+						try {
+							if (item.has(KEY_PREPOSITIONED_IMAGE_REFERENCE_ENGLISH))
+								this.itemHelpImage = item.getInt(KEY_PREPOSITIONED_IMAGE_REFERENCE_ENGLISH);
+						} catch (JSONException e) {
+							Util.logError(context, TAG, "error: " + e);
+						}
+					}
+				}
 		} catch (JSONException e) {
 			Util.logError(context, TAG, "error: " + e);
 		}
@@ -68,16 +105,14 @@ public class MissionItemModel {
 				this.itemText = item.getString(KEY_QUESTION);
 				this.itemHelp = item.getString(KEY_HELP_TEXT);
 
-				JSONArray itemChoicesJson = item
-						.getJSONArray(KEY_ANSWER_CHOICES);
+				JSONArray itemChoicesJson = item.getJSONArray(KEY_ANSWER_CHOICES);
 
 				String[] itemChoicesTemp = new String[itemChoicesJson.length() + 1];
-				// Making the first row blank so that Spinner default is no
-				// selection
+				// Making the first row blank so that Spinner default is
+				// no selection
 				itemChoicesTemp[0] = context.getResources().getString(
 						R.string.spinner_nothing_selected);
 				for (int i = 0; i < itemChoicesJson.length(); i++) {
-
 					itemChoicesTemp[i + 1] = itemChoicesJson.getString(i);
 				}
 				itemChoices = itemChoicesTemp;
@@ -85,45 +120,39 @@ public class MissionItemModel {
 			} catch (JSONException e) {
 				Util.logError(context, TAG, "error: " + e);
 			}
-
 		} else {
-
-			String currentLang = PropertyHolder.getLanguage();
-
 			if (currentLang.equals("ca")) {
 				try {
-
 					if (item.has(KEY_QUESTION_CATALAN))
 						this.itemText = item.getString(KEY_QUESTION_CATALAN);
 				} catch (JSONException e) {
 					Util.logError(context, TAG, "error: " + e);
 				}
 				try {
-
 					if (item.has(KEY_HELP_TEXT_CATALAN))
 						this.itemHelp = item.getString(KEY_HELP_TEXT_CATALAN);
 				} catch (JSONException e) {
 					Util.logError(context, TAG, "error: " + e);
 				}
+				try {
+					if (item.has(KEY_PREPOSITIONED_IMAGE_REFERENCE_CATALAN))
+						this.itemHelpImage = item.getInt(KEY_PREPOSITIONED_IMAGE_REFERENCE_CATALAN);
+				} catch (JSONException e) {
+					Util.logError(context, TAG, "error: " + e);
+				}
 
 				try {
-
 					if (item.has(KEY_ANSWER_CHOICES_CATALAN)) {
-
-						String theseChoices = item
-								.getString(KEY_ANSWER_CHOICES_CATALAN);
+						String theseChoices = item.getString(KEY_ANSWER_CHOICES_CATALAN);
 
 						JSONArray itemChoicesJson = new JSONArray(theseChoices);
-						String[] itemChoicesTemp = new String[itemChoicesJson
-								.length() + 1];
+						String[] itemChoicesTemp = new String[itemChoicesJson.length() + 1];
 						// Making the first row blank so that Spinner default is
-						// no
-						// selection
+						// no selection
 						itemChoicesTemp[0] = context.getResources().getString(
 								R.string.spinner_nothing_selected);
 						for (int i = 0; i < itemChoicesJson.length(); i++) {
-							itemChoicesTemp[i + 1] = itemChoicesJson
-									.getString(i);
+							itemChoicesTemp[i + 1] = itemChoicesJson.getString(i);
 						}
 						itemChoices = itemChoicesTemp;
 					}
@@ -133,41 +162,38 @@ public class MissionItemModel {
 				}
 
 			} else if (currentLang.equals("es")) {
-
 				try {
-
 					if (item.has(KEY_QUESTION_SPANISH))
 						this.itemText = item.getString(KEY_QUESTION_SPANISH);
 				} catch (JSONException e) {
 					Util.logError(context, TAG, "error: " + e);
 				}
 				try {
-
 					if (item.has(KEY_HELP_TEXT_SPANISH))
 						this.itemHelp = item.getString(KEY_HELP_TEXT_SPANISH);
 				} catch (JSONException e) {
 					Util.logError(context, TAG, "error: " + e);
 				}
+				try {
+					if (item.has(KEY_PREPOSITIONED_IMAGE_REFERENCE_SPANISH))
+						this.itemHelpImage = item.getInt(KEY_PREPOSITIONED_IMAGE_REFERENCE_SPANISH);
+				} catch (JSONException e) {
+					Util.logError(context, TAG, "error: " + e);
+				}
 
 				try {
-
 					if (item.has(KEY_ANSWER_CHOICES_SPANISH)) {
-
-						String theseChoices = item
-								.getString(KEY_ANSWER_CHOICES_SPANISH);
+						String theseChoices = item.getString(KEY_ANSWER_CHOICES_SPANISH);
 
 						JSONArray itemChoicesJson = new JSONArray(theseChoices);
-						String[] itemChoicesTemp = new String[itemChoicesJson
-								.length() + 1];
+						String[] itemChoicesTemp = new String[itemChoicesJson.length() + 1];
 
 						// Making the first row blank so that Spinner default is
-						// no
-						// selection
+						// no selection
 						itemChoicesTemp[0] = context.getResources().getString(
 								R.string.spinner_nothing_selected);
 						for (int i = 0; i < itemChoicesJson.length(); i++) {
-							itemChoicesTemp[i + 1] = itemChoicesJson
-									.getString(i);
+							itemChoicesTemp[i + 1] = itemChoicesJson.getString(i);
 						}
 						itemChoices = itemChoicesTemp;
 					}
@@ -177,40 +203,37 @@ public class MissionItemModel {
 				}
 
 			} else if (currentLang.equals("en")) {
-
 				try {
-
 					if (item.has(KEY_QUESTION_ENGLISH))
 						this.itemText = item.getString(KEY_QUESTION_ENGLISH);
 				} catch (JSONException e) {
 					Util.logError(context, TAG, "error: " + e);
 				}
 				try {
-
 					if (item.has(KEY_HELP_TEXT_ENGLISH))
 						this.itemHelp = item.getString(KEY_HELP_TEXT_ENGLISH);
 				} catch (JSONException e) {
 					Util.logError(context, TAG, "error: " + e);
 				}
+				try {
+					if (item.has(KEY_PREPOSITIONED_IMAGE_REFERENCE_ENGLISH))
+						this.itemHelpImage = item.getInt(KEY_PREPOSITIONED_IMAGE_REFERENCE_ENGLISH);
+				} catch (JSONException e) {
+					Util.logError(context, TAG, "error: " + e);
+				}
 
 				try {
-
 					if (item.has(KEY_ANSWER_CHOICES_ENGLISH)) {
-
-						String theseChoices = item
-								.getString(KEY_ANSWER_CHOICES_ENGLISH);
+						String theseChoices = item.getString(KEY_ANSWER_CHOICES_ENGLISH);
 
 						JSONArray itemChoicesJson = new JSONArray(theseChoices);
-						String[] itemChoicesTemp = new String[itemChoicesJson
-								.length() + 1];
+						String[] itemChoicesTemp = new String[itemChoicesJson.length() + 1];
 						// Making the first row blank so that Spinner default is
-						// no
-						// selection
+						// no selection
 						itemChoicesTemp[0] = context.getResources().getString(
 								R.string.spinner_nothing_selected);
 						for (int i = 0; i < itemChoicesJson.length(); i++) {
-							itemChoicesTemp[i + 1] = itemChoicesJson
-									.getString(i);
+							itemChoicesTemp[i + 1] = itemChoicesJson.getString(i);
 						}
 						itemChoices = itemChoicesTemp;
 					}
@@ -218,28 +241,13 @@ public class MissionItemModel {
 				} catch (JSONException e) {
 					Util.logError(context, TAG, "error: " + e);
 				}
-
 			}
-
 		}
 
 		// ////////////////////////////
-		try {
 
-			if (item.has(KEY_PREPOSITIONED_IMAGE_REFERENCE))
-				if (item.getString(KEY_PREPOSITIONED_IMAGE_REFERENCE) != null
-						&& item.getString(KEY_PREPOSITIONED_IMAGE_REFERENCE)
-								.length() > 0
-						&& !item.getString(KEY_PREPOSITIONED_IMAGE_REFERENCE)
-								.equals("null"))
-					this.itemHelpImage = item
-							.getInt(KEY_PREPOSITIONED_IMAGE_REFERENCE);
-		} catch (JSONException e) {
-			Util.logError(context, TAG, "error: " + e);
-		}
 
 		try {
-
 			if (item.has(KEY_ITEM_RESPONSE))
 				this.itemResponse = item.getString(KEY_ITEM_RESPONSE);
 		} catch (JSONException e) {

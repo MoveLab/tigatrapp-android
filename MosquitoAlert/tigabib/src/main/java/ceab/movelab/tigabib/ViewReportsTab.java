@@ -115,9 +115,7 @@ public class ViewReportsTab extends TabActivity {
 									@Override
 									public void onClick(DialogInterface d,
 											int arg1) {
-
 										new ReportDeleteTask().execute(context);
-
 										d.dismiss();
 									}
 

@@ -544,16 +544,12 @@ public class MapData extends MapActivity {
 					MyOverlayItem overlayitem = new MyOverlayItem(
 							point,
 							(thisType == Report.TYPE_ADULT ? getResources()
-									.getString(R.string.view_report_title_adult)
-									: getResources().getString(
+									.getString(R.string.view_report_title_adult) : getResources().getString(
 											R.string.view_report_title_site))
-									+ "\n"
-									+ Util.userDate(new Date(c
-											.getLong(reportTimeCol))),
+									+ "\n" + Util.userDate(new Date(c.getLong(reportTimeCol))),
 							c.getString(noteCol), c.getString(reportIdCol),
 							c.getInt(typeCol), c.getString(photoUrisCol),
-							c.getString(confirmationCol),
-							c.getLong(reportTimeCol));
+							c.getString(confirmationCol), c.getLong(reportTimeCol));
 					currentCenter = point;
 					if (thisType == Report.TYPE_ADULT)
 						myAdultOverlaylist.add(overlayitem);

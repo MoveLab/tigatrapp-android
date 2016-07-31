@@ -1,10 +1,5 @@
 package ceab.movelab.tigabib;
 
-import java.util.ArrayList;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources;
@@ -20,7 +15,11 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import ceab.movelab.tigabib.R;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 /********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
 public class MissionAdapter extends BaseAdapter implements OnClickListener {
@@ -123,7 +122,6 @@ public class MissionAdapter extends BaseAdapter implements OnClickListener {
 			if (tempValues.getItemHelp() == null || tempValues.getItemHelp().equals("")){
 				holder.helpIcon.setVisibility(View.GONE);} else{
 					holder.helpIconRow.setOnClickListener(new OnItemClickListener(position));
-
 				}
 			
 			ArrayAdapter<String> choicesAdapter = new ArrayAdapter<String>(
@@ -209,8 +207,7 @@ public class MissionAdapter extends BaseAdapter implements OnClickListener {
 			MissionItemModel thisTask = (MissionItemModel) data.get(mPosition);
 
 			if (thisTask.getItemHelpImage() != -1) {
-				Util.showHelp(activity, thisTask.getItemHelp(),
-						thisTask.getItemHelpImage());
+				Util.showHelp(activity, thisTask.getItemHelp(), thisTask.getItemHelpImage());
 			} else
 				Util.showHelp(activity, thisTask.getItemHelp());
 

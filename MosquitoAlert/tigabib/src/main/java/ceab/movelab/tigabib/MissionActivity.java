@@ -1,14 +1,5 @@
 package ceab.movelab.tigabib;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.UUID;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -23,12 +14,21 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.UUID;
+
 import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
 import ceab.movelab.tigabib.ContProvContractReports.Reports;
 
@@ -85,55 +85,43 @@ public class MissionActivity extends Activity {
 
 		if (b.containsKey(Tasks.KEY_RESPONSES_JSON)) {
 			currentResponses = b.getString(Tasks.KEY_RESPONSES_JSON);
-
 		}
 
 		if (b.containsKey(Tasks.KEY_ID)) {
 			missionId = b.getInt(Tasks.KEY_ID);
-
 		}
 
 		final JSONObject thisTask;
 
 		try {
-
 			String currentLang = PropertyHolder.getLanguage();
 
 			thisTask = new JSONObject(taskJson);
 
 			if (thisTask.has(MissionModel.KEY_TITLE)
-					&& Util.getString(thisTask, MissionModel.KEY_TITLE)
-							.length() > 0) {
-				taskTitle.setText(Util.getString(thisTask,
-						MissionModel.KEY_TITLE));
+					&& Util.getString(thisTask, MissionModel.KEY_TITLE).length() > 0) {
+				taskTitle.setText(Util.getString(thisTask, MissionModel.KEY_TITLE));
 			} else if (thisTask.has(MissionModel.KEY_TITLE_CATALAN)
 					&& thisTask.has(MissionModel.KEY_TITLE_SPANISH)
 					&& thisTask.has(MissionModel.KEY_TITLE_ENGLISH)) {
 				if (currentLang.equals("ca"))
-					taskTitle.setText(Util.getString(thisTask,
-							MissionModel.KEY_TITLE_CATALAN));
+					taskTitle.setText(Util.getString(thisTask, MissionModel.KEY_TITLE_CATALAN));
 				else if (currentLang.equals("es"))
-					taskTitle.setText(Util.getString(thisTask,
-							MissionModel.KEY_TITLE_SPANISH));
+					taskTitle.setText(Util.getString(thisTask, MissionModel.KEY_TITLE_SPANISH));
 				else if (currentLang.equals("en"))
-					taskTitle.setText(Util.getString(thisTask,
-							MissionModel.KEY_TITLE_ENGLISH));
+					taskTitle.setText(Util.getString(thisTask, MissionModel.KEY_TITLE_ENGLISH));
 			} else
 				taskTitle.setVisibility(View.GONE);
 
 			if (thisTask.has(MissionModel.KEY_LONG_DESCRIPTION_CATALAN)
 					&& thisTask.has(MissionModel.KEY_LONG_DESCRIPTION_SPANISH)
 					&& thisTask.has(MissionModel.KEY_LONG_DESCRIPTION_ENGLISH)) {
-
 				if (currentLang.equals("ca"))
-					taskDetail.setText(Util.getString(thisTask,
-							MissionModel.KEY_LONG_DESCRIPTION_CATALAN));
+					taskDetail.setText(Util.getString(thisTask, MissionModel.KEY_LONG_DESCRIPTION_CATALAN));
 				else if (currentLang.equals("es"))
-					taskDetail.setText(Util.getString(thisTask,
-							MissionModel.KEY_LONG_DESCRIPTION_SPANISH));
+					taskDetail.setText(Util.getString(thisTask, MissionModel.KEY_LONG_DESCRIPTION_SPANISH));
 				else if (currentLang.equals("en"))
-					taskDetail.setText(Util.getString(thisTask,
-							MissionModel.KEY_LONG_DESCRIPTION_ENGLISH));
+					taskDetail.setText(Util.getString(thisTask, MissionModel.KEY_LONG_DESCRIPTION_ENGLISH));
 			} else
 				taskDetail.setVisibility(View.GONE);
 			if (thisTask.has(MissionModel.KEY_HELP_TEXT_CATALAN)
@@ -141,14 +129,11 @@ public class MissionActivity extends Activity {
 					&& thisTask.has(MissionModel.KEY_HELP_TEXT_ENGLISH)) {
 				String helpTextTemp = "";
 				if (currentLang.equals("ca"))
-					helpTextTemp = thisTask
-							.getString(MissionModel.KEY_HELP_TEXT_CATALAN);
+					helpTextTemp = thisTask.getString(MissionModel.KEY_HELP_TEXT_CATALAN);
 				else if (currentLang.equals("es"))
-					helpTextTemp = thisTask
-							.getString(MissionModel.KEY_HELP_TEXT_SPANISH);
+					helpTextTemp = thisTask.getString(MissionModel.KEY_HELP_TEXT_SPANISH);
 				else if (currentLang.equals("en"))
-					helpTextTemp = thisTask
-							.getString(MissionModel.KEY_HELP_TEXT_ENGLISH);
+					helpTextTemp = thisTask.getString(MissionModel.KEY_HELP_TEXT_ENGLISH);
 
 				final String helpText = helpTextTemp;
 
@@ -164,17 +149,14 @@ public class MissionActivity extends Activity {
 				helpIcon.setVisibility(View.GONE);
 
 			if (thisTask.has(MissionModel.KEY_ITEMS)) {
-				JSONArray theseItems = new JSONArray(
-						thisTask.getString(MissionModel.KEY_ITEMS));
+				JSONArray theseItems = new JSONArray(thisTask.getString(MissionModel.KEY_ITEMS));
 				for (int i = 0; i < theseItems.length(); i++) {
-					MissionItemModel thisTaskItem = new MissionItemModel(
-							context, new JSONObject(theseItems.getString(i)));
+					MissionItemModel thisTaskItem = new MissionItemModel(context, new JSONObject(theseItems.getString(i)));
 
 					if (currentResponses != null) {
 						JSONObject cr = new JSONObject(currentResponses);
 						if (cr.has(thisTaskItem.getItemId())) {
-							String thisItemResponse = cr.getString(thisTaskItem
-									.getItemId());
+							String thisItemResponse = cr.getString(thisTaskItem.getItemId());
 
 							thisTaskItem.setItemResponse(thisItemResponse);
 						}
@@ -182,8 +164,7 @@ public class MissionActivity extends Activity {
 					list.add(thisTaskItem);
 				}
 			} else {
-				lv.setDivider(getResources().getDrawable(
-						R.drawable.divider_invisible));
+				lv.setDivider(getResources().getDrawable(R.drawable.divider_invisible));
 			}
 			final MissionAdapter adapter = new MissionAdapter(this, list, res);
 			lv.setAdapter(adapter);
@@ -218,13 +199,9 @@ public class MissionActivity extends Activity {
 								while (iter.hasNext()) {
 									String key = iter.next();
 									try {
-										JSONObject thisItem = responses
-												.getJSONObject(key);
+										JSONObject thisItem = responses.getJSONObject(key);
 
-										if (!thisItem
-												.getString(
-														MissionItemModel.KEY_ITEM_RESPONSE)
-												.equals(getResources()
+										if (!thisItem.getString(MissionItemModel.KEY_ITEM_RESPONSE).equals(getResources()
 														.getString(
 																R.string.spinner_nothing_selected)))
 											responseCount++;

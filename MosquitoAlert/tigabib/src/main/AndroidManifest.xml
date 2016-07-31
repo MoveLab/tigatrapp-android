@@ -35,6 +35,10 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" /> <!-- normal -->
     <uses-permission android:name="android.permission.VIBRATE" /> <!-- normal -->
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" /> <!-- normal -->
+
     <uses-feature android:name="android.hardware.camera" />
 
     <application
@@ -96,7 +100,7 @@
                 android:value=".Switchboard" />
         </activity>
         <activity
-            android:name="ceab.movelab.tigabib.MapDataV2">
+            android:name=".MapDataV2Activity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Switchboard" />
@@ -105,6 +109,13 @@
         </activity>
         <activity
             android:name="ceab.movelab.tigabib.MapSelector"
+            android:process=":p1" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".ReportTool" />
+        </activity>
+        <activity
+            android:name="ceab.movelab.tigabib.MapSelectorV2Activity"
             android:process=":p1" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

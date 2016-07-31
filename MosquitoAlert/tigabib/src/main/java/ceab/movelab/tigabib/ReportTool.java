@@ -118,11 +118,11 @@ public class ReportTool extends Activity {
 	CheckBox reportPhotoCheck;
 	CheckBox reportNoteCheck;
 
-	ImageView reportPhotoAttachImage;
-	ImageView reportConfirmationImage;
+//	ImageView reportPhotoAttachImage;
+//	ImageView reportConfirmationImage;
 	ImageView reportCurrentLocationImage;
-	ImageView reportMapImage;
-	ImageView reportNoteImage;
+//	ImageView reportMapImage;
+//	ImageView reportNoteImage;
 
 	TextView photoCount;
 
@@ -138,11 +138,10 @@ public class ReportTool extends Activity {
 	public static final int REQUEST_CODE_REPORT_RESPONSES = 4;
 	public static final int REQUEST_CODE_GET_PHOTO_FROM_GALLERY = 5;
 
-	
-	public static final String EXTRA_PHOTO_URI_ARRAY = "photoUriArray";
-	public static final String EXTRA_PHOTO_TIME_ARRAY = "photoTimeArray";
-	public static final String EXTRA_REPORT_ID = "reportId";
-	public static final String EXTRA_REPORT_VERSION = "reportVersions";
+//	public static final String EXTRA_PHOTO_URI_ARRAY = "photoUriArray";
+//	public static final String EXTRA_PHOTO_TIME_ARRAY = "photoTimeArray";
+//	public static final String EXTRA_REPORT_ID = "reportId";
+//	public static final String EXTRA_REPORT_VERSION = "reportVersions";
 
 	public static final String PREVIOUS_LAT = "previous_lat";
 	public static final String PREVIOUS_LON = "previous_lon";
@@ -185,59 +184,34 @@ public class ReportTool extends Activity {
 			if (c.moveToLast()) {
 
 				int userIdCol = c.getColumnIndexOrThrow(Reports.KEY_USER_ID);
-				int reportIdCol = c
-						.getColumnIndexOrThrow(Reports.KEY_REPORT_ID);
-				int reportTimeCol = c
-						.getColumnIndexOrThrow(Reports.KEY_REPORT_TIME);
-				int creationTimeCol = c
-						.getColumnIndexOrThrow(Reports.KEY_CREATION_TIME);
-				int reportVersionCol = c
-						.getColumnIndexOrThrow(Reports.KEY_REPORT_VERSION);
-				int versionTimeStringCol = c
-						.getColumnIndexOrThrow(Reports.KEY_VERSION_TIME_STRING);
+				int reportIdCol = c.getColumnIndexOrThrow(Reports.KEY_REPORT_ID);
+				int reportTimeCol = c.getColumnIndexOrThrow(Reports.KEY_REPORT_TIME);
+				int creationTimeCol = c.getColumnIndexOrThrow(Reports.KEY_CREATION_TIME);
+				int reportVersionCol = c.getColumnIndexOrThrow(Reports.KEY_REPORT_VERSION);
+				int versionTimeStringCol = c.getColumnIndexOrThrow(Reports.KEY_VERSION_TIME_STRING);
 				int typeCol = c.getColumnIndexOrThrow(Reports.KEY_TYPE);
-				int confirmationCol = c
-						.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION);
-				int confirmationCodeCol = c
-						.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION_CODE);
-				int locationChoiceCol = c
-						.getColumnIndexOrThrow(Reports.KEY_LOCATION_CHOICE);
-				int currentLocationLonCol = c
-						.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LON);
-				int currentLocationLatCol = c
-						.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LAT);
-				int selectedLocationLonCol = c
-						.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LON);
-				int selectedLocationLatCol = c
-						.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LAT);
+				int confirmationCol = c.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION);
+				int confirmationCodeCol = c.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION_CODE);
+				int locationChoiceCol = c.getColumnIndexOrThrow(Reports.KEY_LOCATION_CHOICE);
+				int currentLocationLonCol = c.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LON);
+				int currentLocationLatCol = c.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LAT);
+				int selectedLocationLonCol = c.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LON);
+				int selectedLocationLatCol = c.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LAT);
 				int noteCol = c.getColumnIndexOrThrow(Reports.KEY_NOTE);
-				int photoAttachedCol = c
-						.getColumnIndexOrThrow(Reports.KEY_PHOTO_ATTACHED);
-				int photoUrisCol = c
-						.getColumnIndexOrThrow(Reports.KEY_PHOTO_URIS);
-				int serverTimestampCol = c
-						.getColumnIndexOrThrow(Reports.KEY_SERVER_TIMESTAMP);
-				int deleteReportCol = c
-						.getColumnIndexOrThrow(Reports.KEY_DELETE_REPORT);
-				int latestVersionCol = c
-						.getColumnIndexOrThrow(Reports.KEY_LATEST_VERSION);
-				int packageNameCol = c
-						.getColumnIndexOrThrow(Reports.KEY_PACKAGE_NAME);
-				int packageVersionCol = c
-						.getColumnIndexOrThrow(Reports.KEY_PACKAGE_VERSION);
-				int phoneManufacturerCol = c
-						.getColumnIndexOrThrow(Reports.KEY_PHONE_MANUFACTURER);
-				int phoneModelCol = c
-						.getColumnIndexOrThrow(Reports.KEY_PHONE_MODEL);
+				int photoAttachedCol = c.getColumnIndexOrThrow(Reports.KEY_PHOTO_ATTACHED);
+				int photoUrisCol = c.getColumnIndexOrThrow(Reports.KEY_PHOTO_URIS);
+				int serverTimestampCol = c.getColumnIndexOrThrow(Reports.KEY_SERVER_TIMESTAMP);
+				int deleteReportCol = c.getColumnIndexOrThrow(Reports.KEY_DELETE_REPORT);
+				int latestVersionCol = c.getColumnIndexOrThrow(Reports.KEY_LATEST_VERSION);
+				int packageNameCol = c.getColumnIndexOrThrow(Reports.KEY_PACKAGE_NAME);
+				int packageVersionCol = c.getColumnIndexOrThrow(Reports.KEY_PACKAGE_VERSION);
+				int phoneManufacturerCol = c.getColumnIndexOrThrow(Reports.KEY_PHONE_MANUFACTURER);
+				int phoneModelCol = c.getColumnIndexOrThrow(Reports.KEY_PHONE_MODEL);
 				int osCol = c.getColumnIndexOrThrow(Reports.KEY_OS);
-				int osVersionCol = c
-						.getColumnIndexOrThrow(Reports.KEY_OS_VERSION);
-				int osLanguageCol = c
-						.getColumnIndexOrThrow(Reports.KEY_OS_LANGUAGE);
-				int appLanguageCol = c
-						.getColumnIndexOrThrow(Reports.KEY_APP_LANGUAGE);
-				int missionIDCol = c
-						.getColumnIndexOrThrow(Reports.KEY_MISSION_ID);
+				int osVersionCol = c.getColumnIndexOrThrow(Reports.KEY_OS_VERSION);
+				int osLanguageCol = c.getColumnIndexOrThrow(Reports.KEY_OS_LANGUAGE);
+				int appLanguageCol = c.getColumnIndexOrThrow(Reports.KEY_APP_LANGUAGE);
+				int missionIDCol = c.getColumnIndexOrThrow(Reports.KEY_MISSION_ID);
 
 				// note that we increment the version number here
 				thisReport = new Report(context, UUID.randomUUID().toString(),
@@ -262,7 +236,6 @@ public class ReportTool extends Activity {
 						c.getString(phoneModelCol), c.getString(osCol),
 						c.getString(osVersionCol), c.getString(osLanguageCol),
 						c.getString(appLanguageCol), c.getInt(missionIDCol));
-
 			}
 			c.close();
 
@@ -302,10 +275,8 @@ public class ReportTool extends Activity {
 					.setText((type == Report.TYPE_BREEDING_SITE ? getResources()
 							.getString(R.string.edit_title_site)
 							: getResources().getString(
-									R.string.edit_title_adult))
-							+ "\n"
-							+ getResources().getString(R.string.created_on)
-							+ " "
+									R.string.edit_title_adult)) + "\n"
+							+ getResources().getString(R.string.created_on) + " "
 							+ Util.userDate(new Date((thisReport.reportTime))));
 
 			reportConfirmationCheck.setText(getResources().getString(
@@ -320,11 +291,7 @@ public class ReportTool extends Activity {
 			buttonReportSubmit.setText(getResources()
 					.getString(R.string.update));
 		} else {
-			reportTitle
-					.setText(getResources()
-							.getText(
-									type == Report.TYPE_BREEDING_SITE ? R.string.report_title_site
-											: R.string.report_title_adult));
+			reportTitle.setText(getResources().getText(type == Report.TYPE_BREEDING_SITE ? R.string.report_title_site : R.string.report_title_adult));
 		}
 
 		if (icicle != null) {
@@ -334,21 +301,16 @@ public class ReportTool extends Activity {
 			thisReport.confirmationCode = icicle.getInt("confirmation_code");
 			thisReport.locationChoice = icicle.getInt("locationChoice");
 			if (icicle.containsKey("currentLocationLat"))
-				thisReport.currentLocationLat = icicle
-						.getFloat("currentLocationLat");
+				thisReport.currentLocationLat = icicle.getFloat("currentLocationLat");
 			if (icicle.containsKey("currentLocationLon"))
-				thisReport.currentLocationLon = icicle
-						.getFloat("currentLocationLon");
+				thisReport.currentLocationLon = icicle.getFloat("currentLocationLon");
 			if (icicle.containsKey("selectedLocationLat"))
-				thisReport.selectedLocationLat = icicle
-						.getFloat("selectedLocationLat");
+				thisReport.selectedLocationLat = icicle.getFloat("selectedLocationLat");
 			if (icicle.containsKey("selectedLocationLon"))
-				thisReport.selectedLocationLon = icicle
-						.getFloat("selectedLocationLon");
+				thisReport.selectedLocationLon = icicle.getFloat("selectedLocationLon");
 			thisReport.photoAttached = icicle.getInt("photoAttached");
 			thisReport.note = icicle.getString("note");
-			thisReport.setPhotoUris(context,
-					icicle.getString(Reports.KEY_PHOTO_URIS));
+			thisReport.setPhotoUris(context, icicle.getString(Reports.KEY_PHOTO_URIS));
 		}
 
 		if (thisReport.reportId == null) {
@@ -371,16 +333,12 @@ public class ReportTool extends Activity {
 
 					try {
 						String thisTaskType = type == Report.TYPE_ADULT ? MissionModel
-								.makeAdultConfirmation(context).getString(
-										Tasks.KEY_TASK_JSON) : MissionModel
-								.makeSiteConfirmation(context).getString(
-										Tasks.KEY_TASK_JSON);
-						Intent i = new Intent(ReportTool.this,
-								MissionActivity.class);
+								.makeAdultConfirmation(context).getString(Tasks.KEY_TASK_JSON) : MissionModel
+								.makeSiteConfirmation(context).getString(Tasks.KEY_TASK_JSON);
+						Intent i = new Intent(ReportTool.this, MissionActivity.class);
 						i.putExtra(Tasks.KEY_TASK_JSON, thisTaskType);
 						if (thisReport.confirmation != null) {
-							i.putExtra(Tasks.KEY_RESPONSES_JSON,
-									thisReport.confirmation);
+							i.putExtra(Tasks.KEY_RESPONSES_JSON, thisReport.confirmation);
 						}
 						startActivityForResult(i, REQUEST_CODE_REPORT_RESPONSES);
 
@@ -396,11 +354,8 @@ public class ReportTool extends Activity {
 				} else if (v.getId() == R.id.reportCurrentLocationRow) {
 
 					if (currentLocation == null) {
-						if (locationManager
-								.isProviderEnabled(LocationManager.GPS_PROVIDER)
-								|| locationManager
-										.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-
+						if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+								|| locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 							buildLocationAlert(getResources().getString(
 									R.string.nolocation_alert_report));
 						} else if (!gpsAvailable && !networkLocationAvailable) {
@@ -415,10 +370,8 @@ public class ReportTool extends Activity {
 						locationRadioGroup.check(R.id.whereRadioButtonHere);
 						has_edited_location = true;
 						reportLocationCheck.setChecked(true);
-						final float clat = (float) currentLocation
-								.getLatitude();
-						final float clon = (float) currentLocation
-								.getLongitude();
+						final float clat = (float) currentLocation.getLatitude();
+						final float clon = (float) currentLocation.getLongitude();
 
 						thisReport.currentLocationLat = Float.valueOf(clat);
 						thisReport.currentLocationLon = Float.valueOf(clon);
@@ -432,16 +385,11 @@ public class ReportTool extends Activity {
 						 * String.format("%.5g%n",
 						 * thisReport.currentLocationLon));
 						 */
-						Util.toast(
-								context,
-								getResources().getString(
-										R.string.added_current_loc)
-										+ "\n\nLat: "
-										+ String.format("%.5g%n",
-												thisReport.currentLocationLat)
-										+ "\nLon: "
-										+ String.format("%.5g%n",
-												thisReport.currentLocationLon));
+						Util.toast(context, getResources().getString(R.string.added_current_loc)
+								+ "\n\nLat: "
+								+ String.format("%.5g%n", thisReport.currentLocationLat)
+								+ "\nLon: "
+								+ String.format("%.5g%n", thisReport.currentLocationLon));
 
 					}
 
@@ -450,19 +398,15 @@ public class ReportTool extends Activity {
 					goToMapSelector();
 					return;
 				} else if (v.getId() == R.id.reportPhotoRow) {
-
 					Intent i = new Intent(ReportTool.this, AttachedPhotos.class);
-					i.putExtra(Reports.KEY_PHOTO_URIS,
-							thisReport.photoUrisJson.toString());
+					i.putExtra(Reports.KEY_PHOTO_URIS, thisReport.photoUrisJson.toString());
 					startActivityForResult(i, REQUEST_CODE_ATTACHED_PHOTOS);
 
 					return;
 				} else if (v.getId() == R.id.reportNoteRow) {
-
 					buildReportNoteDialog();
 					return;
 				}
-
 			}
 		};
 
@@ -494,8 +438,7 @@ public class ReportTool extends Activity {
 		if (thisReport.photoUrisJson != null
 				&& thisReport.photoUrisJson.length() > 0) {
 			photoCount.setVisibility(View.VISIBLE);
-			photoCount
-					.setText(String.valueOf(thisReport.photoUrisJson.length()));
+			photoCount.setText(String.valueOf(thisReport.photoUrisJson.length()));
 			reportPhotoCheck.setChecked(true);
 			thisReport.photoAttached = Report.YES;
 		} else {
@@ -522,19 +465,16 @@ public class ReportTool extends Activity {
 											(type == Report.TYPE_ADULT ? R.string.toast_report_before_submitting_adult
 													: R.string.toast_report_before_submitting_site))
 									+ "\n\n"
-									+ (reportConfirmationCheck.isChecked() ? ""
-											: (getResources()
+									+ (reportConfirmationCheck.isChecked() ? "" : (getResources()
 													.getString(
 															R.string.toast_complete_checklist) + "\n"))
-									+ (reportLocationCheck.isChecked() ? ""
-											: (getResources()
+									+ (reportLocationCheck.isChecked() ? "" : (getResources()
 													.getString(
 															R.string.toast_specify_location) + "\n"))
 									+ ((type == Report.TYPE_BREEDING_SITE && !reportPhotoCheck
 											.isChecked()) ? getResources()
 											.getString(
-													R.string.toast_attach_photo)
-											: ""));
+													R.string.toast_attach_photo) : ""));
 				} else {
 					message = getResources().getString(R.string.report_sent);
 					buildMailMessage(message);
@@ -547,7 +487,6 @@ public class ReportTool extends Activity {
 	}
 
 	private class mLocationListener implements LocationListener {
-
 		/**
 		 * Defines LocationListener behavior upon reception of a location fix
 		 * update from the LocationManager.
@@ -559,17 +498,13 @@ public class ReportTool extends Activity {
 
 				return;
 			} else {
-				if (currentLocation == null
-						|| (currentLocation != null && location.getAccuracy() < currentLocation
-								.getAccuracy())) {
+				if ( currentLocation == null
+						|| (location.getAccuracy() < currentLocation.getAccuracy())) {
 
 					currentLocation = location;
 
 					reportCurrentLocationImage.clearAnimation();
-					reportCurrentLocationImage
-							.setBackgroundDrawable(getResources().getDrawable(
-									R.drawable.ic_action_location_found));
-
+					reportCurrentLocationImage.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_action_location_found));
 				}
 
 				if (location.getAccuracy() < 100) {
@@ -578,13 +513,10 @@ public class ReportTool extends Activity {
 						try {
 							countDownTimer.cancel();
 						} catch (Exception e) {
-
-							Util.logError(context, TAG,
-									"exception cancelling countdown timer");
+							Util.logError(context, TAG, "exception cancelling countdown timer");
 						}
 					} else {
-						countDownTimer = new MyCountDownTimer(5 * 60 * 1000,
-								5 * 60 * 1000);
+						countDownTimer = new MyCountDownTimer(5 * 60 * 1000, 5 * 60 * 1000);
 					}
 					countDownTimer.start();
 
@@ -722,8 +654,7 @@ public class ReportTool extends Activity {
 			}
 		} else {
 			reportCurrentLocationImage.clearAnimation();
-			reportCurrentLocationImage.setBackgroundDrawable(getResources()
-					.getDrawable(R.drawable.ic_action_location_found));
+			reportCurrentLocationImage.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_action_location_found));
 		}
 
 		super.onResume();
@@ -889,7 +820,6 @@ public class ReportTool extends Activity {
 
 			@Override
 			public void onClick(View v) {
-
 				dialog.cancel();
 			}
 		});
@@ -904,25 +834,18 @@ public class ReportTool extends Activity {
 			startActivity(getIntent());
 		}
 		switch (requestCode) {
-
 		case (REQUEST_CODE_ATTACHED_PHOTOS): {
-
 			if (resultCode == RESULT_OK) {
-
 				if (data.hasExtra(Reports.KEY_PHOTO_URIS)) {
-					String incomingPhotoUris = data
-							.getStringExtra(Reports.KEY_PHOTO_URIS);
+					String incomingPhotoUris = data.getStringExtra(Reports.KEY_PHOTO_URIS);
 
 					if (incomingPhotoUris.length() > 0) {
-						thisReport.setPhotoUris(context,
-								data.getStringExtra(Reports.KEY_PHOTO_URIS));
+						thisReport.setPhotoUris(context, data.getStringExtra(Reports.KEY_PHOTO_URIS));
 						photoCount.setVisibility(View.VISIBLE);
-						photoCount.setText(String
-								.valueOf(thisReport.photoUrisJson.length()));
+						photoCount.setText(String.valueOf(thisReport.photoUrisJson.length()));
 						reportPhotoCheck.setChecked(true);
 						thisReport.photoAttached = Report.YES;
 					}
-
 					else {
 						photoCount.setVisibility(View.GONE);
 						reportPhotoCheck.setChecked(false);
@@ -934,30 +857,22 @@ public class ReportTool extends Activity {
 					thisReport.photoAttached = Report.NO;
 				}
 			}
-
 			break;
-
 		}
-
 		case (REQUEST_CODE_MAPSELECTOR): {
-
 			thisReport.selectedLocationLat = null;
 			thisReport.selectedLocationLon = null;
 
-			if (resultCode == RESULT_OK && data != null) {
-				if (data.hasExtra(MapSelector.LAT)) {
-					thisReport.selectedLocationLat = Float
-							.valueOf(((float) data.getDoubleExtra(
-									MapSelector.LAT, -1)));
+			if ( resultCode == RESULT_OK && data != null ) {
+				if ( data.hasExtra(MapSelector.LAT )) {
+					thisReport.selectedLocationLat = Float.valueOf(((float) data.getDoubleExtra(MapSelectorV2Activity.LAT, -1)));
 				}
-				if (data.hasExtra(MapSelector.LON)) {
-					thisReport.selectedLocationLon = Float
-							.valueOf(((float) data.getDoubleExtra(
-									MapSelector.LON, -1)));
+				if ( data.hasExtra(MapSelector.LON )) {
+					thisReport.selectedLocationLon = Float.valueOf(((float) data.getDoubleExtra(MapSelectorV2Activity.LON, -1)));
 				}
 			}
-			if (thisReport.selectedLocationLat != null
-					&& thisReport.selectedLocationLon != null) {
+			if ( thisReport.selectedLocationLat != null
+					&& thisReport.selectedLocationLon != null ) {
 				locationRadioGroup.check(R.id.whereRadioButtonOtherPlace);
 				reportLocationCheck.setChecked(true);
 				thisReport.locationChoice = LOCATION_CHOICE_SELECTED;
@@ -965,14 +880,11 @@ public class ReportTool extends Activity {
 			}
 			break;
 		}
-
 		case (REQUEST_CODE_REPORT_RESPONSES): {
 			reportConfirmationCheck.setChecked(false);
 			if (resultCode == RESULT_OK) {
-
 				if (data.hasExtra(Tasks.KEY_RESPONSES_JSON)) {
-					String responses = data
-							.getStringExtra(Tasks.KEY_RESPONSES_JSON);
+					String responses = data.getStringExtra(Tasks.KEY_RESPONSES_JSON);
 					thisReport.confirmation = responses;
 				}
 				if (data.hasExtra(Reports.KEY_CONFIRMATION_CODE)) {
@@ -984,7 +896,6 @@ public class ReportTool extends Activity {
 					}
 				}
 			} else {
-
 				// TODO
 			}
 		}
@@ -1414,17 +1325,12 @@ public class ReportTool extends Activity {
 
 			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 				gpsListener = new mLocationListener();
-				locationManager.requestLocationUpdates(
-						LocationManager.GPS_PROVIDER, 0, 0, gpsListener);
+				locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, gpsListener);
 				gpsAvailable = true;
 			}
-			if (locationManager
-					.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+			if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 				networkListener = new mLocationListener();
-				locationManager
-						.requestLocationUpdates(
-								LocationManager.NETWORK_PROVIDER, 0, 0,
-								networkListener);
+				locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, networkListener);
 				networkLocationAvailable = true;
 			}
 		}
@@ -1436,7 +1342,6 @@ public class ReportTool extends Activity {
 	}
 
 	public void buildLeaveReportWarning() {
-
 		AlertDialog.Builder dialog = new AlertDialog.Builder(context);
 		dialog.setTitle(getResources().getString(R.string.exit_question));
 		dialog.setMessage(getResources().getString(
@@ -1469,40 +1374,28 @@ public class ReportTool extends Activity {
 	}
 
 	private void goToMapSelector() {
-		Intent i = new Intent(ReportTool.this, MapSelector.class);
+		Intent i = new Intent(ReportTool.this, MapSelectorV2Activity.class);
 		Bundle b = new Bundle();
 		if (editing) {
 			Util.logInfo(context, TAG, "about to put location extras");
 			if (thisReport.locationChoice == Report.LOCATION_CHOICE_CURRENT) {
 				Util.logInfo(context, TAG, "current location");
 				if (thisReport.currentLocationLat != null) {
-					Util.logInfo(context, TAG, "current lat: "
-							+ thisReport.currentLocationLat);
-					b.putFloat(
-							Messages.makeIntentExtraKey(context, PREVIOUS_LAT),
-							thisReport.currentLocationLat);
+					Util.logInfo(context, TAG, "current lat: " + thisReport.currentLocationLat);
+					b.putFloat(Messages.makeIntentExtraKey(context, PREVIOUS_LAT), thisReport.currentLocationLat);
 				}
 				if (thisReport.currentLocationLon != null) {
-					Util.logInfo(context, TAG, "current lon: "
-							+ thisReport.currentLocationLon);
-					b.putFloat(
-							Messages.makeIntentExtraKey(context, PREVIOUS_LON),
-							thisReport.currentLocationLon);
+					Util.logInfo(context, TAG, "current lon: " + thisReport.currentLocationLon);
+					b.putFloat(Messages.makeIntentExtraKey(context, PREVIOUS_LON), thisReport.currentLocationLon);
 				}
 			} else if (thisReport.locationChoice == Report.LOCATION_CHOICE_SELECTED) {
 				if (thisReport.selectedLocationLat != null) {
-					Util.logInfo(context, TAG, "selected lat: "
-							+ thisReport.selectedLocationLat);
-					b.putFloat(
-							Messages.makeIntentExtraKey(context, PREVIOUS_LAT),
-							thisReport.selectedLocationLat);
+					Util.logInfo(context, TAG, "selected lat: " + thisReport.selectedLocationLat);
+					b.putFloat(Messages.makeIntentExtraKey(context, PREVIOUS_LAT), thisReport.selectedLocationLat);
 				}
 				if (thisReport.selectedLocationLon != null) {
-					Util.logInfo(context, TAG, "selected lon: "
-							+ thisReport.selectedLocationLon);
-					b.putFloat(
-							Messages.makeIntentExtraKey(context, PREVIOUS_LON),
-							thisReport.selectedLocationLon);
+					Util.logInfo(context, TAG, "selected lon: " + thisReport.selectedLocationLon);
+					b.putFloat(Messages.makeIntentExtraKey(context, PREVIOUS_LON), thisReport.selectedLocationLon);
 				}
 			}
 		}

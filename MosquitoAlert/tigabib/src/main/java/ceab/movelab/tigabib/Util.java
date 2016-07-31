@@ -244,7 +244,7 @@ public class Util {
 
 	public final static String EXTENSION = ".dat";
 
-	public final static GeoPoint CEAB_COORDINATES = new GeoPoint(41686600,2799600);
+	public final static GeoPoint CEAB_COORDINATES = new GeoPoint(41683600,2799600);
 
 	public final static double latMask = 0.05;
 	public final static double lonMask = 0.05;
@@ -277,7 +277,7 @@ public class Util {
 	public final static long MINUTES = SECONDS * 60;
 	public final static long HOURS = MINUTES * 60;
 	public final static long DAYS = HOURS * 24;
-	public final static long WEEKS = DAYS * 7;
+	//public final static long WEEKS = DAYS * 7;
 
 	/**
 	 * Value at which a location will be used, and both listeners stopped even
@@ -474,8 +474,7 @@ public class Util {
 		dialog.setContentView(R.layout.check_help);
 		TextView mText = (TextView) dialog.findViewById(R.id.checkHelpText);
 		mText.setText(Html.fromHtml(message, null, new TigaTagHandler()));
-		final ImageView mImage = (ImageView) dialog
-				.findViewById(R.id.checkHelpImage);
+		final ImageView mImage = (ImageView) dialog.findViewById(R.id.checkHelpImage);
 		mImage.setImageResource(thisImage);
 		mImage.setOnClickListener(new OnClickListener() {
 
@@ -496,12 +495,10 @@ public class Util {
 				dialog.setCanceledOnTouchOutside(true);
 				dialog.setCancelable(true);
 				dialog.show();
-
 			}
 
 		});
-		ImageView cancelButton = (ImageView) dialog
-				.findViewById(R.id.cancelButton);
+		ImageView cancelButton = (ImageView) dialog.findViewById(R.id.cancelButton);
 		cancelButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
@@ -518,12 +515,10 @@ public class Util {
 		dialog.setContentView(R.layout.check_help);
 		TextView mText = (TextView) dialog.findViewById(R.id.checkHelpText);
 		mText.setText(Html.fromHtml(message, null, new TigaTagHandler()));
-		final ImageView mImage = (ImageView) dialog
-				.findViewById(R.id.checkHelpImage);
+		final ImageView mImage = (ImageView) dialog.findViewById(R.id.checkHelpImage);
 		mImage.setVisibility(View.GONE);
 
-		ImageView cancelButton = (ImageView) dialog
-				.findViewById(R.id.cancelButton);
+		ImageView cancelButton = (ImageView) dialog.findViewById(R.id.cancelButton);
 		cancelButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View arg0) {
@@ -1067,24 +1062,18 @@ public class Util {
 	}
 
 	public static Uri getReportsUri(Context context) {
-		return Uri.parse("content://"
-				+ context.getResources().getString(
-						R.string.content_provider_auth_reports) + "/"
-				+ ContProvReports.DATABASE_TABLE);
+		return Uri.parse("content://" + context.getResources().getString(
+						R.string.content_provider_auth_reports) + "/" + ContProvReports.DATABASE_TABLE);
 	}
 
 	public static Uri getMissionsUri(Context context) {
-		return Uri.parse("content://"
-				+ context.getResources().getString(
-						R.string.content_provider_auth_missions) + "/"
-				+ ContProvMissions.DATABASE_TABLE);
+		return Uri.parse("content://" + context.getResources().getString(
+						R.string.content_provider_auth_missions) + "/" + ContProvMissions.DATABASE_TABLE);
 	}
 
 	public static Uri getTracksUri(Context context) {
-		return Uri.parse("content://"
-				+ context.getResources().getString(
-						R.string.content_provider_auth_tracks) + "/"
-				+ ContProvTracks.DATABASE_TABLE);
+		return Uri.parse("content://" + context.getResources().getString(
+						R.string.content_provider_auth_tracks) + "/" + ContProvTracks.DATABASE_TABLE);
 	}
 
 	public static void buildCustomAlert(Context context, String message) {

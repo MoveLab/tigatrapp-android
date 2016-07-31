@@ -87,7 +87,7 @@
     <string name="confirmation_q1_adult_sizecolor">¿Cómo es tu mosquito? Consulta el botón (i) y selecciona una respuesta:</string>
     <string name="adult_report_q1a1">Como <i>Ae. albopictus</i></string>
     <string name="adult_report_q1a2">Como <i>Ae. aegypti</i></string>
-    <string name="adult_report_q1a3">None of them</string>
+    <string name="adult_report_q1a3">Ninguno de los dos</string>
     <string name="adult_report_q1a4">No sé</string>
     <string name="adult_report_q2a1">Tórax like <i>Ae. albopictus</i></string>
     <string name="adult_report_q2a2">Tórax como <i>Ae. aegypti</i></string>

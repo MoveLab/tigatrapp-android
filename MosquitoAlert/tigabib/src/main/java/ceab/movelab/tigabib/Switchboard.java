@@ -220,7 +220,7 @@ public class Switchboard extends Activity {
 
 				@Override
 				public void onClick(View v) {
-					Intent i = new Intent(Switchboard.this, MapDataV2.class);
+					Intent i = new Intent(Switchboard.this, MapDataV2Activity.class);
 					startActivity(i);
 				}
 			});

@@ -42,7 +42,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
-import ceab.movelab.tigabib.R;
+
 import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
 
 public class MissionListActivity extends FragmentActivity implements

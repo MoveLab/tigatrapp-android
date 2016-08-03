@@ -3,12 +3,16 @@ package ceab.movelab.tigabib.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 public class Notification extends RealmObject {
 
     @SerializedName("id")
     @Expose
+    @PrimaryKey
     private Integer id;
     @SerializedName("report_id")
     @Expose
@@ -21,7 +25,7 @@ public class Notification extends RealmObject {
     private Integer expertId;
     @SerializedName("date_comment")
     @Expose
-    private String dateComment;
+    private Date dateComment;
     @SerializedName("expert_comment")
     @Expose
     private String expertComment;
@@ -34,6 +38,16 @@ public class Notification extends RealmObject {
     @SerializedName("acknowledged")
     @Expose
     private String acknowledged;
+
+    private boolean read;
+
+    public boolean isRead() {
+        return read;
+    }
+
+    public void setRead(boolean read) {
+        this.read = read;
+    }
 
     /**
      *
@@ -112,7 +126,7 @@ public class Notification extends RealmObject {
      * @return
      * The dateComment
      */
-    public String getDateComment() {
+    public Date getDateComment() {
         return dateComment;
     }
 
@@ -121,7 +135,7 @@ public class Notification extends RealmObject {
      * @param dateComment
      * The date_comment
      */
-    public void setDateComment(String dateComment) {
+    public void setDateComment(Date dateComment) {
         this.dateComment = dateComment;
     }
 

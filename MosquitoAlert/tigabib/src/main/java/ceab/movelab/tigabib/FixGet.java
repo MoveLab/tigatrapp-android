@@ -353,7 +353,7 @@ public class FixGet extends Service {
 		public void onStatusChanged(String provider, int status, Bundle extras) {
 			/*
 			 * If provider service is no longer available, stop trying to get
-			 * updates from both providers and quit.
+			 * updates from both ceab.movelab.tigabib.providers and quit.
 			 */
 			if (status != LocationProvider.AVAILABLE) {
 				removeLocationUpdate(provider);

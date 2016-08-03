@@ -395,7 +395,7 @@ public class MapSelectorV2Activity extends FragmentActivity implements OnMapRead
 		public void onStatusChanged(String provider, int status, Bundle extras) {
 			/*
 			 * If provider service is no longer available, stop trying to get
-			 * updates from both providers and quit.
+			 * updates from both ceab.movelab.tigabib.providers and quit.
 			 */
 			if (status == LocationProvider.OUT_OF_SERVICE) {
 				removeLocationUpdate(provider);

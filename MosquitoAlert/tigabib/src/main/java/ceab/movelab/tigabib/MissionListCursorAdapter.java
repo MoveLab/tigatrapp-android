@@ -32,7 +32,7 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.TextView;
-import ceab.movelab.tigabib.R;
+
 import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
 
 public class MissionListCursorAdapter extends SimpleCursorAdapter {

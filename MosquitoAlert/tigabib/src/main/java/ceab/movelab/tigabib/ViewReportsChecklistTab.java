@@ -14,7 +14,8 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.widget.ListView;
-import ceab.movelab.tigabib.R;
+
+import ceab.movelab.tigabib.adapters.ViewResponsesAdapter;
 import ceab.movelab.tigabib.ContProvContractReports.Reports;
 
 public class ViewReportsChecklistTab extends Activity {

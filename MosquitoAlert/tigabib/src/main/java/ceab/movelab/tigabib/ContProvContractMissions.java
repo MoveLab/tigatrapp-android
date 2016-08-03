@@ -21,7 +21,6 @@
 
 package ceab.movelab.tigabib;
 
-import android.net.Uri;
 import android.provider.BaseColumns;
 
 /**

@@ -24,7 +24,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import ceab.movelab.tigabib.R;
+
 import ceab.movelab.tigabib.ContProvContractReports.Reports;
 
 public class ViewReportsPhotosTab extends Activity {

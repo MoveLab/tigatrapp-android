@@ -102,6 +102,10 @@ public class UtilLocal {
 	 * API mission endpoint.
 	 */
 	public static final String API_MISSION = "missions/";
+	/**
+	 * API mission endpoint.
+	 */
+	public static final String API_NOTIFICATION = "user_notifications/";
 
 	/**
 	 * API c endpoint.

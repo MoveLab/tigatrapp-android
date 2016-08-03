@@ -29,6 +29,7 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.UUID;
 
+import ceab.movelab.tigabib.adapters.MissionAdapter;
 import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
 import ceab.movelab.tigabib.ContProvContractReports.Reports;
 

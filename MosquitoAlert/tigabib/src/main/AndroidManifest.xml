@@ -42,7 +42,7 @@
     <uses-feature android:name="android.hardware.camera" />
 
     <application
-        android:allowBackup="false"
+        android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/DarkThemeSelector" >
@@ -72,10 +72,12 @@
             android:name="ceab.movelab.tigabib.ViewReportsTab"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
-        <activity android:name="ceab.movelab.tigabib.MissionListActivity" >
-        </activity>
-        <activity android:name="ceab.movelab.tigabib.MissionActivity" >
-        </activity>
+        <activity android:name="ceab.movelab.tigabib.MissionListActivity" />
+        <activity android:name="ceab.movelab.tigabib.NotificationListActivity" />
+
+        <activity android:name="ceab.movelab.tigabib.MissionActivity" />
+        <activity android:name="ceab.movelab.tigabib.NotificationActivity" />
+
         <activity android:name="ceab.movelab.tigabib.AttachedPhotos" >
         </activity>
         <activity android:name="ceab.movelab.tigabib.ReportTool" >

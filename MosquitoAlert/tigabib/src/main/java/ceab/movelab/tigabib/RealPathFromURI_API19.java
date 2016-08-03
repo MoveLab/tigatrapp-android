@@ -126,7 +126,7 @@ public class RealPathFromURI_API19 {
     	 * @return Whether the Uri authority is DownloadsProvider.
     	 */
     	public static boolean isDownloadsDocument(Uri uri) {
-    	    return "com.android.providers.downloads.documents".equals(uri
+    	    return "com.android.ceab.movelab.tigabib.providers.downloads.documents".equals(uri
     	            .getAuthority());
     	}
 
@@ -136,7 +136,7 @@ public class RealPathFromURI_API19 {
     	 * @return Whether the Uri authority is MediaProvider.
     	 */
     	public static boolean isMediaDocument(Uri uri) {
-    	    return "com.android.providers.media.documents".equals(uri
+    	    return "com.android.ceab.movelab.tigabib.providers.media.documents".equals(uri
     	            .getAuthority());
     	}
     	

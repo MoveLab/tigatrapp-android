@@ -31,7 +31,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import ceab.movelab.tigabib.R;
+
+import ceab.movelab.tigabib.adapters.RSSAdapter;
 
 public class RSSActivity extends Activity {
 	private static String TAG = "RSSActivity";

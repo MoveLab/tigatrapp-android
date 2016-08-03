@@ -25,10 +25,8 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -51,8 +49,16 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.google.gson.reflect.TypeToken;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+
+import ceab.movelab.tigabib.model.Notification;
+import ceab.movelab.tigabib.model.RealmHelper;
 
 /**
  * Main menu screen for app.
@@ -62,17 +68,20 @@ import java.util.UUID;
  */
 public class Switchboard extends Activity {
 
+	private static String TAG = "Switchboard";
+
 	private RelativeLayout reportButtonAdult;
 	private RelativeLayout reportButtonSite;
-	private RelativeLayout galleryButton;
 	private RelativeLayout mapButton;
-	private ImageView pybossaButton;
+	private RelativeLayout pybossaButton;
+	private RelativeLayout notificationsButton;
+	private RelativeLayout missionsButton;
 	private ImageView websiteButton;
 	private ImageView menuButton;
 
-	final Context context = this;
+	//final Context context = this;
 	//AnimationDrawable ad;
-	Resources res;
+	//Resources res;
 	String lang;
 
 	final private static int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 555;
@@ -84,10 +93,9 @@ public class Switchboard extends Activity {
 		super.onCreate(savedInstanceState);
 
 		if (!PropertyHolder.isInit())
-			PropertyHolder.init(context);
+			PropertyHolder.init(this);
 
-		res = getResources();
-		lang = Util.setDisplayLanguage(res);
+		lang = Util.setDisplayLanguage(getResources());
 
 		/// Android 6.0 check for permissions first of all
 		mPermissionsDenied = getDeniedPermissions();
@@ -100,7 +108,7 @@ public class Switchboard extends Activity {
 	}
 
 	private void onCreateWithPermissions() {
-		if (!Util.privateMode(context) && !PropertyHolder.hasConsented()) {
+		if (!Util.privateMode(this) && !PropertyHolder.hasConsented()) {
 			Intent i2c = new Intent(Switchboard.this, Consent.class);
 			startActivity(i2c);
 			finish();
@@ -111,7 +119,7 @@ public class Switchboard extends Activity {
 				PropertyHolder.setNeedsMosquitoAlertPop(false);
 			} else {
 				if (PropertyHolder.needsMosquitoAlertPop()) {
-					final Dialog dialog = new Dialog(context);
+					final Dialog dialog = new Dialog(this);
 					dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 					dialog.setContentView(R.layout.custom_alert);
 					dialog.setCancelable(true);
@@ -134,13 +142,13 @@ public class Switchboard extends Activity {
 				}
 			}
 
-			if (Util.privateMode(context)) {
+			if (Util.privateMode(this)) {
 
 				final long now = System.currentTimeMillis();
 
 				if ((now - PropertyHolder.getLastDemoPopUpTime()) > Util.DAYS) {
 
-					final Dialog dialog = new Dialog(context);
+					final Dialog dialog = new Dialog(this);
 
 					dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 					dialog.setContentView(R.layout.custom_alert);
@@ -174,15 +182,15 @@ public class Switchboard extends Activity {
 
 			// open and close databases in order to trigger any updates
 			ContentResolver cr = getContentResolver();
-			Cursor c = cr.query(Util.getReportsUri(context), new String[]{ContProvContractReports.Reports.KEY_ROW_ID}, null, null, null);
+			Cursor c = cr.query(Util.getReportsUri(this), new String[]{ContProvContractReports.Reports.KEY_ROW_ID}, null, null, null);
 			c.close();
-			c = cr.query(Util.getMissionsUri(context), new String[]{ContProvContractReports.Reports.KEY_ROW_ID}, null, null, null);
+			c = cr.query(Util.getMissionsUri(this), new String[]{ContProvContractReports.Reports.KEY_ROW_ID}, null, null, null);
 			c.close();
 
 			if (PropertyHolder.isServiceOn()) {
 				long lastScheduleTime = PropertyHolder.lastSampleScheduleMade();
 				if (System.currentTimeMillis() - lastScheduleTime > (1000 * 60 * 60 * 24)) {
-					Util.internalBroadcast(context, Messages.START_DAILY_SAMPLING);
+					Util.internalBroadcast(this, Messages.START_DAILY_SAMPLING);
 				}
 			}
 
@@ -225,12 +233,29 @@ public class Switchboard extends Activity {
 				}
 			});
 
-			galleryButton = (RelativeLayout) findViewById(R.id.reportMainPic);
-			galleryButton.setOnClickListener(new View.OnClickListener() {
-
+			pybossaButton = (RelativeLayout) findViewById(R.id.reportMainPic);
+			pybossaButton.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Intent i = new Intent(Switchboard.this, PhotoGallery.class);
+					Intent i = new Intent(Switchboard.this, PhotoValidationActivity.class);
+					startActivity(i);
+				}
+			});
+
+			notificationsButton = (RelativeLayout) findViewById(R.id.reportNotificationsLayout);
+			notificationsButton.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent i = new Intent(Switchboard.this, NotificationListActivity.class);
+					startActivity(i);
+				}
+			});
+
+			missionsButton = (RelativeLayout) findViewById(R.id.reportMissionsLayout);
+			missionsButton.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					Intent i = new Intent(Switchboard.this, MissionListActivity.class);
 					startActivity(i);
 				}
 			});
@@ -248,22 +273,11 @@ public class Switchboard extends Activity {
 				}
 			});
 
-			pybossaButton = (ImageView) findViewById(R.id.pybossaButton);
-			pybossaButton.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Intent i = new Intent(Switchboard.this, PhotoValidationActivity.class);
-					startActivity(i);
-				}
-			});
-
 			menuButton = (ImageView) findViewById(R.id.menuButton);
 			menuButton.setOnClickListener(new View.OnClickListener() {
-
 				@Override
 				public void onClick(View v) {
 					openOptionsMenu();
-
 				}
 			});
 
@@ -273,21 +287,50 @@ public class Switchboard extends Activity {
 			reportButtonAdult.startAnimation(animation);
 			reportButtonSite.startAnimation(animation);
 			mapButton.startAnimation(animation);
-			galleryButton.startAnimation(animation);
+			pybossaButton.startAnimation(animation);
 			websiteButton.startAnimation(animation);
 			menuButton.startAnimation(animation);
+
 		}
 	}
 
 	@Override
 	protected void onResume() {
-		res = getResources();
-		if (!Util.setDisplayLanguage(res).equals(lang)) {
+		if (!Util.setDisplayLanguage(getResources()).equals(lang)) {
 			finish();
 			startActivity(getIntent());
 		}
+		RealmHelper.getInstance().getRealm(Switchboard.this);
 
+		loadRemoteNotifications();
 		super.onResume();
+	}
+
+	private void loadRemoteNotifications() {
+		String notificationUrl = Util.API_NOTIFICATION + "?";
+				//+"&user_id=" +PropertyHolder.getUserId();
+
+		Ion.with(this)
+			.load(Util.URL_TIGASERVER_API_ROOT + notificationUrl)
+			.setHeader("Accept", "application/json")
+			.setHeader("Content-type", "application/json")
+			.setHeader("Authorization", UtilLocal.TIGASERVER_AUTHORIZATION)
+			.as(new TypeToken<List<Notification>>(){})
+			.setCallback(new FutureCallback<List<Notification>>() {
+				@Override
+				public void onCompleted(Exception e, List<Notification> result) {
+					// do stuff with the result or error
+					Util.logInfo(Switchboard.this, TAG, result.toString());
+
+					RealmHelper.getInstance().addOrUpdateNotificationList(result);
+					updateNotificationCount();
+				}
+			});
+	}
+
+	private void updateNotificationCount() {
+		int count = RealmHelper.getInstance().getNewNotificationsCount();
+		((TextView) findViewById(R.id.reportNotificationsNumberText)).setText(String.valueOf(count));
 	}
 
 	@Override
@@ -333,8 +376,8 @@ public class Switchboard extends Activity {
 			i.putExtra(RSSActivity.RSSEXTRA_DEFAULT_THUMB, R.drawable.ic_launcher);
 			startActivity(i);
 			return true;
-		} else if (item.getItemId() == R.id.taskList) {
-			Intent i = new Intent(Switchboard.this, MissionListActivity.class);
+		} else if (item.getItemId() == R.id.gallery) {
+			Intent i = new Intent(Switchboard.this, PhotoGallery.class);
 			startActivity(i);
 			return true;
 		} else if (item.getItemId() == R.id.settings) {
@@ -350,7 +393,6 @@ public class Switchboard extends Activity {
 			startActivity(i);
 			return true;
 		} else if (item.getItemId() == R.id.shareApp) {
-
 			Intent shareIntent = new Intent(Intent.ACTION_SEND);
 			// set the type
 			shareIntent.setType("text/plain");

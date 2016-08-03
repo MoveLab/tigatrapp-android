@@ -22,9 +22,7 @@
 package ceab.movelab.tigabib;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -40,26 +38,22 @@ import android.webkit.WebView;
  */
 public class PhotoValidationActivity extends Activity {
 
-	private static String TAG = "PhotoValidation";
+	//private static String TAG = "PhotoValidation";
 
-	Context context = this;
-
-	private static final String PYBOSSA_URL = "http://www.google.cat";
+	private static final String PYBOSSA_URL = "http://crowdcrafting.org/project/mosquito-alert/task/1383572";
 
 	private WebView myWebView;
 
 	String lang;
-	Resources res;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		if ( !PropertyHolder.isInit() )
-			PropertyHolder.init(context);
+			PropertyHolder.init(this);
 
-		res = getResources();
-		lang = Util.setDisplayLanguage(res);
+		lang = Util.setDisplayLanguage(getResources());
 	}
 
 	@Override
@@ -70,9 +64,9 @@ public class PhotoValidationActivity extends Activity {
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onResume() {
+		super.onResume();
 
-		res = getResources();
-		if (!Util.setDisplayLanguage(res).equals(lang)) {
+		if (!Util.setDisplayLanguage(getResources()).equals(lang)) {
 			finish();
 			startActivity(getIntent());
 		}
@@ -99,14 +93,11 @@ public class PhotoValidationActivity extends Activity {
 		}*/
 
 		myWebView.loadUrl(PYBOSSA_URL);
-
-		super.onResume();
-
 	}
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (Util.isOnline(context)) {
+		if (Util.isOnline(this)) {
 			// Check if the key event was the Back button and if there's history
 			if ((keyCode == KeyEvent.KEYCODE_BACK) && myWebView.canGoBack()) {
 				myWebView.goBack();
@@ -124,7 +115,6 @@ public class PhotoValidationActivity extends Activity {
 		inflater.inflate(R.menu.about_menu, menu);
 
 		return true;
-
 	}
 
 	@Override

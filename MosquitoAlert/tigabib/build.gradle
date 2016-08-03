@@ -1,7 +1,13 @@
 apply plugin: 'com.android.library'
 apply plugin: 'realm-android'
 
+repositories {
+    maven { url 'https://github.com/uPhyca/stetho-realm/raw/master/maven-repo' }
+}
+
 android {
+    publishNonDefault true  // do not remove
+
     signingConfigs {
         config {
             keyAlias 'tigakeys'
@@ -21,7 +27,7 @@ android {
     }
     buildTypes {
         debug {
-            buildConfigField "boolean", "PRIVATE_MODE", "true"
+            buildConfigField "boolean", "PRIVATE_MODE", "false"
         }
         release {
             buildConfigField "boolean", "PRIVATE_MODE", "false"
@@ -35,7 +41,7 @@ android {
 }
 
 dependencies {
-    /*    compile 'com.google.android.gms:play-services-maps:8.4.0'*/
+/*    compile 'com.google.android.gms:play-services-maps:8.4.0'*/
     compile 'com.android.support:support-v4:24.1.1'
     compile 'com.android.support:appcompat-v7:24.1.1'
     compile 'com.google.android.gms:play-services-maps:9.2.1'
@@ -45,4 +51,8 @@ dependencies {
     compile 'com.google.code.gson:gson:2.6.2'
 
     compile 'com.koushikdutta.ion:ion:2.0.0'
+
+    compile 'com.facebook.stetho:stetho-okhttp3:1.3.1'
+    compile 'com.facebook.stetho:stetho:1.3.1'
+    compile 'com.uphyca:stetho_realm:0.9.0'
 }

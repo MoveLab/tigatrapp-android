@@ -231,7 +231,12 @@ public class Util {
 	public static final String API_MISSION = UtilLocal.API_MISSION;
 
 	/**
-	 * API c endpoint.
+	 * API notification endpoint.
+	 */
+	public static final String API_NOTIFICATION = UtilLocal.API_NOTIFICATION;
+
+	/**
+	 * API config endpoint.
 	 */
 	public static final String API_CONFIGURATION = UtilLocal.API_CONFIGURATION;
 

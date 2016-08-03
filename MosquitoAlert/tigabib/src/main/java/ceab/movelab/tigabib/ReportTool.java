@@ -31,13 +31,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
-import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.Resources;
@@ -52,7 +50,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Html;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -548,7 +545,7 @@ public class ReportTool extends Activity {
 		public void onStatusChanged(String provider, int status, Bundle extras) {
 			/*
 			 * If provider service is no longer available, stop trying to get
-			 * updates from both providers but start timer.
+			 * updates from both ceab.movelab.tigabib.providers but start timer.
 			 */
 			if (status != LocationProvider.AVAILABLE) {
 				removeLocationUpdate(provider);

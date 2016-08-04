@@ -21,6 +21,7 @@
 
 package ceab.movelab.tigabib;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.View;
@@ -34,15 +35,19 @@ import java.util.List;
 import ceab.movelab.tigabib.adapters.NotificationAdapter;
 import ceab.movelab.tigabib.model.Notification;
 import ceab.movelab.tigabib.model.RealmHelper;
+import io.realm.Realm;
 
 public class NotificationListActivity extends FragmentActivity {
+
+	private String lang;
+
+	private Realm mRealm;
 
 	private ListView listView;
 	private NotificationAdapter adapter;
 
 	private ArrayList<Notification> notifData = new ArrayList<>();
 
-	String lang;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -59,15 +64,19 @@ public class NotificationListActivity extends FragmentActivity {
 		adapter = new NotificationAdapter(this, R.layout.notifications_list, notifData);
 		listView.setAdapter(adapter);
 
+		mRealm = RealmHelper.getInstance().getRealm();
+
 		listView.setFastScrollEnabled(true);
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				// When clicked, show a toast with the TextView text
-				Toast.makeText(getApplicationContext(), notifData.get(position).getId(), Toast.LENGTH_SHORT).show();
+Toast.makeText(getApplicationContext(), String.valueOf(notifData.get(position).getId()), Toast.LENGTH_SHORT).show();
+				Intent i = new Intent(NotificationListActivity.this, NotificationActivity.class);
+				i.putExtra(NotificationActivity.NOTIFICATION_ID, notifData.get(position).getId());
+				startActivity(i);
 			}
 		});
 
-		loadNotifications();
 	}
 
 	@Override
@@ -78,17 +87,23 @@ public class NotificationListActivity extends FragmentActivity {
 		}
 
 		super.onResume();
+
+		loadNotifications();
+	}
+
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		//mRealm.close(); // Remember to close Realm when done.
 	}
 
 	private void loadNotifications() {
-		RealmHelper.getInstance().getRealm();
+		notifData.clear();
 		List<Notification> notificationList = RealmHelper.getInstance().getAllNotifications();
 		for (Notification notif : notificationList )
 			notifData.add(notif);
 
 		adapter.notifyDataSetChanged();
 	}
-
-
 
 }

@@ -56,8 +56,7 @@ public class RealmHelper {
     }
 
     public Notification getNotificationById(int id) {
-        Notification results = mRealm.where(Notification.class).equalTo("id", id).findFirst();
-        return results;
+        return mRealm.where(Notification.class).equalTo("id", id).findFirst();
     }
 
     public RealmResults<Notification> getAllNotifications() {

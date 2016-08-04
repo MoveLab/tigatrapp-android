@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import ceab.movelab.tigabib.R;
 
 /**
  * Main activity that user interacts with while performing the search..
@@ -138,7 +137,6 @@ public class Help extends FragmentActivity {
 		super.onOptionsItemSelected(item);
 
 		if (item.getItemId()==R.id.language) {
-
 
 			Intent i = new Intent(Help.this, LanguageSelector.class);
 			startActivity(i);

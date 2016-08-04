@@ -1,0 +1,24 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/notificationsTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="_Notitfications"
+        android:textColor="@color/light_orange"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:padding="10dip" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="@color/white" />
+
+    <WebView android:id="@+id/notificationWebview"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent" />
+
+</LinearLayout>

@@ -23,12 +23,17 @@ package ceab.movelab.tigabib;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.webkit.ConsoleMessage;
+import android.webkit.WebChromeClient;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 /**
  * Displays the Pybossa photo validation system screen.
@@ -36,7 +41,7 @@ import android.webkit.WebView;
  * @author Màrius Garcia
  * 
  */
-public class PhotoValidationActivity extends Activity {
+public class PhotoValidationWebViewActivity extends Activity {
 
 	//private static String TAG = "PhotoValidation";
 
@@ -74,24 +79,36 @@ public class PhotoValidationActivity extends Activity {
 		setContentView(R.layout.webview);
 
 		myWebView = (WebView) findViewById(R.id.webview);
-		/*myWebView.setWebViewClient(new WebViewClient() {
-			public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-				Toast.makeText(PhotoValidationActivity.this, "error", Toast.LENGTH_SHORT).show();
+		myWebView.setWebViewClient(new WebViewClient(){
+			public boolean shouldOverrideUrlLoading(WebView view, String url) {
+//Toast.makeText(PhotoValidationActivity.this, url, Toast.LENGTH_SHORT).show();
+				String myUrl = "http://crowdcrafting.org/project/mosquito-alert";
+				// all links  with in ur site will be open inside the webview
+				// links that start ur domain example(http://www.example.com/)
+				if (url != null && url.startsWith(myUrl)){
+					return false;
+				}
+				// all links that points outside the site will be open in a normal android browser
+				else  {
+					view.getContext().startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(url)));
+					return true;
+				}
 			}
-		});*/
+			public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
+				Toast.makeText(PhotoValidationWebViewActivity.this, "error", Toast.LENGTH_SHORT).show();
+			}
+		});
+		myWebView.setWebChromeClient(new WebChromeClient() {
+			public boolean onConsoleMessage(ConsoleMessage cm) {
+				Util.logInfo(PhotoValidationWebViewActivity.this, "MyApplication", cm.message() + " -- From line "
+						+ cm.lineNumber() + " of " + cm.sourceId() );
+				return true;
+			}
+		});
 
 		//myWebView.getSettings().setAllowFileAccess(true);
 		myWebView.getSettings().setJavaScriptEnabled(true);
 		//myWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
-
-		/*if (Build.VERSION.SDK_INT >= 7) {
-			WebViewApi7.api7settings(myWebView, context);
-		}*/
-
-		/*if (!Util.isOnline(context)) { // loading offline only if not online
-			myWebView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-		}*/
-
 		myWebView.loadUrl(PYBOSSA_URL);
 	}
 
@@ -122,11 +139,11 @@ public class PhotoValidationActivity extends Activity {
 		super.onOptionsItemSelected(item);
 
 		if (item.getItemId() == R.id.language) {
-			Intent i = new Intent(PhotoValidationActivity.this, LanguageSelector.class);
+			Intent i = new Intent(PhotoValidationWebViewActivity.this, LanguageSelector.class);
 			startActivity(i);
 			return true;
 		} else if (item.getItemId() == R.id.license) {
-			Intent i = new Intent(PhotoValidationActivity.this, License.class);
+			Intent i = new Intent(PhotoValidationWebViewActivity.this, License.class);
 			startActivity(i);
 			return true;
 		}
@@ -134,4 +151,5 @@ public class PhotoValidationActivity extends Activity {
 		return false;
 	}
 
+	
 }

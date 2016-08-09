@@ -8,7 +8,7 @@
  Exported at: Thu, 10 Mar 2016 19:09:18 +0000
 -->
 <resources>
-    <!-- Intro and Consent -->
+    <!-- Intro and ConsentActivity -->
     <string name="consent_button_label">我已閱讀並接受這些條款</string>
     <string name="decline_button_label">我拒絕同意</string>
     <string name="mosquito_alert_pop">&lt;p&gt;&lt;b&gt;AtrapaelTigre 已改名為 Mosquito Alert!&lt;/b&gt;&lt;/p&gt;\n&lt;p&gt;我們均源自同一個團隊，但我們已進行項目拓展，並添加了新原素：現在你不單只可以報告白紋伊蚊 (&lt;i&gt;Aedes albopictus&lt;/i&gt;) ，你亦可同時報告埃及斑蚊 (&lt;i&gt;Aedes aegypti&lt;/i&gt;)的蹤影。&lt;p&gt;\n&lt;p&gt;你可瀏覽 www.mosquitoalert.com 以了解更多相關資訊&lt;/p&gt;\n&lt;p&gt;謝謝你的支持和參與&lt;/p&gt;\n&lt;p&gt;Mosquito Alert 團隊&lt;/p&gt;\n</string>
@@ -164,7 +164,7 @@
     <string name="menu_map_share">分享</string>
     <string name="menu_toggle_view">衛星</string>
     <string name="menu_option_refresh">重新整理</string>
-    <!-- Settings -->
+    <!-- SettingsActivity -->
     <string name="settings_language_title">語言</string>
     <string name="settings_language_detail">選擇語言</string>
     <string name="settings_language_button">選擇</string>

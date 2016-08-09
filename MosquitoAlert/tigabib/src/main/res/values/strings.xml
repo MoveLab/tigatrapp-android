@@ -4,28 +4,29 @@
  Project: Tigatrapp
  Release: Working copy
  Locale: en_US, English (USA)
- Exported by: John Palmer
- Exported at: Thu, 10 Mar 2016 19:09:18 +0000
+ Tagged: android
+ Exported by: Agusti Escobar
+ Exported at: Wed, 27 Jul 2016 11:23:07 +0100
 -->
 <resources>
-    <!-- Intro and Consent -->
+    <!-- Intro and ConsentActivity -->
     <string name="consent_button_label">I have read and I accept these conditions</string>
     <string name="decline_button_label">I decline to consent</string>
     <string name="mosquito_alert_pop">&lt;p&gt;&lt;b&gt;AtrapaelTigre is now Mosquito Alert!&lt;/b&gt;&lt;/p&gt;\n&lt;p&gt;We are the same team but the project has grown to incorporate a new character: Now you can send reports of not only tiger mosquitoes (&lt;i&gt;Aedes albopictus&lt;/i&gt;) but also yellow fever mosquitoes (&lt;i&gt;Aedes aegypti&lt;/i&gt;).&lt;p&gt;\n&lt;p&gt;You can find more information at www.mosquitoalert.com&lt;/p&gt;\n&lt;p&gt;Thanks for your interest and participation,&lt;/p&gt;\n&lt;p&gt;The Mosquito Alert Team&lt;/p&gt;\n</string>
     <string-array name="gallery_array">
         <!-- Gallery -->
-        <item name="gallery_array[0]">The main difference between the yellow fever mosquito, &lt;i&gt;Ae. aegypti&lt;/i&gt; (left), and the tiger mosquito. &lt;i&gt;Ae. albopictus&lt;/i&gt; (right), is in the thorax: The yellow fever mosquito has a lyre-shaped mark, while the tiger mosquito has a single white stripe.\u0020\u0020&lt;b&gt;Foto: Vincent Robert (CC BY 2.0)&lt;/b&gt;</item>
-        <item name="gallery_array[1]">Tiger mosquito (&lt;i&gt;Aedes albopictus&lt;/i&gt;). Its main characteristic is its black body with white spots and a white stripe on the head and thorax. &lt;b&gt; Photo: Roger Eritja (©)&lt;/ b&gt;</item>
-        <item name="gallery_array[2]">Yellow fever mosquito (&lt;i&gt;Aedes aegypti&lt;/i&gt;). Recognized by its dark brown color with white spots and the lyre-shaped mark on its torso. Observe the previous image and compare the colors. &lt;b&gt;Photo: James Gathany (ECDC, domini públic)&lt;/b&gt;</item>
-        <item name="gallery_array[3]">Observe the black color that characterizes &lt;i&gt;Ae. albopictus&lt;/i&gt;. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array[4]">Observe the brown color of &lt;i&gt;Ae. aegypti&lt;/i&gt;. &lt;b&gt;Foto: Mark Yokoyama (CC BY 2.0)&lt;/b&gt;</item>
-        <item name="gallery_array[5]">Who bites? Only female mosquitoes, and in this case &lt;i&gt;Ae. albopictus&lt;/i&gt;. Urban &lt;i&gt;Aedes&lt;/i&gt; usually bite during the day (not at night), and they usually bite legs. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array[6]">Two female &lt;i&gt;Ae. aegypti&lt;/i&gt;. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;\n</item>
-        <item name="gallery_array[7]">Difference between male (left) and female (right) &lt;i&gt;Ae. albopictus&lt;/i&gt;. The males have plumes on their heads. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;\n</item>
-        <item name="gallery_array[8]">&lt;i&gt;Aedes&lt;/i&gt; eggs. The eggs are so small they are almost invisible to the naked eye. Urban &lt;i&gt;Aedes&lt;/i&gt; lay eggs on the dry walls of small vessels near stagnant water. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array[9]">&lt;i&gt;Aedes&lt;/i&gt; larvae (longer) and pupae (rounder). Notice that they are aquatic. The larvae emerge from the eggs when the eggs are covered with water, and they eventually turn into pupae. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array[10]">&lt;i&gt;Aedes&lt;/i&gt; larvae (longer) and pupae (rounder) in the water. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array[11]">Metamorphosis: Adult mosquito (&lt;i&gt;Ae. albopictus&lt;/i&gt;) emerges from pupae into the air. To avoid urban &lt;i&gt;Aedes&lt;/i&gt; around your home, remove standing water and flip containers that might accumulate water when it rains or when you water the garden. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;</item>
+        <item name="gallery_array0">The main difference between the yellow fever mosquito (left) and the tiger mosquito (right), is right after its head, in the thorax: The yellow fever mosquito has 4 white lines with a lyre-shaped pattern, while the tiger mosquito has a single white line. &lt;b&gt;Foto: Vincent Robert (CC BY 2.0)&lt;/b&gt;</item>
+        <item name="gallery_array1">Tiger mosquito (&lt;i&gt;Aedes albopictus&lt;/i&gt;). Its main characteristic is its black body with white lines and spots. Note the white line on the head and thorax. This female has the abdomen full of blood. &lt;b&gt; Photo: Roger Eritja (©)&lt;/ b&gt;</item>
+        <item name="gallery_array2">Yellow fever mosquito (&lt;i&gt;Aedes aegypti&lt;/i&gt;). Recognized by its dark brown color with white lines and spots. Right above its head, in the thorax, it has 4 white lines with a lyre-shaped pattern. &lt;b&gt;Photo: James Gathany (ECDC, domini públic)&lt;/b&gt;</item>
+        <item name="gallery_array3">Tiger mosquito &lt;i&gt;Ae. albopictus&lt;/i&gt;: Observe the black color that characterizes &lt;i&gt;Ae. albopictus&lt;/i&gt;. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;</item>
+        <item name="gallery_array4">Yellow fever mosquito &lt;i&gt;Ae. aegypti&lt;/i&gt;: Observe the brown color that characterizes &lt;i&gt;Ae. aegypti&lt;/i&gt;. &lt;b&gt;Foto: Mark Yokoyama (CC BY 2.0)&lt;/b&gt;</item>
+        <item name="gallery_array5">Who bites? Only female mosquitoes, and in this case females of tiger mosquito that usually bite during the day. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;</item>
+        <item name="gallery_array6">Two female yellow fever mosquitoes. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;\n</item>
+        <item name="gallery_array7">Tiger mosquito male (left) and female (right). The males have plumes on their heads. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;\n</item>
+        <item name="gallery_array8">&lt;i&gt;Aedes&lt;/i&gt; eggs. The eggs are so small they are almost invisible to the naked eye. Female tiger and yellow fever mosquitoes lay eggs on the dry walls of small vessels near stagnant water. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;</item>
+        <item name="gallery_array9">&lt;i&gt;Aedes&lt;/i&gt; mosquito larvae (longer) and pupae (rounder). The larvae are aquatic and they eventually turn into pupae to finally become adult mosquitoes. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;</item>
+        <item name="gallery_array10">&lt;i&gt;Aedes&lt;/i&gt; larvae (longer) and pupae (rounder) in the water. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;</item>
+        <item name="gallery_array11">Adult tiger mosquitoes emerge from pupae into the air. This process is known as metamorphosis. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;</item>
     </string-array>
     <!-- Toasts -->
     <string name="toast_report_before_submitting_site">Before submitting this breeding site report, please:</string>
@@ -37,21 +38,21 @@
     <string name="dataMap_CD">My Data</string>
     <string name="switchboard_button_text_report">REPORT</string>
     <string name="switchboard_button_text_sites">BREEDING SITE</string>
-    <string name="switchboard_button_text_adult">URBAN AEDES</string>
+    <string name="switchboard_button_text_adult">MOSQUITO</string>
     <string name="switchboard_button_text_map">MY MAP</string>
     <string name="switchboard_button_text_gallery">GALLERY</string>
     <string name="switchboard_demo_popup">This is the demo version of Mosquito Alert. With this version you cannot share data. If you want to participate in the project by contributing data, please click OK to install the full Mosquito Alert application. (If you already have the full version, you can uninstall the demo at any time.)</string>
     <!-- activity labels -->
     <string name="activity_label_report_editing">Mosquito Alert: Report Editor</string>
     <string name="activity_label_report_new">Mosquito Alert: New Report</string>
-    <string name="activity_label_map">Mosquito Alert: My Report Map</string>
+    <string name="activity_label_map">Mosquito Alert: My Map</string>
     <string name="activity_label_gallery">Mosquito Alert: Gallery</string>
     <!-- Reports -->
     <string name="checklist_label_editing">Description*</string>
     <string name="location_label_editing">Location*</string>
     <string name="photo_check_label_editing">Photo(s)</string>
     <string name="note_check_label_editing">Note</string>
-    <string name="report_title_adult">Urban<i> Aedes</i></string>
+    <string name="report_title_adult">Mosquito</string>
     <string name="report_title_site">Breeding Site</string>
     <string name="checklist_label">Add description*</string>
     <string name="location_label">Add location*</string>
@@ -68,44 +69,44 @@
     <string name="word_report">Report</string>
     <string name="photo_label">Photo(s)</string>
     <string name="photo_label_star">Photo(s)*</string>
-    <string name="site_report_q1">Type of breeding site</string>
+    <string name="site_report_q1">Is this a storm drain or sewer?</string>
     <string name="site_report_q2">Is it in a public area?</string>
-    <string name="site_report_q3">Does it contain stagnant water and/or mosquito larvae or pupae (any mosquito species)?</string>
-    <string name="site_report_q4">Have you seen adult mosquitoes nearby (&lt;10 meters)?</string>
-    <string name="site_report_q3_response1">Yes, stagnant water with larvae or pupae.</string>
-    <string name="site_report_q3_response2">Has stagnant water, but no larvae or pupae.</string>
-    <string name="site_report_q3_response3">Does not contain stagnant water.</string>
+    <string name="site_report_q3">Does it contain stagnant water and/or mosquito larvae?</string>
+    <string name="site_report_q4">Have you seen mosquitoes nearby (&lt;10 meters)?</string>
+    <string name="site_report_q3_response1">Has stagnant water with larvae</string>
+    <string name="site_report_q3_response2">Has stagnant water, but with no larvae</string>
+    <string name="site_report_q3_response3">Does not contain stagnant water</string>
     <string name="adult_report_q3">What does the abdomen of your mosquito look like? Check the (i) button and select an answer:</string>
-    <string name="adult_report_q3a1">Abdomen like a <i>Ae. albopictus</i></string>
-    <string name="adult_report_q3a2">Abdomen like <i>Ae. aegypti</i></string>
+    <string name="adult_report_q3a1">With white lines and thin white spots</string>
+    <string name="adult_report_q3a2">With white lines and thick white spots</string>
     <string name="adult_report_q3a3">Neither</string>
     <string name="adult_report_q3a4">Not sure</string>
-    <string name="confirmation_q2_adult_headthorax">What does the thorax of your mosquito look like? Check the (i) button and select an answer:</string>
-    <string name="q3_headthorax_text">&lt;p&gt;The tiger mosquito (&lt;i&gt;Ae. albopictus&lt;/i&gt;) has a white stripe on its head and thorax. Conversely, the yellow fever mosquito (&lt;i&gt;Ae. aegypti&lt;/i&gt;) has several white stripes in its thorax, forming a lyre-shaped pattern. Try not to send reports of mosquitoes that do not have these characteristics.&lt;/p&gt;\n\n&lt;p&gt;&lt;b&gt;Illustrations: J.Luis Ordóñez, CREAF (CC-BY-NC 3.0). Right photo: James Gathany (ECDC, public domain)&lt;/b&gt;&lt;/p&gt;</string>
-    <string name="q2_abdomenlegs_text">&lt;p&gt;Urban &lt;i&gt;Aedes&lt;/i&gt; have white spots on the abdomen and legs, but the white pattern and the body background color are slightly different. Try not to send reports of mosquitoes that do not have these characteristics.&lt;/p&gt;\n\n&lt;p&gt;&lt;b&gt;Illustrations: J.Luis Ordóñez, CREAF (CC-BY-NC 3.0)&lt;/b&gt;&lt;/p&gt;</string>
+    <string name="confirmation_q2_adult_headthorax">Look right after the head, at the thorax. Does it have a single white line? Check the (i) button and select an answer:</string>
+    <string name="q2_headthorax_text_help">&lt;p&gt;The tiger mosquito has a white line on its head and thorax. Conversely, the yellow fever mosquito has a white line on its head and 4 white lines on its thorax, forming a lyre-shaped pattern. &lt;/p&gt;\n\n&lt;p&gt;&lt;b&gt;Illustrations: J.Luis Ordóñez, CREAF (CC-BY-NC 3.0). Right photo: James Gathany (ECDC, public domain)&lt;/b&gt;&lt;/p&gt;</string>
+    <string name="q3_abdomenlegs_text">&lt;p&gt;The tiger mosquito and the yellow fever mosquito have white lines and spots on the abdomen, but those of the tiger mosquito are thinner than those of the yellow fever mosquito. &lt;/p&gt;\n\n&lt;p&gt;&lt;b&gt;Illustrations: J.Luis Ordóñez, CREAF (CC-BY-NC 3.0)&lt;/b&gt;&lt;/p&gt;</string>
     <string name="identifying_mosquitoes_title">Mosquito description</string>
-    <string name="confirmation_q1_adult_sizecolor">What does your mosquito look like? Check the (i) button and select an answer:</string>
-    <string name="adult_report_q1a1">Like <i>Ae. albopictus</i></string>
-    <string name="adult_report_q1a2">Like<i> Ae. aegypti</i></string>
+    <string name="confirmation_q1_adult_sizecolor">What color is your mosquito? Check the (i) button and select an answer:</string>
+    <string name="adult_report_q1a1">Black with with white lines on the body and the legs</string>
+    <string name="adult_report_q1a2">Brown with white lines on the body and the legs\n </string>
     <string name="adult_report_q1a3">Neither</string>
     <string name="adult_report_q1a4">Not sure</string>
-    <string name="adult_report_q2a1">Thorax like <i>Ae. albopictus</i></string>
-    <string name="adult_report_q2a2">Thorax like <i>Ae. aegypti</i></string>
+    <string name="adult_report_q2a1">Yes</string>
+    <string name="adult_report_q2a2">No, it has 4 in a lyre-shaped pattern</string>
     <string name="adult_report_q2a3">Neither</string>
     <string name="adult_report_q2a4">Not sure</string>
-    <string name="q1_sizecolor_text">&lt;p&gt;The tiger mosquito (&lt;i&gt;Ae. albopictus&lt;/i&gt;) and the yellow fever mosquito (&lt;i&gt;Ae. aegypti&lt;/i&gt;) are small and dark with white spots. The body of &lt;i&gt;Ae. albopictus&lt;/i&gt; is black, while that of &lt;i&gt;Ae. aegypti&lt;/i&gt; is dark brown. Try not to send reports on mosquitoes that do not have these characteristics.&lt;/p&gt;\n&lt;p&gt;&lt;b&gt;Illustrations: J.Luis Ordóñez, CREAF (CC-BY-NC 3.0)&lt;/b&gt;&lt;/p&gt;</string>
-    <string name="adult_report_help_html">&lt;p&gt;&lt;b&gt;HELP:&lt;/b&gt; &lt;br/&gt; \n&lt;p&gt;Urban &lt;i&gt;Aedes&lt;/i&gt; (the tiger mosquito, &lt;i&gt;Ae. albopictus&lt;/i&gt;, and the yellow fever mosquito, &lt;i&gt;Ae. aegypti&lt;/i&gt;) are small (less than a cent euro coin) and dark (black or dark brown) with white stripes or spots on their bodies. They are usually aggressive, biting during the day and mostly biting people\'s legs. They fly low to the ground and are found near houses, in gardens, and in the streets.&lt;/p&gt;\n\n&lt;p&gt;If you have found one, fill out this report and send in your data. Fields marked with an asterisk (*) are required.&lt;/p&gt;\n \n&lt;p&gt; \n&lt;ul&gt; \n&lt;li&gt;&lt;b&gt;Description&lt;/b&gt;: the survey will help you decide if what you\'ve found is &lt;i&gt;Ae. albopictus&lt;/i&gt; or &lt;i&gt;Ae. aegypti&lt;/i&gt;.&lt;/li&gt; \n&lt;br/&gt; \n&lt;li&gt;&lt;b&gt;Location&lt;/b&gt;: Choose current location if you are still in the place where you found the mosquito. (Make sure you have GPS enabled on your phone.) Otherwise, select the mosquito\'s location on the map.&lt;/li&gt; \n&lt;br/&gt; \n&lt;li&gt;&lt;b&gt;Photo(s)&lt;/b&gt;: Take a photo of the mosquito now or attach one that you have already taken. The most important thing is to photograph the thorax, making it possible to recognize the white stripe, in the case of &lt;i&gt;Ae. albopictus&lt;/i&gt;, or the lyre-shaped mark, in the case of &lt;i&gt;Ae. aegypti&lt;/i&gt;. To do this, grab the legs and focus well. If necessary, move the camera a little bit away from the mosquito. You can attach more than one photo, and it is useful if you can capture images from different angles. You will find more tricks in the project website.&lt;/li&gt; \n&lt;br/&gt; \n&lt;li&gt;&lt;b&gt;Notes&lt;/b&gt;: Add a note if you want to send additional information about your finding. Don’t include personal information.&lt;/li&gt; \n&lt;/ul&gt; \n&lt;/p&gt; \n&lt;p&gt;Once sent, you can view and edit your report on your phone by selecting the map activity from the main screen and then clicking on a report icon. The information you submit will also be published on a public webmap at &lt;a href=\"www.mosquitoalert.com\"&gt; www.mosquitoalert.com &lt;/a&gt;.&lt;/p&gt;</string>
-    <string name="site_report_help_html">&lt;p&gt;&lt;b&gt;HELP:&lt;/b&gt; &lt;br/&gt; \n&lt;p&gt;Urban &lt;i&gt;Aedes&lt;/i&gt; (&lt;i&gt;Ae. albopictus&lt;/i&gt; and &lt;i&gt;Ae. aegypti&lt;/i&gt;) breed in small containers (even smaller than a bucket), usually in the outside with stagnant water inside. Water should be present for a few days so that larvae and pupae can develop and do the metamorphosis to adult mosquitoes. If you have found a breeding site, especially a storm drain in a public area, fill out this report and send in your data. Fields marked with an asterisk (*) are required.\n&lt;/p&gt; \n&lt;p&gt; \n&lt;ul&gt; \n&lt;li&gt;&lt;b&gt;Description&lt;/b&gt;: answer the survey.&lt;/li&gt; \n&lt;br/&gt; \n&lt;li&gt;&lt;b&gt;Location&lt;/b&gt;: Choose current location if you are still at the site. (Make sure you have GPS enabled on your phone.) Otherwise, select the site\'s location on the map.&lt;/li&gt; \n&lt;br/&gt; \n&lt;li&gt;&lt;b&gt;Photo(s)&lt;/b&gt;: Take a photo of the site now or attach one from a file. If you can, take a picture in which the site can be recognized, and another showing the stagnant water and/or larvae or pupae.&lt;/li&gt; \n&lt;br/&gt; \n&lt;li&gt;&lt;b&gt;Notes&lt;/b&gt;: Add a note if you want to send additional information about your finding. Don’t add personal information.&lt;/li&gt; \n&lt;/ul&gt; \n&lt;/p&gt; \n&lt;p&gt;Once sent, you can view and edit your report on your phone by selecting the map activity from the main screen and then clicking on a report icon. The information you submit will also be published on a public webmap at &lt;a href=\"www.mosquitoalert.com\"&gt; www.mosquitoalert.com &lt;/a&gt;.&lt;/p&gt;</string>
-    <string name="site_report_item_help_1">&lt;p&gt;Urban &lt;i&gt;Aedes&lt;/i&gt; (&lt;i&gt;Ae. albopictus&lt;/i&gt; and &lt;i&gt;Ae. aegypti&lt;/i&gt;) generally lay eggs in small containers (even smaller than a bucket) containing stagnant water, usually outdoors. Storm drains that accumulate water can be important breeding sites for these species.&lt;/p&gt;\n&lt;p&gt; Urban &lt;i&gt;Aedes&lt;/i&gt;\u0020\u0020do not breed on beaches or in rivers, lakes, ponds, or wetlands.&lt;/p&gt;\u0020\u0020\u0020\u0020\u0020\u0020\u0020\n&lt;p&gt;A number of these images have been donated by the Barcelona Public Health Agency.&lt;/p&gt;</string>
-    <string name="site_report_item_help_2">Public areas are those with free access to the public, like roads, squares, parks, and green spaces. They do not include private lots and or other private properties.</string>
-    <string name="site_report_item_help_3">In order to survive, the larvae and pupae of urban &lt;i&gt;Aedes&lt;/i&gt; need stagnant and turbid water available for several days before they metamorphosise into adult mosquitoes.</string>
-    <string name="site_report_item_help_4">The tiger mosquito does not normally travel far, so adults are often found near their breeding sites.\n\n\u0020\u0020\u0020\u0020</string>
-    <string name="embornals">Storm drain or similar receptacle</string>
+    <string name="q1_sizecolor_text_help">&lt;p&gt;The tiger mosquito and the yellow fever mosquito are small and dark with white spots. The tiger mosquito is black, while the yellow fever mosquito is dark brown. &lt;/p&gt;\n&lt;p&gt;&lt;b&gt;Illustrations: J.Luis Ordóñez, CREAF (CC-BY-NC 3.0)&lt;/b&gt;&lt;/p&gt;</string>
+    <string name="adult_report_help_html">&lt;p&gt;&lt;b&gt;HELP:&lt;/b&gt; &lt;br/&gt; \nIf you have found a mosquito, follow these steps:&lt;/p&gt;\n\n&lt;p&gt; \n&lt;ul&gt;\n&lt;li&gt;&lt;b&gt;Step 1 - What does your mosquito look like?&lt;/ b&gt;: answer the four questions to tell us more about the mosquito you\'ve found &lt;/li&gt; \n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;Step 2 - Where did you find the mosquito?&lt;/ b&gt;: select \"Current\" if you found the mosquito in the place where you are right now. In this case, the app detects your current location. Activate the GPS on your phone if you want the location to be more accurate. If you have seen a mosquito elsewhere and you\'ve made a photo and have saved it, select \"Elsewhere\" and place it on the map.&lt;/li&gt; \n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;Step 3 - Add a photo &lt;/ b&gt;: take a picture with the camera of the phone or attach it if you have it saved. To make a good photo, grab the mosquito by its legs and try to take one picture from the front and one from the side.&lt;/li&gt; \n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;Step 4 - Do you want to add any comments?&lt;/ b&gt;: you can give more details about your finding. Please do not add personal information.&lt;/li&gt; \n&lt;/ul&gt;\n &lt;/p&gt;\n\n &lt;p&gt;You can view and edit your findings in \"MY MAP\". The data you submit is posted on the map\n&lt;ahref=\"www.mosquitoalert.com\"&gt;www.mosquitoalert.com&lt;/a&gt;.&lt;/p&gt;</string>
+    <string name="site_report_help_html">&lt;p&gt;&lt;b&gt;HELP:&lt;/b&gt; &lt;br/&gt; \nIf you\'ve found a potential breeding site, especially a sewer or drain on a public space containing stagnant water, follow these steps:\n&lt;p&gt; \n&lt;ul&gt; \n&lt;li&gt;&lt;b&gt;Step 1 - How does it look? &lt;/ b&gt;: answer the four questions to know more about the breeding site.&lt;/li&gt;\n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;Step 2 - Where did you find it?&lt;/ b&gt;: select \"Current\" if you\'re in front of a breeding site. In this case the app detects your current location. Activate the GPS on your phone if you want the location of your finding to be more accurate. If you have seen a breeding site elsewhere and have already saved a picture, select \"Elsewhere\" and place it on the map.&lt;/li&gt; \n&lt;br/&gt; \n&lt;li&gt;&lt;b&gt;Step 3 - Add a photo &lt;/ b&gt;: Take a picture with the camera of your phone or attach it if you have it already saved. If there is stagnant water and/or larvae, try to make them visible in the photo.&lt;/li&gt; \n&lt;br/&gt; \n&lt;li&gt;&lt;b&gt;Step 4 - Do you want to add any comments?&lt;/ b&gt;: you can give more details about your finding. Please do not add personal information.&lt;/li&gt; \n&lt;/ul&gt; \n&lt;/p&gt; \n&lt;p&gt;You can view and edit your findings in \"MY MAP\". The data you submit is posted on the map\n&lt;ahref=\"www.mosquitoalert.com\"&gt;www.mosquitoalert.com&lt;/a&gt;.&lt;/p&gt;</string>
+    <string name="site_report_item_help_1">&lt;p&gt;Storm drains and sewers are the most productive breeding sites for the tiger mosquito and the yellow fever mosquito because they accumulate stagnant water inside. These mosquitoes do not breed on beaches or in rivers, lakes, ponds, or wetlands.&lt;/p&gt;\u0020\u0020\u0020\u0020\u0020\u0020\u0020\n&lt;p&gt;A number of these images have been donated by the Barcelona Public Health Agency.&lt;/p&gt;</string>
+    <string name="site_report_item_help_2">Public areas are those with free access to the public, like roads, squares, parks, and green spaces. They do not include private lots or other private properties.</string>
+    <string name="site_report_item_help_3">In order to survive, mosquito larvae need stagnant and turbid water available for several days before they become adult mosquitoes.</string>
+    <string name="site_report_item_help_4">The tiger mosquito and the yellow fever mosquito do not normally travel far from their breeding site -- usually no more than 500 meters. Therefore, adults are often found near their breeding sites.\n\n\u0020\u0020\u0020\u0020</string>
+    <string name="site_q1_a1_embornals">Yes</string>
     <string name="fonts">Fountain</string>
     <string name="basses">Small basin or similar receptacle</string>
     <string name="bidons">Small container</string>
     <string name="altres">Other</string>
-    <string name="report_checklist_title_adult">Adult Checklist</string>
+    <string name="report_checklist_title_adult">Mosquito Checklist</string>
     <string name="report_checklist_title_site">Site Checklist</string>
     <!-- View Report -->
     <string name="return_to_map">Back</string>
@@ -118,10 +119,10 @@
     <string name="checklist_tab_title">Checklist</string>
     <string name="photos_tab_title">Photos</string>
     <string name="notes_tab_title">Notes</string>
-    <string name="view_report_title_adult">Urban<i> Aedes</i> report</string>
+    <string name="view_report_title_adult">Mosquito report.</string>
     <string name="view_report_title_site">Breeding Site</string>
     <!-- Photo Selector -->
-    <string name="photo_selector_title">Report Photos</string>
+    <string name="photo_selector_title">Add Photos</string>
     <string name="photo_selector_take_photo_button">Take new photo</string>
     <string name="photo_selector_attach_photo_button">Attach from file</string>
     <string name="photo_selector_remove_attachment">Remove Attachment</string>
@@ -164,7 +165,7 @@
     <string name="menu_map_share">Share</string>
     <string name="menu_toggle_view">Satellite</string>
     <string name="menu_option_refresh">Refresh</string>
-    <!-- Settings -->
+    <!-- SettingsActivity -->
     <string name="settings_language_title">Language</string>
     <string name="settings_language_detail">Choose language</string>
     <string name="settings_language_button">Choose</string>
@@ -177,7 +178,7 @@
     <string name="sample_my_locations">Sample my locations</string>
     <string name="sampling_is_off">Location sampling is off</string>
     <string name="sampling_is_on">Location sampling is on</string>
-    <string name="sync_error">Transmission error. Your data will be synchronized later automatically.</string>
+    <string name="sync_error">Internet connection failure, transmission error. Your data will be synchronized later automatically.</string>
     <string name="offline_sync">No internet connection. Your data will be synchronized automatically when there is a connection available.</string>
     <string name="sync_success">Synchronized</string>
     <string name="deletion_network_error">Report deleted from phone but there was a transmission error. Your data will be synchronized later automatically.</string>
@@ -187,7 +188,7 @@
     <string name="refresh">Refresh</string>
     <string name="report_deleted">Report deleted</string>
     <string name="edit">Edit</string>
-    <string name="edit_title_adult"><i>Aedes</i> urbano</string>
+    <string name="edit_title_adult">Mosquito Report</string>
     <string name="edit_title_site">Breeding Site</string>
     <string name="cd_help_icon">Help Icon</string>
     <string name="open">Open</string>
@@ -260,4 +261,25 @@
     <string name="language_selector_spanish" translatable="false">Español</string>
     <string name="photo_share_message" translatable="false">via @Mosquito_Alert</string>
     <string name="language_selector_chinese_hk" translatable="false">中文 (香港)</string>
+
+
+
+    <string name="paso1">1. How does the breeding site look?</string>
+    <string name="paso2">3. Where did you find it?</string>
+    <string name="paso3">3. Add a picture</string>
+    <string name="paso4">4. Would you like to add any comments?</string>
+    <string name="paso1_2">1. What does your mosquito look like?</string>
+    <string name="switchboard_button_validations_photos">VALIDATE PHOTOS</string>
+    <string name="switchboard_button_notifications_site">NOTIFICATIONS</string>
+    <string name="switchboard_button_missions_site">MISSIONS</string>
+    <string name="header_title">Mosquito Alert</string>
+    <string name="menu_option_gallery">Gallery</string>
+    <string name="back">Back</string>
+    <string name="notifications_new">New</string>
+    <string name="notifications_old">Old</string>
+    <string name="task_expires">Expires</string>
+    <string name="task_complete_checklist">Complete the checklist</string>
+    <string name="menu">Menu</string>
+    <string name="additional_information">Additional information</string>
+    <string name="turn_on_location">Turn on the Location of your device to let Mosquito Alert determine your position</string>
 </resources>

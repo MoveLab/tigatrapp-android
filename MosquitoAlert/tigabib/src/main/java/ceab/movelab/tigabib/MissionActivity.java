@@ -3,11 +3,9 @@ package ceab.movelab.tigabib;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
@@ -29,13 +27,12 @@ import java.util.Iterator;
 import java.util.Locale;
 import java.util.UUID;
 
-import ceab.movelab.tigabib.adapters.MissionAdapter;
 import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
 import ceab.movelab.tigabib.ContProvContractReports.Reports;
+import ceab.movelab.tigabib.adapters.MissionAdapter;
 
 public class MissionActivity extends Activity {
-	private static String TAG = "TaskActivity";
-	Context context = this;
+	private static String TAG = "MissionActivity";
 	String lang;
 	ListView lv;
 	int missionId;
@@ -48,18 +45,14 @@ public class MissionActivity extends Activity {
 	Button buttonRight;
 	public JSONObject responses;
 	String currentResponses;
-	Resources res;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		if (!PropertyHolder.isInit())
-			PropertyHolder.init(context);
+			PropertyHolder.init(this);
 
-		res = getResources();
-		lang = Util.setDisplayLanguage(res);
-
-		res = getResources();
+		lang = Util.setDisplayLanguage(getResources());
 
 		setContentView(R.layout.task);
 		View header = getLayoutInflater().inflate(R.layout.task_head, null);
@@ -142,7 +135,7 @@ public class MissionActivity extends Activity {
 				taskHeader.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						Util.showHelp(context, helpText);
+						Util.showHelp(MissionActivity.this, helpText);
 						return;
 					}
 				});
@@ -152,7 +145,7 @@ public class MissionActivity extends Activity {
 			if (thisTask.has(MissionModel.KEY_ITEMS)) {
 				JSONArray theseItems = new JSONArray(thisTask.getString(MissionModel.KEY_ITEMS));
 				for (int i = 0; i < theseItems.length(); i++) {
-					MissionItemModel thisTaskItem = new MissionItemModel(context, new JSONObject(theseItems.getString(i)));
+					MissionItemModel thisTaskItem = new MissionItemModel(MissionActivity.this, new JSONObject(theseItems.getString(i)));
 
 					if (currentResponses != null) {
 						JSONObject cr = new JSONObject(currentResponses);
@@ -167,7 +160,7 @@ public class MissionActivity extends Activity {
 			} else {
 				lv.setDivider(getResources().getDrawable(R.drawable.divider_invisible));
 			}
-			final MissionAdapter adapter = new MissionAdapter(this, list, res);
+			final MissionAdapter adapter = new MissionAdapter(this, list, getResources());
 			lv.setAdapter(adapter);
 
 			if (thisTask.has(MissionModel.KEY_PRESET_CONFIGURATION)) {
@@ -358,25 +351,22 @@ public class MissionActivity extends Activity {
 								.has(MissionModel.KEY_TASK_BUTTON_RIGHT_URL) ? thisTask
 								.getString(MissionModel.KEY_TASK_BUTTON_RIGHT_URL)
 								: null;
-						buttonRight
-								.setOnClickListener(makeOnClickListener(
+						buttonRight.setOnClickListener(makeOnClickListener(
 										thisTask.getInt(MissionModel.KEY_TASK_BUTTON_RIGHT_ACTION),
 										b, rightUrl));
 					}
 				}
-
 			}
 
 		} catch (JSONException e) {
-			Util.logError(context, TAG, "error: " + e);
+			Util.logError(MissionActivity.this, TAG, "error: " + e);
 		}
 
 	}
 
 	@Override
 	protected void onResume() {
-		res = getResources();
-		if (!Util.setDisplayLanguage(res).equals(lang)) {
+		if (!Util.setDisplayLanguage(getResources()).equals(lang)) {
 			finish();
 			startActivity(getIntent());
 		}
@@ -384,8 +374,7 @@ public class MissionActivity extends Activity {
 		super.onResume();
 	}
 
-	public OnClickListener makeOnClickListener(int action,
-			Bundle taskInfoBundle, String url) {
+	public OnClickListener makeOnClickListener(int action, Bundle taskInfoBundle, String url) {
 		final int thisAction = action;
 		final Bundle thisBundle = taskInfoBundle;
 		final String thisUrl = url;
@@ -395,7 +384,7 @@ public class MissionActivity extends Activity {
 			result = new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Util.logInfo(context, TAG, "do task clicked");
+					Util.logInfo(MissionActivity.this, TAG, "do task clicked");
 					ContentResolver cr = getContentResolver();
 					ContentValues cv = new ContentValues();
 					int rowId = thisBundle.getInt(Tasks.KEY_ROW_ID);
@@ -404,21 +393,16 @@ public class MissionActivity extends Activity {
 						cv.put(Tasks.KEY_RESPONSES_JSON, responses.toString());
 					}
 					cv.put(Tasks.KEY_DONE, 1);
-					cr.update(Util.getMissionsUri(context), cv, sc, null);
+					cr.update(Util.getMissionsUri(MissionActivity.this), cv, sc, null);
 					// CHECK IF NOTIFICATIONS SHOULD BE REMOVED
 					sc = Tasks.KEY_ACTIVE + " = 1 AND " + Tasks.KEY_DONE
 							+ " = " + "0 AND " + Tasks.KEY_EXPIRATION_TIME
 							+ " <=" + System.currentTimeMillis();
-					Cursor c = cr.query(Util.getMissionsUri(context),
-							Tasks.KEYS_DONE, sc, null, null);
-					Util.logInfo(context, TAG,
-							"remaining tasks: " + c.getCount());
+					Cursor c = cr.query(Util.getMissionsUri(MissionActivity.this), Tasks.KEYS_DONE, sc, null, null);
+					Util.logInfo(MissionActivity.this, TAG, "remaining tasks: " + c.getCount());
 					if (c.getCount() == 0) {
-						Util.internalBroadcast(context,
-								Messages.REMOVE_TASK_NOTIFICATION);
-						Util.logInfo(context, TAG, "just broadcast:"
-								+ Messages.REMOVE_TASK_NOTIFICATION);
-
+						Util.internalBroadcast(MissionActivity.this, Messages.REMOVE_TASK_NOTIFICATION);
+						Util.logInfo(MissionActivity.this, TAG, "just broadcast:" + Messages.REMOVE_TASK_NOTIFICATION);
 					}
 
 					c.close();
@@ -429,8 +413,7 @@ public class MissionActivity extends Activity {
 					String packageName = "";
 					int packageVersion = Report.MISSING;
 					try {
-						PackageInfo pInfo = getPackageManager().getPackageInfo(
-								getPackageName(), 0);
+						PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
 						packageName = pInfo.packageName;
 						packageVersion = pInfo.versionCode;
 					} catch (NameNotFoundException e) {
@@ -444,7 +427,7 @@ public class MissionActivity extends Activity {
 					String osLanguage = Locale.getDefault().getLanguage();
 					String appLanguage = PropertyHolder.getLanguage();
 
-					Report missionReport = new Report(context, UUID
+					Report missionReport = new Report(MissionActivity.this, UUID
 							.randomUUID().toString(),
 							PropertyHolder.getUserId(), Util.makeReportId(), 0,
 							currentTime, currentTimeString, currentTimeString,
@@ -458,8 +441,7 @@ public class MissionActivity extends Activity {
 							osversion, osLanguage, appLanguage, missionId);
 
 					// First save report to internal DB
-					cr.insert(Util.getReportsUri(context),
-							ContProvValuesReports.createReport(missionReport));
+					cr.insert(Util.getReportsUri(MissionActivity.this), ContProvValuesReports.createReport(missionReport));
 
 					if (thisUrl != null) {
 						Intent i = new Intent(Intent.ACTION_VIEW);
@@ -468,11 +450,10 @@ public class MissionActivity extends Activity {
 					}
 
 					// take 1 fix for this task
-					Util.internalBroadcast(context, Messages.START_TASK_FIX);
+					Util.internalBroadcast(MissionActivity.this, Messages.START_TASK_FIX);
 
 					// Now trigger sync task
-					Intent syncIntent = new Intent(MissionActivity.this,
-							SyncData.class);
+					Intent syncIntent = new Intent(MissionActivity.this, SyncData.class);
 					startService(syncIntent);
 
 					finish();
@@ -497,16 +478,14 @@ public class MissionActivity extends Activity {
 					ContentValues cv = new ContentValues();
 					int rowId = thisBundle.getInt(Tasks.KEY_ROW_ID);
 					String sc = Tasks.KEY_ROW_ID + " = " + rowId;
-					cr.delete(Util.getMissionsUri(context), sc, null);
+					cr.delete(Util.getMissionsUri(MissionActivity.this), sc, null);
 					// CHECK IF NOTIFICATIONS SHOULD BE REMOVED
 					sc = Tasks.KEY_DONE + " = " + "0 AND "
 							+ Tasks.KEY_EXPIRATION_TIME + " <="
 							+ System.currentTimeMillis();
-					Cursor c = cr.query(Util.getMissionsUri(context),
-							Tasks.KEYS_DONE, sc, null, null);
+					Cursor c = cr.query(Util.getMissionsUri(MissionActivity.this), Tasks.KEYS_DONE, sc, null, null);
 					if (c.getCount() == 0) {
-						Util.internalBroadcast(context,
-								Messages.REMOVE_TASK_NOTIFICATION);
+						Util.internalBroadcast(MissionActivity.this, Messages.REMOVE_TASK_NOTIFICATION);
 					}
 					c.close();
 					finish();
@@ -531,7 +510,7 @@ public class MissionActivity extends Activity {
 			result = new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Util.logInfo(context, TAG, "do task clicked");
+					Util.logInfo(MissionActivity.this, TAG, "do task clicked");
 					ContentResolver cr = getContentResolver();
 					ContentValues cv = new ContentValues();
 					int rowId = thisBundle.getInt(Tasks.KEY_ROW_ID);
@@ -540,21 +519,17 @@ public class MissionActivity extends Activity {
 						cv.put(Tasks.KEY_RESPONSES_JSON, responses.toString());
 					}
 					cv.put(Tasks.KEY_DONE, 1);
-					cr.update(Util.getMissionsUri(context), cv, sc, null);
+					cr.update(Util.getMissionsUri(MissionActivity.this), cv, sc, null);
 					// CHECK IF NOTIFICATIONS SHOULD BE REMOVED
 					sc = Tasks.KEY_ACTIVE + " = 1 AND " + Tasks.KEY_DONE
 							+ " = " + "0 AND " + Tasks.KEY_EXPIRATION_TIME
 							+ " <=" + System.currentTimeMillis();
-					Cursor c = cr.query(Util.getMissionsUri(context),
+					Cursor c = cr.query(Util.getMissionsUri(MissionActivity.this),
 							Tasks.KEYS_DONE, sc, null, null);
-					Util.logInfo(context, TAG,
-							"remaining tasks: " + c.getCount());
+					Util.logInfo(MissionActivity.this, TAG, "remaining tasks: " + c.getCount());
 					if (c.getCount() == 0) {
-						Util.internalBroadcast(context,
-								Messages.REMOVE_TASK_NOTIFICATION);
-						Util.logInfo(context, TAG, "just broadcast:"
-								+ Messages.REMOVE_TASK_NOTIFICATION);
-
+						Util.internalBroadcast(MissionActivity.this, Messages.REMOVE_TASK_NOTIFICATION);
+						Util.logInfo(MissionActivity.this, TAG, "just broadcast:" + Messages.REMOVE_TASK_NOTIFICATION);
 					}
 
 					c.close();
@@ -565,8 +540,7 @@ public class MissionActivity extends Activity {
 					String packageName = "";
 					int packageVersion = Report.MISSING;
 					try {
-						PackageInfo pInfo = getPackageManager().getPackageInfo(
-								getPackageName(), 0);
+						PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
 						packageName = pInfo.packageName;
 						packageVersion = pInfo.versionCode;
 					} catch (NameNotFoundException e) {
@@ -580,7 +554,7 @@ public class MissionActivity extends Activity {
 					String osLanguage = Locale.getDefault().getLanguage();
 					String appLanguage = PropertyHolder.getLanguage();
 
-					Report missionReport = new Report(context, UUID
+					Report missionReport = new Report(MissionActivity.this, UUID
 							.randomUUID().toString(),
 							PropertyHolder.getUserId(), Util.makeReportId(), 0,
 							currentTime, currentTimeString, currentTimeString,
@@ -594,15 +568,13 @@ public class MissionActivity extends Activity {
 							osversion, osLanguage, appLanguage, missionId);
 
 					// First save report to internal DB
-					cr.insert(Util.getReportsUri(context),
-							ContProvValuesReports.createReport(missionReport));
+					cr.insert(Util.getReportsUri(MissionActivity.this), ContProvValuesReports.createReport(missionReport));
 
 					// take 1 fix for this task
-					Util.internalBroadcast(context, Messages.START_TASK_FIX);
+					Util.internalBroadcast(MissionActivity.this, Messages.START_TASK_FIX);
 
 					// Now trigger sync task
-					Intent syncIntent = new Intent(MissionActivity.this,
-							SyncData.class);
+					Intent syncIntent = new Intent(MissionActivity.this, SyncData.class);
 					startService(syncIntent);
 
 					finish();

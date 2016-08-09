@@ -21,13 +21,9 @@
 
 package ceab.movelab.tigabib;
 
-import java.util.Date;
-import java.util.UUID;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
@@ -37,7 +33,9 @@ import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
-import ceab.movelab.tigabib.R;
+
+import java.util.Date;
+import java.util.UUID;
 
 /**
  * Displays the IRB consent form and allows users to consent or decline.
@@ -45,10 +43,9 @@ import ceab.movelab.tigabib.R;
  * @author John R.B. Palmer
  * 
  */
-public class Consent extends Activity {
+public class ConsentActivity extends Activity {
 
 	Context context;
-	Resources res;
 	String lang;
 
 	private static final String CONSENT_URL_OFFLINE_EN = "file:///android_asset/html/consent_en.html";
@@ -66,15 +63,12 @@ public class Consent extends Activity {
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
 
-		res = getResources();
-		lang = Util.setDisplayLanguage(res);
-
+		lang = Util.setDisplayLanguage(getResources());
 	}
 
 	@Override
 	protected void onResume() {
-		res = getResources();
-		if (!Util.setDisplayLanguage(res).equals(lang)) {
+		if (!Util.setDisplayLanguage(getResources()).equals(lang)) {
 			finish();
 			startActivity(getIntent());
 		}
@@ -86,17 +80,16 @@ public class Consent extends Activity {
 
 			@Override
 			public void onClick(View v) {
-
 				Date now = new Date(System.currentTimeMillis());
 				String consentTime = Util.userDate(now);
 				PropertyHolder.setConsentTime(consentTime);
 				PropertyHolder.setConsent(true);
+				PropertyHolder.setReconsent(true); // MG - 9/8/16
 
 				// set user_UUID
 				String userId = UUID.randomUUID().toString();
 				PropertyHolder.setUserId(userId);
 
-				
 				// start daily sampling
 				Util.internalBroadcast(context, Messages.START_DAILY_SAMPLING);
 
@@ -104,21 +97,17 @@ public class Consent extends Activity {
 				Util.internalBroadcast(context, Messages.START_DAILY_SYNC);
 
 				// launch switchboard
-				Intent i = new Intent(Consent.this, Switchboard.class);
+				Intent i = new Intent(ConsentActivity.this, Switchboard.class);
 				startActivity(i);
 				finish();
-				return;
 			}
 		});
 
 		final Button consentDeclineButton = (Button) findViewById(R.id.consent_decline_button);
 		consentDeclineButton.setOnClickListener(new View.OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
-
 				finish();
-				return;
 			}
 		});
 
@@ -130,7 +119,6 @@ public class Consent extends Activity {
 
 		if (lang.equals("ca"))
 			myWebView.loadUrl(CONSENT_URL_OFFLINE_CA);
-
 		else if (lang.equals("es"))
 			myWebView.loadUrl(CONSENT_URL_OFFLINE_ES);
 		else
@@ -147,7 +135,6 @@ public class Consent extends Activity {
 		inflater.inflate(R.menu.consent_menu, menu);
 
 		return true;
-
 	}
 
 	@Override
@@ -155,8 +142,7 @@ public class Consent extends Activity {
 		super.onOptionsItemSelected(item);
 
 		if (item.getItemId() == R.id.language) {
-
-			Intent i = new Intent(Consent.this, LanguageSelector.class);
+			Intent i = new Intent(ConsentActivity.this, LanguageSelector.class);
 			startActivity(i);
 			return true;
 		}

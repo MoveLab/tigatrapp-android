@@ -32,6 +32,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.Html;
@@ -57,6 +58,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import ceab.movelab.tigabib.chrometabs.CustomTabActivityHelper;
+import ceab.movelab.tigabib.chrometabs.WebviewFallback;
 import ceab.movelab.tigabib.model.Notification;
 import ceab.movelab.tigabib.model.RealmHelper;
 
@@ -108,8 +111,8 @@ public class Switchboard extends Activity {
 	}
 
 	private void onCreateWithPermissions() {
-		if (!Util.privateMode(this) && !PropertyHolder.hasConsented()) {
-			Intent i2c = new Intent(Switchboard.this, Consent.class);
+		if ( !Util.privateMode(this) && !PropertyHolder.hasReconsented() ) { // MG - 9/8/16
+			Intent i2c = new Intent(Switchboard.this, ConsentActivity.class);
 			startActivity(i2c);
 			finish();
 		} else {
@@ -183,9 +186,9 @@ public class Switchboard extends Activity {
 			// open and close databases in order to trigger any updates
 			ContentResolver cr = getContentResolver();
 			Cursor c = cr.query(Util.getReportsUri(this), new String[]{ContProvContractReports.Reports.KEY_ROW_ID}, null, null, null);
-			c.close();
+			if ( c != null) c.close();
 			c = cr.query(Util.getMissionsUri(this), new String[]{ContProvContractReports.Reports.KEY_ROW_ID}, null, null, null);
-			c.close();
+			if ( c != null) c.close();
 
 			if (PropertyHolder.isServiceOn()) {
 				long lastScheduleTime = PropertyHolder.lastSampleScheduleMade();
@@ -237,8 +240,16 @@ public class Switchboard extends Activity {
 			pybossaButton.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Intent i = new Intent(Switchboard.this, PhotoValidationActivity.class);
-					startActivity(i);
+//					Intent i = new Intent(Switchboard.this, PhotoValidationActivity.class);
+//					startActivity(i);
+					CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder()
+							.setToolbarColor(getResources().getColor(R.color.yellow)).build();
+					CustomTabActivityHelper.openCustomTab(
+							Switchboard.this,// activity
+							customTabsIntent,
+							Uri.parse(UtilLocal.PYBOSSA_URL),
+							new WebviewFallback()
+					);
 				}
 			});
 
@@ -307,8 +318,8 @@ public class Switchboard extends Activity {
 	}
 
 	private void loadRemoteNotifications() {
-		String notificationUrl = Util.API_NOTIFICATION + "?";
-				//+"&user_id=" +PropertyHolder.getUserId();
+		String notificationUrl = Util.API_NOTIFICATION + "?"
+				+"user_id=" + PropertyHolder.getUserId();
 
 		Ion.with(this)
 			.load(Util.URL_TIGASERVER_API_ROOT + notificationUrl)
@@ -381,7 +392,7 @@ public class Switchboard extends Activity {
 			startActivity(i);
 			return true;
 		} else if (item.getItemId() == R.id.settings) {
-			Intent i = new Intent(Switchboard.this, Settings.class);
+			Intent i = new Intent(Switchboard.this, SettingsActivity.class);
 			startActivity(i);
 			return true;
 		} else if (item.getItemId() == R.id.help) {

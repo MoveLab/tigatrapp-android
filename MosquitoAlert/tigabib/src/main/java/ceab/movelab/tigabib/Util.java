@@ -1067,8 +1067,7 @@ public class Util {
 	}
 
 	public static Uri getReportsUri(Context context) {
-		return Uri.parse("content://" + context.getResources().getString(
-						R.string.content_provider_auth_reports) + "/" + ContProvReports.DATABASE_TABLE);
+		return Uri.parse("content://" + context.getResources().getString(R.string.content_provider_auth_reports) + "/" + ContProvReports.DATABASE_TABLE);
 	}
 
 	public static Uri getMissionsUri(Context context) {
@@ -1086,9 +1085,7 @@ public class Util {
 		final Dialog dialog = new Dialog(context);
 
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 		dialog.setContentView(R.layout.custom_alert);
-
 		dialog.setCancelable(false);
 
 		TextView alertText = (TextView) dialog.findViewById(R.id.alertText);
@@ -1101,21 +1098,17 @@ public class Util {
 		positive.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
 				dialog.cancel();
-
 			}
 		});
 
 		dialog.show();
-
 	}
 
     public static String getRealPathFromURI_BelowAPI11(Context context, Uri contentUri){
                String[] proj = { MediaStore.Images.Media.DATA };
                Cursor cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
-               int column_index
-          = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+               int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
                cursor.moveToFirst();
                return cursor.getString(column_index);
     }

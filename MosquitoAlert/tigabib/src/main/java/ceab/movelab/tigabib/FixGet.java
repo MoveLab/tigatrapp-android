@@ -90,7 +90,7 @@ import android.os.SystemClock;
  * Space Mapper's location recording service.
  * <p>
  * Dependencies: DriverMapActivity.java, TigerBroadcastReceiver.java,
- * FixGet.java, DriverMapActivity.java, Settings.java, Withdraw.java.
+ * FixGet.java, DriverMapActivity.java, SettingsActivity.java, Withdraw.java.
  * <p>
  * This class is a modified version of the one used in the Human Mobility
  * Project.

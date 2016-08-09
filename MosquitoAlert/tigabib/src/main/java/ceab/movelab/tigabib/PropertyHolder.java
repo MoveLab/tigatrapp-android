@@ -79,8 +79,8 @@ import java.util.UUID;
  * consent and registration stage.
  * <p>
  * Dependencies: DriverMapActivity.java, TigerBroadcastReceiver.java,
- * Consent.java, Data.java, FileUploader.java, FixGet.java, Help.java,
- * Registration.java, ReviewConsent.java, Settings.java, SplashScree.java,
+ * ConsentActivity.java, Data.java, FileUploader.java, FixGet.java, Help.java,
+ * Registration.java, ReviewConsent.java, SettingsActivity.java, SplashScree.java,
  * Util.java, Withdraw.java, Withdrawlock.java
  * 
  * @author Necati E. Ozgencil
@@ -110,7 +110,7 @@ public class PropertyHolder {
 		editor.commit();
 	}
 
-	static String NEEDS_MOSQUITO_ALERT_POP = "needs_mosquito_alert_pop";
+	private static String NEEDS_MOSQUITO_ALERT_POP = "needs_mosquito_alert_pop";
 	
 	public static void setNeedsMosquitoAlertPop(boolean tf){
 		editor.putBoolean(NEEDS_MOSQUITO_ALERT_POP, tf);
@@ -122,7 +122,7 @@ public class PropertyHolder {
 	}
 
 	
-	static String LAST_DEMO_POPUP_TIME = "last_demo_popup_time";
+	private static String LAST_DEMO_POPUP_TIME = "last_demo_popup_time";
 	
 	public static void setLastDemoPopUpTime(long time){
 		editor.putLong(LAST_DEMO_POPUP_TIME, time);
@@ -134,7 +134,7 @@ public class PropertyHolder {
 	}
 
 	
-	static String LATEST_MISSION_ID = "latest_mission_id";
+	private static String LATEST_MISSION_ID = "latest_mission_id";
 
 	public static void setLatestMissionId(int latestMissionId) {
 		editor.putInt(LATEST_MISSION_ID, latestMissionId);
@@ -145,7 +145,7 @@ public class PropertyHolder {
 		return sharedPreferences.getInt(LATEST_MISSION_ID, 0);
 	}
 
-	static String SAMPLES_PER_DAY = "samples_per_day";
+	private static String SAMPLES_PER_DAY = "samples_per_day";
 
 	public static void setSamplesPerDay(int samplesPerDay) {
 		editor.putInt(SAMPLES_PER_DAY, samplesPerDay);
@@ -201,6 +201,21 @@ public class PropertyHolder {
 	}
 
 	/**
+	 * Sets flag indicating user has consented.
+	 *
+	 * @param _reconsented
+	 *            True if user has consented; false otherwise.
+	 */
+	public static void setReconsent(boolean _reconsented) {
+		editor.putBoolean("RECONSENTED", _reconsented);
+		editor.commit();
+	}
+
+	public static boolean hasReconsented() {
+		return sharedPreferences.getBoolean("RECONSENTED", false);
+	}
+
+	/**
 	 * Stores the time of consent in the shared preferences to the given value.
 	 * 
 	 * @param _consentTime
@@ -216,8 +231,7 @@ public class PropertyHolder {
 	}
 
 	public static String getLanguage() {
-		return sharedPreferences.getString("LANGUAGE", Locale.getDefault()
-				.getLanguage());
+		return sharedPreferences.getString("LANGUAGE", Locale.getDefault().getLanguage());
 	}
 
 	public static void setLanguage(String lang) {

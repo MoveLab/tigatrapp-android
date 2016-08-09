@@ -166,6 +166,7 @@
                     android:layout_width="90dip"
                     android:layout_height="90dip"
                     android:layout_centerInParent="true"
+                    android:paddingTop="8dp"
                     android:gravity="center_vertical|center_horizontal"
                     android:src="@drawable/ic_switchboard_icon_validacio" />
 
@@ -176,7 +177,7 @@
                     android:layout_alignParentTop="true"
                     android:gravity="center"
                     android:paddingTop="5dip"
-                    android:text="_VALIDA FOTOS"
+                    android:text="@string/switchboard_button_validations_photos"
                     android:textColor="@color/switchboard_button_text" />
             </RelativeLayout>
         </LinearLayout>
@@ -203,24 +204,24 @@
                 android:drawableLeft="@drawable/notificacions"
                 android:drawableStart="@drawable/notificacions"
                 android:drawablePadding="8dp"
-                android:text="_NOTIFICACIONS"
+                android:text="@string/switchboard_button_notifications_site"
                 android:textColor="@color/switchboard_button_text" />
             <TextView
                 android:id="@+id/reportNotificationsNumberText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:gravity="center"
-                android:padding="4dip"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
+                android:padding="2dip"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
                 android:layout_marginLeft="2dp"
                 android:layout_marginStart="2dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginEnd="16dp"
-                android:text=" 0 "
+                android:text="0"
                 android:textColor="@color/white"
                 android:background="@drawable/counter_bg"/>
 
@@ -246,24 +247,24 @@
             android:drawableLeft="@drawable/missions"
             android:drawableStart="@drawable/missions"
             android:drawablePadding="8dp"
-            android:text="_MISSIONS"
+            android:text="@string/switchboard_button_missions_site"
             android:textColor="@color/switchboard_button_text" />
             <TextView
                 android:id="@+id/reportMissionsNumberText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentEnd="true"
                 android:gravity="center"
-                android:padding="4dip"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
+                android:padding="2dip"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
                 android:layout_marginLeft="2dp"
                 android:layout_marginStart="2dp"
                 android:layout_marginRight="16dp"
                 android:layout_marginEnd="16dp"
-                android:text=" 0 "
+                android:text="0"
                 android:textColor="@color/white"
                 android:background="@drawable/counter_bg"/>
         </RelativeLayout>

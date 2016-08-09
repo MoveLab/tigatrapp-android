@@ -22,6 +22,8 @@
 
 <resources>
 
+    <color name="yellow">#FEE68C</color>
+
     <color name="discolor">#F7E89E</color>
     <color name="white">#FFFFFF</color>
     <color name="light_orange">#FF9900</color>

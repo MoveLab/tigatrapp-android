@@ -27,7 +27,6 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,7 +69,7 @@ public class NotificationListActivity extends FragmentActivity {
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				// When clicked, show a toast with the TextView text
-Toast.makeText(getApplicationContext(), String.valueOf(notifData.get(position).getId()), Toast.LENGTH_SHORT).show();
+//Toast.makeText(getApplicationContext(), String.valueOf(notifData.get(position).getId()), Toast.LENGTH_SHORT).show();
 				Intent i = new Intent(NotificationListActivity.this, NotificationActivity.class);
 				i.putExtra(NotificationActivity.NOTIFICATION_ID, notifData.get(position).getId());
 				startActivity(i);

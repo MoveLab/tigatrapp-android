@@ -21,16 +21,15 @@
 -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical" >
 
     <WebView
         android:id="@+id/consent_webview"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="0dip"
-        android:layout_weight="1" >
-    </WebView>
+        android:layout_weight="1" />
 
     <View
         android:layout_width="fill_parent"
@@ -42,12 +41,10 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal"
- 
         android:paddingTop="4dp"
         android:paddingBottom="1dp"
         android:paddingLeft="1dp"
         android:paddingRight="1dp" >
-
         <Button
             android:id="@+id/consent_button"
             android:layout_width="0dp"
@@ -55,7 +52,6 @@
             android:layout_weight="1"
             android:minHeight="80dip"
             android:text="@string/consent_button_label" />
-
         <Button
             android:id="@+id/consent_decline_button"
             android:layout_width="0dp"

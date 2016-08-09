@@ -4,28 +4,29 @@
  Project: Tigatrapp
  Release: Working copy
  Locale: ca, Catalan
- Exported by: John Palmer
- Exported at: Thu, 10 Mar 2016 19:09:18 +0000
+ Tagged: android
+ Exported by: Agusti Escobar
+ Exported at: Wed, 27 Jul 2016 11:23:07 +0100
 -->
 <resources>
-    <!-- Intro and Consent -->
+    <!-- Intro and ConsentActivity -->
     <string name="consent_button_label">He llegit i accepto les condicions d\'ús</string>
     <string name="decline_button_label">No hi estic d\'acord</string>
     <string name="mosquito_alert_pop">&lt;p&gt;&lt;b&gt;AtrapaelTigre és ara Mosquito Alert!&lt;/b&gt;&lt;/p&gt;\n&lt;p&gt;Som els mateixos, però el projecte ha crescut. Amb aquest canvi, hem incorporat un nou protagonista: ja no només podreu notificar possibles troballes de mosquit tigre (&lt;i&gt;Aedes albopictus&lt;/i&gt;), sinó també del mosquit de la febre groga (&lt;i&gt;Aedes aegypti&lt;/i&gt;).&lt;p&gt;\n&lt;p&gt;Trobareu tota la informació a www.mosquitoalert.com&lt;/p&gt;\n&lt;p&gt;Gràcies pel vostre interès i participació,&lt;/p&gt;\n&lt;p&gt;Equip coordinador Mosquito Alert&lt;/p&gt;\n</string>
     <string-array name="gallery_array">
         <!-- Gallery -->
-        <item name="gallery_array[0]">La principal diferència entre el mosquit de la febre groga, &lt;i&gt;Ae. aegypti&lt;/i&gt; (esquerra) i el mosquit tigre, &lt;i&gt;Ae. albopictus&lt;/i&gt; (dreta) es troba al tòrax: &lt;i&gt;Ae. aegypti&lt;/i&gt; té un dibuix en forma de lira, mentre que &lt;i&gt;Ae. albopictus&lt;/i&gt;\u0020\u0020té una sola línia blanca. &lt;b&gt;Foto: Vincent Robert (CC BY 2.0)&lt;/b&gt;</item>
-        <item name="gallery_array[1]">Mosquit tigre (&lt;i&gt;Ae. albopictus&lt;/i&gt;). Es reconeix perquè és de color negre amb taques blanques i per la ratlla blanca al cap i al tòrax. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array[2]">Mosquit de la febre groga (&lt;i&gt;Ae. aegypti&lt;/i&gt;). Es reconeix perquè és de color marró fosc amb taques blanques i pel dibuix en forma de lira al seu tors. Observa la imatge anterior per comparar colors. &lt;b&gt;Foto: James Gathany (ECDC, domini públic)&lt;/b&gt;</item>
-        <item name="gallery_array[3]">Observa el color negre que caracteritza &lt;i&gt;Ae. albopictus&lt;/i&gt;.&lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array[4]">Observa el color marronós d’&lt;i&gt;Ae. aegypti&lt;/i&gt;. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array[5]">Qui pica? Només les femelles de mosquit, en aquest cas, d’&lt;i&gt;Ae. albopictus&lt;/i&gt;. Els &lt;i&gt;Aedes&lt;/i&gt; urbans acostumen a picar durant el dia (no de nit) i a les cames. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array[6]">Dues femelles d’&lt;i&gt;Ae. aegypti&lt;/i&gt;. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array[7]">Diferència entre un mascle (esquerra) i una femella (dreta) d’&lt;i&gt;Ae. albopictus&lt;/i&gt;. Els mascles tenen plomalls al cap. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array[8]">Posta d’ous d’&lt;i&gt;Aedes&lt;/i&gt;. Els ous són tan petits que quasi no es veuen a ull nu. Els &lt;i&gt;Aedes&lt;/i&gt; urbans ponen els ous en sec, sobre les parets de recipients petits, propers a l\'aigua estancada. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array[9]">Larves (més allargades) i pupes (més arrodonides) d’&lt;i&gt;Aedes&lt;/i&gt;. Fixa’t que són aquàtiques. Les larves emergeixen dels ous quan aquests es cobreixen d’aigua, i amb el temps muden a pupes. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array[10]">Larves (més allargades) i pupes (més arrodonides) d’&lt;i&gt;Aedes&lt;/i&gt; nedant. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array[11]">Metamorfosi: el mosquit adult (&lt;i&gt;Ae. albopictus&lt;/i&gt;) emergeix de la pupa cap al medi aeri. Per evitar els (&lt;i&gt;Aedes&lt;/i&gt;) urbans a casa teva, no tinguis petites acumulacions d’aigua a prop. Si pots, treu l’aigua o gira els petits recipients que n’acumulen, per exemple, quan plou o regues. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
+        <item name="gallery_array0">Per identificar el mosquit tigre i el mosquit de la febre groga cal fixar-se en la part del cos que queda just després del cap, el tòrax. El mosquit de la febre groga (esquerra) té 4 línies blanques, mentre que el mosquit tigre (dreta) només té una línia blanca.\n&lt;b&gt;Foto: Vincent Robert (CC BY 2.0)&lt;/b&gt;</item>
+        <item name="gallery_array1">Mosquit tigre (&lt;i&gt;Aedes albopictus&lt;/i&gt;). És de color negre amb taques i línies blanques. Fíxa\'t en la línia blanca del cap i la del tòrax. Aquesta femella té l\'abdomen inflat de sang després d\'haver fet una picada. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
+        <item name="gallery_array2">Mosquit de la febre groga (&lt;i&gt;Aedes aegypti&lt;/i&gt;). És de color marró fosc amb taques i línies blanques. Just després del seu cap, al tòrax, té 4 línies blanques en forma de lira. &lt;b&gt;Foto: James Gathany (ECDC PD)&lt;/b&gt;</item>
+        <item name="gallery_array3">Mosquit tigre (&lt;i&gt;Aedes albopictus&lt;/i&gt;). Observa el color de fons negre que el caracteritza. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
+        <item name="gallery_array4">Mosquit de la febre groga (&lt;i&gt;Aedes aegypti&lt;/i&gt;). Observa el color marró de fons que el caracteritza. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
+        <item name="gallery_array5">Femelles de mosquit tigre picant. Només piquen les femelles i ho fan durant el dia. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
+        <item name="gallery_array6">Femelles de mosquit de la febre groga (&lt;i&gt;Aedes aegypti&lt;/i&gt;). &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
+        <item name="gallery_array7">Mosquit tigre (esquerra: mascle; dreta: femella). Els mascles tenen plomalls al cap. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
+        <item name="gallery_array8">Posta d’ous de mosquits del gènere &lt;i&gt;Aedes&lt;/i&gt;. Les femelles ponen els ous en sec a sobre de les parets de recipients petits que tenen aigua estancada. Els ous són tan petits que és difícil veure\'ls a simple vista. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
+        <item name="gallery_array9">Larves (allargades) i pupes (arrodonides) de mosquits del gènere &lt;i&gt;Aedes&lt;/i&gt;. Les larves són aquàtiques i en poc temps es transformen en pupes i després en adults. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
+        <item name="gallery_array10">Larves (allargades) i pupes (arrodonides) de mosquits del gènere &lt;i&gt;Aedes&lt;/i&gt;. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
+        <item name="gallery_array11">Mosquit tigre transformant-se de pupa a mosquit adult. Aquest procés es coneix amb el nom de metamorfosi. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
     </string-array>
     <!-- Toasts -->
     <string name="toast_report_before_submitting_site">Per enviar aquest lloc de cria:</string>
@@ -37,7 +38,7 @@
     <string name="dataMap_CD">Les meves dades</string>
     <string name="switchboard_button_text_report">ENVIA</string>
     <string name="switchboard_button_text_sites">LLOC DE CRIA</string>
-    <string name="switchboard_button_text_adult">AEDES URBÀ</string>
+    <string name="switchboard_button_text_adult">MOSQUIT</string>
     <string name="switchboard_button_text_map">EL MEU MAPA</string>
     <string name="switchboard_button_text_gallery">GALERIA</string>
     <string name="switchboard_demo_popup">Estàs utilitzant la versió demo (de proves) de Mosquito Alert. Amb aquesta versió antiga no es poden enviar dades. Si vols participar al projecte compartint dades, clica OK per instal·lar-te la versió completa (si ja la tens instal·lada, pots desinstal·lar-te la versió demo quan vulguis).</string>
@@ -51,12 +52,12 @@
     <string name="location_label_editing">Localització*</string>
     <string name="photo_check_label_editing">Imatges</string>
     <string name="note_check_label_editing">Nota</string>
-    <string name="report_title_adult"><i>Aedes</i> urbà</string>
+    <string name="report_title_adult">Mosquit</string>
     <string name="report_title_site">Lloc de cria</string>
     <string name="checklist_label">Completa descripció*</string>
     <string name="location_label">Afegeix localització*</string>
-    <string name="location_current_label">Utilitza GPS</string>
-    <string name="location_select_label">Seleciona al mapa</string>
+    <string name="location_current_label">On estic ara</string>
+    <string name="location_select_label">En un altre lloc</string>
     <string name="location_current_label_button">Actual</string>
     <string name="location_select_label_button">Senyala</string>
     <string name="location_menu_title">Utilitza posició actual o senyala posició al mapa</string>
@@ -68,39 +69,39 @@
     <string name="word_report">Informe</string>
     <string name="photo_label">Imatges</string>
     <string name="photo_label_star">Imatges*</string>
-    <string name="site_report_q1">Selecciona lloc de cria</string>
+    <string name="site_report_q1">És un embornal o claveguera?</string>
     <string name="site_report_q2">Es troba a la via pública?</string>
-    <string name="site_report_q3">Conté aigua estancada i/o larves o pupes de mosquit (qualsevol espècie)?</string>
-    <string name="site_report_q4">Has vist mosquits a prop (a &lt;10metres)?</string>
-    <string name="site_report_q3_response1">Sí, aigua i larves o pupes.</string>
-    <string name="site_report_q3_response2">Sí, aigua sense larves ni pupes.</string>
-    <string name="site_report_q3_response3">No, no conté aigua.</string>
-    <string name="adult_report_q3">Com és l’abdomen del teu mosquit? Consulta el botó (i) i selecciona una resposta:</string>
-    <string name="adult_report_q3a1">Abdomen com <i>Ae. albopictus</i></string>
-    <string name="adult_report_q3a2">Abdomen com <i>Ae. aegypti</i></string>
-    <string name="adult_report_q3a3">Cap dels dos</string>
-    <string name="adult_report_q3a4">No sé</string>
-    <string name="confirmation_q2_adult_headthorax">Com és el tòrax del teu mosquit? Consulta el botó (i) i selecciona una resposta:</string>
-    <string name="q3_headthorax_text">&lt;p&gt;El mosquit tigre (&lt;i&gt;Ae. albopictus&lt;/i&gt;) té una ratlla blanca al cap i al tòrax. En canvi, el mosquit de la febre groga (&lt;i&gt;Ae. aegypti&lt;/i&gt;), té vàries ratlles blanques al tòrax que formen una lira. Evita enviar dades de mosquits que no compleixin aquestes característiques.&lt;/p&gt;\n\n&lt;p&gt;&lt;b&gt;Il·lustracions: J.Luis Ordóñez, CREAF (CC-BY-NC 3.0). Foto dreta: James Gathany (ECDC, domini públic)&lt;/b&gt;&lt;/p&gt;</string>
-    <string name="q2_abdomenlegs_text">&lt;p&gt;Els &lt;i&gt;Aedes&lt;/i&gt; urbans tenen taques blanques a l’abdomen i a les potes, però el el dibuix blanc i el color de fons a l\'abdomen és lleugerament diferent. Evita enviar dades de mosquits que no compleixin aquestes característiques.&lt;/p&gt;\n\n&lt;p&gt;&lt;b&gt;Il·lustracions: J.Luis Ordóñez, CREAF (CC-BY-NC 3.0)&lt;/b&gt;&lt;/p&gt;</string>
+    <string name="site_report_q3">Conté aigua estancada i/o larves de mosquit?</string>
+    <string name="site_report_q4">Has vist mosquits a prop (a menys de 10 metres)?</string>
+    <string name="site_report_q3_response1">Hi ha aigua i veig larves de mosquit</string>
+    <string name="site_report_q3_response2">Hi ha aigua però no veig larves de mosquit</string>
+    <string name="site_report_q3_response3">No hi ha aigua</string>
+    <string name="adult_report_q3">Com és l’abdomen del mosquit? Consulta el botó (i) i selecciona una resposta:</string>
+    <string name="adult_report_q3a1">Amb línies i taques blanques fines</string>
+    <string name="adult_report_q3a2">Amb línies i taques blanques gruixudes</string>
+    <string name="adult_report_q3a3">No té línies ni taques blanques</string>
+    <string name="adult_report_q3a4">No ho sé</string>
+    <string name="confirmation_q2_adult_headthorax">Mira just després del seu cap, al tòrax. Té una sola línia blanca? Consulta el botó (i) i selecciona una resposta:</string>
+    <string name="q2_headthorax_text_help">&lt;p&gt;El mosquit tigre té una sola línia blanca al cap i al tòrax. El mosquit de la febre groga té una línia blanca al cap i 4 línies blanques que dibuixen una lira al tòrax.&lt;/p&gt;\n\n&lt;p&gt;&lt;b&gt;Il·lustracions: J.Luis Ordóñez, CREAF (CC-BY-NC 3.0). Foto dreta: James Gathany (ECDC, PD)&lt;/b&gt;&lt;/p&gt;</string>
+    <string name="q3_abdomenlegs_text">&lt;p&gt;El mosquit tigre i el mosquit de la febre groga tenen línies i taques blanques a l\'abdomen. Les del mosquit tigre són més fines que les del mosquit de la febre groga.&lt;/p&gt;\n\n&lt;p&gt;&lt;b&gt;Il·lustracions: J.Luis Ordóñez, CREAF (CC-BY-NC 3.0)&lt;/b&gt;&lt;/p&gt;</string>
     <string name="identifying_mosquitoes_title">Descripció del mosquit</string>
-    <string name="confirmation_q1_adult_sizecolor">Com és el teu mosquit? Consulta el botó (i) i selecciona una resposta:</string>
-    <string name="adult_report_q1a1">Com <i>Ae. albopictus</i></string>
-    <string name="adult_report_q1a2">Com <i>Ae. aegypti</i></string>
+    <string name="confirmation_q1_adult_sizecolor">De quin color és? Consulta el botó (i) i selecciona una resposta:</string>
+    <string name="adult_report_q1a1">Negre amb línies blanques al cos i les potes</string>
+    <string name="adult_report_q1a2">Marró amb línies blanques al cos i les potes</string>
     <string name="adult_report_q1a3">Cap dels dos</string>
-    <string name="adult_report_q1a4">No sé</string>
-    <string name="adult_report_q2a1">Tórax com <i>Ae. albopictus</i></string>
-    <string name="adult_report_q2a2">Tórax com <i>Ae. aegypti</i></string>
+    <string name="adult_report_q1a4">No ho sé</string>
+    <string name="adult_report_q2a1">Sí</string>
+    <string name="adult_report_q2a2">No, en té 4 en forma de lira</string>
     <string name="adult_report_q2a3">Cap dels dos</string>
-    <string name="adult_report_q2a4">No sé</string>
-    <string name="q1_sizecolor_text">&lt;p&gt;El mosquit tigre (&lt;i&gt;Ae. albopictus&lt;/i&gt;) i el mosquit de la febre groga (&lt;i&gt;Ae. aegypti&lt;/i&gt;) són petits i de color fosc amb taques blanques. El cos d’&lt;i&gt;Ae. albopictus&lt;/i&gt; és de color negre, mentre que el d’&lt;i&gt;Ae. aegypti&lt;/i&gt; és de color marró fosc. Evita enviar dades de mosquits que no compleixin aquestes característiques.&lt;/p&gt;\n\n&lt;p&gt;&lt;b&gt;Il·lustracions: J.Luis Ordóñez, CREAF (CC-BY-NC 3.0)&lt;/b&gt;&lt;/p&gt;</string>
-    <string name="adult_report_help_html">&lt;p&gt;&lt;b&gt;AJUDA:&lt;/b&gt;&lt;br/&gt;\nEls &lt;i&gt;Aedes&lt;/i&gt; urbans, el mosquit tigre (&lt;i&gt;Ae. albopictus&lt;/i&gt;) i el mosquit de la febre groga (&lt;i&gt;Ae. aegypti&lt;/i&gt;), són petits (menys que una moneda d’1 cèntim d’euro), de color fosc (negre o marró fosc) amb ratlles o taques blanques al cos. Normalment són agressius, piquen de dia i sobretot a les cames, volen baix i es troben a prop de cases, als jardins o al carrer.&lt;/p&gt; \n\n&lt;p&gt;Si n\'has trobat un, respon l\'informe i envia les dades. Els camps amb asterisc (*) són obligatoris.&lt;/p&gt;\n\n&lt;p&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;b&gt;Descripció&lt;/b&gt;: respon el formulari, t\'ajudarà a saber si és &lt;i&gt;Ae. albopictus&lt;/i&gt; o &lt;i&gt;Ae. aegypti&lt;/i&gt;.&lt;/li&gt; \n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;Localització&lt;/b&gt;: escull posició actual si el mosquit l\'has atrapat al lloc on es troba el telèfon, o assenyala la posició al mapa si l\'has trobat en un altre lloc. Activa el GPS si vols que la posició de la teva troballa sigui més precisa.&lt;/li&gt;\u0020\u0020\n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;Imatges&lt;/b&gt;: fes una foto o adjunta una foto del mosquit feta per tu. El més important és fotografiar el seu tòrax, perquè es vegi la ratlla blanca en el cas d’&lt;i&gt;Ae. albopictus&lt;/i&gt; o el dibuix en forma de lira en el cas d’&lt;i&gt;Ae. aegypti&lt;/i&gt;. Per fer-ho, agafa\'l per les potes i enfoca\'l bé, si fa falta allunya\'t una mica. Pots adjuntar més d\'una foto des de diferents angles. Trobaràs més trucs a la pàgina web.&lt;/li&gt;\n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;Notes&lt;/b&gt;: si vols, descriu millor la teva troballa. No afegeixis informació o dades personals.&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/p&gt; \n&lt;p&gt;Un cop enviat, podràs consultar i editar l\'informe al teu mapa. Les dades que enviïs seran publicades al mapa web del projecte &lt;a href=\"www.mosquitoalert.com\"&gt;www.mosquitoalert.com&lt;/a&gt;.&lt;/p&gt;\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020</string>
-    <string name="site_report_help_html">&lt;p&gt;&lt;b&gt;AJUDA:&lt;/b&gt;&lt;br/&gt; \nEls &lt;i&gt;Aedes&lt;/i&gt; urbans (&lt;i&gt;Ae. albopictus&lt;/i&gt; i &lt;i&gt;Ae. aegypti&lt;/i&gt;) crien en recipients o dipòsits petits (fins i tot més petits que un cubell) i normalment d’exterior, amb aigua estancada. La presència d’aigua durant uns dies és necessària pel desenvolupament de les larves i pupes, abans de fer la metamorfosi a mosquits. Si has trobat un possible lloc de cria, especialment un embornal a la via pública, respon l\'informe i envia les dades. És necessari completar els camps amb asterisc (*).\n&lt;/p&gt;\n&lt;ul&gt; \n&lt;li&gt;&lt;b&gt;Descripció&lt;/b&gt;: respon el formulari.&lt;/li&gt; \n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;Localització&lt;/b&gt;: escull posició actual si el lloc de cria es troba al lloc on tens el telèfon, o senyala la posició al mapa si l\'has trobat a un altre lloc. Activa el GPS si vols que la posició de la teva troballa sigui més precisa.&lt;/li&gt;\u0020\u0020\n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;Imatges&lt;/b&gt;: fes una foto o adjunta una foto del lloc de cria feta per tu. Si pots, adjunta una foto general que ajudi a reconèixer el lloc, i una altra on es vegi l\'aigua estancada i les larves o pupes.&lt;/li&gt; \n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;Notes&lt;/b&gt;: si vols, descriu millor la teva troballa. No adjuntis informació o dades personals.&lt;/li&gt;\n&lt;/ul&gt; \n&lt;/p&gt;\n&lt;p&gt;Un cop enviat, podràs consultar i editar l\'informe al teu mapa. Les dades que enviïs seran publicades al mapa web a www.mosquitoalert.com.&lt;/p&gt;\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020</string>
-    <string name="site_report_item_help_1">&lt;p&gt;Els &lt;i&gt;Aedes&lt;/i&gt; urbans (&lt;i&gt;Ae. albopictus&lt;/i&gt; i &lt;i&gt;Ae. aegypti&lt;/i&gt;) crien en recipients o dipòsits petits (fins i tot més petits que un cubell) i normalment d’exterior, amb aigua estancada. Els embornals (llocs per on entra l’aigua del carrer a la claveguera) que acumulen aigua poden ser importants llocs de cria d\'aquestes espècies.&lt;/p&gt;\n&lt;p&gt;Els &lt;i&gt;Aedes&lt;/i&gt; urbans no crien en platges, rius, llacs o aiguamolls.&lt;/p&gt;\n&lt;p&gt;Part de les imatges cedides per Agència Salut Pública de Barcelona.&lt;/p&gt;</string>
-    <string name="site_report_item_help_2">Via pública són els espais de lliure concurrència de la gent com ara carrers, places, parcs o espais verds. No són via pública els solars i/o propietats privades.</string>
-    <string name="site_report_item_help_3">Les larves i les pupes d\'&lt;i&gt;Aedes&lt;/i&gt; urbans necessiten aigua estancada i tèrbola durant uns dies per viure, abans de fer la metamorfosi a adults.\n\u0020\u0020\u0020\u0020</string>
-    <string name="site_report_item_help_4">Els &lt;i&gt;Aedes&lt;/i&gt; urbans normalment no es desplacen gaire, per això els adults es troben a prop dels seus llocs de cria.\n\u0020\u0020\u0020\u0020</string>
-    <string name="embornals">Embornal o similar</string>
+    <string name="adult_report_q2a4">No ho sé</string>
+    <string name="q1_sizecolor_text_help">&lt;p&gt;El mosquit tigre i el mosquit de la febre groga són petits i de color fosc amb taques blanques a l\'abdomen i a les potes. El mosquit tigre és de color negre, mentre que el mosquit de la febre groga és de color marró fosc.&lt;/p&gt;\n\n&lt;p&gt;&lt;b&gt;Il·lustracions: J.Luis Ordóñez, CREAF (CC-BY-NC 3.0)&lt;/b&gt;&lt;/p&gt;</string>
+    <string name="adult_report_help_html">&lt;p&gt;&lt;b&gt;AJUDA:&lt;/b&gt;&lt;br/&gt;\n&lt;p&gt;Si has trobat un mosquit tigre o un mosquit de la febre groga, segueix els passos següents:&lt;/p&gt;\n\n&lt;p&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;b&gt;Pas 1 - Com és el teu mosquit?&lt;/b&gt;: respon les quatre preguntes per saber més detalls del mosquit que has trobat.&lt;/li&gt; \n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;Pas 2 - On l\'has trobat?&lt;/b&gt;: selecciona \"On estic ara\" si has trobat el mosquit on estàs situat ara mateix. En aquest cas, l\'app detecta la teva ubicació actual. Activa el GPS del teu dispositiu si vols que la ubicació sigui més precisa. Si has vist un mosquit en un altre lloc i li has fet una foto i la tens guardada, selecciona \"En un altre lloc\" i ubica\'l al mapa.&lt;/li&gt;\u0020\u0020\n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;Pas 3 - Afegeix una foto&lt;/b&gt;: fes una foto amb la càmera del teu mòbil o tauleta, o adjunta-la si la tens guardada. Per fer una bona foto, agafa el mosquit per les potes i intenta fer-li una foto de cara i una de costat.&lt;/li&gt;\n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;Pas 4 - Vols afegir algun comentari?&lt;/b&gt;: pots afegir més detalls de la teva troballa. Si us plau, no afegeixis informació de caràcter personal.&lt;/li&gt;\n&lt;/ul&gt;\n&lt;/p&gt; \n&lt;p&gt;Pots consultar i editar les teves troballes a \"EL MEU MAPA\". Les dades que enviïs es publicaran al mapa de &lt;a href=\"www.mosquitoalert.com\"&gt;www.mosquitoalert.com&lt;/a&gt;.&lt;/p&gt;\u0020\u0020\u0020\u0020\u0020\u0020\u0020\u0020</string>
+    <string name="site_report_help_html">&lt;p&gt;&lt;b&gt;AJUDA:&lt;/b&gt;&lt;br/&gt; \nSi has trobat un possible lloc de cria, especialment un embornal o una claveguera amb aigua a la via pública, segueix els passos següents:\n&lt;/p&gt;\n&lt;ul&gt; \n&lt;li&gt;&lt;b&gt;Pas 1 - Com és el lloc de cria?&lt;/b&gt;: respon les quatre preguntes per saber més detalls del teu lloc de cria.&lt;/li&gt; \n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;Pas 2 - On l\'has trobat?&lt;/b&gt;: selecciona \"On estic ara\" si estàs davant del lloc de cria. En aquest cas, l\'app detecta la teva ubicació actual. Activa el GPS del teu dispositiu si vols que la ubicació de la teva troballa sigui més precisa. Si has vist un punt de cria en un altre lloc i has fet una foto i l\'has guardat, selecciona \"En un altre lloc\" i situa\'l al mapa.&lt;/li&gt;\u0020\u0020\n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;Pas 3 - Afegeix una foto&lt;/b&gt;: fes una foto amb la càmera del mòbil o tauleta, o adjunta-la si la tens guardada. Si hi ha aigua i/o larves de mosquit, intenta que es vegin a la foto.&lt;/li&gt; \n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;Pas 4 - Vols afegir algun comentari?&lt;/b&gt;: pots afegir més detalls de la teva troballa. Si us plau, no afegeixis informació de caràcter personal.&lt;/li&gt;\n&lt;/ul&gt; \n&lt;/p&gt;\n&lt;p&gt;Pots consultar i editar les teves troballes a \"EL MEU MAPA\". Les dades que enviïs es publicaran al mapa de &lt;a href=\"www.mosquitoalert.com\"&gt;www.mosquitoalert.com&lt;/a&gt;.&lt;/p&gt;\u0020\u0020\u0020\u0020</string>
+    <string name="site_report_item_help_1">&lt;p&gt;Els embornals o clavegueres són el principal lloc de cria del mosquit tigre i del mosquit de la febre groga perquè acumulen aigua estancada al seu interior. Aquests mosquits no crien a les platges, rius, llacs ni aiguamolls.&lt;/p&gt;\n&lt;p&gt;Algunes imatges han estat cedides per l\'Agència Salut Pública de Barcelona.&lt;/p&gt;</string>
+    <string name="site_report_item_help_2">Es consideren de la via pública aquells espais de lliure concurrència de la gent com carrers, places, parcs o espais verds. Els solars i les propietats privades no es consideren de la via pública.\u0020</string>
+    <string name="site_report_item_help_3">Les larves de mosquit necessiten aigua estancada i tèrbola durant uns dies per viure i passar a adults.\n\u0020\u0020\u0020\u0020</string>
+    <string name="site_report_item_help_4">El mosquit tigre i el mosquit de la febre groga normalment no es desplacen molt, uns 500 metres des del seu punt de cria. Per això els adults es troben propers als seus llocs de cria. \n\u0020\u0020\u0020\u0020</string>
+    <string name="site_q1_a1_embornals">Sí</string>
     <string name="fonts">Font ornamental</string>
     <string name="basses">Bassa petita o similar</string>
     <string name="bidons">Recipient petit</string>
@@ -111,14 +112,14 @@
     <string name="return_to_map">Torna</string>
     <string name="delete_report">Elimina</string>
     <string name="edit_report">Edita</string>
-    <string name="report_not_saved_warning">L\'informe no s\'ha guardat. Vols sortit igualment?</string>
+    <string name="report_not_saved_warning">L\'informe no s\'ha guardat. Vols sortir igualment?</string>
     <string name="exit_question">Sortir?</string>
     <string name="no_note_attached">Cap nota adjunta</string>
     <string name="no_photo_attached">Cap imatge adjunta</string>
     <string name="checklist_tab_title">Descripció</string>
     <string name="photos_tab_title">Imatges</string>
     <string name="notes_tab_title">Notes</string>
-    <string name="view_report_title_adult">Troballa d’<i>Aedes</i> urbà</string>
+    <string name="view_report_title_adult">Troballa de mosquit.</string>
     <string name="view_report_title_site">Lloc de cria</string>
     <!-- Photo Selector -->
     <string name="photo_selector_title">Afegeix imatges</string>
@@ -141,7 +142,7 @@
     <string name="mission_button_left_survey">Envia ara</string>
     <string name="mission_button_left_url">Visita la pàgina</string>
     <string name="mission_button_middle">Envia més tard</string>
-    <string name="mission_button_right">Elimina</string>
+    <string name="mission_button_right">Elimina missió</string>
     <string name="mission_button_mark_complete">Missió realizada</string>
     <string name="toast__mission_already_complete">Aquesta missió ja s\'ha realitzat. Gràcies!</string>
     <string name="toast_mission_expired">Aquesta missió ha expirat.</string>
@@ -164,7 +165,7 @@
     <string name="menu_map_share">Comparteix</string>
     <string name="menu_toggle_view">Imatge</string>
     <string name="menu_option_refresh">Actualitza</string>
-    <!-- Settings -->
+    <!-- SettingsActivity -->
     <string name="settings_language_title">Idioma</string>
     <string name="settings_language_detail">Selecciona idioma</string>
     <string name="settings_language_button">Selecciona</string>
@@ -187,7 +188,7 @@
     <string name="refresh">Actualitza</string>
     <string name="report_deleted">Informe esborrat</string>
     <string name="edit">Edita</string>
-    <string name="edit_title_adult">Troballa d’<i>Aedes</i> urbà</string>
+    <string name="edit_title_adult">Troballa de mosquit</string>
     <string name="edit_title_site">Lloc de cria</string>
     <string name="cd_help_icon">Ajuda</string>
     <string name="open">Obre</string>
@@ -231,7 +232,7 @@
     <string name="project_email">info@mosquitoalert.com</string>
     <string name="project_website">http://mosquitoalert.com/</string>
     <string name="report_sent">Si cliques OK, les teves dades s\'enviaran al grup de recerca responsable del projecte. Part de les dades es faran públiques al mapa web a www.mosquitoalert.com</string>
-    <string name="report_sent_confirmation">Gràcies per participar. Recorda que a la pàgina web del projecte trobaràs més informació.</string>
+    <string name="report_sent_confirmation">Gràcies per participar. Trobaràs més informació a la pàgina web de www.mosquitoalert.com.</string>
     <string name="reportGallery_CD">Botó per accedir a la galeria d\'imatges</string>
     <string name="saved_image_prefix">mosquitoalert</string>
     <string name="scm_CD">SCM logo</string>
@@ -245,4 +246,23 @@
     <string name="your_report_id_is">El codi de la teva Tigre troballa és:\u0020</string>
     <string name="photo_credits">Part de les fotografies de l\'App Mosquito Alert han estat cedides per R. Eritja (www.eritja.com).</string>
     <string name="copyright">Copyright &amp;#169; 2013, 2014 John R.B. Palmer, Aitana Oltra, Joan Garriga i Frederic Bartumeus\n\u0020\u0020\u0020\u0020</string>
+
+    <string name="paso1">1. Com és el lloc de cria?</string>
+    <string name="paso2">2. On l\'has trobat?</string>
+    <string name="paso3">3. Afegeix una foto</string>
+    <string name="paso4">4. Vols afegir algun comentari?</string>
+    <string name="paso1_2">1. Com és el teu mosquit?</string>
+    <string name="switchboard_button_validations_photos">VALIDA FOTOS</string>
+    <string name="switchboard_button_notifications_site">NOTIFICACIONS</string>
+    <string name="switchboard_button_missions_site">MISSIONS</string>
+    <string name="header_title">Mosquito Alert</string>
+    <string name="menu_option_gallery">Galeria</string>
+    <string name="back">Torna</string>
+    <string name="notifications_new">Rebudes</string>
+    <string name="notifications_old">Antigues</string>
+    <string name="task_expires">Expira</string>
+    <string name="task_complete_checklist">Completa el qüestionari</string>
+    <string name="menu">Menú</string>
+    <string name="additional_information">Informació adicional\u0020</string>
+    <string name="turn_on_location">Activa la Localització del teu dispositiu perquè Mosquito Alert determini la teva posició</string>
 </resources>

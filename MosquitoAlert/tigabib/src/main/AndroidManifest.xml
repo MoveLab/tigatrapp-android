@@ -21,9 +21,12 @@
 -->
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
     package="ceab.movelab.tigabib"
     android:versionCode="23"
     android:versionName="1.0-beta" >
+
+    <uses-sdk tools:overrideLibrary="android.support.customtabs" />
 
 <!--    <uses-sdk android:minSdkVersion="4"android:targetSdkVersion="24" />-->
 
@@ -49,16 +52,17 @@
         <uses-library android:name="com.google.android.maps" />
 
         <activity
-            android:name="ceab.movelab.tigabib.PhotoValidationActivity">
+            android:name="ceab.movelab.tigabib.PhotoValidationWebViewActivity"
+            android:launchMode="singleTop">
         </activity>
 
-        <activity android:name="ceab.movelab.tigabib.Settings" >
+        <activity android:name=".SettingsActivity" >
         </activity>
         <activity
             android:name="ceab.movelab.tigabib.LanguageSelector"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
-        <activity android:name="ceab.movelab.tigabib.Consent" >
+        <activity android:name=".ConsentActivity" >
         </activity>
         <activity android:name="ceab.movelab.tigabib.Help" >
         </activity>
@@ -93,14 +97,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
+<!--        <activity
             android:name="ceab.movelab.tigabib.MapData"
             android:hardwareAccelerated="false"
             android:process=":p2" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Switchboard" />
-        </activity>
+        </activity>-->
         <activity
             android:name=".MapDataV2Activity">
             <meta-data
@@ -109,13 +113,13 @@
         </activity>
         <activity android:name="ceab.movelab.tigabib.PhotoGallery" >
         </activity>
-        <activity
+<!--        <activity
             android:name="ceab.movelab.tigabib.MapSelector"
             android:process=":p1" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".ReportTool" />
-        </activity>
+        </activity>-->
         <activity
             android:name="ceab.movelab.tigabib.MapSelectorV2Activity"
             android:process=":p1" >

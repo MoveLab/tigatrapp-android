@@ -7,7 +7,7 @@
     </item>-->
     <item
         android:id="@+id/gallery"
-        android:title="@string/switchboard_button_text_gallery">
+        android:title="@string/menu_option_gallery">
     </item>
     <item
         android:id="@+id/tigatrappNews"

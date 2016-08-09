@@ -21,10 +21,7 @@
 
 package ceab.movelab.tigabib;
 
-import java.util.Date;
-
 import android.content.Context;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Color;
 import android.support.v4.widget.SimpleCursorAdapter;
@@ -33,37 +30,33 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.TextView;
 
+import java.util.Date;
+
 import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
 
 public class MissionListCursorAdapter extends SimpleCursorAdapter {
 
-	private Context context;
-
-	private int layout;
+	//private Context context;
+	//private int layout;
 
 	private String lang;
 
-	public MissionListCursorAdapter(Context context, int layout, Cursor c,
-			String[] from, int[] to, int flag) {
+	public MissionListCursorAdapter(Context context, int layout, Cursor c, String[] from, int[] to, int flag) {
 		super(context, layout, c, from, to, flag);
 
-		this.context = context;
-		this.layout = layout;
+		//this.context = context;
+		//this.layout = layout;
 
-		Resources res = context.getResources();
-		lang = Util.setDisplayLanguage(res);
-
+		lang = Util.setDisplayLanguage(context.getResources());
 	}
 
 	@Override
 	public void bindView(View v, Context context, Cursor c) {
 
-		String date = Util.userDate(new Date((c.getLong(c
-				.getColumnIndex(Tasks.KEY_CREATION_TIME)))));
+		String date = Util.userDate(new Date((c.getLong(c.getColumnIndex(Tasks.KEY_CREATION_TIME)))));
 
 		String expirationDateString = "";
-		long expirationDate = c.getLong(c
-				.getColumnIndex(Tasks.KEY_EXPIRATION_TIME));
+		long expirationDate = c.getLong(c.getColumnIndex(Tasks.KEY_EXPIRATION_TIME));
 		if(expirationDate > 0)
 			expirationDateString = " - " + Util.userDate(new Date((expirationDate)));
 
@@ -77,25 +70,20 @@ public class MissionListCursorAdapter extends SimpleCursorAdapter {
 
 		String taskShortDescription = "";
 		if (lang.equals("ca"))
-			taskShortDescription = c.getString(c
-					.getColumnIndex(Tasks.KEY_SHORT_DESCRIPTION_CATALAN));
+			taskShortDescription = c.getString(c.getColumnIndex(Tasks.KEY_SHORT_DESCRIPTION_CATALAN));
 		if (lang.equals("es"))
-			taskShortDescription = c.getString(c
-					.getColumnIndex(Tasks.KEY_SHORT_DESCRIPTION_SPANISH));
+			taskShortDescription = c.getString(c.getColumnIndex(Tasks.KEY_SHORT_DESCRIPTION_SPANISH));
 		if (lang.equals("en"))
-			taskShortDescription = c.getString(c
-					.getColumnIndex(Tasks.KEY_SHORT_DESCRIPTION_ENGLISH));
+			taskShortDescription = c.getString(c.getColumnIndex(Tasks.KEY_SHORT_DESCRIPTION_ENGLISH));
 
-		boolean done = c.getInt(c.getColumnIndexOrThrow(Tasks.KEY_DONE)) == 1 ? true
-				: false;
+		boolean done = c.getInt(c.getColumnIndexOrThrow(Tasks.KEY_DONE)) == 1;
 
 		TextView taskTitleView = (TextView) v.findViewById(R.id.taskTitle);
 		if (taskTitle != null) {
 			taskTitleView.setText(taskTitle);
 		}
 
-		TextView taskShortDescriptionView = (TextView) v
-				.findViewById(R.id.taskShortDescription);
+		TextView taskShortDescriptionView = (TextView) v.findViewById(R.id.taskShortDescription);
 		if (taskShortDescription != null) {
 			taskShortDescriptionView.setText(taskShortDescription);
 		}
@@ -105,8 +93,8 @@ public class MissionListCursorAdapter extends SimpleCursorAdapter {
 
 		String thisDateRange = "";
 		if (date != null) {
-			thisDateRange = date;
-				thisDateRange = date + expirationDateString;
+			//thisDateRange = date;
+			thisDateRange = date + expirationDateString;
 			dateView.setText(thisDateRange);
 		}
 

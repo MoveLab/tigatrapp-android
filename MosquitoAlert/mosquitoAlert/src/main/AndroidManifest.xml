@@ -64,13 +64,13 @@
         android:theme="@style/DarkThemeSelector" >
         <uses-library android:name="com.google.android.maps" />
 
-        <activity android:name="ceab.movelab.tigabib.Settings" >
+        <activity android:name="ceab.movelab.tigabib.SettingsActivity" >
         </activity>
         <activity
             android:name="ceab.movelab.tigabib.LanguageSelector"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
-        <activity android:name="ceab.movelab.tigabib.Consent" >
+        <activity android:name="ceab.movelab.tigabib.ConsentActivity" >
         </activity>
         <activity android:name="ceab.movelab.tigabib.Help" >
         </activity>

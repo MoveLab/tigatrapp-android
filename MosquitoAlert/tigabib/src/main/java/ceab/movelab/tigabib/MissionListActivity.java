@@ -23,10 +23,8 @@ package ceab.movelab.tigabib;
 
 import android.app.AlertDialog;
 import android.content.ContentResolver;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -45,11 +43,9 @@ import android.widget.ListView;
 
 import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
 
-public class MissionListActivity extends FragmentActivity implements
-		LoaderManager.LoaderCallbacks<Cursor> {
+public class MissionListActivity extends FragmentActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
 	private static final int LOADER_ID = 0x02;
-	Context context;
 
 	ListView listView;
 	MissionListCursorAdapter adapter;
@@ -57,32 +53,26 @@ public class MissionListActivity extends FragmentActivity implements
 	private boolean all = true;
 
 	private static final String queryAll = Tasks.KEY_ACTIVE + " = " + "1";
+	private static final String queryPending = Tasks.KEY_ACTIVE + " = " + "1 AND " + Tasks.KEY_DONE + " = 0";
 
-	private static final String queryPending = Tasks.KEY_ACTIVE + " = "
-			+ "1 AND " + Tasks.KEY_DONE + " = 0";
-
-	Resources res;
 	String lang;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		context = this;
 
 		if (!PropertyHolder.isInit())
-			PropertyHolder.init(context);
+			PropertyHolder.init(this);
 
-		res = getResources();
-		lang = Util.setDisplayLanguage(res);
+		lang = Util.setDisplayLanguage(getResources());
 
 		setContentView(R.layout.tasks_list);
 
 		getSupportLoaderManager().initLoader(LOADER_ID, null, this);
 
 		adapter = new MissionListCursorAdapter(this, R.layout.tasks_list_item,
-				null, Tasks.KEYS_TASKS_LIST, new int[] { R.id.taskTitle,
-						R.id.taskShortDescription, R.id.date },
+				null, Tasks.KEYS_TASKS_LIST, new int[] { R.id.taskTitle, R.id.taskShortDescription, R.id.date},
 				Adapter.NO_SELECTION);
 
 		listView = (ListView) findViewById(R.id.listview);
@@ -95,21 +85,16 @@ public class MissionListActivity extends FragmentActivity implements
 					int position, long id) {
 				Cursor c = (Cursor) listView.getItemAtPosition(position);
 
-				long expirationDate = c.getLong(c
-						.getColumnIndexOrThrow(Tasks.KEY_EXPIRATION_TIME));
+				long expirationDate = c.getLong(c.getColumnIndexOrThrow(Tasks.KEY_EXPIRATION_TIME));
 				if (expirationDate == 0
 						|| expirationDate >= System.currentTimeMillis()) {
 
 					if (c.getInt(c.getColumnIndexOrThrow(Tasks.KEY_DONE)) == 0) {
-						String taskJson = c.getString(c
-								.getColumnIndexOrThrow(Tasks.KEY_TASK_JSON));
-						int rowId = c.getInt(c
-								.getColumnIndexOrThrow(Tasks.KEY_ROW_ID));
-						int missionId = c.getInt(c
-								.getColumnIndexOrThrow(Tasks.KEY_ID));
+						String taskJson = c.getString(c.getColumnIndexOrThrow(Tasks.KEY_TASK_JSON));
+						int rowId = c.getInt(c.getColumnIndexOrThrow(Tasks.KEY_ROW_ID));
+						int missionId = c.getInt(c.getColumnIndexOrThrow(Tasks.KEY_ID));
 
-						Intent i = new Intent(MissionListActivity.this,
-								MissionActivity.class);
+						Intent i = new Intent(MissionListActivity.this, MissionActivity.class);
 						i.putExtra(Tasks.KEY_TASK_JSON, taskJson);
 						i.putExtra(Tasks.KEY_ROW_ID, rowId);
 						i.putExtra(Tasks.KEY_ID, missionId);
@@ -117,17 +102,10 @@ public class MissionListActivity extends FragmentActivity implements
 
 						// TODO put in strings
 					} else {
-						Util.toast(
-								context,
-								getResources()
-										.getString(
-												R.string.toast__mission_already_complete));
+						Util.toast(MissionListActivity.this, getResources().getString(R.string.toast__mission_already_complete));
 					}
 				} else {
-					Util.toast(
-							context,
-							getResources().getString(
-									R.string.toast_mission_expired));
+					Util.toast(MissionListActivity.this, getResources().getString(R.string.toast_mission_expired));
 				}
 				// c.close();
 			}
@@ -136,26 +114,20 @@ public class MissionListActivity extends FragmentActivity implements
 		listView.setOnItemLongClickListener(new OnItemLongClickListener() {
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
-
 				final int thisPos = position;
-				AlertDialog.Builder dialog = new AlertDialog.Builder(
-						MissionListActivity.this);
-				dialog.setTitle(getResources().getString(
-						R.string.delete_task_from_list_question));
+				AlertDialog.Builder dialog = new AlertDialog.Builder(MissionListActivity.this);
+				dialog.setTitle(getResources().getString(R.string.delete_task_from_list_question));
 				dialog.setCancelable(true);
 				dialog.setPositiveButton(
 						getResources().getString(R.string.delete),
 						new DialogInterface.OnClickListener() {
 							@Override
 							public void onClick(DialogInterface d, int arg1) {
-								Cursor c = (Cursor) listView
-										.getItemAtPosition(thisPos);
-								int rowId = c.getInt(c
-										.getColumnIndexOrThrow(Tasks.KEY_ROW_ID));
+								Cursor c = (Cursor) listView.getItemAtPosition(thisPos);
+								int rowId = c.getInt(c.getColumnIndexOrThrow(Tasks.KEY_ROW_ID));
 
 								ContentResolver cr = getContentResolver();
-								cr.delete(Util.getMissionsUri(context), Tasks.KEY_ROW_ID
-										+ " = " + rowId, null);
+								cr.delete(Util.getMissionsUri(MissionListActivity.this), Tasks.KEY_ROW_ID  + " = " + rowId, null);
 
 							}
 						});
@@ -175,21 +147,17 @@ public class MissionListActivity extends FragmentActivity implements
 
 	@Override
 	protected void onResume() {
-
-		res = getResources();
-		if (!Util.setDisplayLanguage(res).equals(lang)) {
+		if (!Util.setDisplayLanguage(getResources()).equals(lang)) {
 			finish();
 			startActivity(getIntent());
 		}
 
 		adapter.notifyDataSetChanged();
 		super.onResume();
-
 	}
 
 	public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-
-		return new CursorLoader(context, Util.getMissionsUri(context),
+		return new CursorLoader(MissionListActivity.this, Util.getMissionsUri(MissionListActivity.this),
 				Tasks.KEYS_TASKS_LIST, all ? queryAll : queryPending, null,
 				Tasks.KEY_CREATION_TIME + " DESC");
 	}
@@ -207,7 +175,7 @@ public class MissionListActivity extends FragmentActivity implements
 		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.task_list_menu, menu);
 		MenuItem miAll = menu.findItem(R.id.all);
-		MenuItem miPending = menu.findItem(R.id.pending);
+		//MenuItem miPending = menu.findItem(R.id.pending);
 		miAll.setChecked(all);
 		return true;
 	}
@@ -217,13 +185,10 @@ public class MissionListActivity extends FragmentActivity implements
 		if (item.getItemId() == R.id.pending) {
 			item.setChecked(true);
 			all = false;
-
 			getSupportLoaderManager().restartLoader(LOADER_ID, null, this);
-
 			adapter.notifyDataSetChanged();
 			return true;
 		} else if (item.getItemId() == R.id.all) {
-
 			item.setChecked(true);
 			all = true;
 			getSupportLoaderManager().restartLoader(LOADER_ID, null, this);

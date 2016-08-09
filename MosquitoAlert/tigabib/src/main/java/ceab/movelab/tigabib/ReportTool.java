@@ -21,12 +21,6 @@
 
 package ceab.movelab.tigabib;
 
-import java.util.Date;
-import java.util.Locale;
-import java.util.UUID;
-
-import org.json.JSONException;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -64,6 +58,13 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import org.json.JSONException;
+
+import java.util.Date;
+import java.util.Locale;
+import java.util.UUID;
+
 import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
 import ceab.movelab.tigabib.ContProvContractReports.Reports;
 
@@ -861,10 +862,10 @@ public class ReportTool extends Activity {
 			thisReport.selectedLocationLon = null;
 
 			if ( resultCode == RESULT_OK && data != null ) {
-				if ( data.hasExtra(MapSelector.LAT )) {
+				if ( data.hasExtra(MapSelectorV2Activity.LAT )) {
 					thisReport.selectedLocationLat = Float.valueOf(((float) data.getDoubleExtra(MapSelectorV2Activity.LAT, -1)));
 				}
-				if ( data.hasExtra(MapSelector.LON )) {
+				if ( data.hasExtra(MapSelectorV2Activity.LON )) {
 					thisReport.selectedLocationLon = Float.valueOf(((float) data.getDoubleExtra(MapSelectorV2Activity.LON, -1)));
 				}
 			}

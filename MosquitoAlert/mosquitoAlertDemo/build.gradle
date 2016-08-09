@@ -15,6 +15,8 @@ android {
         applicationId "ceab.movelab.tigerapp"
         minSdkVersion 9
         targetSdkVersion 24
+        versionCode 28  /* 28 is current production code */
+        versionName "Mosquito Alert Demo 1.04"
     }
     buildTypes {
         release {

@@ -218,7 +218,7 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 
 		// not sure if we still need this
 		TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-		stackBuilder.addParentStack(Switchboard.class);
+		stackBuilder.addParentStack(SwitchboardActivity.class);
 		stackBuilder.addNextIntent(intent);
 		PendingIntent pendingIntent = stackBuilder.getPendingIntent(0,PendingIntent.FLAG_CANCEL_CURRENT);
 

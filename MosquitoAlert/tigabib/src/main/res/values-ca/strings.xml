@@ -34,7 +34,7 @@
     <string name="toast_complete_checklist">- Completa descripció</string>
     <string name="toast_specify_location">- Especifica posició</string>
     <string name="toast_attach_photo">- Adjunta imatge</string>
-    <!-- Switchboard -->
+    <!-- SwitchboardActivity -->
     <string name="dataMap_CD">Les meves dades</string>
     <string name="switchboard_button_text_report">ENVIA</string>
     <string name="switchboard_button_text_sites">LLOC DE CRIA</string>

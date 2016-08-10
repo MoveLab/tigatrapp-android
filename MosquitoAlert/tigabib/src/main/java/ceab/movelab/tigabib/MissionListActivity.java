@@ -61,7 +61,6 @@ public class MissionListActivity extends FragmentActivity implements LoaderManag
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(this);
 
@@ -77,7 +76,6 @@ public class MissionListActivity extends FragmentActivity implements LoaderManag
 
 		listView = (ListView) findViewById(R.id.listview);
 		listView.setAdapter(adapter);
-
 		listView.setFastScrollEnabled(true);
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
@@ -157,7 +155,7 @@ public class MissionListActivity extends FragmentActivity implements LoaderManag
 	}
 
 	public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
-		return new CursorLoader(MissionListActivity.this, Util.getMissionsUri(MissionListActivity.this),
+		return new CursorLoader(this, Util.getMissionsUri(this),
 				Tasks.KEYS_TASKS_LIST, all ? queryAll : queryPending, null,
 				Tasks.KEY_CREATION_TIME + " DESC");
 	}

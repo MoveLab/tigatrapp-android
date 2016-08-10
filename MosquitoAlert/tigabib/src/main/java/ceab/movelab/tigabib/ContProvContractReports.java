@@ -68,7 +68,7 @@ public class ContProvContractReports {
 		 * it is a unique UUID that is automatically assigned by default until
 		 * the user chooses a custom ID.
 		 * 
-		 * @see Switchboard.onCreate
+		 * @see SwitchboardActivity.onCreate
 		 * @see Registration
 		 * 
 		 */

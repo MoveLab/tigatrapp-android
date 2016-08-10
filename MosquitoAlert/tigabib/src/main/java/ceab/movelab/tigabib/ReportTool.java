@@ -790,7 +790,7 @@ public class ReportTool extends Activity {
 				removeLocationUpdates();
 
 				// Intent goHome = new Intent(ReportTool.this,
-				// Switchboard.class);
+				// SwitchboardActivity.class);
 				// startActivity(goHome);
 				/*
 				 * Report thisReport = new Report( reportID,
@@ -1351,7 +1351,7 @@ public class ReportTool extends Activity {
 					public void onClick(DialogInterface d, int arg1) {
 
 						Intent i = new Intent(ReportTool.this,
-								Switchboard.class);
+								SwitchboardActivity.class);
 						startActivity(i);
 						finish();
 

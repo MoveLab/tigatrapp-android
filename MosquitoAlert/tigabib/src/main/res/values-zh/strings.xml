@@ -33,7 +33,7 @@
     <string name="toast_complete_checklist">- 請完成資料一覽表</string>
     <string name="toast_specify_location">- 請具體說明其位置</string>
     <string name="toast_attach_photo">- 請上載一張蚊子滋生地的照片</string>
-    <!-- Switchboard -->
+    <!-- SwitchboardActivity -->
     <string name="dataMap_CD">我的數據</string>
     <string name="switchboard_button_text_report">報告</string>
     <string name="switchboard_button_text_sites">滋生地方</string>

@@ -7,8 +7,8 @@
  * This file is part of Tigatrapp.
  * 
  * Tigatrapp is free software: you can redistribute it and/or modify 
- * it under the terms of the GNU General Public License as published by 
- * the Free Software Foundation, either version 3 of the License, or (at 
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at
  * your option) any later version.
  * 
  * Tigatrapp is distributed in the hope that it will be useful, but 
@@ -16,14 +16,14 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
  * See the GNU General Public License for more details.
  * 
- * You should have received a copy of the GNU General Public License along 
+ * You should have received a copy of the GNU General Public License along
  * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/LightThemeSelector"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:background="@color/white" >
 
     <ImageView
@@ -39,6 +39,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:paddingTop="16dp"
+        android:gravity="center_horizontal"
         android:orientation="vertical" >
 
         <LinearLayout
@@ -54,15 +56,11 @@
                 android:layout_marginLeft="1dp"
                 android:layout_marginRight="1dp"
                 android:background="@drawable/selectorcolors_light" >
-
                 <ImageView
                     android:layout_width="60dip"
                     android:layout_height="60dip"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:gravity="center_vertical|center_horizontal"
+                    android:layout_centerInParent="true"
                     android:src="@drawable/ic_switchboard_icon_breeding_site" />
-
                 <TextView
                     android:id="@+id/reportButtonSiteText"
                     android:layout_width="fill_parent"
@@ -84,15 +82,11 @@
                 android:layout_marginLeft="1dp"
                 android:layout_marginRight="1dp"
                 android:background="@drawable/selectorcolors_light" >
-
                 <ImageView
                     android:layout_width="60dip"
                     android:layout_height="60dip"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:gravity="center_vertical|center_horizontal"
+                    android:layout_centerInParent="true"
                     android:src="@drawable/ic_switchboard_icon_adult" />
-
                 <TextView
                     android:id="@+id/reportButtonAdultText"
                     android:layout_width="fill_parent"
@@ -114,15 +108,11 @@
                 android:layout_marginLeft="1dp"
                 android:layout_marginRight="1dp"
                 android:background="@drawable/selectorcolors_light" >
-
                 <ImageView
                     android:layout_width="60dip"
                     android:layout_height="60dip"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:gravity="center_vertical|center_horizontal"
+                    android:layout_centerInParent="true"
                     android:src="@drawable/ic_switchboard_icon_map" />
-
                 <TextView
                     android:id="@+id/reportButtonMapText"
                     android:layout_width="fill_parent"
@@ -144,15 +134,11 @@
                 android:layout_marginLeft="1dp"
                 android:layout_marginRight="1dp"
                 android:background="@drawable/selectorcolors_light" >
-
                 <ImageView
                     android:layout_width="60dip"
                     android:layout_height="60dip"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:src="@drawable/ic_switchboard_icon_gallery" />
-
+                    android:layout_centerInParent="true"
+                    android:src="@drawable/ic_switchboard_icon_validacio" />
                 <TextView
                     android:id="@+id/reportButtonGalleryText"
                     android:layout_width="fill_parent"
@@ -166,16 +152,105 @@
                     android:visibility="gone" />
             </RelativeLayout>
         </LinearLayout>
+        <RelativeLayout
+            android:id="@+id/reportNotificationsLayout"
+            android:layout_width="280dip"
+            android:layout_height="34dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/selectorcolors_light" >
+            <TextView
+                android:id="@+id/reportNotificationsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dip"
+                android:paddingStart="10dip"
+                android:paddingRight="2dip"
+                android:paddingEnd="2dip"
+                android:drawableLeft="@drawable/notificacions"
+                android:drawableStart="@drawable/notificacions"
+                android:drawablePadding="6dp"
+                android:textSize="12sp"
+                android:text="@string/switchboard_button_notifications_site"
+                android:textColor="@color/switchboard_button_text" />
+            <TextView
+                android:id="@+id/reportNotificationsNumberText"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:gravity="center"
+                android:padding="2dip"
+                android:layout_marginTop="6dp"
+                android:layout_marginBottom="6dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="0"
+                android:textSize="12sp"
+                android:textColor="@color/white"
+                android:background="@drawable/counter_bg"/>
+        </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/reportMissionsLayout"
+            android:layout_width="280dip"
+            android:layout_height="34dp"
+            android:layout_marginBottom="2dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/selectorcolors_light" >
+            <TextView
+                android:id="@+id/reportMissionsText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:paddingTop="2dip"
+                android:paddingBottom="2dip"
+                android:paddingLeft="10dip"
+                android:paddingStart="10dip"
+                android:paddingRight="2dip"
+                android:paddingEnd="2dip"
+                android:drawableLeft="@drawable/missions"
+                android:drawableStart="@drawable/missions"
+                android:drawablePadding="6dp"
+                android:text="@string/switchboard_button_missions_site"
+                android:textSize="12sp"
+                android:textColor="@color/switchboard_button_text" />
+            <TextView
+                android:id="@+id/reportMissionsNumberText"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
+                android:gravity="center"
+                android:padding="2dip"
+                android:layout_marginTop="7dp"
+                android:layout_marginBottom="7dp"
+                android:layout_marginLeft="2dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"
+                android:textSize="12sp"
+                android:text="0"
+                android:textColor="@color/white"
+                android:background="@drawable/counter_bg"/>
+        </RelativeLayout>
         <ImageView
             android:id="@+id/mainSiteButton"
             android:layout_width="match_parent"
-            android:layout_height="41dip"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="10dp"
+            android:layout_height="42dip"
+            android:layout_marginTop="0dp"
             android:background="@drawable/selectorcolors_clear"
-            android:gravity="center_vertical|center_horizontal"
-            android:padding="10dip"
+            android:padding="6dip"
             android:src="@drawable/atrapaeltigre_site_icon_large" />
     </LinearLayout>
 

@@ -34,7 +34,7 @@
     <string name="toast_complete_checklist">- complete the checklist</string>
     <string name="toast_specify_location">- specify a location</string>
     <string name="toast_attach_photo">- attach a photo of the breeding site</string>
-    <!-- Switchboard -->
+    <!-- SwitchboardActivity -->
     <string name="dataMap_CD">My Data</string>
     <string name="switchboard_button_text_report">REPORT</string>
     <string name="switchboard_button_text_sites">BREEDING SITE</string>

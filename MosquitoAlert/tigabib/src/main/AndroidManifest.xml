@@ -7,8 +7,8 @@
  * This file is part of Tigatrapp.
  * 
  * Tigatrapp is free software: you can redistribute it and/or modify 
- * it under the terms of the GNU General Public License as published by 
- * the Free Software Foundation, either version 3 of the License, or (at 
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at
  * your option) any later version.
  * 
  * Tigatrapp is distributed in the hope that it will be useful, but 
@@ -16,7 +16,7 @@
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
  * See the GNU General Public License for more details.
  * 
- * You should have received a copy of the GNU General Public License along 
+ * You should have received a copy of the GNU General Public License along
  * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
 -->
 
@@ -51,51 +51,46 @@
         android:theme="@style/DarkThemeSelector" >
         <uses-library android:name="com.google.android.maps" />
 
-        <activity
-            android:name="ceab.movelab.tigabib.PhotoValidationWebViewActivity"
-            android:launchMode="singleTop">
-        </activity>
+        <activity android:name="ceab.movelab.tigabib.PhotoValidationWebViewActivity" />
 
-        <activity android:name=".SettingsActivity" >
-        </activity>
+        <activity android:name="ceab.movelab.tigabib.SettingsActivity" />
         <activity
             android:name="ceab.movelab.tigabib.LanguageSelector"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
-        <activity android:name=".ConsentActivity" >
-        </activity>
-        <activity android:name="ceab.movelab.tigabib.Help" >
-        </activity>
-        <activity android:name="ceab.movelab.tigabib.ViewReportsChecklistTab" >
-        </activity>
-        <activity android:name="ceab.movelab.tigabib.ViewReportsPhotosTab" >
-        </activity>
-        <activity android:name="ceab.movelab.tigabib.ViewReportsNotesTab" >
-        </activity>
+        <activity android:name="ceab.movelab.tigabib.ConsentActivity" />
+        <activity android:name="ceab.movelab.tigabib.Help" />
+        <activity android:name="ceab.movelab.tigabib.ViewReportsChecklistTab" />
+        <activity android:name="ceab.movelab.tigabib.ViewReportsPhotosTab" />
+        <activity android:name="ceab.movelab.tigabib.ViewReportsNotesTab" />
+
         <activity
             android:name="ceab.movelab.tigabib.ViewReportsTab"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
+
         <activity android:name="ceab.movelab.tigabib.MissionListActivity" />
         <activity android:name="ceab.movelab.tigabib.NotificationListActivity" />
-
         <activity android:name="ceab.movelab.tigabib.MissionActivity" />
         <activity android:name="ceab.movelab.tigabib.NotificationActivity" />
 
-        <activity android:name="ceab.movelab.tigabib.AttachedPhotos" >
-        </activity>
-        <activity android:name="ceab.movelab.tigabib.ReportTool" >
-        </activity>
-        <activity android:name="ceab.movelab.tigabib.GPLView" >
-        </activity>
+        <activity android:name="ceab.movelab.tigabib.AttachedPhotos" />
+        <activity android:name="ceab.movelab.tigabib.ReportTool" />
+        <activity android:name="ceab.movelab.tigabib.GPLViewActivity" />
+
         <activity
-            android:name="ceab.movelab.tigabib.Switchboard"
-            android:allowTaskReparenting="true"
-            android:launchMode="singleInstance" >
+            android:name="ceab.movelab.tigabib.SplashActivity"
+            android:label="@string/app_name"
+            android:noHistory="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="ceab.movelab.tigabib.SwitchboardActivity"
+            android:allowTaskReparenting="true"
+            android:launchMode="singleInstance" >
         </activity>
 <!--        <activity
             android:name="ceab.movelab.tigabib.MapData"
@@ -103,13 +98,13 @@
             android:process=":p2" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Switchboard" />
+                android:value=".SwitchboardActivity" />
         </activity>-->
         <activity
-            android:name=".MapDataV2Activity">
+            android:name="ceab.movelab.tigabib.MapDataV2Activity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Switchboard" />
+                android:value="ceab.movelab.tigabib.SwitchboardActivity" />
         </activity>
         <activity android:name="ceab.movelab.tigabib.PhotoGallery" >
         </activity>
@@ -125,22 +120,22 @@
             android:process=":p1" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ReportTool" />
+                android:value="ceab.movelab.tigabib.ReportTool" />
         </activity>
         <activity
             android:name="ceab.movelab.tigabib.About"
             android:allowTaskReparenting="true" >
         </activity>
         <activity
-            android:name="ceab.movelab.tigabib.License"
+            android:name="ceab.movelab.tigabib.LicenseActivity"
             android:allowTaskReparenting="true" >
         </activity>
         <activity
             android:name="ceab.movelab.tigabib.RSSActivity"
-            android:parentActivityName="Switchboard" >
+            android:parentActivityName="ceab.movelab.tigabib.SwitchboardActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="Switchboard" />
+                android:value="ceab.movelab.tigabib.SwitchboardActivity" />
         </activity>
 
         <receiver android:name="ceab.movelab.tigabib.TigerBroadcastReceiver" >

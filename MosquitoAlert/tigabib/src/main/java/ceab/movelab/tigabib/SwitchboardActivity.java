@@ -43,8 +43,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -58,6 +56,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
 import ceab.movelab.tigabib.chrometabs.CustomTabActivityHelper;
 import ceab.movelab.tigabib.chrometabs.WebviewFallback;
 import ceab.movelab.tigabib.model.Notification;
@@ -69,9 +68,9 @@ import ceab.movelab.tigabib.model.RealmHelper;
  * @author John R.B. Palmer
  *
  */
-public class Switchboard extends Activity {
+public class SwitchboardActivity extends Activity {
 
-	private static String TAG = "Switchboard";
+	private static String TAG = "SwitchboardActivity";
 
 	private RelativeLayout reportButtonAdult;
 	private RelativeLayout reportButtonSite;
@@ -82,9 +81,6 @@ public class Switchboard extends Activity {
 	private ImageView websiteButton;
 	private ImageView menuButton;
 
-	//final Context context = this;
-	//AnimationDrawable ad;
-	//Resources res;
 	String lang;
 
 	final private static int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 555;
@@ -112,7 +108,7 @@ public class Switchboard extends Activity {
 
 	private void onCreateWithPermissions() {
 		if ( !Util.privateMode(this) && !PropertyHolder.hasReconsented() ) { // MG - 9/8/16
-			Intent i2c = new Intent(Switchboard.this, ConsentActivity.class);
+			Intent i2c = new Intent(SwitchboardActivity.this, ConsentActivity.class);
 			startActivity(i2c);
 			finish();
 		} else {
@@ -183,12 +179,20 @@ public class Switchboard extends Activity {
 				}
 			}
 
+			setContentView(R.layout.switchboard);
+
 			// open and close databases in order to trigger any updates
 			ContentResolver cr = getContentResolver();
 			Cursor c = cr.query(Util.getReportsUri(this), new String[]{ContProvContractReports.Reports.KEY_ROW_ID}, null, null, null);
-			if ( c != null) c.close();
+			if ( c != null ) c.close();
 			c = cr.query(Util.getMissionsUri(this), new String[]{ContProvContractReports.Reports.KEY_ROW_ID}, null, null, null);
-			if ( c != null) c.close();
+			if ( c != null ) c.close();
+
+			c = cr.query(Util.getMissionsUri(this), new String[]{Tasks.KEY_ID},
+					Tasks.KEY_ACTIVE + " = 1 AND " + Tasks.KEY_DONE + " = 0", null, null);
+			if ( c != null ) {
+				((TextView) findViewById(R.id.reportMissionsNumberText)).setText(String.valueOf(c.getCount()));
+			}
 
 			if (PropertyHolder.isServiceOn()) {
 				long lastScheduleTime = PropertyHolder.lastSampleScheduleMade();
@@ -197,19 +201,16 @@ public class Switchboard extends Activity {
 				}
 			}
 
-			setContentView(R.layout.switchboard);
-
 			reportButtonAdult = (RelativeLayout) findViewById(R.id.reportButtonAdult);
 			reportButtonAdult.setOnClickListener(new View.OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					Intent i = new Intent(Switchboard.this, ReportTool.class);
+					Intent i = new Intent(SwitchboardActivity.this, ReportTool.class);
 					Bundle b = new Bundle();
 					b.putInt("type", Report.TYPE_ADULT);
 					i.putExtras(b);
 					startActivity(i);
-
 				}
 			});
 
@@ -218,7 +219,7 @@ public class Switchboard extends Activity {
 
 				@Override
 				public void onClick(View v) {
-					Intent i = new Intent(Switchboard.this, ReportTool.class);
+					Intent i = new Intent(SwitchboardActivity.this, ReportTool.class);
 					Bundle b = new Bundle();
 					b.putInt("type", Report.TYPE_BREEDING_SITE);
 					i.putExtras(b);
@@ -231,7 +232,7 @@ public class Switchboard extends Activity {
 
 				@Override
 				public void onClick(View v) {
-					Intent i = new Intent(Switchboard.this, MapDataV2Activity.class);
+					Intent i = new Intent(SwitchboardActivity.this, MapDataV2Activity.class);
 					startActivity(i);
 				}
 			});
@@ -240,12 +241,12 @@ public class Switchboard extends Activity {
 			pybossaButton.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-//					Intent i = new Intent(Switchboard.this, PhotoValidationActivity.class);
+//					Intent i = new Intent(SwitchboardActivity.this, PhotoValidationActivity.class);
 //					startActivity(i);
 					CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder()
-							.setToolbarColor(getResources().getColor(R.color.yellow)).build();
+							.setToolbarColor(getResources().getColor(R.color.green_pybossa)).build();
 					CustomTabActivityHelper.openCustomTab(
-							Switchboard.this,// activity
+							SwitchboardActivity.this,// activity
 							customTabsIntent,
 							Uri.parse(UtilLocal.PYBOSSA_URL),
 							new WebviewFallback()
@@ -257,7 +258,7 @@ public class Switchboard extends Activity {
 			notificationsButton.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Intent i = new Intent(Switchboard.this, NotificationListActivity.class);
+					Intent i = new Intent(SwitchboardActivity.this, NotificationListActivity.class);
 					startActivity(i);
 				}
 			});
@@ -266,7 +267,7 @@ public class Switchboard extends Activity {
 			missionsButton.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Intent i = new Intent(Switchboard.this, MissionListActivity.class);
+					Intent i = new Intent(SwitchboardActivity.this, MissionListActivity.class);
 					startActivity(i);
 				}
 			});
@@ -292,7 +293,7 @@ public class Switchboard extends Activity {
 				}
 			});
 
-			Animation animation = new AlphaAnimation(0.0f, 1.0f);
+			/*Animation animation = new AlphaAnimation(0.0f, 1.0f);
 			animation.setDuration(500);
 
 			reportButtonAdult.startAnimation(animation);
@@ -300,8 +301,7 @@ public class Switchboard extends Activity {
 			mapButton.startAnimation(animation);
 			pybossaButton.startAnimation(animation);
 			websiteButton.startAnimation(animation);
-			menuButton.startAnimation(animation);
-
+			menuButton.startAnimation(animation);*/
 		}
 	}
 
@@ -311,15 +311,14 @@ public class Switchboard extends Activity {
 			finish();
 			startActivity(getIntent());
 		}
-		RealmHelper.getInstance().getRealm(Switchboard.this);
-
-		loadRemoteNotifications();
 		super.onResume();
+
+		RealmHelper.getInstance().getRealm(SwitchboardActivity.this);
+		loadRemoteNotifications();
 	}
 
 	private void loadRemoteNotifications() {
-		String notificationUrl = Util.API_NOTIFICATION + "?"
-				+"user_id=" + PropertyHolder.getUserId();
+		String notificationUrl = Util.API_NOTIFICATION + "?user_id=" + PropertyHolder.getUserId();
 
 		Ion.with(this)
 			.load(Util.URL_TIGASERVER_API_ROOT + notificationUrl)
@@ -331,7 +330,7 @@ public class Switchboard extends Activity {
 				@Override
 				public void onCompleted(Exception e, List<Notification> result) {
 					// do stuff with the result or error
-					Util.logInfo(Switchboard.this, TAG, result.toString());
+					Util.logInfo(SwitchboardActivity.this, TAG, result.toString());
 
 					RealmHelper.getInstance().addOrUpdateNotificationList(result);
 					updateNotificationCount();
@@ -352,7 +351,6 @@ public class Switchboard extends Activity {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-
 			// do something on back.
 			finish();
 			return true;
@@ -376,7 +374,7 @@ public class Switchboard extends Activity {
 		super.onOptionsItemSelected(item);
 
 		if (item.getItemId() == R.id.tigatrappNews) {
-			Intent i = new Intent(Switchboard.this, RSSActivity.class);
+			Intent i = new Intent(SwitchboardActivity.this, RSSActivity.class);
 			i.putExtra(RSSActivity.RSSEXTRA_TITLE, getResources().getString(R.string.rss_title_tigatrapp));
 			if (lang.equals("ca"))
 				i.putExtra(RSSActivity.RSSEXTRA_URL, Util.URL_RSS_CA);
@@ -388,19 +386,19 @@ public class Switchboard extends Activity {
 			startActivity(i);
 			return true;
 		} else if (item.getItemId() == R.id.gallery) {
-			Intent i = new Intent(Switchboard.this, PhotoGallery.class);
+			Intent i = new Intent(SwitchboardActivity.this, PhotoGallery.class);
 			startActivity(i);
 			return true;
 		} else if (item.getItemId() == R.id.settings) {
-			Intent i = new Intent(Switchboard.this, SettingsActivity.class);
+			Intent i = new Intent(SwitchboardActivity.this, SettingsActivity.class);
 			startActivity(i);
 			return true;
 		} else if (item.getItemId() == R.id.help) {
-			Intent i = new Intent(Switchboard.this, Help.class);
+			Intent i = new Intent(SwitchboardActivity.this, Help.class);
 			startActivity(i);
 			return true;
 		} else if (item.getItemId() == R.id.about) {
-			Intent i = new Intent(Switchboard.this, About.class);
+			Intent i = new Intent(SwitchboardActivity.this, About.class);
 			startActivity(i);
 			return true;
 		} else if (item.getItemId() == R.id.shareApp) {
@@ -424,7 +422,7 @@ public class Switchboard extends Activity {
 	public void askForPermissions() {
 		String[] permissionsArray = mPermissionsDenied.toArray(new String[mPermissionsDenied.size()]);
 		if (permissionsArray.length > 0) {
-			ActivityCompat.requestPermissions(Switchboard.this, permissionsArray, REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+			ActivityCompat.requestPermissions(SwitchboardActivity.this, permissionsArray, REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
 		}
 	}
 
@@ -444,7 +442,7 @@ public class Switchboard extends Activity {
 				else {
 					// Permission Denied
 					mPermissionsDenied = getDeniedPermissions();
-//Toast.makeText(Switchboard.this, "Some Permission is Denied", Toast.LENGTH_SHORT).show();
+//Toast.makeText(SwitchboardActivity.this, "Some Permission is Denied", Toast.LENGTH_SHORT).show();
 					new Handler().postDelayed(new Runnable() {
 						@Override
 						public void run() {
@@ -464,12 +462,12 @@ public class Switchboard extends Activity {
 	public ArrayList<String> getDeniedPermissions() {
 		ArrayList<String> permissions = new ArrayList<String>();
 		ArrayList<String> permissionsDenied = new ArrayList<String>();
-		//Group location
+		// Group location
 		permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
 		permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);
-		//Group ??
+		// Group ??
 		//permissions.add(Manifest.permission.BATTERY_STATS);
-		//Group Storage
+		// Group Storage
 		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
 			permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
 		}
@@ -483,6 +481,7 @@ public class Switchboard extends Activity {
 		}
 		return permissionsDenied;
 	}
+
 
 	public boolean hasPermission(Activity activity, String permission) {
 		return ContextCompat.checkSelfPermission(activity, permission) == 0;

@@ -97,7 +97,7 @@ public class ConsentActivity extends Activity {
 				Util.internalBroadcast(context, Messages.START_DAILY_SYNC);
 
 				// launch switchboard
-				Intent i = new Intent(ConsentActivity.this, Switchboard.class);
+				Intent i = new Intent(ConsentActivity.this, SwitchboardActivity.class);
 				startActivity(i);
 				finish();
 			}

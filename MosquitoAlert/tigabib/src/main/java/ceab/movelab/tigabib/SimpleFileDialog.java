@@ -2,7 +2,7 @@ package ceab.movelab.tigabib;
 
 /*
 * 
-* This file is licensed under The Code Project Open License (CPOL) 1.02 
+* This file is licensed under The Code Project Open License (CPOL) 1.02
 * http://www.codeproject.com/info/cpol10.aspx
 * http://www.codeproject.com/info/CPOL.zip
 * 

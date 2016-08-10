@@ -143,7 +143,7 @@ public class PhotoValidationWebViewActivity extends Activity {
 			startActivity(i);
 			return true;
 		} else if (item.getItemId() == R.id.license) {
-			Intent i = new Intent(PhotoValidationWebViewActivity.this, License.class);
+			Intent i = new Intent(PhotoValidationWebViewActivity.this, LicenseActivity.class);
 			startActivity(i);
 			return true;
 		}

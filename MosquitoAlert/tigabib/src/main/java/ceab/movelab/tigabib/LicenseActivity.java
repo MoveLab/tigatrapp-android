@@ -36,24 +36,22 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 /**
- * Displays the About screen.
+ * Displays the License screen.
  * 
  * @author John R.B. Palmer
  * 
  */
-public class About extends Activity {
-
-	private static String TAG = "About";
+public class LicenseActivity extends Activity {
 
 	Context context = this;
 
-	private static final String ABOUT_URL_EN = UtilLocal.URL_TIGASERVER + "about/android/en";
-	private static final String ABOUT_URL_CA = UtilLocal.URL_TIGASERVER + "about/android/ca";
-	private static final String ABOUT_URL_ES = UtilLocal.URL_TIGASERVER + "about/android/es";
+	private static final String LICENSE_URL_EN = UtilLocal.URL_TIGASERVER + "license/android/en";
+	private static final String LICENSE_URL_CA = UtilLocal.URL_TIGASERVER + "license/android/ca";
+	private static final String LICENSE_URL_ES = UtilLocal.URL_TIGASERVER + "license/android/es";
 
-	private static final String ABOUT_URL_OFFLINE_EN = "file:///android_asset/html/about_en.html";
-	private static final String ABOUT_URL_OFFLINE_CA = "file:///android_asset/html/about_ca.html";
-	private static final String ABOUT_URL_OFFLINE_ES = "file:///android_asset/html/about_es.html";
+	private static final String LICENSE_URL_OFFLINE_EN = "file:///android_asset/html/license_en.html";
+	private static final String LICENSE_URL_OFFLINE_CA = "file:///android_asset/html/license_ca.html";
+	private static final String LICENSE_URL_OFFLINE_ES = "file:///android_asset/html/license_es.html";
 
 	private WebView myWebView;
 
@@ -64,7 +62,6 @@ public class About extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
 
@@ -74,14 +71,12 @@ public class About extends Activity {
 
 	@Override
 	protected void onPause() {
-
 		super.onPause();
 	}
 
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onResume() {
-
 
 		res = getResources();
 		if (!Util.setDisplayLanguage(res).equals(lang)) {
@@ -96,15 +91,14 @@ public class About extends Activity {
 		myWebView.setWebViewClient(new WebViewClient() {
 			public void onReceivedError(WebView view, int errorCode,
 					String description, String failingUrl) {
-
 				if (lang.equals("ca"))
-					myWebView.loadUrl(ABOUT_URL_OFFLINE_CA);
+					myWebView.loadUrl(LICENSE_URL_OFFLINE_CA);
 
 				else if (lang.equals("es"))
-					myWebView.loadUrl(ABOUT_URL_OFFLINE_ES);
+					myWebView.loadUrl(LICENSE_URL_OFFLINE_ES);
 
 				else
-					myWebView.loadUrl(ABOUT_URL_OFFLINE_EN);
+					myWebView.loadUrl(LICENSE_URL_OFFLINE_EN);
 
 			}
 
@@ -119,15 +113,16 @@ public class About extends Activity {
 		}
 
 		if (!Util.isOnline(context)) { // loading offline only if not online
-			myWebView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
+			myWebView.getSettings().setCacheMode(
+					WebSettings.LOAD_CACHE_ELSE_NETWORK);
 		}
 
 		if (lang.equals("ca"))
-			myWebView.loadUrl(ABOUT_URL_CA);
+			myWebView.loadUrl(LICENSE_URL_CA);
 		else if (lang.equals("es"))
-			myWebView.loadUrl(ABOUT_URL_ES);
+			myWebView.loadUrl(LICENSE_URL_ES);
 		else
-			myWebView.loadUrl(ABOUT_URL_EN);
+			myWebView.loadUrl(LICENSE_URL_EN);
 
 		super.onResume();
 
@@ -150,7 +145,7 @@ public class About extends Activity {
 		super.onCreateOptionsMenu(menu);
 
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.about_menu, menu);
+		inflater.inflate(R.menu.license_menu, menu);
 
 		return true;
 
@@ -162,16 +157,15 @@ public class About extends Activity {
 
 		if (item.getItemId() == R.id.language) {
 
-			Intent i = new Intent(About.this, LanguageSelector.class);
+			Intent i = new Intent(LicenseActivity.this, LanguageSelector.class);
 			startActivity(i);
 			return true;
-		} else if (item.getItemId() == R.id.license) {
+		} else if (item.getItemId() == R.id.gpl) {
 
-			Intent i = new Intent(About.this, LicenseActivity.class);
+			Intent i = new Intent(LicenseActivity.this, GPLViewActivity.class);
 			startActivity(i);
 			return true;
 		}
-
 		return false;
 	}
 

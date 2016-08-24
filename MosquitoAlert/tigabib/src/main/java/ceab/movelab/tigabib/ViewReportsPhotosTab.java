@@ -1,12 +1,5 @@
 package ceab.movelab.tigabib;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
@@ -15,8 +8,8 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -24,6 +17,13 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import ceab.movelab.tigabib.ContProvContractReports.Reports;
 
@@ -62,21 +62,18 @@ public class ViewReportsPhotosTab extends Activity {
 					public void onItemClick(AdapterView<?> parent, View v,
 							int position, long id) {
 
-						final String thisPhotoUri = Report.getPhotoUri(context,
-								jsonPhotos, position);
+						final String thisPhotoUri = Report.getPhotoUri(context, jsonPhotos, position);
 						if (thisPhotoUri != null) {
 
 							try {
 								final Dialog dialog = new Dialog(context);
 								dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 								dialog.setContentView(R.layout.photo_view);
-								ImageView iv = (ImageView) dialog
-										.findViewById(R.id.photoView);
+								ImageView iv = (ImageView) dialog.findViewById(R.id.photoView);
 								// TODO find better way of choosing max pixel
 								// size --
 								// based on screen
-								iv.setImageBitmap(Util.getSmallerBitmap(
-										new File(thisPhotoUri), context, 300));
+								iv.setImageBitmap(Util.getSmallerBitmap(new File(thisPhotoUri), context, 300));
 
 								LinearLayout button_area = (LinearLayout) dialog.findViewById(R.id.photo_button_area);
 								button_area.setVisibility(View.VISIBLE);
@@ -93,29 +90,22 @@ public class ViewReportsPhotosTab extends Activity {
 										shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
 										shareIntent.setType("image/*");
 										// add a subject
-										shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
-												"Tigatrapp");
+										shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, getString(R.string.app_name));
 
 										// build the body of the message to be shared
-										String shareMessage = getResources().getString(
-												R.string.project_website) + " #atrapaeltigre";
+										String shareMessage = getResources().getString(R.string.project_website) + " " +
+												getString(R.string.app_tag);
 
 										// add the message
-										shareIntent.putExtra(android.content.Intent.EXTRA_TEXT,
-												shareMessage);
-										
+										shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareMessage);
 
 										// start the chooser for sharing
 										startActivity(Intent.createChooser(shareIntent, getResources()
 												.getText(R.string.share_with)));
-
-										
-
 									}
 								});
 
 								negative.setVisibility(View.GONE);;
-								
 
 								dialog.setCancelable(true);
 								dialog.show();

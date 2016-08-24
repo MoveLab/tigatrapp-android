@@ -1,25 +1,8 @@
 package ceab.movelab.tigabib;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.net.ParseException;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -31,6 +14,19 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserFactory;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import ceab.movelab.tigabib.adapters.RSSAdapter;
 
@@ -45,7 +41,6 @@ public class RSSActivity extends Activity {
 	ProgressBar pb;
 	TextView title;
 	TextView tv;
-	Context context = this;
 
 	// TODO deal with RSS language
 	public static final String RSSEXTRA_URL = "rssextra_url";
@@ -56,7 +51,6 @@ public class RSSActivity extends Activity {
 	String thisTitle;
 	int thisDefaultThumb;
 
-	Resources res;
 	String lang;
 
 	@Override
@@ -64,20 +58,22 @@ public class RSSActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		if (!PropertyHolder.isInit())
-			PropertyHolder.init(context);
+			PropertyHolder.init(this);
 
-		res = getResources();
-		lang = Util.setDisplayLanguage(res);
+		lang = Util.setDisplayLanguage(getResources());
 
 		setContentView(R.layout.activity_view_rss);
+		/*getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+		getSupportActionBar().setDisplayShowHomeEnabled(true);
+		getSupportActionBar().setDisplayUseLogoEnabled(true);
+		getSupportActionBar().setLogo(R.drawable.ic_launcher);*/
 
 		Intent i = getIntent();
 		thisUrl = i.getStringExtra(RSSEXTRA_URL);
 		thisTitle = i.getStringExtra(RSSEXTRA_TITLE);
-		thisDefaultThumb = i.getIntExtra(RSSEXTRA_DEFAULT_THUMB,
-				R.drawable.ic_launcher);
+		thisDefaultThumb = i.getIntExtra(RSSEXTRA_DEFAULT_THUMB, R.drawable.ic_launcher);
 
-		listData = new ArrayList<RSSPost>();
+		listData = new ArrayList<>();
 
 		pb = (ProgressBar) this.findViewById(R.id.rssProgress);
 		title = (TextView) this.findViewById(R.id.rssViewTitle);
@@ -86,8 +82,7 @@ public class RSSActivity extends Activity {
 
 		tv = (TextView) this.findViewById(R.id.offlineWarning);
 		ListView listView = (ListView) this.findViewById(R.id.rsslist);
-		itemAdapter = new RSSAdapter(this, R.layout.rss_item, listData,
-				thisDefaultThumb);
+		itemAdapter = new RSSAdapter(this, R.layout.rss_item, listData, thisDefaultThumb);
 		listView.setAdapter(itemAdapter);
 
 		listView.setOnItemClickListener(new OnItemClickListener() {
@@ -95,12 +90,10 @@ public class RSSActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
 					long arg3) {
-				// TODO Auto-generated method stub
 				RSSPost data = listData.get(arg2);
 				Uri uri = Uri.parse(data.postLink);
 				Intent intent = new Intent(Intent.ACTION_VIEW, uri);
 				startActivity(intent);
-
 			}
 		});
 
@@ -109,32 +102,28 @@ public class RSSActivity extends Activity {
 	@Override
 	protected void onResume() {
 
-		res = getResources();
-		if (!Util.setDisplayLanguage(res).equals(lang)) {
+		if (!Util.setDisplayLanguage(getResources()).equals(lang)) {
 			finish();
 			startActivity(getIntent());
 		}
-
-		setInfoDisplay(context, true, thisUrl);
+		setInfoDisplay(this, true, thisUrl);
 
 		super.onResume();
 
 	}
 
-	class RssDataController extends
-			AsyncTask<String, Integer, ArrayList<RSSPost>> {
+	class RssDataController extends AsyncTask<String, Integer, ArrayList<RSSPost>> {
 		private int currentTag;
 
 		@Override
 		protected ArrayList<RSSPost> doInBackground(String... params) {
 			// TODO Auto-generated method stub
 			InputStream is = null;
-			ArrayList<RSSPost> RSSPostList = new ArrayList<RSSPost>();
+			ArrayList<RSSPost> RSSPostList = new ArrayList<>();
 			try {
 				URL url = new URL(params[0]);
 
-				HttpURLConnection connection = (HttpURLConnection) url
-						.openConnection();
+				HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 				connection.setReadTimeout(10 * 1000);
 				connection.setConnectTimeout(10 * 1000);
 				connection.setRequestMethod("GET");
@@ -155,8 +144,7 @@ public class RSSActivity extends Activity {
 
 				int eventType = xpp.getEventType();
 				RSSPost pdData = null;
-				SimpleDateFormat inputDateFormat = new SimpleDateFormat(
-						"EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
+				SimpleDateFormat inputDateFormat = new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss Z", Locale.US);
 				DateFormat outputDateFomat = DateFormat.getDateTimeInstance();
 				while (eventType != XmlPullParser.END_DOCUMENT) {
 					if (eventType == XmlPullParser.START_DOCUMENT) {
@@ -187,51 +175,53 @@ public class RSSActivity extends Activity {
 						content = content.trim();
 						if (pdData != null) {
 							switch (currentTag) {
-							case TITLE:
-								if (content.length() != 0) {
-									if (pdData.postTitle != null) {
-										pdData.postTitle += content;
-									} else {
-										pdData.postTitle = content;
+								case TITLE:
+									if (content.length() != 0) {
+										if (pdData.postTitle != null) {
+											pdData.postTitle += content;
+										} else {
+											pdData.postTitle = content;
+										}
 									}
-								}
-								break;
-							case LINK:
-								if (content.length() != 0) {
-									if (pdData.postLink != null) {
-										pdData.postLink += content;
-									} else {
-										pdData.postLink = content;
+									break;
+								case LINK:
+									if (content.length() != 0) {
+										if (pdData.postLink != null) {
+											pdData.postLink += content;
+										} else {
+											pdData.postLink = content;
+										}
 									}
-								}
-								break;
-							case DATE:
-								if (content.length() != 0) {
-									if (pdData.postDate != null) {
-										pdData.postDate += content;
-									} else {
-										pdData.postDate = content;
+									break;
+								case DATE:
+									if (content.length() != 0) {
+										if (pdData.postDate != null) {
+											pdData.postDate += content;
+										} else {
+											pdData.postDate = content;
+										}
 									}
-								}
-								break;
-							default:
-								break;
+									break;
+								default:
+									break;
 							}
 						}
 					}
-
 					eventType = xpp.next();
 				}
-			} catch (MalformedURLException e) {
-				Util.logError(context, TAG, "error: " + e);
+/*			} catch (MalformedURLException e) {
+				Util.logError(RSSActivity.this, TAG, "error: " + e);
 			} catch (IOException e) {
-				Util.logError(context, TAG, "error: " + e);
+				Util.logError(RSSActivity.this, TAG, "error: " + e);
 			} catch (XmlPullParserException e) {
-				Util.logError(context, TAG, "error: " + e);
+				Util.logError(RSSActivity.this, TAG, "error: " + e);
 			} catch (ParseException e) {
-				Util.logError(context, TAG, "error: " + e);
+				Util.logError(RSSActivity.this, TAG, "error: " + e);
 			} catch (java.text.ParseException e) {
-				Util.logError(context, TAG, "error: " + e);
+				Util.logError(RSSActivity.this, TAG, "error: " + e);
+			}*/
+			} catch (Exception e) {
+				Util.logError(RSSActivity.this, TAG, "error: " + e);
 			}
 
 			return RSSPostList;
@@ -246,7 +236,7 @@ public class RSSActivity extends Activity {
 					listData.add(result.get(i));
 				}
 				itemAdapter.notifyDataSetChanged();
-				setInfoDisplay(context, false, null);
+				setInfoDisplay(RSSActivity.this, false, null);
 			}
 		}
 
@@ -273,24 +263,23 @@ public class RSSActivity extends Activity {
 		super.onOptionsItemSelected(item);
 
 		switch (item.getItemId()) {
-		case (REFRESH): {
-
-			setInfoDisplay(context, true, thisUrl);
-
-			return true;
-		}
-
+			case android.R.id.home:
+				onBackPressed();
+				return true;
+			case REFRESH: {
+				setInfoDisplay(this, true, thisUrl);
+				return true;
+			}
 		}
 		return false;
 	}
 
-	private void setInfoDisplay(Context context, boolean refreshData,
-			String dataUrl) {
-
+	private void setInfoDisplay(Context context, boolean refreshData, String dataUrl) {
 		if (Util.isOnline(context)) {
 			if (refreshData)
 				new RssDataController().execute(dataUrl);
 			tv.setVisibility(View.GONE);
+
 			if (listData.size() > 0) {
 				pb.setVisibility(View.GONE);
 			} else {
@@ -304,7 +293,6 @@ public class RSSActivity extends Activity {
 				pb.setVisibility(View.GONE);
 			}
 		}
-
 	}
 
 }

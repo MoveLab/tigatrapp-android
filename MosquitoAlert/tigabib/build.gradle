@@ -45,14 +45,17 @@ android {
 
 dependencies {
 /*    compile 'com.google.android.gms:play-services-maps:8.4.0'*/
-    compile 'com.android.support:support-v4:24.1.1'
-    compile 'com.android.support:appcompat-v7:24.1.1'
-    compile 'com.android.support:customtabs:24.1.1'
-    compile 'com.google.android.gms:play-services-maps:9.2.1'
-    compile 'com.google.android.gms:play-services-location:9.2.1'
+    compile 'com.android.support:support-v4:24.2.0'
+    compile 'com.android.support:appcompat-v7:24.2.0'
+    compile 'com.android.support:design:24.2.0'
+    compile 'com.android.support:customtabs:24.2.0' // chrome tabs
+    compile 'com.google.android.gms:play-services-maps:9.4.0'
+    compile 'com.google.android.gms:play-services-location:9.4.0'
     compile 'org.apache:apache:17'
 
-    compile 'com.google.code.gson:gson:2.6.2'
+    compile 'com.google.code.gson:gson:2.7'
+
+    compile 'com.amitshekhar.android:android-networking:0.1.0'
 
     compile 'com.koushikdutta.ion:ion:2.0.0'
 

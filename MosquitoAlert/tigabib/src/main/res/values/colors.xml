@@ -22,6 +22,13 @@
 
 <resources>
 
+    <color name="colorPrimary">#FEE68C</color>
+    <color name="colorPrimaryDark">#FF9900</color>
+    <color name="textColorPrimary">#FFFFFF</color>
+    <color name="windowBackground">#000000</color>
+    <color name="navigationBarColor">#000000</color>
+    <color name="colorAccent">#FF9900</color>
+
     <color name="yellow">#FEE68C</color>
     <color name="green_pybossa">#55b493</color>
 

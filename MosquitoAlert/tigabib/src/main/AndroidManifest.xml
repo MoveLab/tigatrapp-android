@@ -26,7 +26,7 @@
     android:versionCode="23"
     android:versionName="1.0-beta" >
 
-    <uses-sdk tools:overrideLibrary="android.support.customtabs" />
+    <uses-sdk tools:overrideLibrary="android.support.customtabs" /> <!-- chrome tabs for minSdk < 15 -->
 
 <!--    <uses-sdk android:minSdkVersion="4"android:targetSdkVersion="24" />-->
 
@@ -89,7 +89,6 @@
         </activity>
         <activity
             android:name="ceab.movelab.tigabib.SwitchboardActivity"
-            android:allowTaskReparenting="true"
             android:launchMode="singleInstance" >
         </activity>
 <!--        <activity
@@ -122,13 +121,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ceab.movelab.tigabib.ReportTool" />
         </activity>
-        <activity
-            android:name="ceab.movelab.tigabib.About"
-            android:allowTaskReparenting="true" >
+        <activity android:name="ceab.movelab.tigabib.AboutActivity">
         </activity>
-        <activity
-            android:name="ceab.movelab.tigabib.LicenseActivity"
-            android:allowTaskReparenting="true" >
+        <activity android:name="ceab.movelab.tigabib.LicenseActivity">
         </activity>
         <activity
             android:name="ceab.movelab.tigabib.RSSActivity"

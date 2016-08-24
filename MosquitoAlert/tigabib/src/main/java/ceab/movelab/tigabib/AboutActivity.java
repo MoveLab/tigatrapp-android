@@ -22,9 +22,7 @@
 package ceab.movelab.tigabib;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -41,11 +39,9 @@ import android.webkit.WebViewClient;
  * @author John R.B. Palmer
  * 
  */
-public class About extends Activity {
+public class AboutActivity extends Activity {
 
-	private static String TAG = "About";
-
-	Context context = this;
+	//private static String TAG = "About";
 
 	private static final String ABOUT_URL_EN = UtilLocal.URL_TIGASERVER + "about/android/en";
 	private static final String ABOUT_URL_CA = UtilLocal.URL_TIGASERVER + "about/android/ca";
@@ -58,56 +54,42 @@ public class About extends Activity {
 	private WebView myWebView;
 
 	String lang;
-	Resources res;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		
 		if (!PropertyHolder.isInit())
-			PropertyHolder.init(context);
+			PropertyHolder.init(this);
 
-		res = getResources();
-		lang = Util.setDisplayLanguage(res);
+		lang = Util.setDisplayLanguage(getResources());
 	}
 
 	@Override
 	protected void onPause() {
-
 		super.onPause();
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void onResume() {
 
-
-		res = getResources();
-		if (!Util.setDisplayLanguage(res).equals(lang)) {
+		if (!Util.setDisplayLanguage(getResources()).equals(lang)) {
 			finish();
 			startActivity(getIntent());
 		}
 
-		// if (Util.isOnline(context)) {
 		setContentView(R.layout.webview);
 
 		myWebView = (WebView) findViewById(R.id.webview);
 		myWebView.setWebViewClient(new WebViewClient() {
-			public void onReceivedError(WebView view, int errorCode,
-					String description, String failingUrl) {
-
+			public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
 				if (lang.equals("ca"))
 					myWebView.loadUrl(ABOUT_URL_OFFLINE_CA);
-
 				else if (lang.equals("es"))
 					myWebView.loadUrl(ABOUT_URL_OFFLINE_ES);
-
 				else
 					myWebView.loadUrl(ABOUT_URL_OFFLINE_EN);
-
 			}
-
 		});
 
 		myWebView.getSettings().setAllowFileAccess(true);
@@ -115,10 +97,10 @@ public class About extends Activity {
 		myWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
 
 		if (Build.VERSION.SDK_INT >= 7) {
-			WebViewApi7.api7settings(myWebView, context);
+			WebViewApi7.api7settings(myWebView, this);
 		}
 
-		if (!Util.isOnline(context)) { // loading offline only if not online
+		if (!Util.isOnline(this)) { // loading offline only if not online
 			myWebView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 		}
 
@@ -135,9 +117,9 @@ public class About extends Activity {
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (Util.isOnline(context)) {
+		if ( Util.isOnline(this) ) {
 			// Check if the key event was the Back button and if there's history
-			if ((keyCode == KeyEvent.KEYCODE_BACK) && myWebView.canGoBack()) {
+			if ( (keyCode == KeyEvent.KEYCODE_BACK) && myWebView.canGoBack() ) {
 				myWebView.goBack();
 				return true;
 			}
@@ -153,7 +135,6 @@ public class About extends Activity {
 		inflater.inflate(R.menu.about_menu, menu);
 
 		return true;
-
 	}
 
 	@Override
@@ -161,17 +142,14 @@ public class About extends Activity {
 		super.onOptionsItemSelected(item);
 
 		if (item.getItemId() == R.id.language) {
-
-			Intent i = new Intent(About.this, LanguageSelector.class);
+			Intent i = new Intent(AboutActivity.this, LanguageSelector.class);
 			startActivity(i);
 			return true;
 		} else if (item.getItemId() == R.id.license) {
-
-			Intent i = new Intent(About.this, LicenseActivity.class);
+			Intent i = new Intent(AboutActivity.this, LicenseActivity.class);
 			startActivity(i);
 			return true;
 		}
-
 		return false;
 	}
 

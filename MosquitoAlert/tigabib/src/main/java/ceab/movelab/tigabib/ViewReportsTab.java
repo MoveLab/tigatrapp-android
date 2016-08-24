@@ -71,7 +71,7 @@ public class ViewReportsTab extends TabActivity {
 	String reportId;
 	String title;
 	int type;
-	Resources res;
+
 	String lang;
 	long reportTime;
 
@@ -81,8 +81,7 @@ public class ViewReportsTab extends TabActivity {
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
 
-		res = getResources();
-		lang = Util.setDisplayLanguage(res);
+		lang = Util.setDisplayLanguage(getResources());
 
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.view_reports_tab);
@@ -213,8 +212,7 @@ public class ViewReportsTab extends TabActivity {
 
 	@Override
 	protected void onResume() {
-		res = getResources();
-		if (!Util.setDisplayLanguage(res).equals(lang)) {
+		if (!Util.setDisplayLanguage(getResources()).equals(lang)) {
 			finish();
 			startActivity(getIntent());
 		}
@@ -227,7 +225,6 @@ public class ViewReportsTab extends TabActivity {
 		ProgressDialog prog;
 
 		int myProgress;
-
 		int resultFlag;
 
 		int OFFLINE = 0;
@@ -250,11 +247,9 @@ public class ViewReportsTab extends TabActivity {
 			prog.show();
 
 			myProgress = 0;
-
 		}
 
 		protected Boolean doInBackground(Context... context) {
-
 			myProgress = 2;
 			publishProgress(myProgress);
 
@@ -267,34 +262,27 @@ public class ViewReportsTab extends TabActivity {
 			myProgress = 20;
 			publishProgress(myProgress);
 
-			Report dReport = new Report(context[0],
-					reportId, type, reportTime);
+			Report dReport = new Report(context[0], reportId, type, reportTime);
 			
 			ContentResolver cr = context[0].getContentResolver();
 			ContentValues cv = new ContentValues();
 			String sc = Reports.KEY_REPORT_ID + " = '" + reportId + "'";
 			cv.put(Reports.KEY_DELETE_REPORT, 1);
 			cv.put(Reports.KEY_REPORT_VERSION, -1);
-			int nupdated = cr.update(Util.getReportsUri(context[0]),
-					cv, sc, null);
-			Util.logInfo(context[0], TAG, "n updated: " + nupdated);
+			int nUpdated = cr.update(Util.getReportsUri(context[0]), cv, sc, null);
+			Util.logInfo(context[0], TAG, "n updated: " + nUpdated);
 			Uri repUri = Util.getReportsUri(context[0]);
-			cr.insert(repUri,
-					ContProvValuesReports.createReport(dReport));
-
+			cr.insert(repUri, ContProvValuesReports.createReport(dReport));
 
 			myProgress = 50;
 			publishProgress(myProgress);
-
 
 			if (!Util.privateMode(context[0])) {
 
 				// now test if there is a data connection
 				if (!Util.isOnline(context[0])) {
-
 					resultFlag = OFFLINE;
 					return false;
-
 				}
 				if (!PropertyHolder.isRegistered())
 					Util.registerOnServer(context[0]);
@@ -308,31 +296,24 @@ public class ViewReportsTab extends TabActivity {
 					publishProgress(myProgress);
 					startService(new Intent(context[0], SyncData.class));
 					resultFlag = UPLOAD_ERROR;
-
 				} else {
-					
-					int ndeleted = cr.delete(Util.getReportsUri(context[0]),
-							sc, null);
-					Util.logInfo(context[0], TAG, "n deleted: " + ndeleted);
+					int nDeleted = cr.delete(Util.getReportsUri(context[0]), sc, null);
+					Util.logInfo(context[0], TAG, "n deleted: " + nDeleted);
 					resultFlag = SUCCESS;
 
 					myProgress = 100;
 					publishProgress(myProgress);
-
 				}
-
 			} else {
 				myProgress = 100;
 				publishProgress(myProgress);
 
 				resultFlag = PRIVATE_MODE;
 			}
-
 			return true;
 		}
 
 		protected void onProgressUpdate(Integer... progress) {
-
 			prog.setProgress(progress[0]);
 		}
 
@@ -341,25 +322,15 @@ public class ViewReportsTab extends TabActivity {
 			prog.dismiss();
 
 			if ((result && resultFlag == SUCCESS) || resultFlag == PRIVATE_MODE) {
-				Util.toast(context,
-						getResources().getString(R.string.report_deleted));
-
+				Util.toast(context, getResources().getString(R.string.report_deleted));
 				finish();
-
 			} else {
-
 				if (resultFlag == OFFLINE) {
-
 					buildDeletionAlert(getResources().getString(R.string.deletion_no_network));
-
 				}
-
 				if (resultFlag == UPLOAD_ERROR) {
-
 					buildDeletionAlert(getResources().getString(R.string.deletion_network_error));
-
 				}
-
 			}
 
 		}
@@ -370,9 +341,7 @@ public class ViewReportsTab extends TabActivity {
 		final Dialog dialog = new Dialog(context);
 
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 		dialog.setContentView(R.layout.custom_alert);
-
 		dialog.setCancelable(false);
 
 		TextView alertText = (TextView) dialog.findViewById(R.id.alertText);
@@ -385,17 +354,12 @@ public class ViewReportsTab extends TabActivity {
 		positive.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
 				dialog.cancel();
 				finish();
-
 			}
 		});
 
 		dialog.show();
-
 	}
-
-
 	
 }

@@ -41,11 +41,13 @@
 
 package ceab.movelab.tigabib;
 
+import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -56,7 +58,10 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -66,6 +71,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.maps.GeoPoint;
+import com.google.gson.reflect.TypeToken;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -73,9 +81,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import ceab.movelab.tigabib.ContProvContractReports.Reports;
+import ceab.movelab.tigabib.model.NearbyReport;
 
 /**
  * Allows user to view their own data in a map (from the database on their phone
@@ -87,8 +97,15 @@ import ceab.movelab.tigabib.ContProvContractReports.Reports;
  */
 public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCallback {
 
+	private static String TAG = "MapDataV2Activity";
+
+	public static final int REQUEST_GOOGLE_PLAY_SERVICES = 999;
+
 	private static final float ADULT_COLOR_HUE = 26.0f;
-	private static final float SITE_COLOR_HUE = 39.0f;
+//	private static final float SITE_COLOR_HUE = 244.0f;
+	private static final float NEARBY_COLOR_HUE = 244.0f;
+//	int ADULT_COLOR_V1 = 0xffd95f02; // 217, 95, 2	// 26.0f
+//	int SITE_COLOR_V1 = 0xff7570b3;	// 117, 112, 179 // 244.0f
 
 	private String lang;
 
@@ -102,14 +119,11 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 
 	private static boolean satToggle;
 
-//	int ADULT_COLOR_V1 = 0xffd95f02;
-//	int SITE_COLOR_V1 = 0xff7570b3;
 	//MarkerDrawable siteMarker;
 	//MarkerDrawable adultMarker;
 	//ArrayList<GeoPoint> mPoints;
 	//ArrayList<MyOverlayItem> mOverlaylist;
 
-	//private Resources res;
 	//private GoogleApiClient mGoogleApiClient;
 	private GoogleMap mGoogleMap;
 	private SupportMapFragment mMapFragment;
@@ -132,11 +146,23 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 		// Loading map
 		initializeMap();
 
-		// pauseToggle = !PropertyHolder.isServiceOn();
 		satToggle = false;
 
 		progressbar = (ProgressBar) findViewById(R.id.mapProgressbar);
 		progressbar.setProgress(0);
+	}
+
+	private void startRegistrationService() {
+		GoogleApiAvailability api = GoogleApiAvailability.getInstance();
+		int code = api.isGooglePlayServicesAvailable(this);
+		if (code == ConnectionResult.SUCCESS) {
+			onActivityResult(REQUEST_GOOGLE_PLAY_SERVICES, Activity.RESULT_OK, null);
+		} else if (api.isUserResolvableError(code) &&
+				api.showErrorDialogFragment(this, code, REQUEST_GOOGLE_PLAY_SERVICES)) {
+			// wait for onActivityResult call (see below)
+		} else {
+			Toast.makeText(this, api.getErrorString(code), Toast.LENGTH_LONG).show();
+		}
 	}
 
 	/**
@@ -204,6 +230,7 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 		}
 
 		super.onActivityResult(requestCode, resultCode, data);
+
 		if (resultCode == RESULT_OK && requestCode == 1) {
 			finish();
 		}
@@ -224,6 +251,7 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 
 		if ( !loadingData ) {
 			loadingData = true;
+			if ( mGoogleMap != null ) mGoogleMap.clear();
 			new DataGrabberTask().execute(this);
 		}
 
@@ -292,7 +320,6 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 			if (item.responses != null) {
 				i.putExtra(Reports.KEY_CONFIRMATION, item.responses);
 			}
-
 			if (item.reportId != null) {
 				i.putExtra(Reports.KEY_REPORT_ID, item.reportId);
 			}
@@ -311,17 +338,54 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 		}
 	}
 
+ 	private void loadNeighbours(int radius) {
+
+		if ( currentCenter != null ) {
+			//mGoogleMap.getCameraPosition().target // to get center of the map
+			String nearbyUrl = Util.API_NEARBY_REPORTS + "?format=json" +
+					"&lat=" + (currentCenter.getLatitudeE6() / 1E6) +
+					"&lon=" + (currentCenter.getLongitudeE6() / 1E6) +
+					"&radius=" + radius;
+			Util.logInfo(MapDataV2Activity.this, TAG, nearbyUrl.toString());
+
+			Ion.with(this)
+					.load(Util.URL_TIGASERVER_API_ROOT + nearbyUrl)
+					//.load("http://webserver.mosquitoalert.com/api/" + notificationUrl)
+					.setHeader("Accept", "application/json")
+					.setHeader("Content-type", "application/json")
+					.setHeader("Authorization", UtilLocal.TIGASERVER_AUTHORIZATION)
+					.as(new TypeToken<List<NearbyReport>>() {
+					})
+					.setCallback(new FutureCallback<List<NearbyReport>>() {
+						@Override
+						public void onCompleted(Exception e, List<NearbyReport> nearbyRsults) {
+							// do stuff with the result or error
+							if (nearbyRsults != null) {
+								Util.logInfo(MapDataV2Activity.this, TAG, nearbyRsults.toString());
+								for (NearbyReport nbr : nearbyRsults) {
+									LatLng pointLatLng = new LatLng(nbr.getLat(), nbr.getLon());
+									Marker marker = mGoogleMap.addMarker(new MarkerOptions()
+											.position(pointLatLng)
+											.icon(BitmapDescriptorFactory.defaultMarker(NEARBY_COLOR_HUE)));
+								}
+							}
+						}
+					});
+		}
+	}
 
 	/*
 	* Draw selected locations on map. Returns true if drawn; false otherwise.
 	*/
 	public boolean drawFixes(ArrayList<MyOverlayItem> myAdultReports, ArrayList<MyOverlayItem> mySiteReports,
 							 boolean clearMapOverlays, boolean recenter) {
-		// Clear any existing overlays if cleraMapOverlays set to true
-		if (clearMapOverlays)
-			//mGoogleMap.clear();
+		// Clear any existing overlays if clearMapOverlays set to true
+		if ( clearMapOverlays )
+			if ( mGoogleMap != null ) mGoogleMap.clear();
 
-		if (myAdultReports != null && myAdultReports.size() > 0) {
+		loadNeighbours(5000);
+
+		if ( myAdultReports != null && myAdultReports.size() > 0 ) {
 			for (MyOverlayItem oli : myAdultReports) {
 				LatLng pointLatLng = new LatLng(oli.getPoint().getLatitudeE6() / 1E6, oli.getPoint().getLongitudeE6() / 1E6);
 				Marker marker = mGoogleMap.addMarker(new MarkerOptions()
@@ -333,14 +397,14 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 			}
 		}
 
-		if (mySiteReports != null && mySiteReports.size() > 0) {
+		if ( mySiteReports != null && mySiteReports.size() > 0 ) {
 			for (MyOverlayItem oli : mySiteReports) {
 				LatLng pointLatLng = new LatLng(oli.getPoint().getLatitudeE6() / 1E6, oli.getPoint().getLongitudeE6() / 1E6);
 				Marker marker = mGoogleMap.addMarker(new MarkerOptions()
 						.position(pointLatLng)
 						.title(oli.getTitle())
 						.snippet(oli.getSnippet())
-						.icon(BitmapDescriptorFactory.defaultMarker(SITE_COLOR_HUE)));
+						.icon(BitmapDescriptorFactory.defaultMarker(ADULT_COLOR_HUE)));
 				markerMap.put(marker, oli);
 			}
 		}
@@ -427,6 +491,13 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 					FileOutputStream out = new FileOutputStream(f);
 					snapshot.compress(Bitmap.CompressFormat.JPEG, 95, out);
 					out.close();
+
+					MediaScannerConnection.scanFile(MapDataV2Activity.this, new String[] { f.getPath() },
+							new String[] { "image/*" }, new MediaScannerConnection.OnScanCompletedListener() {
+								public void onScanCompleted(String path, Uri uri) {
+									Util.logInfo(MapDataV2Activity.this, this.getClass().toString(), "Finished scanning " + path);
+								}
+							});
 				} else {
 					// Log.e(TAG, "cannot write file");
 					Util.toast(MapDataV2Activity.this, getResources().getString(R.string.data_SD_unavailable));

@@ -173,13 +173,17 @@ public class Util {
 		return BuildConfig.DEBUG;
 	}
 
+	public static boolean debugMode() {
+		return BuildConfig.DEBUG;
+	}
+
 	public static void logError(Context context, String tag, String message) {
-		if (debugMode(context))
+		if ( debugMode() )
 			Log.e(tag, message);
 	}
 
 	public static void logInfo(Context context, String tag, String message) {
-		if (debugMode(context))
+		if ( debugMode() )
 			Log.i(tag, message);
 	}
 
@@ -187,7 +191,6 @@ public class Util {
 		Intent i = new Intent(Messages.internalAction(context));
 		i.putExtra(Messages.INTERNAL_MESSAGE_EXTRA, message);
 		context.sendBroadcast(i);
-		return;
 	}
 
 	/**
@@ -236,6 +239,12 @@ public class Util {
 	public static final String API_NOTIFICATION = UtilLocal.API_NOTIFICATION;
 
 	/**
+	 * API nearby reports endpoint.
+	 */
+	public static final String API_NEARBY_REPORTS = UtilLocal.API_NEARBY_REPORTS;
+
+
+	/**
 	 * API config endpoint.
 	 */
 	public static final String API_CONFIGURATION = UtilLocal.API_CONFIGURATION;
@@ -243,13 +252,13 @@ public class Util {
 	/**
 	 * Server authorization.
 	 */
-	public final static String TIGASERVER_API_KEY = UtilLocal.TIGASERVER_API_KEY;
+	//public final static String TIGASERVER_API_KEY = UtilLocal.TIGASERVER_API_KEY;
 	//public final static String TIGASERVER_CLIENT_ID = UtilLocal.TIGASERVER_CLIENT_ID;
 	public final static String TIGASERVER_AUTHORIZATION = UtilLocal.TIGASERVER_AUTHORIZATION;
 
 	public final static String EXTENSION = ".dat";
 
-	public final static GeoPoint CEAB_COORDINATES = new GeoPoint(41683600,2799600);
+	public final static GeoPoint CEAB_COORDINATES = new GeoPoint(41683600, 2799600);
 
 	public final static double latMask = 0.05;
 	public final static double lonMask = 0.05;

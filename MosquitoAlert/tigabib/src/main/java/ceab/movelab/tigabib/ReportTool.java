@@ -32,12 +32,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.res.Resources;
 import android.database.Cursor;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -60,6 +60,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.Date;
 import java.util.Locale;
@@ -146,8 +147,7 @@ public class ReportTool extends Activity {
 
 	private boolean has_edited_location = false;
 
-	Resources res;
-	String lang;
+	private String lang;
 
 	@Override
 	public void onCreate(Bundle icicle) {
@@ -158,8 +158,7 @@ public class ReportTool extends Activity {
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
 
-		res = getResources();
-		lang = Util.setDisplayLanguage(res);
+		lang = Util.setDisplayLanguage(getResources());
 
 		Bundle b = getIntent().getExtras();
 		type = b.getInt("type");
@@ -167,8 +166,7 @@ public class ReportTool extends Activity {
 
 		if (editing) {
 
-			this.setTitle(context.getResources().getString(
-					R.string.activity_label_report_editing));
+			this.setTitle(context.getResources().getString(R.string.activity_label_report_editing));
 
 			ContentResolver cr = getContentResolver();
 			String sc = Reports.KEY_REPORT_ID + " = '"
@@ -176,10 +174,9 @@ public class ReportTool extends Activity {
 					+ Reports.KEY_LATEST_VERSION + " = 1 AND "
 					+ Reports.KEY_DELETE_REPORT + "= 0";
 
-			Cursor c = cr.query(Util.getReportsUri(context), Reports.KEYS_ALL,
-					sc, null, null);
+			Cursor c = cr.query(Util.getReportsUri(context), Reports.KEYS_ALL, sc, null, null);
 
-			if (c.moveToLast()) {
+			if ( c != null && c.moveToLast() ) {
 
 				int userIdCol = c.getColumnIndexOrThrow(Reports.KEY_USER_ID);
 				int reportIdCol = c.getColumnIndexOrThrow(Reports.KEY_REPORT_ID);
@@ -235,11 +232,10 @@ public class ReportTool extends Activity {
 						c.getString(osVersionCol), c.getString(osLanguageCol),
 						c.getString(appLanguageCol), c.getInt(missionIDCol));
 			}
-			c.close();
+			if ( c!= null ) c.close();
 
 		} else {
-			this.setTitle(context.getResources().getString(
-					R.string.activity_label_report_new));
+			this.setTitle(context.getResources().getString(R.string.activity_label_report_new));
 			thisReport = new Report(type, PropertyHolder.getUserId());
 		}
 
@@ -269,11 +265,8 @@ public class ReportTool extends Activity {
 		buttonReportSubmit = (Button) findViewById(R.id.buttonReportSubmit);
 
 		if (editing) {
-			reportTitle
-					.setText((type == Report.TYPE_BREEDING_SITE ? getResources()
-							.getString(R.string.edit_title_site)
-							: getResources().getString(
-									R.string.edit_title_adult)) + "\n"
+			reportTitle.setText((type == Report.TYPE_BREEDING_SITE ? getResources().getString(R.string.edit_title_site) :
+							getResources().getString(R.string.edit_title_adult)) + "\n"
 							+ getResources().getString(R.string.created_on) + " "
 							+ Util.userDate(new Date((thisReport.reportTime))));
 
@@ -371,8 +364,8 @@ public class ReportTool extends Activity {
 						final float clat = (float) currentLocation.getLatitude();
 						final float clon = (float) currentLocation.getLongitude();
 
-						thisReport.currentLocationLat = Float.valueOf(clat);
-						thisReport.currentLocationLon = Float.valueOf(clon);
+						thisReport.currentLocationLat = clat;
+						thisReport.currentLocationLon = clon;
 						thisReport.locationChoice = Report.LOCATION_CHOICE_CURRENT;
 
 						/*
@@ -555,12 +548,10 @@ public class ReportTool extends Activity {
 						countDownTimer.cancel();
 					} catch (Exception e) {
 
-						Util.logError(context, TAG,
-								"exception cancelling countdown timer");
+						Util.logError(context, TAG, "exception cancelling countdown timer");
 					}
 				} else {
-					countDownTimer = new MyCountDownTimer(5 * 60 * 1000,
-							5 * 60 * 1000);
+					countDownTimer = new MyCountDownTimer(5 * 60 * 1000, 5 * 60 * 1000);
 				}
 				countDownTimer.start();
 			}
@@ -607,8 +598,7 @@ public class ReportTool extends Activity {
 
 		Util.logInfo(context, TAG, "on resume");
 
-		res = getResources();
-		if (!Util.setDisplayLanguage(res).equals(lang)) {
+		if (!Util.setDisplayLanguage(getResources()).equals(lang)) {
 			finish();
 			startActivity(getIntent());
 		}
@@ -626,23 +616,17 @@ public class ReportTool extends Activity {
 		}
 		if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 			networkListener = new mLocationListener();
-			locationManager.requestLocationUpdates(
-					LocationManager.NETWORK_PROVIDER, 0, 0, networkListener);
+			locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, networkListener);
 			networkLocationAvailable = true;
 		}
 
 		if (currentLocation == null) {
 
 			if (!gpsAvailable && !networkLocationAvailable) {
-
 				reportCurrentLocationImage.clearAnimation();
-				reportCurrentLocationImage.setBackgroundDrawable(getResources()
-						.getDrawable(R.drawable.ic_action_location_off));
-
+				reportCurrentLocationImage.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_action_location_off));
 			} else {
-
-				reportCurrentLocationImage.setBackgroundDrawable(getResources()
-						.getDrawable(R.drawable.ic_action_location_searching));
+				reportCurrentLocationImage.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_action_location_searching));
 				Animation blink = new AlphaAnimation(0.0f, 1.0f);
 				blink.setDuration(300);
 				blink.setStartOffset(20);
@@ -734,7 +718,7 @@ public class ReportTool extends Activity {
 	// utilities
 	private void removeLocationUpdate(String provider) {
 		if (locationManager != null) {
-			if (provider == LocationManager.NETWORK_PROVIDER) {
+			if (provider.contentEquals(LocationManager.NETWORK_PROVIDER)) {
 				if (networkListener != null) {
 					locationManager.removeUpdates(networkListener);
 					networkListener = null;
@@ -764,13 +748,10 @@ public class ReportTool extends Activity {
 	private void buildMailMessage(String message) {
 		final Dialog dialog = new Dialog(context);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 		dialog.setContentView(R.layout.mail_message_alert);
 
-		TextView reportIdTitle = (TextView) dialog
-				.findViewById(R.id.yourIdIsText);
-		TextView reportIdText = (TextView) dialog
-				.findViewById(R.id.reportIdText);
+		TextView reportIdTitle = (TextView) dialog.findViewById(R.id.yourIdIsText);
+		TextView reportIdText = (TextView) dialog.findViewById(R.id.reportIdText);
 
 		reportIdTitle.setVisibility(View.GONE);
 		reportIdText.setVisibility(View.GONE);
@@ -786,7 +767,6 @@ public class ReportTool extends Activity {
 
 			@Override
 			public void onClick(View v) {
-
 				removeLocationUpdates();
 
 				// Intent goHome = new Intent(ReportTool.this,
@@ -826,8 +806,7 @@ public class ReportTool extends Activity {
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		res = getResources();
-		if (!Util.setDisplayLanguage(res).equals(lang)) {
+		if (!Util.setDisplayLanguage(getResources()).equals(lang)) {
 			finish();
 			startActivity(getIntent());
 		}
@@ -843,6 +822,19 @@ public class ReportTool extends Activity {
 						photoCount.setText(String.valueOf(thisReport.photoUrisJson.length()));
 						reportPhotoCheck.setChecked(true);
 						thisReport.photoAttached = Report.YES;
+
+						for (int i = 0; i < thisReport.photoUrisJson.length(); i++) {
+							try {
+								JSONObject row = thisReport.photoUrisJson.getJSONObject(i);
+								MediaScannerConnection.scanFile(ReportTool.this, new String[]{row.getString("photo_uri")},
+										new String[]{"image/*"}, new MediaScannerConnection.OnScanCompletedListener() {
+											public void onScanCompleted(String path, Uri uri) {
+												Util.logInfo(ReportTool.this, this.getClass().toString(), "Finished scanning " + path);
+											}
+										});
+							}
+							catch (Exception e) {};
+						}
 					}
 					else {
 						photoCount.setVisibility(View.GONE);
@@ -863,10 +855,10 @@ public class ReportTool extends Activity {
 
 			if ( resultCode == RESULT_OK && data != null ) {
 				if ( data.hasExtra(MapSelectorV2Activity.LAT )) {
-					thisReport.selectedLocationLat = Float.valueOf(((float) data.getDoubleExtra(MapSelectorV2Activity.LAT, -1)));
+					thisReport.selectedLocationLat = (float) data.getDoubleExtra(MapSelectorV2Activity.LAT, -1);
 				}
 				if ( data.hasExtra(MapSelectorV2Activity.LON )) {
-					thisReport.selectedLocationLon = Float.valueOf(((float) data.getDoubleExtra(MapSelectorV2Activity.LON, -1)));
+					thisReport.selectedLocationLon = (float) data.getDoubleExtra(MapSelectorV2Activity.LON, -1);
 				}
 			}
 			if ( thisReport.selectedLocationLat != null
@@ -938,18 +930,15 @@ public class ReportTool extends Activity {
 			publishProgress(myProgress);
 
 			if (!editing)
-				thisReport.creation_time = Util.ecma262(System
-						.currentTimeMillis());
+				thisReport.creation_time = Util.ecma262(System.currentTimeMillis());
 
-			thisReport.versionTimeString = Util.ecma262(System
-					.currentTimeMillis());
+			thisReport.versionTimeString = Util.ecma262(System.currentTimeMillis());
 
 			myProgress = 4;
 			publishProgress(myProgress);
 
 			try {
-				PackageInfo pInfo = getPackageManager().getPackageInfo(
-						getPackageName(), 0);
+				PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
 				thisReport.packageName = pInfo.packageName;
 				thisReport.packageVersion = pInfo.versionCode;
 			} catch (NameNotFoundException e) {
@@ -970,8 +959,7 @@ public class ReportTool extends Activity {
 			ContentResolver cr = getContentResolver();
 			Uri repUri = Util.getReportsUri(context[0]);
 
-			Uri thisReportUri = cr.insert(repUri,
-					ContProvValuesReports.createReport(thisReport));
+			Uri thisReportUri = cr.insert(repUri, ContProvValuesReports.createReport(thisReport));
 
 			// now mark all prior reports as not latest version
 			String sc = Reports.KEY_REPORT_ID + " = '" + thisReport.reportId
@@ -990,10 +978,8 @@ public class ReportTool extends Activity {
 
 				// now test if there is a data connection
 				if (!Util.isOnline(context[0])) {
-
 					resultFlag = OFFLINE;
 					return false;
-
 				}
 				if (!PropertyHolder.isRegistered())
 					Util.registerOnServer(context[0]);
@@ -1015,8 +1001,7 @@ public class ReportTool extends Activity {
 					resultFlag = SUCCESS;
 
 					// try sync and make sure daily syncs are scheduled
-					Util.internalBroadcast(context[0],
-							Messages.START_DAILY_SYNC);
+					Util.internalBroadcast(context[0], Messages.START_DAILY_SYNC);
 				} else
 					resultFlag = UPLOAD_ERROR;
 
@@ -1044,10 +1029,7 @@ public class ReportTool extends Activity {
 			}
 
 			if (result && resultFlag == SUCCESS) {
-				Util.toastTimed(
-						context,
-						getResources().getString(
-								R.string.report_sent_confirmation), Toast.LENGTH_LONG);
+				Util.toastTimed(context, getResources().getString(R.string.report_sent_confirmation), Toast.LENGTH_LONG);
 
 				thisReport.clear();
 				clearFields();
@@ -1056,33 +1038,25 @@ public class ReportTool extends Activity {
 			} else {
 
 				if (resultFlag == OFFLINE) {
-
-					buildCustomAlert(getResources().getString(
-							R.string.offline_report));
-
+					buildCustomAlert(getResources().getString(R.string.offline_report));
 				}
 
 				if (resultFlag == UPLOAD_ERROR || resultFlag == DATABASE_ERROR) {
 
-					Intent uploaderIntent = new Intent(ReportTool.this,
-							SyncData.class);
+					Intent uploaderIntent = new Intent(ReportTool.this, SyncData.class);
 					startService(uploaderIntent);
 
-					buildCustomAlert(getResources().getString(
-							R.string.upload_error_report));
+					buildCustomAlert(getResources().getString(R.string.upload_error_report));
 
 					thisReport.clear();
 					clearFields();
-
 				}
 
 				if (resultFlag == PRIVATE_MODE) {
-					buildCustomAlert(getResources().getString(
-							R.string.report_sent_confirmation));
+					buildCustomAlert(getResources().getString(R.string.report_sent_confirmation));
 
 					thisReport.clear();
 					clearFields();
-
 				}
 			}
 
@@ -1100,11 +1074,9 @@ public class ReportTool extends Activity {
 	public void buildReportNoteDialog() {
 		final Dialog dialog = new Dialog(context);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 		dialog.setContentView(R.layout.add_note);
 
-		final EditText noteText = (EditText) dialog
-				.findViewById(R.id.noteEditText);
+		final EditText noteText = (EditText) dialog.findViewById(R.id.noteEditText);
 
 		if (thisReport.note != null && thisReport.note.length() > 0)
 			noteText.setText(thisReport.note);
@@ -1129,13 +1101,9 @@ public class ReportTool extends Activity {
 	}
 
 	public void buildCustomAlert(String message) {
-
 		final Dialog dialog = new Dialog(context);
-
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 		dialog.setContentView(R.layout.custom_alert);
-
 		dialog.setCancelable(false);
 
 		TextView alertText = (TextView) dialog.findViewById(R.id.alertText);
@@ -1148,10 +1116,8 @@ public class ReportTool extends Activity {
 		positive.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
 				dialog.cancel();
 				finish();
-
 			}
 		});
 
@@ -1160,13 +1126,9 @@ public class ReportTool extends Activity {
 	}
 
 	public void buildLocationAlert(String message) {
-
 		final Dialog dialog = new Dialog(context);
-
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 		dialog.setContentView(R.layout.custom_alert);
-
 		dialog.setCancelable(false);
 
 		TextView alertText = (TextView) dialog.findViewById(R.id.alertText);
@@ -1179,9 +1141,7 @@ public class ReportTool extends Activity {
 		positive.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
 				dialog.cancel();
-
 			}
 		});
 
@@ -1190,13 +1150,9 @@ public class ReportTool extends Activity {
 	}
 
 	public void buildLocationMenu() {
-
 		final Dialog dialog = new Dialog(context);
-
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 		dialog.setContentView(R.layout.location_menu);
-
 		dialog.setCancelable(true);
 
 		Button currB = (Button) dialog.findViewById(R.id.currentLocButton);
@@ -1207,19 +1163,14 @@ public class ReportTool extends Activity {
 			public void onClick(View v) {
 
 				if (currentLocation == null) {
-					if (locationManager
-							.isProviderEnabled(LocationManager.GPS_PROVIDER)
-							|| locationManager
-									.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+					if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+							|| locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 
-						buildLocationAlert(getResources().getString(
-								R.string.nolocation_alert_report));
+						buildLocationAlert(getResources().getString(R.string.nolocation_alert_report));
 					} else if (!gpsAvailable && !networkLocationAvailable) {
-						buildAlertMessageNoGpsNoNet(getResources().getString(
-								R.string.noGPSnoNetAlert));
+						buildAlertMessageNoGpsNoNet(getResources().getString(R.string.noGPSnoNetAlert));
 					} else {
-						buildLocationAlert(getResources().getString(
-								R.string.nolocnogps_alert));
+						buildLocationAlert(getResources().getString(R.string.nolocnogps_alert));
 					}
 				} else {
 
@@ -1240,16 +1191,9 @@ public class ReportTool extends Activity {
 					 * + "\nLon: " + String.format("%.5g%n",
 					 * thisReport.currentLocationLon));
 					 */
-					Util.toast(
-							context,
-							getResources()
-									.getString(R.string.added_current_loc)
-									+ "\n\nLat: "
-									+ String.format("%.5g%n",
-											thisReport.currentLocationLat)
-									+ "\nLon: "
-									+ String.format("%.5g%n",
-											thisReport.currentLocationLon));
+					Util.toast(context, getResources().getString(R.string.added_current_loc)
+							+ "\n\nLat: " + String.format("%.5g%n", thisReport.currentLocationLat)
+							+ "\nLon: " + String.format("%.5g%n", thisReport.currentLocationLon));
 				}
 
 				dialog.cancel();
@@ -1269,13 +1213,9 @@ public class ReportTool extends Activity {
 	}
 
 	public void buildAlertMessageNoGpsNoNet(String message) {
-
 		final Dialog dialog = new Dialog(context);
-
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-
 		dialog.setContentView(R.layout.custom_alert);
-
 		dialog.setCancelable(false);
 
 		TextView alertText = (TextView) dialog.findViewById(R.id.alertText);
@@ -1287,10 +1227,7 @@ public class ReportTool extends Activity {
 		positive.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
-				startActivity(new Intent(
-						android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
-
+				startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
 				dialog.dismiss();
 			}
 		});
@@ -1298,9 +1235,7 @@ public class ReportTool extends Activity {
 		negative.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-
 				dialog.cancel();
-
 			}
 		});
 
@@ -1345,26 +1280,21 @@ public class ReportTool extends Activity {
 		dialog.setMessage(getResources().getString(
 				R.string.report_not_saved_warning));
 		dialog.setCancelable(true);
-		dialog.setPositiveButton(getResources().getString(R.string.yes),
-				new DialogInterface.OnClickListener() {
+		dialog.setPositiveButton(getResources().getString(R.string.yes), new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface d, int arg1) {
-
-						Intent i = new Intent(ReportTool.this,
-								SwitchboardActivity.class);
+						Intent i = new Intent(ReportTool.this, SwitchboardActivity.class);
 						startActivity(i);
 						finish();
-
 					}
 
 				});
 
-		dialog.setNegativeButton(getResources().getString(R.string.cancel),
-				new DialogInterface.OnClickListener() {
+		dialog.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {
 					@Override
 					public void onClick(DialogInterface d, int arg1) {
 						d.cancel();
-					};
+					}
 				});
 
 		dialog.show();

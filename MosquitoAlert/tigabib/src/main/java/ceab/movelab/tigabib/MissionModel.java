@@ -186,7 +186,7 @@ public class MissionModel {
 			item1.put(MissionItemModel.KEY_ITEM_ID, "Item1");
 			item1.put(MissionItemModel.KEY_QUESTION, context.getResources().getString(R.string.confirmation_q1_adult_sizecolor));
 			item1.put(MissionItemModel.KEY_HELP_TEXT, context.getResources().getString(R.string.q1_sizecolor_text_help));
-			item1.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE, R.drawable.checklist_image_adult_1_default); // latin is default image
+			item1.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE, R.drawable.checklist_image_adult_1_eng); // latin is default image
 			item1.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE_CATALAN, R.drawable.checklist_image_adult_1_cat);
 			item1.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE_SPANISH, R.drawable.checklist_image_adult_1_esp);
 			item1.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE_ENGLISH, R.drawable.checklist_image_adult_1_eng);
@@ -201,7 +201,7 @@ public class MissionModel {
 			item2.put(MissionItemModel.KEY_QUESTION, context.getResources()
 					.getString(R.string.confirmation_q2_adult_headthorax));
 			item2.put(MissionItemModel.KEY_HELP_TEXT, context.getResources().getString(R.string.q2_headthorax_text_help));
-			item2.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE, R.drawable.checklist_image_adult_2_default);	// latin is default image
+			item2.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE, R.drawable.checklist_image_adult_2_eng);	// latin is default image
 			item2.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE_CATALAN, R.drawable.checklist_image_adult_2_cat);
 			item2.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE_SPANISH, R.drawable.checklist_image_adult_2_esp);
 			item2.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE_ENGLISH, R.drawable.checklist_image_adult_2_eng);
@@ -216,7 +216,7 @@ public class MissionModel {
 			item3.put(MissionItemModel.KEY_QUESTION, context.getResources()
 					.getString(R.string.adult_report_q3));
 			item3.put(MissionItemModel.KEY_HELP_TEXT, context.getResources().getString(R.string.q3_abdomenlegs_text));
-			item3.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE, R.drawable.checklist_image_adult_3_default); // latin is default image
+			item3.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE, R.drawable.checklist_image_adult_3_eng); // latin is default image
 			item3.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE_CATALAN, R.drawable.checklist_image_adult_3_cat);
 			item3.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE_SPANISH, R.drawable.checklist_image_adult_3_esp);
 			item3.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE_ENGLISH, R.drawable.checklist_image_adult_3_eng);

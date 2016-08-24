@@ -255,14 +255,14 @@
     <string name="content_provider_auth_missions" translatable="false">ceab.movelab.tigabib.cp.missions</string>
     <string name="content_provider_auth_reports" translatable="false">ceab.movelab.tigabib.cp.reports</string>
     <string name="content_provider_auth_tracks" translatable="false">ceab.movelab.tigabib.cp.tracks</string>
-    <string name="internal_action" translatable="false">ceab.movelab.tigatrapp.tigabib.INTERNAL_ACTION</string>
+    <string name="internal_action" translatable="false">ceab.movelab.tigabib.INTERNAL_ACTION</string>
     <string name="language_selector_english" translatable="false">English</string>
     <string name="language_selector_catalan" translatable="false">Català</string>
     <string name="language_selector_spanish" translatable="false">Español</string>
-    <string name="photo_share_message" translatable="false">via @Mosquito_Alert</string>
     <string name="language_selector_chinese_hk" translatable="false">中文 (香港)</string>
-
-
+    <string name="photo_share_message" translatable="false">via @Mosquito_Alert</string>
+    <string name="app_tag" translatable="false">#mosquitoalert</string>
+    
 
     <string name="paso1">1. How does the breeding site look?</string>
     <string name="paso2">3. Where did you find it?</string>

@@ -61,6 +61,7 @@ import ceab.movelab.tigabib.chrometabs.CustomTabActivityHelper;
 import ceab.movelab.tigabib.chrometabs.WebviewFallback;
 import ceab.movelab.tigabib.model.Notification;
 import ceab.movelab.tigabib.model.RealmHelper;
+import io.realm.Realm;
 
 /**
  * Main menu screen for app.
@@ -81,7 +82,9 @@ public class SwitchboardActivity extends Activity {
 	private ImageView websiteButton;
 	private ImageView menuButton;
 
-	String lang;
+	private String lang;
+
+	private Realm mRealm;
 
 	final private static int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 555;
 	private ArrayList<String> mPermissionsDenied;
@@ -313,8 +316,14 @@ public class SwitchboardActivity extends Activity {
 		}
 		super.onResume();
 
-		RealmHelper.getInstance().getRealm(SwitchboardActivity.this);
+		mRealm = RealmHelper.getInstance().getRealm(SwitchboardActivity.this);
 		loadRemoteNotifications();
+	}
+
+	@Override
+	protected void onDestroy() {
+		if ( mRealm != null ) mRealm.close(); // Remember to close Realm when done.
+		super.onDestroy();
 	}
 
 	private void loadRemoteNotifications() {
@@ -330,9 +339,11 @@ public class SwitchboardActivity extends Activity {
 				@Override
 				public void onCompleted(Exception e, List<Notification> result) {
 					// do stuff with the result or error
-					Util.logInfo(SwitchboardActivity.this, TAG, result.toString());
+					if ( result != null ) {
+						Util.logInfo(SwitchboardActivity.this, TAG, result.toString());
+						RealmHelper.getInstance().addOrUpdateNotificationList(result);
+					}
 
-					RealmHelper.getInstance().addOrUpdateNotificationList(result);
 					updateNotificationCount();
 				}
 			});
@@ -398,7 +409,7 @@ public class SwitchboardActivity extends Activity {
 			startActivity(i);
 			return true;
 		} else if (item.getItemId() == R.id.about) {
-			Intent i = new Intent(SwitchboardActivity.this, About.class);
+			Intent i = new Intent(SwitchboardActivity.this, AboutActivity.class);
 			startActivity(i);
 			return true;
 		} else if (item.getItemId() == R.id.shareApp) {

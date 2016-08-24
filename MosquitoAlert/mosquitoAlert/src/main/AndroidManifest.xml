@@ -111,7 +111,7 @@
         <activity android:name="ceab.movelab.tigabib.PhotoGallery" >
         </activity>
 
-        <activity android:name="ceab.movelab.tigabib.About" />
+        <activity android:name="ceab.movelab.tigabib.AboutActivity" />
         <activity android:name="ceab.movelab.tigabib.LicenseActivity" />
 
         <activity

@@ -25,7 +25,6 @@ public class NotificationAdapter extends ArrayAdapter<Notification> {
 		super(context, textViewResourceId);
 
 		mData = data;
-
 		mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 		dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

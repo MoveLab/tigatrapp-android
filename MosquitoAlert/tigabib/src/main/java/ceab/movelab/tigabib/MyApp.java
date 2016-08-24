@@ -3,6 +3,8 @@ package ceab.movelab.tigabib;
 import android.app.Application;
 import android.content.Context;
 
+import com.androidnetworking.AndroidNetworking;
+
 import com.facebook.stetho.Stetho;
 import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
 
@@ -19,6 +21,11 @@ public class MyApp extends Application {
 
 		initGlobals();
 
+		RealmHelper.initialize(this);
+
+		AndroidNetworking.initialize(getApplicationContext());
+		AndroidNetworking.enableLogging();
+
 		Stetho.initialize(Stetho.newInitializerBuilder(this)
 						.enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
 						.enableWebKitInspector(RealmInspectorModulesProvider.builder(this).build())
@@ -33,8 +40,6 @@ public class MyApp extends Application {
     	// Initialize the instances
     	DataModel.initialize(this);
 		DataModel.scale = getResources().getDisplayMetrics().density;
-
-		RealmHelper.initialize(this);
 	}
 
 	// StrictMode VmPolicy violation with POLICY_DEATH; shutting down.

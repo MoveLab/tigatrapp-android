@@ -214,7 +214,7 @@ public class MapSelectorV2Activity extends FragmentActivity implements OnMapRead
 		mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 			@Override
 			public void onMapClick(LatLng point) {
-				Log.d("Map", "Map clicked");
+				//Log.d("Map", "Map clicked");
 				mGoogleMap.animateCamera(CameraUpdateFactory.newLatLng(point), 400, null);
 				selectedPoint = point;
 			}
@@ -281,7 +281,6 @@ public class MapSelectorV2Activity extends FragmentActivity implements OnMapRead
 			mStreet.setChecked(true);
 
 		return true;
-
 	}
 
 	@Override

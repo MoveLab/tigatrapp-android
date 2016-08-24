@@ -32,7 +32,10 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingLeft="8dip" >
+        android:paddingStart="8dip"
+        android:paddingLeft="8dip"
+        android:paddingEnd="8dip"
+        android:paddingRight="8dip" >
 
         <RadioButton
             android:id="@+id/esButton"
@@ -62,16 +65,15 @@
 
     <LinearLayout
         android:id="@+id/buttonRow"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:padding="10dip" >
 
         <Button
             android:id="@+id/languageOK"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
             android:text="@string/ok" />
     </LinearLayout>
 

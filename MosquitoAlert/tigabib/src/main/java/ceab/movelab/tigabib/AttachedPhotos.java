@@ -1,16 +1,5 @@
 package ceab.movelab.tigabib;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.List;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -35,6 +24,16 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 import ceab.movelab.tigabib.ContProvContractReports.Reports;
 
@@ -78,10 +77,8 @@ public class AttachedPhotos extends Activity {
 			jsonPhotosString = incoming.getStringExtra(Reports.KEY_PHOTO_URIS);
 
 		if (savedInstanceState != null) {
-			jsonPhotosString = savedInstanceState
-					.getString(Reports.KEY_PHOTO_URIS);
-			photoUri = Uri.fromFile(new File(savedInstanceState
-					.getString("photoUri")));
+			jsonPhotosString = savedInstanceState.getString(Reports.KEY_PHOTO_URIS);
+			photoUri = Uri.fromFile(new File(savedInstanceState.getString("photoUri")));
 		}
 
 		if (jsonPhotosString != null) {
@@ -91,27 +88,21 @@ public class AttachedPhotos extends Activity {
 
 				gridview = (GridView) findViewById(R.id.gridview);
 				gridview.setAdapter(adapter);
-
+				
 				gridview.setOnItemClickListener(new OnItemClickListener() {
-					public void onItemClick(AdapterView<?> parent, View v,
-							int position, long id) {
-
-						final String thisPhotoUri = Report.getPhotoUri(context,
-								jsonPhotos, position);
+					public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+						final String thisPhotoUri = Report.getPhotoUri(context, jsonPhotos, position);
 						final int pos = position;
 
 						if (thisPhotoUri != null) {
-
 							try {
 								final Dialog dialog = new Dialog(context);
 								dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 								dialog.setContentView(R.layout.photo_view);
-								ImageView iv = (ImageView) dialog
-										.findViewById(R.id.photoView);
+								ImageView iv = (ImageView) dialog.findViewById(R.id.photoView);
 								// TODO find better way of choosing max pixel
 								// size -- based on screen
-								iv.setImageBitmap(Util.getSmallerBitmap(
-										new File(thisPhotoUri), context, 300));
+								iv.setImageBitmap(Util.getSmallerBitmap(new File(thisPhotoUri), context, 300));
 								
 								LinearLayout button_area = (LinearLayout) dialog.findViewById(R.id.photo_button_area);
 								button_area.setVisibility(View.VISIBLE);
@@ -127,39 +118,27 @@ public class AttachedPhotos extends Activity {
 										shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
 										shareIntent.setType("image/*");
 										// add a subject
-//										shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT,
-//												"Tigatrapp");
+//										shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "MosquitoAlert"); // !!! use getString()
 
 										// build the body of the message to be shared
-										String shareMessage = getResources().getString(
-												R.string.photo_share_message);
+										String shareMessage = getResources().getString(R.string.photo_share_message);
 
 										// add the message
-										shareIntent.putExtra(android.content.Intent.EXTRA_TEXT,
-												shareMessage);
-										
+										shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareMessage);
 
 										// start the chooser for sharing
 										startActivity(Intent.createChooser(shareIntent, getResources()
 												.getText(R.string.share_with)));
-
-										
-
 									}
 								});
 
 								negative.setOnClickListener(new OnClickListener() {
 									@Override
 									public void onClick(View v) {
-
-										jsonPhotos = Report.deletePhoto(
-												context, jsonPhotos, pos);
+										jsonPhotos = Report.deletePhoto(context, jsonPhotos, pos);
 										// I realize this is ugly, but it is the
-										// quickest fix right now to get the
-										// grid
-										// updated...
-										adapter = new PhotoGridAdapter(context,
-												jsonPhotos);
+										// quickest fix right now to get the grid updated...
+										adapter = new PhotoGridAdapter(context, jsonPhotos);
 										gridview.setAdapter(adapter);
 
 										dialog.dismiss();
@@ -169,25 +148,19 @@ public class AttachedPhotos extends Activity {
 								
 								dialog.setCancelable(true);
 								dialog.show();
-							} catch (FileNotFoundException e) {
-								Util.logError(context, TAG, "error: " + e);
 							} catch (IOException e) {
 								Util.logError(context, TAG, "error: " + e);
 							}
 						}
-
 					}
 				});
 
 				gridview.setOnItemLongClickListener(new OnItemLongClickListener() {
 					public boolean onItemLongClick(AdapterView<?> parent,
 							View v, int position, long id) {
-
-						final String item = (String) parent
-								.getItemAtPosition(position);
+						final String item = (String) parent.getItemAtPosition(position);
 						final int pos = position;
-						final AlertDialog.Builder dialog = new AlertDialog.Builder(
-								context);
+						final AlertDialog.Builder dialog = new AlertDialog.Builder(context);
 						dialog.setTitle(getResources().getString(
 								R.string.photo_selector_remove_attachment));
 						dialog.setMessage(getResources().getString(
@@ -207,14 +180,10 @@ public class AttachedPhotos extends Activity {
 									public void onClick(DialogInterface d,
 											int arg1) {
 
-										jsonPhotos = Report.deletePhoto(
-												context, jsonPhotos, pos);
+										jsonPhotos = Report.deletePhoto(context, jsonPhotos, pos);
 										// I realize this is ugly, but it is the
-										// quickest fix right now to get the
-										// grid
-										// updated...
-										adapter = new PhotoGridAdapter(context,
-												jsonPhotos);
+										// quickest fix right now to get the grid updated...
+										adapter = new PhotoGridAdapter(context, jsonPhotos);
 										gridview.setAdapter(adapter);
 
 										d.dismiss();
@@ -231,7 +200,6 @@ public class AttachedPhotos extends Activity {
 										d.cancel();
 									};
 								});
-
 						dialog.show();
 
 						return true;
@@ -257,8 +225,6 @@ public class AttachedPhotos extends Activity {
 
 			@Override
 			public void onClick(View v) {
-
-				
 				Intent intent = new Intent();
 				// Show only images, no videos or anything else
 				intent.setType("image/*");
@@ -266,12 +232,9 @@ public class AttachedPhotos extends Activity {
 				intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
 				// Always show the chooser (if there are multiple options
 				// available)
-				startActivityForResult(Intent.createChooser(
-						intent,
-					getResources().getString(
-						R.string.photo_selector_attach_photo_button)),
+				startActivityForResult(Intent.createChooser(intent,
+						getResources().getString(R.string.photo_selector_attach_photo_button)),
 						ReportTool.REQUEST_CODE_GET_PHOTO_FROM_GALLERY);
-
 			}
 		});
 
@@ -282,7 +245,6 @@ public class AttachedPhotos extends Activity {
 				if (isIntentAvailable(context, MediaStore.ACTION_IMAGE_CAPTURE)) {
 					dispatchTakePictureIntent(ReportTool.REQUEST_CODE_TAKE_PHOTO);
 				}
-
 			};
 		});
 
@@ -292,10 +254,8 @@ public class AttachedPhotos extends Activity {
 			public void onClick(View v) {
 
 				Intent dataForReport = new Intent();
-
 				if (jsonPhotos != null && jsonPhotos.length() > 0)
-					dataForReport.putExtra(Reports.KEY_PHOTO_URIS,
-							jsonPhotos.toString());
+					dataForReport.putExtra(Reports.KEY_PHOTO_URIS, jsonPhotos.toString());
 				setResult(RESULT_OK, dataForReport);
 				finish();
 			};

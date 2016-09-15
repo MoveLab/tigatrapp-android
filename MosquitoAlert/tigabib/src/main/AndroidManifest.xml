@@ -59,7 +59,7 @@
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity android:name="ceab.movelab.tigabib.ConsentActivity" />
-        <activity android:name="ceab.movelab.tigabib.Help" />
+        <activity android:name=".HelpActivity" />
         <activity android:name="ceab.movelab.tigabib.ViewReportsChecklistTab" />
         <activity android:name="ceab.movelab.tigabib.ViewReportsPhotosTab" />
         <activity android:name="ceab.movelab.tigabib.ViewReportsNotesTab" />

@@ -35,8 +35,7 @@ import android.os.Handler;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.text.Html;
-import android.text.util.Linkify;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -119,7 +118,7 @@ public class SwitchboardActivity extends Activity {
 				String userId = UUID.randomUUID().toString();
 				PropertyHolder.setUserId(userId);
 				PropertyHolder.setNeedsMosquitoAlertPop(false);
-			} else {
+			} /*else {
 				if (PropertyHolder.needsMosquitoAlertPop()) {
 					final Dialog dialog = new Dialog(this);
 					dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -142,10 +141,9 @@ public class SwitchboardActivity extends Activity {
 					});
 					dialog.show();
 				}
-			}
+			}*/
 
 			if (Util.privateMode(this)) {
-
 				final long now = System.currentTimeMillis();
 
 				if ((now - PropertyHolder.getLastDemoPopUpTime()) > Util.DAYS) {
@@ -251,7 +249,7 @@ public class SwitchboardActivity extends Activity {
 					CustomTabActivityHelper.openCustomTab(
 							SwitchboardActivity.this,// activity
 							customTabsIntent,
-							Uri.parse(UtilLocal.PYBOSSA_URL),
+							Uri.parse(getPybossaUrl()),
 							new WebviewFallback()
 					);
 				}
@@ -308,16 +306,30 @@ public class SwitchboardActivity extends Activity {
 		}
 	}
 
+	private String getPybossaUrl() {
+		String url = UtilLocal.PYBOSSA_URL;
+		if (lang.equals("ca"))
+			url += "?lang=ca";
+		else if (lang.equals("es"))
+			url += "?lang=es";
+		else
+			url += "?lang=en";
+		url += "&timestamp=" + System.currentTimeMillis();
+		return url;
+	}
+
 	@Override
 	protected void onResume() {
-		if (!Util.setDisplayLanguage(getResources()).equals(lang)) {
+		if ( !Util.setDisplayLanguage(getResources()).equals(lang) ) {
 			finish();
 			startActivity(getIntent());
 		}
 		super.onResume();
 
-		mRealm = RealmHelper.getInstance().getRealm(SwitchboardActivity.this);
-		loadRemoteNotifications();
+		if ( mPermissionsDenied.size() == 0 ) {
+			mRealm = RealmHelper.getInstance().getRealm(SwitchboardActivity.this);
+			loadRemoteNotifications();
+		}
 	}
 
 	@Override
@@ -328,7 +340,9 @@ public class SwitchboardActivity extends Activity {
 
 	private void loadRemoteNotifications() {
 		String notificationUrl = Util.API_NOTIFICATION + "?user_id=" + PropertyHolder.getUserId();
-
+Util.logInfo(this, "==============", "TEST");
+Log.d("===========", "BuildConfig.DEBUG >> " + BuildConfig.DEBUG);
+Log.d("===========", Util.URL_TIGASERVER_API_ROOT + notificationUrl);
 		Ion.with(this)
 			.load(Util.URL_TIGASERVER_API_ROOT + notificationUrl)
 			.setHeader("Accept", "application/json")
@@ -405,7 +419,7 @@ public class SwitchboardActivity extends Activity {
 			startActivity(i);
 			return true;
 		} else if (item.getItemId() == R.id.help) {
-			Intent i = new Intent(SwitchboardActivity.this, Help.class);
+			Intent i = new Intent(SwitchboardActivity.this, HelpActivity.class);
 			startActivity(i);
 			return true;
 		} else if (item.getItemId() == R.id.about) {

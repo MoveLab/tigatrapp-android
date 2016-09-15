@@ -79,6 +79,7 @@ import ceab.movelab.tigabib.ContProvContractReports.Reports;
 public class ReportTool extends Activity {
 
 	private static String TAG = "ReportTool";
+
 	private MyCountDownTimer countDownTimer;
 
 	private boolean gpsAvailable;
@@ -153,7 +154,7 @@ public class ReportTool extends Activity {
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
 
-		Util.logInfo(context, TAG, "on create");
+		Util.logInfo(context, TAG, "on create ReportTool");
 
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
@@ -164,13 +165,12 @@ public class ReportTool extends Activity {
 		type = b.getInt("type");
 		editing = b.containsKey("reportId");
 
-		if (editing) {
+		if ( editing ) {
 
 			this.setTitle(context.getResources().getString(R.string.activity_label_report_editing));
 
 			ContentResolver cr = getContentResolver();
-			String sc = Reports.KEY_REPORT_ID + " = '"
-					+ b.getString("reportId") + "' AND "
+			String sc = Reports.KEY_REPORT_ID + " = '" + b.getString("reportId") + "' AND "
 					+ Reports.KEY_LATEST_VERSION + " = 1 AND "
 					+ Reports.KEY_DELETE_REPORT + "= 0";
 
@@ -264,20 +264,16 @@ public class ReportTool extends Activity {
 		reportCurrentLocationImage = (ImageView) findViewById(R.id.reportCurrentLocationImage);
 		buttonReportSubmit = (Button) findViewById(R.id.buttonReportSubmit);
 
-		if (editing) {
+		if ( editing ) {
 			reportTitle.setText((type == Report.TYPE_BREEDING_SITE ? getResources().getString(R.string.edit_title_site) :
 							getResources().getString(R.string.edit_title_adult)) + "\n"
 							+ getResources().getString(R.string.created_on) + " "
 							+ Util.userDate(new Date((thisReport.reportTime))));
 
-			reportConfirmationCheck.setText(getResources().getString(
-					R.string.checklist_label_editing));
-			reportLocationCheck.setText(getResources().getString(
-					R.string.location_label_editing));
-			reportPhotoCheck.setText(getResources().getString(
-					R.string.photo_check_label_editing));
-			reportNoteCheck.setText(getResources().getString(
-					R.string.note_check_label_editing));
+			reportConfirmationCheck.setText(getResources().getString(R.string.paso1));
+			reportLocationCheck.setText(getResources().getString(R.string.paso2));
+			reportPhotoCheck.setText(getResources().getString(R.string.paso3));
+			reportNoteCheck.setText(getResources().getString(R.string.paso4));
 
 			buttonReportSubmit.setText(getResources()
 					.getString(R.string.update));
@@ -285,7 +281,7 @@ public class ReportTool extends Activity {
 			reportTitle.setText(getResources().getText(type == Report.TYPE_BREEDING_SITE ? R.string.report_title_site : R.string.report_title_adult));
 		}
 
-		if (icicle != null) {
+		if ( icicle != null ) {
 			has_edited_location = icicle.getBoolean("has_edited_location");
 			thisReport.reportId = icicle.getString("reportId");
 			thisReport.confirmation = icicle.getString("confirmation");
@@ -304,7 +300,7 @@ public class ReportTool extends Activity {
 			thisReport.setPhotoUris(context, icicle.getString(Reports.KEY_PHOTO_URIS));
 		}
 
-		if (thisReport.reportId == null) {
+		if ( thisReport.reportId == null ) {
 			thisReport.reportId = Util.makeReportId();
 		}
 
@@ -319,9 +315,7 @@ public class ReportTool extends Activity {
 									: context.getResources().getString(
 											R.string.site_report_help_html));
 					return;
-
 				} else if (v.getId() == R.id.reportConfirmationRow) {
-
 					try {
 						String thisTaskType = type == Report.TYPE_ADULT ? MissionModel
 								.makeAdultConfirmation(context).getString(Tasks.KEY_TASK_JSON) : MissionModel
@@ -338,26 +332,20 @@ public class ReportTool extends Activity {
 					}
 					return;
 				} else if (v.getId() == R.id.reportLocationRow) {
-
 					if (!reportLocationCheck.isChecked())
 						buildLocationMenu();
 					return;
 				} else if (v.getId() == R.id.reportCurrentLocationRow) {
-
 					if (currentLocation == null) {
 						if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
 								|| locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-							buildLocationAlert(getResources().getString(
-									R.string.nolocation_alert_report));
+							buildLocationAlert(getResources().getString(R.string.nolocation_alert_report));
 						} else if (!gpsAvailable && !networkLocationAvailable) {
-							buildAlertMessageNoGpsNoNet(getResources()
-									.getString(R.string.noGPSnoNetAlert));
+							buildAlertMessageNoGpsNoNet(getResources().getString(R.string.noGPSnoNetAlert));
 						} else {
-							buildLocationAlert(getResources().getString(
-									R.string.nolocnogps_alert));
+							buildLocationAlert(getResources().getString(R.string.nolocnogps_alert));
 						}
 					} else {
-
 						locationRadioGroup.check(R.id.whereRadioButtonHere);
 						has_edited_location = true;
 						reportLocationCheck.setChecked(true);
@@ -377,11 +365,8 @@ public class ReportTool extends Activity {
 						 * thisReport.currentLocationLon));
 						 */
 						Util.toast(context, getResources().getString(R.string.added_current_loc)
-								+ "\n\nLat: "
-								+ String.format("%.5g%n", thisReport.currentLocationLat)
-								+ "\nLon: "
-								+ String.format("%.5g%n", thisReport.currentLocationLon));
-
+								+ "\n\nLat: " + String.format("%.5g%n", thisReport.currentLocationLat)
+								+ "\nLon: " + String.format("%.5g%n", thisReport.currentLocationLon));
 					}
 
 					return;
@@ -392,7 +377,6 @@ public class ReportTool extends Activity {
 					Intent i = new Intent(ReportTool.this, AttachedPhotos.class);
 					i.putExtra(Reports.KEY_PHOTO_URIS, thisReport.photoUrisJson.toString());
 					startActivityForResult(i, REQUEST_CODE_ATTACHED_PHOTOS);
-
 					return;
 				} else if (v.getId() == R.id.reportNoteRow) {
 					buildReportNoteDialog();
@@ -411,23 +395,24 @@ public class ReportTool extends Activity {
 
 		reportConfirmationCheck.setChecked(thisReport.confirmationCode > 0);
 
-		if (has_edited_location) {
+		if ( has_edited_location ) {
 			if (thisReport.locationChoice == Report.LOCATION_CHOICE_CURRENT)
 				locationRadioGroup.check(R.id.whereRadioButtonHere);
 			else if (thisReport.locationChoice == Report.LOCATION_CHOICE_SELECTED)
 				locationRadioGroup.check(R.id.whereRadioButtonOtherPlace);
 		}
-		reportLocationCheck
-				.setChecked(thisReport.locationChoice != Report.MISSING);
+		reportLocationCheck.setChecked(thisReport.locationChoice != Report.MISSING);
 
-		if (type == Report.TYPE_ADULT)
-			reportPhotoCheck.setText(getResources().getString(
-					R.string.photo_label));
+		if ( type == Report.TYPE_ADULT ) {
+			reportConfirmationCheck.setText(getResources().getString(R.string.paso1_2));
+			reportPhotoCheck.setText(getResources().getString(R.string.paso3));
+		}
 		else
-			reportPhotoCheck.setText(getResources().getString(
-					R.string.photo_label_star));
-		if (thisReport.photoUrisJson != null
-				&& thisReport.photoUrisJson.length() > 0) {
+			reportConfirmationCheck.setText(getResources().getString(R.string.paso1));
+		reportPhotoCheck.setText(getResources().getString(R.string.paso3));	// star !!!
+
+		if ( thisReport.photoUrisJson != null
+				&& thisReport.photoUrisJson.length() > 0 ) {
 			photoCount.setVisibility(View.VISIBLE);
 			photoCount.setText(String.valueOf(thisReport.photoUrisJson.length()));
 			reportPhotoCheck.setChecked(true);
@@ -443,18 +428,14 @@ public class ReportTool extends Activity {
 			@Override
 			public void onClick(View v) {
 
-				if (thisReport.confirmation == null
+				if ( thisReport.confirmation == null
 						|| thisReport.confirmation.equals("")
 						|| !reportConfirmationCheck.isChecked()
 						|| !reportLocationCheck.isChecked()
-						|| (type == Report.TYPE_BREEDING_SITE && !reportPhotoCheck
-								.isChecked())) {
-					Util.toast(
-							context,
-							getResources()
-									.getString(
-											(type == Report.TYPE_ADULT ? R.string.toast_report_before_submitting_adult
-													: R.string.toast_report_before_submitting_site))
+						|| (type == Report.TYPE_BREEDING_SITE && !reportPhotoCheck.isChecked()) ) {
+					Util.toast(context, getResources().getString(
+							(type == Report.TYPE_ADULT ? R.string.toast_report_before_submitting_adult
+									: R.string.toast_report_before_submitting_site))
 									+ "\n\n"
 									+ (reportConfirmationCheck.isChecked() ? "" : (getResources()
 													.getString(
@@ -462,8 +443,8 @@ public class ReportTool extends Activity {
 									+ (reportLocationCheck.isChecked() ? "" : (getResources()
 													.getString(
 															R.string.toast_specify_location) + "\n"))
-									+ ((type == Report.TYPE_BREEDING_SITE && !reportPhotoCheck
-											.isChecked()) ? getResources()
+									+ ((type == Report.TYPE_BREEDING_SITE &&
+										!reportPhotoCheck.isChecked()) ? getResources()
 											.getString(
 													R.string.toast_attach_photo) : ""));
 				} else {
@@ -486,7 +467,6 @@ public class ReportTool extends Activity {
 
 			// Quick return if given location is null or has an invalid time
 			if (location == null || location.getTime() < 0) {
-
 				return;
 			} else {
 				if ( currentLocation == null
@@ -510,7 +490,6 @@ public class ReportTool extends Activity {
 						countDownTimer = new MyCountDownTimer(5 * 60 * 1000, 5 * 60 * 1000);
 					}
 					countDownTimer.start();
-
 				}
 
 			}
@@ -533,21 +512,19 @@ public class ReportTool extends Activity {
 		 * @param provider
 		 *            The provider to be re-enabled
 		 */
-		public void onProviderEnabled(String provider) {
-		}
+		public void onProviderEnabled(String provider) { }
 
 		public void onStatusChanged(String provider, int status, Bundle extras) {
 			/*
 			 * If provider service is no longer available, stop trying to get
 			 * updates from both ceab.movelab.tigabib.providers but start timer.
 			 */
-			if (status != LocationProvider.AVAILABLE) {
+			if ( status != LocationProvider.AVAILABLE ) {
 				removeLocationUpdate(provider);
 				if (countDownTimer != null) {
 					try {
 						countDownTimer.cancel();
 					} catch (Exception e) {
-
 						Util.logError(context, TAG, "exception cancelling countdown timer");
 					}
 				} else {
@@ -569,12 +546,10 @@ public class ReportTool extends Activity {
 		icicle.putInt("locationChoice", thisReport.locationChoice);
 
 		if (thisReport.selectedLocationLat != null)
-			icicle.putFloat("selectedLocationLat",
-					thisReport.selectedLocationLat);
+			icicle.putFloat("selectedLocationLat", thisReport.selectedLocationLat);
 
 		if (thisReport.selectedLocationLon != null)
-			icicle.putFloat("selectedLocationLon",
-					thisReport.selectedLocationLon);
+			icicle.putFloat("selectedLocationLon", thisReport.selectedLocationLon);
 
 		if (thisReport.currentLocationLat != null)
 			icicle.putFloat("currentLocationLat", thisReport.currentLocationLat);
@@ -584,13 +559,10 @@ public class ReportTool extends Activity {
 
 		icicle.putInt("photoAttached", thisReport.photoAttached);
 		icicle.putString("note", thisReport.note);
-
-		icicle.putString(Reports.KEY_PHOTO_URIS,
-				thisReport.photoUrisJson.toString());
+		icicle.putString(Reports.KEY_PHOTO_URIS, thisReport.photoUrisJson.toString());
 
 		if (type != -1)
 			icicle.putInt("type", type);
-
 	}
 
 	@Override
@@ -608,21 +580,22 @@ public class ReportTool extends Activity {
 
 		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-		if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-			gpsListener = new mLocationListener();
-			locationManager.requestLocationUpdates(
-					LocationManager.GPS_PROVIDER, 0, 0, gpsListener);
-			gpsAvailable = true;
-		}
-		if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-			networkListener = new mLocationListener();
-			locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, networkListener);
-			networkLocationAvailable = true;
-		}
+		try {
+			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+				gpsListener = new mLocationListener();
+				locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, gpsListener);
+				gpsAvailable = true;
+			}
+			if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+				networkListener = new mLocationListener();
+				locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, networkListener);
+				networkLocationAvailable = true;
+			}
+		} catch (SecurityException se) {}
 
-		if (currentLocation == null) {
+		if ( currentLocation == null ) {
 
-			if (!gpsAvailable && !networkLocationAvailable) {
+			if ( !gpsAvailable && !networkLocationAvailable ) {
 				reportCurrentLocationImage.clearAnimation();
 				reportCurrentLocationImage.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_action_location_off));
 			} else {
@@ -640,7 +613,6 @@ public class ReportTool extends Activity {
 		}
 
 		super.onResume();
-
 	}
 
 	@Override
@@ -656,7 +628,6 @@ public class ReportTool extends Activity {
 			Util.logError(context, TAG, "exception cancelling countdown timer");
 		}
 		countDownTimer = null;
-
 	}
 
 	@Override
@@ -689,27 +660,28 @@ public class ReportTool extends Activity {
 			Util.logError(context, TAG, "exception cancelling countdown timer");
 		}
 		countDownTimer = null;
-
 	}
 
 	// utilities
 	private void removeLocationUpdates() {
 		Util.logInfo(context, TAG, "remove location updates");
 
-		if (locationManager != null) {
-			Util.logInfo(context, TAG, "remove location updates 1");
-			if (gpsListener != null)
-				locationManager.removeUpdates(gpsListener);
-			if (networkListener != null)
-				locationManager.removeUpdates(networkListener);
-		} else {
-			Util.logInfo(context, TAG, "remove location updates 2");
-			locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-			if (gpsListener != null)
-				locationManager.removeUpdates(gpsListener);
-			if (networkListener != null)
-				locationManager.removeUpdates(networkListener);
-		}
+		try {
+			if (locationManager != null) {
+				Util.logInfo(context, TAG, "remove location updates 1");
+				if (gpsListener != null)
+					locationManager.removeUpdates(gpsListener);
+				if (networkListener != null)
+					locationManager.removeUpdates(networkListener);
+			} else {
+				Util.logInfo(context, TAG, "remove location updates 2");
+				locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+				if (gpsListener != null)
+					locationManager.removeUpdates(gpsListener);
+				if (networkListener != null)
+					locationManager.removeUpdates(networkListener);
+			}
+		} catch (SecurityException se) {}
 		gpsListener = null;
 		networkListener = null;
 		locationManager = null;
@@ -717,32 +689,34 @@ public class ReportTool extends Activity {
 
 	// utilities
 	private void removeLocationUpdate(String provider) {
-		if (locationManager != null) {
-			if (provider.contentEquals(LocationManager.NETWORK_PROVIDER)) {
-				if (networkListener != null) {
-					locationManager.removeUpdates(networkListener);
-					networkListener = null;
+		try {
+			if (locationManager != null) {
+				if (provider.contentEquals(LocationManager.NETWORK_PROVIDER)) {
+					if (networkListener != null) {
+						locationManager.removeUpdates(networkListener);
+						networkListener = null;
+					}
+				} else {
+					if (gpsListener != null) {
+						locationManager.removeUpdates(gpsListener);
+						gpsListener = null;
+					}
 				}
 			} else {
-				if (gpsListener != null) {
-					locationManager.removeUpdates(gpsListener);
-					gpsListener = null;
+				locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+				if (provider == LocationManager.NETWORK_PROVIDER) {
+					if (networkListener != null) {
+						locationManager.removeUpdates(networkListener);
+						networkListener = null;
+					}
+				} else {
+					if (gpsListener != null) {
+						locationManager.removeUpdates(gpsListener);
+						gpsListener = null;
+					}
 				}
 			}
-		} else {
-			locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-			if (provider == LocationManager.NETWORK_PROVIDER) {
-				if (networkListener != null) {
-					locationManager.removeUpdates(networkListener);
-					networkListener = null;
-				}
-			} else {
-				if (gpsListener != null) {
-					locationManager.removeUpdates(gpsListener);
-					gpsListener = null;
-				}
-			}
-		}
+		} catch (SecurityException se) {}
 	}
 
 	private void buildMailMessage(String message) {
@@ -811,13 +785,12 @@ public class ReportTool extends Activity {
 			startActivity(getIntent());
 		}
 		switch (requestCode) {
-		case (REQUEST_CODE_ATTACHED_PHOTOS): {
-			if (resultCode == RESULT_OK) {
-				if (data.hasExtra(Reports.KEY_PHOTO_URIS)) {
+		case REQUEST_CODE_ATTACHED_PHOTOS: {
+			if ( resultCode == RESULT_OK ) {
+				if ( data.hasExtra(Reports.KEY_PHOTO_URIS) ) {
 					String incomingPhotoUris = data.getStringExtra(Reports.KEY_PHOTO_URIS);
-
-					if (incomingPhotoUris.length() > 0) {
-						thisReport.setPhotoUris(context, data.getStringExtra(Reports.KEY_PHOTO_URIS));
+					if ( incomingPhotoUris.length() > 0 ) {
+						thisReport.setPhotoUris(context, incomingPhotoUris);
 						photoCount.setVisibility(View.VISIBLE);
 						photoCount.setText(String.valueOf(thisReport.photoUrisJson.length()));
 						reportPhotoCheck.setChecked(true);
@@ -840,16 +813,18 @@ public class ReportTool extends Activity {
 						photoCount.setVisibility(View.GONE);
 						reportPhotoCheck.setChecked(false);
 						thisReport.photoAttached = Report.NO;
+						thisReport.setPhotoUris(context, null);
 					}
 				} else {
 					photoCount.setVisibility(View.GONE);
 					reportPhotoCheck.setChecked(false);
 					thisReport.photoAttached = Report.NO;
+					thisReport.setPhotoUris(context, null);
 				}
 			}
 			break;
 		}
-		case (REQUEST_CODE_MAPSELECTOR): {
+		case REQUEST_CODE_MAPSELECTOR: {
 			thisReport.selectedLocationLat = null;
 			thisReport.selectedLocationLon = null;
 
@@ -870,9 +845,9 @@ public class ReportTool extends Activity {
 			}
 			break;
 		}
-		case (REQUEST_CODE_REPORT_RESPONSES): {
+		case REQUEST_CODE_REPORT_RESPONSES: {
 			reportConfirmationCheck.setChecked(false);
-			if (resultCode == RESULT_OK) {
+			if ( resultCode == RESULT_OK ) {
 				if (data.hasExtra(Tasks.KEY_RESPONSES_JSON)) {
 					String responses = data.getStringExtra(Tasks.KEY_RESPONSES_JSON);
 					thisReport.confirmation = responses;
@@ -885,20 +860,17 @@ public class ReportTool extends Activity {
 						reportConfirmationCheck.setChecked(true);
 					}
 				}
-			} else {
+			//} else {
 				// TODO
 			}
 		}
 		}
-
 	}
 
 	public class ReportUploadTask extends AsyncTask<Context, Integer, Boolean> {
 
 		ProgressDialog prog;
-
 		int myProgress;
-
 		int resultFlag;
 
 		int OFFLINE = 0;
@@ -921,7 +893,6 @@ public class ReportTool extends Activity {
 			prog.show();
 
 			myProgress = 0;
-
 		}
 
 		protected Boolean doInBackground(Context... context) {
@@ -974,7 +945,7 @@ public class ReportTool extends Activity {
 			myProgress = 20;
 			publishProgress(myProgress);
 
-			if (!Util.privateMode(context[0])) {
+			if ( !Util.privateMode(context[0]) ) {
 
 				// now test if there is a data connection
 				if (!Util.isOnline(context[0])) {
@@ -989,7 +960,7 @@ public class ReportTool extends Activity {
 
 				int uploadResult = thisReport.upload(context[0]);
 
-				if (uploadResult == Report.UPLOADED_ALL) {
+				if ( uploadResult == Report.UPLOADED_ALL ) {
 					myProgress = 100;
 					publishProgress(myProgress);
 					// mark as uploaded
@@ -1013,7 +984,6 @@ public class ReportTool extends Activity {
 		}
 
 		protected void onProgressUpdate(Integer... progress) {
-
 			prog.setProgress(progress[0]);
 		}
 
@@ -1036,13 +1006,11 @@ public class ReportTool extends Activity {
 				finish();
 
 			} else {
-
 				if (resultFlag == OFFLINE) {
 					buildCustomAlert(getResources().getString(R.string.offline_report));
 				}
 
 				if (resultFlag == UPLOAD_ERROR || resultFlag == DATABASE_ERROR) {
-
 					Intent uploaderIntent = new Intent(ReportTool.this, SyncData.class);
 					startService(uploaderIntent);
 
@@ -1059,16 +1027,13 @@ public class ReportTool extends Activity {
 					clearFields();
 				}
 			}
-
 		}
 	}
 
 	public void clearFields() {
-
 		currentLocation = null;
 		locationChoice = -1;
 		message = null;
-
 	}
 
 	public void buildReportNoteDialog() {
@@ -1252,20 +1217,22 @@ public class ReportTool extends Activity {
 		public void onFinish() {
 			currentLocation = null;
 
-			if (locationManager == null) {
+			if ( locationManager == null ) {
 				locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 			}
 
-			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-				gpsListener = new mLocationListener();
-				locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, gpsListener);
-				gpsAvailable = true;
-			}
-			if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-				networkListener = new mLocationListener();
-				locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, networkListener);
-				networkLocationAvailable = true;
-			}
+			try {
+				if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+					gpsListener = new mLocationListener();
+					locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, gpsListener);
+					gpsAvailable = true;
+				}
+				if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+					networkListener = new mLocationListener();
+					locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, networkListener);
+					networkLocationAvailable = true;
+				}
+			} catch (SecurityException se) {}
 		}
 
 		@Override
@@ -1298,30 +1265,29 @@ public class ReportTool extends Activity {
 				});
 
 		dialog.show();
-
 	}
 
 	private void goToMapSelector() {
 		Intent i = new Intent(ReportTool.this, MapSelectorV2Activity.class);
 		Bundle b = new Bundle();
-		if (editing) {
+		if ( editing ) {
 			Util.logInfo(context, TAG, "about to put location extras");
 			if (thisReport.locationChoice == Report.LOCATION_CHOICE_CURRENT) {
 				Util.logInfo(context, TAG, "current location");
-				if (thisReport.currentLocationLat != null) {
+				if ( thisReport.currentLocationLat != null ) {
 					Util.logInfo(context, TAG, "current lat: " + thisReport.currentLocationLat);
 					b.putFloat(Messages.makeIntentExtraKey(context, PREVIOUS_LAT), thisReport.currentLocationLat);
 				}
-				if (thisReport.currentLocationLon != null) {
+				if ( thisReport.currentLocationLon != null ) {
 					Util.logInfo(context, TAG, "current lon: " + thisReport.currentLocationLon);
 					b.putFloat(Messages.makeIntentExtraKey(context, PREVIOUS_LON), thisReport.currentLocationLon);
 				}
 			} else if (thisReport.locationChoice == Report.LOCATION_CHOICE_SELECTED) {
-				if (thisReport.selectedLocationLat != null) {
+				if ( thisReport.selectedLocationLat != null ) {
 					Util.logInfo(context, TAG, "selected lat: " + thisReport.selectedLocationLat);
 					b.putFloat(Messages.makeIntentExtraKey(context, PREVIOUS_LAT), thisReport.selectedLocationLat);
 				}
-				if (thisReport.selectedLocationLon != null) {
+				if ( thisReport.selectedLocationLon != null ) {
 					Util.logInfo(context, TAG, "selected lon: " + thisReport.selectedLocationLon);
 					b.putFloat(Messages.makeIntentExtraKey(context, PREVIOUS_LON), thisReport.selectedLocationLon);
 				}

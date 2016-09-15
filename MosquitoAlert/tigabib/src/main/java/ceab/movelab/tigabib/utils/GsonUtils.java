@@ -1,4 +1,4 @@
-package ceab.movelab.tigabib;
+package ceab.movelab.tigabib.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

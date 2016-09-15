@@ -87,7 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false"
-                android:text="@string/checklist_label"
+                android:text="@string/paso1"
                 android:textSize="30sp" />
 
             <ImageView
@@ -119,7 +119,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false"
-                android:text="@string/location_label"
+                android:text="@string/paso2"
                 android:textSize="30sp" />
         </RelativeLayout>
 
@@ -223,7 +223,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:clickable="false"
-                android:text="@string/photo_check_label"
+                android:text="@string/paso3"
                 android:textSize="30sp" />
 
             <TextView
@@ -266,7 +266,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false"
-                android:text="@string/note_check_label"
+                android:text="@string/paso4"
                 android:textSize="30sp" />
 
             <ImageView

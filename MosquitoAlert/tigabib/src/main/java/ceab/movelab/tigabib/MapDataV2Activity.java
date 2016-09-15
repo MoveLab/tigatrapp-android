@@ -45,13 +45,17 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.location.Location;
+import android.location.LocationManager;
 import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -62,6 +66,12 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.LocationListener;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -88,14 +98,15 @@ import ceab.movelab.tigabib.ContProvContractReports.Reports;
 import ceab.movelab.tigabib.model.NearbyReport;
 
 /**
- * Allows user to view their own data in a map (from the database on their phone
- * -- not from the server).
+ * Allows user to view their own reports in a map (from the database on their phone)
+ * and neighbours' reports from the server.
  * 
  * @author Màrius Garcia
  * 
  * 
  */
-public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCallback {
+public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCallback,
+		GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener  {
 
 	private static String TAG = "MapDataV2Activity";
 
@@ -103,41 +114,44 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 
 	private static final float ADULT_COLOR_HUE = 26.0f;
 //	private static final float SITE_COLOR_HUE = 244.0f;
-	private static final float NEARBY_COLOR_HUE = 244.0f;
+	private static final float NEARBY_COLOR_HUE = 190.0f;
 //	int ADULT_COLOR_V1 = 0xffd95f02; // 217, 95, 2	// 26.0f
 //	int SITE_COLOR_V1 = 0xff7570b3;	// 117, 112, 179 // 244.0f
+
+	private static final int NEARBY_RADIUS = 5000;
 
 	private String lang;
 
 	private ProgressBar progressbar;
 	private boolean loadingData;
 
-//	public static MapView mapView;
-//	private MapController myMapController;
-//	private List<Overlay> mapOverlays;
-	private GeoPoint currentCenter;
-
 	private static boolean satToggle;
 
-	//MarkerDrawable siteMarker;
-	//MarkerDrawable adultMarker;
-	//ArrayList<GeoPoint> mPoints;
-	//ArrayList<MyOverlayItem> mOverlaylist;
-
-	//private GoogleApiClient mGoogleApiClient;
+	// Provides the entry point to Google Play services.
+	private boolean mGoogleServicesOk = false;
+	private GoogleApiClient mGoogleApiClient;
 	private GoogleMap mGoogleMap;
 	private SupportMapFragment mMapFragment;
 	private Map<Marker, MyOverlayItem> markerMap = new HashMap<>();
+	// Represents a geographical location.
+	private Location mLastLocation;
+	private Location mLastLocationNeighbours;
+	private GeoPoint currentCenter;
 
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		if (!PropertyHolder.isInit())
+		if ( !PropertyHolder.isInit() )
 			PropertyHolder.init(this);
 
 		lang = Util.setDisplayLanguage(getResources());
+		checkGoogleApiAvailability();
+	}
+
+	private void onCreateContinue() {
+		createGoogleApi();
 
 		setContentView(R.layout.map_layout_v2);
 		setTitle(getResources().getString(R.string.activity_label_map));
@@ -152,12 +166,13 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 		progressbar.setProgress(0);
 	}
 
-	private void startRegistrationService() {
+	//http://stackoverflow.com/questions/31016722/googleplayservicesutil-vs-googleapiavailability
+	private void checkGoogleApiAvailability() {
 		GoogleApiAvailability api = GoogleApiAvailability.getInstance();
 		int code = api.isGooglePlayServicesAvailable(this);
-		if (code == ConnectionResult.SUCCESS) {
+		if ( code == ConnectionResult.SUCCESS ) {
 			onActivityResult(REQUEST_GOOGLE_PLAY_SERVICES, Activity.RESULT_OK, null);
-		} else if (api.isUserResolvableError(code) &&
+		} else if ( api.isUserResolvableError(code) &&
 				api.showErrorDialogFragment(this, code, REQUEST_GOOGLE_PLAY_SERVICES)) {
 			// wait for onActivityResult call (see below)
 		} else {
@@ -165,17 +180,100 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 		}
 	}
 
+	protected void createGoogleApi() {
+		// Construct a GoogleApiClient for the {@link Places#GEO_DATA_API} using AutoManage functionality,
+		// which automatically sets up the API client to handle Activity lifecycle events.
+		// If your activity does not extend FragmentActivity, make sure to call connect() and disconnect() explicitly.
+		if ( mGoogleApiClient == null ) {
+			mGoogleApiClient = new GoogleApiClient.Builder(this)
+					.addConnectionCallbacks(this)
+					.addOnConnectionFailedListener(this)
+					.addApi(LocationServices.API)
+					.enableAutoManage(this, 0, this)
+					.build();
+		}
+	}
+
+
+	@Override
+	public void onConnected(Bundle connectionHint) {
+		Util.logInfo(MapDataV2Activity.this, TAG, "GMS: Connected to GoogleApiClient");
+		// If the initial location was never previously requested, we use FusedLocationApi.getLastLocation() to get it.
+		if ( mLastLocation == null ) {
+			try {
+				mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
+				if ( mLastLocation != null ) {
+					loadNeighbours(mLastLocation, NEARBY_RADIUS);
+					LatLng myLatLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
+					mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, 13), 250, null);
+				}
+			}
+			catch (SecurityException se) {}
+		}
+		startLocationUpdates();
+	}
+
+	@Override
+	public void onConnectionSuspended(int cause) {
+		// The connection to Google Play services was lost for some reason. We call connect() to attempt to re-establish the connection.
+		Util.logInfo(MapDataV2Activity.this, TAG, "GMS: Connection suspended");
+		mGoogleApiClient.connect();
+	}
+
+	@Override
+	public void onConnectionFailed(@NonNull ConnectionResult result) {
+		// Refer to the javadoc for ConnectionResult to see what error codes might be returned in onConnectionFailed.
+		Util.logInfo(MapDataV2Activity.this, TAG, "GMS: Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
+	}
+
+	public LocationRequest getLocationRequest() {
+		return LocationRequestFactory.getLocationRequest();
+	}
+
+	protected void startLocationUpdates() {
+		Util.logInfo(MapDataV2Activity.this, TAG, "startLocationUpdates out");
+		if ( mGoogleApiClient != null && mGoogleApiClient.isConnected() ) {
+			Util.logInfo(MapDataV2Activity.this, TAG, "startLocationUpdates " + mGoogleApiClient);
+			try {
+				LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, getLocationRequest(), this)
+						.setResultCallback(new ResultCallback<Status>() {
+							@Override
+							public void onResult(Status status) {
+								Util.logInfo(MapDataV2Activity.this, TAG, "GMS: startLocationUpdates, onResult");
+
+							}
+						});
+			}
+			catch (SecurityException se) {}
+		}
+	}
+
+	/**
+	 * Callback that fires when the location changes.
+	 */
+	@Override
+	public void onLocationChanged(Location location) {
+		Util.logInfo(MapDataV2Activity.this, TAG, "GMS: onLocationChanged");
+        mLastLocation = location;
+		loadNeighbours(location, NEARBY_RADIUS);
+        LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, 13), 250, null);
+
+		LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+		mGoogleApiClient.disconnect();
+	}
+
 	/**
 	 * function to load map. If map is not created it will create it for you
 	 */
 	private void initializeMap() {
-		if (mGoogleMap == null) {
+		if ( mGoogleMap == null ) {
 			mMapFragment.getMapAsync(this);
 		}
 	}
 
 	private void setMapType() {
-		if (mGoogleMap != null)
+		if ( mGoogleMap != null )
 			mGoogleMap.setMapType(satToggle ? GoogleMap.MAP_TYPE_SATELLITE : GoogleMap.MAP_TYPE_NORMAL);
 	}
 
@@ -195,10 +293,10 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 		mGoogleMap.getUiSettings().setCompassEnabled(false);
 		mGoogleMap.getUiSettings().setMapToolbarEnabled(false);
 
-		GeoPoint myCenterPoint = currentCenter != null ? currentCenter : Util.CEAB_COORDINATES;
-		LatLng myLatLng = new LatLng(myCenterPoint.getLatitudeE6() / 1E6, myCenterPoint.getLongitudeE6() / 1E6);
+		//GeoPoint myCenterPoint = currentCenter != null ? currentCenter : Util.CEAB_COORDINATES;
+		LatLng myLatLng = new LatLng(Util.CEAB_COORDINATES.getLatitudeE6() / 1E6, Util.CEAB_COORDINATES.getLongitudeE6() / 1E6);
 		//mGoogleMap.moveCamera(CameraUpdateFactory.zoomTo(15);
-		mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, 15));
+		mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, 12));
 
 /*		Testing markers ********************
 		mGoogleMap.addMarker(new MarkerOptions()
@@ -229,30 +327,42 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 			startActivity(getIntent());
 		}
 
-		super.onActivityResult(requestCode, resultCode, data);
-
-		if (resultCode == RESULT_OK && requestCode == 1) {
-			finish();
+		switch (requestCode) {
+			case REQUEST_GOOGLE_PLAY_SERVICES:
+					if (resultCode == Activity.RESULT_OK) {
+						mGoogleServicesOk = true;
+						onCreateContinue();
+					}
+					break;
+			case 1: if (resultCode == Activity.RESULT_OK) {
+						finish();
+					}
+					break;
+			default:
+				super.onActivityResult(requestCode, resultCode, data);
 		}
 	}
+
 
 	@Override
 	protected void onResume() {
 		super.onResume();
 
-		if (!Util.setDisplayLanguage(getResources()).equals(lang)) {
+		if ( !Util.setDisplayLanguage(getResources()).equals(lang) ) {
 			finish();
 			startActivity(getIntent());
 		}
 
-		setMapType();
+		if ( mGoogleServicesOk ) {
+			setMapType();
+			progressbar.setVisibility(View.VISIBLE);
 
-		progressbar.setVisibility(View.VISIBLE);
-
-		if ( !loadingData ) {
-			loadingData = true;
-			if ( mGoogleMap != null ) mGoogleMap.clear();
-			new DataGrabberTask().execute(this);
+			if ( !loadingData ) {
+				loadingData = true;
+				if ( mGoogleMap != null ) mGoogleMap.clear();
+				new DataGrabberTask().execute(this);
+			}
+			if ( mLastLocationNeighbours != null ) loadNeighbours(mLastLocationNeighbours, NEARBY_RADIUS);
 		}
 
 	}
@@ -338,39 +448,48 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 		}
 	}
 
- 	private void loadNeighbours(int radius) {
+ 	private void loadNeighbours(Location myLocation, int radius) {
 
-		if ( currentCenter != null ) {
+		if ( myLocation != null ) {
 			//mGoogleMap.getCameraPosition().target // to get center of the map
 			String nearbyUrl = Util.API_NEARBY_REPORTS + "?format=json" +
-					"&lat=" + (currentCenter.getLatitudeE6() / 1E6) +
-					"&lon=" + (currentCenter.getLongitudeE6() / 1E6) +
+					"&lat=" + myLocation.getLatitude() +
+					"&lon=" + myLocation.getLongitude() +
 					"&radius=" + radius;
-			Util.logInfo(MapDataV2Activity.this, TAG, nearbyUrl.toString());
+			Util.logInfo(MapDataV2Activity.this, TAG, nearbyUrl);
 
 			Ion.with(this)
-					.load(Util.URL_TIGASERVER_API_ROOT + nearbyUrl)
-					//.load("http://webserver.mosquitoalert.com/api/" + notificationUrl)
-					.setHeader("Accept", "application/json")
-					.setHeader("Content-type", "application/json")
-					.setHeader("Authorization", UtilLocal.TIGASERVER_AUTHORIZATION)
-					.as(new TypeToken<List<NearbyReport>>() {
-					})
-					.setCallback(new FutureCallback<List<NearbyReport>>() {
-						@Override
-						public void onCompleted(Exception e, List<NearbyReport> nearbyRsults) {
-							// do stuff with the result or error
-							if (nearbyRsults != null) {
-								Util.logInfo(MapDataV2Activity.this, TAG, nearbyRsults.toString());
-								for (NearbyReport nbr : nearbyRsults) {
-									LatLng pointLatLng = new LatLng(nbr.getLat(), nbr.getLon());
-									Marker marker = mGoogleMap.addMarker(new MarkerOptions()
-											.position(pointLatLng)
-											.icon(BitmapDescriptorFactory.defaultMarker(NEARBY_COLOR_HUE)));
+				.load(Util.URL_TIGASERVER_API_ROOT + nearbyUrl)
+				//.load("http://webserver.mosquitoalert.com/api/" + notificationUrl)
+				.setHeader("Accept", "application/json")
+				.setHeader("Content-type", "application/json")
+				.setHeader("Authorization", UtilLocal.TIGASERVER_AUTHORIZATION)
+				.as(new TypeToken<List<NearbyReport>>() {})
+				.setCallback(new FutureCallback<List<NearbyReport>>() {
+					@Override
+					public void onCompleted(Exception e, List<NearbyReport> nearbyResults) {
+						// do stuff with the result or error
+						if (nearbyResults != null) {
+							Util.logInfo(MapDataV2Activity.this, TAG, nearbyResults.toString());
+							for (NearbyReport nbr : nearbyResults) {
+								LatLng pointLatLng = new LatLng(nbr.getLat(), nbr.getLon());
+								String myTitle = nbr.getSimplifiedAnnotation().getClassification();
+								try {
+									myTitle = getResources().getString(
+											getResources().getIdentifier("tag_to_map_points_of_citizens_"+myTitle, "string",
+											MapDataV2Activity.this.getPackageName()));
 								}
+								catch (Resources.NotFoundException e2) { }
+								//Marker marker =
+								mGoogleMap.addMarker(new MarkerOptions()
+									.position(pointLatLng)
+									.title(myTitle)
+									.icon(BitmapDescriptorFactory.defaultMarker(NEARBY_COLOR_HUE)));
 							}
 						}
-					});
+					}
+				});
+			mLastLocationNeighbours = myLocation;
 		}
 	}
 
@@ -382,8 +501,6 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 		// Clear any existing overlays if clearMapOverlays set to true
 		if ( clearMapOverlays )
 			if ( mGoogleMap != null ) mGoogleMap.clear();
-
-		loadNeighbours(5000);
 
 		if ( myAdultReports != null && myAdultReports.size() > 0 ) {
 			for (MyOverlayItem oli : myAdultReports) {
@@ -411,7 +528,11 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 
 		if (recenter && currentCenter != null) {
 			LatLng myLatLng = new LatLng(currentCenter.getLatitudeE6() / 1E6, currentCenter.getLongitudeE6() / 1E6);
-			mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, 15), 200, null);
+			mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, 13), 200, null);
+			Location myLocation = new Location("MyLocation");
+			myLocation.setLatitude(myLatLng.latitude);
+			myLocation.setLongitude(myLatLng.longitude);
+			loadNeighbours(myLocation, NEARBY_RADIUS);
 		}
 
 		return true;
@@ -733,7 +854,7 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 						// NOTE THAT WE HAVE DECIDED TO HAVE ONLY THE USER'S REPORTS
 						// ON THE PHONE DB, NOT OTHERS', SO NO NEED TO CHECK USER ID HERE
 
-						// !!! MG - Build my own object
+						// !! MG - Build my own object
 						MyOverlayItem overlayItem = new MyOverlayItem(
 								point,
 								(thisType == Report.TYPE_ADULT ? getResources().getString(R.string.view_report_title_adult)
@@ -765,7 +886,10 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 
 		protected void onPostExecute(Boolean result) {
 			if (result) {
-				drawFixes(myAdultOverlayList, mySiteOverlayList, true, true);
+				LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+				boolean statusOfGPS = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+				drawFixes(myAdultOverlayList, mySiteOverlayList, true, !statusOfGPS);
 			}
 			progressbar.setVisibility(View.INVISIBLE);
 			loadingData = false;

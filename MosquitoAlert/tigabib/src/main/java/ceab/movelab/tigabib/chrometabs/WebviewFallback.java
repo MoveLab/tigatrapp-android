@@ -19,7 +19,6 @@ import android.content.Intent;
 import android.net.Uri;
 
 import ceab.movelab.tigabib.PhotoValidationWebViewActivity;
-import ceab.movelab.tigabib.UtilLocal;
 
 /**
  * A Fallback that opens a Webview when Custom Tabs is not available
@@ -32,11 +31,11 @@ public class WebviewFallback implements CustomTabActivityHelper.CustomTabFallbac
         if ( currentapiVersion >= android.os.Build.VERSION_CODES.LOLLIPOP ) {
             // Do something for lollipop and above versions
             Intent intent = new Intent(activity, PhotoValidationWebViewActivity.class);
-            //intent.putExtra(PhotoValidationWebViewActivity.EXTRA_URL, uri.toString());
+            intent.putExtra(PhotoValidationWebViewActivity.PYBOSSA_URL_PARAM, uri.toString());
             activity.startActivity(intent);
         } else {
             // do something for phones running an SDK before lollipop
-            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(UtilLocal.PYBOSSA_URL));
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             activity.startActivity(intent);
         }
     }

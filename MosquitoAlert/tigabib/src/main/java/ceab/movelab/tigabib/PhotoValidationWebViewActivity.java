@@ -45,9 +45,11 @@ public class PhotoValidationWebViewActivity extends Activity {
 
 	//private static String TAG = "PhotoValidation";
 
-	private static final String PYBOSSA_URL = "http://crowdcrafting.org/project/mosquito-alert/task/1383572";
+	public static final String PYBOSSA_URL_PARAM = "pybossa_url";
 
 	private WebView myWebView;
+
+	private String myUrl;
 
 	String lang;
 
@@ -59,22 +61,12 @@ public class PhotoValidationWebViewActivity extends Activity {
 			PropertyHolder.init(this);
 
 		lang = Util.setDisplayLanguage(getResources());
-	}
 
-	@Override
-	protected void onPause() {
-		super.onPause();
-	}
-
-	@SuppressWarnings("deprecation")
-	@Override
-	protected void onResume() {
-		super.onResume();
-
-		if (!Util.setDisplayLanguage(getResources()).equals(lang)) {
+		Bundle b = getIntent().getExtras();
+		if (b.containsKey(PYBOSSA_URL_PARAM))
+			myUrl = b.getString(PYBOSSA_URL_PARAM);
+		else
 			finish();
-			startActivity(getIntent());
-		}
 
 		setContentView(R.layout.webview);
 
@@ -82,10 +74,9 @@ public class PhotoValidationWebViewActivity extends Activity {
 		myWebView.setWebViewClient(new WebViewClient(){
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
 //Toast.makeText(PhotoValidationActivity.this, url, Toast.LENGTH_SHORT).show();
-				String myUrl = "http://crowdcrafting.org/project/mosquito-alert";
-				// all links  with in ur site will be open inside the webview
-				// links that start ur domain example(http://www.example.com/)
-				if (url != null && url.startsWith(myUrl)){
+				String internalUrl = "http://crowdcrafting.org/project/mosquito-alert";
+				// all links with in our site will be open inside the webview, links that start as of our domain
+				if ( url != null && url.startsWith(internalUrl) ) {
 					return false;
 				}
 				// all links that points outside the site will be open in a normal android browser
@@ -105,11 +96,27 @@ public class PhotoValidationWebViewActivity extends Activity {
 				return true;
 			}
 		});
+	}
+
+	@Override
+	protected void onPause() {
+		super.onPause();
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	protected void onResume() {
+		super.onResume();
+
+		if (!Util.setDisplayLanguage(getResources()).equals(lang)) {
+			finish();
+			startActivity(getIntent());
+		}
 
 		//myWebView.getSettings().setAllowFileAccess(true);
 		myWebView.getSettings().setJavaScriptEnabled(true);
 		//myWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
-		myWebView.loadUrl(PYBOSSA_URL);
+		myWebView.loadUrl(myUrl);
 	}
 
 	@Override

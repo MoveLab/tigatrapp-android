@@ -93,10 +93,8 @@ public class LicenseActivity extends Activity {
 					String description, String failingUrl) {
 				if (lang.equals("ca"))
 					myWebView.loadUrl(LICENSE_URL_OFFLINE_CA);
-
 				else if (lang.equals("es"))
 					myWebView.loadUrl(LICENSE_URL_OFFLINE_ES);
-
 				else
 					myWebView.loadUrl(LICENSE_URL_OFFLINE_EN);
 

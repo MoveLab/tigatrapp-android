@@ -41,69 +41,63 @@
 
 package ceab.movelab.tigabib;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.maps.GeoPoint;
 
 /**
- * Allows user to view their own data in a map (from the database on their phone
- * -- not from the server).
+ * Select your position from a map
  * 
  * @author John R.B. Palmer
- * 
+ * @author Màrius Garcia
  * 
  */
 public class MapSelectorV2Activity extends FragmentActivity implements OnMapReadyCallback {
+
 	String TAG = "Map Selector";
 
-	//private Vibrator mVib;
+	public static final int REQUEST_GOOGLE_PLAY_SERVICES = 999;
+
+	String lang;
 
 	private GoogleMap mGoogleMap;
 	private SupportMapFragment mMapFragment;
 
-//	private MapView mapView;
-//	private MapController myMapController;
-//	MapOverlay mainOverlay;
-//	private List<Overlay> mapOverlays;
-
 	private static boolean satToggle;
 
-	Button mOKB;
-	Button mCancelB;
+	private Button mOKB;
+	private Button mCancelB;
 
-	LocationManager locationManager;
-	LocationListener gpsListener;
-	LocationListener networkListener;
-	Location currentLocation;
+	private LocationManager locationManager;
+	private LocationListener gpsListener;
+	private LocationListener networkListener;
+	private Location currentLocation;
 
 	public static final String LAT = "lat";
 	public static final String LON = "lon";
-	Resources res;
-	String lang;
-
-	Double previous_lat = null;
-	Double previous_lon = null;
+	private Double previous_lat = null;
+	private Double previous_lon = null;
 
 	private LatLng selectedPoint;
 
@@ -111,13 +105,14 @@ public class MapSelectorV2Activity extends FragmentActivity implements OnMapRead
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
 
-		if (!PropertyHolder.isInit())
+		if ( !PropertyHolder.isInit() )
 			PropertyHolder.init(this);
 
-		res = getResources();
-		lang = Util.setDisplayLanguage(res);
+		lang = Util.setDisplayLanguage(getResources());
 
 		setContentView(R.layout.map_selector_dialog_v2);
+
+		checkGoogleApiAvailability();
 
 		Bundle b = getIntent().getExtras();
 		if (b.containsKey(Messages.makeIntentExtraKey(this, ReportTool.PREVIOUS_LAT))) {
@@ -131,21 +126,7 @@ public class MapSelectorV2Activity extends FragmentActivity implements OnMapRead
 		// Loading map
 		initializeMap();
 
-		// pauseToggle = !PropertyHolder.isServiceOn();
 		satToggle = false;
-
-/*		mapView = (MapView) findViewById(R.id.mapview);
-		mapView.setBuiltInZoomControls(true);
-		satToggle = true;
-		mapView.setSatellite(satToggle);
-		myMapController = mapView.getController();
-
-		if (previous_lat != null && previous_lon != null) {
-			selectedPoint = new GeoPoint(previous_lat.intValue(), previous_lon.intValue());
-			myMapController.setCenter(selectedPoint);
-		} else
-			myMapController.setCenter(Util.CEAB_COORDINATES);
-		myMapController.setZoom(15);*/
 
 		mOKB = (Button) findViewById(R.id.selectWhereOk);
 		mCancelB = (Button) findViewById(R.id.selectWhereCancel);
@@ -153,16 +134,20 @@ public class MapSelectorV2Activity extends FragmentActivity implements OnMapRead
 		mOKB.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				LatLng center = mGoogleMap.getCameraPosition().target;
 				Intent dataForReport = new Intent();
-				if ( center != null ) {
-					dataForReport.putExtra(LAT, center.latitude);
-					dataForReport.putExtra(LON, center.longitude);
+				if ( mGoogleMap != null ) {
+					LatLng center = mGoogleMap.getCameraPosition().target;
+					if (center != null) {
+						dataForReport.putExtra(LAT, center.latitude);
+						dataForReport.putExtra(LON, center.longitude);
+						setResult(RESULT_OK, dataForReport);
+					}
 				}
-				setResult(RESULT_OK, dataForReport);
+				else  {
+					setResult(RESULT_OK);
+				}
 				finish();
 			}
-
 		});
 
 		mCancelB.setOnClickListener(new OnClickListener() {
@@ -172,21 +157,31 @@ public class MapSelectorV2Activity extends FragmentActivity implements OnMapRead
 				setResult(RESULT_CANCELED, dataForReport);
 				finish();
 			}
-
 		});
+	}
+
+	private void checkGoogleApiAvailability() {
+		GoogleApiAvailability api = GoogleApiAvailability.getInstance();
+		int code = api.isGooglePlayServicesAvailable(this);
+		if ( code == ConnectionResult.SUCCESS ) {
+			onActivityResult(REQUEST_GOOGLE_PLAY_SERVICES, Activity.RESULT_OK, null);
+
+		} else {
+			Toast.makeText(this, api.getErrorString(code), Toast.LENGTH_LONG).show();
+		}
 	}
 
 	/**
 	 * function to load map. If map is not created it will create it for you
 	 */
 	private void initializeMap() {
-		if (mGoogleMap == null) {
+		if ( mGoogleMap == null ) {
 			mMapFragment.getMapAsync(this);
 		}
 	}
 
 	private void setMapType() {
-		if (mGoogleMap != null)
+		if ( mGoogleMap != null )
 			mGoogleMap.setMapType(satToggle ? GoogleMap.MAP_TYPE_SATELLITE : GoogleMap.MAP_TYPE_NORMAL);
 	}
 
@@ -223,35 +218,47 @@ public class MapSelectorV2Activity extends FragmentActivity implements OnMapRead
 	}
 
 	@Override
-	protected void onResume() {
-		super.onResume();
-
-		res = getResources();
-		if (!Util.setDisplayLanguage(res).equals(lang)) {
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (!Util.setDisplayLanguage(getResources()).equals(lang)) {
 			finish();
 			startActivity(getIntent());
 		}
 
-/*		mapOverlays = mapView.getOverlays();
-		mainOverlay = new MapOverlay();
-		mapOverlays.clear();
+		switch (requestCode) {
+			case REQUEST_GOOGLE_PLAY_SERVICES:
+				if (resultCode == Activity.RESULT_OK) {
+					boolean mGoogleServicesOk = true;
+				}
+				break;
+			default:
+				super.onActivityResult(requestCode, resultCode, data);
+		}
+	}
 
-		mapOverlays.add(mainOverlay);
-		mapView.postInvalidate();*/
+	@Override
+	protected void onResume() {
+		super.onResume();
 
-		if (selectedPoint == null) {
-			locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-				gpsListener = new mLocationListener();
-				locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, gpsListener);
-				// Log.e(TAG, "gps listener started");
-			}
+		if ( !Util.setDisplayLanguage(getResources()).equals(lang) ) {
+			finish();
+			startActivity(getIntent());
+		}
 
-			if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-				networkListener = new mLocationListener();
-				locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, networkListener);
-				// Log.e(TAG, "network listener started");
-			}
+		if ( selectedPoint == null ) {
+			try {
+				locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+				if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+					gpsListener = new mLocationListener();
+					locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, gpsListener);
+					// Log.e(TAG, "gps listener started");
+				}
+
+				if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+					networkListener = new mLocationListener();
+					locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, networkListener);
+					// Log.e(TAG, "network listener started");
+				}
+			} catch (SecurityException se) {}
 		}
 
 	}
@@ -263,7 +270,6 @@ public class MapSelectorV2Activity extends FragmentActivity implements OnMapRead
 		super.onPause();
 	}
 
-	//static final private int TOGGLE_VIEW = Menu.FIRST + 2;
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -300,47 +306,6 @@ public class MapSelectorV2Activity extends FragmentActivity implements OnMapRead
 		}
 		return false;
 	}
-
-	/*class MapOverlay extends Overlay {
-
-		private Bitmap fixPin;
-
-		MapOverlay() {
-			fixPin = BitmapFactory.decodeResource(getResources(), R.drawable.seek_thumb_pressed);
-		}
-
-		public GeoPoint getSelectedLatLon() {
-			return selectedPoint;
-		}
-
-		@Override
-		public void draw(Canvas canvas, MapView mapView, boolean shadow) {
-			super.draw(canvas, mapView, shadow);
-
-			if (selectedPoint != null) {
-				Point screenPoint = new Point();
-				mapView.getProjection().toPixels(selectedPoint, screenPoint);
-
-				canvas.drawBitmap(fixPin, screenPoint.x - fixPin.getWidth() / 2, screenPoint.y - fixPin.getHeight() / 2, null);
-			}
-			return;
-
-		}
-
-		@Override
-		public boolean onTouchEvent(MotionEvent evt, MapView mapView) {
-			super.onTouchEvent(evt, mapView);
-			removeLocationUpdates();
-			return false;
-		}
-
-		@Override
-		public boolean onTap(GeoPoint p, MapView mapview) {
-			removeLocationUpdates();
-			selectedPoint = new GeoPoint(p.getLatitudeE6(), p.getLongitudeE6());
-			return true;
-		}
-	}*/
 
 	private class mLocationListener implements LocationListener {
 
@@ -400,45 +365,48 @@ public class MapSelectorV2Activity extends FragmentActivity implements OnMapRead
 				removeLocationUpdate(provider);
 			}
 		}
-
 	}
 
 	// utilities
 	private void removeLocationUpdates() {
-		if (locationManager != null) {
-			if (gpsListener != null)
-				locationManager.removeUpdates(gpsListener);
-			if (networkListener != null)
-				locationManager.removeUpdates(networkListener);
-		} else {
-			locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-			if (gpsListener != null)
-				locationManager.removeUpdates(gpsListener);
-			if (networkListener != null)
-				locationManager.removeUpdates(networkListener);
-		}
+		try {
+			if (locationManager != null) {
+				if (gpsListener != null)
+					locationManager.removeUpdates(gpsListener);
+				if (networkListener != null)
+					locationManager.removeUpdates(networkListener);
+			} else {
+				locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+				if (gpsListener != null)
+					locationManager.removeUpdates(gpsListener);
+				if (networkListener != null)
+					locationManager.removeUpdates(networkListener);
+			}
+		} catch (SecurityException se) {}
 	}
 
 	// utilities
 	private void removeLocationUpdate(String provider) {
-		if (locationManager != null) {
-			if (provider == LocationManager.NETWORK_PROVIDER) {
-				if (networkListener != null)
-					locationManager.removeUpdates(networkListener);
+		try {
+			if ( locationManager != null ) {
+				if (provider == LocationManager.NETWORK_PROVIDER) {
+					if (networkListener != null)
+						locationManager.removeUpdates(networkListener);
+				} else {
+					if (gpsListener != null)
+						locationManager.removeUpdates(gpsListener);
+				}
 			} else {
-				if (gpsListener != null)
-					locationManager.removeUpdates(gpsListener);
+				locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
+				if (provider == LocationManager.NETWORK_PROVIDER) {
+					if (networkListener != null)
+						locationManager.removeUpdates(networkListener);
+				} else {
+					if (gpsListener != null)
+						locationManager.removeUpdates(gpsListener);
+				}
 			}
-		} else {
-			locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-			if (provider == LocationManager.NETWORK_PROVIDER) {
-				if (networkListener != null)
-					locationManager.removeUpdates(networkListener);
-			} else {
-				if (gpsListener != null)
-					locationManager.removeUpdates(gpsListener);
-			}
-		}
+		} catch (SecurityException se) {}
 	}
 
 }

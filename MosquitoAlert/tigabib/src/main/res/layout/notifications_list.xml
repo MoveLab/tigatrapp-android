@@ -9,7 +9,7 @@
         android:id="@+id/notificationsListTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="_Notitfications"
+        android:text="@string/task_list_title2"
         android:textColor="@color/light_orange"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:padding="10dip" />

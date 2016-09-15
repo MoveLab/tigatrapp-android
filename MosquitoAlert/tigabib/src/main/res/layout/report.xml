@@ -85,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false"
-                android:text="@string/checklist_label" />
+                android:text="@string/paso1" />
 
             <ImageView
                 android:id="@+id/reportConfirmationButton"
@@ -115,7 +115,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false"
-                android:text="@string/location_label" />
+                android:text="@string/paso2" />
         </RelativeLayout>
 
         <RadioGroup
@@ -216,9 +216,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-
                 android:clickable="false"
-                android:text="@string/photo_check_label" />
+                android:text="@string/paso3" />
 
             <TextView
                 android:id="@+id/photoCount"
@@ -260,7 +259,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:clickable="false"
-                android:text="@string/note_check_label" />
+                android:text="@string/paso4" />
 
             <ImageView
                 android:id="@+id/reportNoteButton"

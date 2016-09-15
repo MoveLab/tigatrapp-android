@@ -1,13 +1,5 @@
 package ceab.movelab.tigabib;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.lang.ref.WeakReference;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -20,7 +12,14 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-import ceab.movelab.tigabib.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.lang.ref.WeakReference;
 
 public class PhotoGridAdapter extends BaseAdapter {
 	private static String TAG = "PhotoGridAdapter";
@@ -32,8 +31,7 @@ public class PhotoGridAdapter extends BaseAdapter {
 		mContext = c;
 		this.jsonPhotos = jsonPhotos;
 
-		mPlaceHolderBitmap = BitmapFactory.decodeResource(
-				mContext.getResources(), R.drawable.ic_action_camera);
+		mPlaceHolderBitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.ic_action_camera);
 
 	}
 
@@ -45,8 +43,7 @@ public class PhotoGridAdapter extends BaseAdapter {
 		String result = "";
 
 		try {
-			result = jsonPhotos.getJSONObject(position).getString(
-					Report.KEY_PHOTO_URI);
+			result = jsonPhotos.getJSONObject(position).getString(Report.KEY_PHOTO_URI);
 		} catch (JSONException e) {
 			Util.logError(mContext, TAG, "error: " + e);
 		}
@@ -74,9 +71,7 @@ public class PhotoGridAdapter extends BaseAdapter {
 		if (jsonPhotos.length() > 0) {
 
 			try {
-
-				thisUri = jsonPhotos.getJSONObject(position).getString(
-						Report.KEY_PHOTO_URI);
+				thisUri = jsonPhotos.getJSONObject(position).getString(Report.KEY_PHOTO_URI);
 				loadBitmap(thisUri, imageView);
 
 				// imageView.setImageBitmap(Util.getSmallerBitmap(new File(
@@ -87,14 +82,12 @@ public class PhotoGridAdapter extends BaseAdapter {
 		}
 
 		return imageView;
-
 	}
 
 	public void loadBitmap(String uri, ImageView imageView) {
 		if (cancelPotentialWork(uri, imageView)) {
 			final BitmapWorkerTask task = new BitmapWorkerTask(imageView);
-			final AsyncDrawable asyncDrawable = new AsyncDrawable(
-					mContext.getResources(), mPlaceHolderBitmap, task);
+			final AsyncDrawable asyncDrawable = new AsyncDrawable(mContext.getResources(), mPlaceHolderBitmap, task);
 			imageView.setImageDrawable(asyncDrawable);
 			task.execute(uri);
 		}
@@ -103,11 +96,9 @@ public class PhotoGridAdapter extends BaseAdapter {
 	static class AsyncDrawable extends BitmapDrawable {
 		private final WeakReference<BitmapWorkerTask> bitmapWorkerTaskReference;
 
-		public AsyncDrawable(Resources res, Bitmap bitmap,
-				BitmapWorkerTask bitmapWorkerTask) {
+		public AsyncDrawable(Resources res, Bitmap bitmap, BitmapWorkerTask bitmapWorkerTask) {
 			super(res, bitmap);
-			bitmapWorkerTaskReference = new WeakReference<BitmapWorkerTask>(
-					bitmapWorkerTask);
+			bitmapWorkerTaskReference = new WeakReference<BitmapWorkerTask>(bitmapWorkerTask);
 		}
 
 		public BitmapWorkerTask getBitmapWorkerTask() {

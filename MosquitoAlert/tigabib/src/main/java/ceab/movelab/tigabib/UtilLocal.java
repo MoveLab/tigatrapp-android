@@ -69,12 +69,14 @@ package ceab.movelab.tigabib;
 
 public class UtilLocal {
 
-	public static final String PYBOSSA_URL = "http://crowdcrafting.org/project/mosquito-alert/task/1383572";
+	//public static final String PYBOSSA_URL = "http://crowdcrafting.org/project/mosquito-alert/task/1383572";
+	public static final String PYBOSSA_URL = "http://crowdcrafting.org/project/mosquito-alert/newtask";
 
 	public static final String URL_PROJECT = "http://mosquitoalert.com/";
 
-	//public static final String URL_TIGASERVER = "http://webserver.mosquitoalert.com/";	// Producció
-	public static final String URL_TIGASERVER = "http://humboldt.ceab.csic.es/";	// Desenvolupament
+	//public static final String URL_TIGASERVER = "http://webserver.mosquitoalert.com/";	// Producció http://humboldt.ceab.csic.es/
+	public static final String URL_TIGASERVER =
+			(BuildConfig.DEBUG ? "http://webserver.mosquitoalert.com/" : "http://webserver.mosquitoalert.com/");	// Desenvolupament vs produccio
 	/**
 	 * Server API URL.
 	 */

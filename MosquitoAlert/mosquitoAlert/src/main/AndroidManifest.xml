@@ -72,7 +72,7 @@
         </activity>
         <activity android:name="ceab.movelab.tigabib.ConsentActivity" >
         </activity>
-        <activity android:name="ceab.movelab.tigabib.Help" >
+        <activity android:name="ceab.movelab.tigabib.HelpActivity" >
         </activity>
         <activity android:name="ceab.movelab.tigabib.ViewReportsChecklistTab" >
         </activity>

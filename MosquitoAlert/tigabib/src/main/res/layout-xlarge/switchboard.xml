@@ -62,7 +62,7 @@
                     android:src="@drawable/ic_switchboard_icon_breeding_site_large" />
                 <TextView
                     android:id="@+id/reportButtonSiteText"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:gravity="center"
@@ -71,7 +71,7 @@
                     android:textColor="@color/switchboard_button_text"
                     android:textSize="18sp" />
                 <TextView
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:gravity="center"
@@ -96,7 +96,7 @@
                     android:src="@drawable/ic_switchboard_icon_adult_large" />
                 <TextView
                     android:id="@+id/reportButtonAdultText"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:gravity="center"
@@ -105,7 +105,7 @@
                     android:textColor="@color/switchboard_button_text"
                     android:textSize="18sp" />
                 <TextView
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:gravity="center"
@@ -136,7 +136,7 @@
                     android:src="@drawable/ic_switchboard_icon_map_large" />
                 <TextView
                     android:id="@+id/reportButtonMapText"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:gravity="center"
@@ -158,16 +158,25 @@
                     android:layout_width="160dip"
                     android:layout_height="160dip"
                     android:layout_centerInParent="true"
-                    android:paddingTop="10dip"
+                    android:padding="10dip"
                     android:src="@drawable/ic_switchboard_icon_validacio" />
                 <TextView
                     android:id="@+id/reportButtonGalleryText"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:gravity="center"
                     android:paddingTop="10dip"
                     android:text="@string/switchboard_button_validations_photos"
+                    android:textColor="@color/switchboard_button_text"
+                    android:textSize="18sp" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center"
+                    android:paddingBottom="10dip"
+                    android:text="@string/switchboard_button_validation_photos2"
                     android:textColor="@color/switchboard_button_text"
                     android:textSize="18sp" />
             </RelativeLayout>

@@ -21,20 +21,20 @@
 
 package ceab.movelab.tigabib;
 
-import java.util.Iterator;
-import java.util.Locale;
-import java.util.UUID;
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.Uri;
+import android.os.Build;
 
 import org.apache.http.HttpResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import android.content.Context;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.net.Uri;
-import android.os.Build;
+import java.util.Iterator;
+import java.util.Locale;
+import java.util.UUID;
 
 /**
  * Defines map point objects used in DriverMapActivity.
@@ -242,7 +242,6 @@ public class Report {
 	}
 
 	public void clear() {
-
 		versionUUID = null;
 		reportId = null;
 		userId = null;
@@ -278,11 +277,17 @@ public class Report {
 
 	public boolean setPhotoUris(Context context, String photoUris) {
 		boolean result = false;
-		try {
-			this.photoUrisJson = new JSONArray(photoUris);
+		if ( photoUris == null ) {
+			this.photoUrisJson = new JSONArray();
 			result = true;
-		} catch (JSONException e) {
-			Util.logError(context, TAG, "error: " + e);
+		}
+		else {
+			try {
+				this.photoUrisJson = new JSONArray(photoUris);
+				result = true;
+			} catch (JSONException e) {
+				Util.logError(context, TAG, "error: " + e);
+			}
 		}
 		return result;
 	}
@@ -374,20 +379,16 @@ public class Report {
 		return result;
 	}
 
-	public static JSONArray deletePhoto(Context context, JSONArray jsonPhotos,
-			int pos) {
+	public static JSONArray deletePhoto(Context context, JSONArray jsonPhotos, int pos) {
 		JSONArray result = null;
 		try {
-			if (jsonPhotos == null) {
-
+			if ( jsonPhotos == null ) {
 				// nothing
-
 			} else {
 				JSONArray newArray = new JSONArray();
-
 				for (int i = 0; i < jsonPhotos.length(); i++) {
 					JSONObject thisJsonObj = jsonPhotos.getJSONObject(i);
-					if (i != pos) {
+					if ( i != pos ) {
 						newArray.put(thisJsonObj);
 					}
 				}

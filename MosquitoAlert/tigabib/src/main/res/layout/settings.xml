@@ -39,7 +39,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_toLeftOf="@+id/languageButton"
+                android:layout_toStartOf="@+id/languageButton"
                 android:orientation="vertical" >
 
                 <TextView
@@ -62,6 +64,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:minEms="4"
                 android:text="@string/settings_language_button" />
         </RelativeLayout>
@@ -80,7 +83,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_toLeftOf="@+id/syncButton"
+                android:layout_toStartOf="@+id/syncButton"
                 android:orientation="vertical" >
 
                 <TextView
@@ -103,6 +108,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:minEms="4"
                 android:text="@string/settings_sync_button" />
         </RelativeLayout>
@@ -121,7 +127,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_toLeftOf="@+id/service_button"
+                android:layout_toStartOf="@+id/service_button"
                 android:orientation="vertical" >
 
                 <TextView
@@ -144,6 +152,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:minEms="4"
                 android:textOff="@string/off"
                 android:textOn="@string/on" />
@@ -160,20 +169,17 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="10dip" >
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Debug View"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/heading_size" />
-
             <Button
                 android:id="@+id/fixButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Get location fix now" />
-
             <TextView
                 android:id="@+id/sampleView"
                 android:layout_width="wrap_content"

@@ -74,12 +74,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.LayerDrawable;
-import android.graphics.drawable.ShapeDrawable;
-import android.graphics.drawable.shapes.OvalShape;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -337,9 +332,7 @@ public class Util {
 			result = d.getTime();
 
 		} catch (ParseException e) {
-
 			// just leave result as 0 in this case
-
 		}
 
 		return result;
@@ -454,11 +447,9 @@ public class Util {
 	}
 
 	public static void toastTimed(Context context, String msg, int time) {
-
 		TextView tv = new TextView(context);
 		tv.setText(msg);
-		Drawable bknd = context.getResources().getDrawable(
-				R.drawable.white_border);
+		Drawable bknd = context.getResources().getDrawable(R.drawable.white_border);
 		tv.setBackgroundDrawable(bknd);
 		tv.setPadding(20, 20, 20, 20);
 		tv.setTextSize(20);
@@ -560,9 +551,7 @@ public class Util {
 			byte[] encryptedBytes = bytes;
 			String FILENAME = filename;
 
-			fos = context.openFileOutput(FILENAME + EXTENSION,
-					Context.MODE_PRIVATE);
-
+			fos = context.openFileOutput(FILENAME + EXTENSION, Context.MODE_PRIVATE);
 			fos.write(encryptedBytes);
 			// Log.e(TAG, "encrypted file saved as " + FILENAME);
 
@@ -576,12 +565,9 @@ public class Util {
 				} catch (IOException e) {
 					// logging exception but doing nothing
 					// Log.e(TAG, "Exception " + e);
-
 				}
 			}
-
 		}
-
 	}
 
 	/**
@@ -617,8 +603,7 @@ public class Util {
 	}
 
 	public static float getBatteryProportion(Context context) {
-		Intent batteryIntent = context.registerReceiver(null, new IntentFilter(
-				Intent.ACTION_BATTERY_CHANGED));
+		Intent batteryIntent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 		int level = batteryIntent.getIntExtra("level", -1);
 		int scale = batteryIntent.getIntExtra("scale", -1);
 
@@ -705,17 +690,17 @@ public class Util {
 			return k;
 	}
 
-	public static LayerDrawable createMarker(int color) {
+	/*public static LayerDrawable createMarker(int color) {
 
 		ShapeDrawable border = new ShapeDrawable(new OvalShape());
 		border.getPaint().setColor(Color.BLACK);
 		border.getPaint().setStyle(Paint.Style.STROKE);
-		;
+
 		border.setBounds(0, 0, 80, 80);
 		ShapeDrawable fill = new ShapeDrawable(new OvalShape());
 		fill.getPaint().setColor(Color.BLACK);
 		fill.getPaint().setStyle(Paint.Style.FILL);
-		;
+
 		fill.setBounds(0, 0, 80, 80);
 		Drawable drawableArray[] = new Drawable[] { fill, border };
 		LayerDrawable layerDraw = new LayerDrawable(drawableArray);
@@ -723,18 +708,18 @@ public class Util {
 		// layerDraw.setLayerInset(1,40,40,0,0);//set offset for second layer
 		return layerDraw;
 	}
-
-	public static Drawable createMarker2(int color) {
+*/
+	/*public static Drawable createMarker2(int color) {
 
 		ShapeDrawable border = new ShapeDrawable(new OvalShape());
 		border.getPaint().setColor(Color.BLACK);
 		border.getPaint().setStyle(Paint.Style.STROKE);
-		;
+
 		border.setBounds(0, 0, 80, 80);
 		ShapeDrawable fill = new ShapeDrawable(new OvalShape());
 		fill.getPaint().setColor(Color.BLACK);
 		fill.getPaint().setStyle(Paint.Style.FILL);
-		;
+
 		fill.setBounds(0, 0, 80, 80);
 		Drawable drawableArray[] = new Drawable[] { fill, border };
 		LayerDrawable layerDraw = new LayerDrawable(drawableArray);
@@ -743,7 +728,7 @@ public class Util {
 		// layerDraw.setLayerInset(1,40,40,0,0);//set offset for second layer
 		return fill;
 	}
-
+*/
 	public static String setDisplayLanguage(Resources res) {
 		String lang = PropertyHolder.getLanguage();
 		DisplayMetrics dm = res.getDisplayMetrics();
@@ -757,8 +742,7 @@ public class Util {
 		return lang;
 	}
 
-	public static int postPhoto(Context context, String uri, String filename,
-			String versionUUID) {
+	public static int postPhoto(Context context, String uri, String filename, String versionUUID) {
 
 		int response = 0;
 		HttpURLConnection conn = null;
@@ -801,14 +785,12 @@ public class Util {
 
 			dos = new DataOutputStream(conn.getOutputStream());
 			dos.writeBytes(twoHyphens + boundary + lineEnd);
-			dos.writeBytes("Content-Disposition: form-data; name=\"report\""
-					+ lineEnd + lineEnd);
+			dos.writeBytes("Content-Disposition: form-data; name=\"report\"" + lineEnd + lineEnd);
 			dos.writeBytes(versionUUID + lineEnd);
 
 			dos.writeBytes(twoHyphens + boundary + lineEnd);
 
-			dos.writeBytes("Content-Disposition: form-data; name=\"photo\";filename=\""
-					+ filename + "\"" + lineEnd);
+			dos.writeBytes("Content-Disposition: form-data; name=\"photo\";filename=\"" + filename + "\"" + lineEnd);
 			dos.writeBytes(lineEnd);
 
 			// create a buffer of maximum size
@@ -972,8 +954,7 @@ public class Util {
 				if (statusCode == 200) {
 					HttpEntity entity = response.getEntity();
 					InputStream content = entity.getContent();
-					BufferedReader reader = new BufferedReader(
-							new InputStreamReader(content));
+					BufferedReader reader = new BufferedReader(new InputStreamReader(content));
 					String line;
 					while ((line = reader.readLine()) != null) {
 						builder.append(line);
@@ -1068,7 +1049,7 @@ public class Util {
 		 * users to record their report IDs.
 		 * 
 		 * UPDATE: I now removed 0 and o and O to avoid confusion, so the
-		 * probabilities would need to be recaclulated...
+		 * probabilities would need to be recalculated...
 		 */
 
 		return digits[mRandom.nextInt(58)] + digits[mRandom.nextInt(58)]

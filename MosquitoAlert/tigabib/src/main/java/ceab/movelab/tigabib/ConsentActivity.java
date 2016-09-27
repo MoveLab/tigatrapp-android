@@ -51,6 +51,7 @@ public class ConsentActivity extends Activity {
 	private static final String CONSENT_URL_OFFLINE_EN = "file:///android_asset/html/consent_en.html";
 	private static final String CONSENT_URL_OFFLINE_CA = "file:///android_asset/html/consent_ca.html";
 	private static final String CONSENT_URL_OFFLINE_ES = "file:///android_asset/html/consent_es.html";
+	private static final String CONSENT_URL_OFFLINE_ZH = "file:///android_asset/html/consent_zh.html";
 
 	private WebView myWebView;
 
@@ -114,13 +115,13 @@ public class ConsentActivity extends Activity {
 		myWebView = (WebView) findViewById(R.id.consent_webview);
 		myWebView.setWebViewClient(new MyWebViewClient());
 		// myWebView.getSettings().setJavaScriptEnabled(true);
-		// myWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
-		// myWebView.getSettings().setSupportMultipleWindows(true);
 
 		if (lang.equals("ca"))
 			myWebView.loadUrl(CONSENT_URL_OFFLINE_CA);
 		else if (lang.equals("es"))
 			myWebView.loadUrl(CONSENT_URL_OFFLINE_ES);
+		else if (lang.equals("zh"))
+			myWebView.loadUrl(CONSENT_URL_OFFLINE_ZH);
 		else
 			myWebView.loadUrl(CONSENT_URL_OFFLINE_EN);
 

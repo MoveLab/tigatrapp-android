@@ -1,6 +1,7 @@
 package ceab.movelab.tigabib.model;
 
 import android.content.Context;
+import android.util.Log;
 
 import java.util.List;
 
@@ -66,10 +67,10 @@ public class RealmHelper {
         return mRealm.where(Notification.class).findAll();
     }*/
 
-    public RealmResults<Notification> getNotificationsRead(boolean read) {
-        RealmResults<Notification> results = mRealm.where(Notification.class).equalTo("read", read).findAll();
-//Log.d("REALM", "getNotificationsRead >> " + results.size());
-        return  mRealm.where(Notification.class).equalTo("read", read).findAll();
+    public RealmResults<Notification> getNotificationsRead(boolean ack) {
+        RealmResults<Notification> results = mRealm.where(Notification.class).equalTo("acknowledged", ack).findAll();
+Log.d("REALM", "getNotificationsRead (" + ack + ") >> " + results.size());
+        return  mRealm.where(Notification.class).equalTo("acknowledged", ack).findAll();
     }
 
     public int getNewNotificationsCount() {

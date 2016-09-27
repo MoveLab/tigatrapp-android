@@ -5,6 +5,10 @@ import android.os.Bundle;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+import com.google.gson.reflect.TypeToken;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+
 import ceab.movelab.tigabib.model.Notification;
 import ceab.movelab.tigabib.model.RealmHelper;
 import io.realm.Realm;
@@ -39,21 +43,44 @@ public class NotificationActivity extends Activity {
 		mRealm = RealmHelper.getInstance().getRealm();
 
 		final Notification notif = RealmHelper.getInstance().getNotificationById(notificationId);// Update person in a transaction
-Util.logInfo(this, TAG, String.valueOf(notif.isRead()));
+Util.logInfo(this, TAG, String.valueOf(notif.isAcknowledged()));
 		mRealm.executeTransaction(new Realm.Transaction() {
 			@Override
 			public void execute(Realm realm) {
-				notif.setRead(true);
+				notif.setAcknowledged(true);
 			}
 		});
-Util.logInfo(this, TAG, String.valueOf(notif.isRead()));
+Util.logInfo(this, TAG, String.valueOf(notif.isAcknowledged()));
 
 		myWebView = (WebView) findViewById(R.id.notificationWebview);
 		myWebView.getSettings().setAllowFileAccess(true);
 		myWebView.getSettings().setJavaScriptEnabled(true);
 		myWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
 
-		myWebView.loadUrl(notif.getExpertHtml());
+		myWebView.loadData(notif.getExpertHtml(), "text/html", "UTF-8");
+		acknowledgeNotification(notif.getId());
+	}
+
+	private void acknowledgeNotification(int notifId) {
+		String notificationUrl = Util.API_NOTIFICATION + "?id=" + notifId + "&acknowledged=true";
+		Util.logInfo(this, "===========", "BuildConfig.DEBUG >> " + BuildConfig.DEBUG);
+		Util.logInfo(this, "===========", Util.URL_TIGASERVER_API_ROOT + notificationUrl);
+		Ion.with(this)
+			.load(Util.URL_TIGASERVER_API_ROOT + notificationUrl)
+			.setHeader("Accept", "application/json")
+			.setHeader("Content-type", "application/json")
+			.setHeader("Authorization", UtilLocal.TIGASERVER_AUTHORIZATION)
+			.setBodyParameter("id", String.valueOf(notifId))
+			.setBodyParameter("acknowledged", "true")
+			.as(new TypeToken<Notification>(){})
+			.setCallback(new FutureCallback<Notification>() {
+				@Override
+				public void onCompleted(Exception e, Notification result) {
+					// do stuff with the result or error
+					if ( result != null )
+						Util.logInfo(NotificationActivity.this, TAG, result.toString());
+				}
+			});
 	}
 
 	@Override

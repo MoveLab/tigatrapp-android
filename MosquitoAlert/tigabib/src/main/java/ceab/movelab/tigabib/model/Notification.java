@@ -37,9 +37,9 @@ public class Notification extends RealmObject {
     private String photoUrl;
     @SerializedName("acknowledged")
     @Expose
-    private String acknowledged;
+    private boolean acknowledged;
 
-    private boolean read;
+/*    private boolean read;
 
     public boolean isRead() {
         return read;
@@ -47,7 +47,7 @@ public class Notification extends RealmObject {
 
     public void setRead(boolean read) {
         this.read = read;
-    }
+    }*/
 
     /**
      *
@@ -198,7 +198,7 @@ public class Notification extends RealmObject {
      * @return
      * The acknowledged
      */
-    public String getAcknowledged() {
+    public boolean isAcknowledged() {
         return acknowledged;
     }
 
@@ -207,7 +207,7 @@ public class Notification extends RealmObject {
      * @param acknowledged
      * The acknowledged
      */
-    public void setAcknowledged(String acknowledged) {
+    public void setAcknowledged(boolean acknowledged) {
         this.acknowledged = acknowledged;
     }
 

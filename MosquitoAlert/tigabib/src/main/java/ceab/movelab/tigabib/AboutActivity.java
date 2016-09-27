@@ -23,13 +23,14 @@ package ceab.movelab.tigabib;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.webkit.WebSettings;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -46,10 +47,12 @@ public class AboutActivity extends Activity {
 	private static final String ABOUT_URL_EN = UtilLocal.URL_TIGASERVER + "about/android/en";
 	private static final String ABOUT_URL_CA = UtilLocal.URL_TIGASERVER + "about/android/ca";
 	private static final String ABOUT_URL_ES = UtilLocal.URL_TIGASERVER + "about/android/es";
+	private static final String ABOUT_URL_ZH = UtilLocal.URL_TIGASERVER + "about/android/zh-cn/";
 
 	private static final String ABOUT_URL_OFFLINE_EN = "file:///android_asset/html/about_en.html";
 	private static final String ABOUT_URL_OFFLINE_CA = "file:///android_asset/html/about_ca.html";
 	private static final String ABOUT_URL_OFFLINE_ES = "file:///android_asset/html/about_es.html";
+	private static final String ABOUT_URL_OFFLINE_ZH = "file:///android_asset/html/about_zh.html";
 
 	private WebView myWebView;
 
@@ -78,41 +81,83 @@ public class AboutActivity extends Activity {
 			startActivity(getIntent());
 		}
 
+		super.onResume();
+
 		setContentView(R.layout.webview);
 
+		// https://code.google.com/p/android/issues/detail?id=32755
 		myWebView = (WebView) findViewById(R.id.webview);
 		myWebView.setWebViewClient(new WebViewClient() {
 			public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-				if (lang.equals("ca"))
-					myWebView.loadUrl(ABOUT_URL_OFFLINE_CA);
-				else if (lang.equals("es"))
-					myWebView.loadUrl(ABOUT_URL_OFFLINE_ES);
-				else
-					myWebView.loadUrl(ABOUT_URL_OFFLINE_EN);
+				loadOffline();
 			}
+			@Override
+			public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+				loadOffline();
+			}
+
+			@Override
+			public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
+				loadOffline();
+			}
+
+			/*@Override
+			public boolean shouldOverrideUrlLoading(WebView view, String url) {
+				if ( url.contains("your404page.html") ) {
+					loadOffline();
+					return true;
+				}
+				return false;
+			}*/
 		});
+		/*myWebView.setWebChromeClient(new WebChromeClient() {
+			@Override
+			public void onReceivedTitle(WebView view, String title) {
+				super.onReceivedTitle(view, title);
+
+				CharSequence notfound = "not found";
+				if ( title.contains(notfound) ) {
+					view.stopLoading();
+					loadOffline();
+				}
+			}
+			*//*public void onProgressChanged(WebView view, int progress) {
+				int a = (progress * 1000);
+			}*//*
+		});*/
 
 		myWebView.getSettings().setAllowFileAccess(true);
 		myWebView.getSettings().setJavaScriptEnabled(true);
-		myWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
+		//myWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
 
-		if (Build.VERSION.SDK_INT >= 7) {
+		/*if (Build.VERSION.SDK_INT >= 7) {
 			WebViewApi7.api7settings(myWebView, this);
 		}
 
 		if (!Util.isOnline(this)) { // loading offline only if not online
 			myWebView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
-		}
+		}*/
 
 		if (lang.equals("ca"))
 			myWebView.loadUrl(ABOUT_URL_CA);
 		else if (lang.equals("es"))
 			myWebView.loadUrl(ABOUT_URL_ES);
+		else if (lang.equals("zh"))
+			myWebView.loadUrl(ABOUT_URL_ZH);
 		else
 			myWebView.loadUrl(ABOUT_URL_EN);
 
-		super.onResume();
+	}
 
+	private void loadOffline() {
+		if (lang.equals("ca"))
+			myWebView.loadUrl(ABOUT_URL_OFFLINE_CA);
+		else if (lang.equals("es"))
+			myWebView.loadUrl(ABOUT_URL_OFFLINE_ES);
+		else if (lang.equals("zh"))
+			myWebView.loadUrl(ABOUT_URL_OFFLINE_ZH);
+		else
+			myWebView.loadUrl(ABOUT_URL_OFFLINE_EN);
 	}
 
 	@Override

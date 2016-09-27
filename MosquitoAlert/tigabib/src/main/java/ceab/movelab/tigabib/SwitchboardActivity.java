@@ -330,6 +330,7 @@ public class SwitchboardActivity extends Activity {
 			mRealm = RealmHelper.getInstance().getRealm(SwitchboardActivity.this);
 			loadRemoteNotifications();
 		}
+		updateNotificationCount();
 	}
 
 	@Override
@@ -357,7 +358,6 @@ Log.d("===========", Util.URL_TIGASERVER_API_ROOT + notificationUrl);
 						Util.logInfo(SwitchboardActivity.this, TAG, result.toString());
 						RealmHelper.getInstance().addOrUpdateNotificationList(result);
 					}
-
 					updateNotificationCount();
 				}
 			});

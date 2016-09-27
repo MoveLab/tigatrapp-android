@@ -48,10 +48,12 @@ public class LicenseActivity extends Activity {
 	private static final String LICENSE_URL_EN = UtilLocal.URL_TIGASERVER + "license/android/en";
 	private static final String LICENSE_URL_CA = UtilLocal.URL_TIGASERVER + "license/android/ca";
 	private static final String LICENSE_URL_ES = UtilLocal.URL_TIGASERVER + "license/android/es";
+	private static final String LICENSE_URL_ZH = UtilLocal.URL_TIGASERVER + "license/android/zh-cn";
 
 	private static final String LICENSE_URL_OFFLINE_EN = "file:///android_asset/html/license_en.html";
 	private static final String LICENSE_URL_OFFLINE_CA = "file:///android_asset/html/license_ca.html";
 	private static final String LICENSE_URL_OFFLINE_ES = "file:///android_asset/html/license_es.html";
+	private static final String LICENSE_URL_OFFLINE_ZH = "file:///android_asset/html/license_zh.html";
 
 	private WebView myWebView;
 
@@ -95,6 +97,8 @@ public class LicenseActivity extends Activity {
 					myWebView.loadUrl(LICENSE_URL_OFFLINE_CA);
 				else if (lang.equals("es"))
 					myWebView.loadUrl(LICENSE_URL_OFFLINE_ES);
+				else if (lang.equals("zh"))
+					myWebView.loadUrl(LICENSE_URL_OFFLINE_ZH);
 				else
 					myWebView.loadUrl(LICENSE_URL_OFFLINE_EN);
 
@@ -119,6 +123,8 @@ public class LicenseActivity extends Activity {
 			myWebView.loadUrl(LICENSE_URL_CA);
 		else if (lang.equals("es"))
 			myWebView.loadUrl(LICENSE_URL_ES);
+		else if (lang.equals("zh"))
+			myWebView.loadUrl(LICENSE_URL_ZH);
 		else
 			myWebView.loadUrl(LICENSE_URL_EN);
 

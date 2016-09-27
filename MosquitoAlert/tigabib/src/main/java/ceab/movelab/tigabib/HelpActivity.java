@@ -22,10 +22,12 @@ public class HelpActivity extends FragmentActivity {
 	private static final String TIGER_HELP_URL_EN = UtilLocal.URL_TIGASERVER + "help/android/en";
 	private static final String TIGER_HELP_URL_CA = UtilLocal.URL_TIGASERVER + "help/android/ca";
 	private static final String TIGER_HELP_URL_ES = UtilLocal.URL_TIGASERVER + "help/android/es";
+	private static final String TIGER_HELP_URL_ZH = UtilLocal.URL_TIGASERVER + "help/android/zh-cn";
 
 	private static final String TIGER_HELP_URL_OFFLINE_EN = "file:///android_asset/html/help_en.html";
 	private static final String TIGER_HELP_URL_OFFLINE_CA = "file:///android_asset/html/help_ca.html";
 	private static final String TIGER_HELP_URL_OFFLINE_ES = "file:///android_asset/html/help_es.html";
+	private static final String TIGER_HELP_URL_OFFLINE_ZH = "file:///android_asset/html/help_zh.html";
 
 	private WebView myWebView;
 
@@ -63,10 +65,10 @@ public class HelpActivity extends FragmentActivity {
 			public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
 				if (lang.equals("ca"))
 					myWebView.loadUrl(TIGER_HELP_URL_OFFLINE_CA);
-
 				else if (lang.equals("es"))
 					myWebView.loadUrl(TIGER_HELP_URL_OFFLINE_ES);
-
+				else if (lang.equals("zh"))
+					myWebView.loadUrl(TIGER_HELP_URL_OFFLINE_ZH);
 				else
 					myWebView.loadUrl(TIGER_HELP_URL_OFFLINE_EN);
 			}
@@ -88,6 +90,8 @@ public class HelpActivity extends FragmentActivity {
 			myWebView.loadUrl(TIGER_HELP_URL_CA);
 		else if (lang.equals("es"))
 			myWebView.loadUrl(TIGER_HELP_URL_ES);
+		else if (lang.equals("zh"))
+			myWebView.loadUrl(TIGER_HELP_URL_ZH);
 		else
 			myWebView.loadUrl(TIGER_HELP_URL_EN);
 

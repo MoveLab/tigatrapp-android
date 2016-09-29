@@ -20,7 +20,7 @@ android {
         applicationId "ceab.movelab.tigatrapp"
         minSdkVersion 9
         targetSdkVersion 24
-        versionCode 15  /* 15 is current production code */
+        versionCode 16  /* 15 is current production code */
         versionName "1.50"
     }
     buildTypes {

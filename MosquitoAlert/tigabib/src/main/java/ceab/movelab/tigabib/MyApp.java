@@ -5,11 +5,9 @@ import android.content.Context;
 
 import com.androidnetworking.AndroidNetworking;
 
-import com.facebook.stetho.Stetho;
-import com.uphyca.stetho_realm.RealmInspectorModulesProvider;
-
 import ceab.movelab.tigabib.model.DataModel;
 import ceab.movelab.tigabib.model.RealmHelper;
+import ceab.movelab.tigabib.utils.StethoUtils;
 
 public class MyApp extends Application {
 
@@ -26,10 +24,7 @@ public class MyApp extends Application {
 		AndroidNetworking.initialize(getApplicationContext());
 		AndroidNetworking.enableLogging();
 
-		Stetho.initialize(Stetho.newInitializerBuilder(this)
-						.enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
-						.enableWebKitInspector(RealmInspectorModulesProvider.builder(this).build())
-						.build());
+		StethoUtils.install(this);
     }
 
 /*	public void forceCrash() {

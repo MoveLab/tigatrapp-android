@@ -9,20 +9,11 @@ android {
     defaultPublishConfig "tigabibDebug"
     publishNonDefault true  // do not remove
 
-    signingConfigs {
-        config {
-            keyAlias 'tigakeys'
-            keyPassword '2=U:8QZw'
-            storeFile file('D:/Projectes/MosquitoAlert/tigakeys')
-            storePassword '=2qC+6!R'
-        }
-    }
-
     useLibrary 'org.apache.http.legacy'
 
     compileSdkVersion 'Google Apis:Google Apis:23'
     //compileSdkVersion 23
-    buildToolsVersion "24.0.2"  // "23.0.2"
+    buildToolsVersion "24.0.3"  // "23.0.2"
     defaultConfig {
         minSdkVersion 9
         targetSdkVersion 24

@@ -110,9 +110,9 @@ public class ViewReportsPhotosTab extends Activity {
 								dialog.setCancelable(true);
 								dialog.show();
 							} catch (FileNotFoundException e) {
-								Util.logError(context, TAG, "error: " + e);
+								Util.logError(TAG, "error: " + e);
 							} catch (IOException e) {
-								Util.logError(context, TAG, "error: " + e);
+								Util.logError(TAG, "error: " + e);
 							}
 						}
 
@@ -120,7 +120,7 @@ public class ViewReportsPhotosTab extends Activity {
 				});
 
 			} catch (JSONException e) {
-				Util.logError(context, TAG, "error: " + e);
+				Util.logError(TAG, "error: " + e);
 			}
 		}
 

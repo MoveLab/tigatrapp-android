@@ -23,12 +23,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="ceab.movelab.tigatrapp">
-    <!--android:versionCode="15"
-    android:versionName="1.10"-->
-
-<!--    <uses-sdk
-        android:minSdkVersion="4"
-        android:targetSdkVersion="18" />-->
 
     <uses-permission android:name="android.permission.BATTERY_STATS" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -91,7 +85,7 @@
         </activity>
         <activity android:name="ceab.movelab.tigabib.AttachedPhotos" >
         </activity>
-        <activity android:name="ceab.movelab.tigabib.ReportTool" >
+        <activity android:name="ceab.movelab.tigabib.ReportToolActivity" >
         </activity>
         <activity android:name="ceab.movelab.tigabib.GPLViewActivity" >
         </activity>
@@ -109,8 +103,7 @@
             android:launchMode="singleInstance" >
         </activity>
 
-        <activity android:name="ceab.movelab.tigabib.PhotoGallery" >
-        </activity>
+        <activity android:name="ceab.movelab.tigabib.PhotoGallery"/>
 
         <activity android:name="ceab.movelab.tigabib.AboutActivity" />
         <activity android:name="ceab.movelab.tigabib.LicenseActivity" />
@@ -163,6 +156,9 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyCCHvFv_a2jIZdwbYdBe21VssK5G1cJiBM"/>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="22e87a4f3bbda2172ac5bb1e707484b1a20e24e5" />
 
     </application>
 

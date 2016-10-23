@@ -47,13 +47,13 @@ public class MissionListActivity extends FragmentActivity implements LoaderManag
 
 	private static final int LOADER_ID = 0x02;
 
-	ListView listView;
-	MissionListCursorAdapter adapter;
+	private ListView listView;
+	private MissionListCursorAdapter adapter;
 
 	private boolean all = true;
 
-	private static final String queryAll = Tasks.KEY_ACTIVE + " = " + "1";
-	private static final String queryPending = Tasks.KEY_ACTIVE + " = " + "1 AND " + Tasks.KEY_DONE + " = 0";
+	private static final String queryAll = Tasks.KEY_ACTIVE + " = 1";
+	private static final String queryPending = Tasks.KEY_ACTIVE + " = 1 AND " + Tasks.KEY_DONE + " = 0";
 
 	String lang;
 

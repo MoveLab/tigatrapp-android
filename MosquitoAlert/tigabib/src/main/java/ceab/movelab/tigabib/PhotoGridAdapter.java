@@ -45,7 +45,7 @@ public class PhotoGridAdapter extends BaseAdapter {
 		try {
 			result = jsonPhotos.getJSONObject(position).getString(Report.KEY_PHOTO_URI);
 		} catch (JSONException e) {
-			Util.logError(mContext, TAG, "error: " + e);
+			Util.logError(TAG, "error: " + e);
 		}
 		return result;
 	}
@@ -77,7 +77,7 @@ public class PhotoGridAdapter extends BaseAdapter {
 				// imageView.setImageBitmap(Util.getSmallerBitmap(new File(
 				// jsonPhotos.getString(position)), mContext, 85));
 			} catch (JSONException e) {
-				Util.logError(mContext, TAG, "error: " + e);
+				Util.logError(TAG, "error: " + e);
 			}
 		}
 
@@ -158,9 +158,9 @@ public class PhotoGridAdapter extends BaseAdapter {
 			try {
 				result = Util.getSmallerBitmap(new File(data), mContext, 85);
 			} catch (FileNotFoundException e) {
-				Util.logError(mContext, TAG, "error: " + e);
+				Util.logError(TAG, "error: " + e);
 			} catch (IOException e) {
-				Util.logError(mContext, TAG, "error: " + e);
+				Util.logError(TAG, "error: " + e);
 			}
 			return result;
 		}

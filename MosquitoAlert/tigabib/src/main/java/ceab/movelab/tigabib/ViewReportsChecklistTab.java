@@ -1,37 +1,34 @@
 package ceab.movelab.tigabib;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
+import android.widget.ListView;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
-import android.content.res.Resources;
-import android.os.Bundle;
-import android.widget.ListView;
-
-import ceab.movelab.tigabib.adapters.ViewResponsesAdapter;
 import ceab.movelab.tigabib.ContProvContractReports.Reports;
+import ceab.movelab.tigabib.adapters.ViewResponsesAdapter;
 
 public class ViewReportsChecklistTab extends Activity {
 
 	private static String TAG = "ViewReportsCheckListTab";
-	Resources res;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		Context context = this;
 
-		res = getResources();
-		Util.setDisplayLanguage(res);
+		Util.setDisplayLanguage(getResources());
 
-		ArrayList<MissionItemModel> taskData = new ArrayList<MissionItemModel>();
+		ArrayList<MissionItemModel> taskData = new ArrayList<>();
 		setContentView(R.layout.view_responses_list);
 
 		ListView lv = (ListView) findViewById(R.id.listview);
@@ -43,36 +40,29 @@ public class ViewReportsChecklistTab extends Activity {
 
 			JSONObject responses;
 			try {
-				responses = new JSONObject(
-						b.getString(Reports.KEY_CONFIRMATION));
+				responses = new JSONObject(b.getString(Reports.KEY_CONFIRMATION));
 
 				Iterator<String> iter = responses.keys();
 				while (iter.hasNext()) {
 					String key = iter.next();
 					try {
 						JSONObject thisItem = responses.getJSONObject(key);
-						
-
 						taskData.add(new MissionItemModel(context, thisItem));
 					} catch (JSONException e) {
-						Util.logError(context, TAG, "error: " + e);
+						Util.logError(TAG, "error: " + e);
 					}
-
 				}
-
 			} catch (JSONException e1) {
-				Util.logError(context, TAG, "error: " + e1);
+				Util.logError(TAG, "error: " + e1);
 			}
 
 			if (taskData != null)
 				Collections.sort(taskData, new CustomComparator());
 
-			ViewResponsesAdapter vra = new ViewResponsesAdapter(this,
-					R.layout.view_responses_item, taskData);
+			ViewResponsesAdapter vra = new ViewResponsesAdapter(this, R.layout.view_responses_item, taskData);
 			lv.setAdapter(vra);
 
 			setContentView(lv);
-
 		}
 	}
 

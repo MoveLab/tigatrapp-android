@@ -91,8 +91,7 @@ public class PhotoValidationWebViewActivity extends Activity {
 		});
 		myWebView.setWebChromeClient(new WebChromeClient() {
 			public boolean onConsoleMessage(ConsoleMessage cm) {
-				Util.logInfo(PhotoValidationWebViewActivity.this, "MyApplication", cm.message() + " -- From line "
-						+ cm.lineNumber() + " of " + cm.sourceId() );
+				Util.logInfo("MyApplication", cm.message() + " -- From line " + cm.lineNumber() + " of " + cm.sourceId() );
 				return true;
 			}
 		});

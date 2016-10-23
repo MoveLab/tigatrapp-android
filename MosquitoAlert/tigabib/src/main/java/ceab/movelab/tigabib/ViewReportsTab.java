@@ -139,7 +139,7 @@ public class ViewReportsTab extends TabActivity {
 				.setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
-						Intent i = new Intent(context, ReportTool.class);
+						Intent i = new Intent(context, ReportToolActivity.class);
 
 						i.putExtra("type", type);
 						i.putExtra("reportId", reportId);
@@ -148,8 +148,7 @@ public class ViewReportsTab extends TabActivity {
 					};
 				});
 
-		((Button) findViewById(R.id.buttonCancel))
-				.setOnClickListener(new OnClickListener() {
+		((Button) findViewById(R.id.buttonCancel)).setOnClickListener(new OnClickListener() {
 					@Override
 					public void onClick(View v) {
 						finish();
@@ -159,46 +158,32 @@ public class ViewReportsTab extends TabActivity {
 		TabHost tabHost = getTabHost();
 
 		// checklist tab
-		Intent intentChecklist = new Intent().setClass(this,
-				ViewReportsChecklistTab.class);
+		Intent intentChecklist = new Intent().setClass(this, ViewReportsChecklistTab.class);
 		if (b.containsKey(Reports.KEY_CONFIRMATION))
-			intentChecklist.putExtra(Reports.KEY_CONFIRMATION,
-					b.getString(Reports.KEY_CONFIRMATION));
+			intentChecklist.putExtra(Reports.KEY_CONFIRMATION, b.getString(Reports.KEY_CONFIRMATION));
 		TabSpec tabSpecChecklist = tabHost
-				.newTabSpec(
-						getResources().getString(R.string.checklist_tab_title))
-				.setIndicator(
-						"",
-						resources
-								.getDrawable(R.drawable.view_reports_checklist_icon))
+				.newTabSpec(getResources().getString(R.string.checklist_tab_title))
+				.setIndicator("", resources.getDrawable(R.drawable.view_reports_checklist_icon))
 				.setContent(intentChecklist);
 
 		// photos tab
 		Intent intentPhotos = new Intent().setClass(this,
 				ViewReportsPhotosTab.class);
 		if (b.containsKey(Reports.KEY_PHOTO_URIS))
-			intentPhotos.putExtra(Reports.KEY_PHOTO_URIS,
-					b.getString(Reports.KEY_PHOTO_URIS));
+			intentPhotos.putExtra(Reports.KEY_PHOTO_URIS, b.getString(Reports.KEY_PHOTO_URIS));
 		TabSpec tabSpecPhotos = tabHost
 				.newTabSpec(getResources().getString(R.string.photos_tab_title))
-				.setIndicator(
-						"",
-						resources
-								.getDrawable(R.drawable.view_reports_photos_icon))
+				.setIndicator("", resources.getDrawable(R.drawable.view_reports_photos_icon))
 				.setContent(intentPhotos);
 
 		// Notes tab
 		Intent intentNotes = new Intent().setClass(this,
 				ViewReportsNotesTab.class);
 		if (b.containsKey(Reports.KEY_NOTE))
-			intentNotes.putExtra(Reports.KEY_NOTE,
-					b.getString(Reports.KEY_NOTE));
+			intentNotes.putExtra(Reports.KEY_NOTE, b.getString(Reports.KEY_NOTE));
 		TabSpec tabSpecNotes = tabHost
 				.newTabSpec(getResources().getString(R.string.notes_tab_title))
-				.setIndicator(
-						"",
-						resources
-								.getDrawable(R.drawable.view_reports_notes_icon))
+				.setIndicator("", resources.getDrawable(R.drawable.view_reports_notes_icon))
 				.setContent(intentNotes);
 
 		// add all tabs
@@ -270,7 +255,7 @@ public class ViewReportsTab extends TabActivity {
 			cv.put(Reports.KEY_DELETE_REPORT, 1);
 			cv.put(Reports.KEY_REPORT_VERSION, -1);
 			int nUpdated = cr.update(Util.getReportsUri(context[0]), cv, sc, null);
-			Util.logInfo(context[0], TAG, "n updated: " + nUpdated);
+			Util.logInfo(TAG, "n updated: " + nUpdated);
 			Uri repUri = Util.getReportsUri(context[0]);
 			cr.insert(repUri, ContProvValuesReports.createReport(dReport));
 
@@ -287,7 +272,7 @@ public class ViewReportsTab extends TabActivity {
 				if (!PropertyHolder.isRegistered())
 					Util.registerOnServer(context[0]);
 
-				Util.logInfo(context[0], TAG, sc);
+				Util.logInfo(TAG, sc);
 
 				int uploadResult = dReport.upload(context[0]);
 
@@ -298,7 +283,7 @@ public class ViewReportsTab extends TabActivity {
 					resultFlag = UPLOAD_ERROR;
 				} else {
 					int nDeleted = cr.delete(Util.getReportsUri(context[0]), sc, null);
-					Util.logInfo(context[0], TAG, "n deleted: " + nDeleted);
+					Util.logInfo(TAG, "n deleted: " + nDeleted);
 					resultFlag = SUCCESS;
 
 					myProgress = 100;

@@ -160,7 +160,7 @@ public class MissionModel {
 			task.put(Tasks.KEY_TASK_JSON, taskJson);
 
 		} catch (JSONException e) {
-			Util.logError(context, TAG, "error: " + e);
+			Util.logError(TAG, "error: " + e);
 		}
 
 		return task;
@@ -236,7 +236,7 @@ public class MissionModel {
 			task.put(Tasks.KEY_TASK_JSON, taskJson);
 
 		} catch (JSONException e) {
-			Util.logError(context, TAG, "error: " + e);
+			Util.logError(TAG, "error: " + e);
 		}
 
 		return task;

@@ -77,7 +77,7 @@ public class SettingsActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				Util.logInfo(SettingsActivity.this, TAG, "sync button clicked");
+				Util.logInfo(TAG, "sync button clicked");
 				new SyncTask().execute(SettingsActivity.this);
 			}
 
@@ -146,7 +146,7 @@ public class SettingsActivity extends Activity {
 		try {
 			unregisterReceiver(newSamplesReceiver);
 		} catch (Exception e) {
-			Util.logError(this, TAG, "error unregistering newSamplesReceiver");
+			Util.logError(TAG, "error unregistering newSamplesReceiver");
 		}
 		super.onPause();
 	}
@@ -210,18 +210,18 @@ public class SettingsActivity extends Activity {
 				// try to get config
 				try {
 					JSONObject configJson = new JSONObject(Util.getJSON(Util.API_CONFIGURATION, context[0]));
-					if (configJson != null && configJson.has("samples_per_day")) {
+					if ( configJson.has("samples_per_day") ) {
 						int samplesPerDay = configJson.getInt("samples_per_day");
-						Util.logInfo(context[0], TAG, "samples per day:" + samplesPerDay);
+						Util.logInfo(TAG, "samples per day:" + samplesPerDay);
 
 						if (samplesPerDay != PropertyHolder.getSamplesPerDay()) {
 							Util.internalBroadcast(context[0], Messages.START_DAILY_SAMPLING);
 							PropertyHolder.setSamplesPerDay(samplesPerDay);
-							Util.logInfo(context[0], TAG, "set property holder");
+							Util.logInfo(TAG, "set property holder");
 						}
 					}
 				} catch (JSONException e) {
-					Util.logError(context[0], TAG, "error: " + e);
+					Util.logError(TAG, "error: " + e);
 					resultFlag = UPLOAD_ERROR;
 				}
 
@@ -237,14 +237,14 @@ public class SettingsActivity extends Activity {
 						+ (Util.debugMode(context[0]) ? "beta" : "and") + "&version_lte="
 						+ Util.MAX_MISSION_VERSION;
 
-				Util.logInfo(context[0], TAG, "mission array: " + missionUrl);
+				Util.logInfo(TAG, "mission array: " + missionUrl);
 
 				try {
+					// load remote missions
 					JSONArray missions = new JSONArray(Util.getJSON(missionUrl, context[0]));
+					Util.logInfo(TAG, "missions: " + missions.toString());
 
-					Util.logInfo(context[0], TAG, "missions: " + missions.toString());
-
-					if (missions != null && missions.length() > 0) {
+					if ( missions.length() > 0) {
 						for (int i = 0; i < missions.length(); i++) {
 							JSONObject mission = missions.getJSONObject(i);
 
@@ -274,7 +274,7 @@ public class SettingsActivity extends Activity {
 						}
 					}
 				} catch (JSONException e) {
-					Util.logError(context[0], TAG, "error: " + e);
+					Util.logError(TAG, "error: " + e);
 					resultFlag = UPLOAD_ERROR;
 				}
 

@@ -40,17 +40,17 @@ public class NotificationActivity extends Activity {
 
 		setContentView(R.layout.notification_layout);
 
-		mRealm = RealmHelper.getInstance().getRealm();
+		mRealm = RealmHelper.getInstance().getRealm(this);
 
-		final Notification notif = RealmHelper.getInstance().getNotificationById(notificationId);// Update person in a transaction
-Util.logInfo(this, TAG, String.valueOf(notif.isAcknowledged()));
+		final Notification notif = RealmHelper.getInstance().getNotificationById(mRealm, notificationId);// Update person in a transaction
+Util.logInfo(TAG, String.valueOf(notif.isAcknowledged()));
 		mRealm.executeTransaction(new Realm.Transaction() {
 			@Override
 			public void execute(Realm realm) {
 				notif.setAcknowledged(true);
 			}
 		});
-Util.logInfo(this, TAG, String.valueOf(notif.isAcknowledged()));
+Util.logInfo(TAG, String.valueOf(notif.isAcknowledged()));
 
 		myWebView = (WebView) findViewById(R.id.notificationWebview);
 		myWebView.getSettings().setAllowFileAccess(true);
@@ -63,8 +63,8 @@ Util.logInfo(this, TAG, String.valueOf(notif.isAcknowledged()));
 
 	private void acknowledgeNotification(int notifId) {
 		String notificationUrl = Util.API_NOTIFICATION + "?id=" + notifId + "&acknowledged=true";
-		Util.logInfo(this, "===========", "BuildConfig.DEBUG >> " + BuildConfig.DEBUG);
-		Util.logInfo(this, "===========", Util.URL_TIGASERVER_API_ROOT + notificationUrl);
+		Util.logInfo("===========", "BuildConfig.DEBUG >> " + BuildConfig.DEBUG);
+		Util.logInfo("===========", Util.URL_TIGASERVER_API_ROOT + notificationUrl);
 		Ion.with(this)
 			.load(Util.URL_TIGASERVER_API_ROOT + notificationUrl)
 			.setHeader("Accept", "application/json")
@@ -78,7 +78,7 @@ Util.logInfo(this, TAG, String.valueOf(notif.isAcknowledged()));
 				public void onCompleted(Exception e, Notification result) {
 					// do stuff with the result or error
 					if ( result != null )
-						Util.logInfo(NotificationActivity.this, TAG, result.toString());
+						Util.logInfo(TAG, result.toString());
 				}
 			});
 	}
@@ -93,4 +93,9 @@ Util.logInfo(this, TAG, String.valueOf(notif.isAcknowledged()));
 		super.onResume();
 	}
 
+	@Override
+	protected void onDestroy() {
+		if ( mRealm != null ) mRealm.close(); // Remember to close Realm when done.
+		super.onDestroy();
+	}
 }

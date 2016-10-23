@@ -359,7 +359,7 @@ public class MissionActivity extends Activity {
 			}
 
 		} catch (JSONException e) {
-			Util.logError(MissionActivity.this, TAG, "error: " + e);
+			Util.logError(TAG, "error: " + e);
 		}
 
 	}
@@ -384,7 +384,7 @@ public class MissionActivity extends Activity {
 			result = new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Util.logInfo(MissionActivity.this, TAG, "do task clicked");
+					Util.logInfo(TAG, "do task clicked");
 					ContentResolver cr = getContentResolver();
 					ContentValues cv = new ContentValues();
 					int rowId = thisBundle.getInt(Tasks.KEY_ROW_ID);
@@ -399,10 +399,10 @@ public class MissionActivity extends Activity {
 							+ " = " + "0 AND " + Tasks.KEY_EXPIRATION_TIME
 							+ " <=" + System.currentTimeMillis();
 					Cursor c = cr.query(Util.getMissionsUri(MissionActivity.this), Tasks.KEYS_DONE, sc, null, null);
-					Util.logInfo(MissionActivity.this, TAG, "remaining tasks: " + c.getCount());
+					Util.logInfo(TAG, "remaining tasks: " + c.getCount());
 					if (c.getCount() == 0) {
 						Util.internalBroadcast(MissionActivity.this, Messages.REMOVE_TASK_NOTIFICATION);
-						Util.logInfo(MissionActivity.this, TAG, "just broadcast:" + Messages.REMOVE_TASK_NOTIFICATION);
+						Util.logInfo(TAG, "just broadcast:" + Messages.REMOVE_TASK_NOTIFICATION);
 					}
 
 					c.close();
@@ -510,7 +510,7 @@ public class MissionActivity extends Activity {
 			result = new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Util.logInfo(MissionActivity.this, TAG, "do task clicked");
+					Util.logInfo(TAG, "do task clicked");
 					ContentResolver cr = getContentResolver();
 					ContentValues cv = new ContentValues();
 					int rowId = thisBundle.getInt(Tasks.KEY_ROW_ID);
@@ -526,10 +526,10 @@ public class MissionActivity extends Activity {
 							+ " <=" + System.currentTimeMillis();
 					Cursor c = cr.query(Util.getMissionsUri(MissionActivity.this),
 							Tasks.KEYS_DONE, sc, null, null);
-					Util.logInfo(MissionActivity.this, TAG, "remaining tasks: " + c.getCount());
+					Util.logInfo(TAG, "remaining tasks: " + c.getCount());
 					if (c.getCount() == 0) {
 						Util.internalBroadcast(MissionActivity.this, Messages.REMOVE_TASK_NOTIFICATION);
-						Util.logInfo(MissionActivity.this, TAG, "just broadcast:" + Messages.REMOVE_TASK_NOTIFICATION);
+						Util.logInfo(TAG, "just broadcast:" + Messages.REMOVE_TASK_NOTIFICATION);
 					}
 
 					c.close();

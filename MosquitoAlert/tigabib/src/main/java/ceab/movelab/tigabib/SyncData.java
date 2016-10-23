@@ -49,6 +49,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.IBinder;
+import android.support.v4.content.LocalBroadcastManager;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -77,22 +78,18 @@ public class SyncData extends Service {
 
 	@Override
 	public void onStart(Intent intent, int startId) {
-
-		Util.logInfo(context, TAG, "on start");
+		Util.logInfo(TAG, "on start");
 
 		if (!Util.isOnline(context) || Util.privateMode(context)) {
-			Util.logInfo(context, TAG,
-					"offline or private mode, stopping service");
+			Util.logInfo(TAG, "offline or private mode, stopping service");
 			stopSelf();
 		} else {
 
 			if (!uploading && !Util.privateMode(context)) {
 				uploading = true;
 
-				Thread uploadThread = new Thread(null, doSyncing,
-						"uploadBackground");
+				Thread uploadThread = new Thread(null, doSyncing, "uploadBackground");
 				uploadThread.start();
-
 			}
 		}
 	};
@@ -105,11 +102,8 @@ public class SyncData extends Service {
 
 	@Override
 	public void onCreate() {
-
-		// Log.e(TAG, "FileUploader onCreate.");
-
 		context = getApplicationContext();
-		if (PropertyHolder.isInit() == false)
+		if ( !PropertyHolder.isInit() )
 			PropertyHolder.init(context);
 	}
 
@@ -120,7 +114,6 @@ public class SyncData extends Service {
 	}
 
 	private void tryUploads() {
-
 		// Check if user has registered on server - if not, try to register
 		if (!PropertyHolder.isRegistered())
 			Util.registerOnServer(context);
@@ -128,19 +121,18 @@ public class SyncData extends Service {
 		// try to get config
 		try {
 			JSONObject configJson = new JSONObject(Util.getJSON(Util.API_CONFIGURATION, context));
-			if (configJson != null && configJson.has("samples_per_day")) {
+			if ( configJson.has("samples_per_day") ) {
 				int samplesPerDay = configJson.getInt("samples_per_day");
-				Util.logInfo(context, TAG, "samples per day:" + samplesPerDay);
+				Util.logInfo(TAG, "samples per day:" + samplesPerDay);
 
 				if (samplesPerDay != PropertyHolder.getSamplesPerDay()) {
 					Util.internalBroadcast(context, Messages.START_DAILY_SAMPLING);
 					PropertyHolder.setSamplesPerDay(samplesPerDay);
-					Util.logInfo(context, TAG, "set property holder");
+					Util.logInfo(TAG, "set property holder");
 				}
-
 			}
 		} catch (JSONException e) {
-			Util.logError(context, TAG, "error: " + e);
+			Util.logError(TAG, "error: " + e);
 		}
 
 		// try to get missions
@@ -152,60 +144,46 @@ public class SyncData extends Service {
 				+ (Util.debugMode(context) ? "beta" : "and") + "&version_lte="
 				+ Util.MAX_MISSION_VERSION;
 
-		Util.logInfo(context, TAG, "mission array: " + missionUrl);
+		Util.logInfo(TAG, "mission array: " + missionUrl);
 
 		try {
+			JSONArray missions = new JSONArray(Util.getJSON(missionUrl, context));
+			Util.logInfo(TAG, "missions: " + missions.toString());
 
-			JSONArray missions = new JSONArray(
-					Util.getJSON(missionUrl, context));
-
-			Util.logInfo(context, TAG, "missions: " + missions.toString());
-
-			if (missions != null && missions.length() > 0) {
+			if (  missions.length() > 0 ) {
 				for (int i = 0; i < missions.length(); i++) {
 					JSONObject mission = missions.getJSONObject(i);
 
 					cr = context.getContentResolver();
-					cr.insert(Util.getMissionsUri(context),
-							ContProvValuesMissions.createTask(mission));
+					cr.insert(Util.getMissionsUri(context), ContProvValuesMissions.createTask(mission));
 
 					if (mission.has(Tasks.KEY_TRIGGERS)) {
-						JSONArray theseTriggers = mission
-								.getJSONArray(Tasks.KEY_TRIGGERS);
+						JSONArray theseTriggers = mission.getJSONArray(Tasks.KEY_TRIGGERS);
 
 						if (theseTriggers.length() == 0) {
-							Intent intent = new Intent(
-									Messages.internalAction(context));
-							intent.putExtra(Messages.INTERNAL_MESSAGE_EXTRA,
-									Messages.SHOW_TASK_NOTIFICATION);
+							Intent intent = new Intent(Messages.internalAction(context));
+							intent.putExtra(Messages.INTERNAL_MESSAGE_EXTRA, Messages.SHOW_TASK_NOTIFICATION);
 							if (PropertyHolder.getLanguage().equals("ca")) {
-								intent.putExtra(Tasks.KEY_TITLE, mission
-										.getString(Tasks.KEY_TITLE_CATALAN));
-							} else if (PropertyHolder.getLanguage()
-									.equals("es")) {
-								intent.putExtra(Tasks.KEY_TITLE, mission
-										.getString(Tasks.KEY_TITLE_SPANISH));
-							} else if (PropertyHolder.getLanguage()
-									.equals("en")) {
-								intent.putExtra(Tasks.KEY_TITLE, mission
-										.getString(Tasks.KEY_TITLE_ENGLISH));
+								intent.putExtra(Tasks.KEY_TITLE, mission.getString(Tasks.KEY_TITLE_CATALAN));
+							} else if (PropertyHolder.getLanguage().equals("es")) {
+								intent.putExtra(Tasks.KEY_TITLE, mission.getString(Tasks.KEY_TITLE_SPANISH));
+							} else if (PropertyHolder.getLanguage().equals("en")) {
+								intent.putExtra(Tasks.KEY_TITLE, mission.getString(Tasks.KEY_TITLE_ENGLISH));
 							}
 							context.sendBroadcast(intent);
-
+							Intent intent2 = new Intent(Messages.SHOW_TASK_NOTIFICATION);
+							LocalBroadcastManager.getInstance(context).sendBroadcast(intent2);
 						}
-
 					}
 
 					// IF this is last mission, mark the row id in
 					// PropertyHolder for next sync
 					PropertyHolder.setLatestMissionId(mission.getInt("id"));
-
 				}
-
 			}
 
 		} catch (JSONException e) {
-			Util.logError(context, TAG, "error: " + e);
+			Util.logError(TAG, "error: " + e);
 		}
 
 		cr = getContentResolver();
@@ -214,7 +192,7 @@ public class SyncData extends Service {
 		c = cr.query(Util.getTracksUri(context), Fixes.KEYS_ALL, null, null,
 				null);
 
-		if (!c.moveToFirst()) {
+		if ( c!= null && !c.moveToFirst()) {
 			c.close();
 		}
 
@@ -241,18 +219,13 @@ public class SyncData extends Service {
 
 			thisFix.exportJSON(context);
 
-			int statusCode = Util
-					.getResponseStatusCode(thisFix.upload(context));
+			int statusCode = Util.getResponseStatusCode(thisFix.upload(context));
 
 			if (statusCode < 300 && statusCode > 0) {
-
-				cr.delete(Util.getTracksUri(context), Fixes.KEY_ROWID + " = "
-						+ String.valueOf(thisId), null);
-
+				cr.delete(Util.getTracksUri(context), Fixes.KEY_ROWID + " = " + String.valueOf(thisId), null);
 			}
 
 			c.moveToNext();
-
 		}
 
 		c.close();
@@ -261,7 +234,7 @@ public class SyncData extends Service {
 		c = cr.query(Util.getReportsUri(context), Reports.KEYS_ALL,
 				Reports.KEY_UPLOADED + " != " + Report.UPLOADED_ALL, null, null);
 
-		if (!c.moveToFirst()) {
+		if ( c!=null && !c.moveToFirst()) {
 			c.close();
 		}
 
@@ -270,43 +243,28 @@ public class SyncData extends Service {
 		int userIdCol = c.getColumnIndexOrThrow(Reports.KEY_USER_ID);
 		int reportIdCol = c.getColumnIndexOrThrow(Reports.KEY_REPORT_ID);
 		int reportTimeCol = c.getColumnIndexOrThrow(Reports.KEY_REPORT_TIME);
-		int creationTimeCol = c
-				.getColumnIndexOrThrow(Reports.KEY_CREATION_TIME);
-		int reportVersionCol = c
-				.getColumnIndexOrThrow(Reports.KEY_REPORT_VERSION);
-		int versionTimeStringCol = c
-				.getColumnIndexOrThrow(Reports.KEY_VERSION_TIME_STRING);
+		int creationTimeCol = c.getColumnIndexOrThrow(Reports.KEY_CREATION_TIME);
+		int reportVersionCol = c.getColumnIndexOrThrow(Reports.KEY_REPORT_VERSION);
+		int versionTimeStringCol = c.getColumnIndexOrThrow(Reports.KEY_VERSION_TIME_STRING);
 		int typeCol = c.getColumnIndexOrThrow(Reports.KEY_TYPE);
 		int confirmationCol = c.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION);
-		int confirmationCodeCol = c
-				.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION_CODE);
-		int locationChoiceCol = c
-				.getColumnIndexOrThrow(Reports.KEY_LOCATION_CHOICE);
-		int currentLocationLonCol = c
-				.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LON);
-		int currentLocationLatCol = c
-				.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LAT);
-		int selectedLocationLonCol = c
-				.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LON);
-		int selectedLocationLatCol = c
-				.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LAT);
+		int confirmationCodeCol = c.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION_CODE);
+		int locationChoiceCol = c.getColumnIndexOrThrow(Reports.KEY_LOCATION_CHOICE);
+		int currentLocationLonCol = c.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LON);
+		int currentLocationLatCol = c.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LAT);
+		int selectedLocationLonCol = c.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LON);
+		int selectedLocationLatCol = c.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LAT);
 		int noteCol = c.getColumnIndexOrThrow(Reports.KEY_NOTE);
-		int photoAttachedCol = c
-				.getColumnIndexOrThrow(Reports.KEY_PHOTO_ATTACHED);
+		int photoAttachedCol = c.getColumnIndexOrThrow(Reports.KEY_PHOTO_ATTACHED);
 		int photoUrisCol = c.getColumnIndexOrThrow(Reports.KEY_PHOTO_URIS);
 
 		int uploadedCol = c.getColumnIndexOrThrow(Reports.KEY_UPLOADED);
-		int serverTimestampCol = c
-				.getColumnIndexOrThrow(Reports.KEY_SERVER_TIMESTAMP);
-		int deleteReportCol = c
-				.getColumnIndexOrThrow(Reports.KEY_DELETE_REPORT);
-		int latestVersionCol = c
-				.getColumnIndexOrThrow(Reports.KEY_LATEST_VERSION);
+		int serverTimestampCol = c.getColumnIndexOrThrow(Reports.KEY_SERVER_TIMESTAMP);
+		int deleteReportCol = c.getColumnIndexOrThrow(Reports.KEY_DELETE_REPORT);
+		int latestVersionCol = c.getColumnIndexOrThrow(Reports.KEY_LATEST_VERSION);
 		int packageNameCol = c.getColumnIndexOrThrow(Reports.KEY_PACKAGE_NAME);
-		int packageVersionCol = c
-				.getColumnIndexOrThrow(Reports.KEY_PACKAGE_VERSION);
-		int phoneManufacturerCol = c
-				.getColumnIndexOrThrow(Reports.KEY_PHONE_MANUFACTURER);
+		int packageVersionCol = c.getColumnIndexOrThrow(Reports.KEY_PACKAGE_VERSION);
+		int phoneManufacturerCol = c.getColumnIndexOrThrow(Reports.KEY_PHONE_MANUFACTURER);
 		int phoneModelCol = c.getColumnIndexOrThrow(Reports.KEY_PHONE_MODEL);
 		int osCol = c.getColumnIndexOrThrow(Reports.KEY_OS);
 		int osVersionCol = c.getColumnIndexOrThrow(Reports.KEY_OS_VERSION);
@@ -315,7 +273,6 @@ public class SyncData extends Service {
 		int missionIDCol = c.getColumnIndexOrThrow(Reports.KEY_MISSION_ID);
 
 		while (!c.isAfterLast()) {
-
 			Report report = new Report(context, c.getString(versionUUIDCol),
 					c.getString(userIdCol), c.getString(reportIdCol),
 					c.getInt(reportVersionCol), c.getLong(reportTimeCol),

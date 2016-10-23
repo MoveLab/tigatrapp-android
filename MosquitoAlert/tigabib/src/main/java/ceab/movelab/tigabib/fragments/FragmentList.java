@@ -19,6 +19,7 @@ import ceab.movelab.tigabib.Util;
 import ceab.movelab.tigabib.adapters.NotificationAdapter;
 import ceab.movelab.tigabib.model.Notification;
 import ceab.movelab.tigabib.model.RealmHelper;
+import io.realm.Realm;
 
 /**
  * Created by eideam on 12/08/2016.
@@ -31,6 +32,8 @@ public class FragmentList extends Fragment {
     private ListView mListView;
     private NotificationAdapter mAdapter;
     private ArrayList<Notification> notifData = new ArrayList<>();
+
+    private Realm mRealm;
 
     public static FragmentList newInstance(boolean done) {
 Log.d(ARG_DONE, "newInstance: isDone = " + done);
@@ -46,8 +49,9 @@ Log.d(ARG_DONE, "newInstance: isDone = " + done);
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         isDone = (getArguments() != null ? getArguments().getBoolean(ARG_DONE) : false);
-        Util.logInfo(getActivity(), ARG_DONE, "isDone = " + isDone);
+        Util.logInfo(ARG_DONE, "isDone = " + isDone);
         //isDone = getArguments().getBoolean(ARG_DONE);
+        mRealm = RealmHelper.getInstance().getRealm(getActivity());
     }
 
     @Override
@@ -76,16 +80,22 @@ Log.d(ARG_DONE, "newInstance: isDone = " + done);
     @Override
     public void onResume() {
         super.onResume();
+        if ( mRealm == null) mRealm = RealmHelper.getInstance().getRealm(getActivity());
         mAdapter.notifyDataSetChanged();
     }
 
     private void loadNotifications(boolean isDone) {
         notifData.clear();
-        List<Notification> notificationList = RealmHelper.getInstance().getNotificationsRead(isDone);
+        List<Notification> notificationList = RealmHelper.getInstance().getNotificationsRead(mRealm, isDone);
         for (Notification notif : notificationList )
             notifData.add(notif);
 
         mAdapter.notifyDataSetChanged();
     }
 
+    @Override
+    public void onDestroy() {
+        if ( mRealm != null ) mRealm.close(); // Remember to close Realm when done.
+        super.onDestroy();
+    }
 }

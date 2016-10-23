@@ -1,23 +1,26 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        // The Fabric Gradle plugin uses an open ended version to react
+        // quickly to Android tooling updates
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
+
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 
 repositories {
+    maven { url 'https://maven.fabric.io/public' }
     maven { url 'https://github.com/uPhyca/stetho-realm/raw/master/maven-repo' }
 }
 
 android {
     signingConfigs {
-        config {
-            keyAlias 'tigakeys'
-            keyPassword '2=U:8QZw'
-            storeFile file('D:/Projectes/MosquitoAlert/apk/tigakeys')
-            storePassword '=2qC+6!R'
-        }
-        config_old {
-            keyAlias 'jrbpandroidkey'
-            keyPassword '=2qC+6!R'
-            storeFile file('D:/Projectes/MosquitoAlert/apk/JRBP_Keystore')
-            storePassword ''
-        }
+
     }
 
     compileSdkVersion 'Google Apis:Google Apis:23'
@@ -26,8 +29,8 @@ android {
         applicationId "ceab.movelab.tigatrapp"
         minSdkVersion 9
         targetSdkVersion 24
-        versionCode 16  /* 15 is current production code */
-        versionName "1.50"
+        versionCode 19  /* 17 is 1.51 current production code */
+        versionName "1.53"
     }
     buildTypes {
         debug {
@@ -37,7 +40,7 @@ android {
         }
         release {
             //buildConfigField "boolean", "PRIVATE_MODE", "false"
-            //signingConfig signingConfigs.config
+            //signingConfig signingConfigs.config_old2
             //minifyEnabled true
             //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             debuggable false
@@ -62,4 +65,8 @@ dependencies {
     //compile 'com.facebook.stetho:stetho-okhttp3:1.3.1'
     //compile 'com.facebook.stetho:stetho:1.3.1'
     //compile 'com.uphyca:stetho_realm:0.9.0'
+
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
+        transitive = true;
+    }
 }

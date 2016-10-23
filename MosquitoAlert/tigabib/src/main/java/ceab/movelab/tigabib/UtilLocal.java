@@ -72,15 +72,15 @@ public class UtilLocal {
 	//public static final String PYBOSSA_URL = "http://crowdcrafting.org/project/mosquito-alert/task/1383572";
 	public static final String PYBOSSA_URL = "http://crowdcrafting.org/project/mosquito-alert/newtask";
 
-	public static final String URL_PROJECT = "http://mosquitoalert.com/";
+	public static final String URL_PROJECT = "http://mosquitoalert.com/";	// blog url
 
-	//public static final String URL_TIGASERVER = "http://webserver.mosquitoalert.com/";	// Producció http://humboldt.ceab.csic.es/
+	//public static final String URL_TIGASERVER = "http://webserver.mosquitoalert.com/";	// Desenvolupament http://humboldt.ceab.csic.es/
 	public static final String URL_TIGASERVER =
-			(BuildConfig.DEBUG ? "http://webserver.mosquitoalert.com/" : "http://webserver.mosquitoalert.com/");	// Desenvolupament vs produccio
+			(BuildConfig.DEBUG ? "http://humboldt.ceab.csic.es/" : "http://webserver.mosquitoalert.com/");	// Desenvolupament vs produccio
+
 	/**
 	 * Server API URL.
 	 */
-
 	public static final String URL_TIGASERVER_API_ROOT = URL_TIGASERVER + "api/";
 	/**
 	 * API user endpoint.

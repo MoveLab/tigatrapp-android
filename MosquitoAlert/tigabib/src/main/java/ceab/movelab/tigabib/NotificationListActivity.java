@@ -84,7 +84,7 @@ public class NotificationListActivity extends FragmentActivity implements TabHos
 
 	@Override
 	public void onTabChanged(String tabId) {
-		Util.logInfo(this, TAG, "onTabChanged(): tabId=" + tabId);
+		Util.logInfo(TAG, "onTabChanged(): tabId=" + tabId);
 		if ( TAB_NEW.equals(tabId) ) {
 			//updateTab(tabId, R.id.tab_1, false);
 			//mCurrentTab = 0;
@@ -98,7 +98,7 @@ public class NotificationListActivity extends FragmentActivity implements TabHos
 	}
 
 	private void updateTab(String tabId, int placeholder, boolean done) {
-		Util.logInfo(this, "UPDATE TAB", "isDone = " + done);
+		Util.logInfo("UPDATE TAB", "isDone = " + done);
 		FragmentManager fm = getSupportFragmentManager();
 		fm.beginTransaction()
 				.replace(placeholder, FragmentList.newInstance(done), tabId)

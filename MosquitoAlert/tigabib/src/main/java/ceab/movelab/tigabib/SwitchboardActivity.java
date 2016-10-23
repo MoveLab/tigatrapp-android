@@ -24,8 +24,11 @@ package ceab.movelab.tigabib;
 import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
@@ -35,7 +38,7 @@ import android.os.Handler;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
+import android.support.v4.content.LocalBroadcastManager;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -46,7 +49,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.gson.reflect.TypeToken;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -70,8 +75,6 @@ import io.realm.Realm;
  */
 public class SwitchboardActivity extends Activity {
 
-	private static String TAG = "SwitchboardActivity";
-
 	private RelativeLayout reportButtonAdult;
 	private RelativeLayout reportButtonSite;
 	private RelativeLayout mapButton;
@@ -85,6 +88,8 @@ public class SwitchboardActivity extends Activity {
 
 	private Realm mRealm;
 
+	private BroadcastReceiver mMissionsBroadcastReceiver;
+
 	final private static int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 555;
 	private ArrayList<String> mPermissionsDenied;
 
@@ -93,10 +98,23 @@ public class SwitchboardActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		if (!PropertyHolder.isInit())
+		if ( !PropertyHolder.isInit() )
 			PropertyHolder.init(this);
 
 		lang = Util.setDisplayLanguage(getResources());
+
+		mMissionsBroadcastReceiver = new BroadcastReceiver() {
+			@Override
+			public void onReceive(Context context, Intent intent) {
+				if (intent.hasExtra(Messages.INTERNAL_MESSAGE_EXTRA)) {
+					String extra = intent.getStringExtra(Messages.INTERNAL_MESSAGE_EXTRA);
+					Util.logInfo(this.getClass().getName(), "extra: " + extra);
+				}
+//Toast.makeText(SwitchboardActivity.this, "location", Toast.LENGTH_SHORT).show();
+				updateMissionCount();
+			}
+		};
+		//LocalBroadcastManager.getInstance(this).registerReceiver(mMissionsBroadcastReceiver, new IntentFilter("aaa"));
 
 		/// Android 6.0 check for permissions first of all
 		mPermissionsDenied = getDeniedPermissions();
@@ -143,7 +161,7 @@ public class SwitchboardActivity extends Activity {
 				}
 			}*/
 
-			if (Util.privateMode(this)) {
+			if ( Util.privateMode(this) ) {
 				final long now = System.currentTimeMillis();
 
 				if ((now - PropertyHolder.getLastDemoPopUpTime()) > Util.DAYS) {
@@ -182,19 +200,6 @@ public class SwitchboardActivity extends Activity {
 
 			setContentView(R.layout.switchboard);
 
-			// open and close databases in order to trigger any updates
-			ContentResolver cr = getContentResolver();
-			Cursor c = cr.query(Util.getReportsUri(this), new String[]{ContProvContractReports.Reports.KEY_ROW_ID}, null, null, null);
-			if ( c != null ) c.close();
-			c = cr.query(Util.getMissionsUri(this), new String[]{ContProvContractReports.Reports.KEY_ROW_ID}, null, null, null);
-			if ( c != null ) c.close();
-
-			c = cr.query(Util.getMissionsUri(this), new String[]{Tasks.KEY_ID},
-					Tasks.KEY_ACTIVE + " = 1 AND " + Tasks.KEY_DONE + " = 0", null, null);
-			if ( c != null ) {
-				((TextView) findViewById(R.id.reportMissionsNumberText)).setText(String.valueOf(c.getCount()));
-			}
-
 			if (PropertyHolder.isServiceOn()) {
 				long lastScheduleTime = PropertyHolder.lastSampleScheduleMade();
 				if (System.currentTimeMillis() - lastScheduleTime > (1000 * 60 * 60 * 24)) {
@@ -207,7 +212,7 @@ public class SwitchboardActivity extends Activity {
 
 				@Override
 				public void onClick(View v) {
-					Intent i = new Intent(SwitchboardActivity.this, ReportTool.class);
+					Intent i = new Intent(SwitchboardActivity.this, ReportToolActivity.class);
 					Bundle b = new Bundle();
 					b.putInt("type", Report.TYPE_ADULT);
 					i.putExtras(b);
@@ -220,7 +225,7 @@ public class SwitchboardActivity extends Activity {
 
 				@Override
 				public void onClick(View v) {
-					Intent i = new Intent(SwitchboardActivity.this, ReportTool.class);
+					Intent i = new Intent(SwitchboardActivity.this, ReportToolActivity.class);
 					Bundle b = new Bundle();
 					b.putInt("type", Report.TYPE_BREEDING_SITE);
 					i.putExtras(b);
@@ -247,7 +252,7 @@ public class SwitchboardActivity extends Activity {
 					CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder()
 							.setToolbarColor(getResources().getColor(R.color.green_pybossa)).build();
 					CustomTabActivityHelper.openCustomTab(
-							SwitchboardActivity.this,// activity
+							SwitchboardActivity.this, // activity
 							customTabsIntent,
 							Uri.parse(getPybossaUrl()),
 							new WebviewFallback()
@@ -325,12 +330,17 @@ public class SwitchboardActivity extends Activity {
 			startActivity(getIntent());
 		}
 		super.onResume();
+		if ( mRealm == null ) mRealm = RealmHelper.getInstance().getRealm(this);
+
+		LocalBroadcastManager.getInstance(this)
+				.registerReceiver(mMissionsBroadcastReceiver, new IntentFilter(Messages.SHOW_TASK_NOTIFICATION));
 
 		if ( mPermissionsDenied.size() == 0 ) {
-			mRealm = RealmHelper.getInstance().getRealm(SwitchboardActivity.this);
 			loadRemoteNotifications();
+			updateNotificationCount();
+			updateMissionCount();
 		}
-		updateNotificationCount();
+
 	}
 
 	@Override
@@ -341,9 +351,9 @@ public class SwitchboardActivity extends Activity {
 
 	private void loadRemoteNotifications() {
 		String notificationUrl = Util.API_NOTIFICATION + "?user_id=" + PropertyHolder.getUserId();
-Util.logInfo(this, "==============", "TEST");
-Log.d("===========", "BuildConfig.DEBUG >> " + BuildConfig.DEBUG);
-Log.d("===========", Util.URL_TIGASERVER_API_ROOT + notificationUrl);
+//Util.logInfo("==============", "TEST");
+//Log.d("===========", "BuildConfig.DEBUG >> " + BuildConfig.DEBUG);
+//Log.d("===========", Util.URL_TIGASERVER_API_ROOT + notificationUrl);
 		Ion.with(this)
 			.load(Util.URL_TIGASERVER_API_ROOT + notificationUrl)
 			.setHeader("Accept", "application/json")
@@ -355,8 +365,8 @@ Log.d("===========", Util.URL_TIGASERVER_API_ROOT + notificationUrl);
 				public void onCompleted(Exception e, List<Notification> result) {
 					// do stuff with the result or error
 					if ( result != null ) {
-						Util.logInfo(SwitchboardActivity.this, TAG, result.toString());
-						RealmHelper.getInstance().addOrUpdateNotificationList(result);
+						Util.logInfo(this.getClass().getName(), result.toString());
+						RealmHelper.getInstance().addOrUpdateNotificationList(mRealm, result);
 					}
 					updateNotificationCount();
 				}
@@ -364,13 +374,42 @@ Log.d("===========", Util.URL_TIGASERVER_API_ROOT + notificationUrl);
 	}
 
 	private void updateNotificationCount() {
-		int count = RealmHelper.getInstance().getNewNotificationsCount();
-		((TextView) findViewById(R.id.reportNotificationsNumberText)).setText(String.valueOf(count));
+		if ( mRealm != null ) {
+			int count = RealmHelper.getInstance().getNewNotificationsCount(mRealm);
+			((TextView) findViewById(R.id.reportNotificationsNumberText)).setText(String.valueOf(count));
+		}
+		else {
+			// throw exception
+			Crashlytics.log("Realm is null");
+			Crashlytics.setString("Method", "updateNotificationCount");
+			Crashlytics.logException(new Exception());
+		}
+	}
+
+	private void updateMissionCount() {
+		// open and close databases in order to trigger any updates
+		ContentResolver cr = getContentResolver();
+		Cursor c = cr.query(Util.getReportsUri(this), new String[]{ContProvContractReports.Reports.KEY_ROW_ID}, null, null, null);
+		if ( c != null ) c.close();
+		c = cr.query(Util.getMissionsUri(this), new String[]{ContProvContractReports.Reports.KEY_ROW_ID}, null, null, null);
+		if ( c != null ) c.close();
+
+		c = cr.query(Util.getMissionsUri(this), new String[]{Tasks.KEY_ID},
+				Tasks.KEY_ACTIVE + " = 1 AND " + Tasks.KEY_DONE + " = 0", null, null);
+		if ( c != null ) {
+			try {
+				((TextView) findViewById(R.id.reportMissionsNumberText)).setText(String.valueOf(c.getCount()));
+			}
+			catch (Exception e) {
+				Toast.makeText(SwitchboardActivity.this, "updateMissionCount exception", Toast.LENGTH_SHORT).show();
+			}
+		}
 	}
 
 	@Override
 	protected void onPause() {
 		super.onPause();
+		LocalBroadcastManager.getInstance(this).unregisterReceiver(mMissionsBroadcastReceiver);
 	}
 
 	@Override

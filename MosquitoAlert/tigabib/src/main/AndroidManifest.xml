@@ -59,7 +59,7 @@
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity android:name="ceab.movelab.tigabib.ConsentActivity" />
-        <activity android:name=".HelpActivity" />
+        <activity android:name="ceab.movelab.tigabib.HelpActivity" />
         <activity android:name="ceab.movelab.tigabib.ViewReportsChecklistTab" />
         <activity android:name="ceab.movelab.tigabib.ViewReportsPhotosTab" />
         <activity android:name="ceab.movelab.tigabib.ViewReportsNotesTab" />
@@ -75,7 +75,7 @@
         <activity android:name="ceab.movelab.tigabib.NotificationActivity" />
 
         <activity android:name="ceab.movelab.tigabib.AttachedPhotos" />
-        <activity android:name="ceab.movelab.tigabib.ReportTool" />
+        <activity android:name="ceab.movelab.tigabib.ReportToolActivity" />
         <activity android:name="ceab.movelab.tigabib.GPLViewActivity" />
 
         <activity
@@ -105,8 +105,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ceab.movelab.tigabib.SwitchboardActivity" />
         </activity>
-        <activity android:name="ceab.movelab.tigabib.PhotoGallery" >
-        </activity>
+        <activity android:name="ceab.movelab.tigabib.PhotoGallery" />
 <!--        <activity
             android:name="ceab.movelab.tigabib.MapSelector"
             android:process=":p1" >
@@ -119,12 +118,11 @@
             android:process=":p1" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ceab.movelab.tigabib.ReportTool" />
+                android:value="ceab.movelab.tigabib.ReportToolActivity" />
         </activity>
-        <activity android:name="ceab.movelab.tigabib.AboutActivity">
-        </activity>
-        <activity android:name="ceab.movelab.tigabib.LicenseActivity">
-        </activity>
+        <activity android:name="ceab.movelab.tigabib.AboutActivity" />
+        <activity android:name="ceab.movelab.tigabib.LicenseActivity" />
+
         <activity
             android:name="ceab.movelab.tigabib.RSSActivity"
             android:parentActivityName="ceab.movelab.tigabib.SwitchboardActivity" >
@@ -138,7 +136,7 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.LAUNCHER" />
                 <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />
-                <action android:name="net.movelab.tigatrapp.tigatrapp2014.full.INTERNAL_ACTION" />
+                <action android:name="ceab.movelab.tigabib.INTERNAL_ACTION" />
             </intent-filter>
         </receiver>
 

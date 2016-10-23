@@ -4,10 +4,13 @@ import android.app.Application;
 import android.content.Context;
 
 import com.androidnetworking.AndroidNetworking;
+import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.core.CrashlyticsCore;
 
 import ceab.movelab.tigabib.model.DataModel;
 import ceab.movelab.tigabib.model.RealmHelper;
 import ceab.movelab.tigabib.utils.StethoUtils;
+import io.fabric.sdk.android.Fabric;
 
 public class MyApp extends Application {
 
@@ -19,12 +22,21 @@ public class MyApp extends Application {
 
 		initGlobals();
 
+		// Set up Crashlytics, disabled for debug builds
+		Crashlytics crashlyticsKit = new Crashlytics.Builder()
+				.core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
+				.build();
+		// Initialize Fabric with the debug-disabled crashlytics.
+		Fabric.with(this, crashlyticsKit);
+
 		RealmHelper.initialize(this);
 
 		AndroidNetworking.initialize(getApplicationContext());
 		AndroidNetworking.enableLogging();
 
 		StethoUtils.install(this);
+
+		//forceCrash();
     }
 
 /*	public void forceCrash() {

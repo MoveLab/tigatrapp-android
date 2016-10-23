@@ -197,7 +197,7 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 
 	@Override
 	public void onConnected(Bundle connectionHint) {
-		Util.logInfo(MapDataV2Activity.this, TAG, "GMS: Connected to GoogleApiClient");
+		Util.logInfo(TAG, "GMS: Connected to GoogleApiClient");
 		// If the initial location was never previously requested, we use FusedLocationApi.getLastLocation() to get it.
 		if ( mLastLocation == null ) {
 			try {
@@ -216,14 +216,14 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 	@Override
 	public void onConnectionSuspended(int cause) {
 		// The connection to Google Play services was lost for some reason. We call connect() to attempt to re-establish the connection.
-		Util.logInfo(MapDataV2Activity.this, TAG, "GMS: Connection suspended");
+		Util.logInfo(TAG, "GMS: Connection suspended");
 		mGoogleApiClient.connect();
 	}
 
 	@Override
 	public void onConnectionFailed(@NonNull ConnectionResult result) {
 		// Refer to the javadoc for ConnectionResult to see what error codes might be returned in onConnectionFailed.
-		Util.logInfo(MapDataV2Activity.this, TAG, "GMS: Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
+		Util.logInfo(TAG, "GMS: Connection failed: ConnectionResult.getErrorCode() = " + result.getErrorCode());
 	}
 
 	public LocationRequest getLocationRequest() {
@@ -231,15 +231,15 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 	}
 
 	protected void startLocationUpdates() {
-		Util.logInfo(MapDataV2Activity.this, TAG, "startLocationUpdates out");
+		Util.logInfo(TAG, "startLocationUpdates out");
 		if ( mGoogleApiClient != null && mGoogleApiClient.isConnected() ) {
-			Util.logInfo(MapDataV2Activity.this, TAG, "startLocationUpdates " + mGoogleApiClient);
+			Util.logInfo(TAG, "startLocationUpdates " + mGoogleApiClient);
 			try {
 				LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, getLocationRequest(), this)
 						.setResultCallback(new ResultCallback<Status>() {
 							@Override
 							public void onResult(Status status) {
-								Util.logInfo(MapDataV2Activity.this, TAG, "GMS: startLocationUpdates, onResult");
+								Util.logInfo(TAG, "GMS: startLocationUpdates, onResult");
 
 							}
 						});
@@ -253,7 +253,7 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 	 */
 	@Override
 	public void onLocationChanged(Location location) {
-		Util.logInfo(MapDataV2Activity.this, TAG, "GMS: onLocationChanged");
+		Util.logInfo(TAG, "GMS: onLocationChanged");
         mLastLocation = location;
 		loadNeighbours(location, NEARBY_RADIUS);
         LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
@@ -456,7 +456,7 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 					"&lat=" + myLocation.getLatitude() +
 					"&lon=" + myLocation.getLongitude() +
 					"&radius=" + radius;
-			Util.logInfo(MapDataV2Activity.this, TAG, nearbyUrl);
+			Util.logInfo(TAG, nearbyUrl);
 
 			Ion.with(this)
 				.load(Util.URL_TIGASERVER_API_ROOT + nearbyUrl)
@@ -470,7 +470,7 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 					public void onCompleted(Exception e, List<NearbyReport> nearbyResults) {
 						// do stuff with the result or error
 						if (nearbyResults != null) {
-							Util.logInfo(MapDataV2Activity.this, TAG, nearbyResults.toString());
+							Util.logInfo(TAG, nearbyResults.toString());
 							for (NearbyReport nbr : nearbyResults) {
 								LatLng pointLatLng = new LatLng(nbr.getLat(), nbr.getLon());
 								String myTitle = nbr.getSimplifiedAnnotation().getClassification();
@@ -616,7 +616,7 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 					MediaScannerConnection.scanFile(MapDataV2Activity.this, new String[] { f.getPath() },
 							new String[] { "image/*" }, new MediaScannerConnection.OnScanCompletedListener() {
 								public void onScanCompleted(String path, Uri uri) {
-									Util.logInfo(MapDataV2Activity.this, this.getClass().toString(), "Finished scanning " + path);
+									Util.logInfo(this.getClass().toString(), "Finished scanning " + path);
 								}
 							});
 				} else {

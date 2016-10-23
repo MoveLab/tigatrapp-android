@@ -1,10 +1,10 @@
 package ceab.movelab.tigabib.model;
 
 import android.content.Context;
-import android.util.Log;
 
 import java.util.List;
 
+import ceab.movelab.tigabib.Util;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 import io.realm.RealmResults;
@@ -12,7 +12,6 @@ import io.realm.RealmResults;
 public class RealmHelper {
 
     private static RealmHelper instance = null;
-    private Realm mRealm;
 
     // Exists only to defeat instantiation
     protected RealmHelper() { }
@@ -38,18 +37,20 @@ public class RealmHelper {
                     .schemaVersion(1)
                     .deleteRealmIfMigrationNeeded()
                     .build();
-           mRealm = Realm.getInstance(config);
+           //mRealm = Realm.getInstance(config);
         //}
-        return mRealm;
+        return Realm.getInstance(config);
     }
 
+/*
     public Realm getRealm() {
         return mRealm;
     }
+*/
 
-    public void addOrUpdateNotificationList(final List<Notification> notifList) {
+    public void addOrUpdateNotificationList(final Realm realm, final List<Notification> notifList) {
         if ( notifList != null ) {
-            mRealm.executeTransaction(new Realm.Transaction() {
+            realm.executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {
                     realm.copyToRealmOrUpdate(notifList);
@@ -58,8 +59,8 @@ public class RealmHelper {
         }
     }
 
-    public Notification getNotificationById(int id) {
-        return mRealm.where(Notification.class).equalTo("id", id).findFirst();
+    public Notification getNotificationById(final Realm realm, int id) {
+        return realm.where(Notification.class).equalTo("id", id).findFirst();
     }
 
 /*    public RealmResults<Notification> getAllNotifications() {
@@ -67,16 +68,16 @@ public class RealmHelper {
         return mRealm.where(Notification.class).findAll();
     }*/
 
-    public RealmResults<Notification> getNotificationsRead(boolean ack) {
-        RealmResults<Notification> results = mRealm.where(Notification.class).equalTo("acknowledged", ack).findAll();
-Log.d("REALM", "getNotificationsRead (" + ack + ") >> " + results.size());
-        return  mRealm.where(Notification.class).equalTo("acknowledged", ack).findAll();
+    public RealmResults<Notification> getNotificationsRead(final Realm realm, boolean ack) {
+        RealmResults<Notification> results = realm.where(Notification.class).equalTo("acknowledged", ack).findAll();
+        Util.logInfo(this.getClass().getName(), "getNotificationsRead (" + ack + ") >> " + results.size());
+        return  realm.where(Notification.class).equalTo("acknowledged", ack).findAll();
     }
 
-    public int getNewNotificationsCount() {
+    public int getNewNotificationsCount(final Realm realm) {
         //RealmResults<Notification> results = mRealm.where(Notification.class).findAll(); // !!! filter by new
         //RealmResults<Notification> results = mRealm.where(Notification.class).equalTo("read", false).findAll();
-        RealmResults<Notification> results =  getNotificationsRead(false);
+        RealmResults<Notification> results =  getNotificationsRead(realm, false);
         return results.size();
     }
 

@@ -1,6 +1,20 @@
+buildscript {
+    repositories {
+        maven { url 'https://maven.fabric.io/public' }
+    }
+
+    dependencies {
+        // The Fabric Gradle plugin uses an open ended version to react
+        // quickly to Android tooling updates
+        classpath 'io.fabric.tools:gradle:1.+'
+    }
+}
+
 apply plugin: 'com.android.application'
+apply plugin: 'io.fabric'
 
 repositories {
+    maven { url 'https://maven.fabric.io/public' }
     maven { url 'https://github.com/uPhyca/stetho-realm/raw/master/maven-repo' }
 }
 
@@ -10,7 +24,7 @@ android {
         }
     }
     compileSdkVersion 'Google Apis:Google Apis:23'
-    buildToolsVersion "24.0.2"
+    buildToolsVersion "24.0.3"
     defaultConfig {
         applicationId "ceab.movelab.tigerapp"
         minSdkVersion 9
@@ -19,6 +33,9 @@ android {
         versionName "Mosquito Alert Demo 1.04"
     }
     buildTypes {
+        debug {
+            debuggable true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
@@ -29,11 +46,14 @@ android {
 }
 
 dependencies {
-    compile project(':tigabib')
-    compile 'com.android.support:support-v4:24.2.0'
-    compile 'com.google.android.gms:play-services-maps:9.4.0'
+    releaseCompile project(path: ':tigabib', configuration: 'release')
+    debugCompile project(path: ':tigabib', configuration: 'debug')
 
-    compile 'com.facebook.stetho:stetho-okhttp3:1.3.1'
-    compile 'com.facebook.stetho:stetho:1.3.1'
-    compile 'com.uphyca:stetho_realm:0.9.0'
+    //compile project(':tigabib')
+    compile 'com.android.support:support-v4:24.2.0'
+    compile 'com.android.support:appcompat-v7:24.2.0'
+
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
+        transitive = true;
+    }
 }

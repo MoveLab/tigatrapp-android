@@ -53,7 +53,7 @@ public class MissionItemModel {
 			if (item.has(KEY_ITEM_ID))
 				this.itemId = item.getString(KEY_ITEM_ID);
 		} catch (JSONException e) {
-			Util.logError(context, TAG, "error: " + e);
+			Util.logError(TAG, "error: " + e);
 		}
 
 		String currentLang = PropertyHolder.getLanguage();
@@ -69,26 +69,26 @@ public class MissionItemModel {
 							if (item.has(KEY_PREPOSITIONED_IMAGE_REFERENCE_CATALAN))
 								this.itemHelpImage = item.getInt(KEY_PREPOSITIONED_IMAGE_REFERENCE_CATALAN);
 						} catch (JSONException e) {
-							Util.logError(context, TAG, "error: " + e);
+							Util.logError(TAG, "error: " + e);
 						}
 					} else if  (currentLang.equals("es")) {
 						try {
 							if (item.has(KEY_PREPOSITIONED_IMAGE_REFERENCE_SPANISH))
 								this.itemHelpImage = item.getInt(KEY_PREPOSITIONED_IMAGE_REFERENCE_SPANISH);
 						} catch (JSONException e) {
-							Util.logError(context, TAG, "error: " + e);
+							Util.logError(TAG, "error: " + e);
 						}
 					} else if  (currentLang.equals("en")) {
 						try {
 							if (item.has(KEY_PREPOSITIONED_IMAGE_REFERENCE_ENGLISH))
 								this.itemHelpImage = item.getInt(KEY_PREPOSITIONED_IMAGE_REFERENCE_ENGLISH);
 						} catch (JSONException e) {
-							Util.logError(context, TAG, "error: " + e);
+							Util.logError(TAG, "error: " + e);
 						}
 					}
 				}
 		} catch (JSONException e) {
-			Util.logError(context, TAG, "error: " + e);
+			Util.logError(TAG, "error: " + e);
 		}
 
 		// if answered, then language already decided:
@@ -96,7 +96,7 @@ public class MissionItemModel {
 			try {
 				this.itemText = item.getString(KEY_ITEM_TEXT);
 			} catch (JSONException e) {
-				Util.logError(context, TAG, "error: " + e);
+				Util.logError(TAG, "error: " + e);
 			}
 			// if preset, then language already decided:
 		} else if (item.has(KEY_ANSWER_CHOICES) && item.has(KEY_HELP_TEXT)
@@ -118,7 +118,7 @@ public class MissionItemModel {
 				itemChoices = itemChoicesTemp;
 
 			} catch (JSONException e) {
-				Util.logError(context, TAG, "error: " + e);
+				Util.logError(TAG, "error: " + e);
 			}
 		} else {
 			if (currentLang.equals("ca")) {
@@ -126,19 +126,19 @@ public class MissionItemModel {
 					if (item.has(KEY_QUESTION_CATALAN))
 						this.itemText = item.getString(KEY_QUESTION_CATALAN);
 				} catch (JSONException e) {
-					Util.logError(context, TAG, "error: " + e);
+					Util.logError(TAG, "error: " + e);
 				}
 				try {
 					if (item.has(KEY_HELP_TEXT_CATALAN))
 						this.itemHelp = item.getString(KEY_HELP_TEXT_CATALAN);
 				} catch (JSONException e) {
-					Util.logError(context, TAG, "error: " + e);
+					Util.logError(TAG, "error: " + e);
 				}
 				try {
 					if (item.has(KEY_PREPOSITIONED_IMAGE_REFERENCE_CATALAN))
 						this.itemHelpImage = item.getInt(KEY_PREPOSITIONED_IMAGE_REFERENCE_CATALAN);
 				} catch (JSONException e) {
-					Util.logError(context, TAG, "error: " + e);
+					Util.logError(TAG, "error: " + e);
 				}
 
 				try {
@@ -158,7 +158,7 @@ public class MissionItemModel {
 					}
 
 				} catch (JSONException e) {
-					Util.logError(context, TAG, "error: " + e);
+					Util.logError(TAG, "error: " + e);
 				}
 
 			} else if (currentLang.equals("es")) {
@@ -166,19 +166,19 @@ public class MissionItemModel {
 					if (item.has(KEY_QUESTION_SPANISH))
 						this.itemText = item.getString(KEY_QUESTION_SPANISH);
 				} catch (JSONException e) {
-					Util.logError(context, TAG, "error: " + e);
+					Util.logError(TAG, "error: " + e);
 				}
 				try {
 					if (item.has(KEY_HELP_TEXT_SPANISH))
 						this.itemHelp = item.getString(KEY_HELP_TEXT_SPANISH);
 				} catch (JSONException e) {
-					Util.logError(context, TAG, "error: " + e);
+					Util.logError(TAG, "error: " + e);
 				}
 				try {
 					if (item.has(KEY_PREPOSITIONED_IMAGE_REFERENCE_SPANISH))
 						this.itemHelpImage = item.getInt(KEY_PREPOSITIONED_IMAGE_REFERENCE_SPANISH);
 				} catch (JSONException e) {
-					Util.logError(context, TAG, "error: " + e);
+					Util.logError(TAG, "error: " + e);
 				}
 
 				try {
@@ -199,7 +199,7 @@ public class MissionItemModel {
 					}
 
 				} catch (JSONException e) {
-					Util.logError(context, TAG, "error: " + e);
+					Util.logError(TAG, "error: " + e);
 				}
 
 			} else if (currentLang.equals("en")) {
@@ -207,19 +207,19 @@ public class MissionItemModel {
 					if (item.has(KEY_QUESTION_ENGLISH))
 						this.itemText = item.getString(KEY_QUESTION_ENGLISH);
 				} catch (JSONException e) {
-					Util.logError(context, TAG, "error: " + e);
+					Util.logError(TAG, "error: " + e);
 				}
 				try {
 					if (item.has(KEY_HELP_TEXT_ENGLISH))
 						this.itemHelp = item.getString(KEY_HELP_TEXT_ENGLISH);
 				} catch (JSONException e) {
-					Util.logError(context, TAG, "error: " + e);
+					Util.logError(TAG, "error: " + e);
 				}
 				try {
 					if (item.has(KEY_PREPOSITIONED_IMAGE_REFERENCE_ENGLISH))
 						this.itemHelpImage = item.getInt(KEY_PREPOSITIONED_IMAGE_REFERENCE_ENGLISH);
 				} catch (JSONException e) {
-					Util.logError(context, TAG, "error: " + e);
+					Util.logError(TAG, "error: " + e);
 				}
 
 				try {
@@ -239,7 +239,7 @@ public class MissionItemModel {
 					}
 
 				} catch (JSONException e) {
-					Util.logError(context, TAG, "error: " + e);
+					Util.logError(TAG, "error: " + e);
 				}
 			}
 		}
@@ -251,7 +251,7 @@ public class MissionItemModel {
 			if (item.has(KEY_ITEM_RESPONSE))
 				this.itemResponse = item.getString(KEY_ITEM_RESPONSE);
 		} catch (JSONException e) {
-			Util.logError(context, TAG, "error: " + e);
+			Util.logError(TAG, "error: " + e);
 		}
 
 	}
@@ -314,12 +314,9 @@ public class MissionItemModel {
 			JSONObject thisItemResponse;
 			try {
 				thisItemResponse = new JSONObject(this.itemResponse);
-				String thisResponse = thisItemResponse
-						.getString(MissionItemModel.KEY_ITEM_RESPONSE);
+				String thisResponse = thisItemResponse.getString(MissionItemModel.KEY_ITEM_RESPONSE);
 				if (thisResponse != null)
-					result = Arrays.asList(getItemChoices()).indexOf(
-							thisResponse);
-
+					result = Arrays.asList(getItemChoices()).indexOf(thisResponse);
 			} catch (JSONException e) {
 				// TODO
 			}

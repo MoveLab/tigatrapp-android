@@ -221,7 +221,7 @@ public class RSSActivity extends Activity {
 				Util.logError(RSSActivity.this, TAG, "error: " + e);
 			}*/
 			} catch (Exception e) {
-				Util.logError(RSSActivity.this, TAG, "error: " + e);
+				Util.logError(TAG, "error: " + e);
 			}
 
 			return RSSPostList;

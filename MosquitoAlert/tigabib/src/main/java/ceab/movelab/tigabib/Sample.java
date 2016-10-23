@@ -42,10 +42,6 @@
 
 package ceab.movelab.tigabib;
 
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Random;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -54,7 +50,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.IBinder;
-import android.os.SystemClock;
+
+import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Random;
 
 /**
  * Uploads files to the server.
@@ -74,7 +73,7 @@ public class Sample extends Service {
 	@Override
 	public void onStart(Intent intent, int startId) {
 
-		Util.logInfo(context, TAG, "on start");
+		Util.logInfo(TAG, "on start");
 
 		if (!Util.privateMode(context)) {
 			Thread uploadThread = new Thread(null, doSampling,
@@ -94,10 +93,10 @@ public class Sample extends Service {
 	public void onCreate() {
 
 		context = getApplicationContext();
-		if (PropertyHolder.isInit() == false)
+		if ( !PropertyHolder.isInit() )
 			PropertyHolder.init(context);
 
-		Util.logInfo(context, TAG, "Sample onCreate.");
+		Util.logInfo(TAG, "Sample onCreate.");
 
 	}
 
@@ -108,7 +107,7 @@ public class Sample extends Service {
 
 	private void setSamples() {
 
-		Util.logInfo(context, TAG, "set samples");
+		Util.logInfo(TAG, "set samples");
 
 		int samplesPerDay = PropertyHolder.getSamplesPerDay();
 		AlarmManager alarmManager = (AlarmManager) context
@@ -131,8 +130,7 @@ public class Sample extends Service {
 
 			// figure out the hour of day this corresponds to when minute index
 			// 0 is 00:00
-			thisRandomHour = (int) Math.floor(thisRandomMinuteIndex
-					/ ((double) 60));
+			thisRandomHour = (int) Math.floor(thisRandomMinuteIndex / ((double) 60));
 
 			// figure out the minute of the hour
 			if (thisRandomHour > 0)
@@ -157,8 +155,7 @@ public class Sample extends Service {
 			currentSamplingTimes[i] = Util.iso8601(thisTriggerTime);
 
 			alarmManager.set(alarmType, thisTriggerTime, PendingIntent
-					.getService(context, (ALARM_ID_START_FIX * i), new Intent(
-							context, FixGet.class), 0));
+					.getService(context, (ALARM_ID_START_FIX * i), new Intent(context, FixGet.class), 0));
 		}
 		Arrays.sort(currentSamplingTimes);
 		PropertyHolder.setCurrentFixTimes(currentSamplingTimes);

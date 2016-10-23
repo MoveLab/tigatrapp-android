@@ -115,11 +115,11 @@ public class MapSelectorV2Activity extends FragmentActivity implements OnMapRead
 		checkGoogleApiAvailability();
 
 		Bundle b = getIntent().getExtras();
-		if (b.containsKey(Messages.makeIntentExtraKey(this, ReportTool.PREVIOUS_LAT))) {
-			previous_lat = b.getFloat(Messages.makeIntentExtraKey(this, ReportTool.PREVIOUS_LAT)) * 1E6;
+		if (b.containsKey(Messages.makeIntentExtraKey(this, ReportToolActivity.PREVIOUS_LAT))) {
+			previous_lat = b.getFloat(Messages.makeIntentExtraKey(this, ReportToolActivity.PREVIOUS_LAT)) * 1E6;
 		}
-		if (b.containsKey(Messages.makeIntentExtraKey(this, ReportTool.PREVIOUS_LON))) {
-			previous_lon = b.getFloat(Messages.makeIntentExtraKey(this, ReportTool.PREVIOUS_LON)) * 1E6;
+		if (b.containsKey(Messages.makeIntentExtraKey(this, ReportToolActivity.PREVIOUS_LON))) {
+			previous_lon = b.getFloat(Messages.makeIntentExtraKey(this, ReportToolActivity.PREVIOUS_LON)) * 1E6;
 		}
 
 		mMapFragment = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapview));

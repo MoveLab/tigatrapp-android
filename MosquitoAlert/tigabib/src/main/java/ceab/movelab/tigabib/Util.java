@@ -172,12 +172,12 @@ public class Util {
 		return BuildConfig.DEBUG;
 	}
 
-	public static void logError(Context context, String tag, String message) {
+	public static void logError(String tag, String message) {
 		if ( debugMode() )
 			Log.e(tag, message);
 	}
 
-	public static void logInfo(Context context, String tag, String message) {
+	public static void logInfo(String tag, String message) {
 		if ( debugMode() )
 			Log.i(tag, message);
 	}
@@ -351,7 +351,7 @@ public class Util {
 			else
 				result = d.getTime();
 		} catch (ParseException e) {
-			Util.logError(context, TAG, "exception: " + e);
+			Util.logError(TAG, "exception: " + e);
 		}
 		return result;
 	}
@@ -583,11 +583,11 @@ public class Util {
 		if (netInfo != null && netInfo.isConnected()) {
 			return true;
 		}
-		Util.logInfo(context, TAG, "Not online");
+		Util.logInfo(TAG, "Not online");
 		return false;
 	}
 
-	public static int getBatteryLevel(Context context) {
+/*	public static int getBatteryLevel(Context context) {
 		Intent batteryIntent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
 		int level = batteryIntent.getIntExtra("level", -1);
 		int scale = batteryIntent.getIntExtra("scale", -1);
@@ -597,10 +597,9 @@ public class Util {
 			return -1;
 		}
 
-		int powerLevel = (int) Math.round(level * 100.0 / scale);
-
-		return powerLevel;
-	}
+		//int powerLevel = (int) Math.round(level * 100.0 / scale);
+		return (int) Math.round(level * 100.0 / scale);
+	}*/
 
 	public static float getBatteryProportion(Context context) {
 		Intent batteryIntent = context.registerReceiver(null, new IntentFilter(Intent.ACTION_BATTERY_CHANGED));
@@ -613,9 +612,9 @@ public class Util {
 		}
 
 		float powerProportion = (float) level / scale;
-		Util.logInfo(context, TAG, "battery level: " + level);
-		Util.logInfo(context, TAG, "battery scale: " + scale);
-		Util.logInfo(context, TAG, "battery prop: " + powerProportion);
+		Util.logInfo(TAG, "battery level: " + level);
+		Util.logInfo(TAG, "battery scale: " + scale);
+		Util.logInfo(TAG, "battery prop: " + powerProportion);
 		return powerProportion;
 	}
 
@@ -759,7 +758,6 @@ public class Util {
 		FileInputStream fileInputStream = null;
 		try {
 			// ------------------ CLIENT REQUEST
-
 			fileInputStream = new FileInputStream(uri);
 
 			// open a URL connection to the Servlet
@@ -780,8 +778,7 @@ public class Util {
 			// conn.setRequestProperty("Connection", "Keep-Alive");
 
 			conn.setRequestProperty("Authorization", TIGASERVER_AUTHORIZATION);
-			conn.setRequestProperty("Content-Type",
-					"multipart/form-data;boundary=" + boundary);
+			conn.setRequestProperty("Content-Type", "multipart/form-data;boundary=" + boundary);
 
 			dos = new DataOutputStream(conn.getOutputStream());
 			dos.writeBytes(twoHyphens + boundary + lineEnd);
@@ -809,7 +806,7 @@ public class Util {
 
 			dos.writeBytes(twoHyphens + boundary + lineEnd);
 		} catch (Exception e) {
-			Util.logError(context, TAG, "error: " + e);
+			Util.logError(TAG, "error: " + e);
 		} finally {
 			if (dos != null) {
 				try {
@@ -832,7 +829,6 @@ public class Util {
 
 		// ------------------ read the SERVER RESPONSE
 		try {
-
 			if (conn != null) {
 				response = conn.getResponseCode();
 				Log.d(TAG, "response: " + conn.getResponseMessage());
@@ -878,11 +874,11 @@ public class Util {
 				result = httpclient.execute(httpost);
 
 			} catch (UnsupportedEncodingException e) {
-				Util.logError(context, TAG, "error: " + e);
+				Util.logError(TAG, "error: " + e);
 			} catch (ClientProtocolException e) {
-				Util.logError(context, TAG, "error: " + e);
+				Util.logError(TAG, "error: " + e);
 			} catch (IOException e) {
-				Util.logError(context, TAG, "error: " + e);
+				Util.logError(TAG, "error: " + e);
 			}
 			return result;
 		}
@@ -912,13 +908,13 @@ public class Util {
 				json = new JSONObject(builder.toString());
 
 			} catch (UnsupportedEncodingException e) {
-				Util.logError(context, TAG, "error: " + e);
+				Util.logError(TAG, "error: " + e);
 			} catch (IllegalStateException e) {
-				Util.logError(context, TAG, "error: " + e);
+				Util.logError(TAG, "error: " + e);
 			} catch (IOException e) {
-				Util.logError(context, TAG, "error: " + e);
+				Util.logError(TAG, "error: " + e);
 			} catch (JSONException e) {
-				Util.logError(context, TAG, "error: " + e);
+				Util.logError(TAG, "error: " + e);
 			}
 		}
 		return json;
@@ -949,7 +945,7 @@ public class Util {
 				HttpResponse response = client.execute(httpGet);
 				StatusLine statusLine = response.getStatusLine();
 				int statusCode = statusLine.getStatusCode();
-				Util.logInfo(context, TAG, "Status code:" + statusCode);
+				Util.logInfo(TAG, "Status code:" + statusCode);
 
 				if (statusCode == 200) {
 					HttpEntity entity = response.getEntity();
@@ -960,12 +956,12 @@ public class Util {
 						builder.append(line);
 					}
 				} else {
-					Util.logInfo(context, TAG, "failed to get JSON data");
+					Util.logInfo(TAG, "failed to get JSON data");
 				}
 			} catch (ClientProtocolException e) {
-				Util.logError(context, TAG, "error: " + e);
+				Util.logError(TAG, "error: " + e);
 			} catch (IOException e) {
-				Util.logError(context, TAG, "error: " + e);
+				Util.logError(TAG, "error: " + e);
 			}
 
 			return builder.toString();
@@ -996,16 +992,16 @@ public class Util {
 
 	public static Boolean registerOnServer(Context context) {
 
-		Util.logInfo(context, TAG, "register on server");
+		Util.logInfo(TAG, "register on server");
 
 		Boolean result = false;
 		JSONObject jsonUUID;
 		try {
 			jsonUUID = new JSONObject();
 			jsonUUID.put("user_UUID", PropertyHolder.getUserId());
-			Util.logInfo(context, TAG, "register json: " + jsonUUID.toString());
+			Util.logInfo(TAG, "register json: " + jsonUUID.toString());
 			int statusCode = Util.getResponseStatusCode(Util.postJSON(jsonUUID, Util.API_USER, context));
-			Util.logInfo(context, TAG, "register status code: " + statusCode);
+			Util.logInfo(TAG, "register status code: " + statusCode);
 
 			if (statusCode < 300 && statusCode > 0) {
 				PropertyHolder.setRegistered(true);
@@ -1014,7 +1010,7 @@ public class Util {
 				result = false;
 			}
 		} catch (JSONException e) {
-			Util.logError(context, TAG, "error: " + e);
+			Util.logError(TAG, "error: " + e);
 			// try creating UUID again
 			PropertyHolder.setUserId(UUID.randomUUID().toString());
 			// consider looping back but make sure this will not lead to chaos.

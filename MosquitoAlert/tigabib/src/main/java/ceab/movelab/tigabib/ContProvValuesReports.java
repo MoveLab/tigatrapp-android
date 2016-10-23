@@ -69,20 +69,16 @@ public class ContProvValuesReports {
 		initialValues.put(Reports.KEY_LOCATION_CHOICE, rep.locationChoice);
 
 		if (rep.currentLocationLat != null)
-			initialValues.put(Reports.KEY_CURRENT_LOCATION_LAT,
-					rep.currentLocationLat.floatValue());
+			initialValues.put(Reports.KEY_CURRENT_LOCATION_LAT, rep.currentLocationLat.floatValue());
 
 		if (rep.currentLocationLon != null)
-			initialValues.put(Reports.KEY_CURRENT_LOCATION_LON,
-					rep.currentLocationLon.floatValue());
+			initialValues.put(Reports.KEY_CURRENT_LOCATION_LON, rep.currentLocationLon.floatValue());
 
 		if (rep.selectedLocationLat != null)
-			initialValues.put(Reports.KEY_SELECTED_LOCATION_LAT,
-					rep.selectedLocationLat.floatValue());
+			initialValues.put(Reports.KEY_SELECTED_LOCATION_LAT, rep.selectedLocationLat.floatValue());
 
 		if (rep.selectedLocationLon != null)
-			initialValues.put(Reports.KEY_SELECTED_LOCATION_LON,
-					rep.selectedLocationLon.floatValue());
+			initialValues.put(Reports.KEY_SELECTED_LOCATION_LON, rep.selectedLocationLon.floatValue());
 
 		initialValues.put(Reports.KEY_PHOTO_ATTACHED, rep.photoAttached);
 

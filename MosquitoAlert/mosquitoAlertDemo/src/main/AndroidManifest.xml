@@ -22,13 +22,7 @@
 
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="ceab.movelab.tigerapp"
-    android:versionCode="28"
-    android:versionName="Mosquito Alert Demo 1.04">
-
- <!--   <uses-sdk
-        android:minSdkVersion="4"
-        android:targetSdkVersion="18" />-->
+    package="ceab.movelab.tigerapp">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -50,15 +44,15 @@
         android:theme="@style/DarkThemeSelector" >
         <uses-library android:name="com.google.android.maps" />
 
-        <activity android:name="ceab.movelab.tigabib.Settings" >
+        <activity android:name="ceab.movelab.tigabib.SettingsActivity" >
         </activity>
         <activity
             android:name="ceab.movelab.tigabib.LanguageSelector"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
-        <activity android:name="ceab.movelab.tigabib.Consent" >
+        <activity android:name="ceab.movelab.tigabib.ConsentActivity" >
         </activity>
-        <activity android:name="ceab.movelab.tigabib.Help" >
+        <activity android:name="ceab.movelab.tigabib.HelpActivity" >
         </activity>
         <activity android:name="ceab.movelab.tigabib.ViewReportsChecklistTab" >
         </activity>
@@ -76,54 +70,49 @@
         </activity>
         <activity android:name="ceab.movelab.tigabib.AttachedPhotos" >
         </activity>
-        <activity android:name="ceab.movelab.tigabib.ReportTool" >
+        <activity android:name="ceab.movelab.tigabib.ReportToolActivity" >
         </activity>
-        <activity android:name="ceab.movelab.tigabib.GPLView" >
+        <activity android:name="ceab.movelab.tigabib.GPLViewActivity" >
         </activity>
         <activity
-            android:name="ceab.movelab.tigabib.Switchboard"
-            android:allowTaskReparenting="true"
-            android:launchMode="singleInstance" >
+            android:name="ceab.movelab.tigabib.SplashActivity"
+            android:label="@string/app_name"
+            android:noHistory="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="ceab.movelab.tigabib.MapData"
+            android:name="ceab.movelab.tigabib.SwitchboardActivity"
+            android:launchMode="singleInstance" >
+        </activity>
+        <activity
+            android:name="ceab.movelab.tigabib.MapDataV2Activity"
             android:hardwareAccelerated="false"
             android:process=":p2" >
             <meta-data
                 tools:replace="android:value"
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ceab.movelab.tigabib.Switchboard" />
+                android:value="ceab.movelab.tigabib.SwitchboardActivity" />
         </activity>
-        <activity android:name="ceab.movelab.tigabib.PhotoGallery" >
-        </activity>
+        <activity android:name="ceab.movelab.tigabib.PhotoGallery" />
+
         <activity
-            android:name="ceab.movelab.tigabib.MapSelector"
-            android:process=":p1" >
-            <meta-data
-                tools:replace="android:value"
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="ceab.movelab.tigabib.ReportTool" />
-        </activity>
-        <activity
-            android:name="ceab.movelab.tigabib.About"
+            android:name="ceab.movelab.tigabib.AboutActivity"
             android:allowTaskReparenting="true" >
         </activity>
         <activity
-            android:name="ceab.movelab.tigabib.License"
+            android:name="ceab.movelab.tigabib.LicenseActivity"
             android:allowTaskReparenting="true" >
         </activity>
         <activity
             android:name="ceab.movelab.tigabib.RSSActivity"
-            android:parentActivityName="ceab.movelab.tigabib.Switchboard" >
+            android:parentActivityName="ceab.movelab.tigabib.SwitchboardActivity" >
             <meta-data
                 tools:replace="android:value"
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="ceab.movelab.tigabib.Switchboard" />
+                android:value="ceab.movelab.tigabib.SwitchboardActivity" />
         </activity>
 
         <receiver android:name="ceab.movelab.tigabib.TigerBroadcastReceiver" >
@@ -158,6 +147,17 @@
             android:enabled="true"
             android:exported="false" >
         </provider>
+
+        <meta-data
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version"/>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCCHvFv_a2jIZdwbYdBe21VssK5G1cJiBM"/>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="3f228cfd22afc1929994c25d761d61c5c1137d7a" />
+
     </application>
 
 </manifest>

@@ -99,19 +99,17 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
+		Util.logInfo(TAG, "on receive");
 
-		Util.logInfo(context, TAG, "on receive");
-
-		if (!PropertyHolder.isInit())
+		if ( !PropertyHolder.isInit() )
 			PropertyHolder.init(context);
 
 		if (PropertyHolder.hasConsented() && !Util.privateMode(context)) {
-
 			String action = intent.getAction();
 			String extra = "";
 			if (intent.hasExtra(Messages.INTERNAL_MESSAGE_EXTRA)) {
 				extra = intent.getStringExtra(Messages.INTERNAL_MESSAGE_EXTRA);
-				Util.logInfo(context, TAG, "extra: " + extra);
+				Util.logInfo(TAG, "extra: " + extra);
 			}
 			AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
@@ -131,22 +129,22 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 				int alarmType = AlarmManager.ELAPSED_REALTIME_WAKEUP;
 				alarmManager.setRepeating(alarmType, SystemClock.elapsedRealtime(), DAILY_INTERVAL, pi2sample);
 				PropertyHolder.setServiceOn(true);
-				Util.logInfo(context, TAG, "started daily sampling");
+				Util.logInfo(TAG, "started daily sampling");
 				PropertyHolder.lastSampleScheduleMade(System.currentTimeMillis());
 			} else if (extra.contains(Messages.STOP_DAILY_SAMPLING)) {
 				alarmManager.cancel(pi2sample);
 				PropertyHolder.setServiceOn(false);
 				context.stopService(i2stopfix);
-				Util.logInfo(context, TAG, "stopped sampling");
+				Util.logInfo(TAG, "stopped sampling");
 			} else if (extra.contains(Messages.START_DAILY_SYNC)) {
 				// first sync now
 				context.startService(new Intent(context, SyncData.class));
 				int alarmType = AlarmManager.ELAPSED_REALTIME_WAKEUP;
 				alarmManager.setRepeating(alarmType, SystemClock.elapsedRealtime(), DAILY_INTERVAL, pi2sync);
-				Util.logInfo(context, TAG, "started daily sync");
+				Util.logInfo(TAG, "started daily sync");
 			} else if (extra.contains(Messages.STOP_DAILY_SYNC)) {
 				alarmManager.cancel(pi2sync);
-				Util.logInfo(context, TAG, "stop sync");
+				Util.logInfo(TAG, "stop sync");
 			} else if (extra.contains(Messages.START_TASK_FIX)) {
 				Intent tfi = new Intent(context, FixGet.class);
 				tfi.setAction(Messages.taskFixAction(context));
@@ -155,30 +153,29 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 				// alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
 				// baseTime
 				// + Util.TASK_FIX_WINDOW, pi2stopfix);
-				Util.logInfo(context, TAG, "start task fix");
+				Util.logInfo(TAG, "start task fix");
 			} else if (extra.contains(Messages.SHOW_TASK_NOTIFICATION)) {
 				final String taskTitle = intent.getStringExtra(Tasks.KEY_TITLE);
 				createNotification(context, taskTitle);
-				Util.logInfo(context, TAG, "show task notification");
+				Util.logInfo(TAG, "show task notification");
 			} else if (extra.contains(Messages.REMOVE_TASK_NOTIFICATION)) {
 				cancelNotification(context);
-				Util.logInfo(context, TAG, "remove task notification");
+				Util.logInfo(TAG, "remove task notification");
 			} else if (action.contains(Intent.ACTION_BOOT_COMPLETED)) {
 				if (PropertyHolder.isServiceOn()) {
 					Util.internalBroadcast(context, Messages.START_DAILY_SAMPLING);
 				}
 				Util.internalBroadcast(context, Messages.START_DAILY_SYNC);
-				Util.logInfo(context, TAG, "boot completed");
+				Util.logInfo(TAG, "boot completed");
 			} else if (action.contains(Intent.ACTION_POWER_CONNECTED)) {
 				context.startService(new Intent(context, SyncData.class));
-				Util.logInfo(context, TAG, "power connected");
+				Util.logInfo(TAG, "power connected");
 			}
 		}
 	}
 
 	public void createNotification(Context context, String taskTitle) {
-
-		Util.logInfo(context, TAG, "create notification");
+		Util.logInfo(TAG, "create notification");
 
 		Resources res = context.getResources();
 		Util.setDisplayLanguage(res);
@@ -193,17 +190,16 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 		// Because clicking the notification opens a new ("special") activity, there's
 		// no need to create an artificial back stack.
 		PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
 		mBuilder.setContentIntent(resultPendingIntent);
 
 		// Gets an instance of the NotificationManager service
-		NotificationManager mNotifyMgr = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+		NotificationManager mNotifyMgr = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		mNotifyMgr.notify(NOTIFICATION_ID_MISSION, mBuilder.build());
 	}
 
 	public void createNotification_beforeAPI23(Context context, String taskTitle) {
 
-		Util.logInfo(context, TAG, "create notification");
+		Util.logInfo(TAG, "create notification");
 
 		Resources res = context.getResources();
 		Util.setDisplayLanguage(res);
@@ -224,16 +220,15 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 
 		//PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
 
-		// MG - next method was removes from API23
+		// MG - next method was removed from API23
 		//notification.setLatestEventInfo(context, res.getString(R.string.new_mission), taskTitle, pendingIntent);
 
 		notificationManager.notify(NOTIFICATION_ID_MISSION, notification);
 	}
 
 	public void cancelNotification(Context context) {
-		Util.logInfo(context, TAG, "cancel notification");
-		NotificationManager notificationManager = (NotificationManager) context
-				.getSystemService(Context.NOTIFICATION_SERVICE);
+		Util.logInfo(TAG, "cancel notification");
+		NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		notificationManager.cancel(NOTIFICATION_ID_MISSION);
 	}
 

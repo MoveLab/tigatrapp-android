@@ -164,7 +164,7 @@ public class FixGet extends Service {
 
 			if (action != null
 					&& action.contains(Messages.stopFixAction(context))) {
-				Util.logInfo(context, TAG, "stop fixget received");
+				Util.logInfo(TAG, "stop FixGet received");
 				removeLocationUpdates();
 				unWakeLock();
 				if (bestLocation != null
@@ -183,7 +183,7 @@ public class FixGet extends Service {
 						taskFix = true;
 					}
 
-					Util.logInfo(context, TAG, "test");
+					Util.logInfo(TAG, "test");
 					
 					long thisWindow = taskFix ? Util.TASK_FIX_WINDOW : Util.LISTENER_WINDOW;
 
@@ -197,8 +197,7 @@ public class FixGet extends Service {
 							(SystemClock.elapsedRealtime() + thisWindow),
 							PendingIntent.getService(context, ALARM_ID_STOP_FIX, intent2StopFixGet, 0));
 
-					Util.logInfo(context, TAG, "set alarm to stop self at "
-									+ Util.iso8601(System.currentTimeMillis() + thisWindow));
+					Util.logInfo(TAG, "set alarm to stop self at " + Util.iso8601(System.currentTimeMillis() + thisWindow));
 
 					// stopListening = null;
 					bestLocation = null;
@@ -220,7 +219,6 @@ public class FixGet extends Service {
 					if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 						networkListener = new mLocationListener();
 						locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, networkListener);
-
 					}
 
 					if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
@@ -297,7 +295,6 @@ public class FixGet extends Service {
 
 			// Quick return if given location is null or has an invalid time
 			if (location == null || location.getTime() < 0) {
-
 				return;
 			} else {
 
@@ -312,18 +309,14 @@ public class FixGet extends Service {
 
 					// if no best location set yet, current location is best
 					if (bestLocation == null) {
-
 						bestLocation = location;
 						return;
-					} else if (location.getAccuracy() < bestLocation
-							.getAccuracy()) {
-
+					} else if (location.getAccuracy() < bestLocation.getAccuracy()) {
 						bestLocation = location;
 						return;
 					} else
 						// if conditions not met, then return and
 						// keep trying
-
 						return;
 				}
 			}
@@ -413,7 +406,7 @@ public class FixGet extends Service {
 	}
 
 	private void useFix(Context context, Location location) {
-		Util.logInfo(context, TAG, "useFix");
+		Util.logInfo(TAG, "useFix");
 		Intent ufi = new Intent(context, FixUse.class);
 		ufi.putExtra(Messages.makeIntentExtraKey(context, FixGet.KEY_LAT),
 				location.getLatitude());
@@ -426,40 +419,32 @@ public class FixGet extends Service {
 		ufi.putExtra(Messages.makeIntentExtraKey(context, FixGet.KEY_TASK_FIX),
 				taskFix);
 		getApplication().startService(ufi);
-		Util.logInfo(context, TAG, "just started fixusse");
+		Util.logInfo(TAG, "just started useFix");
 		unWakeLock();
 	}
 
 	public void wakeUpAndWakeLock() {
-
-		if (!wifiLock.isHeld()) {
-
+		if ( !wifiLock.isHeld( )) {
 			try {
 				wifiLock.acquire();
-
 			} catch (Exception e) {
 			}
-
 		}
-		if (!wakeLock.isHeld()) {
-
+		if ( !wakeLock.isHeld() ) {
 			try {
 				wakeLock.acquire();
 
 			} catch (Exception e) {
 			}
-
 		}
 	}
 
 	public void unWakeLock() {
 		if (wakeLock != null && wakeLock.isHeld()) {
 			wakeLock.release();
-
 		}
 		if (wifiLock != null && wifiLock.isHeld()) {
 			wifiLock.release();
-
 		}
 	}
 

@@ -240,7 +240,6 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 							@Override
 							public void onResult(Status status) {
 								Util.logInfo(TAG, "GMS: startLocationUpdates, onResult");
-
 							}
 						});
 			}
@@ -254,13 +253,15 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 	@Override
 	public void onLocationChanged(Location location) {
 		Util.logInfo(TAG, "GMS: onLocationChanged");
-        mLastLocation = location;
+		mLastLocation = location;
 		loadNeighbours(location, NEARBY_RADIUS);
-        LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
-        mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, 13), 250, null);
+		LatLng myLatLng = new LatLng(location.getLatitude(), location.getLongitude());
+		mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, 13), 250, null);
 
-		LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
-		mGoogleApiClient.disconnect();
+		if ( mGoogleApiClient != null && mGoogleApiClient.isConnected() ) {
+			LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
+			mGoogleApiClient.disconnect();
+		}
 	}
 
 	/**
@@ -498,41 +499,43 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 	*/
 	public boolean drawFixes(ArrayList<MyOverlayItem> myAdultReports, ArrayList<MyOverlayItem> mySiteReports,
 							 boolean clearMapOverlays, boolean recenter) {
-		// Clear any existing overlays if clearMapOverlays set to true
-		if ( clearMapOverlays )
-			if ( mGoogleMap != null ) mGoogleMap.clear();
+		if ( mGoogleMap != null ) {
+			// Clear any existing overlays if clearMapOverlays set to true
+			if ( clearMapOverlays )
+				mGoogleMap.clear();
 
-		if ( myAdultReports != null && myAdultReports.size() > 0 ) {
-			for (MyOverlayItem oli : myAdultReports) {
-				LatLng pointLatLng = new LatLng(oli.getPoint().getLatitudeE6() / 1E6, oli.getPoint().getLongitudeE6() / 1E6);
-				Marker marker = mGoogleMap.addMarker(new MarkerOptions()
-						.position(pointLatLng)
-						.title(oli.getTitle())
-						.snippet(oli.getSnippet())
-						.icon(BitmapDescriptorFactory.defaultMarker(ADULT_COLOR_HUE)));
-				markerMap.put(marker, oli);
+			if ( myAdultReports != null && myAdultReports.size() > 0 ) {
+				for (MyOverlayItem oli : myAdultReports) {
+					LatLng pointLatLng = new LatLng(oli.getPoint().getLatitudeE6() / 1E6, oli.getPoint().getLongitudeE6() / 1E6);
+					Marker marker = mGoogleMap.addMarker(new MarkerOptions()
+							.position(pointLatLng)
+							.title(oli.getTitle())
+							.snippet(oli.getSnippet())
+							.icon(BitmapDescriptorFactory.defaultMarker(ADULT_COLOR_HUE)));
+					markerMap.put(marker, oli);
+				}
 			}
-		}
 
-		if ( mySiteReports != null && mySiteReports.size() > 0 ) {
-			for (MyOverlayItem oli : mySiteReports) {
-				LatLng pointLatLng = new LatLng(oli.getPoint().getLatitudeE6() / 1E6, oli.getPoint().getLongitudeE6() / 1E6);
-				Marker marker = mGoogleMap.addMarker(new MarkerOptions()
-						.position(pointLatLng)
-						.title(oli.getTitle())
-						.snippet(oli.getSnippet())
-						.icon(BitmapDescriptorFactory.defaultMarker(ADULT_COLOR_HUE)));
-				markerMap.put(marker, oli);
+			if ( mySiteReports != null && mySiteReports.size() > 0 ) {
+				for (MyOverlayItem oli : mySiteReports) {
+					LatLng pointLatLng = new LatLng(oli.getPoint().getLatitudeE6() / 1E6, oli.getPoint().getLongitudeE6() / 1E6);
+					Marker marker = mGoogleMap.addMarker(new MarkerOptions()
+							.position(pointLatLng)
+							.title(oli.getTitle())
+							.snippet(oli.getSnippet())
+							.icon(BitmapDescriptorFactory.defaultMarker(ADULT_COLOR_HUE)));
+					markerMap.put(marker, oli);
+				}
 			}
-		}
 
-		if (recenter && currentCenter != null) {
-			LatLng myLatLng = new LatLng(currentCenter.getLatitudeE6() / 1E6, currentCenter.getLongitudeE6() / 1E6);
-			mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, 13), 200, null);
-			Location myLocation = new Location("MyLocation");
-			myLocation.setLatitude(myLatLng.latitude);
-			myLocation.setLongitude(myLatLng.longitude);
-			loadNeighbours(myLocation, NEARBY_RADIUS);
+			if ( recenter && currentCenter != null ) {
+				LatLng myLatLng = new LatLng(currentCenter.getLatitudeE6() / 1E6, currentCenter.getLongitudeE6() / 1E6);
+				mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, 13), 200, null);
+				Location myLocation = new Location("MyLocation");
+				myLocation.setLatitude(myLatLng.latitude);
+				myLocation.setLongitude(myLatLng.longitude);
+				loadNeighbours(myLocation, NEARBY_RADIUS);
+			}
 		}
 
 		return true;

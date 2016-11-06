@@ -30,6 +30,13 @@
         android:clickable="true"
         class="com.google.android.gms.maps.SupportMapFragment" />
 
+<!--    <include layout="@layout/map_legend"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_alignParentLeft="true"
+             android:layout_alignParentStart="true"
+             android:layout_margin="12dp"
+             android:layout_above="@+id/mapProgressbar" />-->
     <ProgressBar
         android:id="@+id/mapProgressbar"
         style="?android:attr/progressBarStyleHorizontal"

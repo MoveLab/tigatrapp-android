@@ -59,6 +59,8 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -583,7 +585,10 @@ public class ReportToolActivity extends Activity {
 				locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, networkListener);
 				networkLocationAvailable = true;
 			}
-		} catch (SecurityException se) {}
+		} catch (SecurityException se) {
+			Crashlytics.log("ReportToolActivity: onResume");
+			Crashlytics.logException(new SecurityException());
+		}
 
 		if ( currentLocation == null ) {
 
@@ -673,7 +678,10 @@ public class ReportToolActivity extends Activity {
 				if (networkListener != null)
 					locationManager.removeUpdates(networkListener);
 			}
-		} catch (SecurityException se) {}
+		} catch (SecurityException se) {
+			Crashlytics.log("ReportToolActivity: removeLocationUpdates");
+			Crashlytics.logException(new SecurityException());
+		}
 		gpsListener = null;
 		networkListener = null;
 		locationManager = null;
@@ -708,7 +716,10 @@ public class ReportToolActivity extends Activity {
 					}
 				}
 			}
-		} catch (SecurityException se) {}
+		} catch (SecurityException se) {
+			Crashlytics.log("ReportToolActivity: removeLocationUpdate");
+			Crashlytics.logException(new SecurityException());
+		}
 	}
 
 	private void buildMailMessage(String message) {
@@ -1223,7 +1234,10 @@ public class ReportToolActivity extends Activity {
 					locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, networkListener);
 					networkLocationAvailable = true;
 				}
-			} catch (SecurityException se) {}
+			} catch (SecurityException se) {
+				Crashlytics.log("ReportToolActivity: onFinish");
+				Crashlytics.logException(new SecurityException());
+			}
 		}
 
 		@Override

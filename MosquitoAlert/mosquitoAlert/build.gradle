@@ -4,9 +4,10 @@ buildscript {
     }
 
     dependencies {
-        // The Fabric Gradle plugin uses an open ended version to react
-        // quickly to Android tooling updates
-        classpath 'io.fabric.tools:gradle:1.+'
+        // The Fabric Gradle plugin uses an open ended version to react quickly to Android tooling updates
+//         classpath 'io.fabric.tools:gradle:1.+'
+        // https://maven.fabric.io/public/io/fabric/tools/gradle/maven-metadata.xml
+        classpath 'io.fabric.tools:gradle:1.22.0'   // 1.21.5
     }
 }
 
@@ -29,20 +30,20 @@ android {
         applicationId "ceab.movelab.tigatrapp"
         minSdkVersion 9
         targetSdkVersion 24
-        versionCode 19  /* 17 is 1.51 current production code */
-        versionName "1.53"
+        versionCode 20  /* 17 is 1.51 current production code */
+        versionName "1.54"
     }
     buildTypes {
         debug {
             debuggable true
             //buildConfigField "boolean", "PRIVATE_MODE", "true"
-            //signingConfig signingConfigs.config
+            signingConfig signingConfigs.config
         }
         release {
             //buildConfigField "boolean", "PRIVATE_MODE", "false"
-            //signingConfig signingConfigs.config_old2
             //minifyEnabled true
             //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.config_old2
             debuggable false
         }
     }
@@ -66,7 +67,8 @@ dependencies {
     //compile 'com.facebook.stetho:stetho:1.3.1'
     //compile 'com.uphyca:stetho_realm:0.9.0'
 
+    // https://maven.fabric.io/public/com/crashlytics/sdk/android/crashlytics/maven-metadata.xml
     compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
-        transitive = true;
+        transitive = true
     }
 }

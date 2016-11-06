@@ -104,7 +104,7 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 		if ( !PropertyHolder.isInit() )
 			PropertyHolder.init(context);
 
-		if (PropertyHolder.hasConsented() && !Util.privateMode(context)) {
+		if ( PropertyHolder.hasConsented() && !Util.privateMode(context) ) {
 			String action = intent.getAction();
 			String extra = "";
 			if (intent.hasExtra(Messages.INTERNAL_MESSAGE_EXTRA)) {
@@ -150,9 +150,7 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 				tfi.setAction(Messages.taskFixAction(context));
 				context.startService(tfi);
 				// long baseTime = SystemClock.elapsedRealtime();
-				// alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-				// baseTime
-				// + Util.TASK_FIX_WINDOW, pi2stopfix);
+				// alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, baseTime + Util.TASK_FIX_WINDOW, pi2stopfix);
 				Util.logInfo(TAG, "start task fix");
 			} else if (extra.contains(Messages.SHOW_TASK_NOTIFICATION)) {
 				final String taskTitle = intent.getStringExtra(Tasks.KEY_TITLE);

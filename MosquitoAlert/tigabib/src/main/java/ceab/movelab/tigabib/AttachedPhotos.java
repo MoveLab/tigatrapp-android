@@ -13,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -65,17 +66,17 @@ public class AttachedPhotos extends Activity {
 		setContentView(R.layout.attached_photos);
 
 		//root = Environment.getExternalStorageDirectory();
-		directory = new File(Environment.getExternalStorageDirectory(), getResources().getString(
-				R.string.app_directory));
+		directory = new File(Environment.getExternalStorageDirectory(), getResources().getString(R.string.app_directory));
 		directory.mkdirs();
 
-		Intent incoming = getIntent();
-		if ( incoming.hasExtra(Reports.KEY_PHOTO_URIS) )
-			jsonPhotosString = incoming.getStringExtra(Reports.KEY_PHOTO_URIS);
+		Intent incomingIntent = getIntent();
+		if ( incomingIntent.hasExtra(Reports.KEY_PHOTO_URIS) )
+			jsonPhotosString = incomingIntent.getStringExtra(Reports.KEY_PHOTO_URIS);
 
 		if ( savedInstanceState != null ) {
 			jsonPhotosString = savedInstanceState.getString(Reports.KEY_PHOTO_URIS);
-			photoUri = Uri.fromFile(new File(savedInstanceState.getString("photoUri")));
+			if ( savedInstanceState.getString("photoUri") != null )
+				photoUri = Uri.fromFile(new File(savedInstanceState.getString("photoUri")));
 		}
 
 		if ( jsonPhotosString != null ) {
@@ -291,19 +292,17 @@ public class AttachedPhotos extends Activity {
 
 	private void dispatchTakePictureIntent(int actionCode) {
 		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-
 		try {
-			SimpleDateFormat dateFormat = new SimpleDateFormat(
-					"yyyy-MM-dd_HH-mm-ss");
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
 			Date date = new Date();
 			String stringDate = dateFormat.format(date);
 			String photoFileName = getResources().getString(
-					R.string.saved_image_prefix)
-					+ stringDate + ".jpg";
+					R.string.saved_image_prefix) + stringDate + ".jpg";
 
-			photoUri = Uri.fromFile(new File(directory, photoFileName));
+			//photoUri = Uri.fromFile(new File(directory, photoFileName));
+			// https://inthecheesefactory.com/blog/how-to-share-access-to-file-with-fileprovider-on-android-nougat/en
+			photoUri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", new File(directory, photoFileName));
 			takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
-
 		} catch (Exception e) {
 			Util.logError(TAG, "photo exception: " + e);
 		}
@@ -325,11 +324,8 @@ public class AttachedPhotos extends Activity {
 		}
 
 		switch (requestCode) {
-
 		case ReportToolActivity.REQUEST_CODE_TAKE_PHOTO: {
-
 			if (resultCode == RESULT_OK && photoUri != null) {
-
 				JSONObject newPhoto = new JSONObject();
 				try {
 					newPhoto.put(Report.KEY_PHOTO_URI, photoUri.getPath());
@@ -347,7 +343,6 @@ public class AttachedPhotos extends Activity {
 
 		}
 		case ReportToolActivity.REQUEST_CODE_GET_PHOTO_FROM_GALLERY: {
-			
 		// this is ugly, but a quick safety to avoid crashes
 		try {
 			if ( data != null ) {

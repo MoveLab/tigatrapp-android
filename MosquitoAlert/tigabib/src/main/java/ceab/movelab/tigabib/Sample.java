@@ -76,8 +76,7 @@ public class Sample extends Service {
 		Util.logInfo(TAG, "on start");
 
 		if (!Util.privateMode(context)) {
-			Thread uploadThread = new Thread(null, doSampling,
-					"sampleBackground");
+			Thread uploadThread = new Thread(null, doSampling, "sampleBackground");
 			uploadThread.start();
 		}
 
@@ -102,7 +101,6 @@ public class Sample extends Service {
 
 	@Override
 	public void onDestroy() {
-
 	}
 
 	private void setSamples() {
@@ -110,8 +108,7 @@ public class Sample extends Service {
 		Util.logInfo(TAG, "set samples");
 
 		int samplesPerDay = PropertyHolder.getSamplesPerDay();
-		AlarmManager alarmManager = (AlarmManager) context
-				.getSystemService(Context.ALARM_SERVICE);
+		AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
 		int alarmType = AlarmManager.RTC_WAKEUP;
 		Calendar c;
@@ -154,8 +151,8 @@ public class Sample extends Service {
 
 			currentSamplingTimes[i] = Util.iso8601(thisTriggerTime);
 
-			alarmManager.set(alarmType, thisTriggerTime, PendingIntent
-					.getService(context, (ALARM_ID_START_FIX * i), new Intent(context, FixGet.class), 0));
+			alarmManager.set(alarmType, thisTriggerTime,
+					PendingIntent.getService(context, (ALARM_ID_START_FIX * i), new Intent(context, FixGet.class), 0));
 		}
 		Arrays.sort(currentSamplingTimes);
 		PropertyHolder.setCurrentFixTimes(currentSamplingTimes);
@@ -165,7 +162,6 @@ public class Sample extends Service {
 
 	@Override
 	public IBinder onBind(Intent arg0) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

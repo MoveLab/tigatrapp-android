@@ -4,9 +4,10 @@ buildscript {
     }
 
     dependencies {
-        // The Fabric Gradle plugin uses an open ended version to react
-        // quickly to Android tooling updates
-        classpath 'io.fabric.tools:gradle:1.+'
+        // The Fabric Gradle plugin uses an open ended version to react quickly to Android tooling updates
+//         classpath 'io.fabric.tools:gradle:1.+'
+        // https://maven.fabric.io/public/io/fabric/tools/gradle/maven-metadata.xml
+        classpath 'io.fabric.tools:gradle:1.22.0'
     }
 }
 
@@ -68,6 +69,6 @@ dependencies {
     debugCompile 'com.uphyca:stetho_realm:0.9.0'
 
     compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
-        transitive = true;
+        transitive = true
     }
 }

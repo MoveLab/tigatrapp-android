@@ -524,8 +524,8 @@ public class SwitchboardActivity extends Activity {
 
 	// https://github.com/tajchert/Nammu/blob/master/nammu/src/main/java/pl/tajchert/nammu/Nammu.java
 	public ArrayList<String> getDeniedPermissions() {
-		ArrayList<String> permissions = new ArrayList<String>();
-		ArrayList<String> permissionsDenied = new ArrayList<String>();
+		ArrayList<String> permissions = new ArrayList<>();
+		ArrayList<String> permissionsDenied = new ArrayList<>();
 		// Group location
 		permissions.add(Manifest.permission.ACCESS_FINE_LOCATION);
 		permissions.add(Manifest.permission.ACCESS_COARSE_LOCATION);

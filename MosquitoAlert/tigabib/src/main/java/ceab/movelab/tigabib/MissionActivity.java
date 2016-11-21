@@ -550,7 +550,7 @@ public class MissionActivity extends Activity {
 					String phoneModel = Build.MODEL;
 
 					String os = "Android";
-					String osversion = Integer.toString(Build.VERSION.SDK_INT);
+					String osVersion = Integer.toString(Build.VERSION.SDK_INT);
 					String osLanguage = Locale.getDefault().getLanguage();
 					String appLanguage = PropertyHolder.getLanguage();
 
@@ -565,7 +565,7 @@ public class MissionActivity extends Activity {
 							Report.NO, null, null, Report.UPLOADED_NONE,
 							Report.MISSING, Report.NO, Report.YES, packageName,
 							packageVersion, phoneManufacturer, phoneModel, os,
-							osversion, osLanguage, appLanguage, missionId);
+							osVersion, osLanguage, appLanguage, missionId);
 
 					// First save report to internal DB
 					cr.insert(Util.getReportsUri(MissionActivity.this), ContProvValuesReports.createReport(missionReport));

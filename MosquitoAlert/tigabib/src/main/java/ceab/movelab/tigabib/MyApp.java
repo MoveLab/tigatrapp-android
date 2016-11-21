@@ -11,6 +11,7 @@ import ceab.movelab.tigabib.model.DataModel;
 import ceab.movelab.tigabib.model.RealmHelper;
 import ceab.movelab.tigabib.utils.StethoUtils;
 import io.fabric.sdk.android.Fabric;
+import io.realm.Realm;
 
 public class MyApp extends Application {
 
@@ -30,6 +31,7 @@ public class MyApp extends Application {
 		Fabric.with(this, crashlyticsKit);
 
 		RealmHelper.initialize(this);
+		Realm.init(this);
 
 		AndroidNetworking.initialize(getApplicationContext());
 		AndroidNetworking.enableLogging();

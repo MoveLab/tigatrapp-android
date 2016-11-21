@@ -78,6 +78,8 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 
 import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
+import ceab.movelab.tigabib.services.FixGet;
+import ceab.movelab.tigabib.services.Sample;
 
 /**
  * Triggers and stops location fixes at set intervals; also sends notification

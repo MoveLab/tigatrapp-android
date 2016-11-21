@@ -62,6 +62,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -112,9 +113,9 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 
 	public static final int REQUEST_GOOGLE_PLAY_SERVICES = 999;
 
-	private static final float ADULT_COLOR_HUE = 26.0f;
+	private static final float ADULT_COLOR_HUE = 5.0f;
 //	private static final float SITE_COLOR_HUE = 244.0f;
-	private static final float NEARBY_COLOR_HUE = 190.0f;
+	private static final float NEARBY_COLOR_HUE = 36.0f; //190.0f;
 //	int ADULT_COLOR_V1 = 0xffd95f02; // 217, 95, 2	// 26.0f
 //	int SITE_COLOR_V1 = 0xff7570b3;	// 117, 112, 179 // 244.0f
 
@@ -122,6 +123,7 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 
 	private String lang;
 
+	private RelativeLayout legendLayout;
 	private ProgressBar progressbar;
 	private boolean loadingData;
 
@@ -162,6 +164,7 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 
 		satToggle = false;
 
+		legendLayout = (RelativeLayout)  findViewById(R.id.mapLegend);
 		progressbar = (ProgressBar) findViewById(R.id.mapProgressbar);
 		progressbar.setProgress(0);
 	}
@@ -357,6 +360,7 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 		if ( mGoogleServicesOk ) {
 			setMapType();
 			progressbar.setVisibility(View.VISIBLE);
+			legendLayout.setVisibility(View.GONE);
 
 			if ( !loadingData ) {
 				loadingData = true;
@@ -470,7 +474,7 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 					@Override
 					public void onCompleted(Exception e, List<NearbyReport> nearbyResults) {
 						// do stuff with the result or error
-						if (nearbyResults != null) {
+						if ( nearbyResults != null ) {
 							Util.logInfo(TAG, nearbyResults.toString());
 							for (NearbyReport nbr : nearbyResults) {
 								LatLng pointLatLng = new LatLng(nbr.getLat(), nbr.getLon());
@@ -854,9 +858,6 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 
 						final int thisType = c.getInt(typeCol);
 
-						// NOTE THAT WE HAVE DECIDED TO HAVE ONLY THE USER'S REPORTS
-						// ON THE PHONE DB, NOT OTHERS', SO NO NEED TO CHECK USER ID HERE
-
 						// !! MG - Build my own object
 						MyOverlayItem overlayItem = new MyOverlayItem(
 								point,
@@ -895,6 +896,8 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 				drawFixes(myAdultOverlayList, mySiteOverlayList, true, !statusOfGPS);
 			}
 			progressbar.setVisibility(View.INVISIBLE);
+			legendLayout.setVisibility(View.VISIBLE);
+
 			loadingData = false;
 		}
 	}

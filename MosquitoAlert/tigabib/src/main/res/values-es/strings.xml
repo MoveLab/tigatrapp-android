@@ -119,7 +119,7 @@
     <string name="checklist_tab_title">Descripción</string>
     <string name="photos_tab_title">Imágenes</string>
     <string name="notes_tab_title">Notas</string>
-    <string name="view_report_title_adult">Hallazgo de mosquito.</string>
+    <string name="view_report_title_adult">Mosquito</string>
     <string name="view_report_title_site">Lugar de cría</string>
     <!-- Photo Selector -->
     <string name="photo_selector_title">Añade imágenes</string>
@@ -273,5 +273,8 @@
     <string name="tag_to_map_points_of_citizens_albopictus">Mosquito Tigre</string>
     <string name="tag_to_map_points_of_citizens_aegypti">Mosquito Fiebre Amarilla</string>
     <string name="tag_to_map_points_of_citizens_none">Ninguno</string>
+
+    <string name="my_observations">Mis observaciones</string>
+    <string name="nearby_observations">Observaciones cercanas</string>
 </resources>
 

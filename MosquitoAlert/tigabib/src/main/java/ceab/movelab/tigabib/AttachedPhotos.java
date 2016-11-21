@@ -8,12 +8,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -34,6 +36,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import ceab.movelab.tigabib.ContProvContractReports.Reports;
 
@@ -44,7 +47,8 @@ public class AttachedPhotos extends Activity {
 	Context context = this;
 	//File root;
 	File directory;
-	//String photoFileName = "";
+	String mCurrentPhotoPath;
+
 	PhotoGridAdapter adapter;
 	Uri photoUri;
 	GridView gridview;
@@ -76,7 +80,7 @@ public class AttachedPhotos extends Activity {
 		if ( savedInstanceState != null ) {
 			jsonPhotosString = savedInstanceState.getString(Reports.KEY_PHOTO_URIS);
 			if ( savedInstanceState.getString("photoUri") != null )
-				photoUri = Uri.fromFile(new File(savedInstanceState.getString("photoUri")));
+				mCurrentPhotoPath = savedInstanceState.getString("photoUri");
 		}
 
 		if ( jsonPhotosString != null ) {
@@ -92,14 +96,13 @@ public class AttachedPhotos extends Activity {
 						final String thisPhotoUri = Report.getPhotoUri(context, jsonPhotos, position);
 						final int pos = position;
 
-						if (thisPhotoUri != null) {
+						if ( thisPhotoUri != null ) {
 							try {
 								final Dialog dialog = new Dialog(context);
 								dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 								dialog.setContentView(R.layout.photo_view);
 								ImageView iv = (ImageView) dialog.findViewById(R.id.photoView);
-								// TODO find better way of choosing max pixel
-								// size -- based on screen
+								// TODO find better way of choosing max pixe size -- based on screen !!!
 								iv.setImageBitmap(Util.getSmallerBitmap(new File(thisPhotoUri), context, 300));
 								
 								LinearLayout button_area = (LinearLayout) dialog.findViewById(R.id.photo_button_area);
@@ -110,19 +113,18 @@ public class AttachedPhotos extends Activity {
 								positive.setOnClickListener(new OnClickListener() {
 									@Override
 									public void onClick(View v) {
-										Uri imageUri = Uri.fromFile(new File(thisPhotoUri)); 		
+										Uri imageUri = Uri.fromFile(new File(thisPhotoUri));
 										Intent shareIntent = new Intent();
 										shareIntent.setAction(Intent.ACTION_SEND);
 										shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
 										shareIntent.setType("image/*");
 										// add a subject
-//										shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "MosquitoAlert"); // !!! use getString()
+										shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, R.string.app_name);
 
 										// build the body of the message to be shared
 										String shareMessage = getResources().getString(R.string.photo_share_message);
-
 										// add the message
-										shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareMessage);
+										shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
 
 										// start the chooser for sharing
 										startActivity(Intent.createChooser(shareIntent, getResources()
@@ -160,9 +162,7 @@ public class AttachedPhotos extends Activity {
 								R.string.photo_selector_remove_attachment));
 						dialog.setMessage(getResources().getString(
 								R.string.photo_selector_remove_this_photo)
-								+ item
-								+ " "
-								+ getResources()
+								+ item + " " + getResources()
 										.getString(
 												R.string.photo_selector_from_thisreport));
 						dialog.setCancelable(true);
@@ -190,7 +190,7 @@ public class AttachedPhotos extends Activity {
 									public void onClick(DialogInterface d,
 											int arg1) {
 										d.cancel();
-									};
+									}
 								});
 						dialog.show();
 
@@ -218,7 +218,7 @@ public class AttachedPhotos extends Activity {
 				// Show only images, no videos or anything else
 				intent.setType("image/*");
 				intent.setAction(Intent.ACTION_GET_CONTENT);
-				if (Build.VERSION.SDK_INT >= 11)
+				if ( Build.VERSION.SDK_INT >= 11 )
 					intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
 				// Always show the chooser (if there are multiple options available)
 				startActivityForResult(Intent.createChooser(intent,
@@ -233,7 +233,7 @@ public class AttachedPhotos extends Activity {
 				if (isIntentAvailable(context, MediaStore.ACTION_IMAGE_CAPTURE)) {
 					dispatchTakePictureIntent(ReportToolActivity.REQUEST_CODE_TAKE_PHOTO);
 				}
-			};
+			}
 		});
 
 		okButton.setOnClickListener(new OnClickListener() {
@@ -244,7 +244,7 @@ public class AttachedPhotos extends Activity {
 					dataForReport.putExtra(Reports.KEY_PHOTO_URIS, jsonPhotos.toString());
 				setResult(RESULT_OK, dataForReport);
 				finish();
-			};
+			}
 		});
 
 		cancelButton.setOnClickListener(new OnClickListener() {
@@ -252,7 +252,7 @@ public class AttachedPhotos extends Activity {
 			@Override
 			public void onClick(View v) {
 				finish();
-			};
+			}
 		});
 	}
 
@@ -285,23 +285,36 @@ public class AttachedPhotos extends Activity {
 		if ( jsonPhotos != null )
 			icicle.putString(Reports.KEY_PHOTO_URIS, jsonPhotos.toString());
 
-		if ( photoUri != null )
-			icicle.putString("photoUri", photoUri.getPath());
+		if ( mCurrentPhotoPath != null )
+			icicle.putString("photoUri", mCurrentPhotoPath);
 
+	}
+
+	private File createImageFile() {
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss", Locale.UK);
+		String stringDate = dateFormat.format(new Date());
+		String photoFileName = getResources().getString(R.string.saved_image_prefix) + stringDate;
+		try {
+			File image = File.createTempFile(
+					photoFileName,  /* prefix */
+					".jpg",         /* suffix */
+					directory      /* directory */
+			);
+			// Save a file: path for use with ACTION_VIEW intents
+			mCurrentPhotoPath = "file://" + image.getAbsolutePath();
+			return image;
+		} catch (IOException e) {
+			return null;
+		}
 	}
 
 	private void dispatchTakePictureIntent(int actionCode) {
 		Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		try {
-			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd_HH-mm-ss");
-			Date date = new Date();
-			String stringDate = dateFormat.format(date);
-			String photoFileName = getResources().getString(
-					R.string.saved_image_prefix) + stringDate + ".jpg";
-
-			//photoUri = Uri.fromFile(new File(directory, photoFileName));
+			photoUri = Uri.fromFile(createImageFile());
 			// https://inthecheesefactory.com/blog/how-to-share-access-to-file-with-fileprovider-on-android-nougat/en
-			photoUri = FileProvider.getUriForFile(this, BuildConfig.APPLICATION_ID + ".provider", new File(directory, photoFileName));
+			if ( Build.VERSION.SDK_INT >= 24 )	// Nougat and above
+				photoUri = FileProvider.getUriForFile(this, getPackageName() + ".provider", createImageFile());
 			takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
 		} catch (Exception e) {
 			Util.logError(TAG, "photo exception: " + e);
@@ -325,10 +338,11 @@ public class AttachedPhotos extends Activity {
 
 		switch (requestCode) {
 		case ReportToolActivity.REQUEST_CODE_TAKE_PHOTO: {
-			if (resultCode == RESULT_OK && photoUri != null) {
-				JSONObject newPhoto = new JSONObject();
+			if ( resultCode == RESULT_OK && mCurrentPhotoPath != null ) {
+				Uri imageUri = Uri.parse(mCurrentPhotoPath);
 				try {
-					newPhoto.put(Report.KEY_PHOTO_URI, photoUri.getPath());
+					JSONObject newPhoto = new JSONObject();
+					newPhoto.put(Report.KEY_PHOTO_URI, imageUri.getPath());
 					newPhoto.put(Report.KEY_PHOTO_TIME, System.currentTimeMillis());
 					jsonPhotos.put(newPhoto);
 				} catch (JSONException e) {
@@ -338,54 +352,60 @@ public class AttachedPhotos extends Activity {
 				// I realize this is ugly, but it is the quickest fix right now to get the grid updated...
 				adapter = new PhotoGridAdapter(context, jsonPhotos);
 				gridview.setAdapter(adapter);
+
+				// ScanFile so it will appear on Gallery
+				MediaScannerConnection.scanFile(this,
+						new String[]{imageUri.getPath()}, null,
+						new MediaScannerConnection.OnScanCompletedListener() {
+							public void onScanCompleted(String path, Uri uri) {
+							}
+						});
 			}
 			break;
-
 		}
+
 		case ReportToolActivity.REQUEST_CODE_GET_PHOTO_FROM_GALLERY: {
-		// this is ugly, but a quick safety to avoid crashes
-		try {
-			if ( data != null ) {
-				Uri this_data = data.getData();
-				if ( this_data != null ) {
-					String realPath;
-					// SDK < API11
-					if (Build.VERSION.SDK_INT < 11)
-						realPath = Util.getRealPathFromURI_BelowAPI11(this, data.getData());
+			// this is ugly, but a quick safety to avoid crashes
+			try {
+				if ( data != null ) {
+					Uri thisData = data.getData();
+					if ( thisData != null ) {
+						String realPath;
+						// SDK < API11
+						if (Build.VERSION.SDK_INT < 11)
+							realPath = Util.getRealPathFromURI_BelowAPI11(this, data.getData());
+						// SDK >= 11 && SDK < 19
+						else if (Build.VERSION.SDK_INT < 19)
+							realPath = RealPathFromURI_API11to18.getRealPathFromURI_API11to18(this, data.getData());
+						// SDK >= 19 (Android 4.4)
+						else
+							realPath = RealPathFromURI_API19.getRealPathFromURI_API19(this, data.getData());
 
-					// SDK >= 11 && SDK < 19
-					else if (Build.VERSION.SDK_INT < 19)
-						realPath = RealPathFromURI_API11to18.getRealPathFromURI_API11to18(this, data.getData());
-					// SDK >= 19 (Android 4.4)
-					else
-						realPath = RealPathFromURI_API19.getRealPathFromURI_API19(this, data.getData());
-
-					Uri this_uri = null;
-					if (realPath != null && realPath != "") {
-						this_uri = Uri.fromFile(new File(realPath));
-					}
-
-					if (resultCode == RESULT_OK && this_uri != null) {
-						JSONObject newPhoto = new JSONObject();
-						try {
-							newPhoto.put(Report.KEY_PHOTO_URI, this_uri.getPath());
-							newPhoto.put(Report.KEY_PHOTO_TIME, System.currentTimeMillis());
-							jsonPhotos.put(newPhoto);
-						} catch (JSONException e) {
+						Uri thisUri = null;
+						if ( !TextUtils.isEmpty(realPath) ) {
+							thisUri = Uri.fromFile(new File(realPath));
 						}
 
-						// I realize this is ugly, but it is the quickest fix right now to get the grid updated...
-						adapter = new PhotoGridAdapter(context, jsonPhotos);
-						gridview.setAdapter(adapter);
+						if ( resultCode == RESULT_OK && thisUri != null ) {
+							JSONObject newPhoto = new JSONObject();
+							try {
+								newPhoto.put(Report.KEY_PHOTO_URI, thisUri.getPath());
+								newPhoto.put(Report.KEY_PHOTO_TIME, System.currentTimeMillis());
+								jsonPhotos.put(newPhoto);
+							} catch (JSONException e) {
+							}
+
+							// I realize this is ugly, but it is the quickest fix right now to get the grid updated...
+							adapter = new PhotoGridAdapter(context, jsonPhotos);
+							gridview.setAdapter(adapter);
+						}
 					}
 				}
+			} catch (Exception e){
+				// do nothing for now... TODO
 			}
-		} catch (Exception e){
-			// do nothing for now... TODO
-		}
 			break;
 		}
-
 		}
 	}
 

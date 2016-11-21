@@ -32,7 +32,7 @@ public class RealmHelper {
        //if ( mRealm == null ) {
             // https://github.com/realm/realm-java/tree/master/examples/migrationExample/src/main/java/io/realm/examples/realmmigrationexample
             // if migration is needed
-            RealmConfiguration config = new RealmConfiguration.Builder(ctx)
+            RealmConfiguration config = new RealmConfiguration.Builder()
                     .name("myRealmDB.realm")
                     .schemaVersion(1)
                     .deleteRealmIfMigrationNeeded()

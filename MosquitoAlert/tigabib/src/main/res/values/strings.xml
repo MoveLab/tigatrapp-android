@@ -119,7 +119,7 @@
     <string name="checklist_tab_title">Checklist</string>
     <string name="photos_tab_title">Photos</string>
     <string name="notes_tab_title">Notes</string>
-    <string name="view_report_title_adult">Mosquito report.</string>
+    <string name="view_report_title_adult">Mosquito</string>
     <string name="view_report_title_site">Breeding Site</string>
     <!-- Photo Selector -->
     <string name="photo_selector_title">Add Photos</string>
@@ -288,5 +288,8 @@
     <string name="tag_to_map_points_of_citizens_albopictus">Tiger Mosquito</string>
     <string name="tag_to_map_points_of_citizens_aegypti">Yellow Fever Mosquito</string>
     <string name="tag_to_map_points_of_citizens_none">None</string>
+
+    <string name="my_observations">My observations</string>
+    <string name="nearby_observations">Nearby observations</string>
 </resources>
 

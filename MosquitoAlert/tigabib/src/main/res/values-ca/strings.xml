@@ -119,7 +119,7 @@
     <string name="checklist_tab_title">Descripció</string>
     <string name="photos_tab_title">Imatges</string>
     <string name="notes_tab_title">Notes</string>
-    <string name="view_report_title_adult">Troballa de mosquit.</string>
+    <string name="view_report_title_adult">Mosquit</string>
     <string name="view_report_title_site">Lloc de cria</string>
     <!-- Photo Selector -->
     <string name="photo_selector_title">Afegeix imatges</string>
@@ -230,7 +230,7 @@
     <string name="notes_title">Missatge</string>
     <string name="ok">OK</string>
     <string name="project_email">info@mosquitoalert.com</string>
-    <string name="project_website">http://mosquitoalert.com/</string>
+    <string name="project_website">http://mosquitoalert.com/</string>f
     <string name="report_sent">Si cliques OK, les teves dades s\'enviaran al grup de recerca responsable del projecte. Part de les dades es faran públiques al mapa web a www.mosquitoalert.com</string>
     <string name="report_sent_confirmation">Gràcies per participar. Trobaràs més informació a la pàgina web de www.mosquitoalert.com.</string>
     <string name="reportGallery_CD">Botó per accedir a la galeria d\'imatges</string>
@@ -273,4 +273,7 @@
     <string name="tag_to_map_points_of_citizens_albopictus">Mosquit Tigre</string>
     <string name="tag_to_map_points_of_citizens_aegypti">Mosquit Febre Groga</string>
     <string name="tag_to_map_points_of_citizens_none">Cap</string>
+
+    <string name="my_observations">Les meves observacions</string>
+    <string name="nearby_observations">Observacions properes</string>
 </resources>

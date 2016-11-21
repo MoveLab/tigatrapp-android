@@ -21,8 +21,6 @@
 
 package ceab.movelab.tigabib;
 
-import java.util.HashMap;
-
 import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -34,6 +32,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+
+import java.util.HashMap;
+
 import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
 
 /**
@@ -45,15 +46,14 @@ import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
 
 public abstract class ContProvMissions extends ContentProvider {
 
-	private static final String TAG = "ContentProviderTasks";
+	//private static final String TAG = "ContentProviderTasks";
 
 	protected abstract String getAuthority();
 
 	/**
 	 * The URI for this content provider.
 	 */
-	public Uri CONTENT_URI = Uri.parse("content://" + getAuthority()
-			+ "/" + DATABASE_TABLE);
+	public Uri CONTENT_URI = Uri.parse("content://" + getAuthority() + "/" + DATABASE_TABLE);
 
 	/** The SQLite database name */
 	private static final String DATABASE_NAME = "tasksDB";
@@ -66,24 +66,26 @@ public abstract class ContProvMissions extends ContentProvider {
 	private static final String COMMA = ",";
 	private static final String TYPE_TEXT = " TEXT";
 	private static final String TYPE_INTEGER = " INTEGER";
-	private static final String TYPE_REAL = " REAL";
+	//private static final String TYPE_REAL = " REAL";
 
 	/** The SQL command to create the tasksTable */
-	private static final String DATABASE_CREATE = "create table "
-			+ DATABASE_TABLE + " (" + Tasks.KEY_ROW_ID + TYPE_INTEGER
-			+ " primary key autoincrement" + COMMA + Tasks.KEY_ID
-			+ TYPE_INTEGER + COMMA + Tasks.KEY_TITLE_CATALAN + TYPE_TEXT
-			+ COMMA + Tasks.KEY_TITLE_SPANISH + TYPE_TEXT + COMMA
+	private static final String DATABASE_CREATE = "create table " + DATABASE_TABLE + " ("
+			+ Tasks.KEY_ROW_ID + TYPE_INTEGER + " primary key autoincrement" + COMMA
+			+ Tasks.KEY_ID + TYPE_INTEGER + COMMA
+			+ Tasks.KEY_TITLE_CATALAN + TYPE_TEXT + COMMA
+			+ Tasks.KEY_TITLE_SPANISH + TYPE_TEXT + COMMA
 			+ Tasks.KEY_TITLE_ENGLISH + TYPE_TEXT + COMMA
 			+ Tasks.KEY_SHORT_DESCRIPTION_CATALAN + TYPE_TEXT + COMMA
 			+ Tasks.KEY_SHORT_DESCRIPTION_SPANISH + TYPE_TEXT + COMMA
 			+ Tasks.KEY_SHORT_DESCRIPTION_ENGLISH + TYPE_TEXT + COMMA
 			+ Tasks.KEY_CREATION_TIME + TYPE_INTEGER + COMMA
 			+ Tasks.KEY_EXPIRATION_TIME + TYPE_INTEGER + COMMA
-			+ Tasks.KEY_TRIGGERS + TYPE_TEXT + COMMA + Tasks.KEY_ACTIVE
-			+ TYPE_INTEGER + COMMA + Tasks.KEY_TASK_JSON + TYPE_TEXT + COMMA
-			+ Tasks.KEY_DONE + TYPE_INTEGER + COMMA + Tasks.KEY_RESPONSES_JSON
-			+ TYPE_TEXT + COMMA + Tasks.KEY_UPLOADED + TYPE_INTEGER + ");";
+			+ Tasks.KEY_TRIGGERS + TYPE_TEXT + COMMA
+			+ Tasks.KEY_ACTIVE + TYPE_INTEGER + COMMA
+			+ Tasks.KEY_TASK_JSON + TYPE_TEXT + COMMA
+			+ Tasks.KEY_DONE + TYPE_INTEGER + COMMA
+			+ Tasks.KEY_RESPONSES_JSON + TYPE_TEXT + COMMA
+			+ Tasks.KEY_UPLOADED + TYPE_INTEGER + ");";
 
 	private DatabaseHelper mDbHelper;
 
@@ -110,8 +112,7 @@ public abstract class ContProvMissions extends ContentProvider {
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-			// Log.w(TAG, "Upgrading database from version " + oldVersion +
-			// " to "
+			// Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
 			// + newVersion + ", which will destroy all old data");
 			db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
 			onCreate(db);
@@ -126,31 +127,21 @@ public abstract class ContProvMissions extends ContentProvider {
 		tasksProjectionMap = new HashMap<String, String>();
 		tasksProjectionMap.put(Tasks.KEY_ROW_ID, Tasks.KEY_ROW_ID);
 		tasksProjectionMap.put(Tasks.KEY_ID, Tasks.KEY_ID);
-		tasksProjectionMap
-				.put(Tasks.KEY_TITLE_CATALAN, Tasks.KEY_TITLE_CATALAN);
-		tasksProjectionMap.put(Tasks.KEY_SHORT_DESCRIPTION_CATALAN,
-				Tasks.KEY_SHORT_DESCRIPTION_CATALAN);
-		tasksProjectionMap
-				.put(Tasks.KEY_TITLE_SPANISH, Tasks.KEY_TITLE_SPANISH);
-		tasksProjectionMap.put(Tasks.KEY_SHORT_DESCRIPTION_SPANISH,
-				Tasks.KEY_SHORT_DESCRIPTION_SPANISH);
-		tasksProjectionMap
-				.put(Tasks.KEY_TITLE_ENGLISH, Tasks.KEY_TITLE_ENGLISH);
-		tasksProjectionMap.put(Tasks.KEY_SHORT_DESCRIPTION_ENGLISH,
-				Tasks.KEY_SHORT_DESCRIPTION_ENGLISH);
-		tasksProjectionMap
-				.put(Tasks.KEY_CREATION_TIME, Tasks.KEY_CREATION_TIME);
-		tasksProjectionMap.put(Tasks.KEY_EXPIRATION_TIME,
-				Tasks.KEY_EXPIRATION_TIME);
+		tasksProjectionMap.put(Tasks.KEY_TITLE_CATALAN, Tasks.KEY_TITLE_CATALAN);
+		tasksProjectionMap.put(Tasks.KEY_SHORT_DESCRIPTION_CATALAN, Tasks.KEY_SHORT_DESCRIPTION_CATALAN);
+		tasksProjectionMap.put(Tasks.KEY_TITLE_SPANISH, Tasks.KEY_TITLE_SPANISH);
+		tasksProjectionMap.put(Tasks.KEY_SHORT_DESCRIPTION_SPANISH, Tasks.KEY_SHORT_DESCRIPTION_SPANISH);
+		tasksProjectionMap.put(Tasks.KEY_TITLE_ENGLISH, Tasks.KEY_TITLE_ENGLISH);
+		tasksProjectionMap.put(Tasks.KEY_SHORT_DESCRIPTION_ENGLISH, Tasks.KEY_SHORT_DESCRIPTION_ENGLISH);
+		tasksProjectionMap.put(Tasks.KEY_CREATION_TIME, Tasks.KEY_CREATION_TIME);
+		tasksProjectionMap.put(Tasks.KEY_EXPIRATION_TIME, Tasks.KEY_EXPIRATION_TIME);
 		tasksProjectionMap.put(Tasks.KEY_TRIGGERS, Tasks.KEY_TRIGGERS);
 		tasksProjectionMap.put(Tasks.KEY_ACTIVE, Tasks.KEY_ACTIVE);
 
 		tasksProjectionMap.put(Tasks.KEY_TASK_JSON, Tasks.KEY_TASK_JSON);
 		tasksProjectionMap.put(Tasks.KEY_DONE, Tasks.KEY_DONE);
-		tasksProjectionMap.put(Tasks.KEY_RESPONSES_JSON,
-				Tasks.KEY_RESPONSES_JSON);
+		tasksProjectionMap.put(Tasks.KEY_RESPONSES_JSON, Tasks.KEY_RESPONSES_JSON);
 		tasksProjectionMap.put(Tasks.KEY_UPLOADED, Tasks.KEY_UPLOADED);
-
 	}
 
 	@Override
@@ -212,8 +203,7 @@ public abstract class ContProvMissions extends ContentProvider {
 	}
 
 	@Override
-	public Cursor query(Uri uri, String[] projection, String selection,
-			String[] selectionArgs, String sortOrder) {
+	public Cursor query(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
 		SQLiteQueryBuilder qb = new SQLiteQueryBuilder();
 		qb.setTables(DATABASE_TABLE);
 		qb.setProjectionMap(tasksProjectionMap);
@@ -229,16 +219,14 @@ public abstract class ContProvMissions extends ContentProvider {
 		}
 
 		SQLiteDatabase db = mDbHelper.getReadableDatabase();
-		Cursor c = qb.query(db, projection, selection, selectionArgs, null,
-				null, sortOrder);
+		Cursor c = qb.query(db, projection, selection, selectionArgs, null, null, sortOrder);
 
 		c.setNotificationUri(getContext().getContentResolver(), uri);
 		return c;
 	}
 
 	@Override
-	public int update(Uri uri, ContentValues values, String where,
-			String[] whereArgs) {
+	public int update(Uri uri, ContentValues values, String where, String[] whereArgs) {
 		SQLiteDatabase db = mDbHelper.getWritableDatabase();
 		int count;
 		switch (sUriMatcher.match(uri)) {

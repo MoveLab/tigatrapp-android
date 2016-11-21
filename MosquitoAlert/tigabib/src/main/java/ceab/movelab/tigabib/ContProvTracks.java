@@ -21,8 +21,6 @@
 
 package ceab.movelab.tigabib;
 
-import java.util.HashMap;
-
 import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -34,6 +32,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+
+import java.util.HashMap;
+
 import ceab.movelab.tigabib.ContProvContractTracks.Fixes;
 
 /**
@@ -52,8 +53,7 @@ public abstract class ContProvTracks extends ContentProvider {
 	/**
 	 * The URI for this content provider.
 	 */
-	public Uri CONTENT_URI = Uri.parse("content://" + getAuthority()
-			+ "/" + DATABASE_TABLE);
+	public Uri CONTENT_URI = Uri.parse("content://" + getAuthority() + "/" + DATABASE_TABLE);
 
 	private static final String DATABASE_NAME = "tracksDB";
 
@@ -84,8 +84,7 @@ public abstract class ContProvTracks extends ContentProvider {
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-			// Log.w(TAG, "Upgrading database from version " + oldVersion +
-			// " to "
+			// Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
 			// + newVersion + ", which will destroy all old data");
 			db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
 			onCreate(db);

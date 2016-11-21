@@ -1,4 +1,4 @@
-package ceab.movelab.tigabib;
+package ceab.movelab.tigabib.services;
 
 import android.app.Service;
 import android.content.ContentResolver;
@@ -13,17 +13,21 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
+import ceab.movelab.tigabib.ContProvValuesTracks;
+import ceab.movelab.tigabib.Messages;
+import ceab.movelab.tigabib.MissionModel;
+import ceab.movelab.tigabib.PropertyHolder;
+import ceab.movelab.tigabib.Util;
 
 public class FixUse extends Service {
 
 	private static String TAG = "FixUse";
 
+	Context context;
 	private boolean inUse = false;
 
-	Context context;
-
-	ContentResolver cr;
-	Cursor c;
+//	ContentResolver cr;
+//	Cursor c;
 
 	double lat = 0;
 	double lon = 0;
@@ -40,41 +44,26 @@ public class FixUse extends Service {
 			stopSelf();
 		} else {
 
-			if (!inUse) {
+			if ( !inUse ) {
 				inUse = true;
 
-				if (intent != null
-						&& intent.hasExtra(Messages.makeIntentExtraKey(context,
-								FixGet.KEY_LAT))
-						&& intent.hasExtra(Messages.makeIntentExtraKey(context,
-								FixGet.KEY_LON))
-						&& intent.hasExtra(Messages.makeIntentExtraKey(context,
-								FixGet.KEY_TIME))
-						&& intent.hasExtra(Messages.makeIntentExtraKey(context,
-								FixGet.KEY_POWER))
-						&& intent.hasExtra(Messages.makeIntentExtraKey(context,
-								FixGet.KEY_TASK_FIX))) {
+				if ( intent != null
+						&& intent.hasExtra(Messages.makeIntentExtraKey(context, FixGet.KEY_LAT))
+						&& intent.hasExtra(Messages.makeIntentExtraKey(context, FixGet.KEY_LON))
+						&& intent.hasExtra(Messages.makeIntentExtraKey(context, FixGet.KEY_TIME))
+						&& intent.hasExtra(Messages.makeIntentExtraKey(context, FixGet.KEY_POWER))
+						&& intent.hasExtra(Messages.makeIntentExtraKey(context, FixGet.KEY_TASK_FIX))) {
 
-					this.lat = intent.getDoubleExtra(Messages
-							.makeIntentExtraKey(context, FixGet.KEY_LAT), 0);
-					this.lon = intent.getDoubleExtra(Messages
-							.makeIntentExtraKey(context, FixGet.KEY_LON), 0);
-					this.time = intent.getLongExtra(Messages
-							.makeIntentExtraKey(context, FixGet.KEY_TIME), 0);
-					this.power = intent.getFloatExtra(Messages
-							.makeIntentExtraKey(context, FixGet.KEY_POWER), 0);
-					this.taskFix = intent.getBooleanExtra(Messages
-							.makeIntentExtraKey(context, FixGet.KEY_TASK_FIX),
-							false);
+					this.lat = intent.getDoubleExtra(Messages.makeIntentExtraKey(context, FixGet.KEY_LAT), 0);
+					this.lon = intent.getDoubleExtra(Messages.makeIntentExtraKey(context, FixGet.KEY_LON), 0);
+					this.time = intent.getLongExtra(Messages.makeIntentExtraKey(context, FixGet.KEY_TIME), 0);
+					this.power = intent.getFloatExtra(Messages.makeIntentExtraKey(context, FixGet.KEY_POWER), 0);
+					this.taskFix = intent.getBooleanExtra(Messages.makeIntentExtraKey(context, FixGet.KEY_TASK_FIX), false);
 
-					Thread uploadThread = new Thread(null, doUseFix,
-							"useFixBackground");
+					Thread uploadThread = new Thread(null, doUseFix, "useFixBackground");
 					uploadThread.start();
-
 				}
-
 			}
-
 		}
 	};
 
@@ -86,11 +75,10 @@ public class FixUse extends Service {
 
 	@Override
 	public void onCreate() {
-
 		// Log.e(TAG, "FileUploader onCreate.");
 
 		context = getApplicationContext();
-		if (PropertyHolder.isInit() == false)
+		if ( !PropertyHolder.isInit() )
 			PropertyHolder.init(context);
 	}
 
@@ -115,8 +103,8 @@ public class FixUse extends Service {
 
 			Util.logInfo(TAG, "this fix: " + thisFix.lat + ';' + thisFix.lng + ';' + thisFix.time + ';' + thisFix.pow);
 
-			cr.insert(Util.getTracksUri(context), ContProvValuesTracks
-					.createFix(thisFix.lat, thisFix.lng, thisFix.time, thisFix.pow, taskFix));
+			cr.insert(Util.getTracksUri(context),
+					ContProvValuesTracks.createFix(thisFix.lat, thisFix.lng, thisFix.time, thisFix.pow, taskFix));
 
 			// Check for location-based tasks
 
@@ -131,16 +119,13 @@ public class FixUse extends Service {
 			Util.logInfo(TAG, "sql: " + sc1);
 
 			// grab tasks that have location triggers, that are not yet active,
-			// that
-			// are not yet done, and that have not expired
-			Cursor c = cr.query(Util.getMissionsUri(context),
-					Tasks.KEYS_TRIGGERS, sc1, null, null);
+			// that are not yet done, and that have not expired
+			Cursor c = cr.query(Util.getMissionsUri(context), Tasks.KEYS_TRIGGERS, sc1, null, null);
 
 			while (c.moveToNext()) {
 
 				try {
-					JSONArray theseTriggers = new JSONArray(c.getString(c
-							.getColumnIndexOrThrow(Tasks.KEY_TRIGGERS)));
+					JSONArray theseTriggers = new JSONArray(c.getString(c.getColumnIndexOrThrow(Tasks.KEY_TRIGGERS)));
 
 					for (int i = 0; i < theseTriggers.length(); i++) {
 
@@ -149,26 +134,18 @@ public class FixUse extends Service {
 						Util.logInfo(TAG, "thisTrigger: " + thisTrigger.toString());
 						Util.logInfo(TAG, "thisLoc Lat:" + lat + " Lon:" + lon);
 						Util.logInfo(TAG, "this trigger time lower bound equals null "
-										+ (thisTrigger
-												.getString(MissionModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND)
-												.equals("null")));
+								+ (thisTrigger.getString(MissionModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND).equals("null")));
 
-						if (lat >= thisTrigger
-								.getDouble(MissionModel.KEY_TASK_TRIGGER_LAT_LOWERBOUND)
+						if (lat >= thisTrigger.getDouble(MissionModel.KEY_TASK_TRIGGER_LAT_LOWERBOUND)
 								&& lat <= thisTrigger.getDouble(MissionModel.KEY_TASK_TRIGGER_LAT_UPPERBOUND)
 								&& lon >= thisTrigger.getDouble(MissionModel.KEY_TASK_TRIGGER_LON_LOWERBOUND)
 								&& lon <= thisTrigger.getDouble(MissionModel.KEY_TASK_TRIGGER_LON_UPPERBOUND)
+								&& (thisTrigger.getString(MissionModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND).equals("null") ||
+								(thisHour >= Util.triggerTime2HourInt(thisTrigger.getString(MissionModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND))))
 								&& (thisTrigger
-										.getString(MissionModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND)
-										.equals("null") || (thisHour >= Util.triggerTime2HourInt(thisTrigger
-												.getString(MissionModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND))))
-								&& (thisTrigger
-										.getString(MissionModel.KEY_TASK_TRIGGER_TIME_UPPERBOUND)
-										.equals("null") || (thisHour <= Util
-										.triggerTime2HourInt(thisTrigger
-												.getString(MissionModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND)))
+								.getString(MissionModel.KEY_TASK_TRIGGER_TIME_UPPERBOUND).equals("null") ||
+								(thisHour <= Util.triggerTime2HourInt(thisTrigger.getString(MissionModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND)))
 								)) {
-
 							Util.logInfo(TAG, "task triggered");
 
 							ContentValues cv = new ContentValues();
@@ -180,26 +157,15 @@ public class FixUse extends Service {
 							Intent intent = new Intent(Messages.internalAction(context));
 							intent.putExtra(Messages.INTERNAL_MESSAGE_EXTRA, Messages.SHOW_TASK_NOTIFICATION);
 							if (PropertyHolder.getLanguage().equals("ca")) {
-								intent.putExtra(
-										Tasks.KEY_TITLE,
-										c.getString(c
-												.getColumnIndexOrThrow(Tasks.KEY_TITLE_CATALAN)));
+								intent.putExtra(Tasks.KEY_TITLE, c.getString(c.getColumnIndexOrThrow(Tasks.KEY_TITLE_CATALAN)));
 							} else if (PropertyHolder.getLanguage().equals("es")) {
-								intent.putExtra(
-										Tasks.KEY_TITLE,
-										c.getString(c
-												.getColumnIndexOrThrow(Tasks.KEY_TITLE_SPANISH)));
+								intent.putExtra(Tasks.KEY_TITLE, c.getString(c.getColumnIndexOrThrow(Tasks.KEY_TITLE_SPANISH)));
 							} else if (PropertyHolder.getLanguage().equals("en")) {
-								intent.putExtra(
-										Tasks.KEY_TITLE,
-										c.getString(c
-												.getColumnIndexOrThrow(Tasks.KEY_TITLE_ENGLISH)));
+								intent.putExtra(Tasks.KEY_TITLE, c.getString(c.getColumnIndexOrThrow(Tasks.KEY_TITLE_ENGLISH)));
 							}
 							context.sendBroadcast(intent);
 						}
 					}
-				} catch (IllegalArgumentException e) {
-					Util.logError(TAG, "error: " + e);
 				} catch (JSONException e) {
 					Util.logError(TAG, "error: " + e);
 				}

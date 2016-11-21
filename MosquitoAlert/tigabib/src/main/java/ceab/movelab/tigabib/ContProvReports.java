@@ -21,8 +21,6 @@
 
 package ceab.movelab.tigabib;
 
-import java.util.HashMap;
-
 import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -34,6 +32,9 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+
+import java.util.HashMap;
+
 import ceab.movelab.tigabib.ContProvContractReports.Reports;
 
 /**
@@ -124,7 +125,6 @@ public abstract class ContProvReports extends ContentProvider {
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			db.execSQL(DATABASE_CREATE);
-
 		}
 
 		@Override
@@ -134,7 +134,6 @@ public abstract class ContProvReports extends ContentProvider {
 			// + newVersion + ", which will destroy all old data");
 			db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
 			onCreate(db);
-
 		}
 	}
 
@@ -142,75 +141,48 @@ public abstract class ContProvReports extends ContentProvider {
 		sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 		sUriMatcher.addURI(getAuthority(), DATABASE_TABLE, REPORTS);
 		sUriMatcher.addURI(getAuthority(), DATABASE_TABLE + "/#", ROW_ID);
-		sUriMatcher.addURI(getAuthority(), DATABASE_TABLE + "report_id/#",
-				REPORT_ID);
+		sUriMatcher.addURI(getAuthority(), DATABASE_TABLE + "report_id/#", REPORT_ID);
 
 		reportsProjectionMap = new HashMap<String, String>();
 		reportsProjectionMap.put(Reports.KEY_ROW_ID, Reports.KEY_ROW_ID);
-		reportsProjectionMap.put(Reports.KEY_VERSION_UUID,
-				Reports.KEY_VERSION_UUID);
+		reportsProjectionMap.put(Reports.KEY_VERSION_UUID, Reports.KEY_VERSION_UUID);
 
 		reportsProjectionMap.put(Reports.KEY_USER_ID, Reports.KEY_USER_ID);
 		reportsProjectionMap.put(Reports.KEY_REPORT_ID, Reports.KEY_REPORT_ID);
-		reportsProjectionMap.put(Reports.KEY_REPORT_VERSION,
-				Reports.KEY_REPORT_VERSION);
+		reportsProjectionMap.put(Reports.KEY_REPORT_VERSION, Reports.KEY_REPORT_VERSION);
 
-		reportsProjectionMap.put(Reports.KEY_CREATION_TIME,
-				Reports.KEY_CREATION_TIME);
+		reportsProjectionMap.put(Reports.KEY_CREATION_TIME, Reports.KEY_CREATION_TIME);
 
-		reportsProjectionMap.put(Reports.KEY_REPORT_TIME,
-				Reports.KEY_REPORT_TIME);
-		reportsProjectionMap.put(Reports.KEY_VERSION_TIME,
-				Reports.KEY_VERSION_TIME);
-		reportsProjectionMap.put(Reports.KEY_VERSION_TIME_STRING,
-				Reports.KEY_VERSION_TIME_STRING);
+		reportsProjectionMap.put(Reports.KEY_REPORT_TIME, Reports.KEY_REPORT_TIME);
+		reportsProjectionMap.put(Reports.KEY_VERSION_TIME, Reports.KEY_VERSION_TIME);
+		reportsProjectionMap.put(Reports.KEY_VERSION_TIME_STRING, Reports.KEY_VERSION_TIME_STRING);
 
 		reportsProjectionMap.put(Reports.KEY_TYPE, Reports.KEY_TYPE);
-		reportsProjectionMap.put(Reports.KEY_CONFIRMATION,
-				Reports.KEY_CONFIRMATION);
-		reportsProjectionMap.put(Reports.KEY_CONFIRMATION_CODE,
-				Reports.KEY_CONFIRMATION_CODE);
-		reportsProjectionMap.put(Reports.KEY_LOCATION_CHOICE,
-				Reports.KEY_LOCATION_CHOICE);
-		reportsProjectionMap.put(Reports.KEY_CURRENT_LOCATION_LON,
-				Reports.KEY_CURRENT_LOCATION_LON);
-		reportsProjectionMap.put(Reports.KEY_CURRENT_LOCATION_LAT,
-				Reports.KEY_CURRENT_LOCATION_LAT);
-		reportsProjectionMap.put(Reports.KEY_SELECTED_LOCATION_LON,
-				Reports.KEY_SELECTED_LOCATION_LON);
-		reportsProjectionMap.put(Reports.KEY_SELECTED_LOCATION_LAT,
-				Reports.KEY_SELECTED_LOCATION_LAT);
-		reportsProjectionMap.put(Reports.KEY_PHOTO_ATTACHED,
-				Reports.KEY_PHOTO_ATTACHED);
-		reportsProjectionMap
-				.put(Reports.KEY_PHOTO_URIS, Reports.KEY_PHOTO_URIS);
+		reportsProjectionMap.put(Reports.KEY_CONFIRMATION, Reports.KEY_CONFIRMATION);
+		reportsProjectionMap.put(Reports.KEY_CONFIRMATION_CODE, Reports.KEY_CONFIRMATION_CODE);
+		reportsProjectionMap.put(Reports.KEY_LOCATION_CHOICE, Reports.KEY_LOCATION_CHOICE);
+		reportsProjectionMap.put(Reports.KEY_CURRENT_LOCATION_LON, Reports.KEY_CURRENT_LOCATION_LON);
+		reportsProjectionMap.put(Reports.KEY_CURRENT_LOCATION_LAT, Reports.KEY_CURRENT_LOCATION_LAT);
+		reportsProjectionMap.put(Reports.KEY_SELECTED_LOCATION_LON, Reports.KEY_SELECTED_LOCATION_LON);
+		reportsProjectionMap.put(Reports.KEY_SELECTED_LOCATION_LAT, Reports.KEY_SELECTED_LOCATION_LAT);
+		reportsProjectionMap.put(Reports.KEY_PHOTO_ATTACHED, Reports.KEY_PHOTO_ATTACHED);
+		reportsProjectionMap.put(Reports.KEY_PHOTO_URIS, Reports.KEY_PHOTO_URIS);
 		reportsProjectionMap.put(Reports.KEY_NOTE, Reports.KEY_NOTE);
 		reportsProjectionMap.put(Reports.KEY_UPLOADED, Reports.KEY_UPLOADED);
-		reportsProjectionMap.put(Reports.KEY_SERVER_TIMESTAMP,
-				Reports.KEY_SERVER_TIMESTAMP);
-		reportsProjectionMap.put(Reports.KEY_DELETE_REPORT,
-				Reports.KEY_DELETE_REPORT);
-		reportsProjectionMap.put(Reports.KEY_LATEST_VERSION,
-				Reports.KEY_LATEST_VERSION);
+		reportsProjectionMap.put(Reports.KEY_SERVER_TIMESTAMP, Reports.KEY_SERVER_TIMESTAMP);
+		reportsProjectionMap.put(Reports.KEY_DELETE_REPORT, Reports.KEY_DELETE_REPORT);
+		reportsProjectionMap.put(Reports.KEY_LATEST_VERSION, Reports.KEY_LATEST_VERSION);
 
-		reportsProjectionMap.put(Reports.KEY_PACKAGE_NAME,
-				Reports.KEY_PACKAGE_NAME);
-		reportsProjectionMap.put(Reports.KEY_PACKAGE_VERSION,
-				Reports.KEY_PACKAGE_VERSION);
-		reportsProjectionMap.put(Reports.KEY_PHONE_MANUFACTURER,
-				Reports.KEY_PHONE_MANUFACTURER);
-		reportsProjectionMap.put(Reports.KEY_PHONE_MODEL,
-				Reports.KEY_PHONE_MODEL);
+		reportsProjectionMap.put(Reports.KEY_PACKAGE_NAME, Reports.KEY_PACKAGE_NAME);
+		reportsProjectionMap.put(Reports.KEY_PACKAGE_VERSION, Reports.KEY_PACKAGE_VERSION);
+		reportsProjectionMap.put(Reports.KEY_PHONE_MANUFACTURER, Reports.KEY_PHONE_MANUFACTURER);
+		reportsProjectionMap.put(Reports.KEY_PHONE_MODEL, Reports.KEY_PHONE_MODEL);
 		reportsProjectionMap.put(Reports.KEY_OS, Reports.KEY_OS);
-		reportsProjectionMap
-				.put(Reports.KEY_OS_VERSION, Reports.KEY_OS_VERSION);
-		reportsProjectionMap.put(Reports.KEY_OS_LANGUAGE,
-				Reports.KEY_OS_LANGUAGE);
-		reportsProjectionMap.put(Reports.KEY_APP_LANGUAGE,
-				Reports.KEY_APP_LANGUAGE);
+		reportsProjectionMap.put(Reports.KEY_OS_VERSION, Reports.KEY_OS_VERSION);
+		reportsProjectionMap.put(Reports.KEY_OS_LANGUAGE, Reports.KEY_OS_LANGUAGE);
+		reportsProjectionMap.put(Reports.KEY_APP_LANGUAGE, Reports.KEY_APP_LANGUAGE);
 
-		reportsProjectionMap
-				.put(Reports.KEY_MISSION_ID, Reports.KEY_MISSION_ID);
+		reportsProjectionMap.put(Reports.KEY_MISSION_ID, Reports.KEY_MISSION_ID);
 	}
 
 	@Override

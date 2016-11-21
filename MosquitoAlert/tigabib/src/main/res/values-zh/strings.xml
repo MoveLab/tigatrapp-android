@@ -274,5 +274,8 @@
     <string name="tag_to_map_points_of_citizens_albopictus">白紋伊蚊</string>
     <string name="tag_to_map_points_of_citizens_aegypti">埃及伊蚊</string>
     <string name="tag_to_map_points_of_citizens_none">沒有</string>
+
+    <string name="my_observations">我的觀察</string>
+    <string name="nearby_observations">鄰近用戶的觀察</string>
 </resources>
 

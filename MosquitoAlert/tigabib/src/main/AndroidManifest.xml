@@ -89,9 +89,9 @@
         </activity>
         <activity
             android:name="ceab.movelab.tigabib.SwitchboardActivity"
-            android:launchMode="singleInstance" >
+            android:launchMode="singleTop" >
         </activity>
-<!--        <activity
+<!--    <activity
             android:name="ceab.movelab.tigabib.MapData"
             android:hardwareAccelerated="false"
             android:process=":p2" >
@@ -140,10 +140,10 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="ceab.movelab.tigabib.FixGet" />
-        <service android:name="ceab.movelab.tigabib.FixUse" />
+        <service android:name="ceab.movelab.tigabib.services.FixGet" />
+        <service android:name="ceab.movelab.tigabib.services.FixUse" />
         <service android:name="ceab.movelab.tigabib.SyncData" />
-        <service android:name="ceab.movelab.tigabib.Sample" />
+        <service android:name="ceab.movelab.tigabib.services.Sample" />
 
     </application>
 

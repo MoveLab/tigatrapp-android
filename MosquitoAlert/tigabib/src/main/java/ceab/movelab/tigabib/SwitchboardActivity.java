@@ -52,6 +52,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ShareEvent;
 import com.google.gson.reflect.TypeToken;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -470,7 +472,7 @@ public class SwitchboardActivity extends Activity {
 			// set the type
 			shareIntent.setType("text/plain");
 			// add a subject
-			shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "MosquitoAlert");
+			shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, R.string.app_name);
 			// build the body of the message to be shared
 			String shareMessage = getResources().getString(R.string.project_website);
 			// add the message
@@ -478,6 +480,11 @@ public class SwitchboardActivity extends Activity {
 			// start the chooser for sharing
 			startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.share_with)));
 
+			Answers.getInstance().logShare(new ShareEvent()
+					.putMethod("Mail")
+					.putContentName("Global")
+					.putContentType("App") // Map, Photo
+					.putContentId(PropertyHolder.getUserId()));
 			return true;
 		}
 		return false;

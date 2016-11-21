@@ -40,8 +40,9 @@ android {
         release {
             buildConfigField "boolean", "PRIVATE_MODE", "false"
             debuggable false
-            //minifyEnabled true
-            //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
+//            minifyEnabled true
+//            shrinkResources true
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
         }
     }
 

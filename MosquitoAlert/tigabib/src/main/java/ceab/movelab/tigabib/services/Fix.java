@@ -19,13 +19,16 @@
  * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
-package ceab.movelab.tigabib;
+package ceab.movelab.tigabib.services;
 
 import android.content.Context;
 
 import org.apache.http.HttpResponse;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import ceab.movelab.tigabib.PropertyHolder;
+import ceab.movelab.tigabib.Util;
 
 /**
  * Defines map point objects used in DriverMapActivity.
@@ -39,16 +42,14 @@ public class Fix {
 	double lng;
 	long time;
 	float pow;
-	boolean taskFix;
+	private boolean taskFix;
 
 	public Fix(double _lat, double _lng, long _time, float _pow, boolean _task_fix) {
-
 		lat = _lat;
 		lng = _lng;
 		time = _time;
 		pow = _pow;
 		taskFix = _task_fix;
-
 	}
 
 	public JSONObject exportJSON(Context context) {
@@ -57,7 +58,7 @@ public class Fix {
 
 		JSONObject result = new JSONObject();
 		try {
-			if(taskFix)
+			if (taskFix)
 				result.put("user_coverage_uuid", PropertyHolder.getUserId());
 			else
 				result.put("user_coverage_uuid", PropertyHolder.getUserCoverageId());
@@ -76,14 +77,10 @@ public class Fix {
 	
 
 	public HttpResponse upload(Context context) {
-
 		HttpResponse result = null;
-
-			result = Util.postJSON(this.exportJSON(context), Util.API_FIXES, context);
+		result = Util.postJSON(this.exportJSON(context), Util.API_FIXES, context);
 
 		return result;
-
-
 	}
 
 }

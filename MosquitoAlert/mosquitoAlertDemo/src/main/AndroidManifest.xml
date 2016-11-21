@@ -85,7 +85,7 @@
         </activity>
         <activity
             android:name="ceab.movelab.tigabib.SwitchboardActivity"
-            android:launchMode="singleInstance" >
+            android:launchMode="singleTop" >
         </activity>
         <activity
             android:name="ceab.movelab.tigabib.MapDataV2Activity"
@@ -124,10 +124,10 @@
             </intent-filter>
         </receiver>
 
-        <service android:name="ceab.movelab.tigabib.FixGet" />
-        <service android:name="ceab.movelab.tigabib.FixUse" />
+        <service android:name="ceab.movelab.tigabib.services.FixGet" />
+        <service android:name="ceab.movelab.tigabib.services.FixUse" />
         <service android:name="ceab.movelab.tigabib.SyncData" />
-        <service android:name="ceab.movelab.tigabib.Sample" />
+        <service android:name="ceab.movelab.tigabib.services.Sample" />
 
         <provider
             android:name="ceab.movelab.tigerapp.TigademoMissionsCP"
@@ -148,6 +148,16 @@
             android:exported="false" >
         </provider>
 
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version"/>
@@ -156,7 +166,7 @@
             android:value="AIzaSyCCHvFv_a2jIZdwbYdBe21VssK5G1cJiBM"/>
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="3f228cfd22afc1929994c25d761d61c5c1137d7a" />
+            android:value="22e87a4f3bbda2172ac5bb1e707484b1a20e24e5" />
 
     </application>
 

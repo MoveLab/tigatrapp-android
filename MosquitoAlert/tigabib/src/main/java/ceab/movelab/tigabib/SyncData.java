@@ -58,6 +58,7 @@ import org.json.JSONObject;
 import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
 import ceab.movelab.tigabib.ContProvContractReports.Reports;
 import ceab.movelab.tigabib.ContProvContractTracks.Fixes;
+import ceab.movelab.tigabib.services.Fix;
 
 /**
  * Uploads files to the server.

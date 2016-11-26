@@ -31,7 +31,7 @@ public class MyApp extends Application {
 		Fabric.with(this, crashlyticsKit);
 
 		RealmHelper.initialize(this);
-		Realm.init(this);
+		//Realm.init(this); // used in Realm 2.0.0+
 
 		AndroidNetworking.initialize(getApplicationContext());
 		AndroidNetworking.enableLogging();

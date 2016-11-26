@@ -376,7 +376,7 @@ public class SwitchboardActivity extends Activity {
 	}
 
 	private void updateNotificationCount() {
-		if ( mRealm != null ) {
+		if ( mRealm != null && !mRealm.isClosed() ) {
 			int count = RealmHelper.getInstance().getNewNotificationsCount(mRealm);
 			((TextView) findViewById(R.id.reportNotificationsNumberText)).setText(String.valueOf(count));
 		}

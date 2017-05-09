@@ -14,7 +14,7 @@ public class RealmHelper {
     private static RealmHelper instance = null;
 
     // Exists only to defeat instantiation
-    protected RealmHelper() { }
+    private RealmHelper() { }
 
     public static void initialize(Context ctx) {
         instance = null;
@@ -35,7 +35,7 @@ public class RealmHelper {
             RealmConfiguration config = new RealmConfiguration.Builder(ctx)
                     .name("myRealmDB.realm")
                     .schemaVersion(1)
-                    .deleteRealmIfMigrationNeeded()
+                    //.deleteRealmIfMigrationNeeded()
                     .build();
            //mRealm = Realm.getInstance(config);
         //}
@@ -49,7 +49,7 @@ public class RealmHelper {
 */
 
     public void addOrUpdateNotificationList(final Realm realm, final List<Notification> notifList) {
-        if ( notifList != null ) {
+        if ( realm!= null && notifList != null ) {
             realm.executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {
@@ -71,7 +71,7 @@ public class RealmHelper {
     public RealmResults<Notification> getNotificationsRead(final Realm realm, boolean ack) {
         RealmResults<Notification> results = realm.where(Notification.class).equalTo("acknowledged", ack).findAll();
         Util.logInfo(this.getClass().getName(), "getNotificationsRead (" + ack + ") >> " + results.size());
-        return  realm.where(Notification.class).equalTo("acknowledged", ack).findAll();
+        return realm.where(Notification.class).equalTo("acknowledged", ack).findAll();
     }
 
     public int getNewNotificationsCount(final Realm realm) {

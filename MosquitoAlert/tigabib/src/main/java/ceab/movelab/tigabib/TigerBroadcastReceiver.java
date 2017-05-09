@@ -76,6 +76,7 @@ import android.content.res.Resources;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
+import android.text.TextUtils;
 
 import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
 import ceab.movelab.tigabib.services.FixGet;
@@ -106,7 +107,7 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 		if ( !PropertyHolder.isInit() )
 			PropertyHolder.init(context);
 
-		if ( PropertyHolder.hasConsented() && !Util.privateMode(context) ) {
+		if ( PropertyHolder.hasConsented() && !Util.privateMode() ) {
 			String action = intent.getAction();
 			String extra = "";
 			if (intent.hasExtra(Messages.INTERNAL_MESSAGE_EXTRA)) {
@@ -131,59 +132,61 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 				int alarmType = AlarmManager.ELAPSED_REALTIME_WAKEUP;
 				alarmManager.setRepeating(alarmType, SystemClock.elapsedRealtime(), DAILY_INTERVAL, pi2sample);
 				PropertyHolder.setServiceOn(true);
-				Util.logInfo(TAG, "started daily sampling");
+Util.logInfo(TAG, "started daily sampling");
 				PropertyHolder.lastSampleScheduleMade(System.currentTimeMillis());
 			} else if (extra.contains(Messages.STOP_DAILY_SAMPLING)) {
 				alarmManager.cancel(pi2sample);
 				PropertyHolder.setServiceOn(false);
 				context.stopService(i2stopfix);
-				Util.logInfo(TAG, "stopped sampling");
+Util.logInfo(TAG, "stopped sampling");
 			} else if (extra.contains(Messages.START_DAILY_SYNC)) {
 				// first sync now
 				context.startService(new Intent(context, SyncData.class));
 				int alarmType = AlarmManager.ELAPSED_REALTIME_WAKEUP;
 				alarmManager.setRepeating(alarmType, SystemClock.elapsedRealtime(), DAILY_INTERVAL, pi2sync);
-				Util.logInfo(TAG, "started daily sync");
+Util.logInfo(TAG, "started daily sync");
 			} else if (extra.contains(Messages.STOP_DAILY_SYNC)) {
 				alarmManager.cancel(pi2sync);
-				Util.logInfo(TAG, "stop sync");
+Util.logInfo(TAG, "stop sync");
 			} else if (extra.contains(Messages.START_TASK_FIX)) {
 				Intent tfi = new Intent(context, FixGet.class);
 				tfi.setAction(Messages.taskFixAction(context));
 				context.startService(tfi);
 				// long baseTime = SystemClock.elapsedRealtime();
 				// alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, baseTime + Util.TASK_FIX_WINDOW, pi2stopfix);
-				Util.logInfo(TAG, "start task fix");
+Util.logInfo(TAG, "start task fix");
 			} else if (extra.contains(Messages.SHOW_TASK_NOTIFICATION)) {
 				final String taskTitle = intent.getStringExtra(Tasks.KEY_TITLE);
 				createNotification(context, taskTitle);
-				Util.logInfo(TAG, "show task notification");
+Util.logInfo(TAG, "show task notification");
 			} else if (extra.contains(Messages.REMOVE_TASK_NOTIFICATION)) {
 				cancelNotification(context);
-				Util.logInfo(TAG, "remove task notification");
+Util.logInfo(TAG, "remove task notification");
 			} else if (action.contains(Intent.ACTION_BOOT_COMPLETED)) {
 				if (PropertyHolder.isServiceOn()) {
 					Util.internalBroadcast(context, Messages.START_DAILY_SAMPLING);
 				}
 				Util.internalBroadcast(context, Messages.START_DAILY_SYNC);
-				Util.logInfo(TAG, "boot completed");
+Util.logInfo(TAG, "boot completed");
 			} else if (action.contains(Intent.ACTION_POWER_CONNECTED)) {
 				context.startService(new Intent(context, SyncData.class));
-				Util.logInfo(TAG, "power connected");
+Util.logInfo(TAG, "power connected");
 			}
 		}
 	}
 
 	public void createNotification(Context context, String taskTitle) {
-		Util.logInfo(TAG, "create notification");
+Util.logInfo(TAG, "create notification");
 
 		Resources res = context.getResources();
 		Util.setDisplayLanguage(res);
 
+		String myTitle = ( TextUtils.isEmpty(taskTitle) ? res.getString(R.string.new_mission) : taskTitle );
+
 		NotificationCompat.Builder mBuilder =
 				new NotificationCompat.Builder(context)
 						.setSmallIcon(R.drawable.ic_stat_mission)
-						.setContentTitle(res.getString(R.string.new_mission));
+						.setContentTitle(myTitle);
 						//.setContentText("Text below title"); !!!! check with John
 
 		Intent intent = new Intent(context, MissionListActivity.class);
@@ -198,7 +201,6 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 	}
 
 	public void createNotification_beforeAPI23(Context context, String taskTitle) {
-
 		Util.logInfo(TAG, "create notification");
 
 		Resources res = context.getResources();

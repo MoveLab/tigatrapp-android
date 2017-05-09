@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
+
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class SplashActivity extends FragmentActivity {
     
@@ -25,7 +29,14 @@ public class SplashActivity extends FragmentActivity {
     protected void continueFromSplashScreen() {
     	Intent intent = new Intent(this, SwitchboardActivity.class);
 		startActivity(intent);
-        this.finish();
+
+		// Get token
+		String token = FirebaseInstanceId.getInstance().getToken();
+		Util.logInfo(this.getClass().getName(), "my token >> " + token);
+		if ( !TextUtils.isEmpty(token) )
+			FirebaseMessaging.getInstance().subscribeToTopic("global");
+
+		this.finish();
     }
 
 }

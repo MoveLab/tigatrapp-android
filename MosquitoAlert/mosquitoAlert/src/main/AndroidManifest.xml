@@ -131,6 +131,23 @@
         <service android:name="ceab.movelab.tigabib.SyncData" />
         <service android:name="ceab.movelab.tigabib.services.Sample" />
 
+        <!-- [START firebase_service] -->
+        <service
+            android:name="ceab.movelab.tigabib.fcm.MyFirebaseMessagingService2">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+            </intent-filter>
+        </service>
+        <!-- [END firebase_service] -->
+        <!-- [START firebase_iid_service] -->
+        <service
+            android:name="ceab.movelab.tigabib.fcm.MyFirebaseInstanceIDService">
+            <intent-filter>
+                <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+            </intent-filter>
+        </service>
+        <!-- [END firebase_iid_service] -->
+
         <provider
             android:name=".TigatrappMissionsCP"
             android:authorities="ceab.movelab.tigatrapp.cp.missions"

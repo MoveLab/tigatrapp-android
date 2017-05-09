@@ -8,5 +8,5 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:layout_gravity="center"
-        android:src="@drawable/splash_august" />
+        android:src="@drawable/splashscreen_Vabril" />
 </FrameLayout>

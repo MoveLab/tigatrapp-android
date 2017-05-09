@@ -40,7 +40,7 @@ public class FixUse extends Service {
 
 		Util.logInfo(TAG, "on start");
 
-		if (!PropertyHolder.hasConsented() || Util.privateMode(context)) {
+		if (!PropertyHolder.hasConsented() || Util.privateMode()) {
 			stopSelf();
 		} else {
 

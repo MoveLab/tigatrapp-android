@@ -24,7 +24,7 @@ android {
         }
     }
     compileSdkVersion 'Google Apis:Google Apis:23'
-    buildToolsVersion "24.0.3"
+    buildToolsVersion "25.0.2"
     defaultConfig {
         applicationId "ceab.movelab.tigerapp"
         minSdkVersion 9
@@ -50,10 +50,10 @@ dependencies {
     debugCompile project(path: ':tigabib', configuration: 'debug')
 
     //compile project(':tigabib')
-    compile 'com.android.support:support-v4:24.2.0'
-    compile 'com.android.support:appcompat-v7:24.2.0'
+    compile 'com.android.support:support-v4:25.0.1'
+    compile 'com.android.support:appcompat-v7:25.0.1'
 
-    compile('com.crashlytics.sdk.android:crashlytics:2.6.5@aar') {
+    compile('com.crashlytics.sdk.android:crashlytics:2.6.7@aar') {
         transitive = true;
     }
 }

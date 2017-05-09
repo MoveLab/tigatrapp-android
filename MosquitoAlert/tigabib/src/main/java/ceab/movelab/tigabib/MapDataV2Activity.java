@@ -298,9 +298,9 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 		mGoogleMap.getUiSettings().setMapToolbarEnabled(false);
 
 		//GeoPoint myCenterPoint = currentCenter != null ? currentCenter : Util.CEAB_COORDINATES;
-		LatLng myLatLng = new LatLng(Util.CEAB_COORDINATES.getLatitudeE6() / 1E6, Util.CEAB_COORDINATES.getLongitudeE6() / 1E6);
+		//LatLng myLatLng = new LatLng(Util.CEAB_COORDINATES.getLatitudeE6() / 1E6, Util.CEAB_COORDINATES.getLongitudeE6() / 1E6);
 		//mGoogleMap.moveCamera(CameraUpdateFactory.zoomTo(15);
-		mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, 12));
+		mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Util.CEAB_COORDINATES, 12));
 
 /*		Testing markers ********************
 		mGoogleMap.addMarker(new MarkerOptions()
@@ -484,7 +484,9 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 											getResources().getIdentifier("tag_to_map_points_of_citizens_"+myTitle, "string",
 											MapDataV2Activity.this.getPackageName()));
 								}
-								catch (Resources.NotFoundException e2) { }
+								catch (Resources.NotFoundException e2) {
+									e2.printStackTrace();
+								}
 								//Marker marker =
 								mGoogleMap.addMarker(new MarkerOptions()
 									.position(pointLatLng)
@@ -675,10 +677,11 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 	};
 
 	private void saveMapImage() {
-		mGoogleMap.snapshot(snapshotSaveMap);
+		if ( mGoogleMap != null ) mGoogleMap.snapshot(snapshotSaveMap);
 	}
+
 	private void shareMap() {
-		mGoogleMap.snapshot(snapshotShareMap);
+		if ( mGoogleMap != null ) mGoogleMap.snapshot(snapshotShareMap);
 	}
 
 

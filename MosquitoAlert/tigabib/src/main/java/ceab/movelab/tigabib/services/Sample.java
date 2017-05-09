@@ -77,7 +77,7 @@ public class Sample extends Service {
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		Util.logInfo(TAG, "on start");
-		if ( !Util.privateMode(context) ) {
+		if ( !Util.privateMode() ) {
 			Thread uploadThread = new Thread(null, doSampling, "sampleBackground");
 			uploadThread.start();
 		}

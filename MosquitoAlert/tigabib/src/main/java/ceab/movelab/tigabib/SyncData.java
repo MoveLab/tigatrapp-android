@@ -81,19 +81,19 @@ public class SyncData extends Service {
 	public void onStart(Intent intent, int startId) {
 		Util.logInfo(TAG, "on start");
 
-		if (!Util.isOnline(context) || Util.privateMode(context)) {
+		if ( !Util.isOnline(context) || Util.privateMode() ) {
 			Util.logInfo(TAG, "offline or private mode, stopping service");
 			stopSelf();
 		} else {
 
-			if (!uploading && !Util.privateMode(context)) {
+			if ( !uploading && !Util.privateMode() ) {
 				uploading = true;
 
 				Thread uploadThread = new Thread(null, doSyncing, "uploadBackground");
 				uploadThread.start();
 			}
 		}
-	};
+	}
 
 	private Runnable doSyncing = new Runnable() {
 		public void run() {
@@ -142,7 +142,7 @@ public class SyncData extends Service {
 
 		String missionUrl = Util.API_MISSION + "?"
 				+ (latest_id > 0 ? ("id_gt=" + latest_id) : "") + "&platform="
-				+ (Util.debugMode(context) ? "beta" : "and") + "&version_lte="
+				+ (Util.debugMode() ? "beta" : "and") + "&version_lte="
 				+ Util.MAX_MISSION_VERSION;
 
 		Util.logInfo(TAG, "mission array: " + missionUrl);

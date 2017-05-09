@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "972173353720",
+    "firebase_url": "https://mosquito-alert.firebaseio.com",
+    "project_id": "mosquito-alert",
+    "storage_bucket": "mosquito-alert.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:972173353720:android:3b19a908c8f94830",
+        "android_client_info": {
+          "package_name": "ceab.movelab.tigatrapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "972173353720-59943aelsur9svh4akrnosf4mq65n1h3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ceab.movelab.tigatrapp",
+            "certificate_hash": "255dc9d78277e70224c68b79a87590c9017bfbd5"
+          }
+        },
+        {
+          "client_id": "972173353720-s9nrkjaelijgktbkuv2kvpn3va6hr5qo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDqlQ9qFxFtEg2IBTebrU51i6VQnn1bdOE"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "972173353720-s9nrkjaelijgktbkuv2kvpn3va6hr5qo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

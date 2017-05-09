@@ -92,7 +92,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.maps.GeoPoint;
+import com.google.android.gms.maps.model.LatLng;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -154,22 +154,22 @@ public class Util {
 	// http://msi.nga.mil/MSISiteContent/StaticFiles/Calculators/degree.html
 	public static int FIX_LAT_CUTOFF = 60;
 
-	public static boolean privateMode(Context context) {
+	public static boolean privateMode() {
 //		boolean result = false;
 //		if (context.getResources().getString(R.string.private_mode).equals("true"))
 //			result = true;
 		return BuildConfig.PRIVATE_MODE;
 	}
 
-	public static boolean debugMode(Context context) {
-//		boolean result = false;
-//		if (context.getResources().getString(R.string.debug_mode).equals("true"))
-//			result = true;
-		return BuildConfig.DEBUG;
-	}
+//	public static boolean debugMode(Context context) {
+////		boolean result = false;
+////		if (context.getResources().getString(R.string.debug_mode).equals("true"))
+////			result = true;
+//		return BuildConfig.DEBUG;
+//	}
 
-	public static boolean debugMode() {
-		return BuildConfig.DEBUG;
+	public static boolean debugMode() {		// !!!!!!
+		return !BuildConfig.DEBUG;
 	}
 
 	public static void logError(String tag, String message) {
@@ -228,10 +228,21 @@ public class Util {
 	 */
 	public static final String API_MISSION = UtilLocal.API_MISSION;
 
-	/**
-	 * API notification endpoint.
+    /**
+     * API notification endpoint.
+     */
+    public static final String API_NOTIFICATION = UtilLocal.API_NOTIFICATION;
+
+    /**
+     * API score endpoint.
+     */
+    public static final String API_SCORE = UtilLocal.API_SCORE;
+
+    /**
+	 * API token endpoint.
 	 */
-	public static final String API_NOTIFICATION = UtilLocal.API_NOTIFICATION;
+	public static final String API_TOKEN = UtilLocal.API_TOKEN;
+
 
 	/**
 	 * API nearby reports endpoint.
@@ -253,17 +264,19 @@ public class Util {
 
 	public final static String EXTENSION = ".dat";
 
-	public final static GeoPoint CEAB_COORDINATES = new GeoPoint(41683600, 2799600);
+	public final static LatLng CEAB_COORDINATES = new LatLng(41.683600, 2.799600);
 
 	public final static double latMask = 0.05;
 	public final static double lonMask = 0.05;
 
+/*
 	public static String[] ALPHA_NUMERIC_DIGITS = { "0", "1", "2", "3", "4",
 			"5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F", "G", "H",
 			"I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U",
 			"V", "W", "X", "Y", "Z", "a", "b", "c", "d", "e", "f", "g", "h",
 			"i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u",
 			"v", "w", "x", "y", "z" };
+*/
 
 	public static int DEFAULT_SAMPLES_PER_DAY = 5;
 
@@ -274,7 +287,7 @@ public class Util {
 
 	public static final long TASK_FIX_WINDOW = 1000 * 15; // 15 seconds
 
-	public static final long UPLOAD_INTERVAL = 1000 * 60 * 60; // 1 hour
+	//public static final long UPLOAD_INTERVAL = 1000 * 60 * 60; // 1 hour
 
 	/**
 	 * Maximum length of time to run location listeners during each fix attempt.
@@ -397,8 +410,8 @@ public class Util {
 	 */
 	public static String userDate(Date date) {
 		SimpleDateFormat s = new SimpleDateFormat("HH:mm dd/MM/yyyy");
-		String format = s.format(date);
-		return format;
+		//String format = s.format(date);
+		return s.format(date);
 	}
 
 	/**
@@ -874,8 +887,6 @@ public class Util {
 				result = httpclient.execute(httpost);
 
 			} catch (UnsupportedEncodingException e) {
-				Util.logError(TAG, "error: " + e);
-			} catch (ClientProtocolException e) {
 				Util.logError(TAG, "error: " + e);
 			} catch (IOException e) {
 				Util.logError(TAG, "error: " + e);

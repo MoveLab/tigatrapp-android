@@ -70,11 +70,14 @@ package ceab.movelab.tigabib;
 public class UtilLocal {
 
 	//public static final String PYBOSSA_URL = "http://crowdcrafting.org/project/mosquito-alert/task/1383572";
-	public static final String PYBOSSA_URL = "http://crowdcrafting.org/project/mosquito-alert/newtask";
+	//public static final String PYBOSSA_URL = "http://crowdcrafting.org/project/mosquito-alert/newtask";
+	public static final String PYBOSSA_URL = "http://mosquitoalert.pybossa.com/project/mosquito-alert/newtask";
+
 
 	public static final String URL_PROJECT = "http://mosquitoalert.com/";	// blog url
 
 	//public static final String URL_TIGASERVER = "http://webserver.mosquitoalert.com/";	// Desenvolupament http://humboldt.ceab.csic.es/
+	// !!!!
 	public static final String URL_TIGASERVER =
 			(BuildConfig.DEBUG ? "http://humboldt.ceab.csic.es/" : "http://webserver.mosquitoalert.com/");	// Desenvolupament vs produccio
 
@@ -112,7 +115,12 @@ public class UtilLocal {
 	 */
 	public static final String API_NOTIFICATION = "user_notifications/";
 
-	/**
+    /**
+     * API score endpoint.
+     */
+    public static final String API_SCORE = "user_score/";
+
+    /**
 	 * API nearby reports endpoint.
 	 */
 	public static final String API_NEARBY_REPORTS = "nearby_reports/";
@@ -121,6 +129,12 @@ public class UtilLocal {
 	 * API configuration endpoint.
 	 */
 	public static final String API_CONFIGURATION = "configuration/";
+
+	/**
+	 * API configuration endpoint.
+	 */
+	public static final String API_TOKEN = "token/";
+
 
 	/**
 	 * Server authorization.

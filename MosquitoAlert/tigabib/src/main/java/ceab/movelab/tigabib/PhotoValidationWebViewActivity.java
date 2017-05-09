@@ -74,7 +74,7 @@ public class PhotoValidationWebViewActivity extends Activity {
 		myWebView.setWebViewClient(new WebViewClient(){
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
 //Toast.makeText(PhotoValidationActivity.this, url, Toast.LENGTH_SHORT).show();
-				String internalUrl = "http://crowdcrafting.org/project/mosquito-alert";
+				String internalUrl = UtilLocal.PYBOSSA_URL;
 				// all links with in our site will be open inside the webview, links that start as of our domain
 				if ( url != null && url.startsWith(internalUrl) ) {
 					return false;

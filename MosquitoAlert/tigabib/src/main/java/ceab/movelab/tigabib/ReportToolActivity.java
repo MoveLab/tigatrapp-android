@@ -947,7 +947,7 @@ public class ReportToolActivity extends Activity {
 			myProgress = 20;
 			publishProgress(myProgress);
 
-			if ( !Util.privateMode(context[0]) ) {
+			if ( !Util.privateMode() ) {
 
 				// now test if there is a data connection
 				if (!Util.isOnline(context[0])) {

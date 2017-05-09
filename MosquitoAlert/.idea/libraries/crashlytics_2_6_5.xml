@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="crashlytics-2.6.5">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/mosquitoAlert/build/intermediates/exploded-aar/com.crashlytics.sdk.android/crashlytics/2.6.5/res" />
-      <root url="jar://$PROJECT_DIR$/mosquitoAlert/build/intermediates/exploded-aar/com.crashlytics.sdk.android/crashlytics/2.6.5/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.android/build-cache/36e07dbe66bf25781eedfc0808acd68435495ab7/output/res" />
+      <root url="jar://$USER_HOME$/.android/build-cache/36e07dbe66bf25781eedfc0808acd68435495ab7/output/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

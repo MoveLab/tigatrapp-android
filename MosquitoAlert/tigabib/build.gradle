@@ -15,6 +15,7 @@ apply plugin: 'com.android.library'
 apply plugin: 'io.fabric'
 apply plugin: 'realm-android'
 
+
 repositories {
     maven { url 'https://maven.fabric.io/public' }
     maven { url 'https://github.com/uPhyca/stetho-realm/raw/master/maven-repo' }
@@ -28,7 +29,7 @@ android {
 
     compileSdkVersion 'Google Apis:Google Apis:23'
     //compileSdkVersion 23
-    buildToolsVersion "24.0.3"  // "23.0.2"
+    buildToolsVersion "25.0.2" // "24.0.3"  // "23.0.2"
     defaultConfig {
         minSdkVersion 9
         targetSdkVersion 24
@@ -51,18 +52,21 @@ android {
 }
 
 dependencies {
-/*    compile 'com.google.android.gms:play-services-maps:8.4.0'*/
-    compile 'com.android.support:support-v4:24.2.0'
-    compile 'com.android.support:appcompat-v7:24.2.0'
-    compile 'com.android.support:design:24.2.0'
-    compile 'com.android.support:customtabs:24.2.0' // chrome tabs
-    compile 'com.google.android.gms:play-services-maps:9.4.0'
-    compile 'com.google.android.gms:play-services-location:9.4.0'
+
+    compile 'com.google.firebase:firebase-core:10.0.1'
+    compile 'com.google.firebase:firebase-messaging:10.0.1'
+
+    compile 'com.android.support:support-v4:25.0.1'
+    compile 'com.android.support:appcompat-v7:25.0.1'
+    compile 'com.android.support:design:25.0.1'
+    compile 'com.android.support:customtabs:25.0.1' // chrome tabs
+    compile 'com.google.android.gms:play-services-maps:10.0.1'
+    compile 'com.google.android.gms:play-services-location:10.0.1'
     compile 'org.apache:apache:17'
 
     compile 'com.google.code.gson:gson:2.7'
 
-    compile 'com.amitshekhar.android:android-networking:0.1.0' // Fast-Android-Networking
+    //compile 'com.amitshekhar.android:android-networking:0.1.0' // Fast-Android-Networking
     compile 'com.koushikdutta.ion:ion:2.1.8'
 
     debugCompile 'com.facebook.stetho:stetho-okhttp3:1.3.1'
@@ -73,3 +77,5 @@ dependencies {
         transitive = true
     }
 }
+
+apply plugin: 'com.google.gms.google-services'

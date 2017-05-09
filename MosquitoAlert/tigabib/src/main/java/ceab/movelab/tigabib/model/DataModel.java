@@ -2,18 +2,16 @@ package ceab.movelab.tigabib.model;
 
 import android.content.Context;
 
-import io.realm.Realm;
-
 public class DataModel {
 	
 	private static DataModel instance = null;
 
 	public static float scale = 0.0f;
 
-	public static Realm myRealm;
+	//public static Realm myRealm;
 
 
-	protected DataModel() {
+	private DataModel() {
 		// Exists only to defeat instantiation
 	}
 	

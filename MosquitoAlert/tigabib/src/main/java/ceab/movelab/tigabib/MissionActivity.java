@@ -396,13 +396,13 @@ public class MissionActivity extends Activity {
 					cr.update(Util.getMissionsUri(MissionActivity.this), cv, sc, null);
 					// CHECK IF NOTIFICATIONS SHOULD BE REMOVED
 					sc = Tasks.KEY_ACTIVE + " = 1 AND " + Tasks.KEY_DONE
-							+ " = " + "0 AND " + Tasks.KEY_EXPIRATION_TIME
-							+ " <=" + System.currentTimeMillis();
+							+ " = 0 AND " + Tasks.KEY_EXPIRATION_TIME
+							+ " <= " + System.currentTimeMillis();
 					Cursor c = cr.query(Util.getMissionsUri(MissionActivity.this), Tasks.KEYS_DONE, sc, null, null);
-					Util.logInfo(TAG, "remaining tasks: " + c.getCount());
+Util.logInfo(TAG, "remaining tasks: " + c.getCount());
 					if (c.getCount() == 0) {
 						Util.internalBroadcast(MissionActivity.this, Messages.REMOVE_TASK_NOTIFICATION);
-						Util.logInfo(TAG, "just broadcast:" + Messages.REMOVE_TASK_NOTIFICATION);
+Util.logInfo(TAG, "just broadcast: " + Messages.REMOVE_TASK_NOTIFICATION);
 					}
 
 					c.close();
@@ -417,6 +417,7 @@ public class MissionActivity extends Activity {
 						packageName = pInfo.packageName;
 						packageVersion = pInfo.versionCode;
 					} catch (NameNotFoundException e) {
+						e.printStackTrace();
 					}
 
 					String phoneManufacturer = Build.MANUFACTURER;
@@ -480,9 +481,8 @@ public class MissionActivity extends Activity {
 					String sc = Tasks.KEY_ROW_ID + " = " + rowId;
 					cr.delete(Util.getMissionsUri(MissionActivity.this), sc, null);
 					// CHECK IF NOTIFICATIONS SHOULD BE REMOVED
-					sc = Tasks.KEY_DONE + " = " + "0 AND "
-							+ Tasks.KEY_EXPIRATION_TIME + " <="
-							+ System.currentTimeMillis();
+					sc = Tasks.KEY_DONE + " = 0 AND "
+							+ Tasks.KEY_EXPIRATION_TIME + " <= " + System.currentTimeMillis();
 					Cursor c = cr.query(Util.getMissionsUri(MissionActivity.this), Tasks.KEYS_DONE, sc, null, null);
 					if (c.getCount() == 0) {
 						Util.internalBroadcast(MissionActivity.this, Messages.REMOVE_TASK_NOTIFICATION);
@@ -529,7 +529,7 @@ public class MissionActivity extends Activity {
 					Util.logInfo(TAG, "remaining tasks: " + c.getCount());
 					if (c.getCount() == 0) {
 						Util.internalBroadcast(MissionActivity.this, Messages.REMOVE_TASK_NOTIFICATION);
-						Util.logInfo(TAG, "just broadcast:" + Messages.REMOVE_TASK_NOTIFICATION);
+						Util.logInfo(TAG, "just broadcast: " + Messages.REMOVE_TASK_NOTIFICATION);
 					}
 
 					c.close();

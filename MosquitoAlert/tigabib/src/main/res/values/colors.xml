@@ -30,7 +30,7 @@
     <color name="colorAccent">#FF9900</color>
 
     <color name="yellow">#FEE68C</color>
-    <color name="green_pybossa">#55b493</color>
+    <color name="pybossa_bar">#FFDD18</color>
 
     <color name="discolor">#F7E89E</color>
     <color name="white">#FFFFFF</color>

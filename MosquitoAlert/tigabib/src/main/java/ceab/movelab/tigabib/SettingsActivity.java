@@ -109,7 +109,7 @@ public class SettingsActivity extends Activity {
 		});
 
 		debugView = (LinearLayout) findViewById(R.id.debugView);
-		if ( Util.debugMode(this) ) {
+		if ( Util.debugMode() ) {
 			debugView.setVisibility(View.VISIBLE);
 			sampleView = (TextView) findViewById(R.id.sampleView);
 			sampleView.setText(PropertyHolder.getCurrentFixTimes());
@@ -155,17 +155,15 @@ public class SettingsActivity extends Activity {
 	public class NewSamplesReceiver extends BroadcastReceiver {
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			if (Util.debugMode(context))
+			if (Util.debugMode())
 				sampleView.setText(PropertyHolder.getCurrentFixTimes());
 		}
 	}
 
-	public class SyncTask extends AsyncTask<Context, Integer, Boolean> {
+	private class SyncTask extends AsyncTask<Context, Integer, Boolean> {
 
 		ProgressDialog prog;
-
 		int myProgress;
-
 		int resultFlag;
 
 		int OFFLINE = 0;
@@ -195,14 +193,14 @@ public class SettingsActivity extends Activity {
 			myProgress = 4;
 			publishProgress(myProgress);
 
-			if (!Util.privateMode(context[0])) {
+			if (!Util.privateMode()) {
 
 				// now test if there is a data connection
-				if (!Util.isOnline(context[0])) {
+				if ( !Util.isOnline(context[0]) ) {
 					resultFlag = OFFLINE;
 					return false;
 				}
-				if (!PropertyHolder.isRegistered())
+				if ( !PropertyHolder.isRegistered() )
 					Util.registerOnServer(context[0]);
 
 				myProgress = 5;
@@ -235,7 +233,7 @@ public class SettingsActivity extends Activity {
 
 				String missionUrl = Util.API_MISSION + "?"
 						+ (latest_id > 0 ? ("id_gt=" + latest_id) : "") + "&platform="
-						+ (Util.debugMode(context[0]) ? "beta" : "and") + "&version_lte="
+						+ (Util.debugMode() ? "beta" : "and") + "&version_lte="
 						+ Util.MAX_MISSION_VERSION;
 
 				Util.logInfo(TAG, "mission array: " + missionUrl);

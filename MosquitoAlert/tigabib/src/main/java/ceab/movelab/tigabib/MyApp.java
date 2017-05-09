@@ -3,7 +3,6 @@ package ceab.movelab.tigabib;
 import android.app.Application;
 import android.content.Context;
 
-import com.androidnetworking.AndroidNetworking;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
 
@@ -11,7 +10,6 @@ import ceab.movelab.tigabib.model.DataModel;
 import ceab.movelab.tigabib.model.RealmHelper;
 import ceab.movelab.tigabib.utils.StethoUtils;
 import io.fabric.sdk.android.Fabric;
-import io.realm.Realm;
 
 public class MyApp extends Application {
 
@@ -33,11 +31,10 @@ public class MyApp extends Application {
 		RealmHelper.initialize(this);
 		//Realm.init(this); // used in Realm 2.0.0+
 
-		AndroidNetworking.initialize(getApplicationContext());
-		AndroidNetworking.enableLogging();
+//		AndroidNetworking.initialize(getApplicationContext());
+//		AndroidNetworking.enableLogging();
 
 		StethoUtils.install(this);
-
 		//forceCrash();
     }
 
@@ -47,7 +44,7 @@ public class MyApp extends Application {
 
 	protected void initGlobals() {
     	// Initialize the instances
-    	DataModel.initialize(this);
+    	//DataModel.initialize(this);
 		DataModel.scale = getResources().getDisplayMetrics().density;
 	}
 
@@ -74,7 +71,7 @@ public class MyApp extends Application {
 		application = this;
 	}
 
-	public final static Context getAppContext() {
+	public static Context getAppContext() {
 		return application.getApplicationContext();
 	}
 

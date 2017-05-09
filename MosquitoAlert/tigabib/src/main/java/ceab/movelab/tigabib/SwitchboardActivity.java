@@ -39,6 +39,7 @@ import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -67,7 +68,10 @@ import ceab.movelab.tigabib.chrometabs.CustomTabActivityHelper;
 import ceab.movelab.tigabib.chrometabs.WebviewFallback;
 import ceab.movelab.tigabib.model.Notification;
 import ceab.movelab.tigabib.model.RealmHelper;
+import ceab.movelab.tigabib.model.Score;
 import io.realm.Realm;
+import io.realm.RealmConfiguration;
+
 
 /**
  * Main menu screen for app.
@@ -126,10 +130,28 @@ public class SwitchboardActivity extends Activity {
 		else {
 			onCreateWithPermissions();
 		}
+
+/*		PickerUI mPickerUI = (PickerUI) findViewById(R.id.picker_ui_view);
+		List<String> options = Arrays.asList(getResources().getStringArray(R.array.gallery_array));
+
+		//Populate list
+		mPickerUI.setItems(this, options);
+
+		mPickerUI.setColorTextCenter(R.color.colorAccent);
+		mPickerUI.setBackgroundColorPanel(R.color.black);
+		mPickerUI.setColorTextNoCenter(R.color.black);
+
+		mPickerUI.isPanelShown();
+		mPickerUI.setOnClickItemPickerUIListener(new PickerUI.PickerUIItemClickListener() {
+			@Override
+			public void onItemClickPickerUI(int which, int position, String valueResult) {
+				Toast.makeText(SwitchboardActivity.this, valueResult, Toast.LENGTH_SHORT).show();
+			}
+		});*/
 	}
 
 	private void onCreateWithPermissions() {
-		if ( !Util.privateMode(this) && !PropertyHolder.hasReconsented() ) { // MG - 9/8/16
+		if ( !Util.privateMode() && !PropertyHolder.hasReconsented() ) { // MG - 9/8/16
 			Intent i2c = new Intent(SwitchboardActivity.this, ConsentActivity.class);
 			startActivity(i2c);
 			finish();
@@ -163,7 +185,7 @@ public class SwitchboardActivity extends Activity {
 				}
 			}*/
 
-			if ( Util.privateMode(this) ) {
+			if ( Util.privateMode() ) {
 				final long now = System.currentTimeMillis();
 
 				if ((now - PropertyHolder.getLastDemoPopUpTime()) > Util.DAYS) {
@@ -252,7 +274,7 @@ public class SwitchboardActivity extends Activity {
 //					Intent i = new Intent(SwitchboardActivity.this, PhotoValidationActivity.class);
 //					startActivity(i);
 					CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder()
-							.setToolbarColor(getResources().getColor(R.color.green_pybossa)).build();
+							.setToolbarColor(getResources().getColor(R.color.pybossa_bar)).build();
 					CustomTabActivityHelper.openCustomTab(
 							SwitchboardActivity.this, // activity
 							customTabsIntent,
@@ -315,9 +337,9 @@ public class SwitchboardActivity extends Activity {
 
 	private String getPybossaUrl() {
 		String url = UtilLocal.PYBOSSA_URL;
-		if (lang.equals("ca"))
+		if ( lang.equals("ca") )
 			url += "?lang=ca";
-		else if (lang.equals("es"))
+		else if ( lang.equals("es") )
 			url += "?lang=es";
 		else
 			url += "?lang=en";
@@ -332,17 +354,39 @@ public class SwitchboardActivity extends Activity {
 			startActivity(getIntent());
 		}
 		super.onResume();
-		if ( mRealm == null ) mRealm = RealmHelper.getInstance().getRealm(this);
+		if ( mRealm == null ) {
+			try {
+Util.logInfo(this.getClass().getName(), "onResume Realm ==================");
+				mRealm = RealmHelper.getInstance().getRealm(this);
+Util.logInfo(this.getClass().getName(), "onResume Realm 2");
+			}
+			// https://github.com/realm/realm-java/issues/3264
+			catch (IllegalArgumentException e) {
+				e.printStackTrace();
+Util.logInfo(this.getClass().getName(), "onResume IllegalArgumentException");
+				// throw non-fatal
+				Crashlytics.log("Realm deleting");
+				//Crashlytics.setString("Method", "updateNotificationCount");
+				Crashlytics.logException(e);
+				RealmConfiguration config = new RealmConfiguration.Builder(this)
+						.name("myRealmDB.realm")
+						.schemaVersion(1)
+						.build();
+				Realm.deleteRealm(config);
+				//Realm.setDefaultConfiguration(config);
+				Realm.getInstance(config);
+			}
+		}
 
 		LocalBroadcastManager.getInstance(this)
 				.registerReceiver(mMissionsBroadcastReceiver, new IntentFilter(Messages.SHOW_TASK_NOTIFICATION));
 
 		if ( mPermissionsDenied.size() == 0 ) {
 			loadRemoteNotifications();
+				loadScore(); // !!!!
 			updateNotificationCount();
 			updateMissionCount();
 		}
-
 	}
 
 	@Override
@@ -352,12 +396,13 @@ public class SwitchboardActivity extends Activity {
 	}
 
 	private void loadRemoteNotifications() {
-		String notificationUrl = Util.API_NOTIFICATION + "?user_id=" + PropertyHolder.getUserId();
+		//  (recordeu que a la crida de notificacions se li pot passar un paràmetre locale=[es|ca|en] per controlar l'idioma de les notificacions).
+		String notificationUrl = Util.URL_TIGASERVER_API_ROOT + Util.API_NOTIFICATION + "?user_id=" + PropertyHolder.getUserId();
 //Util.logInfo("==============", "TEST");
-//Log.d("===========", "BuildConfig.DEBUG >> " + BuildConfig.DEBUG);
-//Log.d("===========", Util.URL_TIGASERVER_API_ROOT + notificationUrl);
+Log.d("===========", "Authorization >> " + UtilLocal.TIGASERVER_AUTHORIZATION);
+Log.d("===========", notificationUrl);
 		Ion.with(this)
-			.load(Util.URL_TIGASERVER_API_ROOT + notificationUrl)
+			.load(notificationUrl)
 			.setHeader("Accept", "application/json")
 			.setHeader("Content-type", "application/json")
 			.setHeader("Authorization", UtilLocal.TIGASERVER_AUTHORIZATION)
@@ -366,14 +411,42 @@ public class SwitchboardActivity extends Activity {
 				@Override
 				public void onCompleted(Exception e, List<Notification> result) {
 					// do stuff with the result or error
+					Log.d("===========", "result " + result);
 					if ( result != null ) {
-						Util.logInfo(this.getClass().getName(), result.toString());
+						Util.logInfo(this.getClass().getName(), "loadRemoteNotifications >> " + result.toString());
 						RealmHelper.getInstance().addOrUpdateNotificationList(mRealm, result);
 					}
 					updateNotificationCount();
 				}
 			});
 	}
+
+	private void loadScore() {
+		//http://humboldt.ceab.csic.es/api/user_score/?user_id=00012362-528A-496B-BFE5-06E61D2642F9
+		// http://humboldt.ceab.csic.es/api/user_score/?user_id=be0fb42b-6cb2-4cfc-bc92-8762b86faf89 >> Nexus 5
+		String notificationUrl = Util.URL_TIGASERVER_API_ROOT + Util.API_SCORE + "?user_id=2d039878-0aab-454a-862e-626011b780ff"; // + PropertyHolder.getUserId();
+Log.d("===========", "Authorization >> " + UtilLocal.TIGASERVER_AUTHORIZATION);
+Log.d("===========", notificationUrl);
+		Ion.with(this)
+			.load(notificationUrl)
+			.setHeader("Accept", "application/json")
+			.setHeader("Content-type", "application/json")
+			.setHeader("Authorization", UtilLocal.TIGASERVER_AUTHORIZATION)
+			.as(new TypeToken<Score>(){})
+			.setCallback(new FutureCallback<Score>() {
+				@Override
+				public void onCompleted(Exception e, Score result) {
+					// do stuff with the result or error
+Log.d("===========", "result score" + result.toString());
+					if ( result != null ) {
+						Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
+
+					}
+					//updateNotificationCount();
+				}
+			});
+	}
+
 
 	private void updateNotificationCount() {
 		if ( mRealm != null && !mRealm.isClosed() ) {

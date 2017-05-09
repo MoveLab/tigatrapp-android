@@ -64,7 +64,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.maps.GeoPoint;
 
 /**
  * Select your position from a map
@@ -96,8 +95,8 @@ public class MapSelectorV2Activity extends FragmentActivity implements OnMapRead
 
 	public static final String LAT = "lat";
 	public static final String LON = "lon";
-	private Double previous_lat = null;
-	private Double previous_lon = null;
+	private Float previous_lat = null;
+	private Float previous_lon = null;
 
 	private LatLng selectedPoint;
 
@@ -116,10 +115,10 @@ public class MapSelectorV2Activity extends FragmentActivity implements OnMapRead
 
 		Bundle b = getIntent().getExtras();
 		if (b.containsKey(Messages.makeIntentExtraKey(this, ReportToolActivity.PREVIOUS_LAT))) {
-			previous_lat = b.getFloat(Messages.makeIntentExtraKey(this, ReportToolActivity.PREVIOUS_LAT)) * 1E6;
+			previous_lat = b.getFloat(Messages.makeIntentExtraKey(this, ReportToolActivity.PREVIOUS_LAT));
 		}
 		if (b.containsKey(Messages.makeIntentExtraKey(this, ReportToolActivity.PREVIOUS_LON))) {
-			previous_lon = b.getFloat(Messages.makeIntentExtraKey(this, ReportToolActivity.PREVIOUS_LON)) * 1E6;
+			previous_lon = b.getFloat(Messages.makeIntentExtraKey(this, ReportToolActivity.PREVIOUS_LON));
 		}
 
 		mMapFragment = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.mapview));
@@ -201,10 +200,10 @@ public class MapSelectorV2Activity extends FragmentActivity implements OnMapRead
 		mGoogleMap.getUiSettings().setCompassEnabled(false);
 		mGoogleMap.getUiSettings().setMapToolbarEnabled(false);
 
-		GeoPoint myCenterPoint = (previous_lat != null && previous_lon != null) ?
-				new GeoPoint(previous_lat.intValue(), previous_lon.intValue()) : Util.CEAB_COORDINATES;
-		LatLng myLatLng = new LatLng(myCenterPoint.getLatitudeE6() / 1E6, myCenterPoint.getLongitudeE6() / 1E6);
-		mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, 15));
+		LatLng myCenterPoint = ( previous_lat != null && previous_lon != null ) ?
+				new LatLng(previous_lat, previous_lon) : Util.CEAB_COORDINATES;
+		//LatLng myLatLng = new LatLng(myCenterPoint.getLatitudeE6() / 1E6, myCenterPoint.getLongitudeE6() / 1E6);
+		mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(myCenterPoint, 15));
 
 		mGoogleMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
 			@Override

@@ -22,6 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             android:contentDescription="@string/cd_help_icon"
             android:src="@drawable/ic_action_about" />
@@ -32,6 +33,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/helpIcon"
+            android:layout_toStartOf="@+id/helpIcon"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textSize="30sp" />
     </RelativeLayout>

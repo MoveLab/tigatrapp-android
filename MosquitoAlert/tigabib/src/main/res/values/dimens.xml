@@ -25,4 +25,7 @@
 
     <dimen name="heading_size">24sp</dimen>
 
+    <dimen name="valid_photo_size">180dp</dimen>
+    <dimen name="valid_photo_margin">16dp</dimen>
+
 </resources>

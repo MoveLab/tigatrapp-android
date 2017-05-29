@@ -49,7 +49,7 @@ public class RealmHelper {
 */
 
     public void addOrUpdateNotificationList(final Realm realm, final List<Notification> notifList) {
-        if ( realm!= null && notifList != null ) {
+        if ( realm != null && notifList != null ) {
             realm.executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {
@@ -57,6 +57,24 @@ public class RealmHelper {
                 }
             });
         }
+    }
+
+    public void updateScore(final Realm realm, final Score score) {
+        if ( realm != null && score != null ) {
+            realm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    realm.delete(Score.class);
+                    realm.insert(score);
+                }
+            });
+        }
+    }
+
+    public Score getScore(final Realm realm) {
+        Score results = realm.where(Score.class).findFirst();
+Util.logInfo(this.getClass().getName(), "getScore >> " + results.getScore());
+        return realm.where(Score.class).findFirst();
     }
 
     public Notification getNotificationById(final Realm realm, int id) {
@@ -70,15 +88,15 @@ public class RealmHelper {
 
     public RealmResults<Notification> getNotificationsRead(final Realm realm, boolean ack) {
         RealmResults<Notification> results = realm.where(Notification.class).equalTo("acknowledged", ack).findAll();
-        Util.logInfo(this.getClass().getName(), "getNotificationsRead (" + ack + ") >> " + results.size());
+Util.logInfo(this.getClass().getName(), "getNotificationsRead (" + ack + ") >> " + results.size());
         return realm.where(Notification.class).equalTo("acknowledged", ack).findAll();
     }
 
     public int getNewNotificationsCount(final Realm realm) {
-        //RealmResults<Notification> results = mRealm.where(Notification.class).findAll(); // !!! filter by new
-        //RealmResults<Notification> results = mRealm.where(Notification.class).equalTo("read", false).findAll();
-        RealmResults<Notification> results =  getNotificationsRead(realm, false);
-        return results.size();
+        //RealmResults<Notification> results = realm.where(Notification.class).findAll(); // !!! filter by new
+        //RealmResults<Notification> results = realm.where(Notification.class).equalTo("read", false).findAll();
+        //RealmResults<Notification> results = getNotificationsRead(realm, false);
+        return getNotificationsRead(realm, false).size();
     }
 
 }

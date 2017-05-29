@@ -115,7 +115,7 @@ public class MissionAdapter extends BaseAdapter implements OnClickListener {
 
 			/************ Set Model values in Holder elements ***********/
 
-			String lang = PropertyHolder.getLanguage();
+			//String lang = PropertyHolder.getLanguage();
 
 			holder.itemText.setText(tempValues.getItemText());
 			holder.itemId = tempValues.getItemId();
@@ -167,8 +167,6 @@ public class MissionAdapter extends BaseAdapter implements OnClickListener {
 			/******** Set Item Click Listner for LayoutInflater for each row *******/
 
 //			vi.setOnClickListener(new OnItemClickListener(position));
-			
-
 		}
 		return vi;
 	}

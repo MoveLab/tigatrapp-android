@@ -25,17 +25,14 @@ import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.customtabs.CustomTabsIntent;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
@@ -47,10 +44,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
@@ -63,9 +58,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
-import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
-import ceab.movelab.tigabib.chrometabs.CustomTabActivityHelper;
-import ceab.movelab.tigabib.chrometabs.WebviewFallback;
 import ceab.movelab.tigabib.model.Notification;
 import ceab.movelab.tigabib.model.RealmHelper;
 import ceab.movelab.tigabib.model.Score;
@@ -77,6 +69,7 @@ import io.realm.RealmConfiguration;
  * Main menu screen for app.
  *
  * @author John R.B. Palmer
+ * @author Màrius Garcia
  *
  */
 public class SwitchboardActivity extends Activity {
@@ -86,17 +79,16 @@ public class SwitchboardActivity extends Activity {
 	private RelativeLayout mapButton;
 	private RelativeLayout pybossaButton;
 	private RelativeLayout notificationsButton;
-	private RelativeLayout missionsButton;
-	private ImageView websiteButton;
-	private ImageView menuButton;
+//	private RelativeLayout missionsButton;
+//	private ImageView websiteButton;
+//	private ImageView menuButton;
 
 	private String lang;
-
 	private Realm mRealm;
 
 	private BroadcastReceiver mMissionsBroadcastReceiver;
 
-	final private static int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 555;
+	private final static int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 555;
 	private ArrayList<String> mPermissionsDenied;
 
 
@@ -117,7 +109,7 @@ public class SwitchboardActivity extends Activity {
 					Util.logInfo(this.getClass().getName(), "extra: " + extra);
 				}
 //Toast.makeText(SwitchboardActivity.this, "location", Toast.LENGTH_SHORT).show();
-				updateMissionCount();
+				//updateMissionCount();
 			}
 		};
 		//LocalBroadcastManager.getInstance(this).registerReceiver(mMissionsBroadcastReceiver, new IntentFilter("aaa"));
@@ -130,24 +122,6 @@ public class SwitchboardActivity extends Activity {
 		else {
 			onCreateWithPermissions();
 		}
-
-/*		PickerUI mPickerUI = (PickerUI) findViewById(R.id.picker_ui_view);
-		List<String> options = Arrays.asList(getResources().getStringArray(R.array.gallery_array));
-
-		//Populate list
-		mPickerUI.setItems(this, options);
-
-		mPickerUI.setColorTextCenter(R.color.colorAccent);
-		mPickerUI.setBackgroundColorPanel(R.color.black);
-		mPickerUI.setColorTextNoCenter(R.color.black);
-
-		mPickerUI.isPanelShown();
-		mPickerUI.setOnClickItemPickerUIListener(new PickerUI.PickerUIItemClickListener() {
-			@Override
-			public void onItemClickPickerUI(int which, int position, String valueResult) {
-				Toast.makeText(SwitchboardActivity.this, valueResult, Toast.LENGTH_SHORT).show();
-			}
-		});*/
 	}
 
 	private void onCreateWithPermissions() {
@@ -271,16 +245,16 @@ public class SwitchboardActivity extends Activity {
 			pybossaButton.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-//					Intent i = new Intent(SwitchboardActivity.this, PhotoValidationActivity.class);
-//					startActivity(i);
-					CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder()
+					Intent i = new Intent(SwitchboardActivity.this, PhotoValidationActivity.class);
+					startActivity(i);
+					/*CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder()
 							.setToolbarColor(getResources().getColor(R.color.pybossa_bar)).build();
 					CustomTabActivityHelper.openCustomTab(
 							SwitchboardActivity.this, // activity
 							customTabsIntent,
 							Uri.parse(getPybossaUrl()),
 							new WebviewFallback()
-					);
+					);*/
 				}
 			});
 
@@ -293,7 +267,7 @@ public class SwitchboardActivity extends Activity {
 				}
 			});
 
-			missionsButton = (RelativeLayout) findViewById(R.id.reportMissionsLayout);
+			/*missionsButton = (RelativeLayout) findViewById(R.id.reportMissionsLayout);
 			missionsButton.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -304,7 +278,6 @@ public class SwitchboardActivity extends Activity {
 
 			websiteButton = (ImageView) findViewById(R.id.mainSiteButton);
 			websiteButton.setOnClickListener(new View.OnClickListener() {
-
 				@Override
 				public void onClick(View v) {
 					String url = UtilLocal.URL_PROJECT;
@@ -322,7 +295,7 @@ public class SwitchboardActivity extends Activity {
 					openOptionsMenu();
 				}
 			});
-
+*/
 			/*Animation animation = new AlphaAnimation(0.0f, 1.0f);
 			animation.setDuration(500);
 
@@ -335,7 +308,7 @@ public class SwitchboardActivity extends Activity {
 		}
 	}
 
-	private String getPybossaUrl() {
+/*	private String getPybossaUrl() {
 		String url = UtilLocal.PYBOSSA_URL;
 		if ( lang.equals("ca") )
 			url += "?lang=ca";
@@ -345,7 +318,7 @@ public class SwitchboardActivity extends Activity {
 			url += "?lang=en";
 		url += "&timestamp=" + System.currentTimeMillis();
 		return url;
-	}
+	}*/
 
 	@Override
 	protected void onResume() {
@@ -383,9 +356,9 @@ Util.logInfo(this.getClass().getName(), "onResume IllegalArgumentException");
 
 		if ( mPermissionsDenied.size() == 0 ) {
 			loadRemoteNotifications();
-				loadScore(); // !!!!
+			loadScore(); // !!! optimization, call this load score only if the notifications array is empty.
 			updateNotificationCount();
-			updateMissionCount();
+			//updateMissionCount();
 		}
 	}
 
@@ -411,9 +384,9 @@ Log.d("===========", notificationUrl);
 				@Override
 				public void onCompleted(Exception e, List<Notification> result) {
 					// do stuff with the result or error
-					Log.d("===========", "result " + result);
-					if ( result != null ) {
-						Util.logInfo(this.getClass().getName(), "loadRemoteNotifications >> " + result.toString());
+Log.d("===========", "result " + result);
+					if ( result != null && result.size() > 0 ) {
+Util.logInfo(this.getClass().getName(), "loadRemoteNotifications >> " + result.toString());
 						RealmHelper.getInstance().addOrUpdateNotificationList(mRealm, result);
 					}
 					updateNotificationCount();
@@ -422,7 +395,7 @@ Log.d("===========", notificationUrl);
 	}
 
 	private void loadScore() {
-		//http://humboldt.ceab.csic.es/api/user_score/?user_id=00012362-528A-496B-BFE5-06E61D2642F9
+		//http://humboldt.ceab.csic.es/api/user_score/?user_id=00012362-528A-496B-BFE5-06E61D2642F9 >> Agustí
 		// http://humboldt.ceab.csic.es/api/user_score/?user_id=be0fb42b-6cb2-4cfc-bc92-8762b86faf89 >> Nexus 5
 		String notificationUrl = Util.URL_TIGASERVER_API_ROOT + Util.API_SCORE + "?user_id=2d039878-0aab-454a-862e-626011b780ff"; // + PropertyHolder.getUserId();
 Log.d("===========", "Authorization >> " + UtilLocal.TIGASERVER_AUTHORIZATION);
@@ -439,19 +412,35 @@ Log.d("===========", notificationUrl);
 					// do stuff with the result or error
 Log.d("===========", "result score" + result.toString());
 					if ( result != null ) {
-						Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
-
+Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
+						RealmHelper.getInstance().updateScore(mRealm, result);
 					}
-					//updateNotificationCount();
+					updateScoreScreen();
 				}
 			});
 	}
 
+	private void updateScoreScreen() {
+		if ( mRealm != null && !mRealm.isClosed() ) {
+			Score score = RealmHelper.getInstance().getScore(mRealm);
+			if ( score != null  && score.getScore() != null ) {
+				((TextView) findViewById(R.id.scorePointsText)).setText(score.getScore() > 100 ? "100" : String.valueOf(score.getScore()));
+				// get label value from resources
+				((TextView) findViewById(R.id.scoreLevelText)).setText(String.valueOf(score.getScoreLabel()));
+			}
+		}
+		else {
+			// throw exception
+			Crashlytics.log("Realm is null");
+			Crashlytics.setString("Method", "updateScore");
+			Crashlytics.logException(new Exception());
+		}
+	}
 
 	private void updateNotificationCount() {
 		if ( mRealm != null && !mRealm.isClosed() ) {
 			int count = RealmHelper.getInstance().getNewNotificationsCount(mRealm);
-			((TextView) findViewById(R.id.reportNotificationsNumberText)).setText(String.valueOf(count));
+			((TextView) findViewById(R.id.reportNotificationsNumberText)).setText(count > 99 ? "99+" : String.valueOf(count));
 		}
 		else {
 			// throw exception
@@ -461,7 +450,7 @@ Log.d("===========", "result score" + result.toString());
 		}
 	}
 
-	private void updateMissionCount() {
+	/*private void updateMissionCount() {
 		// open and close databases in order to trigger any updates
 		ContentResolver cr = getContentResolver();
 		Cursor c = cr.query(Util.getReportsUri(this), new String[]{ContProvContractReports.Reports.KEY_ROW_ID}, null, null, null);
@@ -479,7 +468,7 @@ Log.d("===========", "result score" + result.toString());
 				Toast.makeText(SwitchboardActivity.this, "updateMissionCount exception", Toast.LENGTH_SHORT).show();
 			}
 		}
-	}
+	}*/
 
 	@Override
 	protected void onPause() {

@@ -291,5 +291,51 @@
 
     <string name="my_observations">My observations</string>
     <string name="nearby_observations">Nearby observations</string>
+
+
+    <!-- VALIDATIONS -->
+    <string name="i18n_question1">¿Ves un mosquito en esta foto?</string>
+    <string name="i18n_easy_right">Parece fácil, ¿verdad?</string>
+    <string name="i18n_tellme">Pues dinos si ves un mosquito.</string>
+    <string name="i18n_letsgo">¡Vamos allá!</string>
+    <string name="i18n_whatmosquito">¿Qué mosquito es?</string>
+    <string name="i18n_wesearch">Buscamos mosquitos tigre o mosquitos de la fiebre amarilla, pero se pueden colar otras especies</string>
+    <string name="i18n_nextscreen">En la pantalla siguiente te explicamos cómo reconocerlos.</string>
+    <string name="i18n_ok">¡Vale!</string>
+
+    <string name="i18n_tiger">Mosquito Tigre</string>
+    <string name="i18n_whitestripes">Es pequeño (&lt; 1 cm), negro y con rayas blancas horizontales en el abodmen</string>
+    <string name="i18n_whitelinehead">Tiene una línea blanca vertical en cabeza y tórax.</string>
+    <string name="i18n_stripedlegs">Patas rayadas.</string>
+    <string name="i18n_examples">Ejemplos</string>
+    <string name="i18n_thorax">Tórax</string>
+    <string name="i18n_abdomen">Abdomen</string>
+    <string name="i18n_ok2">¡OK!</string>
+    <string name="i18n_yellowfever">Mosquito de Fiebre Amarilla</string>
+    <string name="i18n_smallblackish">Es pequeño (&lt; 1 cm), marrón negruzco y con rayas horizontales, blancas y anchas en el abdomen. A cada lado de estas líneas tiene manchas blancas redondas.</string>
+    <string name="i18n_patternchest">Tiene un dibujo en forma de lira en el tórax.</string>
+    <string name="i18n_stripedlegs2">Patas rayadas.</string>
+    <string name="i18n_examples2">Ejemplos</string>
+    <string name="i18n_thorax2">Tórax</string>
+    <string name="i18n_abdomen2">Abdomen</string>
+    <string name="i18n_ok3">¡OK!</string>
+
+    <string name="i18n_step1_yes">Sí</string>
+    <string name="i18n_step1_no">No</string>
+    <string name="i18n_notsurebtn">No lo tengo claro</string>
+    <string name="i18n_tigerbtn">Tigre</string>
+    <string name="i18n_yellowfeverbtn">Fiebre Amarilla</string>
+    <string name="i18n_notsurebtn2">No lo tengo claro</string>
+    <string name="i18n_noneofbothbtn">Ninguno de los dos</string>
+    <string name="i18n_yesbtn1">Sí</string>
+    <string name="i18n_yesbtn2">Sí</string>
+    <string name="i18n_yesbtn3">Sí</string>
+    <string name="i18n_yesbtn4">Sí</string>
+
+    <string name="i18n_nobtn1">No</string>
+    <string name="i18n_nobtn2">No</string>
+    <string name="i18n_nobtn3">No</string>
+    <string name="i18n_nobtn4">No</string>
+
 </resources>
 

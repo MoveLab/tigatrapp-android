@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+            android:background="@color/switchboard_bg">
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:layout_gravity="center_horizontal"
+        style="@style/ValidationHelpTitle" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/i18n_tiger"
+        style="@style/ValidationHelpTitleText" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="(Aedes albopictus)"
+        style="@style/ValidationHelpTitleText2" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/i18n_whitestripes"
+        android:gravity="start"
+        style="@style/ValidationHelpText" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/i18n_whitelinehead"
+        android:gravity="start"
+        style="@style/ValidationHelpText" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/i18n_stripedlegs"
+        android:gravity="start"
+        style="@style/ValidationHelpText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/i18n_examples"
+        style="@style/ValidationHelpSubtitle" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="@dimen/validation_box_width"
+                android:layout_height="wrap_content"
+                android:text="@string/i18n_thorax"
+                android:drawableTop="@drawable/tigre_torax"
+                android:drawablePadding="12dp"
+                style="@style/ValidationHelpText" />
+            <TextView
+                android:layout_width="@dimen/validation_box_width"
+                android:layout_height="wrap_content"
+                android:text="@string/i18n_abdomen"
+                android:drawableTop="@drawable/tigre_abdomen"
+                android:drawablePadding="12dp"
+                style="@style/ValidationHelpText" />
+        </LinearLayout>
+
+    <Button
+        android:id="@+id/validHelp22Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="240dp"
+        android:text="@string/i18n_ok2"
+        style="@style/ValidationHelpButton" />
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+            android:background="@color/switchboard_bg">
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:background="@color/switchboard_bg"
+                  android:orientation="vertical">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:layout_gravity="center_horizontal"
+        style="@style/ValidationHelpTitle" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/i18n_yellowfever"
+        style="@style/ValidationHelpTitleText" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="(Aedes aegypti)"
+        style="@style/ValidationHelpTitleText2" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/i18n_smallblackish"
+        android:gravity="start"
+        style="@style/ValidationHelpText" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/i18n_whitelinehead"
+        android:gravity="start"
+        style="@style/ValidationHelpText" />
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/i18n_stripedlegs2"
+        android:gravity="start"
+        style="@style/ValidationHelpText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/i18n_examples2"
+        style="@style/ValidationHelpSubtitle" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="@dimen/validation_box_width"
+            android:layout_height="wrap_content"
+            android:text="@string/i18n_thorax2"
+            android:drawableTop="@drawable/yellow_torax"
+            android:drawablePadding="12dp"
+            style="@style/ValidationHelpText" />
+        <TextView
+            android:layout_width="@dimen/validation_box_width"
+            android:layout_height="wrap_content"
+            android:text="@string/i18n_abdomen2"
+            android:drawableTop="@drawable/yellow_abdomen"
+            android:drawablePadding="12dp"
+            style="@style/ValidationHelpText" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/validHelpCloseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="240dp"
+        android:text="@string/i18n_ok3"
+        style="@style/ValidationHelpButton" />
+
+    </LinearLayout>
+
+</ScrollView>

@@ -238,17 +238,26 @@ public class Util {
      */
     public static final String API_SCORE = UtilLocal.API_SCORE;
 
-    /**
+	/**
+	 * API new task endpoint.
+	 */
+	public static final String URL_NEW_TASK = UtilLocal.URL_NEW_TASK;
+
+	/**
+	 * API get phot endpoint.
+	 */
+	public static final String URL_GET_PHOTO = UtilLocal.URL_GET_PHOTO;
+
+
+	/**
 	 * API token endpoint.
 	 */
 	public static final String API_TOKEN = UtilLocal.API_TOKEN;
-
 
 	/**
 	 * API nearby reports endpoint.
 	 */
 	public static final String API_NEARBY_REPORTS = UtilLocal.API_NEARBY_REPORTS;
-
 
 	/**
 	 * API config endpoint.

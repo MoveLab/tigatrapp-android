@@ -33,14 +33,14 @@ import ceab.movelab.tigabib.adapters.RSSAdapter;
 public class RSSActivity extends Activity {
 	private static String TAG = "RSSActivity";
 	private ArrayList<RSSPost> listData;
-	final int IGNORETAG = 0;
-	final int TITLE = 1;
-	final int LINK = 2;
-	final int DATE = 3;
-	RSSAdapter itemAdapter;
-	ProgressBar pb;
-	TextView title;
-	TextView tv;
+	private final int IGNORETAG = 0;
+	private final int TITLE = 1;
+	private final int LINK = 2;
+	private final int DATE = 3;
+	private RSSAdapter itemAdapter;
+	private ProgressBar pb;
+	private TextView title;
+	private TextView tv;
 
 	// TODO deal with RSS language
 	public static final String RSSEXTRA_URL = "rssextra_url";

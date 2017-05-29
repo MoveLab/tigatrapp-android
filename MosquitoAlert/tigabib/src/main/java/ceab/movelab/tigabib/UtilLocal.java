@@ -115,10 +115,20 @@ public class UtilLocal {
 	 */
 	public static final String API_NOTIFICATION = "user_notifications/";
 
-    /**
-     * API score endpoint.
-     */
-    public static final String API_SCORE = "user_score/";
+	/**
+	 * API score endpoint.
+	 */
+	public static final String API_SCORE = "user_score/";
+
+	/**
+	 * API new task endpoint.
+	 */
+	public static final String URL_NEW_TASK = "http://mosquitoalert.pybossa.com/api/project/2/newtask";
+
+	/**
+	 * API get photo endpoint.
+	 */
+	public static final String URL_GET_PHOTO = "http://webserver.mosquitoalert.com/get_photo/";
 
     /**
 	 * API nearby reports endpoint.
@@ -131,7 +141,7 @@ public class UtilLocal {
 	public static final String API_CONFIGURATION = "configuration/";
 
 	/**
-	 * API configuration endpoint.
+	 * API token endpoint.
 	 */
 	public static final String API_TOKEN = "token/";
 

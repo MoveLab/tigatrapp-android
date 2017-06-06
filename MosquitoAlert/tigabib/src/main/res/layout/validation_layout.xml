@@ -12,7 +12,7 @@
         <include layout="@layout/valid_1_layout" />
         <include layout="@layout/valid_2_layout" />
         <include layout="@layout/valid_3_layout" />
-
+        <include layout="@layout/valid_4_layout" />
     </ViewFlipper>
 
 </ScrollView>

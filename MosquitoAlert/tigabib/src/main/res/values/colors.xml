@@ -40,5 +40,5 @@
     <color name="light_grey">#cccccc</color>
     <color name="switchboard_button_text">#444</color>
 
-    <color name="switchboard_bg">#F7F7F7</color>
+    <color name="switchboard_bg">#F0F0F0</color>
 </resources>

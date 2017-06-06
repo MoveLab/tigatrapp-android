@@ -320,6 +320,14 @@
     <string name="i18n_abdomen2">Abdomen</string>
     <string name="i18n_ok3">¡OK!</string>
 
+    <string name="i18n_whichparts">¿Por qué partes lo has reconocido?</string>
+    <string name="i18n_markparts">La parte más identificativa del mosquito es el dibujo del tórax. ¿Reconoces el dibujo en la imagen?</string>
+    <string name="i18n_tigermosquito">Mosquito Tigre</string>
+    <string name="i18n_thorax3">Tórax</string>
+    <string name="i18n_yellowfever2">Mosquito Fiebre Amarilla</string>
+    <string name="i18n_thorax4">Abdomen</string>
+    <string name="i18n_understood">¡Entendido!</string>
+
     <string name="i18n_step1_yes">Sí</string>
     <string name="i18n_step1_no">No</string>
     <string name="i18n_notsurebtn">No lo tengo claro</string>

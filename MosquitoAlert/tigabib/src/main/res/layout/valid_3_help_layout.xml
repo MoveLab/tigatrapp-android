@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/switchboard_bg">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/i18n_whichparts"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        style="@style/ValidationHelpTitleText3" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/i18n_markparts"
+        style="@style/ValidationHelpText" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/i18n_thorax3"
+        style="@style/ValidationHelpSubtitle" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+        <TextView
+            android:layout_width="@dimen/validation_box_width"
+            android:layout_height="match_parent"
+            android:text="@string/i18n_tigermosquito"
+            android:drawableBottom="@drawable/tigre_torax"
+            android:drawablePadding="12dp"
+            style="@style/ValidationHelpText" />
+        <TextView
+            android:layout_width="@dimen/validation_box_width"
+            android:layout_height="match_parent"
+            android:text="@string/i18n_yellowfever2"
+            android:drawableBottom="@drawable/yellow_torax"
+            android:drawablePadding="12dp"
+            style="@style/ValidationHelpText" />
+    </LinearLayout>
+    <Button
+        android:id="@+id/validHelpCloseButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:minWidth="240dp"
+        android:text="@string/i18n_understood"
+        style="@style/ValidationHelpButton" />
+
+</LinearLayout>
+
+</ScrollView>

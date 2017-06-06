@@ -48,11 +48,11 @@
 
                 <TextView
                     android:id="@+id/scorePointsText"
-                    android:layout_width="62dp"
-                    android:layout_height="62dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_centerHorizontal="true"
                     android:gravity="center"
-                    android:layout_marginTop="30dip"
+                    android:layout_marginTop="30dp"
                     android:text="0"
                     android:background="@drawable/switchboard_points_bg"
                     android:textStyle="bold"

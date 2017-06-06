@@ -168,8 +168,8 @@ public class Util {
 //		return BuildConfig.DEBUG;
 //	}
 
-	public static boolean debugMode() {		// !!!!!!
-		return !BuildConfig.DEBUG;
+	public static boolean debugMode() {		// !!!!!!$$!!!!!
+		return BuildConfig.DEBUG;
 	}
 
 	public static void logError(String tag, String message) {
@@ -244,7 +244,12 @@ public class Util {
 	public static final String URL_NEW_TASK = UtilLocal.URL_NEW_TASK;
 
 	/**
-	 * API get phot endpoint.
+	 * API taskrun  endpoint.
+	 */
+	public static final String URL_TASKRUN = UtilLocal.URL_TASKRUN;
+
+	/**
+	 * API get photo endpoint.
 	 */
 	public static final String URL_GET_PHOTO = UtilLocal.URL_GET_PHOTO;
 

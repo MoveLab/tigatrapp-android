@@ -397,7 +397,8 @@ Util.logInfo(this.getClass().getName(), "loadRemoteNotifications >> " + result.t
 	private void loadScore() {
 		//http://humboldt.ceab.csic.es/api/user_score/?user_id=00012362-528A-496B-BFE5-06E61D2642F9 >> Agustí
 		// http://humboldt.ceab.csic.es/api/user_score/?user_id=be0fb42b-6cb2-4cfc-bc92-8762b86faf89 >> Nexus 5
-		String notificationUrl = Util.URL_TIGASERVER_API_ROOT + Util.API_SCORE + "?user_id=2d039878-0aab-454a-862e-626011b780ff"; // + PropertyHolder.getUserId();
+		// 2d039878-0aab-454a-862e-626011b780ff
+		String notificationUrl = Util.URL_TIGASERVER_API_ROOT + Util.API_SCORE + "?user_id=" + PropertyHolder.getUserId();
 Log.d("===========", "Authorization >> " + UtilLocal.TIGASERVER_AUTHORIZATION);
 Log.d("===========", notificationUrl);
 		Ion.with(this)
@@ -415,12 +416,12 @@ Log.d("===========", "result score" + result.toString());
 Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 						RealmHelper.getInstance().updateScore(mRealm, result);
 					}
-					updateScoreScreen();
+					updateScoreScreenFromRealm();
 				}
 			});
 	}
 
-	private void updateScoreScreen() {
+	private void updateScoreScreenFromRealm() {
 		if ( mRealm != null && !mRealm.isClosed() ) {
 			Score score = RealmHelper.getInstance().getScore(mRealm);
 			if ( score != null  && score.getScore() != null ) {
@@ -431,9 +432,9 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 		}
 		else {
 			// throw exception
-			Crashlytics.log("Realm is null");
+			Crashlytics.log("Realm is null or closed");
 			Crashlytics.setString("Method", "updateScore");
-			Crashlytics.logException(new Exception());
+			Crashlytics.logException(new IllegalStateException());
 		}
 	}
 

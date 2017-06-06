@@ -20,20 +20,7 @@ repositories {
 }
 
 android {
-    signingConfigs {
-        config {
-            keyAlias 'tigakeys'
-            keyPassword '2=U:8QZw'
-            storeFile file('D:/Projectes/MosquitoAlert/apk/tigakeys')
-            storePassword '=2qC+6!R'
-        }
-        config_old2 {
-            keyAlias 'jrbpandroidkey'
-            keyPassword 'uSe1W9cP'
-            storeFile file('D:/Projectes/MosquitoAlert/apk/JRBP_Keystore_New')
-            storePassword 'uSe1W9cP'
-        }
-    }
+
 
     compileSdkVersion 'Google Apis:Google Apis:23'
     buildToolsVersion '25.0.2'
@@ -41,8 +28,8 @@ android {
         applicationId "ceab.movelab.tigatrapp"
         minSdkVersion 9
         targetSdkVersion 24
-        versionCode 24  /* 17 is 1.51 current production code */
-        versionName "1.58"
+        versionCode 25  /* 17 is 1.51 current production code */
+        versionName "1.59"
     }
     buildTypes {
         debug {
@@ -55,7 +42,7 @@ android {
             //minifyEnabled true
             //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
             signingConfig signingConfigs.config_old2
-            debuggable false
+            debuggable true // !!!!
         }
     }
 

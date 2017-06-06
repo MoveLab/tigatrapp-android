@@ -152,7 +152,7 @@ public class FixGet extends Service {
 
 		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-		wifiLock = ((WifiManager) context.getSystemService(Context.WIFI_SERVICE)).createWifiLock(
+		wifiLock = ((WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE)).createWifiLock(
 				WifiManager.WIFI_MODE_SCAN_ONLY, "MosquitTigreWifiLock");
 
 		wakeLock = ((PowerManager) context.getSystemService(Context.POWER_SERVICE)).newWakeLock(

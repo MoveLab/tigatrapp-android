@@ -55,10 +55,14 @@ public class PhotoValidationHelpActivity extends Activity {
 			case 1: setContentView(R.layout.valid_1_help_layout);
 				break;
 			case 2: setContentView(R.layout.valid_2_help_layout);
-				mHelpViewflipper = (ViewFlipper) findViewById(R.id.viewflipper);
+				mHelpViewflipper = (ViewFlipper) findViewById(R.id.helpViewflipper);
 				mHelp21Button = (Button) findViewById(R.id.validHelp21Button);
 				mHelp22Button = (Button) findViewById(R.id.validHelp22Button);
 				setHelp2OnClickListeners();
+				break;
+			case 3: setContentView(R.layout.valid_3_help_layout);
+				break;
+			case 4: setContentView(R.layout.valid_4_help_layout);
 				break;
 		}
 		overridePendingTransition(R.anim.help_go_in, R.anim.help_go_out);

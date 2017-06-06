@@ -3,12 +3,11 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:paddingBottom="16dp"
               android:background="@color/switchboard_bg"
               android:orientation="vertical">
 
     <ImageView
-        android:id="@+id/validPhoto2Image"
+        android:id="@+id/validPhoto4Image"
         android:layout_width="@dimen/valid_photo_size"
         android:layout_height="@dimen/valid_photo_size"
         android:layout_gravity="center_horizontal"
@@ -24,12 +23,12 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:text="¿Y el abdomen? !!!!"
             android:layout_weight="0.8"
-            android:text="@string/i18n_whatmosquito"
             android:gravity="center"
             style="@style/ValidationQuestion" />
         <ImageView
-            android:id="@+id/validHelp2Image"
+            android:id="@+id/validHelp4Image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -38,45 +37,29 @@
             android:src="@drawable/info"/>
     </LinearLayout>
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/validAbdomenImage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:orientation="horizontal">
-        <TextView
-            android:id="@+id/validMosquitoTigerButton"
-            android:layout_width="@dimen/validation_box_width"
-            android:layout_height="match_parent"
-            android:text="@string/i18n_tigerbtn"
-            android:drawableTop="@drawable/mosquito_tiger"
-            android:drawablePadding="12dp"
-            style="@style/ValidationPhotoButton" />
-        <TextView
-            android:id="@+id/validMosquitoYellowButton"
-            android:layout_width="@dimen/validation_box_width"
-            android:layout_height="match_parent"
-            android:text="@string/i18n_yellowfeverbtn"
-            android:drawableTop="@drawable/mosquito_yellow"
-            android:drawablePadding="12dp"
-            style="@style/ValidationPhotoButton" />
-    </LinearLayout>
+        android:layout_gravity="center"
+        android:layout_margin="6dp"
+        android:src="@drawable/tigre_abdomen"/>
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
         android:orientation="horizontal">
         <TextView
-            android:id="@+id/validNotSure2"
-            android:layout_width="@dimen/validation_box_width"
+            android:id="@+id/validYes4"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/i18n_notsurebtn2"
-            style="@style/ValidationGrayButton" />
+            android:text="@string/i18n_step1_yes"
+            style="@style/ValidationYesNoButton"/>
         <TextView
-            android:id="@+id/validNone2"
-            android:layout_width="@dimen/validation_box_width"
+            android:id="@+id/validNo4"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/i18n_noneofbothbtn"
-            style="@style/ValidationGrayButton" />
+            android:text="@string/i18n_step1_no"
+            style="@style/ValidationYesNoButton"/>
     </LinearLayout>
 
 

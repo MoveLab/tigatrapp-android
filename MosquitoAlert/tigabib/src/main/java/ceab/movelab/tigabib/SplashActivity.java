@@ -32,7 +32,7 @@ public class SplashActivity extends FragmentActivity {
 
 		// Get token
 		String token = FirebaseInstanceId.getInstance().getToken();
-		Util.logInfo(this.getClass().getName(), "my token >> " + token);
+Util.logInfo(this.getClass().getName(), "my token >> " + token);
 		if ( !TextUtils.isEmpty(token) )
 			FirebaseMessaging.getInstance().subscribeToTopic("global");
 

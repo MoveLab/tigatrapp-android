@@ -14,29 +14,29 @@
         android:layout_margin="@dimen/valid_photo_margin"
         android:src="@drawable/ic_switchboard_icon_validacio_large"/>
 
-    <RelativeLayout
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="12dp"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:orientation="horizontal">
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="0.8"
             android:text="¿Reconoces el tórax? !!"
-            android:layout_toLeftOf="@+id/validHelp3Image"
-            android:layout_toStartOf="@+id/validHelp3Image"
-            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
             style="@style/ValidationQuestion" />
         <ImageView
             android:id="@+id/validHelp3Image"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:padding="12dp"
-            android:src="@drawable/ic_action_accept_dark"/>
-    </RelativeLayout>
+            android:src="@drawable/info"/>
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/validToraxImage"
@@ -50,13 +50,13 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
-            android:id="@+id/validYes1"
+            android:id="@+id/validYes3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/i18n_step1_yes"
             style="@style/ValidationYesNoButton"/>
         <TextView
-            android:id="@+id/validNo1"
+            android:id="@+id/validNo3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/i18n_step1_no"

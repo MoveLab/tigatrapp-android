@@ -25,7 +25,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="0.8"
-            android:text="¿Reconoces el tórax? !!"
+            android:text="@string/i18n_thorax_question"
             android:layout_gravity="center"
             style="@style/ValidationQuestion" />
         <ImageView

@@ -25,6 +25,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -174,6 +176,7 @@ public class PhotoValidationActivity extends Activity {
 				// user_lang,  tigerAbdomen,  tigerTorax,  mosquito,  yellowTorax,  yellowAbdomen,  type
 				TaskRunInfo info = new TaskRunInfo(lang, "no", "no", "no", "no", "no", "unknown");
 				mTaskRun.setInfo(info);
+				sendValidationResults();
 
 			}
 		});
@@ -184,7 +187,6 @@ public class PhotoValidationActivity extends Activity {
 				TaskRunInfo info = new TaskRunInfo(lang, "no", "no", "unknown", "no", "no", "unknown");
 				mTaskRun.setInfo(info);
 				sendValidationResults();
-
 			}
 		});
 
@@ -269,11 +271,9 @@ public class PhotoValidationActivity extends Activity {
 	private void sendValidationResults() {
 		String taskrunUrl = Util.URL_TASKRUN;
 		Gson gson = new Gson();
-		//Type type = new TypeToken<TaskRun>() {}.getType();
 		String jsonTaskRun = gson.toJson(mTaskRun);
-		//JsonObject json = new JsonObject(jsonTaskRun);
-		mCurrentTorax = null;
-		mIsTiger = false;
+		//mCurrentTorax = null;
+		//mIsTiger = false;
 		Ion.with(this)
 				.load(taskrunUrl)
 				.setHeader("Accept", "application/json")
@@ -285,10 +285,27 @@ public class PhotoValidationActivity extends Activity {
 					public void onCompleted(Exception e, JsonObject jsonObject) {
 						// do stuff with the result or error
 Util.logInfo("==========++", jsonObject.toString());
-						Toast.makeText(PhotoValidationActivity.this, "Validación finalizada", Toast.LENGTH_SHORT).show(); // !!!!
-						PhotoValidationActivity.this.finish();
+						Toast.makeText(PhotoValidationActivity.this, R.string.end_validation, Toast.LENGTH_SHORT).show();
+						// PhotoValidationActivity.this.finish();
+						startNewValidation();
 					}
 				});
+	}
+
+	 private void startNewValidation() {
+		 mCurrentTorax = null;
+		 mIsTiger = false;
+		 loadNewTask();
+		 showFlipperFirst();
+	 }
+
+	private void showFlipperFirst() {
+		// Next screen comes in from left.
+		mViewFlipper.setInAnimation(this, R.anim.slide_in_from_left);
+		// Current screen goes out from right.
+		mViewFlipper.setOutAnimation(this, R.anim.slide_out_to_right);
+		// Load irst screen
+		mViewFlipper.setDisplayedChild(0);
 	}
 
 	private void loadHelp(int num) {
@@ -304,6 +321,7 @@ Util.logInfo("==========++", jsonObject.toString());
 		mViewFlipper.setOutAnimation(this, R.anim.slide_out_to_left);
 		mViewFlipper.showNext();
 	}
+
 	private void showFlipperPrev() {
 		// Next screen comes in from left.
 		mViewFlipper.setInAnimation(this, R.anim.slide_in_from_left);
@@ -313,7 +331,7 @@ Util.logInfo("==========++", jsonObject.toString());
 	}
 
 	private void loadNewTask() {
-		String newTaskUrl = Util.URL_NEW_TASK + "2/newtask"; // !!! 1 - production, 2- development
+		String newTaskUrl = Util.URL_NEW_TASK + "2/newtask"; // !!!! 1 - production, 2- development
 Util.logInfo("===========", "Authorization >> " + UtilLocal.TIGASERVER_AUTHORIZATION);
 Util.logInfo("===========", newTaskUrl);
 		Ion.with(this)
@@ -351,20 +369,40 @@ Util.logInfo("===========", getPhotoUrl);
 
 		Ion.with(this)
             .load(getPhotoUrl)
-            .withBitmap()
-            .placeholder(R.drawable.ic_switchboard_icon_validacio_large)
-            .asBitmap()
+				//.setLogging("DeepZoom", Log.VERBOSE)
+				.withBitmap()
+				.deepZoom()
+			.asBitmap()
             .setCallback(new FutureCallback<Bitmap>() {
         @Override
         public void onCompleted(Exception e, Bitmap result) {
 				// do something with your bitmap
-				mPhoto1View.setImageBitmap(result);
+				/*mPhoto1View.setImageBitmap(result);
 				mPhoto2View.setImageBitmap(result);
 				mPhoto3View.setImageBitmap(result);
-				mPhoto4View.setImageBitmap(result);
+				mPhoto4View.setImageBitmap(result);*/
 			}
 		});
+	}
 
+
+	public boolean onCreateOptionsMenu(Menu menu) {
+		super.onCreateOptionsMenu(menu);
+
+		getMenuInflater().inflate(R.menu.validation_menu, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		super.onOptionsItemSelected(item);
+
+		if ( item.getItemId() == R.id.close ) {
+			this.finish();
+			return true;
+		}
+
+		return false;
 	}
 
 	@Override

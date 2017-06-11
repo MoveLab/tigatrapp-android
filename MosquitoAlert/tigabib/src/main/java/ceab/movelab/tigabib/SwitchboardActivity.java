@@ -427,7 +427,8 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 			if ( score != null  && score.getScore() != null ) {
 				((TextView) findViewById(R.id.scorePointsText)).setText(score.getScore() > 100 ? "100" : String.valueOf(score.getScore()));
 				// get label value from resources
-				((TextView) findViewById(R.id.scoreLevelText)).setText(String.valueOf(score.getScoreLabel()));
+				int resourceId = this.getResources().getIdentifier(score.getScoreLabel(), "string", this.getPackageName());
+				((TextView) findViewById(R.id.scoreLevelText)).setText(resourceId);
 			}
 		}
 		else {

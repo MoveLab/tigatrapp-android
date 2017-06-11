@@ -165,6 +165,7 @@
     <string name="menu_map_share">Share</string>
     <string name="menu_toggle_view">Satellite</string>
     <string name="menu_option_refresh">Refresh</string>
+    <string name="menu_close">Close</string>
     <!-- Settings -->
     <string name="settings_language_title">Language</string>
     <string name="settings_language_detail">Choose language</string>
@@ -264,7 +265,7 @@
     <string name="app_tag" translatable="false">#mosquitoalert</string>
 
     <string name="paso1">1. How does the breeding site look?</string>
-    <string name="paso2">3. Where did you find it?</string>
+    <string name="paso2">2. Where did you find it?</string>
     <string name="paso3">3. Add a picture</string>
     <string name="paso4">4. Any comments to add?</string>
     <string name="paso1_2">1. What does your mosquito look like?</string>
@@ -344,6 +345,16 @@
     <string name="i18n_nobtn2">No</string>
     <string name="i18n_nobtn3">No</string>
     <string name="i18n_nobtn4">No</string>
+
+    <string name="user_score_label">MIS PUNTOS</string>
+    <string name="user_level_label">NIVEL CONSEGUIDO</string>
+    <string name="user_score_beginner">Principiante</string>
+    <string name="user_score_advanced">Avanzado</string>
+    <string name="user_score_pro">Profesional</string>
+    <string name="end_validation">Validación completada</string>
+    <string name="i18n_abdomen_question">¿Y el abdomen?</string>
+    <string name="i18n_thorax_question">¿Reconoces el tórax?</string>
+
 
 </resources>
 

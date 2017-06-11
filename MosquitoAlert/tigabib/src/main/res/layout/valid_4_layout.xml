@@ -23,7 +23,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="¿Y el abdomen? !!!!"
+            android:text="@string/i18n_abdomen_question"
             android:layout_weight="0.8"
             android:gravity="center"
             style="@style/ValidationQuestion" />

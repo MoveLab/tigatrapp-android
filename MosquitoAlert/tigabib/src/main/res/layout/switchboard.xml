@@ -64,7 +64,7 @@
                     android:layout_alignParentTop="true"
                     android:gravity="center"
                     android:paddingTop="6dp"
-                    android:text="MIS PUNTOS"
+                    android:text="@string/user_score_label"
                     android:textStyle="bold"
                     android:textColor="@color/switchboard_button_text" />
             </RelativeLayout>
@@ -83,7 +83,7 @@
                     android:layout_alignParentTop="true"
                     android:gravity="center"
                     android:paddingTop="6dp"
-                    android:text="NIVEL CONSEGUIDO"
+                    android:text="@string/user_level_label"
                     android:textStyle="bold"
                     android:textColor="@color/switchboard_button_text" />
                 <TextView

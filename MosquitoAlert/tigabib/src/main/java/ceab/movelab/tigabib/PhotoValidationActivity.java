@@ -25,10 +25,13 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v4.widget.NestedScrollView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
@@ -57,6 +60,7 @@ public class PhotoValidationActivity extends Activity {
 	public static final String HELP_PARAM = "ceab.movelab.tigabib.help";
 
 	String lang;
+	private NestedScrollView mScrollView;
 	private ViewFlipper mViewFlipper;
 
 	private Task myTask;
@@ -68,7 +72,6 @@ public class PhotoValidationActivity extends Activity {
 	private ImageView mValidHelp_1, mValidHelp_2, mValidHelp_3, mValidHelp_4;
 	private ImageView mToraxImage, mAbdomenImage;
 	private Boolean mIsTiger = null;
-	private String mCurrentTorax = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -87,8 +90,8 @@ public class PhotoValidationActivity extends Activity {
 
 		setContentView(R.layout.validation_layout);
 
+		mScrollView = (NestedScrollView) findViewById(R.id.scrollview);
 		mViewFlipper = (ViewFlipper) findViewById(R.id.viewflipper);
-		mCurrentTorax = null;
 		mIsTiger = false;
 
 		loadNewTask();
@@ -209,28 +212,33 @@ public class PhotoValidationActivity extends Activity {
 			}
 		});
 
+		// Torax
 		mYesButton_3.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				showFlipperNext();
-				mCurrentTorax = "yes";
 			}
 		});
 		mNoButton_3.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				showFlipperNext();
-				mCurrentTorax = "no";
+				if (mTaskRun == null) createTaskRunObject();
+				// user_lang, tigerAbdomen, tigerTorax,  mosquito, yellowTorax, yellowAbdomen, type
+				TaskRunInfo info = (mIsTiger ? new TaskRunInfo(lang, "no", "no", "yes", "no", "no", "tiger") :
+						new TaskRunInfo(lang, "no", "no", "yes", "no", "no", "yellow"));
+				mTaskRun.setInfo(info);
+				sendValidationResults();
 			}
 		});
 
+		// Abdomen
 		mYesButton_4.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				if (mTaskRun == null) createTaskRunObject();
-				// user_lang,  tigerAbdomen,  tigerTorax,  mosquito,  yellowTorax,  yellowAbdomen,  type
-				TaskRunInfo info = (mIsTiger ? new TaskRunInfo(lang, "yes", mCurrentTorax, "yes", "no", "no", "tiger") :
-						new TaskRunInfo(lang, "no", "no", "yes", mCurrentTorax, "yes", "yellow"));
+				// user_lang, tigerAbdomen, tigerTorax, mosquito, yellowTorax, yellowAbdomen, type
+				TaskRunInfo info = (mIsTiger ? new TaskRunInfo(lang, "yes", "yes", "yes", "no", "no", "tiger") :
+						new TaskRunInfo(lang, "no", "no", "yes", "yes", "yes", "yellow"));
 				mTaskRun.setInfo(info);
 				sendValidationResults();
 			}
@@ -239,9 +247,9 @@ public class PhotoValidationActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				if (mTaskRun == null) createTaskRunObject();
-				// user_lang,  tigerAbdomen,  tigerTorax,  mosquito,  yellowTorax,  yellowAbdomen,  type
-				TaskRunInfo info = (mIsTiger ? new TaskRunInfo(lang, "no", mCurrentTorax, "yes", "no", "no", "tiger") :
-						new TaskRunInfo(lang, "no", "no", "yes", mCurrentTorax, "no", "yellow"));
+				// user_lang, tigerAbdomen, tigerTorax, mosquito, yellowTorax, yellowAbdomen, type
+				TaskRunInfo info = (mIsTiger ? new TaskRunInfo(lang, "no", "yes", "yes", "no", "no", "tiger") :
+						new TaskRunInfo(lang, "no", "no", "yes", "yes", "no", "yellow"));
 				mTaskRun.setInfo(info);
 				sendValidationResults();
 			}
@@ -272,39 +280,39 @@ public class PhotoValidationActivity extends Activity {
 		String taskrunUrl = Util.URL_TASKRUN;
 		Gson gson = new Gson();
 		String jsonTaskRun = gson.toJson(mTaskRun);
-		//mCurrentTorax = null;
 		//mIsTiger = false;
 		Ion.with(this)
-				.load(taskrunUrl)
-				.setHeader("Accept", "application/json")
-				.setHeader("Content-type", "application/json")
-				.setStringBody(jsonTaskRun)
-				.asJsonObject()
-				.setCallback(new FutureCallback<JsonObject>() {
-					@Override
-					public void onCompleted(Exception e, JsonObject jsonObject) {
-						// do stuff with the result or error
+			.load(taskrunUrl)
+			.setHeader("Accept", "application/json")
+			.setHeader("Content-type", "application/json")
+			.setStringBody(jsonTaskRun)
+			.asJsonObject()
+			.setCallback(new FutureCallback<JsonObject>() {
+				@Override
+				public void onCompleted(Exception e, JsonObject jsonObject) {
+					// do stuff with the result or error
 Util.logInfo("==========++", jsonObject.toString());
-						Toast.makeText(PhotoValidationActivity.this, R.string.end_validation, Toast.LENGTH_SHORT).show();
-						// PhotoValidationActivity.this.finish();
-						startNewValidation();
-					}
-				});
+					Toast.makeText(PhotoValidationActivity.this, R.string.end_validation, Toast.LENGTH_SHORT).show();
+					// PhotoValidationActivity.this.finish();
+					startNewValidation();
+				}
+			});
 	}
 
 	 private void startNewValidation() {
-		 mCurrentTorax = null;
 		 mIsTiger = false;
 		 loadNewTask();
+		 mPhoto1View.setImageDrawable(getResources().getDrawable(R.drawable.ic_switchboard_icon_validacio_large));
 		 showFlipperFirst();
 	 }
 
 	private void showFlipperFirst() {
-		// Next screen comes in from left.
-		mViewFlipper.setInAnimation(this, R.anim.slide_in_from_left);
-		// Current screen goes out from right.
-		mViewFlipper.setOutAnimation(this, R.anim.slide_out_to_right);
-		// Load irst screen
+		// Next screen comes in from right.
+		mViewFlipper.setInAnimation(this, R.anim.slide_in_from_right);
+		// Current screen goes out from left.
+		mViewFlipper.setOutAnimation(this, R.anim.slide_out_to_left);
+		mScrollView.fullScroll(ScrollView.FOCUS_UP);
+		// Load first screen
 		mViewFlipper.setDisplayedChild(0);
 	}
 
@@ -319,6 +327,7 @@ Util.logInfo("==========++", jsonObject.toString());
 		mViewFlipper.setInAnimation(this, R.anim.slide_in_from_right);
 		// Current screen goes out from left.
 		mViewFlipper.setOutAnimation(this, R.anim.slide_out_to_left);
+		mScrollView.fullScroll(ScrollView.FOCUS_UP);
 		mViewFlipper.showNext();
 	}
 
@@ -327,31 +336,33 @@ Util.logInfo("==========++", jsonObject.toString());
 		mViewFlipper.setInAnimation(this, R.anim.slide_in_from_left);
 		// Current screen goes out from right.
 		mViewFlipper.setOutAnimation(this, R.anim.slide_out_to_right);
+		mScrollView.fullScroll(ScrollView.FOCUS_UP);
 		mViewFlipper.showPrevious();
 	}
 
 	private void loadNewTask() {
-		String newTaskUrl = Util.URL_NEW_TASK + "2/newtask"; // !!!! 1 - production, 2- development
+		String newTaskUrl = Util.URL_NEW_TASK + "2/newtask"; // $!!!! 1 - production, 2- development
 Util.logInfo("===========", "Authorization >> " + UtilLocal.TIGASERVER_AUTHORIZATION);
 Util.logInfo("===========", newTaskUrl);
+
 		Ion.with(this)
-				.load(newTaskUrl)
-				.setHeader("Accept", "application/json")
-				.setHeader("Content-type", "application/json")
-				.setHeader("Authorization", UtilLocal.TIGASERVER_AUTHORIZATION)
-				.as(new TypeToken<Task>(){})
-				.setCallback(new FutureCallback<Task>() {
-					@Override
-					public void onCompleted(Exception e, Task resultTask) {
-						// do stuff with the result or error
-						if ( resultTask != null ) {
+			.load(newTaskUrl)
+			.setHeader("Accept", "application/json")
+			.setHeader("Content-type", "application/json")
+			.setHeader("Authorization", UtilLocal.TIGASERVER_AUTHORIZATION)
+			.as(new TypeToken<Task>(){})
+			.setCallback(new FutureCallback<Task>() {
+				@Override
+				public void onCompleted(Exception e, Task resultTask) {
+					// do stuff with the result or error
+					if ( resultTask != null ) {
 Util.logInfo(this.getClass().getName(), "loadNewTask >> " + resultTask.toString());
-							myTask = resultTask;
-							loadPhoto();
-							createTaskRunObject();
-						}
+						myTask = resultTask;
+						loadPhoto();
+						createTaskRunObject();
 					}
-				});
+				}
+			});
 	}
 
 	private void createTaskRunObject() {
@@ -367,20 +378,29 @@ Util.logInfo("===========", getPhotoUrl);
 //				.placeholder(R.drawable.ic_switchboard_icon_validacio_large)
 //				.load(getPhotoUrl);
 
+/*		final ProgressDialog dlg = new ProgressDialog(this);
+		dlg.setTitle("Loading...");
+		dlg.setIndeterminate(false);
+		dlg.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+		dlg.show();*/
+
 		Ion.with(this)
             .load(getPhotoUrl)
-				//.setLogging("DeepZoom", Log.VERBOSE)
-				.withBitmap()
-				.deepZoom()
+			//.progressDialog(dlg)
+			.setLogging("DeepZoom", Log.VERBOSE)
+			.withBitmap()
+			.placeholder(R.drawable.ic_switchboard_icon_validacio_large)
+			.deepZoom()
 			.asBitmap()
             .setCallback(new FutureCallback<Bitmap>() {
         @Override
         public void onCompleted(Exception e, Bitmap result) {
 				// do something with your bitmap
-				/*mPhoto1View.setImageBitmap(result);
+				mPhoto1View.setImageBitmap(result);
 				mPhoto2View.setImageBitmap(result);
 				mPhoto3View.setImageBitmap(result);
-				mPhoto4View.setImageBitmap(result);*/
+				mPhoto4View.setImageBitmap(result);
+				//dlg.cancel();
 			}
 		});
 	}

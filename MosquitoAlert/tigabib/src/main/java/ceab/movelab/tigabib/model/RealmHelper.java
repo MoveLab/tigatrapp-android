@@ -59,6 +59,17 @@ public class RealmHelper {
         }
     }
 
+    public void addOrUpdateNotificationList(final Realm realm, final Notification notification) {
+        if ( realm != null && notification != null ) {
+            realm.executeTransaction(new Realm.Transaction() {
+                @Override
+                public void execute(Realm realm) {
+                    realm.copyToRealmOrUpdate(notification);
+                }
+            });
+        }
+    }
+
     public void updateScore(final Realm realm, final Score score) {
         if ( realm != null && score != null ) {
             realm.executeTransaction(new Realm.Transaction() {

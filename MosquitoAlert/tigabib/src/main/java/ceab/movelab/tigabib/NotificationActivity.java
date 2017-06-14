@@ -28,13 +28,13 @@ public class NotificationActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		if (!PropertyHolder.isInit())
+		if ( !PropertyHolder.isInit() )
 			PropertyHolder.init(this);
 
 		lang = Util.setDisplayLanguage(getResources());
 
 		final Bundle b = getIntent().getExtras();
-		if (b.containsKey(NOTIFICATION_ID)) {
+		if ( b.containsKey(NOTIFICATION_ID) ) {
 			notificationId = b.getInt(NOTIFICATION_ID);
 		}
 
@@ -63,8 +63,8 @@ Util.logInfo(TAG, String.valueOf(notif.isAcknowledged()));
 
 	private void acknowledgeNotification(int notifId) {
 		String notificationUrl = Util.API_NOTIFICATION + "?id=" + notifId + "&acknowledged=true";
-		Util.logInfo("===========", "BuildConfig.DEBUG >> " + BuildConfig.DEBUG);
-		Util.logInfo("===========", Util.URL_TIGASERVER_API_ROOT + notificationUrl);
+Util.logInfo("===========", "BuildConfig.DEBUG >> " + BuildConfig.DEBUG);
+Util.logInfo("===========", Util.URL_TIGASERVER_API_ROOT + notificationUrl);
 		Ion.with(this)
 			.load(Util.URL_TIGASERVER_API_ROOT + notificationUrl)
 			.setHeader("Accept", "application/json")
@@ -85,7 +85,7 @@ Util.logInfo(TAG, String.valueOf(notif.isAcknowledged()));
 
 	@Override
 	protected void onResume() {
-		if (!Util.setDisplayLanguage(getResources()).equals(lang)) {
+		if ( !Util.setDisplayLanguage(getResources()).equals(lang) ) {
 			finish();
 			startActivity(getIntent());
 		}

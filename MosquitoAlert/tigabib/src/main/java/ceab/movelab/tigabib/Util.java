@@ -168,7 +168,7 @@ public class Util {
 //		return BuildConfig.DEBUG;
 //	}
 
-	public static boolean debugMode() {		// !!!!!!$$!!!!!
+	public static boolean debugMode() {		// !!!!$$!!!!
 		return BuildConfig.DEBUG;
 	}
 

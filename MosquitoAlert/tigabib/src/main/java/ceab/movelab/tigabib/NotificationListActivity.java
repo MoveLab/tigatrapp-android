@@ -38,10 +38,8 @@ public class NotificationListActivity extends FragmentActivity implements TabHos
 	public static final String TAB_OLD = "old";
 
 	private String lang;
-
 	private Realm mRealm;
-
-	private TabHost mTabHost;
+	//private TabHost mTabHost;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -56,13 +54,12 @@ public class NotificationListActivity extends FragmentActivity implements TabHos
 
 		/*viewPager = (ViewPager) findViewById(R.id.viewpager);
 		setupViewPager(viewPager);
-
 		tabLayout = (TabLayout) findViewById(R.id.tabs);
 		tabLayout.setupWithViewPager(viewPager);*/
 
 		mRealm = RealmHelper.getInstance().getRealm(this);
 
-		mTabHost = (TabHost) findViewById(android.R.id.tabhost);
+		TabHost mTabHost = (TabHost) findViewById(android.R.id.tabhost);
 
 		mTabHost.setup();
 		TabHost.TabSpec tabSpec1 = mTabHost.newTabSpec(TAB_NEW);
@@ -98,7 +95,7 @@ public class NotificationListActivity extends FragmentActivity implements TabHos
 	}
 
 	private void updateTab(String tabId, int placeholder, boolean done) {
-		Util.logInfo("UPDATE TAB", "isDone = " + done);
+Util.logInfo("UPDATE TAB", "isDone = " + done);
 		FragmentManager fm = getSupportFragmentManager();
 		fm.beginTransaction()
 				.replace(placeholder, FragmentList.newInstance(done), tabId)

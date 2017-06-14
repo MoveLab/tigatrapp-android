@@ -27,9 +27,14 @@ import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.google.gson.Gson;
 
+import ceab.movelab.tigabib.NotificationActivity;
 import ceab.movelab.tigabib.R;
 import ceab.movelab.tigabib.SwitchboardActivity;
+import ceab.movelab.tigabib.model.Notification;
+import ceab.movelab.tigabib.model.RealmHelper;
+import io.realm.Realm;
 
 public class MyFirebaseMessagingService2 extends FirebaseMessagingService {
 
@@ -53,7 +58,6 @@ public class MyFirebaseMessagingService2 extends FirebaseMessagingService {
         // messages. For more see: https://firebase.google.com/docs/cloud-messaging/concept-options
         // [END_EXCLUDE]
 
-        // TODO(developer): Handle FCM messages here.
         // Not getting messages here? See why this may be: https://goo.gl/39bRNJ
 Log.d(TAG, "From: " + remoteMessage.getFrom());
 
@@ -67,9 +71,20 @@ Log.d(TAG, "From: " + remoteMessage.getFrom());
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
         }
 
-        sendNotification(remoteMessage.getData().get("message"));
-        // Also if you intend on generating your own notifications as a result of a received FCM
-        // message, here is where that should be initiated. See sendNotification method below.
+        try {
+            String jsonNotif = remoteMessage.getData().get("notification");
+            Notification notification = new Gson().fromJson(jsonNotif, Notification.class);
+            Realm mRealm = RealmHelper.getInstance().getRealm(this);
+            RealmHelper.getInstance().addOrUpdateNotificationList(mRealm, notification);
+
+            sendNotification(remoteMessage.getData().get("title"), remoteMessage.getData().get("message"), notification.getId());
+        }
+        catch ( Exception e ) {
+            // If there is no notification coming from the server then open the home page
+            sendNotification(remoteMessage.getData().get("title"), remoteMessage.getData().get("message"), 0);
+        }
+
+
     }
     // [END receive_message]
 
@@ -78,15 +93,20 @@ Log.d(TAG, "From: " + remoteMessage.getFrom());
      *
      * @param messageBody FCM message body received.
      */
-    private void sendNotification(String messageBody) {
+    private void sendNotification(String messageTitle, String messageBody, int notifId) {
         Intent intent = new Intent(this, SwitchboardActivity.class);
+        if ( notifId > 0 ) {
+            intent.putExtra(NotificationActivity.NOTIFICATION_ID, notifId);
+            intent.setClass(this, NotificationActivity.class);
+            // add extras notification id !!!
+        }
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent, PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this)
                 .setSmallIcon(R.drawable.ic_launcher)
-                .setContentTitle("FCM Message")
+                .setContentTitle(messageTitle)
                 .setContentText(messageBody)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)

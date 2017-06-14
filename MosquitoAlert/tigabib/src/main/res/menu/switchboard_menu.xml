@@ -29,5 +29,8 @@
         android:id="@+id/shareApp"
         android:title="@string/menu_option_share">
     </item>
-
+   <item
+       android:id="@+id/web"
+       android:title="@string/menu_web">
+   </item>
 </menu>

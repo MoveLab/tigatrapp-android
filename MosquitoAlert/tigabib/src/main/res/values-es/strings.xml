@@ -275,7 +275,7 @@
     <string name="tag_to_map_points_of_citizens_none">Ninguno</string>
 
     <string name="my_observations">Mis observaciones</string>
-    <string name="nearby_observations">Observaciones cercanas</string>
+    <string name="nearby_observations">Observaciones recientes</string>
 
 
 </resources>

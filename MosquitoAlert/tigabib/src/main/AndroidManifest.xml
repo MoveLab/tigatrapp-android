@@ -48,12 +48,12 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/DarkThemeSelector"
-        android:screenOrientation="portrait">
+        android:theme="@style/DarkThemeSelector">
         <uses-library android:name="com.google.android.maps" />
 
         <activity
             android:name="ceab.movelab.tigabib.SplashActivity"
+            android:screenOrientation="portrait"
             android:label="@string/app_name"
             android:noHistory="true" >
             <intent-filter>
@@ -63,37 +63,56 @@
         </activity>
         <activity
             android:name="ceab.movelab.tigabib.SwitchboardActivity"
+            android:screenOrientation="portrait"
             android:launchMode="singleTop" >
         </activity>
 
-        <activity android:name="ceab.movelab.tigabib.PhotoValidationActivity" />
-        <activity android:name="ceab.movelab.tigabib.PhotoValidationHelpActivity" />
-        <activity android:name="ceab.movelab.tigabib.PhotoValidationWebViewActivity" />
+        <activity android:name="ceab.movelab.tigabib.PhotoValidationActivity"
+                  android:screenOrientation="portrait" />
+        <activity android:name="ceab.movelab.tigabib.PhotoValidationHelpActivity"
+                  android:screenOrientation="portrait" />
+        <activity android:name="ceab.movelab.tigabib.PhotoValidationWebViewActivity"
+                  android:screenOrientation="portrait" />
 
-        <activity android:name="ceab.movelab.tigabib.SettingsActivity" />
+        <activity android:name="ceab.movelab.tigabib.SettingsActivity"
+                  android:screenOrientation="portrait" />
         <activity
             android:name="ceab.movelab.tigabib.LanguageSelector"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
-        <activity android:name="ceab.movelab.tigabib.ConsentActivity" />
-        <activity android:name="ceab.movelab.tigabib.HelpActivity" />
-        <activity android:name="ceab.movelab.tigabib.ViewReportsChecklistTab" />
-        <activity android:name="ceab.movelab.tigabib.ViewReportsPhotosTab" />
-        <activity android:name="ceab.movelab.tigabib.ViewReportsNotesTab" />
+        <activity android:name="ceab.movelab.tigabib.ConsentActivity"
+                  android:screenOrientation="portrait" />
+        <activity android:name="ceab.movelab.tigabib.HelpActivity"
+                  android:screenOrientation="portrait"/>
+        <activity android:name="ceab.movelab.tigabib.ViewReportsChecklistTab"
+                  android:screenOrientation="portrait" />
+        <activity android:name="ceab.movelab.tigabib.ViewReportsPhotosTab"
+                  android:screenOrientation="portrait" />
+        <activity android:name="ceab.movelab.tigabib.ViewReportsNotesTab"
+                  android:screenOrientation="portrait" />
 
         <activity
             android:name="ceab.movelab.tigabib.ViewReportsTab"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
 
-        <activity android:name="ceab.movelab.tigabib.MissionListActivity" />
-        <activity android:name="ceab.movelab.tigabib.NotificationListActivity" />
-        <activity android:name="ceab.movelab.tigabib.MissionActivity" />
-        <activity android:name="ceab.movelab.tigabib.NotificationActivity" />
+        <activity android:name="ceab.movelab.tigabib.MissionListActivity"
+                  android:screenOrientation="portrait" />
+        <activity android:name="ceab.movelab.tigabib.NotificationListActivity"
+                  android:screenOrientation="portrait" />
+        <activity android:name="ceab.movelab.tigabib.MissionActivity"
+                  android:screenOrientation="portrait" />
+        <activity android:name="ceab.movelab.tigabib.NotificationActivity"
+                  android:screenOrientation="portrait" />
 
-        <activity android:name="ceab.movelab.tigabib.AttachedPhotos" />
-        <activity android:name="ceab.movelab.tigabib.ReportToolActivity" />
-        <activity android:name="ceab.movelab.tigabib.GPLViewActivity" />
+        <activity android:name="ceab.movelab.tigabib.AttachedPhotos"
+                  android:screenOrientation="portrait" />
+        <activity android:name="ceab.movelab.tigabib.ReportToolActivity"
+                  android:screenOrientation="portrait" />
+        <activity android:name="ceab.movelab.tigabib.GPLViewActivity"
+                  android:screenOrientation="portrait" />
 
 <!--    <activity
             android:name="ceab.movelab.tigabib.MapData"
@@ -104,7 +123,8 @@
                 android:value=".SwitchboardActivity" />
         </activity>-->
         <activity
-            android:name="ceab.movelab.tigabib.MapDataV2Activity">
+            android:name="ceab.movelab.tigabib.MapDataV2Activity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ceab.movelab.tigabib.SwitchboardActivity" />
@@ -119,6 +139,7 @@
         </activity>-->
         <activity
             android:name="ceab.movelab.tigabib.MapSelectorV2Activity"
+            android:screenOrientation="portrait"
             android:process=":p1" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -129,11 +150,13 @@
 
         <activity
             android:name="ceab.movelab.tigabib.RSSActivity"
-            android:parentActivityName="ceab.movelab.tigabib.SwitchboardActivity" >
+            android:parentActivityName="ceab.movelab.tigabib.SwitchboardActivity"
+            android:screenOrientation="portrait" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ceab.movelab.tigabib.SwitchboardActivity" />
         </activity>
+
 
         <receiver android:name="ceab.movelab.tigabib.TigerBroadcastReceiver" >
             <intent-filter>

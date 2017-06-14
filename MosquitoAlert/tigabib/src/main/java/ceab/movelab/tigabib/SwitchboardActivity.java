@@ -79,6 +79,7 @@ public class SwitchboardActivity extends Activity {
 	private RelativeLayout mapButton;
 	private RelativeLayout pybossaButton;
 	private RelativeLayout notificationsButton;
+	private TextView mScorePointsText;
 //	private RelativeLayout missionsButton;
 //	private ImageView websiteButton;
 //	private ImageView menuButton;
@@ -158,6 +159,7 @@ public class SwitchboardActivity extends Activity {
 					dialog.show();
 				}
 			}*/
+
 
 			if ( Util.privateMode() ) {
 				final long now = System.currentTimeMillis();
@@ -267,6 +269,33 @@ public class SwitchboardActivity extends Activity {
 				}
 			});
 
+			mScorePointsText = (TextView) findViewById(R.id.scorePointsText);
+			mScorePointsText.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					final Dialog dialog = new Dialog(SwitchboardActivity.this);
+
+					dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+					dialog.setContentView(R.layout.custom_alert);
+					dialog.setCancelable(true);
+
+					TextView alertText = (TextView) dialog.findViewById(R.id.alertText);
+					alertText.setText(R.string.info_scoring);
+
+					Button positive = (Button) dialog.findViewById(R.id.alertOK);
+					Button negative = (Button) dialog.findViewById(R.id.alertCancel);
+					negative.setVisibility(View.GONE);
+
+					positive.setOnClickListener(new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							dialog.cancel();
+						}
+					});
+
+					dialog.show();
+				}
+			});
 			/*missionsButton = (RelativeLayout) findViewById(R.id.reportMissionsLayout);
 			missionsButton.setOnClickListener(new View.OnClickListener() {
 				@Override
@@ -425,7 +454,7 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 		if ( mRealm != null && !mRealm.isClosed() ) {
 			Score score = RealmHelper.getInstance().getScore(mRealm);
 			if ( score != null  && score.getScore() != null ) {
-				((TextView) findViewById(R.id.scorePointsText)).setText(score.getScore() > 100 ? "100" : String.valueOf(score.getScore()));
+				mScorePointsText.setText(score.getScore() > 100 ? "100" : String.valueOf(score.getScore()));
 				// get label value from resources
 				int resourceId = this.getResources().getIdentifier(score.getScoreLabel(), "string", this.getPackageName());
 				((TextView) findViewById(R.id.scoreLevelText)).setText(resourceId);
@@ -550,7 +579,11 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 					.putContentType("App") // Map, Photo
 					.putContentId(PropertyHolder.getUserId()));
 			return true;
-		}
+        } else if (item.getItemId() == R.id.web) {
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            i.setData(Uri.parse(UtilLocal.URL_PROJECT));
+            startActivity(i);
+        }
 		return false;
 	}
 

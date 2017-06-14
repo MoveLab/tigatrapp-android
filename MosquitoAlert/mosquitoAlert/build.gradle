@@ -27,7 +27,7 @@ android {
             storeFile file('D:/Projectes/MosquitoAlert/apk/tigakeys')
             storePassword '=2qC+6!R'
         }
-        config_old2 {
+        config_new {
             keyAlias 'jrbpandroidkey'
             keyPassword 'uSe1W9cP'
             storeFile file('D:/Projectes/MosquitoAlert/apk/JRBP_Keystore_New')
@@ -39,7 +39,7 @@ android {
     buildToolsVersion '25.0.2'
     defaultConfig {
         applicationId "ceab.movelab.tigatrapp"
-        minSdkVersion 9
+        minSdkVersion 14
         targetSdkVersion 24
         versionCode 25  /* 17 is 1.51 current production code */
         versionName "1.59"
@@ -54,8 +54,8 @@ android {
             //buildConfigField "boolean", "PRIVATE_MODE", "false"
             //minifyEnabled true
             //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
-            signingConfig signingConfigs.config_old2
-            debuggable true // !!!!
+            signingConfig signingConfigs.config_new
+            debuggable true // !!!!$$!!!!
         }
     }
 

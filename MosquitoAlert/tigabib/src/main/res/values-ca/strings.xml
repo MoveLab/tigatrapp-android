@@ -275,5 +275,5 @@
     <string name="tag_to_map_points_of_citizens_none">Cap</string>
 
     <string name="my_observations">Les meves observacions</string>
-    <string name="nearby_observations">Observacions properes</string>
+    <string name="nearby_observations">Observacions recents</string>
 </resources>

@@ -57,10 +57,12 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -77,6 +79,8 @@ public class MapSelectorV2Activity extends FragmentActivity implements OnMapRead
 	String TAG = "Map Selector";
 
 	public static final int REQUEST_GOOGLE_PLAY_SERVICES = 999;
+	public static final String LAT = "lat";
+	public static final String LON = "lon";
 
 	String lang;
 
@@ -93,11 +97,8 @@ public class MapSelectorV2Activity extends FragmentActivity implements OnMapRead
 	private LocationListener networkListener;
 	private Location currentLocation;
 
-	public static final String LAT = "lat";
-	public static final String LON = "lon";
 	private Float previous_lat = null;
 	private Float previous_lon = null;
-
 	private LatLng selectedPoint;
 
 	@Override
@@ -112,6 +113,15 @@ public class MapSelectorV2Activity extends FragmentActivity implements OnMapRead
 		setContentView(R.layout.map_selector_dialog_v2);
 
 		checkGoogleApiAvailability();
+
+		// https://stackoverflow.com/questions/19541915/google-maps-cameraupdatefactory-not-initialized
+		try {
+			MapsInitializer.initialize(this);
+		}
+		catch (Exception e) {
+			Util.logError(TAG, "Have GoogleMap but then error");
+			return;
+		}
 
 		Bundle b = getIntent().getExtras();
 		if (b.containsKey(Messages.makeIntentExtraKey(this, ReportToolActivity.PREVIOUS_LAT))) {
@@ -190,6 +200,7 @@ public class MapSelectorV2Activity extends FragmentActivity implements OnMapRead
 		try {
 			mGoogleMap.setMyLocationEnabled(true);
 		} catch (SecurityException se) {
+			se.printStackTrace();
 		}
 
 		setMapType();
@@ -257,7 +268,9 @@ public class MapSelectorV2Activity extends FragmentActivity implements OnMapRead
 					locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, networkListener);
 					// Log.e(TAG, "network listener started");
 				}
-			} catch (SecurityException se) {}
+			} catch (SecurityException se) {
+				se.printStackTrace();
+			}
 		}
 
 	}
@@ -329,8 +342,16 @@ public class MapSelectorV2Activity extends FragmentActivity implements OnMapRead
 					Double geoLon = currentLocation.getLongitude() * 1E6;
 					GeoPoint center = new GeoPoint(geoLat.intValue(), geoLon.intValue());
 					myMapController.animateTo(center);*/
+				try {
 					LatLng myLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
 					mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, 15), 200, null);
+				}
+				catch ( Exception e) {
+					Crashlytics.log("CameraUpdateFactory is not initialized");
+					Crashlytics.setString("Method", "mLocationListener::onLocationChanged");
+					Crashlytics.logException(new Exception());
+				}
+
 				}
 			}
 		}

@@ -29,6 +29,7 @@ import ceab.movelab.tigabib.BuildConfig;
 import ceab.movelab.tigabib.MyApp;
 import ceab.movelab.tigabib.PropertyHolder;
 import ceab.movelab.tigabib.Util;
+import ceab.movelab.tigabib.UtilLocal;
 
 public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
@@ -66,6 +67,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
                 String userId = UUID.randomUUID().toString();
                 PropertyHolder.setUserId(userId);
                 PropertyHolder.setNeedsMosquitoAlertPop(false);
+                Util.registerOnServer(MyApp.getAppContext());
             }
         }
         catch (Exception e) {
@@ -74,26 +76,28 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
             PropertyHolder.setNeedsMosquitoAlertPop(false);
         }
 
-        String notificationUrl = Util.URL_TIGASERVER_API_ROOT + Util.API_TOKEN +
+        String tokenUrl = Util.URL_TIGASERVER_API_ROOT + Util.API_TOKEN +
                 "?token=" + token + "&user_id=" + PropertyHolder.getUserId();
 Util.logInfo("==============", "TEST");
 Log.d("===========", "BuildConfig.DEBUG >> " + BuildConfig.DEBUG);  // !!!!
-Log.d("===========", notificationUrl);
+Log.d("===========", tokenUrl);
 
         Ion.with(this)
-                .load(notificationUrl)
-                //.setHeader("Accept", "application/json")
-                //.setHeader("Content-type", "application/json")
-                //.setHeader("Authorization", UtilLocal.TIGASERVER_AUTHORIZATION)
-                .asJsonObject()
-                .setCallback(new FutureCallback<JsonObject>() {
-                    @Override
-                    public void onCompleted(Exception e, JsonObject result) {
-                        // do stuff with the result or error
-                        if ( result != null ) {
-                            Util.logInfo(this.getClass().getName(), "sendRegistrationToServer >> " + result.toString());
-                        }
+            .load(tokenUrl)
+            .setHeader("Accept", "application/json")
+            //.setHeader("Content-type", "application/json")
+            .setLogging("Token", Log.VERBOSE)
+            .setHeader("Authorization", UtilLocal.TIGASERVER_AUTHORIZATION)
+            .setBodyParameter("token", token)
+            .asJsonObject()
+            .setCallback(new FutureCallback<JsonObject>() {
+                @Override
+                public void onCompleted(Exception e, JsonObject result) {
+                    // do stuff with the result or error
+                    if ( result != null ) {
+                        Util.logInfo(this.getClass().getName(), "sendRegistrationToServer >> " + result.toString());
                     }
-                });
+                }
+            });
     }
 }

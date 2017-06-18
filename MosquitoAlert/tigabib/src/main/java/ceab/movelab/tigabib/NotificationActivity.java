@@ -33,15 +33,14 @@ public class NotificationActivity extends Activity {
 
 		lang = Util.setDisplayLanguage(getResources());
 
-		final Bundle b = getIntent().getExtras();
-		if ( b.containsKey(NOTIFICATION_ID) ) {
-			notificationId = b.getInt(NOTIFICATION_ID);
-		}
-
 		setContentView(R.layout.notification_layout);
 
 		mRealm = RealmHelper.getInstance().getRealm(this);
 
+        final Bundle b = getIntent().getExtras();
+        if ( b.containsKey(NOTIFICATION_ID) ) {
+            notificationId = b.getInt(NOTIFICATION_ID);
+        }
 		final Notification notif = RealmHelper.getInstance().getNotificationById(mRealm, notificationId);// Update person in a transaction
 Util.logInfo(TAG, String.valueOf(notif.isAcknowledged()));
 		mRealm.executeTransaction(new Realm.Transaction() {

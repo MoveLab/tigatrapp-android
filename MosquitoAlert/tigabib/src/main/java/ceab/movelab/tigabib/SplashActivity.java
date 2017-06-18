@@ -23,7 +23,7 @@ public class SplashActivity extends FragmentActivity {
 			public void run() {
 				continueFromSplashScreen();
 		  	}
-		}, 2000); //  2500 real !!!
+		}, 2000); // 2500 optional
     }
 
     protected void continueFromSplashScreen() {

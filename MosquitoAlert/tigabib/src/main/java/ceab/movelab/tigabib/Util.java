@@ -1017,16 +1017,17 @@ public class Util {
 
 	public static Boolean registerOnServer(Context context) {
 
-		Util.logInfo(TAG, "register on server");
+Util.logInfo(TAG, "register on server");
 
 		Boolean result = false;
 		JSONObject jsonUUID;
 		try {
 			jsonUUID = new JSONObject();
 			jsonUUID.put("user_UUID", PropertyHolder.getUserId());
-			Util.logInfo(TAG, "register json: " + jsonUUID.toString());
+Util.logInfo(TAG, "register json: " + jsonUUID.toString());
+			// !!! update http calls
 			int statusCode = Util.getResponseStatusCode(Util.postJSON(jsonUUID, Util.API_USER, context));
-			Util.logInfo(TAG, "register status code: " + statusCode);
+Util.logInfo(TAG, "register status code: " + statusCode);
 
 			if (statusCode < 300 && statusCode > 0) {
 				PropertyHolder.setRegistered(true);
@@ -1035,9 +1036,9 @@ public class Util {
 				result = false;
 			}
 		} catch (JSONException e) {
-			Util.logError(TAG, "error: " + e);
+			e.printStackTrace();
 			// try creating UUID again
-			PropertyHolder.setUserId(UUID.randomUUID().toString());
+			//PropertyHolder.setUserId(UUID.randomUUID().toString());
 			// consider looping back but make sure this will not lead to chaos.
 			// registerOnServer();
 			result = false;

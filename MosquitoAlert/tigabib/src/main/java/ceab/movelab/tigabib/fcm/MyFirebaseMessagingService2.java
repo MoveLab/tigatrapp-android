@@ -95,11 +95,7 @@ Log.d(TAG, "From: " + remoteMessage.getFrom());
      */
     private void sendNotification(String messageTitle, String messageBody, int notifId) {
         Intent intent = new Intent(this, SwitchboardActivity.class);
-        if ( notifId > 0 ) {
-            intent.putExtra(NotificationActivity.NOTIFICATION_ID, notifId);
-            intent.setClass(this, NotificationActivity.class);
-            // add extras notification id !!!
-        }
+        intent.putExtra(NotificationActivity.NOTIFICATION_ID, notifId);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0 /* Request code */, intent, PendingIntent.FLAG_ONE_SHOT);
 

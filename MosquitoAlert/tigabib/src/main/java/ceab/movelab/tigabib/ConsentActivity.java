@@ -87,9 +87,14 @@ public class ConsentActivity extends Activity {
 				PropertyHolder.setConsent(true);
 				PropertyHolder.setReconsent(true); // MG - 9/8/16
 
-				// set user_UUID
-				String userId = UUID.randomUUID().toString();
-				PropertyHolder.setUserId(userId);
+				if ( PropertyHolder.getUserId() == null ) {
+					// set user_UUID
+					String userId = UUID.randomUUID().toString();
+					PropertyHolder.setUserId(userId);
+					PropertyHolder.setNeedsMosquitoAlertPop(false);
+					if ( !PropertyHolder.isRegistered() )
+						Util.registerOnServer(ConsentActivity.this);
+				}
 
 				// start daily sampling
 				Util.internalBroadcast(context, Messages.START_DAILY_SAMPLING);

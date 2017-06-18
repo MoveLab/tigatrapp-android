@@ -64,6 +64,8 @@ import ceab.movelab.tigabib.model.Score;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
+import static ceab.movelab.tigabib.NotificationActivity.NOTIFICATION_ID;
+
 
 /**
  * Main menu screen for app.
@@ -102,6 +104,22 @@ public class SwitchboardActivity extends Activity {
 
 		lang = Util.setDisplayLanguage(getResources());
 
+		// detect push notification
+		try {
+			final Bundle b = getIntent().getExtras();
+			if (b != null && b.containsKey(NOTIFICATION_ID)) {
+				int notifId = b.getInt(NOTIFICATION_ID);
+				if (notifId > 0) {
+					Intent intent = new Intent(this, NotificationActivity.class);
+					intent.putExtra(NotificationActivity.NOTIFICATION_ID, notifId);
+					startActivity(intent);
+				}
+			}
+		}
+		catch ( Exception e) {
+			e.printStackTrace();
+		}
+
 		mMissionsBroadcastReceiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context context, Intent intent) {
@@ -125,13 +143,29 @@ public class SwitchboardActivity extends Activity {
 		}
 	}
 
+	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+Util.logInfo("=========", "New Intent");
+
+		final Bundle b = intent.getExtras();
+		if (b != null && b.containsKey(NOTIFICATION_ID)) {
+			int notifId = b.getInt(NOTIFICATION_ID);
+			if (notifId > 0) {
+				Intent newIntent = new Intent(this, NotificationActivity.class);
+				newIntent.putExtra(NotificationActivity.NOTIFICATION_ID, notifId);
+				startActivity(newIntent);
+			}
+		}
+	}
+
 	private void onCreateWithPermissions() {
 		if ( !Util.privateMode() && !PropertyHolder.hasReconsented() ) { // MG - 9/8/16
 			Intent i2c = new Intent(SwitchboardActivity.this, ConsentActivity.class);
 			startActivity(i2c);
 			finish();
 		} else {
-			if (PropertyHolder.getUserId() == null) {
+			if ( PropertyHolder.getUserId() == null ) {
 				String userId = UUID.randomUUID().toString();
 				PropertyHolder.setUserId(userId);
 				PropertyHolder.setNeedsMosquitoAlertPop(false);
@@ -413,9 +447,9 @@ Log.d("===========", notificationUrl);
 				@Override
 				public void onCompleted(Exception e, List<Notification> result) {
 					// do stuff with the result or error
-Log.d("===========", "result " + result);
+					Log.d("===========", "result " + result);
 					if ( result != null && result.size() > 0 ) {
-Util.logInfo(this.getClass().getName(), "loadRemoteNotifications >> " + result.toString());
+						Util.logInfo(this.getClass().getName(), "loadRemoteNotifications >> " + result.toString());
 						RealmHelper.getInstance().addOrUpdateNotificationList(mRealm, result);
 					}
 					updateNotificationCount();

@@ -280,8 +280,8 @@ public class Util {
 
 	public final static LatLng CEAB_COORDINATES = new LatLng(41.683600, 2.799600);
 
-	public final static double latMask = 0.05;
-	public final static double lonMask = 0.05;
+	public final static double latMask = 0.025;
+	public final static double lonMask = 0.025;
 
 /*
 	public static String[] ALPHA_NUMERIC_DIGITS = { "0", "1", "2", "3", "4",

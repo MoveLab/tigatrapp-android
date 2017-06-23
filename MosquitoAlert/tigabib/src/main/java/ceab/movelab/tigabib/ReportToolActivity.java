@@ -1088,7 +1088,14 @@ public class ReportToolActivity extends Activity {
 			}
 		});
 
-		dialog.show();
+		// sometimes when trying to display the alert dialow window, the activity has finished
+		// Crashlytics #25
+		try {
+			dialog.show();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 
 	}
 

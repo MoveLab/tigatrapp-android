@@ -15,21 +15,14 @@ package ceab.movelab.tigabib.fcm;
  * limitations under the License.
  */
 
-import android.util.Log;
-
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
-import com.google.gson.JsonObject;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 
 import java.util.UUID;
 
-import ceab.movelab.tigabib.BuildConfig;
 import ceab.movelab.tigabib.MyApp;
 import ceab.movelab.tigabib.PropertyHolder;
 import ceab.movelab.tigabib.Util;
-import ceab.movelab.tigabib.UtilLocal;
 
 public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
@@ -44,7 +37,7 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
     public void onTokenRefresh() {
         // Get updated InstanceID token.
         String refreshedToken = FirebaseInstanceId.getInstance().getToken();
- Log.d(TAG, "Refreshed token: " + refreshedToken);
+Util.logInfo(TAG, "Refreshed token: " + refreshedToken);
 
         // If you want to send messages to this application instance or manage this apps subscriptions on the server side,
         // send the Instance ID token to your app server.
@@ -61,34 +54,35 @@ public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
      */
     private void sendRegistrationToServer(String token) {
 
+        String userId = UUID.randomUUID().toString();
         try {
             PropertyHolder.init(MyApp.getAppContext());
             if ( PropertyHolder.getUserId() == null ) {
-                String userId = UUID.randomUUID().toString();
                 PropertyHolder.setUserId(userId);
                 PropertyHolder.setNeedsMosquitoAlertPop(false);
                 Util.registerOnServer(MyApp.getAppContext());
+                Util.registerFCMToken(this, token, userId);
             }
         }
         catch (Exception e) {
-            String userId = UUID.randomUUID().toString();
+            e.printStackTrace();
             PropertyHolder.setUserId(userId);
             PropertyHolder.setNeedsMosquitoAlertPop(false);
+            Util.registerOnServer(MyApp.getAppContext());
+            Util.registerFCMToken(this, token, userId);
         }
 
+        /*
         String tokenUrl = Util.URL_TIGASERVER_API_ROOT + Util.API_TOKEN +
                 "?token=" + token + "&user_id=" + PropertyHolder.getUserId();
-Util.logInfo("==============", "TEST");
-Log.d("===========", "BuildConfig.DEBUG >> " + BuildConfig.DEBUG);  // !!!!
-Log.d("===========", tokenUrl);
-
         Ion.with(this)
             .load(tokenUrl)
             .setHeader("Accept", "application/json")
             //.setHeader("Content-type", "application/json")
-            .setLogging("Token", Log.VERBOSE)
+            //.setLogging("Token", Log.VERBOSE)
             .setHeader("Authorization", UtilLocal.TIGASERVER_AUTHORIZATION)
             .setBodyParameter("token", token)
+            .setBodyParameter("user_id", PropertyHolder.getUserId())
             .asJsonObject()
             .setCallback(new FutureCallback<JsonObject>() {
                 @Override
@@ -98,6 +92,6 @@ Log.d("===========", tokenUrl);
                         Util.logInfo(this.getClass().getName(), "sendRegistrationToServer >> " + result.toString());
                     }
                 }
-            });
+            });*/
     }
 }

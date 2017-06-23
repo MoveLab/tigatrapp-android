@@ -115,6 +115,7 @@ public class MapSelectorV2Activity extends FragmentActivity implements OnMapRead
 		checkGoogleApiAvailability();
 
 		// https://stackoverflow.com/questions/19541915/google-maps-cameraupdatefactory-not-initialized
+		// Crashlytics #8
 		try {
 			MapsInitializer.initialize(this);
 		}

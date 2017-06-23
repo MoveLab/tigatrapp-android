@@ -8,12 +8,15 @@
 
     <com.github.chrisbanes.photoview.PhotoView
         android:id="@+id/validPhoto3Image"
-        android:layout_width="@dimen/valid_photo_size"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/valid_photo_size"
         android:maxHeight="@dimen/valid_photo_size"
         android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/valid_photo_margin"
+        android:layout_marginLeft="@dimen/valid_photo_margin"
+        android:layout_marginRight="@dimen/valid_photo_margin"
         android:src="@drawable/ic_switchboard_icon_validacio_large"/>
 
     <LinearLayout

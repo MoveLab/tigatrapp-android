@@ -50,6 +50,7 @@ import android.widget.TextView;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.ShareEvent;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.reflect.TypeToken;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -169,6 +170,13 @@ Util.logInfo("=========", "New Intent");
 				String userId = UUID.randomUUID().toString();
 				PropertyHolder.setUserId(userId);
 				PropertyHolder.setNeedsMosquitoAlertPop(false);
+
+				Util.registerOnServer(MyApp.getAppContext());
+
+				// Get token and register on server
+				String token = FirebaseInstanceId.getInstance().getToken();
+				Util.registerFCMToken(SwitchboardActivity.this, token, PropertyHolder.getUserId());
+
 			} /*else {
 				if (PropertyHolder.needsMosquitoAlertPop()) {
 					final Dialog dialog = new Dialog(this);
@@ -206,8 +214,7 @@ Util.logInfo("=========", "New Intent");
 					dialog.setContentView(R.layout.custom_alert);
 					dialog.setCancelable(true);
 
-					TextView alertText = (TextView) dialog.findViewById(R.id.alertText);
-					alertText.setText(getResources().getString(R.string.switchboard_demo_popup));
+					((TextView) dialog.findViewById(R.id.alertText)).setText(getResources().getString(R.string.switchboard_demo_popup));
 
 					Button positive = (Button) dialog.findViewById(R.id.alertOK);
 					Button negative = (Button) dialog.findViewById(R.id.alertCancel);

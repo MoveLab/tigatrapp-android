@@ -34,6 +34,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import java.util.Date;
 import java.util.UUID;
 
@@ -92,8 +94,11 @@ public class ConsentActivity extends Activity {
 					String userId = UUID.randomUUID().toString();
 					PropertyHolder.setUserId(userId);
 					PropertyHolder.setNeedsMosquitoAlertPop(false);
-					if ( !PropertyHolder.isRegistered() )
-						Util.registerOnServer(ConsentActivity.this);
+					Util.registerOnServer(MyApp.getAppContext());
+
+                    // Get token and register on server
+                    String token = FirebaseInstanceId.getInstance().getToken();
+                    Util.registerFCMToken(ConsentActivity.this, token, PropertyHolder.getUserId());
 				}
 
 				// start daily sampling

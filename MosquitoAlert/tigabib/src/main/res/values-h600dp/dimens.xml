@@ -23,9 +23,9 @@
 
 <resources>
 
-    <dimen name="validation_box_width">260dp</dimen>
+    <dimen name="validation_box_width">240dp</dimen>
 
     <dimen name="valid_photo_size">260dp</dimen>
     <dimen name="valid_photo_margin">16dp</dimen>
-
+    <dimen name="valid_photo_margin_less">8dp</dimen>
 </resources>

@@ -6,7 +6,7 @@
  Locale: es_ES, Spanish
  Tagged: android
  Exported by: Agusti Escobar
- Exported at: Tue, 13 Sep 2016 10:57:43 +0100
+ Exported at: Tue, 20 Jun 2017 11:40:38 +0200
 -->
 <resources>
     <!-- Intro and Consent -->
@@ -14,19 +14,7 @@
     <string name="decline_button_label">No estoy de acuerdo</string>
     <string name="mosquito_alert_pop">&lt;p&gt;Ayúdanos a notificar hallazgos de mosquito tigre (Aedes albopictus) y de la fiebre amarilla (Aedes aegypti) y sus lugares de cría.&lt;p&gt;\n&lt;p&gt;Encontraréis toda la información en www.mosquitoalert.com.&lt;/p&gt;\n&lt;p&gt;Gracias por vuestro interés y participación,&lt;/p&gt;\n&lt;p&gt;Equipo coordinador Mosquito Alert&lt;/p&gt;\n</string>
     <string-array name="gallery_array">
-        <!-- Gallery -->
-        <item name="gallery_array0">Para identificar el mosquito tigre y el mosquito de la fiebre amarilla hay que fijarse en la parte del cuerpo que está justo después de su cabeza, el tórax. El mosquito de la fiebre amarilla (izquierda) tiene 4 líneas blancas, mientras que el mosquito tigre (derecha) sólo tiene una línea blanca. &lt;b&gt;Foto: Vincent Robert (CC BY 2.0)&lt;/b&gt;</item>
-        <item name="gallery_array1">Mosquito tigre (&lt;i&gt;Aedes albopictus&lt;/i&gt;). Es de color negro con manchas y líneas blancas. Fíjate en la línea blanca de la cabeza y en el tórax. Esta hembra tiene el abdomen hinchado de sangre después de haber picado. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array2">Mosquito de la fiebre amarilla (&lt;i&gt;Aedes aegypti&lt;/i&gt;). Es de color marrón oscuro con manchas y líneas blancas. Justo después de su cabeza, en el tòrax, tiene 4 líneas blancas en forma de lira. &lt;b&gt;Foto: James Gathany (ECDC PD)</item>
-        <item name="gallery_array3">Mosquito tigre (&lt;i&gt;Aedes albopictus&lt;/i&gt;). Observa el color de fondo negro que lo caracteriza. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
         <item name="gallery_array4">Mosquito de la fiebre amarilla (&lt;i&gt;Aedes aegypti&lt;/i&gt;). Observa el color marrón de fondo que lo caracteriza. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array5">Hembras de mosquito tigre picando. Sólo pican las hembras y lo hacen durante el día. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array6">Hembras de mosquito de la fiebre amarilla (&lt;i&gt;Aedes aegypti&lt;/i&gt;). &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array7">Mosquito tigre (izquierda: macho; derecha: hembra). Los machos tienen penachos en la cabeza. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array8">Puesta de huevos de mosquitos del género &lt;i&gt;Aedes&lt;/i&gt;. Las hembras ponen los huevos en seco sobre las paredes de recipientes pequeños, cercanos al agua estancada. Los huevos son tan pequeños que son difíciles de ver a simple vista. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array9">Larvas (alargadas) y pupas (redondeadas) de mosquitos &lt;i&gt;Aedes&lt;/i&gt;. Las larvas son acuáticas y en poco tiempo se transforman en pupas y luego en mosquitos adultos. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array10">Larvas (alargadas) y pupas (redondeadas) de mosquitos del género &lt;i&gt;Aedes&lt;/i&gt;. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array11">Mosquito tigre transformándose de pupa a mosquito adulto. Este proceso se conoce con el nombre de metamorfosis. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt; D</item>
     </string-array>
     <!-- Toasts -->
     <string name="toast_report_before_submitting_site">Para enviar este lugar de cría:</string>
@@ -246,13 +234,18 @@
     <string name="your_report_id_is">El código de tu hallazgo es:\u0020</string>
     <string name="photo_credits">Parte de las fotografías de la App Mosquito Alert han sido cedidas por R. Eritja (www.eritja.com).</string>
     <string name="copyright">&lt;p&gt;Copyright &amp;#169; 2013, 2014 John R.B. Palmer, Aitana Oltra, Joan Garriga y Frederic Bartumeus&lt;/p&gt;\n\u0020\u0020\u0020\u0020</string>
-    <!-- DO NOT TRANSLATE -->
 
     <string name="paso1">1. ¿Cómo es el lugar de cría?</string>
     <string name="paso2">2. ¿Dónde lo has encontrado?</string>
     <string name="paso3">3. Añade una foto</string>
     <string name="paso4">4. ¿Quieres añadir un comentario?</string>
     <string name="paso1_2">1. ¿Cómo es tu mosquito?</string>
+
+    <string name="site_q1_a2_embornals">No, es otro lugar de cría</string>
+    <string name="q2_a1">Sí</string>
+    <string name="q2_a2_site_report">No</string>
+    <string name="q4_a1_site_report">Sí</string>
+    <string name="q4_a2_site_report">No</string>
     <string name="switchboard_button_validations_photos">VALIDA</string>
     <string name="switchboard_button_notifications_site">NOTIFICACIONES</string>
     <string name="switchboard_button_missions_site">MISIONES</string>
@@ -273,10 +266,70 @@
     <string name="tag_to_map_points_of_citizens_albopictus">Mosquito Tigre</string>
     <string name="tag_to_map_points_of_citizens_aegypti">Mosquito Fiebre Amarilla</string>
     <string name="tag_to_map_points_of_citizens_none">Ninguno</string>
+    <string name="my_map_legend_label_my_observations_my_observations">Mis observaciones</string>
+    <string name="my_map_legend_label_nearby_observations_nearby_observations">Observaciones recientes</string>
+    <string name="i18n_question1">¿Ves un mosquito en esta foto?</string>
+    <string name="i18n_easy_right">Parece fácil, ¿verdad?</string>
+    <string name="i18n_tellme">Pues dinos si ves un mosquito.</string>
+    <string name="i18n_letsgo">¡Vamos allá!</string>
+    <string name="i18n_whatmosquito">¿Qué mosquito es?</string>
+    <string name="i18n_wesearch">Buscamos mosquitos tigre o mosquitos de la fiebre amarilla, pero se pueden colar otras especies</string>
+    <string name="i18n_nextscreen">En la pantalla siguiente te explicamos cómo reconocerlos.</string>
+    <string name="i18n_ok">¡Vale!</string>
+    <string name="i18n_tiger">Mosquito Tigre</string>
+    <string name="i18n_whitestripes">Es pequeño (&lt; 1 cm), negro y con rayas blancas horizontales en el abodmen</string>
+    <string name="i18n_whitelinehead">Tiene una línea blanca vertical en cabeza y tórax.</string>
+    <string name="i18n_stripedlegs">Patas rayadas.</string>
+    <string name="i18n_examples">Ejemplos</string>
+    <string name="i18n_thorax">Tórax</string>
+    <string name="i18n_abdomen">Abdomen</string>
+    <string name="i18n_ok2">¡OK!</string>
+    <string name="i18n_yellowfever">Mosquito de Fiebre Amarilla</string>
+    <string name="i18n_smallblackish">Es pequeño (&lt; 1 cm), marrón negruzco y con rayas horizontales, blancas y anchas en el abdomen. A cada lado de estas líneas tiene manchas blancas redondas.</string>
+    <string name="i18n_patternchest">Tiene un dibujo en forma de lira en el tórax.</string>
+    <string name="i18n_stripedlegs2">Patas rayadas.</string>
+    <string name="i18n_examples2">Ejemplos</string>
+    <string name="i18n_thorax2">Tórax</string>
+    <string name="i18n_abdomen2">Abdomen</string>
+    <string name="i18n_ok3">¡OK!</string>
+    <string name="i18n_whichparts">¿Por qué partes lo has reconocido?</string>
+    <string name="i18n_markparts">La parte más identificativa del mosquito es el dibujo del tórax. ¿Reconoces el dibujo en la imagen?</string>
+    <string name="i18n_tigermosquito">Mosquito Tigre</string>
+    <string name="i18n_thorax3">Tórax</string>
+    <string name="i18n_yellowfever2">Mosquito Fiebre Amarilla</string>
+    <string name="i18n_thorax4">Tórax</string>
+    <string name="i18n_understood">¡Entendido!</string>
+    <string name="i18n_zoominfo">Toca la imagen para ampliar.</string>
+    <string name="i18n_step1_yes">Sí</string>
+    <string name="i18n_step1_no">No</string>
+    <string name="i18n_notsurebtn">No lo tengo claro</string>
+    <string name="i18n_tigerbtn">Tigre</string>
+    <string name="i18n_yellowfeverbtn">Fiebre Amarilla</string>
+    <string name="i18n_notsurebtn2">No lo tengo claro</string>
+    <string name="i18n_noneofbothbtn">Ninguno de los dos</string>
+    <string name="i18n_yesbtn1">Sí</string>
+    <string name="i18n_yesbtn2">Sí</string>
+    <string name="i18n_yesbtn3">Sí</string>
+    <string name="i18n_yesbtn4">Sí</string>
+    <string name="i18n_nobtn1">No</string>
+    <string name="i18n_nobtn2">No</string>
+    <string name="i18n_nobtn3">No</string>
+    <string name="i18n_nobtn4">No</string>
 
-    <string name="my_observations">Mis observaciones</string>
-    <string name="nearby_observations">Observaciones recientes</string>
+    <string name="user_score_label">Puntos</string>
+    <string name="user_level_label">Nivel</string>
+    <string name="user_score_beginner">Principiante</string>
+    <string name="user_score_advanced">Avanzado</string>
+    <string name="user_score_pro">Profesional</string>
+    <string name="i18n_thorax_question">¿Reconoces el tórax?</string>
+    <string name="i18n_abdomen_question">¿Y el abdomen?</string>
+    <string name="end_validation">Validación finalizada</string>
+    <string name="menu_web">Web</string>
+    <string name="info_scoring">Esta puntuación tiene en cuenta tu actividad con la app y la calidad de las fotos que has enviado.</string>
+    <string name="help_zoom">Haz zoom con los dedos en la imagen para ampliarla.</string>
+    <string name="menu_close">Cerrar</string>
 
 
 </resources>
+
 

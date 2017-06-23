@@ -23,7 +23,7 @@
 
     <style name="ValidationQuestion">
         <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">30sp</item>
         <item name="android:padding">16dp</item>
         <item name="android:gravity">center</item>
     </style>
@@ -38,16 +38,28 @@
         <item name="android:gravity">center</item>
     </style>
 
-
+    <style name="ValidationPhotoButton">
+        <item name="android:layout_weight">0.5</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:textColor">@color/dark_grey</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:paddingTop">48dp</item>
+        <item name="android:paddingLeft">2dp</item>
+        <item name="android:paddingRight">2dp</item>
+        <item name="android:paddingBottom">32dp</item>
+        <item name="android:drawablePadding">24dp</item>
+        <item name="android:layout_gravity">center_horizontal|bottom</item>
+        <item name="android:gravity">center</item>
+    </style>
 
     <style name="ValidationGrayButton">
+        <item name="android:layout_weight">0.5</item>
         <item name="android:background">@color/light_grey</item>
         <item name="android:textColor">@color/black</item>
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">24sp</item>
         <item name="android:layout_marginTop">24dp</item>
-        <item name="android:layout_marginBottom">24dp</item>
-        <item name="android:layout_marginLeft">12dp</item>
-        <item name="android:layout_marginRight">12dp</item>
+
         <item name="android:padding">24dp</item>
         <item name="android:gravity">center</item>
     </style>

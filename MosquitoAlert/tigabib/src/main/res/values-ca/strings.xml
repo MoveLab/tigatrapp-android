@@ -6,7 +6,7 @@
  Locale: ca, Catalan
  Tagged: android
  Exported by: Agusti Escobar
- Exported at: Tue, 13 Sep 2016 10:57:44 +0100
+ Exported at: Tue, 20 Jun 2017 11:40:38 +0200
 -->
 <resources>
     <!-- Intro and Consent -->
@@ -14,19 +14,7 @@
     <string name="decline_button_label">No hi estic d\'acord</string>
     <string name="mosquito_alert_pop">&lt;p&gt;&lt;b&gt;AtrapaelTigre és ara Mosquito Alert!&lt;/b&gt;&lt;/p&gt;\n&lt;p&gt;Som els mateixos, però el projecte ha crescut. Amb aquest canvi, hem incorporat un nou protagonista: ja no només podreu notificar possibles troballes de mosquit tigre (&lt;i&gt;Aedes albopictus&lt;/i&gt;), sinó també del mosquit de la febre groga (&lt;i&gt;Aedes aegypti&lt;/i&gt;).&lt;p&gt;\n&lt;p&gt;Trobareu tota la informació a www.mosquitoalert.com&lt;/p&gt;\n&lt;p&gt;Gràcies pel vostre interès i participació,&lt;/p&gt;\n&lt;p&gt;Equip coordinador Mosquito Alert&lt;/p&gt;\n</string>
     <string-array name="gallery_array">
-        <!-- Gallery -->
-        <item name="gallery_array0">Per identificar el mosquit tigre i el mosquit de la febre groga cal fixar-se en la part del cos que queda just després del cap, el tòrax. El mosquit de la febre groga (esquerra) té 4 línies blanques, mentre que el mosquit tigre (dreta) només té una línia blanca.\n&lt;b&gt;Foto: Vincent Robert (CC BY 2.0)&lt;/b&gt;</item>
-        <item name="gallery_array1">Mosquit tigre (&lt;i&gt;Aedes albopictus&lt;/i&gt;). És de color negre amb taques i línies blanques. Fíxa\'t en la línia blanca del cap i la del tòrax. Aquesta femella té l\'abdomen inflat de sang després d\'haver fet una picada. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array2">Mosquit de la febre groga (&lt;i&gt;Aedes aegypti&lt;/i&gt;). És de color marró fosc amb taques i línies blanques. Just després del seu cap, al tòrax, té 4 línies blanques en forma de lira. &lt;b&gt;Foto: James Gathany (ECDC PD)&lt;/b&gt;</item>
-        <item name="gallery_array3">Mosquit tigre (&lt;i&gt;Aedes albopictus&lt;/i&gt;). Observa el color de fons negre que el caracteritza. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
         <item name="gallery_array4">Mosquit de la febre groga (&lt;i&gt;Aedes aegypti&lt;/i&gt;). Observa el color marró de fons que el caracteritza. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array5">Femelles de mosquit tigre picant. Només piquen les femelles i ho fan durant el dia. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array6">Femelles de mosquit de la febre groga (&lt;i&gt;Aedes aegypti&lt;/i&gt;). &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array7">Mosquit tigre (esquerra: mascle; dreta: femella). Els mascles tenen plomalls al cap. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array8">Posta d’ous de mosquits del gènere &lt;i&gt;Aedes&lt;/i&gt;. Les femelles ponen els ous en sec a sobre de les parets de recipients petits que tenen aigua estancada. Els ous són tan petits que és difícil veure\'ls a simple vista. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array9">Larves (allargades) i pupes (arrodonides) de mosquits del gènere &lt;i&gt;Aedes&lt;/i&gt;. Les larves són aquàtiques i en poc temps es transformen en pupes i després en adults. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array10">Larves (allargades) i pupes (arrodonides) de mosquits del gènere &lt;i&gt;Aedes&lt;/i&gt;. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array11">Mosquit tigre transformant-se de pupa a mosquit adult. Aquest procés es coneix amb el nom de metamorfosi. &lt;b&gt;Foto: Roger Eritja (©)&lt;/b&gt;</item>
     </string-array>
     <!-- Toasts -->
     <string name="toast_report_before_submitting_site">Per enviar aquest lloc de cria:</string>
@@ -230,7 +218,7 @@
     <string name="notes_title">Missatge</string>
     <string name="ok">OK</string>
     <string name="project_email">info@mosquitoalert.com</string>
-    <string name="project_website">http://mosquitoalert.com/</string>f
+    <string name="project_website">http://mosquitoalert.com/</string>
     <string name="report_sent">Si cliques OK, les teves dades s\'enviaran al grup de recerca responsable del projecte. Part de les dades es faran públiques al mapa web a www.mosquitoalert.com</string>
     <string name="report_sent_confirmation">Gràcies per participar. Trobaràs més informació a la pàgina web de www.mosquitoalert.com.</string>
     <string name="reportGallery_CD">Botó per accedir a la galeria d\'imatges</string>
@@ -249,10 +237,15 @@
     <!-- DO NOT TRANSLATE -->
 
     <string name="paso1">1. Com és el lloc de cria?</string>
+    <string name="paso1_2">1. Com és el teu mosquit?</string>
     <string name="paso2">2. On l\'has trobat?</string>
     <string name="paso3">3. Afegeix una foto</string>
     <string name="paso4">4. Vols afegir un comentari?</string>
-    <string name="paso1_2">1. Com és el teu mosquit?</string>
+    <string name="site_q1_a2_embornals">No, és un altre lloc de cria</string>
+    <string name="q2_a1">Sí</string>
+    <string name="q2_a2_site_report">No</string>
+    <string name="q4_a1_site_report">Sí</string>
+    <string name="q4_a2_site_report">No</string>
     <string name="switchboard_button_validations_photos">VALIDA\u0020</string>
     <string name="switchboard_button_notifications_site">NOTIFICACIONS</string>
     <string name="switchboard_button_missions_site">MISSIONS</string>
@@ -273,7 +266,66 @@
     <string name="tag_to_map_points_of_citizens_albopictus">Mosquit Tigre</string>
     <string name="tag_to_map_points_of_citizens_aegypti">Mosquit Febre Groga</string>
     <string name="tag_to_map_points_of_citizens_none">Cap</string>
+    <string name="my_map_legend_label_my_observations_my_observations">Les meves observacions</string>
+    <string name="my_map_legend_label_nearby_observations_nearby_observations">Observacions recents</string>
+    <string name="i18n_question1">Veus un mosquit en aquesta foto?</string>
+    <string name="i18n_easy_right">Sembla fàcil, oi?</string>
+    <string name="i18n_tellme">Doncs digue’ns si veus un mosquit.</string>
+    <string name="i18n_letsgo">Som-hi!</string>
+    <string name="i18n_whatmosquito">Quin mosquit podria ser?</string>
+    <string name="i18n_wesearch">Busquem mosquits tigre o de la febre groga, però es poden colar altres espècies.</string>
+    <string name="i18n_nextscreen">A la pròxima pantalla t’expliquem com reconèixer-los.</string>
+    <string name="i18n_ok">D’acord!</string>
+    <string name="i18n_tiger">Mosquit Tigre</string>
+    <string name="i18n_whitestripes">És petit (&lt;1 cm), negre, i amb línees blanques horitzontals a l’abdomen.</string>
+    <string name="i18n_whitelinehead">Té una línea blanca vertical just després del cap, al tòrax.</string>
+    <string name="i18n_stripedlegs">Potes ratllades.</string>
+    <string name="i18n_examples">Exemples</string>
+    <string name="i18n_thorax">Tòrax</string>
+    <string name="i18n_abdomen">Abdomen</string>
+    <string name="i18n_ok2">D’acord!</string>
+    <string name="i18n_yellowfever">Mosquit de la Febre Groga</string>
+    <string name="i18n_smallblackish">És petit (&lt;1 cm), marró tirant a negre, amb línees horitzontals blanques i gruixudes a l’abdomen.</string>
+    <string name="i18n_patternchest">Té un dibuix en forma de lira just després del cap, al tòrax.</string>
+    <string name="i18n_stripedlegs2">Potes ratllades.</string>
+    <string name="i18n_examples2">Exemples</string>
+    <string name="i18n_thorax2">Tòrax</string>
+    <string name="i18n_abdomen2">Abdomen</string>
+    <string name="i18n_ok3">D’acord!</string>
+    <string name="i18n_whichparts">Per quines parts l’has reconegut?</string>
+    <string name="i18n_markparts">Selecciona les parts del mosquit que t’han ajudat a identificar-lo: tòrax o abdomen (o ambdues).</string>
+    <string name="i18n_tigermosquito">Mosquit Tigre</string>
+    <string name="i18n_thorax3">Tòrax</string>
+    <string name="i18n_yellowfever2">Mosquit de la Febre Groga</string>
+    <string name="i18n_thorax4">Tòrax</string>
+    <string name="i18n_understood">Entès!</string>
+    <string name="i18n_zoominfo">Toca la imatge per ampliar-la</string>
+    <string name="i18n_step1_yes">Sí</string>
+    <string name="i18n_step1_no">No</string>
+    <string name="i18n_notsurebtn">No ho sé</string>
+    <string name="i18n_tigerbtn">Tigre</string>
+    <string name="i18n_yellowfeverbtn">Febre Groga</string>
+    <string name="i18n_notsurebtn2">No ho sé</string>
+    <string name="i18n_noneofbothbtn">Cap dels dos</string>
+    <string name="i18n_yesbtn1">Sí</string>
+    <string name="i18n_yesbtn2">Sí</string>
+    <string name="i18n_yesbtn3">Sí</string>
+    <string name="i18n_yesbtn4">Sí</string>
+    <string name="i18n_nobtn1">No</string>
+    <string name="i18n_nobtn2">No</string>
+    <string name="i18n_nobtn3">No</string>
+    <string name="i18n_nobtn4">No</string>
+    <string name="user_score_label">Punts</string>
+    <string name="user_level_label">Nivell</string>
+    <string name="user_score_beginner">Principiant</string>
+    <string name="user_score_advanced">Avançat</string>
+    <string name="user_score_pro">Professional</string>
+    <string name="i18n_thorax_question">Reconeixes el tòrax?</string>
+    <string name="i18n_abdomen_question">I l\'abdomen?</string>
+    <string name="end_validation">Validation completed</string>
+    <string name="menu_web">Web</string>
+    <string name="info_scoring">Aquesta puntuació té en compte la teva activitat amb l\'app i la qualitat de les fotos que has enviat.</string>
+    <string name="help_zoom">Fes zoom amb els dits al damunt de la imatge per ampliar-la.</string>
 
-    <string name="my_observations">Les meves observacions</string>
-    <string name="nearby_observations">Observacions recents</string>
+    <string name="menu_close">Tancar</string>
 </resources>

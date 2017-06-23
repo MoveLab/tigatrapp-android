@@ -29,7 +29,7 @@
         android:layout_marginTop="2dp"
         android:paddingLeft="2dp"
         android:paddingStart="2dp"
-        android:text="@string/my_observations"
+        android:text="@string/my_map_legend_label_my_observations_my_observations"
         android:textColor="@color/white"/>
 
     <ImageView
@@ -47,6 +47,6 @@
         android:layout_marginTop="2dp"
         android:paddingLeft="2dp"
         android:paddingStart="2dp"
-        android:text="@string/nearby_observations"
+        android:text="@string/my_map_legend_label_nearby_observations_nearby_observations"
         android:textColor="@color/white"/>
 </RelativeLayout>

@@ -123,11 +123,13 @@
                     android:id="@+id/reportButtonSiteText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
                     android:gravity="center"
                     android:paddingBottom="26dip"
                     android:text="@string/switchboard_button_text_report"
-                    android:textColor="@color/switchboard_button_text"/>
+                    android:textColor="@color/switchboard_button_text"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"/>
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

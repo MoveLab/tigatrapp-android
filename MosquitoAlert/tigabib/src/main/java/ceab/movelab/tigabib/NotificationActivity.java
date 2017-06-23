@@ -41,7 +41,7 @@ public class NotificationActivity extends Activity {
         if ( b.containsKey(NOTIFICATION_ID) ) {
             notificationId = b.getInt(NOTIFICATION_ID);
         }
-		final Notification notif = RealmHelper.getInstance().getNotificationById(mRealm, notificationId);// Update person in a transaction
+		final Notification notif = RealmHelper.getInstance().getNotificationById(mRealm, notificationId);
 Util.logInfo(TAG, String.valueOf(notif.isAcknowledged()));
 		mRealm.executeTransaction(new Realm.Transaction() {
 			@Override

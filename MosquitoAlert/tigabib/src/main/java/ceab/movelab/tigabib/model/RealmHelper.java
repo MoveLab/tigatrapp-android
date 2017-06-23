@@ -49,7 +49,8 @@ public class RealmHelper {
 */
 
     public void addOrUpdateNotificationList(final Realm realm, final List<Notification> notifList) {
-        if ( realm != null && notifList != null ) {
+        // Crashlytics #19
+        if ( realm != null && !realm.isClosed() && notifList != null ) {
             realm.executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {
@@ -60,7 +61,7 @@ public class RealmHelper {
     }
 
     public void addOrUpdateNotificationList(final Realm realm, final Notification notification) {
-        if ( realm != null && notification != null ) {
+        if ( realm != null && !realm.isClosed() && notification != null ) {
             realm.executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {

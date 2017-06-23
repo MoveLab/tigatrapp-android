@@ -111,10 +111,9 @@ public class FixUse extends Service {
 			int thisHour = Util.hour(time);
 
 			String sc1 = Tasks.KEY_TRIGGERS + " IS NOT NULL AND "
-					+ Tasks.KEY_ACTIVE + " = 0 AND " + Tasks.KEY_DONE
-					+ " = 0 AND (" + Tasks.KEY_EXPIRATION_TIME + " >= "
-					+ System.currentTimeMillis() + " OR "
-					+ Tasks.KEY_EXPIRATION_TIME + " = 0)";
+					+ Tasks.KEY_ACTIVE + " = 0 AND " + Tasks.KEY_DONE + " = 0 "
+					+ " AND (" + Tasks.KEY_EXPIRATION_TIME + " >= " + System.currentTimeMillis()
+					+ " OR " + Tasks.KEY_EXPIRATION_TIME + " = 0)";
 
 			Util.logInfo(TAG, "sql: " + sc1);
 

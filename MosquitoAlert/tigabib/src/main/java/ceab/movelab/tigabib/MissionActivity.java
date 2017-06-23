@@ -428,8 +428,7 @@ Util.logInfo(TAG, "just broadcast: " + Messages.REMOVE_TASK_NOTIFICATION);
 					String osLanguage = Locale.getDefault().getLanguage();
 					String appLanguage = PropertyHolder.getLanguage();
 
-					Report missionReport = new Report(MissionActivity.this, UUID
-							.randomUUID().toString(),
+					Report missionReport = new Report(MissionActivity.this, UUID.randomUUID().toString(),
 							PropertyHolder.getUserId(), Util.makeReportId(), 0,
 							currentTime, currentTimeString, currentTimeString,
 							Report.TYPE_MISSION, responses.toString(),
@@ -554,8 +553,7 @@ Util.logInfo(TAG, "just broadcast: " + Messages.REMOVE_TASK_NOTIFICATION);
 					String osLanguage = Locale.getDefault().getLanguage();
 					String appLanguage = PropertyHolder.getLanguage();
 
-					Report missionReport = new Report(MissionActivity.this, UUID
-							.randomUUID().toString(),
+					Report missionReport = new Report(MissionActivity.this, UUID.randomUUID().toString(),
 							PropertyHolder.getUserId(), Util.makeReportId(), 0,
 							currentTime, currentTimeString, currentTimeString,
 							Report.TYPE_MISSION, responses.toString(),

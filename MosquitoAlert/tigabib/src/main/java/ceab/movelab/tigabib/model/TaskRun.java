@@ -13,11 +13,15 @@ public class TaskRun {
     private Integer taskId;
     @SerializedName("info")
     @Expose
+    private String externalId;
+    @SerializedName("external_uid")
+    @Expose
     private TaskRunInfo info;
 
-    public TaskRun(int projectId, int taskId, TaskRunInfo info) {
+    public TaskRun(int projectId, int taskId, String externalId, TaskRunInfo info) {
         this.projectId = projectId;
         this.taskId = taskId;
+        this.externalId = externalId;
         this.info = info;
     }
 

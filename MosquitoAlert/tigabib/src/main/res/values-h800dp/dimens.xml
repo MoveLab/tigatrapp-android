@@ -25,7 +25,8 @@
 
     <dimen name="validation_box_width">300dp</dimen>
 
-    <dimen name="valid_photo_size">300dp</dimen>
+    <dimen name="valid_photo_size">320dp</dimen>
     <dimen name="valid_photo_margin">32dp</dimen>
+    <dimen name="valid_photo_margin_less">20dp</dimen>
 
 </resources>

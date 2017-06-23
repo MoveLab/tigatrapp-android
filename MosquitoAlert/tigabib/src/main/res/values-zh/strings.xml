@@ -3,45 +3,33 @@
  Loco xml export: Android string resources
  Project: Tigatrapp
  Release: Working copy
- Locale: zh_HK, Chinese
+ Locale: zh_HK, Chinese (Hong Kong)
  Tagged: android
  Exported by: Agusti Escobar
- Exported at: Tue, 13 Sep 2016 10:57:44 +0100
+ Exported at: Tue, 20 Jun 2017 11:40:38 +0200
 -->
 <resources>
     <!-- Intro and Consent -->
     <string name="consent_button_label">我已閱讀並接受這些條款</string>
     <string name="decline_button_label">我拒絕同意</string>
-    <string name="mosquito_alert_pop">&lt;p&gt;&lt;b&gt;AtrapaelTigre 已改名為 Mosquito Alert!&lt;/b&gt;&lt;/p&gt;\n&lt;p&gt;我們均源自同一個團隊，但我們已進行項目拓展，並添加了新原素：現在你不單只可以報告白紋伊蚊 (&lt;i&gt;Aedes albopictus&lt;/i&gt;) ，你亦可同時報告埃及斑蚊 (&lt;i&gt;Aedes aegypti&lt;/i&gt;)的蹤影。&lt;p&gt;\n&lt;p&gt;你可瀏覽 www.mosquitoalert.com 以了解更多相關資訊&lt;/p&gt;\n&lt;p&gt;謝謝你的支持和參與&lt;/p&gt;\n&lt;p&gt;Mosquito Alert 團隊&lt;/p&gt;\n</string>
+    <string name="mosquito_alert_pop">&lt;p&gt;&lt;b&gt;AtrapaelTigre 已改名為 Mosquito Alert!&lt;/b&gt;&lt;/p&gt;\n&lt;p&gt;我們均源自同一個團隊，但我們已進行項目拓展，並添加了新原素：現在你不但可以報告白紋伊蚊 (&lt;i&gt;Aedes albopictus&lt;/i&gt;) ，你亦可同時報告埃及斑蚊 (&lt;i&gt;Aedes aegypti&lt;/i&gt;)的蹤影。&lt;p&gt;\n&lt;p&gt;你可瀏覽 www.mosquitoalert.com 以了解更多相關資訊&lt;/p&gt;\n&lt;p&gt;謝謝你的支持和參與&lt;/p&gt;\n&lt;p&gt;Mosquito Alert 團隊&lt;/p&gt;\n</string>
     <string-array name="gallery_array">
-        <!-- Gallery -->
-        <item name="gallery_array0">埃及斑蚊&lt;i&gt;Aedes aegypti&lt;/i&gt;(左) 和 白紋伊蚊&lt;i&gt;Aedes albopictus&lt;/i&gt;(右)的最大分別為：埃及斑蚊的胸部有數條白色呈豎琴形的條紋，而白紋伊蚊的胸部只有一條白色條紋。&lt;b&gt;照片來源: Vincent Robert (CC BY 2.0)&lt;/b&gt;</item>
-        <item name="gallery_array1">白紋伊蚊(&lt;i&gt;Aedes albopictus&lt;/i&gt;). 牠的特徵包括佈滿白點和白色條紋的黑色身軀，以及在頭部和胸腔部份的白線。另外，雌性白紋伊蚊的腹部是充滿血的。 &lt;b&gt; Photo: Roger Eritja (©)&lt;/ b&gt;</item>
-        <item name="gallery_array2">埃及斑蚊 (&lt;i&gt;Aedes aegypti&lt;/i&gt;) . 牠的特徵包括佈滿白點和白色條紋的深棕色身軀。以及在牠頭部上方(即其軀幹)有四條豎琴形的白色條紋。 &lt;b&gt;Photo: James Gathany (ECDC, domini públic)&lt;/b&gt;</item>
-        <item name="gallery_array3">觀察白紋伊蚊 (&lt;i&gt;Ae. albopictus&lt;/i&gt;)特有的黑色身軀。&lt;b&gt;照片來源: Roger Eritja (©)&lt;/b&gt;</item>
         <item name="gallery_array4">觀察埃及斑蚊 (&lt;i&gt;Aedes aegypti&lt;/i&gt;) 特有的深棕色身軀。&lt;b&gt;照片來源: Mark Yokoyama (CC BY 2.0)&lt;/b&gt;</item>
-        <item name="gallery_array5">那些蚊子會叮人？只有雌性的蚊子會，而在這情況下為白紋伊蚊 (&lt;i&gt;Ae. albopictus&lt;/i&gt;)。都市&lt;i&gt;伊蚊&lt;/i&gt;通常只會於日間，而非夜間出沒，而牠們主要叮人的腿部位置。&lt;b&gt;照片來源: Roger Eritja (©)&lt;/b&gt;\n</item>
-        <item name="gallery_array6">兩隻雌性的埃及斑蚊(&lt;i&gt;Aedes aegypti&lt;/i&gt;)。&lt;b&gt;照片來源: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array7">雄性(左) 和 雌性(右) 白紋伊蚊 (&lt;i&gt;Ae. albopictus&lt;/i&gt;) 的分別－雄性白紋伊蚊的頭部具有羽毛。&lt;b&gt;照片來源: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array8">伊蚊&lt;i&gt;Aedes&lt;/i&gt;的蚊卵。這些蚊卵細得幾乎無法目測。都市中的伊蚊通常會在積水附近乾爽的渠道生卵。&lt;b&gt;照片來源: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array9">伊蚊&lt;i&gt;Aedes&lt;/i&gt;的幼蟲(外形較長) 或蛹(外形較圓)。注意，牠們兩者皆為水生動物－當蚊卵被水覆蓋，它便會轉化為幼蟲，而幼蟲最終亦會轉化為蛹。&lt;b&gt;照片來源: Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array10">伊蚊&lt;i&gt;Aedes&lt;/i&gt; 在水中的幼蟲(外形較長)和蛹(外形較圓). &lt;b&gt;照片來源:Roger Eritja (©)&lt;/b&gt;</item>
-        <item name="gallery_array11">生物的變態(型態改變): 成年蚊子 (白紋伊蚊 &lt;i&gt;Ae. albopictus&lt;/i&gt;)破蛹而出。要預防伊蚊&lt;i&gt;Aedes&lt;/i&gt;出現於家居環境，請移除積水和定期清理容易載有積水的器皿. &lt;b&gt;照片來源: Roger Eritja (©)&lt;/b&gt;</item>
     </string-array>
     <!-- Toasts -->
-    <string name="toast_report_before_submitting_site">在提交蚊子滋生地的報告前，請：</string>
-    <string name="toast_report_before_submitting_adult">在提交蚊子報告前，請：</string>
+    <string name="toast_report_before_submitting_site">在提交蚊蹤滋生地的報告前，請：</string>
+    <string name="toast_report_before_submitting_adult">在提交蚊蹤報告前，請：</string>
     <string name="toast_complete_checklist">- 請完成資料一覽表</string>
     <string name="toast_specify_location">- 請具體說明其位置</string>
     <string name="toast_attach_photo">- 請上載一張蚊子滋生地的照片</string>
     <!-- Switchboard -->
     <string name="dataMap_CD">我的數據</string>
     <string name="switchboard_button_text_report">報告</string>
-    <string name="switchboard_button_text_sites">滋生地方</string>
-    <string name="switchboard_button_text_adult">蚊子</string>
+    <string name="switchboard_button_text_sites">滋生地點</string>
+    <string name="switchboard_button_text_adult">成年蚊子</string>
     <string name="switchboard_button_text_map">我的地圖</string>
     <string name="switchboard_button_text_gallery">照片庫</string>
-    <string name="switchboard_demo_popup">這是Mosquito Alert的簡易測試版。在這個版本中，你不能共享任何數據。如果你參與這個項目共享數據，請點擊確定以安裝完整的Mosquito Alert應用程式。(如果你經已安裝完整的版本，你可以刪除我們的演示簡易測試版。)</string>
+    <string name="switchboard_demo_popup">這是Mosquito Alert的簡易測試版。在這個版本中，你不能共享任何數據。如果你參與這個項目共享數據，請點擊確定以安裝完整的Mosquito Alert應用程式(如果你經已安裝完整的版本，你可以刪除我們的演示簡易測試版。)。</string>
     <!-- activity labels -->
     <string name="activity_label_report_editing">Mosquito Alert:編輯報告</string>
     <string name="activity_label_report_new">Mosquito Alert:新報告</string>
@@ -52,15 +40,15 @@
     <string name="location_label_editing">位置*</string>
     <string name="photo_check_label_editing">照片</string>
     <string name="note_check_label_editing">備注</string>
-    <string name="report_title_adult">蚊子</string>
-    <string name="report_title_site">滋生地方</string>
+    <string name="report_title_adult">蚊蹤</string>
+    <string name="report_title_site">滋生地點</string>
     <string name="checklist_label">新增描述*</string>
     <string name="location_label">新増位置*</string>
     <string name="location_current_label">目前位置</string>
     <string name="location_select_label">在地圖上選擇另一位置</string>
     <string name="location_current_label_button">目前位置</string>
     <string name="location_select_label_button">選擇</string>
-    <string name="location_menu_title">選擇目前位置或是在地圖上選擇另一位置?</string>
+    <string name="location_menu_title">選擇目前位置或在地圖上選擇另一位置。</string>
     <string name="photo_check_label">新增照片</string>
     <string name="note_check_label">新增備注</string>
     <string name="update">更新</string>
@@ -73,12 +61,12 @@
     <string name="site_report_q2">這繁殖地是否公共空間？</string>
     <string name="site_report_q3">這繁殖地有沒有藏有積水，和/或任何蚊子品種旳幼蟲或蛹？</string>
     <string name="site_report_q4">你有否在周遭地方見到成年蚊子(少於十米內)？</string>
-    <string name="site_report_q3_response1">同時有積水和幼蟲或蛹</string>
-    <string name="site_report_q3_response2">有積水，但沒有幼蟲或蛹</string>
+    <string name="site_report_q3_response1">同時有積水、幼蟲或蛹。</string>
+    <string name="site_report_q3_response2">有積水，但沒有幼蟲或蛹。</string>
     <string name="site_report_q3_response3">沒有積水</string>
     <string name="adult_report_q3">蚊子的腹部是什麼樣子？檢查(i)按鈕，然後選擇一個答案：</string>
-    <string name="adult_report_q3a1">有白色條紋和小斑點</string>
-    <string name="adult_report_q3a2">有白色條紋和大斑點</string>
+    <string name="adult_report_q3a1">有白色條紋和小斑點。</string>
+    <string name="adult_report_q3a2">有白色條紋和大斑點。</string>
     <string name="adult_report_q3a3">皆不是</string>
     <string name="adult_report_q3a4">不確定</string>
     <string name="confirmation_q2_adult_headthorax">蚊子的胸部是什麼樣子？是否帶有一條白色條紋？檢查(i)按鈕，然後選擇答案：</string>
@@ -86,21 +74,21 @@
     <string name="q3_abdomenlegs_text">&lt;p&gt;白紋伊蚊和埃及斑蚊的腹部皆有白色斑點和白色條紋，但白紋伊蚊的條紋較埃及斑蚊的幼小。&lt;/p&gt;\n\n&lt;p&gt;&lt;b&gt;Illustrations: J.Luis Ordóñez, CREAF (CC-BY-NC 3.0)&lt;/b&gt;&lt;/p&gt;</string>
     <string name="identifying_mosquitoes_title">關於蚊子</string>
     <string name="confirmation_q1_adult_sizecolor">你的蚊子是什麼顏色？檢查(i)按鈕，然後選擇一個答案：</string>
-    <string name="adult_report_q1a1">黑色身軀，並且在腹部和腿部有白色條紋</string>
+    <string name="adult_report_q1a1">黑色身軀，並且在腹部和腿部有白色條紋。</string>
     <string name="adult_report_q1a2">棕色身軀，並且在腹部和腿部有白色條紋</string>
     <string name="adult_report_q1a3">皆不是</string>
     <string name="adult_report_q1a4">不確定</string>
     <string name="adult_report_q2a1">是</string>
-    <string name="adult_report_q2a2">否，蚊子有四條白色條紋組成豎琴形</string>
+    <string name="adult_report_q2a2">否，蚊子有成豎琴形的四條白色條紋。</string>
     <string name="adult_report_q2a3">皆不是</string>
     <string name="adult_report_q2a4">不確定</string>
     <string name="q1_sizecolor_text_help">&lt;p&gt;白紋伊蚊(&lt;i&gt;學名：Aedes albopictus&lt;/i&gt;）和埃及斑蚊（&lt;i&gt;學名：Aedes aegypti&lt;/i&gt;）的特徵是細小以及其帶有白色點紋的深色身軀。白紋伊蚊的身軀為黑色，而埃及斑蚊的為深棕色。&lt;/p&gt;\n&lt;p&gt;&lt;b&gt;Illustrations: J.Luis Ordóñez, CREAF (CC-BY-NC 3.0)&lt;/b&gt;&lt;/p&gt;</string>
     <string name="adult_report_help_html">&lt;p&gt;&lt;b&gt;協助:&lt;/b&gt; &lt;br/&gt; \n如果你發現蚊子，請按照以下步驟填寫表格:&lt;/p&gt;\n\n&lt;p&gt; \n&lt;ul&gt;\n&lt;li&gt;&lt;b&gt;步驟1 - 蚊子的外貌&lt;/ b&gt;: 請回答下列四條問題讓我們了解更多&lt;/li&gt; \n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;步驟 2 - 發現蚊子的位置&lt;/ b&gt;:如果你現在身處的位置為發現蚊子的位置，請選擇”目前位置”。你可以啟用GPS全球定位系统以增加位置準確性。如果你在另一位置發現蚊子，並有儲存該位置的照片作紀錄，請選擇”別處”，並在地圖上附加位置。 &lt;/li&gt; \n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;步驟3 - 新增照片&lt;/ b&gt;: 請以手機拍攝照片或直接上載你已儲存的照片。你可以抓住蚊子的腿部，然後從正面和側面拍攝以便識別。&lt;/li&gt; \n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;步驟 4 - 添加備注&lt;/ b&gt;: 你可以於備注欄作任何額外補充，但謹記不要填寫你的個人資料。&lt;/li&gt; \n&lt;/ul&gt;\n&lt;/p&gt;\n\n &lt;p&gt;你可以在”我的地圖”瀏覽和編輯你的發現。你提交的資料將於地圖上顯示\n&lt;ahref=\"www.mosquitoalert.com\"&gt;www.mosquitoalert.com&lt;/a&gt;。&lt;/p&gt;</string>
-    <string name="site_report_help_html">&lt;p&gt;&lt;b&gt;協助:&lt;/b&gt; &lt;br/&gt; \n如果你發現蚊子滋生地，尤其是位於公共場所存有積水的的排水道或溝渠，請按照以下步驟填寫表格:\n&lt;p&gt; \n&lt;ul&gt;\n&lt;li&gt;&lt;b&gt;步驟1 - 滋生地的外貌&lt;/ b&gt;: 請回答下列四條問題讓我們了解更多&lt;/li&gt; \n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;步驟 2 - 發現滋生地的位置&lt;/ b&gt;:如果你現在身處的位置為發現蚊子的位置，請選擇”目前位置”。你可以啟用GPS全球定位系统以增加位置準確性。如果你在另一位置發現蚊子，並有儲存該位置的照片作紀錄，請選擇”別處”，並在地圖上附加位置。 &lt;/li&gt; \n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;步驟3 - 新增照片&lt;/ b&gt;: 請以手機拍攝照片或直接上載你已儲存的照片。可以的話，請儘量拍攝一張能顯示積水和/或幼蟲和蛹滋生情況的照片。&lt;/li&gt; \n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;步驟 4 - 添加備注&lt;/ b&gt;: 你可以在此提供更多你發現的細節。謹記，切勿不要附加任何個人資料。&lt;/li&gt; \n&lt;/ul&gt;\n&lt;/p&gt;\n\n &lt;p&gt;你可以在”我的地圖”瀏覽和編輯你的發現。你提交的資料將於地圖上顯示 &lt;ahref=\"www.mosquitoalert.com\"&gt;www.mosquitoalert.com&lt;/a&gt;。&lt;/p&gt;\n&lt;p&gt;你可以在”我的地圖”瀏覽和編輯你的發現。你提交的資料將於地圖上顯示\n&lt;ahref=\"www.mosquitoalert.com\"&gt;www.mosquitoalert.com&lt;/a&gt;。&lt;/p&gt;</string>
-    <string name="site_report_item_help_1">&lt;p&gt;都市&lt;i&gt;伊蚊&lt;/i&gt;(&lt;i&gt;Ae. albopictus 白紋伊蚊&lt;/i&gt; 和 &lt;i&gt;Ae. aegypti 埃及伊蚊&lt;/i&gt;)多數於含積水，但比水桶還小的室外地方產卵。含積水的排水道或溝渠是&lt;i&gt;伊蚊&lt;/i&gt;的主要繁殖地方。\n&lt;p&gt;都市&lt;i&gt;伊蚊&lt;/i&gt;不會於海灘，河流，湖泊，池塘，或濕地繁殖。\n&lt;p&gt;以下照片由巴塞羅那公共衛生局慷慨提供。&lt;/p&gt;\n</string>
-    <string name="site_report_item_help_2">公共空間是指那些可以供公眾㆟士自由進出的地方，如道路，廣場，公園，和綠化空間等。它們不包括私人地段或其他私有財產。</string>
+    <string name="site_report_help_html">&lt;p&gt;&lt;b&gt;協助:&lt;/b&gt; &lt;br/&gt; \n如果你發現蚊子滋生地，尤其是位於公共場所存有積水的的排水道或溝渠，請按照以下步驟填寫表格:\n&lt;p&gt; \n&lt;ul&gt;\n&lt;li&gt;&lt;b&gt;步驟1 - 滋生地的外貌&lt;/ b&gt;: 請回答下列四條問題讓我們了解更多&lt;/li&gt; \n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;步驟 2 - 發現滋生地的位置&lt;/ b&gt;:如果你現在身處的位置為發現蚊子的位置，請選擇”目前位置”。你可以啟用GPS全球定位系统以增加位置準確性。如果你在另一位置發現蚊子，並有儲存該位置的照片作紀錄，請選擇”別處”，並在地圖上附加位置。 &lt;/li&gt; \n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;步驟3 - 新增照片&lt;/ b&gt;: 請以手機拍攝照片或直接上載你已儲存的照片。可以的話，請儘量拍攝一張能顯示積水和/或幼蟲和蛹滋生情況的照片。&lt;/li&gt; \n&lt;br/&gt;\n&lt;li&gt;&lt;b&gt;步驟 4 - 添加備注&lt;/ b&gt;: 你可以在此提供更多你發現的細節。謹記，切勿不要附加任何個人資料。&lt;/li&gt; \n&lt;/ul&gt;\n&lt;/p&gt;\n\n &lt;p&gt;你可以在”我的地圖”瀏覽和編輯你的發現。你提交的資料將於地圖上顯示。 &lt;ahref=\"www.mosquitoalert.com\"&gt;www.mosquitoalert.com&lt;/a&gt;。&lt;/p&gt;\n&lt;p&gt;你可以在”我的地圖”瀏覽和編輯你的發現。你提交的資料將於地圖上顯示。\n&lt;ahref=\"www.mosquitoalert.com\"&gt;www.mosquitoalert.com&lt;/a&gt;。&lt;/p&gt;</string>
+    <string name="site_report_item_help_1">&lt;p&gt;都市&lt;i&gt;伊蚊&lt;/i&gt;(&lt;i&gt;Ae. albopictus 白紋伊蚊&lt;/i&gt; 和 &lt;i&gt;Ae. aegypti 埃及伊蚊&lt;/i&gt;)多數在有積水，但比水桶還小的室外地方產卵。含積水的排水道或溝渠是&lt;i&gt;伊蚊&lt;/i&gt;的主要繁殖地點。\n&lt;p&gt;都市&lt;i&gt;伊蚊&lt;/i&gt;不會於海灘，河流，湖泊，池塘，或濕地繁殖。\n&lt;p&gt;以下照片由巴塞羅那公共衛生局慷慨提供。&lt;/p&gt;\n</string>
+    <string name="site_report_item_help_2">公共空間是指那些可以供公眾人士自由進出的地方，如道路，廣場，公園和綠化空間等。它們不包括私人地段或其他私有財產。</string>
     <string name="site_report_item_help_3">都市&lt;I&gt;伊蚊&lt; / i&gt;的幼蟲和蛹在變態(型態改變)成蟲前之前，因為生存的原故，需要居住在積水或渾水數天。\n</string>
-    <string name="site_report_item_help_4">白紋伊蚊一般不會遠距離移動 ——大多數500米範圍內，因此，成年白紋伊蚊常被發現於滋生地附近的位置，</string>
+    <string name="site_report_item_help_4">白紋伊蚊一般不會遠距離移動 ——大多範圍在500米內。因此，成年白紋伊蚊常被發現於滋生地附近的位置。</string>
     <string name="site_q1_a1_embornals">是</string>
     <string name="fonts">噴泉</string>
     <string name="basses">細小的水盆或類似的貯水容器</string>
@@ -119,8 +107,8 @@
     <string name="checklist_tab_title">編目</string>
     <string name="photos_tab_title">照片</string>
     <string name="notes_tab_title">備注</string>
-    <string name="view_report_title_adult">蚊子報告</string>
-    <string name="view_report_title_site">蚊子滋生地</string>
+    <string name="view_report_title_adult">蚊蹤</string>
+    <string name="view_report_title_site">滋生地點</string>
     <!-- Photo Selector -->
     <string name="photo_selector_title">報告照片</string>
     <string name="photo_selector_take_photo_button">拍攝照片</string>
@@ -130,7 +118,7 @@
     <string name="photo_selector_from_thisreport">從這報告</string>
     <string name="photo_selector_remove_button_label">移除</string>
     <!-- RSS Feeds -->
-    <string name="rss_internet_connection_warning">沒有網絡連接\n請連接到互聯網，並從目錄中選擇“重新整理”\u0020</string>
+    <string name="rss_internet_connection_warning">沒有網絡連接\n請連接到互聯網，並從目錄中選擇“重新整理” 。</string>
     <string name="rss_title_tigatrapp">mosquitoalert.com 的最新消息</string>
     <!-- Tasks -->
     <string name="task_list_title">任務</string>
@@ -145,7 +133,7 @@
     <string name="mission_button_right">刪除任務</string>
     <string name="mission_button_mark_complete">標記完成</string>
     <string name="toast__mission_already_complete">你已完成這項任務，謝謝！</string>
-    <string name="toast_mission_expired">這個任務已因過期不存在</string>
+    <string name="toast_mission_expired">這個任務已過期</string>
     <!-- Menu -->
     <string name="menu_option_task_list">任務</string>
     <string name="menu_option_tigatrapp_news">最新消息</string>
@@ -175,8 +163,8 @@
     <string name="settings_syncing">正在同步</string>
     <string name="on">可用</string>
     <string name="off">不可用</string>
-    <string name="sample_my_locations">採樣我的位置</string>
-    <string name="sampling_is_off">位置採樣不可用</string>
+    <string name="sample_my_locations">搜集我的位置</string>
+    <string name="sampling_is_off">位置搜集不可用</string>
     <string name="sampling_is_on">位置採樣可用</string>
     <string name="sync_error">傳送過程中有故障，你的數據將於稍後再次自動進行同步</string>
     <string name="offline_sync">沒有網絡連接。你的數據將在有可用的連接網絡時自動進行同步</string>
@@ -254,6 +242,11 @@
     <string name="paso3">3. 新增圖片</string>
     <string name="paso4">4. 你希望附註任何評論嗎？</string>
     <string name="paso1_2">1.\u0020\u0020請描述蚊子的外貌？</string>
+    <string name="site_q1_a2_embornals">否，這是另一類滋生地。</string>
+    <string name="q2_a1">是</string>
+    <string name="q2_a2_site_report">否</string>
+    <string name="q4_a1_site_report">是</string>
+    <string name="q4_a2_site_report">否</string>
     <string name="switchboard_button_validations_photos">驗證</string>
     <string name="switchboard_button_notifications_site">通知</string>
     <string name="switchboard_button_missions_site">任務</string>
@@ -262,11 +255,11 @@
     <string name="back">返回</string>
     <string name="notifications_new">新</string>
     <string name="notifications_old">舊</string>
-    <string name="task_expires">到期</string>
-    <string name="task_complete_checklist">完成資料一覽表</string>
+    <string name="task_expires">任務到期</string>
+    <string name="task_complete_checklist">任務完成資料一覽表</string>
     <string name="menu">選項欄</string>
     <string name="additional_information">附加資料</string>
-    <string name="turn_on_location">開啟位置設定以便Mosquito Alert判斷你的位置</string>
+    <string name="turn_on_location">開啟位置設定以便Mosquito Alert判斷你的位置。</string>
     <!-- Tasks -->
     <string name="task_list_title2">通知</string>
     <string name="switchboard_button_validation_photos2">相片</string>
@@ -274,8 +267,65 @@
     <string name="tag_to_map_points_of_citizens_albopictus">白紋伊蚊</string>
     <string name="tag_to_map_points_of_citizens_aegypti">埃及伊蚊</string>
     <string name="tag_to_map_points_of_citizens_none">沒有</string>
-
-    <string name="my_observations">我的觀察</string>
-    <string name="nearby_observations">鄰近用戶的觀察</string>
+    <string name="my_map_legend_label_my_observations_my_observations">我的報告</string>
+    <string name="my_map_legend_label_nearby_observations_nearby_observations">近期報告</string>
+    <string name="i18n_question1">你能在該圖片中看到一隻蚊子嗎？</string>
+    <string name="i18n_easy_right">看上去很簡單，不是嗎？</string>
+    <string name="i18n_tellme">你見到一隻蚊子了嗎？</string>
+    <string name="i18n_letsgo">開始</string>
+    <string name="i18n_whatmosquito">你能辨別這是哪一種蚊子嗎？</string>
+    <string name="i18n_wesearch">我們正在寻找白紋伊蚊及埃及伊蚊，其他種類也可上載。</string>
+    <string name="i18n_nextscreen">下一幅圖我們來解釋如何分辨它們。</string>
+    <string name="i18n_ok">確定</string>
+    <string name="i18n_tiger">白紋伊蚊</string>
+    <string name="i18n_whitestripes">體型小（&lt;1cm），黑色，腹部有水平排列的白色線條。</string>
+    <string name="i18n_whitelinehead">頭部後方有一條垂直白線，位於胸部。</string>
+    <string name="i18n_stripedlegs">帶條紋的腿</string>
+    <string name="i18n_examples">圖例</string>
+    <string name="i18n_thorax">胸部</string>
+    <string name="i18n_abdomen">腹部</string>
+    <string name="i18n_ok2">確定</string>
+    <string name="i18n_yellowfever">埃及伊蚊</string>
+    <string name="i18n_smallblackish">有佈滿白色斑點和條紋的深棕色身軀</string>
+    <string name="i18n_patternchest">胸部有數條白色呈豎琴形的條紋。</string>
+    <string name="i18n_stripedlegs2">腿部有白色條紋。</string>
+    <string name="i18n_examples2">圖例</string>
+    <string name="i18n_thorax2">胸部</string>
+    <string name="i18n_abdomen2">腹部</string>
+    <string name="i18n_ok3">確定</string>
+    <string name="i18n_whichparts">你認出了哪一部份？</string>
+    <string name="i18n_markparts">蚊子最易辨認的部分是胸部的圖案。你認出本圖片中的圖案了嗎？</string>
+    <string name="i18n_tigermosquito">白紋伊蚊</string>
+    <string name="i18n_thorax3">胸部</string>
+    <string name="i18n_yellowfever2">埃及伊蚊</string>
+    <string name="i18n_thorax4">胸部</string>
+    <string name="i18n_understood">明白！</string>
+    <string name="i18n_zoominfo">點擊圖片以放大。</string>
+    <string name="i18n_step1_yes">是</string>
+    <string name="i18n_step1_no">否</string>
+    <string name="i18n_notsurebtn">不確定</string>
+    <string name="i18n_tigerbtn">白紋伊蚊</string>
+    <string name="i18n_yellowfeverbtn">埃及伊蚊</string>
+    <string name="i18n_notsurebtn2">不確定</string>
+    <string name="i18n_noneofbothbtn">皆不是</string>
+    <string name="i18n_yesbtn1">是</string>
+    <string name="i18n_yesbtn2">是</string>
+    <string name="i18n_yesbtn3">是</string>
+    <string name="i18n_yesbtn4">是</string>
+    <string name="i18n_nobtn1">否</string>
+    <string name="i18n_nobtn2">否</string>
+    <string name="i18n_nobtn3">否</string>
+    <string name="i18n_nobtn4">否</string>
+    <string name="user_score_label">積分</string>
+    <string name="user_level_label">級別</string>
+    <string name="user_score_beginner">初級</string>
+    <string name="user_score_advanced">進階級</string>
+    <string name="user_score_pro">專業級</string>
+    <string name="i18n_thorax_question">認出它的胸部了嗎？</string>
+    <string name="i18n_abdomen_question">腹部呢？</string>
+    <string name="end_validation">驗證完畢</string>
+    <string name="menu_web">網站</string>
+    <string name="info_scoring">積分代表您使用此app的頻率、貢獻等以及所發送照片的質量。</string>
+    <string name="help_zoom">拖動手指以放大圖片</string>
+    <string name="menu_close">Close</string>
 </resources>
-

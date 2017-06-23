@@ -277,6 +277,8 @@ public class PhotoValidationActivity extends Activity {
 	}
 
 	private void sendValidationResults() {
+		startNewValidation();	// to speed up
+
 		String taskrunUrl = Util.URL_TASKRUN;
 		Gson gson = new Gson();
 		String jsonTaskRun = gson.toJson(mTaskRun);
@@ -294,7 +296,7 @@ public class PhotoValidationActivity extends Activity {
 Util.logInfo("==========++", jsonObject.toString());
 					Toast.makeText(PhotoValidationActivity.this, R.string.end_validation, Toast.LENGTH_SHORT).show();
 					// PhotoValidationActivity.this.finish();
-					startNewValidation();
+
 				}
 			});
 	}
@@ -341,9 +343,11 @@ Util.logInfo("==========++", jsonObject.toString());
 	}
 
 	private void loadNewTask() {
-		String newTaskUrl = Util.URL_NEW_TASK + "2/newtask"; // $!!!! 1 - production, 2- development
+		// $!!!! 1 - production, 2- development
+		String projectId = (BuildConfig.DEBUG ? "2" : "1");
+		String newTaskUrl = Util.URL_NEW_TASK + projectId + "/newtask"; //?external_uid=" + PropertyHolder.getUserId();
 Util.logInfo("===========", "Authorization >> " + UtilLocal.TIGASERVER_AUTHORIZATION);
-Util.logInfo("===========", newTaskUrl);
+Log.d("===========", newTaskUrl);
 
 		Ion.with(this)
 			.load(newTaskUrl)
@@ -366,7 +370,7 @@ Util.logInfo(this.getClass().getName(), "loadNewTask >> " + resultTask.toString(
 	}
 
 	private void createTaskRunObject() {
-		mTaskRun = new TaskRun(myTask.getProjectId(), myTask.getId(), null);
+		mTaskRun = new TaskRun(myTask.getProjectId(), myTask.getId(), PropertyHolder.getUserId(), null);
 	}
 
 	private void loadPhoto() {
@@ -387,7 +391,7 @@ Util.logInfo("===========", getPhotoUrl);
 		Ion.with(this)
             .load(getPhotoUrl)
 			//.progressDialog(dlg)
-			.setLogging("DeepZoom", Log.VERBOSE)
+			//.setLogging("DeepZoom", Log.VERBOSE)
 			.withBitmap()
 			.placeholder(R.drawable.ic_switchboard_icon_validacio_large)
 			.deepZoom()

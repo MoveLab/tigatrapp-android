@@ -93,6 +93,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
+import com.google.gson.JsonObject;
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -131,7 +134,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Random;
-import java.util.UUID;
 
 
 /**
@@ -280,8 +282,8 @@ public class Util {
 
 	public final static LatLng CEAB_COORDINATES = new LatLng(41.683600, 2.799600);
 
-	public final static double latMask = 0.05;
-	public final static double lonMask = 0.05;
+	public final static double latMask = 0.025;
+	public final static double lonMask = 0.025;
 
 /*
 	public static String[] ALPHA_NUMERIC_DIGITS = { "0", "1", "2", "3", "4",
@@ -1016,7 +1018,6 @@ public class Util {
 	}
 
 	public static Boolean registerOnServer(Context context) {
-
 Util.logInfo(TAG, "register on server");
 
 		Boolean result = false;
@@ -1044,6 +1045,34 @@ Util.logInfo(TAG, "register status code: " + statusCode);
 			result = false;
 		}
 		return result;
+	}
+
+	public static void registerFCMToken(Context ctx, String token, String userId) {
+		if ( token != null ) {
+			String tokenUrl = Util.URL_TIGASERVER_API_ROOT + Util.API_TOKEN + "?token=" + token + "&user_id=" + userId;
+Util.logInfo("==============", "TEST");
+Log.d("===========", "BuildConfig.DEBUG >> " + BuildConfig.DEBUG);  // !!!!
+Log.d("===========", tokenUrl);
+
+			Ion.with(ctx)
+					.load(tokenUrl)
+					.setHeader("Accept", "application/json")
+					//.setHeader("Content-type", "application/json")
+					//.setLogging("Token", Log.VERBOSE)
+					.setHeader("Authorization", UtilLocal.TIGASERVER_AUTHORIZATION)
+					.setBodyParameter("token", token)
+					.setBodyParameter("user_id", PropertyHolder.getUserId())
+					.asJsonObject()
+					.setCallback(new FutureCallback<JsonObject>() {
+						@Override
+						public void onCompleted(Exception e, JsonObject result) {
+							// do stuff with the result or error
+							if ( result != null ) {
+								Util.logInfo(this.getClass().getName(), "sendRegistrationToServer >> " + result.toString());
+							}
+						}
+					});
+		}
 	}
 
 	public static String makeReportId() {

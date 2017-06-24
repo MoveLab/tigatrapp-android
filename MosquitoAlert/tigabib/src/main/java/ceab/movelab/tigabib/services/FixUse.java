@@ -99,7 +99,9 @@ public class FixUse extends Service {
 			double maskedLat = Math.floor(lat / Util.latMask) * Util.latMask;
 			double maskedLon = Math.floor(lon / Util.lonMask) * Util.lonMask;
 
-			Fix thisFix = new Fix(maskedLat, maskedLon, time, power, taskFix);
+			int thisHour = Util.hour(time);
+
+			Fix thisFix = new Fix(maskedLat, maskedLon,  thisHour.longValue(), power, taskFix);
 
 			Util.logInfo(TAG, "this fix: " + thisFix.lat + ';' + thisFix.lng + ';' + thisFix.time + ';' + thisFix.pow);
 
@@ -108,7 +110,6 @@ public class FixUse extends Service {
 
 			// Check for location-based tasks
 
-			int thisHour = Util.hour(time);
 
 			String sc1 = Tasks.KEY_TRIGGERS + " IS NOT NULL AND "
 					+ Tasks.KEY_ACTIVE + " = 0 AND " + Tasks.KEY_DONE + " = 0 "

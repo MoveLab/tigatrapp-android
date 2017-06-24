@@ -388,4 +388,23 @@ public class PropertyHolder {
 		editor.commit();
 	}
 
+	/**
+	 * Gets the public key stored in shared preferences.
+	 *
+	 * @return The current phone's public key if set, na otherwise.
+	 */
+	public static String getPybossaToken() {
+		return sharedPreferences.getString("PYBOSSA_TOKEN", "");
+	}
+
+	/**
+	 * Sets the public key in the shared preferences to the given value.
+	 *
+	 * @param pybossaToken
+	 *            The value to which to set the public key.
+	 */
+	public static void setPybossaToken(String pybossaToken) {
+		editor.putString("PYBOSSA_TOKEN", pybossaToken);
+		editor.commit();
+	}
 }

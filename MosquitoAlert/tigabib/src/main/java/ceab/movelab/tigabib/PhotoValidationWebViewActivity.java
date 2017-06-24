@@ -35,6 +35,8 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
 
+import ceab.movelab.tigabib.utils.UtilPybossa;
+
 /**
  * Displays the Pybossa photo validation system screen.
  * 
@@ -74,7 +76,7 @@ public class PhotoValidationWebViewActivity extends Activity {
 		myWebView.setWebViewClient(new WebViewClient(){
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
 //Toast.makeText(PhotoValidationActivity.this, url, Toast.LENGTH_SHORT).show();
-				String internalUrl = UtilLocal.PYBOSSA_URL;
+				String internalUrl = UtilPybossa.PYBOSSA_URL;
 				// all links with in our site will be open inside the webview, links that start as of our domain
 				if ( url != null && url.startsWith(internalUrl) ) {
 					return false;

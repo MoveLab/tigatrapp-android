@@ -135,6 +135,8 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Random;
 
+import static android.media.CamcorderProfile.get;
+
 
 /**
  * Various static fields and methods used in the application, some taken from
@@ -239,21 +241,6 @@ public class Util {
      * API score endpoint.
      */
     public static final String API_SCORE = UtilLocal.API_SCORE;
-
-	/**
-	 * API new task endpoint.
-	 */
-	public static final String URL_NEW_TASK = UtilLocal.URL_NEW_TASK;
-
-	/**
-	 * API taskrun  endpoint.
-	 */
-	public static final String URL_TASKRUN = UtilLocal.URL_TASKRUN;
-
-	/**
-	 * API get photo endpoint.
-	 */
-	public static final String URL_GET_PHOTO = UtilLocal.URL_GET_PHOTO;
 
 
 	/**
@@ -375,8 +362,7 @@ public class Util {
 		try {
 			Date d = sdf.parse(ecma262, pos);
 			if (pos.getIndex() == 0)
-				throw new ParseException("Unparseable date: \"" + ecma262
-						+ "\"", pos.getErrorIndex());
+				throw new ParseException("Unparseable date: \"" + ecma262 + "\"", pos.getErrorIndex());
 			else
 				result = d.getTime();
 		} catch (ParseException e) {
@@ -448,8 +434,8 @@ public class Util {
 	public static int hour(long unixtime) {
 		GregorianCalendar cal = new GregorianCalendar();
 		cal.setTimeInMillis(unixtime);
-		int hour = cal.get(Calendar.HOUR_OF_DAY);
-		return hour;
+		return cal.get(Calendar.HOUR_OF_DAY);
+		//return hour;
 	}
 
 	/**
@@ -480,7 +466,7 @@ public class Util {
 		tv.setText(msg);
 		Drawable bknd = context.getResources().getDrawable(R.drawable.white_border);
 		tv.setBackgroundDrawable(bknd);
-		tv.setPadding(20, 20, 20, 20);
+		tv.setPadding(40, 20, 40, 20);
 		tv.setTextSize(20);
 
 		final Toast t = new Toast(context);

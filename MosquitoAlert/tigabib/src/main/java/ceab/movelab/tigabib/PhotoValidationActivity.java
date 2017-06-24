@@ -45,6 +45,7 @@ import com.koushikdutta.ion.Ion;
 import ceab.movelab.tigabib.model.Task;
 import ceab.movelab.tigabib.model.TaskRun;
 import ceab.movelab.tigabib.model.TaskRunInfo;
+import ceab.movelab.tigabib.utils.UtilPybossa;
 
 import static ceab.movelab.tigabib.R.id.validNotSure1;
 
@@ -81,12 +82,6 @@ public class PhotoValidationActivity extends Activity {
 			PropertyHolder.init(this);
 
 		lang = Util.setDisplayLanguage(getResources());
-
-/*		Bundle b = getIntent().getExtras();
-		if (b.containsKey(PYBOSSA_URL_PARAM))
-			myUrl = b.getString(PYBOSSA_URL_PARAM);
-		else
-			finish();*/
 
 		setContentView(R.layout.validation_layout);
 
@@ -279,7 +274,7 @@ public class PhotoValidationActivity extends Activity {
 	private void sendValidationResults() {
 		startNewValidation();	// to speed up
 
-		String taskrunUrl = Util.URL_TASKRUN;
+		String taskrunUrl = UtilPybossa.URL_TASKRUN;
 		Gson gson = new Gson();
 		String jsonTaskRun = gson.toJson(mTaskRun);
 		//mIsTiger = false;
@@ -294,9 +289,8 @@ public class PhotoValidationActivity extends Activity {
 				public void onCompleted(Exception e, JsonObject jsonObject) {
 					// do stuff with the result or error
 Util.logInfo("==========++", jsonObject.toString());
-					Toast.makeText(PhotoValidationActivity.this, R.string.end_validation, Toast.LENGTH_SHORT).show();
-					// PhotoValidationActivity.this.finish();
-
+					Util.toastTimed(PhotoValidationActivity.this, getResources().getString(R.string.end_validation), Toast.LENGTH_SHORT);
+					//Toast.makeText(PhotoValidationActivity.this, R.string.end_validation, Toast.LENGTH_SHORT).show();
 				}
 			});
 	}
@@ -345,7 +339,7 @@ Util.logInfo("==========++", jsonObject.toString());
 	private void loadNewTask() {
 		// $!!!! 1 - production, 2- development
 		String projectId = (BuildConfig.DEBUG ? "2" : "1");
-		String newTaskUrl = Util.URL_NEW_TASK + projectId + "/newtask"; //?external_uid=" + PropertyHolder.getUserId();
+		String newTaskUrl = UtilPybossa.URL_NEW_TASK + projectId + "/newtask"; //?external_uid=" + PropertyHolder.getUserId();
 Util.logInfo("===========", "Authorization >> " + UtilLocal.TIGASERVER_AUTHORIZATION);
 Log.d("===========", newTaskUrl);
 
@@ -375,7 +369,7 @@ Util.logInfo(this.getClass().getName(), "loadNewTask >> " + resultTask.toString(
 
 	private void loadPhoto() {
 		//http://webserver.mosquitoalert.com/get_photo/q0n50KN2Tg1O0Zh/90bb084c-2d6b-48e9-9429-433fceb23447/medium
-		String getPhotoUrl = Util.URL_GET_PHOTO + PHOTO_TOKEN + "/" + myTask.getInfo().getUuid() + "/medium";
+		String getPhotoUrl = UtilPybossa.URL_GET_PHOTO + PHOTO_TOKEN + "/" + myTask.getInfo().getUuid() + "/medium";
 Util.logInfo("===========", "Authorization >> " + UtilLocal.TIGASERVER_AUTHORIZATION);
 Util.logInfo("===========", getPhotoUrl);
 //		Ion.with(mPhoto1View)

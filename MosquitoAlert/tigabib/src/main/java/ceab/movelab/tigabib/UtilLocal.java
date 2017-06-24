@@ -69,15 +69,16 @@ package ceab.movelab.tigabib;
 
 public class UtilLocal {
 
-	public static final String PYBOSSA_URL = "http://mosquitoalert.pybossa.com/project/mosquito-alert/newtask";
 
 
 	public static final String URL_PROJECT = "http://mosquitoalert.com/";	// blog url
 
-	//public static final String URL_TIGASERVER = "http://webserver.mosquitoalert.com/"; // Desenvolupament http://humboldt.ceab.csic.es/
 	// !!!!
+	// Desenvolupament vs produccio
+	// Producció = "http://webserver.mosquitoalert.com/";
+	// Desenvolupament: http://humboldt.ceab.csic.es/
 	public static final String URL_TIGASERVER =
-			(Util.debugMode() ? "http://humboldt.ceab.csic.es/" : "http://webserver.mosquitoalert.com/");	// Desenvolupament vs produccio
+			(Util.debugMode() ? "http://humboldt.ceab.csic.es/" : "http://webserver.mosquitoalert.com/");
 
 	/**
 	 * Server API URL.
@@ -118,20 +119,8 @@ public class UtilLocal {
 	 */
 	public static final String API_SCORE = "user_score/";
 
-	/**
-	 * API new task endpoint.
-	 */
-	public static final String URL_NEW_TASK = "http://mosquitoalert.pybossa.com/api/project/";
 
-	/**
-	 * API taskrun endpoint.
-	 */
-	public static final String URL_TASKRUN = "http://mosquitoalert.pybossa.com/api/taskrun";
 
-	/**
-	 * API get photo endpoint.
-	 */
-	public static final String URL_GET_PHOTO = "http://webserver.mosquitoalert.com/get_photo/";
 
     /**
 	 * API nearby reports endpoint.

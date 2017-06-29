@@ -68,8 +68,8 @@ public class Fix {
 			result.put("masked_lon", this.lng);
 			result.put("masked_lat", this.lat);
 			result.put("power", this.pow);
-
 		} catch (JSONException e) {
+			e.printStackTrace();
 		}
 		return result;
 	}

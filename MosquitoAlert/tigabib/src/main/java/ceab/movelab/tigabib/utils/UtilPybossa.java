@@ -1,5 +1,13 @@
 package ceab.movelab.tigabib.utils;
 
+import android.content.Context;
+
+import com.koushikdutta.async.future.FutureCallback;
+import com.koushikdutta.ion.Ion;
+
+import ceab.movelab.tigabib.PropertyHolder;
+import ceab.movelab.tigabib.Util;
+
 /**
  * Created by eideam on 24/06/2017.
  */
@@ -12,8 +20,8 @@ public class UtilPybossa {
         this.isProduction = isProduction;
     }
 
-    private void setProductionEnvironment() {
-        isProduction = true;
+    private void setProductionEnvironment(boolean production) {
+        isProduction = production;
     }
 
     private String getProjectShortName() {
@@ -27,6 +35,39 @@ public class UtilPybossa {
     public String getTokenAuth() {  // !!! add production token
         return (isProduction ? "" : "b4f71357-c740-40ae-b35d-a406dbe30bf7");
     }
+
+    public void fetchPybossaToken(Context ctx) {
+        String tokenUrl = getUrlToken();
+        String authToken = getTokenAuth();
+
+        if (!PropertyHolder.isInit())
+            PropertyHolder.init(ctx);
+
+        Ion.with(ctx)
+                .load(tokenUrl)
+                .setHeader("Authorization", authToken)
+                .asString()
+                .setCallback(new FutureCallback<String>() {
+                    @Override
+                    public void onCompleted(Exception e, String result) {
+                        // do stuff with the result or error
+                        if ( e != null && result != null ) {
+Util.logInfo("==========++", result);
+                            PropertyHolder.setPybossaToken(result);
+                        }
+                    }
+                });
+    }
+
+    public String getPybossaNewtaskUrl(int offset) {
+        String projectId = (isProduction ? "1" : "2"); // $!!!! 1 - production, 2- development
+        return UtilPybossa.URL_NEW_TASK + projectId + "/newtask?offset=" + offset + "&external_uid=" + PropertyHolder.getUserId();
+    }
+
+    public String getPybossaTaskrunUrl() {
+        return UtilPybossa.URL_TASKRUN + "?external_uid=" + PropertyHolder.getUserId();
+    }
+
 
     /**
      * API new task endpoint.

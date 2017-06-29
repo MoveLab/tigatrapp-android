@@ -172,13 +172,11 @@ public class FixGet extends Service {
 			if ( intent != null  ) {
 				String action = intent.getAction();
 
-				if (action != null
-						&& action.contains(Messages.stopFixAction(context))) {
-					Util.logInfo(TAG, "stop FixGet received");
+				if (action != null && action.contains(Messages.stopFixAction(context))) {
+Util.logInfo(TAG, "stop FixGet received");
 					removeLocationUpdates();
 					unWakeLock();
-					if (bestLocation != null
-							&& bestLocation.getAccuracy() < Util.MIN_ACCURACY) {
+					if (bestLocation != null && bestLocation.getAccuracy() < Util.MIN_ACCURACY) {
 						useFix(context, bestLocation);
 					}
 					fixInProgress = false;
@@ -241,8 +239,7 @@ public class FixGet extends Service {
 									removeLocationUpdates();
 									unWakeLock();
 
-									if (bestLocation != null
-											&& bestLocation.getAccuracy() < Util.MIN_ACCURACY) {
+									if (bestLocation != null && bestLocation.getAccuracy() < Util.MIN_ACCURACY) {
 										useFix(context, bestLocation);
 									}
 									stopSelf();
@@ -322,8 +319,7 @@ public class FixGet extends Service {
 						bestLocation = location;
 						return;
 					} else
-						// if conditions not met, then return and
-						// keep trying
+						// if conditions not met, then return and keep trying
 						return;
 				}
 			}
@@ -422,7 +418,7 @@ public class FixGet extends Service {
 	}
 
 	private void useFix(Context context, Location location) {
-		Util.logInfo(TAG, "useFix");
+Util.logInfo(TAG, "useFix");
 		Intent ufi = new Intent(context, FixUse.class);
 		ufi.putExtra(Messages.makeIntentExtraKey(context, FixGet.KEY_LAT), location.getLatitude());
 		ufi.putExtra(Messages.makeIntentExtraKey(context, FixGet.KEY_LON), location.getLongitude());
@@ -430,7 +426,7 @@ public class FixGet extends Service {
 		ufi.putExtra(Messages.makeIntentExtraKey(context, FixGet.KEY_POWER), Util.getBatteryProportion(context));
 		ufi.putExtra(Messages.makeIntentExtraKey(context, FixGet.KEY_TASK_FIX), taskFix);
 		getApplication().startService(ufi);
-		Util.logInfo(TAG, "just started useFix");
+Util.logInfo(TAG, "just started useFix");
 		unWakeLock();
 	}
 
@@ -439,12 +435,14 @@ public class FixGet extends Service {
 			try {
 				wifiLock.acquire();
 			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 		if ( !wakeLock.isHeld() ) {
 			try {
 				wakeLock.acquire();
 			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 	}

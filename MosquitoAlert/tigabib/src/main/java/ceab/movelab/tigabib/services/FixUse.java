@@ -40,7 +40,7 @@ public class FixUse extends Service {
 
 		Util.logInfo(TAG, "on start");
 
-		if (!PropertyHolder.hasConsented() || Util.privateMode()) {
+		if ( !PropertyHolder.hasReconsented() || Util.privateMode() ) {
 			stopSelf();
 		} else {
 
@@ -65,7 +65,7 @@ public class FixUse extends Service {
 				}
 			}
 		}
-	};
+	}
 
 	private Runnable doUseFix = new Runnable() {
 		public void run() {
@@ -75,8 +75,7 @@ public class FixUse extends Service {
 
 	@Override
 	public void onCreate() {
-		// Log.e(TAG, "FileUploader onCreate.");
-
+		// Util.logInfo(TAG, "FileUploader onCreate.");
 		context = getApplicationContext();
 		if ( !PropertyHolder.isInit() )
 			PropertyHolder.init(context);
@@ -84,13 +83,12 @@ public class FixUse extends Service {
 
 	@Override
 	public void onDestroy() {
-
 		super.onDestroy();
 	}
 
 	private void useFix() {
 
-		if (Math.abs(lat) < Util.FIX_LAT_CUTOFF) {
+		if ( Math.abs(lat) < Util.FIX_LAT_CUTOFF ) {
 
 			if ( !PropertyHolder.isInit() )
 				PropertyHolder.init(context);
@@ -98,30 +96,26 @@ public class FixUse extends Service {
 
 			double maskedLat = Math.floor(lat / Util.latMask) * Util.latMask;
 			double maskedLon = Math.floor(lon / Util.lonMask) * Util.lonMask;
+			long thisHour = Util.hour(time);
 
-			Fix thisFix = new Fix(maskedLat, maskedLon, time, power, taskFix);
-
-			Util.logInfo(TAG, "this fix: " + thisFix.lat + ';' + thisFix.lng + ';' + thisFix.time + ';' + thisFix.pow);
+			Fix thisFix = new Fix(maskedLat, maskedLon, thisHour, power, taskFix);
+Util.logInfo(TAG, "this fix: " + thisFix.lat + ';' + thisFix.lng + ';' + thisFix.time + ';' + thisFix.pow);
 
 			cr.insert(Util.getTracksUri(context),
 					ContProvValuesTracks.createFix(thisFix.lat, thisFix.lng, thisFix.time, thisFix.pow, taskFix));
 
 			// Check for location-based tasks
-
-			int thisHour = Util.hour(time);
-
 			String sc1 = Tasks.KEY_TRIGGERS + " IS NOT NULL AND "
 					+ Tasks.KEY_ACTIVE + " = 0 AND " + Tasks.KEY_DONE + " = 0 "
 					+ " AND (" + Tasks.KEY_EXPIRATION_TIME + " >= " + System.currentTimeMillis()
 					+ " OR " + Tasks.KEY_EXPIRATION_TIME + " = 0)";
-
-			Util.logInfo(TAG, "sql: " + sc1);
+Util.logInfo(TAG, "sql: " + sc1);
 
 			// grab tasks that have location triggers, that are not yet active,
 			// that are not yet done, and that have not expired
 			Cursor c = cr.query(Util.getMissionsUri(context), Tasks.KEYS_TRIGGERS, sc1, null, null);
 
-			while (c.moveToNext()) {
+			while ( c.moveToNext() ) {
 
 				try {
 					JSONArray theseTriggers = new JSONArray(c.getString(c.getColumnIndexOrThrow(Tasks.KEY_TRIGGERS)));
@@ -130,10 +124,10 @@ public class FixUse extends Service {
 
 						JSONObject thisTrigger = theseTriggers.getJSONObject(i);
 
-						Util.logInfo(TAG, "thisTrigger: " + thisTrigger.toString());
-						Util.logInfo(TAG, "thisLoc Lat:" + lat + " Lon:" + lon);
-						Util.logInfo(TAG, "this trigger time lower bound equals null "
-								+ (thisTrigger.getString(MissionModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND).equals("null")));
+Util.logInfo(TAG, "thisTrigger: " + thisTrigger.toString());
+Util.logInfo(TAG, "thisLoc Lat:" + lat + " Lon:" + lon);
+Util.logInfo(TAG, "this trigger time lower bound equals null "
+		+ (thisTrigger.getString(MissionModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND).equals("null")));
 
 						if (lat >= thisTrigger.getDouble(MissionModel.KEY_TASK_TRIGGER_LAT_LOWERBOUND)
 								&& lat <= thisTrigger.getDouble(MissionModel.KEY_TASK_TRIGGER_LAT_UPPERBOUND)
@@ -141,11 +135,10 @@ public class FixUse extends Service {
 								&& lon <= thisTrigger.getDouble(MissionModel.KEY_TASK_TRIGGER_LON_UPPERBOUND)
 								&& (thisTrigger.getString(MissionModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND).equals("null") ||
 								(thisHour >= Util.triggerTime2HourInt(thisTrigger.getString(MissionModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND))))
-								&& (thisTrigger
-								.getString(MissionModel.KEY_TASK_TRIGGER_TIME_UPPERBOUND).equals("null") ||
+								&& (thisTrigger.getString(MissionModel.KEY_TASK_TRIGGER_TIME_UPPERBOUND).equals("null") ||
 								(thisHour <= Util.triggerTime2HourInt(thisTrigger.getString(MissionModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND)))
 								)) {
-							Util.logInfo(TAG, "task triggered");
+Util.logInfo(TAG, "task triggered");
 
 							ContentValues cv = new ContentValues();
 							int rowId = c.getInt(c.getColumnIndexOrThrow(Tasks.KEY_ROW_ID));
@@ -166,6 +159,7 @@ public class FixUse extends Service {
 						}
 					}
 				} catch (JSONException e) {
+					e.printStackTrace();
 					Util.logError(TAG, "error: " + e);
 				}
 			}
@@ -173,7 +167,6 @@ public class FixUse extends Service {
 		}
 
 		inUse = false;
-
 	}
 
 	@Override

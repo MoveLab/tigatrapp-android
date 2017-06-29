@@ -51,8 +51,7 @@ public abstract class ContProvReports extends ContentProvider {
 	/**
 	 * The URI for this content provider.
 	 */
-	public Uri CONTENT_URI = Uri.parse("content://" + getAuthority() + "/"
-			+ DATABASE_TABLE);
+	public Uri CONTENT_URI = Uri.parse("content://" + getAuthority() + "/" + DATABASE_TABLE);
 
 	private static final String TAG = "ContentProviderReports";
 

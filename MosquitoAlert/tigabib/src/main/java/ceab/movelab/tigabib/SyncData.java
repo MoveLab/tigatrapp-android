@@ -142,7 +142,7 @@ public class SyncData extends Service {
 
 		String missionUrl = Util.API_MISSION + "?"
 				+ (latest_id > 0 ? ("id_gt=" + latest_id) : "") + "&platform="
-				+ (Util.debugMode() ? "beta" : "and") + "&version_lte="
+				+ (Util.debugMode() ? "beta" : "and") + "&versionfixuse_lte="
 				+ Util.MAX_MISSION_VERSION;
 
 		Util.logInfo(TAG, "mission array: " + missionUrl);
@@ -190,8 +190,7 @@ public class SyncData extends Service {
 		cr = getContentResolver();
 
 		// start with Tracks
-		c = cr.query(Util.getTracksUri(context), Fixes.KEYS_ALL, null, null,
-				null);
+		c = cr.query(Util.getTracksUri(context), Fixes.KEYS_ALL, null, null, null);
 
 		if ( c!= null && !c.moveToFirst()) {
 			c.close();
@@ -210,13 +209,11 @@ public class SyncData extends Service {
 			int thisId = c.getInt(idIndex);
 
 			if (c.getInt(uploadedIndex) == 1) {
-				cr.delete(Util.getTracksUri(context), Fixes.KEY_ROWID + " = "
-						+ String.valueOf(thisId), null);
+				cr.delete(Util.getTracksUri(context), Fixes.KEY_ROWID + " = " + String.valueOf(thisId), null);
 			}
 
-			Fix thisFix = new Fix(c.getDouble(latIndex), c.getDouble(lngIndex),
-					c.getLong(timeIndex), c.getFloat(powIndex),
-					(c.getInt(taskFixIndex) == 1));
+			Fix thisFix = new Fix(c.getDouble(latIndex), c.getDouble(lngIndex), c.getLong(timeIndex),
+					c.getFloat(powIndex), (c.getInt(taskFixIndex) == 1));
 
 			thisFix.exportJSON(context);
 

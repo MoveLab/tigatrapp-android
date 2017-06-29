@@ -108,7 +108,7 @@ public class SwitchboardActivity extends Activity {
 		// detect push notification
 		try {
 			final Bundle b = getIntent().getExtras();
-			if (b != null && b.containsKey(NOTIFICATION_ID)) {
+			if ( b != null && b.containsKey(NOTIFICATION_ID) ) {
 				int notifId = b.getInt(NOTIFICATION_ID);
 				if (notifId > 0) {
 					Intent intent = new Intent(this, NotificationActivity.class);
@@ -454,7 +454,7 @@ Log.d("===========", notificationUrl);
 				@Override
 				public void onCompleted(Exception e, List<Notification> result) {
 					// do stuff with the result or error
-					Log.d("===========", "result " + result);
+Util.logInfo("===========", "result " + result);
 					if ( result != null && result.size() > 0 ) {
 						Util.logInfo(this.getClass().getName(), "loadRemoteNotifications >> " + result.toString());
 						RealmHelper.getInstance().addOrUpdateNotificationList(mRealm, result);
@@ -481,7 +481,6 @@ Log.d("===========", notificationUrl);
 				@Override
 				public void onCompleted(Exception e, Score result) {
 					// do stuff with the result or error
-Log.d("===========", "result score" + result.toString());
 					if ( result != null ) {
 Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 						RealmHelper.getInstance().updateScore(mRealm, result);
@@ -494,7 +493,7 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 	private void updateScoreScreenFromRealm() {
 		if ( mRealm != null && !mRealm.isClosed() ) {
 			Score score = RealmHelper.getInstance().getScore(mRealm);
-			if ( score != null  && score.getScore() != null ) {
+			if ( score != null && score.getScore() != null ) {
 				mScorePointsText.setText(score.getScore() > 100 ? "100" : String.valueOf(score.getScore()));
 				// get label value from resources
 				int resourceId = this.getResources().getIdentifier(score.getScoreLabel(), "string", this.getPackageName());

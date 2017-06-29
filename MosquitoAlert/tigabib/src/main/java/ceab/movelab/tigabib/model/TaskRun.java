@@ -11,17 +11,17 @@ public class TaskRun {
     @SerializedName("task_id")
     @Expose
     private Integer taskId;
-    @SerializedName("info")
-    @Expose
-    private String externalId;
     @SerializedName("external_uid")
+    @Expose
+    private String externalUid;
+    @SerializedName("info")
     @Expose
     private TaskRunInfo info;
 
-    public TaskRun(int projectId, int taskId, String externalId, TaskRunInfo info) {
+    public TaskRun(int projectId, int taskId, String externalUid, TaskRunInfo info) {
         this.projectId = projectId;
         this.taskId = taskId;
-        this.externalId = externalId;
+        this.externalUid = externalUid;
         this.info = info;
     }
 

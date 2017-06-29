@@ -27,7 +27,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.webkit.WebView;
@@ -63,7 +62,7 @@ public class ConsentActivity extends Activity {
 
 		context = getApplicationContext();
 
-		if (!PropertyHolder.isInit())
+		if ( !PropertyHolder.isInit() )
 			PropertyHolder.init(context);
 
 		lang = Util.setDisplayLanguage(getResources());
@@ -71,7 +70,7 @@ public class ConsentActivity extends Activity {
 
 	@Override
 	protected void onResume() {
-		if (!Util.setDisplayLanguage(getResources()).equals(lang)) {
+		if ( !Util.setDisplayLanguage(getResources()).equals(lang) ) {
 			finish();
 			startActivity(getIntent());
 		}
@@ -142,8 +141,7 @@ public class ConsentActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.consent_menu, menu);
+		getMenuInflater().inflate(R.menu.consent_menu, menu);
 
 		return true;
 	}
@@ -152,7 +150,7 @@ public class ConsentActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		super.onOptionsItemSelected(item);
 
-		if (item.getItemId() == R.id.language) {
+		if ( item.getItemId() == R.id.language ) {
 			Intent i = new Intent(ConsentActivity.this, LanguageSelector.class);
 			startActivity(i);
 			return true;
@@ -160,7 +158,7 @@ public class ConsentActivity extends Activity {
 		return false;
 	}
 
-	class MyWebViewClient extends WebViewClient {
+	private class MyWebViewClient extends WebViewClient {
 		@Override
 		public boolean shouldOverrideUrlLoading(WebView view, String url) {
 			// open all links in normal browser

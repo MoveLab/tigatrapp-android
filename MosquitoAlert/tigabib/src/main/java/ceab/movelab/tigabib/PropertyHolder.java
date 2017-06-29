@@ -207,12 +207,12 @@ public class PropertyHolder {
 	 *            True if user has consented; false otherwise.
 	 */
 	public static void setReconsent(boolean _reconsented) {
-		editor.putBoolean("RECONSENTED", _reconsented);
+		editor.putBoolean("RECONSENTED_BT", _reconsented);
 		editor.commit();
 	}
 
 	public static boolean hasReconsented() {
-		return sharedPreferences.getBoolean("RECONSENTED", false);
+		return sharedPreferences.getBoolean("RECONSENTED_BT", false);
 	}
 
 	/**

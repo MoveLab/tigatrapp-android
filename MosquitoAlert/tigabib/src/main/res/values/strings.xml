@@ -286,8 +286,9 @@
     <string name="user_score_pro">Professional</string>
 
     <string name="end_validation">Validation completed</string>
-    <string name="menu_web">Website</string>pa
-    <string name="menu_close">Close</string>pa
+    <string name="menu_web">Website</string>
+    <string name="menu_close">Close</string>
+    <string name="menu_refresh">Refresh</string>
     <string name="info_scoring">This scoring considers your activity using the app and the quality of your sent photos.</string>
     <string name="help_zoom">Zoom in with fingers to expand the image view.</string>
 

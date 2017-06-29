@@ -124,7 +124,7 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 
 			Intent i2stopfix = new Intent(context, FixGet.class);
 			i2stopfix.setAction(Messages.stopFixAction(context));
-			PendingIntent pi2stopfix = PendingIntent.getService(context, ALARM_ID_FIX, i2stopfix, 0);
+			//PendingIntent pi2stopfix = PendingIntent.getService(context, ALARM_ID_FIX, i2stopfix, 0);
 
 			if (extra.contains(Messages.START_DAILY_SAMPLING)) {
 				// first sample now
@@ -187,7 +187,7 @@ Util.logInfo(TAG, "create notification");
 				new NotificationCompat.Builder(context)
 						.setSmallIcon(R.drawable.ic_stat_mission)
 						.setContentTitle(myTitle);
-						//.setContentText("Text below title"); !!!! check with John
+						//.setContentText("Text below title"); !!! check with John
 
 		Intent intent = new Intent(context, MissionListActivity.class);
 		// Because clicking the notification opens a new ("special") activity, there's

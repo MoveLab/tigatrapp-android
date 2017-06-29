@@ -4,9 +4,9 @@
     <shared>
       <config>
         <devices>
+          <device id="Nexus One" />
           <device id="Nexus S" />
           <device id="Nexus 6P" />
-          <device id="Nexus One" />
           <device id="Nexus 5" />
           <device id="Nexus 7" />
           <device id="Nexus 10" />
@@ -75,17 +75,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fd4c6398-fd5a-4321-ba38-0a3db62a4707" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/utils/UtilPybossa.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ConsentActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ConsentActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ContProvReports.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ContProvReports.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ContProvValuesTracks.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ContProvValuesTracks.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MapDataV2Activity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MapDataV2Activity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PhotoValidationActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PhotoValidationActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PhotoValidationWebViewActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PhotoValidationWebViewActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PropertyHolder.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PropertyHolder.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SplashActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SplashActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SwitchboardActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SwitchboardActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SyncData.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SyncData.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/TigerBroadcastReceiver.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/TigerBroadcastReceiver.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/Util.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/Util.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/UtilLocal.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/UtilLocal.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tigabib/src/main/res/drawable-mdpi/white_border.xml" afterPath="$PROJECT_DIR$/tigabib/src/main/res/drawable-mdpi/white_border.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tigabib/src/main/res/values-h400dp/styles.xml" afterPath="$PROJECT_DIR$/tigabib/src/main/res/values-h400dp/styles.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tigabib/src/main/res/values-h600dp/styles.xml" afterPath="$PROJECT_DIR$/tigabib/src/main/res/values-h600dp/styles.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/model/TaskRun.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/model/TaskRun.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/Fix.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/Fix.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/FixGet.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/FixGet.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/FixUse.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/FixUse.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/utils/UtilPybossa.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/utils/UtilPybossa.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tigabib/src/main/res/menu/validation_menu.xml" afterPath="$PROJECT_DIR$/tigabib/src/main/res/menu/validation_menu.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/tigabib/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/tigabib/src/main/res/values/strings.xml" />
     </list>
     <ignored path="MosquitoAlert.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -127,16 +136,63 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="PhotoValidationActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PhotoValidationActivity.java">
+      <file leaf-file-name="UtilPybossa.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/utils/UtilPybossa.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
-              <caret line="291" column="32" selection-start-line="291" selection-start-column="32" selection-end-line="291" selection-end-column="32" />
+            <state relative-caret-position="26">
+              <caret line="62" column="28" selection-start-line="62" selection-start-column="28" selection-end-line="62" selection-end-column="28" />
               <folding>
-                <element signature="e#9585#10033#0" expanded="true" />
-                <element signature="e#9846#9895#0" expanded="true" />
-                <element signature="e#10032#10033#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+                <element signature="e#397#398#0" expanded="true" />
+                <element signature="e#445#446#0" expanded="true" />
+                <element signature="e#1347#1775#0" expanded="true" />
+                <element signature="e#1774#1775#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MapDataV2Activity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MapDataV2Activity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="88">
+              <caret line="467" column="14" selection-start-line="467" selection-start-column="14" selection-end-line="467" selection-end-column="14" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="validation_menu.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/menu/validation_menu.xml">
+          <provider editor-type-id="android-designer2">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="7" column="36" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
+              <folding>
+                <element signature="e#518#538#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="strings.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/values/strings.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="203">
+              <caret line="290" column="48" selection-start-line="290" selection-start-column="48" selection-end-line="290" selection-end-column="48" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FixUse.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/FixUse.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="238">
+              <caret line="103" column="39" selection-start-line="103" selection-start-column="27" selection-end-line="103" selection-end-column="39" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -144,62 +200,34 @@
       <file leaf-file-name="Util.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/Util.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="196">
-              <caret line="471" column="37" selection-start-line="471" selection-start-column="34" selection-end-line="471" selection-end-column="37" />
+            <state relative-caret-position="177">
+              <caret line="1103" column="34" selection-start-line="1103" selection-start-column="22" selection-end-line="1103" selection-end-column="34" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ConsentActivity.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ConsentActivity.java">
+      <file leaf-file-name="FixGet.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/FixGet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="152">
-              <caret line="50" column="16" selection-start-line="50" selection-start-column="16" selection-end-line="50" selection-end-column="16" />
+            <state relative-caret-position="464">
+              <caret line="424" column="86" selection-start-line="424" selection-start-column="86" selection-end-line="424" selection-end-column="86" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SplashActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SplashActivity.java">
+      <file leaf-file-name="PhotoValidationActivity.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PhotoValidationActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="445">
-              <caret line="67" column="5" selection-start-line="67" selection-start-column="5" selection-end-line="67" selection-end-column="5" />
+            <state relative-caret-position="85">
+              <caret line="440" column="0" selection-start-line="440" selection-start-column="0" selection-end-line="458" selection-end-column="19" />
               <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#760#855#0" expanded="true" />
-                <element signature="e#854#855#0" expanded="true" />
-                <element signature="e#1654#1898#0" expanded="true" />
-                <element signature="e#1897#1898#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="PropertyHolder.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PropertyHolder.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="408">
-              <caret line="98" column="25" selection-start-line="98" selection-start-column="25" selection-end-line="98" selection-end-column="25" />
-              <folding>
-                <element signature="e#12284#12285#0" expanded="true" />
-                <element signature="e#12346#12347#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UtilPybossa.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/utils/UtilPybossa.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="50">
-              <caret line="19" column="70" selection-start-line="19" selection-start-column="70" selection-end-line="19" selection-end-column="70" />
-              <folding>
-                <element signature="e#198#199#0" expanded="true" />
-                <element signature="e#246#247#0" expanded="true" />
-                <element signature="e#293#294#0" expanded="true" />
-                <element signature="e#328#329#0" expanded="true" />
+                <element signature="e#5153#5249#0" expanded="true" />
+                <element signature="e#5248#5249#0" expanded="true" />
+                <element signature="e#5286#5398#0" expanded="true" />
+                <element signature="e#5397#5398#0" expanded="true" />
+                <element signature="e#11101#11150#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -3475,13 +3503,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/tigabib/src/main/res/values/dimens.xml" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/res/layout/valid_2_1_help.xml" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/res/layout/valid_2_2_help.xml" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/res/layout/valid_2_3_help.xml" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/res/menu/switchboard_menu.xml" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/NotificationListActivity.java" />
         <option value="$PROJECT_DIR$/tigabib/build.gradle" />
         <option value="$PROJECT_DIR$/mosquitoAlert/build.gradle" />
         <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/fcm/MyFirebaseMessagingService2.java" />
@@ -3497,13 +3518,9 @@
         <option value="$PROJECT_DIR$/tigabib/src/main/res/layout-h800dp/switchboard.xml" />
         <option value="$PROJECT_DIR$/tigabib/src/main/res/layout/splash.xml" />
         <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/fcm/MyFirebaseInstanceIDService.java" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ConsentActivity.java" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SwitchboardActivity.java" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/FixUse.java" />
         <option value="$PROJECT_DIR$/tigabib/src/main/res/values-ca/strings.xml" />
         <option value="$PROJECT_DIR$/tigabib/src/main/res/values-zh/strings.xml" />
         <option value="$PROJECT_DIR$/tigabib/src/main/res/values-es/strings.xml" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/tigabib/src/main/res/values-h800dp/dimens.xml" />
         <option value="$PROJECT_DIR$/tigabib/src/main/res/values-h600dp/dimens.xml" />
         <option value="$PROJECT_DIR$/tigabib/src/main/res/layout/validation_layout.xml" />
@@ -3511,27 +3528,38 @@
         <option value="$PROJECT_DIR$/tigabib/src/main/res/values-h400dp/dimens.xml" />
         <option value="$PROJECT_DIR$/tigabib/src/main/res/layout/valid_3_layout.xml" />
         <option value="$PROJECT_DIR$/tigabib/src/main/res/layout/valid_4_layout.xml" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/model/TaskRun.java" />
         <option value="$PROJECT_DIR$/tigabib/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/tigabib/src/main/res/values-h800dp/styles.xml" />
         <option value="$PROJECT_DIR$/tigabib/src/main/res/layout/valid_2_layout.xml" />
         <option value="$PROJECT_DIR$/tigabib/src/main/res/values-h600dp/styles.xml" />
         <option value="$PROJECT_DIR$/tigabib/src/main/res/values-h400dp/styles.xml" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PropertyHolder.java" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/UtilLocal.java" />
         <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PhotoValidationWebViewActivity.java" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MapDataV2Activity.java" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PhotoValidationActivity.java" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/utils/UtilPybossa.java" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SplashActivity.java" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/Util.java" />
         <option value="$PROJECT_DIR$/tigabib/src/main/res/drawable-mdpi/white_border.xml" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ConsentActivity.java" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PropertyHolder.java" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SplashActivity.java" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SwitchboardActivity.java" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/utils/UtilPybossa.java" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/model/TaskRun.java" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/UtilLocal.java" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/Util.java" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/Fix.java" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/FixGet.java" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ContProvValuesTracks.java" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ContProvReports.java" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/FixUse.java" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SyncData.java" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/TigerBroadcastReceiver.java" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MapDataV2Activity.java" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/res/menu/validation_menu.xml" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PhotoValidationActivity.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="-8" />
-    <option name="width" value="1378" />
+    <option name="width" value="1376" />
     <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
@@ -3603,7 +3631,43 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="drawable" />
+              <option name="myItemId" value="values" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MosquitoAlert" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tigabib" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="menu" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MosquitoAlert" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tigabib" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -3623,6 +3687,28 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="tigabib" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MosquitoAlert" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tigabib" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="tigabib" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="services" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
@@ -3707,224 +3793,6 @@
           </PATH>
           <PATH>
             <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="tigabib">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="tigabib">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="main">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="tigabib">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="tigabib">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="main">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="java">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="ceab/movelab/tigabib">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="tigabib">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="tigabib">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="main">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="java">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="ceab/movelab/tigabib">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="utils">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="tigabib">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="tigabib">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="src">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="debug/java">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="mosquitoAlert">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="mosquitoAlert">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="mosquitoAlert">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="mosquitoAlert">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="build">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="intermediates/exploded-aar">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="mosquitoAlert">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="mosquitoAlert">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="build">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="intermediates/exploded-aar">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="io.realm/realm-android-library/1.1.0">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="mosquitoAlert">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="mosquitoAlert">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="build">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="intermediates/exploded-aar">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="io.realm/realm-android-library/1.1.0">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="jni">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="mosquitoAlert">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="mosquitoAlert">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT USER_OBJECT="build">
               <option name="myItemId" value="" />
               <option name="myItemType" value="" />
             </PATH_ELEMENT>
@@ -4538,29 +4406,30 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="0" width="1378" height="744" extended-state="0" />
-    <editor active="true" />
+    <frame x="-8" y="0" width="1376" height="744" extended-state="0" />
+    <editor active="false" />
     <layout>
       <window_info id="FindBugs-IDEA" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32807016" sideWeight="0.49129447" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21120363" sideWeight="0.4556314" order="5" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.45051193" sideWeight="0.5208176" order="13" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4129693" sideWeight="0.47918245" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.51194537" sideWeight="0.47918245" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24980843" sideWeight="0.49317408" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find Sample Code" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.36066818" sideWeight="0.49317408" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32873562" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3890785" sideWeight="0.47469324" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38225257" sideWeight="0.47469324" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3139932" sideWeight="0.48139712" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38496584" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" x="92" y="92" width="1182" height="544" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27866364" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38479087" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" x="92" y="92" width="1182" height="544" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.278327" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32423207" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32807016" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24981076" sideWeight="0.49118388" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39298245" sideWeight="0.52530676" order="12" side_tool="true" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2103265" sideWeight="0.5443686" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2243346" sideWeight="0.5443686" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Android WiFi ADB" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3272589" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.38054606" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.329296" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -4574,7 +4443,6 @@
       <window_info id="Properties" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Find Sample Code" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
       <window_info id="Assistant" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28841788" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -4776,7 +4644,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/Util.java</url>
-          <line>1027</line>
+          <line>1026</line>
           <properties />
           <option name="timeStamp" value="352" />
         </line-breakpoint>
@@ -4787,35 +4655,36 @@
           <option name="timeStamp" value="360" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SwitchboardActivity.java</url>
-          <line>109</line>
-          <properties />
-          <option name="timeStamp" value="363" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/Util.java</url>
-          <line>1042</line>
+          <line>1041</line>
           <properties />
           <option name="timeStamp" value="364" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SplashActivity.java</url>
-          <line>55</line>
+          <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ConsentActivity.java</url>
+          <line>164</line>
           <properties />
-          <option name="timeStamp" value="365" />
+          <option name="timeStamp" value="367" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SplashActivity.java</url>
-          <line>63</line>
+          <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/FixUse.java</url>
+          <line>101</line>
           <properties />
-          <option name="timeStamp" value="366" />
+          <option name="timeStamp" value="409" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SyncData.java</url>
+          <line>192</line>
+          <properties />
+          <option name="timeStamp" value="410" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="367" />
+      <option name="time" value="421" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="mosquitoAlert">
         <watch expression="BuildConfig.BUILD_TYPE" language="JAVA" custom="" />
+        <watch expression="BuildConfig.DEBUG" language="JAVA" />
         <watch expression="mLastLocation" language="JAVA" custom="" />
         <watch expression="lang" language="JAVA" custom="" />
         <watch expression="photoFileName" language="JAVA" custom="" />
@@ -4823,634 +4692,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/layout/splash.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="36" selection-start-line="4" selection-start-column="36" selection-end-line="4" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/fcm/MyFirebaseInstanceIDService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="61" column="63" selection-start-line="61" selection-start-column="63" selection-end-line="61" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/FixUse.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="114" column="96" selection-start-line="114" selection-start-column="96" selection-end-line="114" selection-end-column="96" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Android/sdk/sources/android-23/android/widget/LinearLayout.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="37" column="0" selection-start-line="37" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MissionModel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="230">
-          <caret line="121" column="54" selection-start-line="121" selection-start-column="54" selection-end-line="121" selection-end-column="54" />
-          <folding>
-            <element signature="e#5550#5613#0" expanded="false" />
-            <element signature="e#5973#6045#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/values-ca/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="309">
-          <caret line="239" column="61" selection-start-line="239" selection-start-column="61" selection-end-line="239" selection-end-column="61" />
-          <folding>
-            <element signature="e#488#492#0" expanded="false" />
-            <element signature="e#493#497#0" expanded="false" />
-            <element signature="e#497#501#0" expanded="false" />
-            <element signature="e#502#506#0" expanded="false" />
-            <element signature="e#542#546#0" expanded="false" />
-            <element signature="e#548#552#0" expanded="false" />
-            <element signature="e#552#556#0" expanded="false" />
-            <element signature="e#558#562#0" expanded="false" />
-            <element signature="e#564#568#0" expanded="false" />
-            <element signature="e#569#573#0" expanded="false" />
-            <element signature="e#741#745#0" expanded="false" />
-            <element signature="e#746#750#0" expanded="false" />
-            <element signature="e#766#770#0" expanded="false" />
-            <element signature="e#772#776#0" expanded="false" />
-            <element signature="e#821#825#0" expanded="false" />
-            <element signature="e#826#830#0" expanded="false" />
-            <element signature="e#843#847#0" expanded="false" />
-            <element signature="e#849#853#0" expanded="false" />
-            <element signature="e#855#859#0" expanded="false" />
-            <element signature="e#860#864#0" expanded="false" />
-            <element signature="e#866#870#0" expanded="false" />
-            <element signature="e#871#875#0" expanded="false" />
-            <element signature="e#926#930#0" expanded="false" />
-            <element signature="e#932#936#0" expanded="false" />
-            <element signature="e#938#942#0" expanded="false" />
-            <element signature="e#943#947#0" expanded="false" />
-            <element signature="e#989#993#0" expanded="false" />
-            <element signature="e#995#999#0" expanded="false" />
-            <element signature="e#1001#1005#0" expanded="false" />
-            <element signature="e#1006#1010#0" expanded="false" />
-            <element signature="e#1042#1046#0" expanded="false" />
-            <element signature="e#1048#1052#0" expanded="false" />
-            <element signature="e#1167#1171#0" expanded="false" />
-            <element signature="e#1172#1176#0" expanded="false" />
-            <element signature="e#1189#1193#0" expanded="false" />
-            <element signature="e#1195#1199#0" expanded="false" />
-            <element signature="e#1254#1258#0" expanded="false" />
-            <element signature="e#1259#1263#0" expanded="false" />
-            <element signature="e#1285#1289#0" expanded="false" />
-            <element signature="e#1291#1295#0" expanded="false" />
-            <element signature="e#5380#5384#0" expanded="false" />
-            <element signature="e#5385#5389#0" expanded="false" />
-            <element signature="e#5557#5561#0" expanded="false" />
-            <element signature="e#5563#5567#0" expanded="false" />
-            <element signature="e#5571#5575#0" expanded="false" />
-            <element signature="e#5576#5580#0" expanded="false" />
-            <element signature="e#5580#5584#0" expanded="false" />
-            <element signature="e#5585#5589#0" expanded="false" />
-            <element signature="e#5679#5683#0" expanded="false" />
-            <element signature="e#5685#5689#0" expanded="false" />
-            <element signature="e#5689#5693#0" expanded="false" />
-            <element signature="e#5695#5699#0" expanded="false" />
-            <element signature="e#5748#5752#0" expanded="false" />
-            <element signature="e#5753#5757#0" expanded="false" />
-            <element signature="e#5924#5928#0" expanded="false" />
-            <element signature="e#5930#5934#0" expanded="false" />
-            <element signature="e#5938#5942#0" expanded="false" />
-            <element signature="e#5943#5947#0" expanded="false" />
-            <element signature="e#5947#5951#0" expanded="false" />
-            <element signature="e#5952#5956#0" expanded="false" />
-            <element signature="e#6008#6012#0" expanded="false" />
-            <element signature="e#6014#6018#0" expanded="false" />
-            <element signature="e#6018#6022#0" expanded="false" />
-            <element signature="e#6024#6028#0" expanded="false" />
-            <element signature="e#6820#6824#0" expanded="false" />
-            <element signature="e#6825#6829#0" expanded="false" />
-            <element signature="e#7051#7055#0" expanded="false" />
-            <element signature="e#7057#7061#0" expanded="false" />
-            <element signature="e#7065#7069#0" expanded="false" />
-            <element signature="e#7070#7074#0" expanded="false" />
-            <element signature="e#7074#7078#0" expanded="false" />
-            <element signature="e#7079#7083#0" expanded="false" />
-            <element signature="e#7135#7139#0" expanded="false" />
-            <element signature="e#7141#7145#0" expanded="false" />
-            <element signature="e#7145#7149#0" expanded="false" />
-            <element signature="e#7151#7155#0" expanded="false" />
-            <element signature="e#7207#7211#0" expanded="false" />
-            <element signature="e#7212#7216#0" expanded="false" />
-            <element signature="e#7216#7220#0" expanded="false" />
-            <element signature="e#7221#7225#0" expanded="false" />
-            <element signature="e#7231#7235#0" expanded="false" />
-            <element signature="e#7237#7241#0" expanded="false" />
-            <element signature="e#7241#7245#0" expanded="false" />
-            <element signature="e#7248#7252#0" expanded="false" />
-            <element signature="e#7254#7258#0" expanded="false" />
-            <element signature="e#7259#7263#0" expanded="false" />
-            <element signature="e#7354#7358#0" expanded="false" />
-            <element signature="e#7360#7364#0" expanded="false" />
-            <element signature="e#7368#7372#0" expanded="false" />
-            <element signature="e#7373#7377#0" expanded="false" />
-            <element signature="e#7379#7383#0" expanded="false" />
-            <element signature="e#7385#7389#0" expanded="false" />
-            <element signature="e#7391#7395#0" expanded="false" />
-            <element signature="e#7397#7401#0" expanded="false" />
-            <element signature="e#7401#7405#0" expanded="false" />
-            <element signature="e#7406#7410#0" expanded="false" />
-            <element signature="e#7440#7444#0" expanded="false" />
-            <element signature="e#7446#7450#0" expanded="false" />
-            <element signature="e#7529#7533#0" expanded="false" />
-            <element signature="e#7536#7540#0" expanded="false" />
-            <element signature="e#7543#7547#0" expanded="false" />
-            <element signature="e#7550#7554#0" expanded="false" />
-            <element signature="e#7556#7560#0" expanded="false" />
-            <element signature="e#7562#7566#0" expanded="false" />
-            <element signature="e#7566#7570#0" expanded="false" />
-            <element signature="e#7571#7575#0" expanded="false" />
-            <element signature="e#7600#7604#0" expanded="false" />
-            <element signature="e#7606#7610#0" expanded="false" />
-            <element signature="e#7957#7961#0" expanded="false" />
-            <element signature="e#7964#7968#0" expanded="false" />
-            <element signature="e#7982#7986#0" expanded="false" />
-            <element signature="e#7989#7993#0" expanded="false" />
-            <element signature="e#7995#7999#0" expanded="false" />
-            <element signature="e#8001#8005#0" expanded="false" />
-            <element signature="e#8005#8009#0" expanded="false" />
-            <element signature="e#8010#8014#0" expanded="false" />
-            <element signature="e#8038#8042#0" expanded="false" />
-            <element signature="e#8044#8048#0" expanded="false" />
-            <element signature="e#8240#8244#0" expanded="false" />
-            <element signature="e#8247#8251#0" expanded="false" />
-            <element signature="e#8253#8257#0" expanded="false" />
-            <element signature="e#8260#8264#0" expanded="false" />
-            <element signature="e#8266#8270#0" expanded="false" />
-            <element signature="e#8272#8276#0" expanded="false" />
-            <element signature="e#8276#8280#0" expanded="false" />
-            <element signature="e#8281#8285#0" expanded="false" />
-            <element signature="e#8321#8325#0" expanded="false" />
-            <element signature="e#8327#8331#0" expanded="false" />
-            <element signature="e#8435#8439#0" expanded="false" />
-            <element signature="e#8442#8446#0" expanded="false" />
-            <element signature="e#8448#8452#0" expanded="false" />
-            <element signature="e#8455#8459#0" expanded="false" />
-            <element signature="e#8461#8465#0" expanded="false" />
-            <element signature="e#8467#8471#0" expanded="false" />
-            <element signature="e#8474#8478#0" expanded="false" />
-            <element signature="e#8479#8483#0" expanded="false" />
-            <element signature="e#8592#8596#0" expanded="false" />
-            <element signature="e#8628#8632#0" expanded="false" />
-            <element signature="e#8653#8657#0" expanded="false" />
-            <element signature="e#8659#8663#0" expanded="false" />
-            <element signature="e#8664#8668#0" expanded="false" />
-            <element signature="e#8670#8674#0" expanded="false" />
-            <element signature="e#8773#8777#0" expanded="false" />
-            <element signature="e#8778#8782#0" expanded="false" />
-            <element signature="e#8782#8786#0" expanded="false" />
-            <element signature="e#8787#8791#0" expanded="false" />
-            <element signature="e#8797#8801#0" expanded="false" />
-            <element signature="e#8803#8807#0" expanded="false" />
-            <element signature="e#8807#8811#0" expanded="false" />
-            <element signature="e#8814#8818#0" expanded="false" />
-            <element signature="e#8961#8965#0" expanded="false" />
-            <element signature="e#8967#8971#0" expanded="false" />
-            <element signature="e#8973#8977#0" expanded="false" />
-            <element signature="e#8979#8983#0" expanded="false" />
-            <element signature="e#8986#8990#0" expanded="false" />
-            <element signature="e#8992#8996#0" expanded="false" />
-            <element signature="e#8996#9000#0" expanded="false" />
-            <element signature="e#9001#9005#0" expanded="false" />
-            <element signature="e#9036#9040#0" expanded="false" />
-            <element signature="e#9042#9046#0" expanded="false" />
-            <element signature="e#9119#9123#0" expanded="false" />
-            <element signature="e#9126#9130#0" expanded="false" />
-            <element signature="e#9133#9137#0" expanded="false" />
-            <element signature="e#9140#9144#0" expanded="false" />
-            <element signature="e#9146#9150#0" expanded="false" />
-            <element signature="e#9152#9156#0" expanded="false" />
-            <element signature="e#9156#9160#0" expanded="false" />
-            <element signature="e#9161#9165#0" expanded="false" />
-            <element signature="e#9190#9194#0" expanded="false" />
-            <element signature="e#9196#9200#0" expanded="false" />
-            <element signature="e#9548#9552#0" expanded="false" />
-            <element signature="e#9555#9559#0" expanded="false" />
-            <element signature="e#9573#9577#0" expanded="false" />
-            <element signature="e#9580#9584#0" expanded="false" />
-            <element signature="e#9586#9590#0" expanded="false" />
-            <element signature="e#9592#9596#0" expanded="false" />
-            <element signature="e#9596#9600#0" expanded="false" />
-            <element signature="e#9601#9605#0" expanded="false" />
-            <element signature="e#9629#9633#0" expanded="false" />
-            <element signature="e#9635#9639#0" expanded="false" />
-            <element signature="e#9792#9796#0" expanded="false" />
-            <element signature="e#9799#9803#0" expanded="false" />
-            <element signature="e#9806#9810#0" expanded="false" />
-            <element signature="e#9813#9817#0" expanded="false" />
-            <element signature="e#9819#9823#0" expanded="false" />
-            <element signature="e#9825#9829#0" expanded="false" />
-            <element signature="e#9829#9833#0" expanded="false" />
-            <element signature="e#9834#9838#0" expanded="false" />
-            <element signature="e#9874#9878#0" expanded="false" />
-            <element signature="e#9880#9884#0" expanded="false" />
-            <element signature="e#9988#9992#0" expanded="false" />
-            <element signature="e#9995#9999#0" expanded="false" />
-            <element signature="e#10001#10005#0" expanded="false" />
-            <element signature="e#10008#10012#0" expanded="false" />
-            <element signature="e#10015#10019#0" expanded="false" />
-            <element signature="e#10021#10025#0" expanded="false" />
-            <element signature="e#10027#10031#0" expanded="false" />
-            <element signature="e#10032#10036#0" expanded="false" />
-            <element signature="e#10145#10149#0" expanded="false" />
-            <element signature="e#10181#10185#0" expanded="false" />
-            <element signature="e#10206#10210#0" expanded="false" />
-            <element signature="e#10212#10216#0" expanded="false" />
-            <element signature="e#10217#10221#0" expanded="false" />
-            <element signature="e#10223#10227#0" expanded="false" />
-            <element signature="e#10304#10308#0" expanded="false" />
-            <element signature="e#10309#10313#0" expanded="false" />
-            <element signature="e#10537#10541#0" expanded="false" />
-            <element signature="e#10543#10547#0" expanded="false" />
-            <element signature="e#10549#10553#0" expanded="false" />
-            <element signature="e#10554#10558#0" expanded="false" />
-            <element signature="e#10634#10638#0" expanded="false" />
-            <element signature="e#10640#10644#0" expanded="false" />
-            <element signature="e#21567#21572#0" expanded="false" />
-            <element signature="e#24501#24505#0" expanded="false" />
-            <element signature="e#25057#25061#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/values-zh/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="107">
-          <caret line="236" column="29" selection-start-line="236" selection-start-column="29" selection-end-line="236" selection-end-column="29" />
-          <folding>
-            <element signature="e#459#463#0" expanded="false" />
-            <element signature="e#464#468#0" expanded="false" />
-            <element signature="e#468#472#0" expanded="false" />
-            <element signature="e#473#477#0" expanded="false" />
-            <element signature="e#511#515#0" expanded="false" />
-            <element signature="e#517#521#0" expanded="false" />
-            <element signature="e#521#525#0" expanded="false" />
-            <element signature="e#527#531#0" expanded="false" />
-            <element signature="e#533#537#0" expanded="false" />
-            <element signature="e#538#542#0" expanded="false" />
-            <element signature="e#587#591#0" expanded="false" />
-            <element signature="e#592#596#0" expanded="false" />
-            <element signature="e#612#616#0" expanded="false" />
-            <element signature="e#618#622#0" expanded="false" />
-            <element signature="e#638#642#0" expanded="false" />
-            <element signature="e#643#647#0" expanded="false" />
-            <element signature="e#660#664#0" expanded="false" />
-            <element signature="e#666#670#0" expanded="false" />
-            <element signature="e#675#679#0" expanded="false" />
-            <element signature="e#680#684#0" expanded="false" />
-            <element signature="e#686#690#0" expanded="false" />
-            <element signature="e#691#695#0" expanded="false" />
-            <element signature="e#731#735#0" expanded="false" />
-            <element signature="e#737#741#0" expanded="false" />
-            <element signature="e#743#747#0" expanded="false" />
-            <element signature="e#748#752#0" expanded="false" />
-            <element signature="e#761#765#0" expanded="false" />
-            <element signature="e#767#771#0" expanded="false" />
-            <element signature="e#773#777#0" expanded="false" />
-            <element signature="e#778#782#0" expanded="false" />
-            <element signature="e#799#803#0" expanded="false" />
-            <element signature="e#805#809#0" expanded="false" />
-            <element signature="e#905#909#0" expanded="false" />
-            <element signature="e#910#914#0" expanded="false" />
-            <element signature="e#927#931#0" expanded="false" />
-            <element signature="e#933#937#0" expanded="false" />
-            <element signature="e#948#952#0" expanded="false" />
-            <element signature="e#953#957#0" expanded="false" />
-            <element signature="e#988#992#0" expanded="false" />
-            <element signature="e#994#998#0" expanded="false" />
-            <element signature="e#4260#4264#0" expanded="false" />
-            <element signature="e#4265#4269#0" expanded="false" />
-            <element signature="e#4275#4279#0" expanded="false" />
-            <element signature="e#4280#4284#0" expanded="false" />
-            <element signature="e#4298#4302#0" expanded="false" />
-            <element signature="e#4304#4308#0" expanded="false" />
-            <element signature="e#4332#4336#0" expanded="false" />
-            <element signature="e#4337#4341#0" expanded="false" />
-            <element signature="e#4352#4356#0" expanded="false" />
-            <element signature="e#4358#4362#0" expanded="false" />
-            <element signature="e#4385#4389#0" expanded="false" />
-            <element signature="e#4391#4395#0" expanded="false" />
-            <element signature="e#4399#4403#0" expanded="false" />
-            <element signature="e#4404#4408#0" expanded="false" />
-            <element signature="e#4408#4412#0" expanded="false" />
-            <element signature="e#4413#4417#0" expanded="false" />
-            <element signature="e#4518#4522#0" expanded="false" />
-            <element signature="e#4524#4528#0" expanded="false" />
-            <element signature="e#4528#4532#0" expanded="false" />
-            <element signature="e#4534#4538#0" expanded="false" />
-            <element signature="e#4587#4591#0" expanded="false" />
-            <element signature="e#4592#4596#0" expanded="false" />
-            <element signature="e#4637#4641#0" expanded="false" />
-            <element signature="e#4643#4647#0" expanded="false" />
-            <element signature="e#4651#4655#0" expanded="false" />
-            <element signature="e#4656#4660#0" expanded="false" />
-            <element signature="e#4660#4664#0" expanded="false" />
-            <element signature="e#4665#4669#0" expanded="false" />
-            <element signature="e#4720#4724#0" expanded="false" />
-            <element signature="e#4726#4730#0" expanded="false" />
-            <element signature="e#4730#4734#0" expanded="false" />
-            <element signature="e#4736#4740#0" expanded="false" />
-            <element signature="e#5385#5389#0" expanded="false" />
-            <element signature="e#5390#5394#0" expanded="false" />
-            <element signature="e#5399#5403#0" expanded="false" />
-            <element signature="e#5404#5408#0" expanded="false" />
-            <element signature="e#5427#5431#0" expanded="false" />
-            <element signature="e#5433#5437#0" expanded="false" />
-            <element signature="e#5444#5448#0" expanded="false" />
-            <element signature="e#5449#5453#0" expanded="false" />
-            <element signature="e#5469#5473#0" expanded="false" />
-            <element signature="e#5475#5479#0" expanded="false" />
-            <element signature="e#5523#5527#0" expanded="false" />
-            <element signature="e#5529#5533#0" expanded="false" />
-            <element signature="e#5535#5539#0" expanded="false" />
-            <element signature="e#5540#5544#0" expanded="false" />
-            <element signature="e#5544#5548#0" expanded="false" />
-            <element signature="e#5549#5553#0" expanded="false" />
-            <element signature="e#5604#5608#0" expanded="false" />
-            <element signature="e#5610#5614#0" expanded="false" />
-            <element signature="e#5614#5618#0" expanded="false" />
-            <element signature="e#5620#5624#0" expanded="false" />
-            <element signature="e#5676#5680#0" expanded="false" />
-            <element signature="e#5681#5685#0" expanded="false" />
-            <element signature="e#5685#5689#0" expanded="false" />
-            <element signature="e#5690#5694#0" expanded="false" />
-            <element signature="e#5697#5701#0" expanded="false" />
-            <element signature="e#5703#5707#0" expanded="false" />
-            <element signature="e#5708#5712#0" expanded="false" />
-            <element signature="e#5715#5719#0" expanded="false" />
-            <element signature="e#5742#5746#0" expanded="false" />
-            <element signature="e#5748#5752#0" expanded="false" />
-            <element signature="e#5756#5760#0" expanded="false" />
-            <element signature="e#5761#5765#0" expanded="false" />
-            <element signature="e#5768#5772#0" expanded="false" />
-            <element signature="e#5774#5778#0" expanded="false" />
-            <element signature="e#5780#5784#0" expanded="false" />
-            <element signature="e#5786#5790#0" expanded="false" />
-            <element signature="e#5790#5794#0" expanded="false" />
-            <element signature="e#5795#5799#0" expanded="false" />
-            <element signature="e#5810#5814#0" expanded="false" />
-            <element signature="e#5817#5821#0" expanded="false" />
-            <element signature="e#5839#5843#0" expanded="false" />
-            <element signature="e#5846#5850#0" expanded="false" />
-            <element signature="e#5853#5857#0" expanded="false" />
-            <element signature="e#5860#5864#0" expanded="false" />
-            <element signature="e#5866#5870#0" expanded="false" />
-            <element signature="e#5872#5876#0" expanded="false" />
-            <element signature="e#5876#5880#0" expanded="false" />
-            <element signature="e#5881#5885#0" expanded="false" />
-            <element signature="e#5899#5903#0" expanded="false" />
-            <element signature="e#5906#5910#0" expanded="false" />
-            <element signature="e#6009#6013#0" expanded="false" />
-            <element signature="e#6016#6020#0" expanded="false" />
-            <element signature="e#6023#6027#0" expanded="false" />
-            <element signature="e#6030#6034#0" expanded="false" />
-            <element signature="e#6036#6040#0" expanded="false" />
-            <element signature="e#6042#6046#0" expanded="false" />
-            <element signature="e#6046#6050#0" expanded="false" />
-            <element signature="e#6051#6055#0" expanded="false" />
-            <element signature="e#6065#6069#0" expanded="false" />
-            <element signature="e#6072#6076#0" expanded="false" />
-            <element signature="e#6125#6129#0" expanded="false" />
-            <element signature="e#6132#6136#0" expanded="false" />
-            <element signature="e#6139#6143#0" expanded="false" />
-            <element signature="e#6146#6150#0" expanded="false" />
-            <element signature="e#6152#6156#0" expanded="false" />
-            <element signature="e#6158#6162#0" expanded="false" />
-            <element signature="e#6162#6166#0" expanded="false" />
-            <element signature="e#6167#6171#0" expanded="false" />
-            <element signature="e#6182#6186#0" expanded="false" />
-            <element signature="e#6189#6193#0" expanded="false" />
-            <element signature="e#6224#6228#0" expanded="false" />
-            <element signature="e#6231#6235#0" expanded="false" />
-            <element signature="e#6238#6242#0" expanded="false" />
-            <element signature="e#6245#6249#0" expanded="false" />
-            <element signature="e#6251#6255#0" expanded="false" />
-            <element signature="e#6257#6261#0" expanded="false" />
-            <element signature="e#6266#6270#0" expanded="false" />
-            <element signature="e#6271#6275#0" expanded="false" />
-            <element signature="e#6310#6314#0" expanded="false" />
-            <element signature="e#6345#6349#0" expanded="false" />
-            <element signature="e#6370#6374#0" expanded="false" />
-            <element signature="e#6376#6380#0" expanded="false" />
-            <element signature="e#6381#6385#0" expanded="false" />
-            <element signature="e#6387#6391#0" expanded="false" />
-            <element signature="e#6442#6446#0" expanded="false" />
-            <element signature="e#6447#6451#0" expanded="false" />
-            <element signature="e#6451#6455#0" expanded="false" />
-            <element signature="e#6456#6460#0" expanded="false" />
-            <element signature="e#6463#6467#0" expanded="false" />
-            <element signature="e#6469#6473#0" expanded="false" />
-            <element signature="e#6474#6478#0" expanded="false" />
-            <element signature="e#6481#6485#0" expanded="false" />
-            <element signature="e#6535#6539#0" expanded="false" />
-            <element signature="e#6540#6544#0" expanded="false" />
-            <element signature="e#6547#6551#0" expanded="false" />
-            <element signature="e#6553#6557#0" expanded="false" />
-            <element signature="e#6559#6563#0" expanded="false" />
-            <element signature="e#6565#6569#0" expanded="false" />
-            <element signature="e#6569#6573#0" expanded="false" />
-            <element signature="e#6574#6578#0" expanded="false" />
-            <element signature="e#6590#6594#0" expanded="false" />
-            <element signature="e#6597#6601#0" expanded="false" />
-            <element signature="e#6619#6623#0" expanded="false" />
-            <element signature="e#6626#6630#0" expanded="false" />
-            <element signature="e#6633#6637#0" expanded="false" />
-            <element signature="e#6640#6644#0" expanded="false" />
-            <element signature="e#6646#6650#0" expanded="false" />
-            <element signature="e#6652#6656#0" expanded="false" />
-            <element signature="e#6656#6660#0" expanded="false" />
-            <element signature="e#6661#6665#0" expanded="false" />
-            <element signature="e#6680#6684#0" expanded="false" />
-            <element signature="e#6687#6691#0" expanded="false" />
-            <element signature="e#6790#6794#0" expanded="false" />
-            <element signature="e#6797#6801#0" expanded="false" />
-            <element signature="e#6804#6808#0" expanded="false" />
-            <element signature="e#6811#6815#0" expanded="false" />
-            <element signature="e#6817#6821#0" expanded="false" />
-            <element signature="e#6823#6827#0" expanded="false" />
-            <element signature="e#6827#6831#0" expanded="false" />
-            <element signature="e#6832#6836#0" expanded="false" />
-            <element signature="e#6846#6850#0" expanded="false" />
-            <element signature="e#6853#6857#0" expanded="false" />
-            <element signature="e#6912#6916#0" expanded="false" />
-            <element signature="e#6919#6923#0" expanded="false" />
-            <element signature="e#6926#6930#0" expanded="false" />
-            <element signature="e#6933#6937#0" expanded="false" />
-            <element signature="e#6939#6943#0" expanded="false" />
-            <element signature="e#6945#6949#0" expanded="false" />
-            <element signature="e#6949#6953#0" expanded="false" />
-            <element signature="e#6954#6958#0" expanded="false" />
-            <element signature="e#6969#6973#0" expanded="false" />
-            <element signature="e#6976#6980#0" expanded="false" />
-            <element signature="e#7014#7018#0" expanded="false" />
-            <element signature="e#7021#7025#0" expanded="false" />
-            <element signature="e#7028#7032#0" expanded="false" />
-            <element signature="e#7035#7039#0" expanded="false" />
-            <element signature="e#7041#7045#0" expanded="false" />
-            <element signature="e#7047#7051#0" expanded="false" />
-            <element signature="e#7056#7060#0" expanded="false" />
-            <element signature="e#7061#7065#0" expanded="false" />
-            <element signature="e#7100#7104#0" expanded="false" />
-            <element signature="e#7135#7139#0" expanded="false" />
-            <element signature="e#7160#7164#0" expanded="false" />
-            <element signature="e#7166#7170#0" expanded="false" />
-            <element signature="e#7171#7175#0" expanded="false" />
-            <element signature="e#7177#7181#0" expanded="false" />
-            <element signature="e#7183#7187#0" expanded="false" />
-            <element signature="e#7188#7192#0" expanded="false" />
-            <element signature="e#7228#7232#0" expanded="false" />
-            <element signature="e#7263#7267#0" expanded="false" />
-            <element signature="e#7288#7292#0" expanded="false" />
-            <element signature="e#7294#7298#0" expanded="false" />
-            <element signature="e#7299#7303#0" expanded="false" />
-            <element signature="e#7305#7309#0" expanded="false" />
-            <element signature="e#7362#7366#0" expanded="false" />
-            <element signature="e#7367#7371#0" expanded="false" />
-            <element signature="e#7373#7377#0" expanded="false" />
-            <element signature="e#7378#7382#0" expanded="false" />
-            <element signature="e#7384#7388#0" expanded="false" />
-            <element signature="e#7390#7394#0" expanded="false" />
-            <element signature="e#7395#7399#0" expanded="false" />
-            <element signature="e#7400#7404#0" expanded="false" />
-            <element signature="e#7423#7427#0" expanded="false" />
-            <element signature="e#7429#7433#0" expanded="false" />
-            <element signature="e#7436#7440#0" expanded="false" />
-            <element signature="e#7441#7445#0" expanded="false" />
-            <element signature="e#7461#7465#0" expanded="false" />
-            <element signature="e#7467#7471#0" expanded="false" />
-            <element signature="e#7504#7508#0" expanded="false" />
-            <element signature="e#7509#7513#0" expanded="false" />
-            <element signature="e#7515#7519#0" expanded="false" />
-            <element signature="e#7521#7525#0" expanded="false" />
-            <element signature="e#7535#7539#0" expanded="false" />
-            <element signature="e#7540#7544#0" expanded="false" />
-            <element signature="e#7546#7550#0" expanded="false" />
-            <element signature="e#7551#7555#0" expanded="false" />
-            <element signature="e#7557#7561#0" expanded="false" />
-            <element signature="e#7563#7567#0" expanded="false" />
-            <element signature="e#7590#7594#0" expanded="false" />
-            <element signature="e#7595#7599#0" expanded="false" />
-            <element signature="e#7618#7622#0" expanded="false" />
-            <element signature="e#7624#7628#0" expanded="false" />
-            <element signature="e#7794#7798#0" expanded="false" />
-            <element signature="e#7799#7803#0" expanded="false" />
-            <element signature="e#7805#7809#0" expanded="false" />
-            <element signature="e#7813#7817#0" expanded="false" />
-            <element signature="e#15939#15944#0" expanded="false" />
-            <element signature="e#18453#18457#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/values-es/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="246" column="34" selection-start-line="246" selection-start-column="34" selection-end-line="246" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/values/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="158">
-          <caret line="204" column="34" selection-start-line="204" selection-start-column="34" selection-end-line="204" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="android-dummy://D:/Projectes/MosquitoAlert/ws-studio/MosquitoAlert/tigabib/Translations Editor">
-      <provider selected="true" editor-type-id="string-resource-editor">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/values-h600dp/dimens.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
-          <caret line="28" column="49" selection-start-line="28" selection-start-column="49" selection-end-line="28" selection-end-column="49" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/layout/valid_2_help_layout.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="4" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/layout/valid_3_help_layout.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/layout/valid_4_help_layout.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/values-h800dp/dimens.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="28" column="49" selection-start-line="28" selection-start-column="49" selection-end-line="29" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/layout/validation_layout.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="8" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/values-h400dp/dimens.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="27" column="37" selection-start-line="27" selection-start-column="37" selection-end-line="27" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tigabib/mosquitoAlertDemo/build/intermediates/res/merged/release/values-h600dp-v13/values-h600dp-v13.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="339">
@@ -5558,31 +4799,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/UtilLocal.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="80" column="32" selection-start-line="79" selection-start-column="4" selection-end-line="80" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SwitchboardActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="381" column="31" selection-start-line="381" selection-start-column="31" selection-end-line="381" selection-end-column="31" />
-          <folding>
-            <marker date="1498072363007" expanded="false" signature="11730:11812" ph="(v) → { " />
-            <marker date="1498072363007" expanded="false" signature="11830:11841" ph=" }" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PhotoValidationWebViewActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="152">
           <caret line="76" column="54" selection-start-line="76" selection-start-column="54" selection-end-line="76" selection-end-column="54" />
           <folding>
-            <element signature="imports" expanded="true" />
+            <element signature="imports" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -5595,85 +4817,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/model/Task.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-340">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/model/TaskRun.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="25" column="5" selection-start-line="20" selection-start-column="3" selection-end-line="25" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MapDataV2Activity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="474" column="62" selection-start-line="474" selection-start-column="62" selection-end-line="475" selection-end-column="79" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/utils/UtilPybossa.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="50">
-          <caret line="19" column="70" selection-start-line="19" selection-start-column="70" selection-end-line="19" selection-end-column="70" />
-          <folding>
-            <element signature="e#198#199#0" expanded="true" />
-            <element signature="e#246#247#0" expanded="true" />
-            <element signature="e#293#294#0" expanded="true" />
-            <element signature="e#328#329#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PropertyHolder.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="98" column="25" selection-start-line="98" selection-start-column="25" selection-end-line="98" selection-end-column="25" />
-          <folding>
-            <element signature="e#12284#12285#0" expanded="true" />
-            <element signature="e#12346#12347#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/AboutActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="128">
           <caret line="66" column="0" selection-start-line="64" selection-start-column="8" selection-end-line="66" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SplashActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="445">
-          <caret line="67" column="5" selection-start-line="67" selection-start-column="5" selection-end-line="67" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#760#855#0" expanded="true" />
-            <element signature="e#854#855#0" expanded="true" />
-            <element signature="e#1654#1898#0" expanded="true" />
-            <element signature="e#1897#1898#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PhotoValidationActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
-          <caret line="291" column="32" selection-start-line="291" selection-start-column="32" selection-end-line="291" selection-end-column="32" />
-          <folding>
-            <element signature="e#9585#10033#0" expanded="true" />
-            <element signature="e#9846#9895#0" expanded="true" />
-            <element signature="e#10032#10033#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -5735,19 +4883,259 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/Util.java">
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ConsentActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="471" column="37" selection-start-line="471" selection-start-column="34" selection-end-line="471" selection-end-column="37" />
+        <state relative-caret-position="186">
+          <caret line="135" column="0" selection-start-line="135" selection-start-column="0" selection-end-line="135" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ConsentActivity.java">
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SplashActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="152">
-          <caret line="50" column="16" selection-start-line="50" selection-start-column="16" selection-end-line="50" selection-end-column="16" />
+        <state relative-caret-position="122">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="21" selection-end-column="76" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#756#851#0" expanded="true" />
+            <element signature="e#850#851#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/values-ca/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="171" column="33" selection-start-line="171" selection-start-column="27" selection-end-line="171" selection-end-column="33" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/values-es/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="171" column="33" selection-start-line="171" selection-start-column="27" selection-end-line="171" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PropertyHolder.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="358" column="0" selection-start-line="358" selection-start-column="0" selection-end-line="358" selection-end-column="0" />
+          <folding>
+            <element signature="e#12290#12291#0" expanded="true" />
+            <element signature="e#12352#12353#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/model/Task.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-811">
+          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/model/TaskRun.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="20" column="46" selection-start-line="20" selection-start-column="46" selection-end-line="20" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Android/sdk/sources/android-23/android/view/View.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="11277" column="16" selection-start-line="11277" selection-start-column="16" selection-end-line="11277" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/model/Score.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
+          <folding>
+            <element signature="e#478#479#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SwitchboardActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="40">
+          <caret line="494" column="0" selection-start-line="494" selection-start-column="0" selection-end-line="494" selection-end-column="0" />
+          <folding>
+            <marker date="1498653609998" expanded="false" signature="11732:11814" ph="(v) → { " />
+            <marker date="1498653609998" expanded="false" signature="11832:11843" ph=" }" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/UtilLocal.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="140" column="31" selection-start-line="140" selection-start-column="31" selection-end-line="140" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/utils/UtilPybossa.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="26">
+          <caret line="62" column="28" selection-start-line="62" selection-start-column="28" selection-end-line="62" selection-end-column="28" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#397#398#0" expanded="true" />
+            <element signature="e#445#446#0" expanded="true" />
+            <element signature="e#1347#1775#0" expanded="true" />
+            <element signature="e#1774#1775#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Android/sdk/sources/android-23/android/content/ContentResolver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="1222" column="31" selection-start-line="1222" selection-start-column="31" selection-end-line="1222" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ContProvReports.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1147">
+          <caret line="53" column="75" selection-start-line="53" selection-start-column="75" selection-end-line="53" selection-end-column="75" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ContProvMissions.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-42">
+          <caret line="46" column="22" selection-start-line="46" selection-start-column="22" selection-end-line="46" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ContProvValuesTracks.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="192">
+          <caret line="36" column="35" selection-start-line="36" selection-start-column="35" selection-end-line="36" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/FixGet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="464">
+          <caret line="424" column="86" selection-start-line="424" selection-start-column="86" selection-end-line="424" selection-end-column="86" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/FixUse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="103" column="39" selection-start-line="103" selection-start-column="27" selection-end-line="103" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/Util.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="1103" column="34" selection-start-line="1103" selection-start-column="22" selection-end-line="1103" selection-end-column="34" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/Fix.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="111">
+          <caret line="78" column="24" selection-start-line="78" selection-start-column="24" selection-end-line="78" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/TigerBroadcastReceiver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="110">
+          <caret line="128" column="55" selection-start-line="128" selection-start-column="55" selection-end-line="128" selection-end-column="55" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SyncData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="216" column="0" selection-start-line="216" selection-start-column="0" selection-end-line="216" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.android/build-cache/dedafbeaa82cb3d50ce78e91bde12fd1c0194a43/output/jars/classes.jar!/com/google/android/gms/maps/model/LatLngBounds.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="186">
+          <caret line="165" column="36" selection-start-line="165" selection-start-column="36" selection-end-line="165" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MapDataV2Activity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="467" column="14" selection-start-line="467" selection-start-column="14" selection-end-line="467" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/layout/validation_layout.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="8" selection-start-line="12" selection-start-column="8" selection-end-line="12" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/menu/validation_menu.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="36" selection-start-line="7" selection-start-column="36" selection-end-line="7" selection-end-column="36" />
+          <folding>
+            <element signature="e#518#538#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="290" column="48" selection-start-line="290" selection-start-column="48" selection-end-line="290" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PhotoValidationActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="440" column="0" selection-start-line="440" selection-start-column="0" selection-end-line="458" selection-end-column="19" />
+          <folding>
+            <element signature="e#5153#5249#0" expanded="true" />
+            <element signature="e#5248#5249#0" expanded="true" />
+            <element signature="e#5286#5398#0" expanded="true" />
+            <element signature="e#5397#5398#0" expanded="true" />
+            <element signature="e#11101#11150#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

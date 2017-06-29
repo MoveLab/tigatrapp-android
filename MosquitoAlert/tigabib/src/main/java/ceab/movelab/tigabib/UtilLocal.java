@@ -70,11 +70,9 @@ package ceab.movelab.tigabib;
 public class UtilLocal {
 
 
-
 	public static final String URL_PROJECT = "http://mosquitoalert.com/";	// blog url
 
-	// !!!!
-	// Desenvolupament vs produccio
+	// Desenvolupament vs produccio !!!!
 	// Producció = "http://webserver.mosquitoalert.com/";
 	// Desenvolupament: http://humboldt.ceab.csic.es/
 	public static final String URL_TIGASERVER =
@@ -119,9 +117,6 @@ public class UtilLocal {
 	 */
 	public static final String API_SCORE = "user_score/";
 
-
-
-
     /**
 	 * API nearby reports endpoint.
 	 */
@@ -135,7 +130,7 @@ public class UtilLocal {
 	/**
 	 * API token endpoint.
 	 */
-	public static final String API_TOKEN = "token/";
+	public static final String API_FCM_TOKEN = "token/";
 
 
 	/**

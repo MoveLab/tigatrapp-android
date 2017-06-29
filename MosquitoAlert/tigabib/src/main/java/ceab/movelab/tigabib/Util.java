@@ -172,7 +172,7 @@ public class Util {
 //		return BuildConfig.DEBUG;
 //	}
 
-	public static boolean debugMode() {		// !!!!$$!!!!
+	public static boolean debugMode() {		// !!!!$$!!!
 		return BuildConfig.DEBUG;
 	}
 
@@ -242,11 +242,10 @@ public class Util {
      */
     public static final String API_SCORE = UtilLocal.API_SCORE;
 
-
 	/**
-	 * API token endpoint.
+	 * API to register FCM token on server endpoint.
 	 */
-	public static final String API_TOKEN = UtilLocal.API_TOKEN;
+	public static final String API_FCM_TOKEN = UtilLocal.API_FCM_TOKEN;
 
 	/**
 	 * API nearby reports endpoint.
@@ -323,7 +322,7 @@ public class Util {
 	 *            The string to be encased in quotation marks.
 	 * @return The given string trimmed and encased in quotation marks.
 	 */
-	public static String enquote(String str) {
+	/*public static String enquote(String str) {
 		final String dq = "\"";
 		final String ddq = dq + dq;
 		StringBuilder sb = new StringBuilder("");
@@ -332,7 +331,7 @@ public class Util {
 		sb.append(dq);
 		return sb.toString();
 	}
-
+*/
 	public static String ecma262(long time) {
 		String format = "yyyy-MM-dd'T'HH:mm:ss.SSZ";
 		SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
@@ -342,13 +341,13 @@ public class Util {
 	public static long string2Long(String date_string, String format) {
 		long result = 0;
 		SimpleDateFormat sdf = new SimpleDateFormat(format, Locale.US);
-		ParsePosition pos = new ParsePosition(0);
+		//ParsePosition pos = new ParsePosition(0);
 		try {
 			Date d = sdf.parse(date_string);
 			result = d.getTime();
-
 		} catch (ParseException e) {
 			// just leave result as 0 in this case
+			e.printStackTrace();
 		}
 
 		return result;
@@ -431,7 +430,7 @@ public class Util {
 		return format;
 	}
 
-	public static int hour(long unixtime) {
+	public static long hour(long unixtime) {
 		GregorianCalendar cal = new GregorianCalendar();
 		cal.setTimeInMillis(unixtime);
 		return cal.get(Calendar.HOUR_OF_DAY);
@@ -1035,9 +1034,9 @@ Util.logInfo(TAG, "register status code: " + statusCode);
 
 	public static void registerFCMToken(Context ctx, String token, String userId) {
 		if ( token != null ) {
-			String tokenUrl = Util.URL_TIGASERVER_API_ROOT + Util.API_TOKEN + "?token=" + token + "&user_id=" + userId;
+			String tokenUrl = Util.URL_TIGASERVER_API_ROOT + Util.API_FCM_TOKEN + "?token=" + token + "&user_id=" + userId;
 Util.logInfo("==============", "TEST");
-Log.d("===========", "BuildConfig.DEBUG >> " + BuildConfig.DEBUG);  // !!!!
+Log.d("===========", "BuildConfig.DEBUG >> " + BuildConfig.DEBUG);
 Log.d("===========", tokenUrl);
 
 			Ion.with(ctx)

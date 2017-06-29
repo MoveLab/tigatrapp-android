@@ -4,10 +4,15 @@
 
 <!--https://stackoverflow.com/questions/17914017/android-4-3-menu-item-showasaction-always-ignored-->
     <item
+        android:id="@+id/refresh"
+        android:title="@string/menu_close"
+        android:icon="@drawable/ic_action_cancel"
+        android:showAsAction="ifRoom">
+    </item>
+    <item
         android:id="@+id/close"
         android:title="@string/menu_close"
         android:icon="@drawable/ic_action_cancel"
         android:showAsAction="ifRoom">
     </item>
-    
 </menu>

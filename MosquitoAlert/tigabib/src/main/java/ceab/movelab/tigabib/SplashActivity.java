@@ -8,8 +8,6 @@ import android.text.TextUtils;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.koushikdutta.async.future.FutureCallback;
-import com.koushikdutta.ion.Ion;
 
 import ceab.movelab.tigabib.utils.UtilPybossa;
 
@@ -21,7 +19,9 @@ public class SplashActivity extends FragmentActivity {
 
        	setContentView(R.layout.splash);
 
-		fetchPybossaToken();
+		UtilPybossa pybossa = new UtilPybossa(false);	// !!!! false is not
+		pybossa.fetchPybossaToken(this);
+
 		//Set Runnable to remove splash screen just in case
 		new Handler().postDelayed(new Runnable() {
 			@Override
@@ -44,27 +44,6 @@ Util.logInfo(this.getClass().getName(), "my token >> " + token);
 		this.finish();
     }
 
-    private void fetchPybossaToken() {
-		UtilPybossa pybossa = new UtilPybossa(false);	// !!!!
 
-		String tokenUrl = pybossa.getUrlToken();
-		String authToken = pybossa.getTokenAuth();
-
-		if (!PropertyHolder.isInit())
-			PropertyHolder.init(this);
-
-		Ion.with(this)
-				.load(tokenUrl)
-				.setHeader("Authorization", authToken)
-				.asString()
-				.setCallback(new FutureCallback<String>() {
-					@Override
-					public void onCompleted(Exception e, String result) {
-						// do stuff with the result or error
-Util.logInfo("==========++", result);
-						PropertyHolder.setPybossaToken(result);
-					}
-				});
-	}
 
 }

@@ -79,6 +79,7 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.maps.GeoPoint;
@@ -458,19 +459,17 @@ Util.logInfo(TAG, "GMS: onLocationChanged");
 		}
 	}
 
- 	private void loadNeighbours(Location myLocation, int radius) {
+ 	private void loadNeighbours(final Location myLocation, int radius) {
 
 		if ( myLocation != null ) {
 			//mGoogleMap.getCameraPosition().target // to get center of the map
-			String nearbyUrl = Util.API_NEARBY_REPORTS + "?format=json" +
-					"&lat=" + myLocation.getLatitude() +
-					"&lon=" + myLocation.getLongitude() +
-					"&radius=" + radius;
+			String nearbyUrl = Util.URL_TIGASERVER_API_ROOT + Util.API_NEARBY_REPORTS + "?format=json" +
+					"&lat=" + myLocation.getLatitude() + "&lon=" + myLocation.getLongitude() + "&radius=" + radius;
+			//nearbyUrl = Util.URL_TIGASERVER_API_ROOT + Util.API_NEARBY_REPORTS + "?format=json&lat=41.1&lon=2.12&radius=" + radius;
 Util.logInfo(TAG, nearbyUrl);
 
 			Ion.with(this)
-				.load(Util.URL_TIGASERVER_API_ROOT + nearbyUrl)
-				//.load("http://webserver.mosquitoalert.com/api/" + notificationUrl)
+				.load(nearbyUrl)
 				.setHeader("Accept", "application/json")
 				.setHeader("Content-type", "application/json")
 				.setHeader("Authorization", UtilLocal.TIGASERVER_AUTHORIZATION)
@@ -481,7 +480,9 @@ Util.logInfo(TAG, nearbyUrl);
 						// do stuff with the result or error
 						if ( nearbyResults != null ) {
 Util.logInfo(TAG, nearbyResults.toString());
-							for (NearbyReport nbr : nearbyResults) {
+							LatLngBounds.Builder builder = new LatLngBounds.Builder();
+							builder.include(new LatLng(myLocation.getLatitude(), myLocation.getLongitude()));
+							for ( NearbyReport nbr : nearbyResults ) {
 								LatLng pointLatLng = new LatLng(nbr.getLat(), nbr.getLon());
 								String myTitle = nbr.getSimplifiedAnnotation().getClassification();
 								try {
@@ -492,12 +493,17 @@ Util.logInfo(TAG, nearbyResults.toString());
 								catch (Resources.NotFoundException e2) {
 									e2.printStackTrace();
 								}
-								//Marker marker =
-								mGoogleMap.addMarker(new MarkerOptions()
+								Marker marker = mGoogleMap.addMarker(new MarkerOptions()
 									.position(pointLatLng)
 									.title(myTitle)
 									.icon(BitmapDescriptorFactory.defaultMarker(NEARBY_COLOR_HUE)));
+
+								builder.include(marker.getPosition());
 							}
+							// https://stackoverflow.com/questions/14828217/android-map-v2-zoom-to-show-all-the-markers
+							LatLngBounds bounds = builder.build();
+							int padding = 20; // offset from edges of the map in pixels
+							mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding), 600, null);
 						}
 					}
 				});
@@ -516,7 +522,7 @@ Util.logInfo(TAG, nearbyResults.toString());
 				mGoogleMap.clear();
 
 			if ( myAdultReports != null && myAdultReports.size() > 0 ) {
-				for (MyOverlayItem oli : myAdultReports) {
+				for ( MyOverlayItem oli : myAdultReports ) {
 					LatLng pointLatLng = new LatLng(oli.getPoint().getLatitudeE6() / 1E6, oli.getPoint().getLongitudeE6() / 1E6);
 					Marker marker = mGoogleMap.addMarker(new MarkerOptions()
 							.position(pointLatLng)
@@ -827,7 +833,7 @@ Util.logInfo(this.getClass().toString(), "Finished scanning " + path);
 			Cursor c = cr.query(Util.getReportsUri(context[0]), Reports.KEYS_ALL, sc, null, null);
 
 			if ( c != null ) {
-				if ( c.getCount() > 0 && c.moveToFirst()) {
+				if ( c.getCount() > 0 && c.moveToFirst() ) {
 //				int deleteReportCol = c.getColumnIndexOrThrow(Reports.KEY_DELETE_REPORT);
 //				int latestVersionCol = c.getColumnIndexOrThrow(Reports.KEY_LATEST_VERSION);
 //				int rowIdCol = c.getColumnIndexOrThrow(Reports.KEY_ROW_ID);
@@ -879,7 +885,7 @@ Util.logInfo(this.getClass().toString(), "Finished scanning " + path);
 								c.getString(confirmationCol),
 								c.getLong(reportTimeCol));
 						currentCenter = point;
-						if (thisType == Report.TYPE_ADULT)
+						if ( thisType == Report.TYPE_ADULT )
 							myAdultOverlayList.add(overlayItem);
 						else
 							mySiteOverlayList.add(overlayItem);

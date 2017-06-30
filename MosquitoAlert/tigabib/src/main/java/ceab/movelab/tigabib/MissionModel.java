@@ -127,9 +127,7 @@ public class MissionModel {
 					+ "']"));
 
 			item3.put(MissionItemModel.KEY_ITEM_ID, "Item3");
-			item3.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE,
-
-			R.drawable.checklist_image_sites_3);
+			item3.put(MissionItemModel.KEY_PREPOSITIONED_IMAGE_REFERENCE, R.drawable.checklist_image_sites_3);
 			item3.put(MissionItemModel.KEY_QUESTION, context.getResources()
 					.getString(R.string.site_report_q3));
 			item3.put(MissionItemModel.KEY_HELP_TEXT, context.getResources()

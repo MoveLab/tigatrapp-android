@@ -98,7 +98,7 @@ public class FixUse extends Service {
 			double maskedLon = Math.floor(lon / Util.lonMask) * Util.lonMask;
 			long thisHour = Util.hour(time);
 
-			Fix thisFix = new Fix(maskedLat, maskedLon, thisHour, power, taskFix);
+			Fix thisFix = new Fix(maskedLat, maskedLon, time, power, taskFix);
 Util.logInfo(TAG, "this fix: " + thisFix.lat + ';' + thisFix.lng + ';' + thisFix.time + ';' + thisFix.pow);
 
 			cr.insert(Util.getTracksUri(context),

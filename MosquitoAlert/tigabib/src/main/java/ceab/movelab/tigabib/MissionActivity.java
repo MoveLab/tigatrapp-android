@@ -242,13 +242,9 @@ public class MissionActivity extends Activity {
 								while (iter.hasNext()) {
 									String key = iter.next();
 									try {
-										JSONObject thisItem = responses
-												.getJSONObject(key);
+										JSONObject thisItem = responses.getJSONObject(key);
 
-										if (!thisItem
-												.getString(
-														MissionItemModel.KEY_ITEM_RESPONSE)
-												.equals(getResources()
+										if (!thisItem.getString(MissionItemModel.KEY_ITEM_RESPONSE).equals(getResources()
 														.getString(
 																R.string.spinner_nothing_selected)))
 											responseCount++;
@@ -259,10 +255,7 @@ public class MissionActivity extends Activity {
 
 								}
 								if (responseCount == 4) {
-
-									dataForReport.putExtra(
-											Reports.KEY_CONFIRMATION_CODE,
-											Report.CONFIRMATION_CODE_POSITIVE);
+									dataForReport.putExtra(Reports.KEY_CONFIRMATION_CODE, Report.CONFIRMATION_CODE_POSITIVE);
 									setResult(RESULT_OK, dataForReport);
 								}
 							}
@@ -276,10 +269,8 @@ public class MissionActivity extends Activity {
 				buttonLeft.setVisibility(View.VISIBLE);
 
 				if (thisTask.has(MissionModel.KEY_TASK_BUTTON_LEFT_TEXT)) {
-					int buttonCode = thisTask
-							.getInt(MissionModel.KEY_TASK_BUTTON_LEFT_TEXT);
-					buttonLeft
-							.setText(buttonCode == MissionModel.BUTTONTEXT_MARK_COMPLETE ? getResources()
+					int buttonCode = thisTask.getInt(MissionModel.KEY_TASK_BUTTON_LEFT_TEXT);
+					buttonLeft.setText(buttonCode == MissionModel.BUTTONTEXT_MARK_COMPLETE ? getResources()
 									.getString(
 											R.string.mission_button_mark_complete)
 									: (buttonCode == MissionModel.BUTTONTEXT_URL_TASK ? getResources()
@@ -293,8 +284,7 @@ public class MissionActivity extends Activity {
 							R.string.mission_button_left_survey));
 				}
 				if (thisTask.has(MissionModel.KEY_TASK_BUTTON_LEFT_ACTION)) {
-					String leftUrl = thisTask
-							.has(MissionModel.KEY_TASK_BUTTON_LEFT_URL) ? thisTask
+					String leftUrl = thisTask.has(MissionModel.KEY_TASK_BUTTON_LEFT_URL) ? thisTask
 							.getString(MissionModel.KEY_TASK_BUTTON_LEFT_URL)
 							: null;
 					buttonLeft.setOnClickListener(makeOnClickListener(thisTask
@@ -304,16 +294,13 @@ public class MissionActivity extends Activity {
 
 				// MIDDLE BUTTON
 				if (!thisTask.has(MissionModel.KEY_TASK_BUTTON_MIDDLE_VISIBLE)
-						|| thisTask
-								.getInt(MissionModel.KEY_TASK_BUTTON_MIDDLE_VISIBLE) == 0)
+						|| thisTask.getInt(MissionModel.KEY_TASK_BUTTON_MIDDLE_VISIBLE) == 0)
 					buttonMiddle.setVisibility(View.GONE);
 				else {
 					buttonMiddle.setVisibility(View.VISIBLE);
 
 					// FOR NOW MIDDLE TEXT FIXED DEPENDING ON TASK TYPE
-					if (buttonLeft.getText().equals(
-							getResources().getString(
-									R.string.mission_button_left_url))) {
+					if (buttonLeft.getText().equals(getResources().getString(R.string.mission_button_left_url))) {
 						buttonMiddle.setText(getResources().getString(
 								R.string.mission_button_mark_complete));
 					} else {
@@ -321,14 +308,12 @@ public class MissionActivity extends Activity {
 						buttonMiddle.setText(getResources().getString(
 								R.string.mission_button_middle));
 					}
-					if (thisTask
-							.has(MissionModel.KEY_TASK_BUTTON_MIDDLE_ACTION)) {
+					if (thisTask.has(MissionModel.KEY_TASK_BUTTON_MIDDLE_ACTION)) {
 						String middleUrl = thisTask
 								.has(MissionModel.KEY_TASK_BUTTON_MIDDLE_URL) ? thisTask
 								.getString(MissionModel.KEY_TASK_BUTTON_MIDDLE_URL)
 								: null;
-						buttonMiddle
-								.setOnClickListener(makeOnClickListener(
+						buttonMiddle.setOnClickListener(makeOnClickListener(
 										thisTask.getInt(MissionModel.KEY_TASK_BUTTON_MIDDLE_ACTION),
 										b, middleUrl));
 					}
@@ -336,8 +321,7 @@ public class MissionActivity extends Activity {
 
 				// RIGHT BUTTON
 				if (!thisTask.has(MissionModel.KEY_TASK_BUTTON_RIGHT_VISIBLE)
-						|| thisTask
-								.getInt(MissionModel.KEY_TASK_BUTTON_RIGHT_VISIBLE) == 0)
+						|| thisTask.getInt(MissionModel.KEY_TASK_BUTTON_RIGHT_VISIBLE) == 0)
 					buttonRight.setVisibility(View.GONE);
 				else {
 					buttonRight.setVisibility(View.VISIBLE);

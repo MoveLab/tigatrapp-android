@@ -27,7 +27,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.widget.NestedScrollView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -441,7 +440,7 @@ Util.logInfo("===========", "prefetching >> " +  resultTask.getId());
 				.load(getPhotoUrl)
 				.setTimeout(10000)
 				//.progressDialog(dlg)
-				.setLogging("DeepZoom", Log.VERBOSE)
+				//.setLogging("DeepZoom", Log.VERBOSE)
 				.withBitmap()
 				.placeholder(R.drawable.ic_switchboard_icon_validacio_large)
 				.deepZoom()

@@ -14,8 +14,21 @@
     <string name="decline_button_label">I decline to consent</string>
     <string name="mosquito_alert_pop">&lt;p&gt; Help us in the fight against Dengue, Chickungunya, Yellow Fever, and Zika! Notify the presence of tiger mosquitoes (&lt;i&gt;Aedes albopictus&lt;/i&gt;), yellow fever mosquitoes (&lt;i&gt;Aedes aegypti&lt;/i&gt;), and their breeding sites.&lt;p&gt;\n&lt;p&gt;You can find more information at www.mosquitoalert.com&lt;/p&gt;\n&lt;p&gt;Thanks for your interest and participation,&lt;/p&gt;\n&lt;p&gt;The Mosquito Alert Team&lt;/p&gt;\n</string>
     <string-array name="gallery_array">
+        <!-- Gallery -->
+        <item name="gallery_array0">The main difference between the yellow fever mosquito (left) and the tiger mosquito (right), is right after its head, in the thorax: The yellow fever mosquito has 4 white lines with a lyre-shaped pattern, while the tiger mosquito has a single white line. &lt;b&gt;Foto: Vincent Robert (CC BY 2.0)&lt;/b&gt;</item>
+        <item name="gallery_array1">Tiger mosquito (&lt;i&gt;Aedes albopictus&lt;/i&gt;). Its main characteristic is its black body with white lines and spots. Note the white line on the head and thorax. This female has the abdomen full of blood. &lt;b&gt; Photo: Roger Eritja (©)&lt;/ b&gt;</item>
+        <item name="gallery_array2">Yellow fever mosquito (&lt;i&gt;Aedes aegypti&lt;/i&gt;). Recognized by its dark brown color with white lines and spots. Right above its head, in the thorax, it has 4 white lines with a lyre-shaped pattern. &lt;b&gt;Photo: James Gathany (ECDC, domini públic)&lt;/b&gt;</item>
+        <item name="gallery_array3">Tiger mosquito &lt;i&gt;Ae. albopictus&lt;/i&gt;: Observe the black color that characterizes &lt;i&gt;Ae. albopictus&lt;/i&gt;. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;</item>
         <item name="gallery_array4">Yellow fever mosquito &lt;i&gt;Ae. aegypti&lt;/i&gt;: Observe the brown color that characterizes &lt;i&gt;Ae. aegypti&lt;/i&gt;. &lt;b&gt;Foto: Mark Yokoyama (CC BY 2.0)&lt;/b&gt;</item>
+        <item name="gallery_array5">Who bites? Only female mosquitoes, and in this case females of tiger mosquito that usually bite during the day. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;</item>
+        <item name="gallery_array6">Two female yellow fever mosquitoes. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;\n</item>
+        <item name="gallery_array7">Tiger mosquito male (left) and female (right). The males have plumes on their heads. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;\n</item>
+        <item name="gallery_array8">&lt;i&gt;Aedes&lt;/i&gt; eggs. The eggs are so small they are almost invisible to the naked eye. Female tiger and yellow fever mosquitoes lay eggs on the dry walls of small vessels near stagnant water. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;</item>
+        <item name="gallery_array9">&lt;i&gt;Aedes&lt;/i&gt; mosquito larvae (longer) and pupae (rounder). The larvae are aquatic and they eventually turn into pupae to finally become adult mosquitoes. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;</item>
+        <item name="gallery_array10">&lt;i&gt;Aedes&lt;/i&gt; larvae (longer) and pupae (rounder) in the water. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;</item>
+        <item name="gallery_array11">Adult tiger mosquitoes emerge from pupae into the air. This process is known as metamorphosis. &lt;b&gt;Photo: Roger Eritja (©)&lt;/b&gt;</item>
     </string-array>
+
     <string name="toast_report_before_submitting_adult">Before submitting this mosquito report, please:</string>
     <string name="toast_complete_checklist">- complete the checklist</string>
     <string name="toast_specify_location">- specify a location</string>
@@ -267,7 +280,7 @@
     <string name="i18n_tigerbtn">Tiger</string>
     <string name="i18n_yellowfeverbtn">Yellow fever</string>
     <string name="i18n_notsurebtn2">I\'m not sure</string>
-    <string name="i18n_noneofbothbtn">None of both</string>
+    <string name="i18n_noneofbothbtn">Neither</string>
     <string name="i18n_yesbtn1">Yes</string>
     <string name="i18n_yesbtn2">Yes</string>
     <string name="i18n_yesbtn3">Yes</string>
@@ -281,16 +294,15 @@
 
     <string name="user_score_label">Score</string>
     <string name="user_level_label">Level</string>
-    <string name="user_score_beginner">Beginner</string>
-    <string name="user_score_advanced">Advanced</string>
-    <string name="user_score_pro">Professional</string>
+    <string name="user_score_beginner">Bronze</string>
+    <string name="user_score_advanced">Silver</string>
+    <string name="user_score_pro">Gold</string>
 
     <string name="end_validation">Validation completed</string>
     <string name="menu_web">Website</string>
     <string name="menu_close">Close</string>
     <string name="menu_refresh">Refresh</string>
     <string name="info_scoring">This scoring considers your activity using the app and the quality of your sent photos.</string>
-    <string name="help_zoom">Zoom in with fingers to expand the image view.</string>
 
     <string name="note_check_label_editing">Note</string>
     <string name="photo_check_label_editing">Photo(s)</string>
@@ -325,7 +337,7 @@
     <string name="location_label_editing">Location*</string>
     <string name="location_select_label">Choose on map</string>
     <string name="toast_report_before_submitting_site">Before submitting this breeding site report, please:</string>
-    <string name="type_here">Use this space to include a note or comments if necessary. Don\\\'t add personal information.</string>
+    <string name="type_here">Use this space to include a note or comments if necessary. Don\'t add personal information.</string>
     <string name="view_report_title_site">Breeding Site</string>
     <string name="site_q1_a1_embornals">Yes</string>
     <string name="q1_sizecolor_text_help">&lt;p&gt;The tiger mosquito and the yellow fever mosquito are small and dark with white spots. The tiger mosquito is black, while the yellow fever mosquito is dark brown. &lt;/p&gt;\\n&lt;p&gt;&lt;b&gt;Illustrations: J.Luis Ordóñez, CREAF (CC-BY-NC 3.0)&lt;/b&gt;&lt;/p&gt;</string>
@@ -346,5 +358,8 @@
     <string name="site_report_item_help_3">In order to survive, mosquito larvae need stagnant and turbid water available for several days before they become adult mosquitoes.</string>
     <string name="site_report_item_help_4">The tiger mosquito and the yellow fever mosquito do not normally travel far from their breeding site -- usually no more than 500 meters. Therefore, adults are often found near their breeding sites.\\n\\n\\u0020\\u0020\\u0020\\u0020</string>
 
-
+    <string name="help_zoom">Zoom in with fingers to expand the image view.</string>
+    <string name="no_internet_connection">There is no internet connection. Connect the device to the network to continue validating.</string>
+    <string name="loading_picture">Reloading picture</string>
+    <string name="pybossa_error">Error connecting with picture validation server.</string>
 </resources>

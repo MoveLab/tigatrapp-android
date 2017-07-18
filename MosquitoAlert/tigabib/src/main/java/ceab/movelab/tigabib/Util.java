@@ -60,11 +60,14 @@
  *		IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
  *		CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
  *		TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
- *		SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. * 
+ *		SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. *
+ *
+ * @author Màrius Garcia
  */
 
 package ceab.movelab.tigabib;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -135,8 +138,6 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.Random;
 
-import static android.media.CamcorderProfile.get;
-
 
 /**
  * Various static fields and methods used in the application, some taken from
@@ -172,7 +173,7 @@ public class Util {
 //		return BuildConfig.DEBUG;
 //	}
 
-	public static boolean debugMode() {		// !!!!$$!!!
+	public static boolean debugMode() {		// !!!
 		return BuildConfig.DEBUG;
 	}
 
@@ -594,10 +595,10 @@ public class Util {
 	public static boolean isOnline(Context context) {
 		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo netInfo = cm.getActiveNetworkInfo();
-		if (netInfo != null && netInfo.isConnected()) {
+		if ( netInfo != null && netInfo.isConnected() ) {
 			return true;
 		}
-		Util.logInfo(TAG, "Not online");
+Util.logInfo(TAG, "Not online");
 		return false;
 	}
 
@@ -838,7 +839,6 @@ public class Util {
 
 				}
 			}
-
 		}
 
 		// ------------------ read the SERVER RESPONSE
@@ -866,7 +866,7 @@ public class Util {
 	 */
 	public static HttpResponse postJSON(JSONObject jsonData, String apiEndpoint, Context context) {
 		HttpResponse result = null;
-		if (!isOnline(context)) {
+		if ( !isOnline(context) ) {
 			return null;
 		} else {
 
@@ -897,7 +897,6 @@ public class Util {
 	}
 
 	public static int getResponseStatusCode(HttpResponse httpResponse) {
-
 		int statusCode = 0;
 		if (httpResponse != null) {
 			StatusLine status = httpResponse.getStatusLine();
@@ -906,8 +905,7 @@ public class Util {
 		return statusCode;
 	}
 
-	public static JSONObject parseResponse(Context context,
-			HttpResponse response) {
+	public static JSONObject parseResponse(Context context, HttpResponse response) {
 		JSONObject json = new JSONObject();
 		if (response != null) {
 			BufferedReader reader;
@@ -934,14 +932,13 @@ public class Util {
 
 	public static String getJSON(String apiEndpoint, Context context) {
 
-		if (!isOnline(context)) {
+		if ( !isOnline(context) ) {
 			return "";
 		} else {
 
 			HttpParams httpParameters = new BasicHttpParams();
 			int timeoutConnection = 3000;
-			HttpConnectionParams.setConnectionTimeout(httpParameters,
-					timeoutConnection);
+			HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
 			int timeoutSocket = 3000;
 			HttpConnectionParams.setSoTimeout(httpParameters, timeoutSocket);
 
@@ -1138,5 +1135,36 @@ Log.d("===========", tokenUrl);
                cursor.moveToFirst();
                return cursor.getString(column_index);
     }
-	
+
+	public static void buildCustomAlert(final Activity activity, String message) {
+		final Dialog dialog = new Dialog(activity);
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.custom_alert);
+		dialog.setCancelable(false);
+
+		TextView alertText = (TextView) dialog.findViewById(R.id.alertText);
+		alertText.setText(message);
+
+		Button positive = (Button) dialog.findViewById(R.id.alertOK);
+		Button negative = (Button) dialog.findViewById(R.id.alertCancel);
+		negative.setVisibility(View.GONE);
+
+		positive.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				dialog.cancel();
+				activity.finish();
+			}
+		});
+
+		// sometimes when trying to display the alert dialow window, the activity has finished
+		// Crashlytics #25
+		try {
+			dialog.show();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
 }

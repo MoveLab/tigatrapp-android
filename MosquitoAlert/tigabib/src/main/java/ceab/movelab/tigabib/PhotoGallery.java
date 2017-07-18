@@ -41,8 +41,7 @@ public class PhotoGallery extends Activity {
 		this.setTitle(context.getResources().getString(
 				R.string.activity_label_gallery));
 
-		final String[] captions = getResources().getStringArray(
-				R.array.gallery_array);
+		final String[] captions = getResources().getStringArray(R.array.gallery_array);
 
 		galleryView = (Gallery) findViewById(R.id.galleryid);
 		captionView = (TextView) findViewById(R.id.captionid);
@@ -50,13 +49,9 @@ public class PhotoGallery extends Activity {
 		ImageAdapter adapter = new ImageAdapter(this, captions);
 		galleryView.setAdapter(adapter);
 		galleryView.setOnItemSelectedListener(new OnItemSelectedListener() {
-
 			@Override
-			public void onItemSelected(AdapterView<?> arg0, View arg1,
-					int arg2, long arg3) {
-
+			public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 				captionView.setText(Html.fromHtml(captions[arg2]));
-
 			}
 
 			@Override

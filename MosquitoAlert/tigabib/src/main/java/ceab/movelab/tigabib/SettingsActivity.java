@@ -18,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -193,15 +195,24 @@ public class SettingsActivity extends Activity {
 			myProgress = 4;
 			publishProgress(myProgress);
 
-			if (!Util.privateMode()) {
+			if ( !Util.privateMode() ) {
 
 				// now test if there is a data connection
 				if ( !Util.isOnline(context[0]) ) {
 					resultFlag = OFFLINE;
 					return false;
 				}
-				if ( !PropertyHolder.isRegistered() )
+
+				if ( !PropertyHolder.isRegistered() ) {
 					Util.registerOnServer(context[0]);
+					try {
+						// Get FCM token and register on server
+						String token = FirebaseInstanceId.getInstance().getToken();
+						Util.registerFCMToken(context[0], token, PropertyHolder.getUserId());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
 
 				myProgress = 5;
 				publishProgress(myProgress);

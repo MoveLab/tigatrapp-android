@@ -3,10 +3,10 @@
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:background="@color/switchboard_bg"
+              tools:background="@color/switchboard_bg"
               android:orientation="vertical">
 
-    <com.github.chrisbanes.photoview.PhotoView
+<!--    <com.github.chrisbanes.photoview_local.PhotoView
         android:id="@+id/validPhoto1Image"
         android:layout_width="match_parent"
         android:layout_height="@dimen/valid_photo_size"
@@ -17,7 +17,7 @@
         android:layout_marginTop="@dimen/valid_photo_margin"
         android:layout_marginLeft="@dimen/valid_photo_margin"
         android:layout_marginRight="@dimen/valid_photo_margin"
-        android:src="@drawable/ic_switchboard_icon_validacio_large"/>
+        android:src="@drawable/ic_switchboard_icon_validacio_large"/>-->
 
     <LinearLayout
         android:layout_width="match_parent"

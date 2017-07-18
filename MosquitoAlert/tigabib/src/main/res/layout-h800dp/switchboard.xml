@@ -23,8 +23,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-                android:background="@color/switchboard_bg" >
-
+    android:background="@color/switchboard_bg" >
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -41,19 +40,18 @@
 
             <RelativeLayout
                 android:layout_width="210dip"
-                android:layout_height="120dip"
+                android:layout_height="160dip"
                 android:layout_marginBottom="20dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/selectorcolors_light" >
-
                 <TextView
                     android:id="@+id/scorePointsText"
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
                     android:layout_centerHorizontal="true"
                     android:gravity="center"
-                    android:layout_marginTop="38dp"
+                    android:layout_marginTop="54dp"
                     android:text="0"
                     android:background="@drawable/switchboard_points_bg"
                     android:textStyle="bold"
@@ -73,7 +71,7 @@
 
             <RelativeLayout
                 android:layout_width="210dip"
-                android:layout_height="120dip"
+                android:layout_height="160dip"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:background="@drawable/selectorcolors_light" >
@@ -96,7 +94,7 @@
                     android:gravity="center"
                     android:paddingTop="24dip"
                     android:text="-"
-                    tools:text="Avançat"
+                    tools:text="Bronze"
                     android:textSize="24sp"
                     android:textStyle="bold"
                     android:textColor="@color/light_orange" />
@@ -259,17 +257,17 @@
                 android:id="@+id/reportNotificationsText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/reportNotificationsNumberText"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:drawableLeft="@drawable/notificacions"
-                android:drawablePadding="12dp"
-                android:drawableStart="@drawable/notificacions"
+                android:layout_centerVertical="true"
                 android:gravity="center_vertical"
                 android:paddingEnd="2dip"
                 android:paddingLeft="12dip"
                 android:paddingRight="2dip"
                 android:paddingStart="12dip"
+                android:drawableLeft="@drawable/notificacions"
+                android:drawablePadding="2dp"
+                android:drawableStart="@drawable/notificacions"
                 android:text="@string/switchboard_button_notifications_site"
                 android:textColor="@color/switchboard_button_text"
                 android:textSize="20sp"/>

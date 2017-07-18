@@ -5,6 +5,23 @@
             android:layout_height="match_parent"
             android:background="@color/switchboard_bg" >
 
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="match_parent"
+                  android:orientation="vertical">
+
+    <com.github.chrisbanes.photoview_local.PhotoView
+        android:id="@+id/validPhoto1Image"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/valid_photo_size"
+        android:maxHeight="@dimen/valid_photo_size"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/valid_photo_margin"
+        android:layout_marginLeft="@dimen/valid_photo_margin"
+        android:layout_marginRight="@dimen/valid_photo_margin"
+        android:src="@drawable/ic_switchboard_icon_validacio_large" />
+
     <ViewFlipper
         android:id="@+id/viewflipper"
         android:layout_width="match_parent"
@@ -15,5 +32,7 @@
         <include layout="@layout/valid_3_layout" />
         <include layout="@layout/valid_4_layout" />
     </ViewFlipper>
+
+    </LinearLayout>
 
 </android.support.v4.widget.NestedScrollView>

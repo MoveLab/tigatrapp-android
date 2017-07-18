@@ -136,8 +136,7 @@ public class RSSActivity extends Activity {
 				is = connection.getInputStream();
 
 				// parse xml after getting the data
-				XmlPullParserFactory factory = XmlPullParserFactory
-						.newInstance();
+				XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
 				factory.setNamespaceAware(true);
 				XmlPullParser xpp = factory.newPullParser();
 				xpp.setInput(is, "UTF-8");
@@ -275,8 +274,8 @@ public class RSSActivity extends Activity {
 	}
 
 	private void setInfoDisplay(Context context, boolean refreshData, String dataUrl) {
-		if (Util.isOnline(context)) {
-			if (refreshData)
+		if ( Util.isOnline(context) ) {
+			if ( refreshData )
 				new RssDataController().execute(dataUrl);
 			tv.setVisibility(View.GONE);
 

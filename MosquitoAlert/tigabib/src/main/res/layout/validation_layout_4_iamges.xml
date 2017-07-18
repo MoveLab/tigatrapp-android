@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/switchboard_bg" >
+
+    <ViewFlipper
+        android:id="@+id/viewflipper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <include layout="@layout/valid_1_layout" />
+        <include layout="@layout/valid_2_layout" />
+        <include layout="@layout/valid_3_layout" />
+        <include layout="@layout/valid_4_layout" />
+    </ViewFlipper>
+
+</android.support.v4.widget.NestedScrollView>

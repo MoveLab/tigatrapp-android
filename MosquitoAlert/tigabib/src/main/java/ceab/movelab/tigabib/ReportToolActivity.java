@@ -33,6 +33,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.database.Cursor;
+import android.graphics.Point;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -46,6 +47,7 @@ import android.os.CountDownTimer;
 import android.text.Html;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -60,6 +62,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -70,6 +73,8 @@ import java.util.UUID;
 
 import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
 import ceab.movelab.tigabib.ContProvContractReports.Reports;
+
+import static ceab.movelab.tigabib.Util.buildCustomAlert;
 
 /**
  * Activity for identifying and reporting tiger mosquitoes.
@@ -309,8 +314,7 @@ public class ReportToolActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				if (v.getId() == R.id.reportTitleRow) {
-					Util.showHelp(
-							context,
+					Util.showHelp(context,
 							type == Report.TYPE_ADULT ? context.getResources()
 									.getString(R.string.adult_report_help_html)
 									: context.getResources().getString(
@@ -950,12 +954,20 @@ public class ReportToolActivity extends Activity {
 			if ( !Util.privateMode() ) {
 
 				// now test if there is a data connection
-				if (!Util.isOnline(context[0])) {
+				if ( !Util.isOnline(context[0]) ) {
 					resultFlag = OFFLINE;
 					return false;
 				}
-				if (!PropertyHolder.isRegistered())
+				if ( !PropertyHolder.isRegistered() ) {
 					Util.registerOnServer(context[0]);
+					try {
+						// Get FCM token and register on server
+						String token = FirebaseInstanceId.getInstance().getToken();
+						Util.registerFCMToken(context[0], token, PropertyHolder.getUserId());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
 
 				myProgress = 90;
 				publishProgress(myProgress);
@@ -1009,21 +1021,21 @@ public class ReportToolActivity extends Activity {
 
 			} else {
 				if (resultFlag == OFFLINE) {
-					buildCustomAlert(getResources().getString(R.string.offline_report));
+					buildCustomAlert(context, getResources().getString(R.string.offline_report));
 				}
 
 				if (resultFlag == UPLOAD_ERROR || resultFlag == DATABASE_ERROR) {
 					Intent uploaderIntent = new Intent(ReportToolActivity.this, SyncData.class);
 					startService(uploaderIntent);
 
-					buildCustomAlert(getResources().getString(R.string.upload_error_report));
+					buildCustomAlert(context, getResources().getString(R.string.upload_error_report));
 
 					thisReport.clear();
 					clearFields();
 				}
 
 				if (resultFlag == PRIVATE_MODE) {
-					buildCustomAlert(getResources().getString(R.string.report_sent_confirmation));
+					buildCustomAlert(context, getResources().getString(R.string.report_sent_confirmation));
 
 					thisReport.clear();
 					clearFields();
@@ -1038,10 +1050,18 @@ public class ReportToolActivity extends Activity {
 		message = null;
 	}
 
+	// https://stackoverflow.com/questions/2306503/how-to-make-an-alert-dialog-fill-90-of-screen-size
+	public static int getScreenWidth(Activity activity) {
+		Point size = new Point();
+		activity.getWindowManager().getDefaultDisplay().getSize(size);
+		return size.x;
+	}
+
 	public void buildReportNoteDialog() {
 		final Dialog dialog = new Dialog(context);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.add_note);
+		dialog.getWindow().setLayout((int) (getScreenWidth(this) * .85), ViewGroup.LayoutParams.WRAP_CONTENT);
 
 		final EditText noteText = (EditText) dialog.findViewById(R.id.noteEditText);
 
@@ -1067,37 +1087,6 @@ public class ReportToolActivity extends Activity {
 		dialog.show();
 	}
 
-	public void buildCustomAlert(String message) {
-		final Dialog dialog = new Dialog(context);
-		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		dialog.setContentView(R.layout.custom_alert);
-		dialog.setCancelable(false);
-
-		TextView alertText = (TextView) dialog.findViewById(R.id.alertText);
-		alertText.setText(message);
-
-		Button positive = (Button) dialog.findViewById(R.id.alertOK);
-		Button negative = (Button) dialog.findViewById(R.id.alertCancel);
-		negative.setVisibility(View.GONE);
-
-		positive.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				dialog.cancel();
-				finish();
-			}
-		});
-
-		// sometimes when trying to display the alert dialow window, the activity has finished
-		// Crashlytics #25
-		try {
-			dialog.show();
-		}
-		catch (Exception e) {
-			e.printStackTrace();
-		}
-
-	}
 
 	public void buildLocationAlert(String message) {
 		final Dialog dialog = new Dialog(context);

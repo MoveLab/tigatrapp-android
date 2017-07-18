@@ -61,6 +61,9 @@ import android.widget.Button;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import android.widget.TextView;
+
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import ceab.movelab.tigabib.ContProvContractReports.Reports;
 
 public class ViewReportsTab extends TabActivity {
@@ -269,8 +272,16 @@ public class ViewReportsTab extends TabActivity {
 					resultFlag = OFFLINE;
 					return false;
 				}
-				if (!PropertyHolder.isRegistered())
+				if (!PropertyHolder.isRegistered()) {
 					Util.registerOnServer(context[0]);
+					try {
+						// Get FCM token and register on server
+						String token = FirebaseInstanceId.getInstance().getToken();
+						Util.registerFCMToken(context[0], token, PropertyHolder.getUserId());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+				}
 
 				Util.logInfo(TAG, sc);
 

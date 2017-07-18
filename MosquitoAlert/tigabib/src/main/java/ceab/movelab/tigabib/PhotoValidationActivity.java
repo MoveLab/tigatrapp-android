@@ -19,6 +19,13 @@
  * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
  **/
 
+/**
+ * Displays the Pybossa native photo validation system screen.
+ *
+ * @author Màrius Garcia
+ *
+ */
+
 package ceab.movelab.tigabib;
 
 import android.app.Activity;
@@ -36,6 +43,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import com.github.chrisbanes.photoview_local.PhotoView;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -49,16 +57,11 @@ import ceab.movelab.tigabib.model.TaskRunInfo;
 import ceab.movelab.tigabib.utils.UtilPybossa;
 
 import static ceab.movelab.tigabib.R.id.validNotSure1;
+import static ceab.movelab.tigabib.Util.isOnline;
 
-/**
- * Displays the Pybossa photo validation system screen.
- * 
- * @author Màrius Garcia
- * 
- */
+
 public class PhotoValidationActivity extends Activity {
 
-	private static final String PHOTO_TOKEN = "q0n50KN2Tg1O0Zh";
 	public static final String HELP_PARAM = "ceab.movelab.tigabib.help";
 
 	String lang;
@@ -71,7 +74,9 @@ public class PhotoValidationActivity extends Activity {
 	private TaskRun mTaskRun;
 	private Task nextTask = null;
 
-	private ImageView mPhoto1View, mPhoto2View, mPhoto3View, mPhoto4View;
+	private PhotoView mPhoto1View; //, mPhoto2View, mPhoto3View, mPhoto4View;
+	//private ImageViewTouch mPhoto3View, mPhoto4View;
+	private Bitmap mCurrentBitmap;
 	private TextView mYesButton_1, mNoButton_1, mNotSureButton_1, mNoneButton_2, mNotSureButton_2;
 	private TextView mYesButton_3, mNoButton_3, mYesButton_4, mNoButton_4;
     private TextView mTigerButton, mYellowButton;
@@ -88,7 +93,7 @@ public class PhotoValidationActivity extends Activity {
 
 		setContentView(R.layout.validation_layout);
 
-		pybossa = new UtilPybossa(false);	// !!!! false is not production
+		pybossa = new UtilPybossa(BuildConfig.DEBUG);	// !!!! false is not production
 		String pybossaToken = PropertyHolder.getPybossaToken();
 		if ( TextUtils.isEmpty(pybossaToken) ) {
 			pybossa.fetchPybossaToken(this);
@@ -109,10 +114,16 @@ public class PhotoValidationActivity extends Activity {
 		mValidHelp_3 = (ImageView) findViewById(R.id.validHelp3Image);
 		mValidHelp_4 = (ImageView) findViewById(R.id.validHelp4Image);
 
-		mPhoto1View = (ImageView) findViewById(R.id.validPhoto1Image);
-		mPhoto2View = (ImageView) findViewById(R.id.validPhoto2Image);
-		mPhoto3View = (ImageView) findViewById(R.id.validPhoto3Image);
-		mPhoto4View = (ImageView) findViewById(R.id.validPhoto4Image);
+		mPhoto1View = (PhotoView) findViewById(R.id.validPhoto1Image);
+//		mPhoto2View = (PhotoView) findViewById(R.id.validPhoto2Image);
+//		mPhoto3View = (PhotoView) findViewById(R.id.validPhoto3Image);
+//		mPhoto4View = (PhotoView) findViewById(R.id.validPhoto4Image);
+
+		// set the default image display type
+		mPhoto1View.setScaleType(ImageView.ScaleType.FIT_CENTER);
+//		mPhoto2View.setScaleType(ImageView.ScaleType.FIT_CENTER);
+//		mPhoto3View.setDisplayType(ImageViewTouchBase.DisplayType.FIT_TO_SCREEN);
+//		mPhoto4View.setDisplayType(ImageViewTouchBase.DisplayType.FIT_TO_SCREEN);
 
 		mYesButton_1 = (TextView) findViewById(R.id.validYes1);
 		mNoButton_1 = (TextView) findViewById(R.id.validNo1);
@@ -145,7 +156,6 @@ public class PhotoValidationActivity extends Activity {
 
 		if ( !Util.setDisplayLanguage(getResources()).equals(lang)) {
 			finish();
-			//startActivity(getIntent());
 		}
 	}
 
@@ -284,6 +294,11 @@ public class PhotoValidationActivity extends Activity {
 	}
 
 	private void sendValidationResults() {
+		if ( !isOnline(this) ) {
+			Toast.makeText(this, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+			return;
+		}
+
 		String pybossaToken = PropertyHolder.getPybossaToken();
 Util.logInfo("===========", "pybossaToken >> " + pybossaToken);
 		if ( TextUtils.isEmpty(pybossaToken) ) {
@@ -294,7 +309,6 @@ Util.logInfo("===========", "pybossaToken >> " + pybossaToken);
 		String taskrunUrl = pybossa.getPybossaTaskrunUrl();
 		Gson gson = new Gson();
 		String jsonTaskRun = gson.toJson(mTaskRun);
-
 Util.logInfo("===========", "sendValidationResults >> " + mTaskRun.getTaskId());
 
 		startNewValidation();	// to speed up
@@ -313,12 +327,12 @@ Util.logInfo("===========", "sendValidationResults >> " + mTaskRun.getTaskId());
 				public void onCompleted(Exception e, JsonObject jsonObject) {
 					if ( jsonObject != null ) {
 						// do stuff with the result or error
-						Util.logInfo("==========++", jsonObject.toString());
+Util.logInfo("==========++", jsonObject.toString());
 						// check status
 						JsonElement status = jsonObject.get("status");
 						// {"status":"failed","action":"POST","target":"taskrun","exception_msg":"(psycopg2.ProgrammingError) can't adapt type 'dict'","status_code":500,"exception_cls":"ProgrammingError"}
 						if ( status != null && status.getAsString().contentEquals("failed") )
-							Toast.makeText(PhotoValidationActivity.this, "Pybossa error", Toast.LENGTH_SHORT).show();
+							Toast.makeText(PhotoValidationActivity.this, R.string.pybossa_error, Toast.LENGTH_SHORT).show();
 						else
 							Util.toastTimed(PhotoValidationActivity.this, getResources().getString(R.string.end_validation), Toast.LENGTH_SHORT);
 						//Toast.makeText(PhotoValidationActivity.this, R.string.end_validation, Toast.LENGTH_SHORT).show();
@@ -334,7 +348,7 @@ Util.logInfo("===========", "sendValidationResults >> " + mTaskRun.getTaskId());
 		 mPhoto1View.setImageDrawable(getResources().getDrawable(R.drawable.ic_switchboard_icon_validacio_large));
 		 if ( nextTask != null ) {
 			 myTask = nextTask;
-			 loadPhoto();
+			 loadPhoto(false);
 			 createTaskRunObject();
 			 nextTask = null;
 		 }
@@ -362,16 +376,18 @@ Util.logInfo("===========", "sendValidationResults >> " + mTaskRun.getTaskId());
     }
 
 	private void showFlipperNext() {
-		//mPhoto2View.setImageMatrix(mPhoto1View.getImageMatrix());
+		//setBitmapScaleToAll();
 		// Next screen comes in from right.
 		mViewFlipper.setInAnimation(this, R.anim.slide_in_from_right);
 		// Current screen goes out from left.
 		mViewFlipper.setOutAnimation(this, R.anim.slide_out_to_left);
 		mScrollView.fullScroll(ScrollView.FOCUS_UP);
+		mScrollView.fullScroll(ScrollView.FOCUS_UP);
 		mViewFlipper.showNext();
 	}
 
 	private void showFlipperPrev() {
+		//setBitmapScaleToAll();
 		// Next screen comes in from left.
 		mViewFlipper.setInAnimation(this, R.anim.slide_in_from_left);
 		// Current screen goes out from right.
@@ -380,7 +396,42 @@ Util.logInfo("===========", "sendValidationResults >> " + mTaskRun.getTaskId());
 		mViewFlipper.showPrevious();
 	}
 
+	/*private void setBitmapScaleToAll() {
+		Matrix matrix = new Matrix();
+		switch ( mViewFlipper.getDisplayedChild() ) {
+			case 0: mPhoto1View.getDisplayMatrix(matrix);
+				mPhoto2View.setDisplayMatrix(matrix); //Sets the mSuppMatrix in the PhotoViewAttacher
+				//mPhoto1View.setDisplayMatrix(matrix);
+
+				mPhoto2View.setImageMatrix( matrix );
+				//mPhoto1View.setImageMatrix( matrix ); //And applies it to the PhotoView (catches out of boundaries problems)
+
+				break;
+			case 1: mPhoto2View.getDisplayMatrix(matrix);
+				mPhoto1View.setDisplayMatrix(matrix); //Sets the mSuppMatrix in the PhotoViewAttacher
+				//mPhoto2View.setDisplayMatrix(matrix);
+
+				mPhoto1View.setImageMatrix( matrix ); //And applies it to the PhotoView (catches out of boundaries problems)
+				//mPhoto2View.setImageMatrix( matrix ); //And applies it to the PhotoView (catches out of boundaries problems)
+				break;
+			case 2: matrix = mPhoto3View.getDisplayMatrix();
+				break;
+			case 3: matrix = mPhoto4View.getDisplayMatrix();
+				break;
+		}
+//		mPhoto1View.setDisplayMatrix(matrix);
+//		mPhoto2View.setDisplayMatrix(matrix);
+
+		mPhoto3View.setImageBitmap(mCurrentBitmap, matrix, -1, -1);
+		mPhoto4View.setImageBitmap(mCurrentBitmap, matrix, -1, -1);
+	}*/
+
 	private void loadNewTask(final int offset) {
+		if ( !isOnline(this) ) {
+			Toast.makeText(this, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+			return;
+		}
+
 		String pybossaToken = PropertyHolder.getPybossaToken();
 Util.logInfo("===========", "pybossaToken >> " + pybossaToken);
 		if ( TextUtils.isEmpty(pybossaToken) ) {
@@ -409,7 +460,7 @@ Util.logInfo("===========", "prefetching >> " +  resultTask.getId());
 						}
 						else {
 							myTask = resultTask;
-							loadPhoto();
+							loadPhoto(false);
 							createTaskRunObject();
 						}
 					}
@@ -421,24 +472,28 @@ Util.logInfo("===========", "prefetching >> " +  resultTask.getId());
 		mTaskRun = new TaskRun(myTask.getProjectId(), myTask.getId(), PropertyHolder.getUserId(), null);
 	}
 
-	private void loadPhoto() {
-		if (myTask != null) {
+	private void loadPhoto(boolean reload) {
+		if ( myTask != null ) {
+			if ( reload )
+				Toast.makeText(PhotoValidationActivity.this, R.string.loading_picture, Toast.LENGTH_SHORT).show();
+
 			//http://webserver.mosquitoalert.com/get_photo/q0n50KN2Tg1O0Zh/90bb084c-2d6b-48e9-9429-433fceb23447/medium
-			String getPhotoUrl = UtilPybossa.URL_GET_PHOTO + PHOTO_TOKEN + "/" + myTask.getInfo().getUuid() + "/medium";
-			Util.logInfo("===========", myTask.getId() + " >> " + getPhotoUrl);
+			String getPhotoUrl = UtilPybossa.URL_GET_PHOTO + UtilLocal.PHOTO_TOKEN + "/" + myTask.getInfo().getUuid() + "/medium";
+Util.logInfo("===========", myTask.getId() + " >> " + getPhotoUrl);
 
 //		Ion.with(mPhoto1View)
 //				.placeholder(R.drawable.ic_switchboard_icon_validacio_large)
 //				.load(getPhotoUrl);
-/*		final ProgressDialog dlg = new ProgressDialog(this);
-		dlg.setTitle("Loading...");
-		dlg.setIndeterminate(false);
-		dlg.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-		dlg.show();*/
+
+//			final ProgressDialog dlg = new ProgressDialog(this);
+//			dlg.setTitle("Loading...");
+//			dlg.setIndeterminate(false);
+//			dlg.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+//			dlg.show();
 
 			Ion.with(this)
 				.load(getPhotoUrl)
-				.setTimeout(10000)
+				//.setTimeout(100)
 				//.progressDialog(dlg)
 				//.setLogging("DeepZoom", Log.VERBOSE)
 				.withBitmap()
@@ -450,12 +505,16 @@ Util.logInfo("===========", "prefetching >> " +  resultTask.getId());
 					public void onCompleted(Exception e, Bitmap result) {
 						// do something with your bitmap
 						mPhoto1View.setImageBitmap(result);
-						mPhoto2View.setImageBitmap(result);
-						mPhoto3View.setImageBitmap(result);
-						mPhoto4View.setImageBitmap(result);
+//						mPhoto2View.setImageBitmap(result);
+//						mPhoto3View.setImageBitmap(result);
+//						mPhoto4View.setImageBitmap(result);
+						mCurrentBitmap = result;
 						//dlg.cancel();
 					}
 				});
+		}
+		else {
+			loadNewTask(0);
 		}
 	}
 
@@ -472,7 +531,7 @@ Util.logInfo("===========", "prefetching >> " +  resultTask.getId());
 		super.onOptionsItemSelected(item);
 
 		if ( item.getItemId() == R.id.refresh ) {
-			loadPhoto();
+			loadPhoto(true);
 			return true;
 		} else if ( item.getItemId() == R.id.close ) {
 			this.finish();

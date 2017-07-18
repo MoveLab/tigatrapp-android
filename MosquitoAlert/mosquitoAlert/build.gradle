@@ -39,7 +39,7 @@ android {
     buildToolsVersion '25.0.2'
     defaultConfig {
         applicationId "ceab.movelab.tigatrapp"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 24
         versionCode 25  /* 17 is 1.51 current production code */
         versionName "1.59"
@@ -49,6 +49,7 @@ android {
             debuggable true
             //buildConfigField "boolean", "PRIVATE_MODE", "true"
             signingConfig signingConfigs.config
+            ext.enableCrashlytics = false
         }
         release {
             //buildConfigField "boolean", "PRIVATE_MODE", "false"

@@ -22,7 +22,7 @@
 
 <resources>
 
-    <declare-styleable name="Gallery1">
+    <declare-styleable name="Gallery1"> <!-- !!! Remove candidate -->
         <attr name="android:galleryItemBackground" />
     </declare-styleable>
 

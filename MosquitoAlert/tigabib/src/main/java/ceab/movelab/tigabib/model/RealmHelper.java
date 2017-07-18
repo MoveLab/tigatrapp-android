@@ -34,8 +34,9 @@ public class RealmHelper {
             // if migration is needed
             RealmConfiguration config = new RealmConfiguration.Builder(ctx)
                     .name("myRealmDB.realm")
-                    .schemaVersion(1)
-                    //.deleteRealmIfMigrationNeeded()
+                    .schemaVersion(2)
+                    //.migration(new Migration())
+                    .deleteRealmIfMigrationNeeded()
                     .build();
            //mRealm = Realm.getInstance(config);
         //}

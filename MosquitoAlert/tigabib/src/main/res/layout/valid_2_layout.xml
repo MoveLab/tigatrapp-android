@@ -4,21 +4,21 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:paddingBottom="16dp"
-              android:background="@color/switchboard_bg"
+              tools:background="@color/switchboard_bg"
               android:orientation="vertical">
 
-    <com.github.chrisbanes.photoview.PhotoView
+<!--    <com.github.chrisbanes.photoview_local.PhotoView
         android:id="@+id/validPhoto2Image"
         android:layout_width="match_parent"
         android:layout_height="@dimen/valid_photo_size"
         android:maxHeight="@dimen/valid_photo_size"
         android:adjustViewBounds="true"
-        android:scaleType="fitCenter"
+        android:scaleType="centerInside"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/valid_photo_margin"
         android:layout_marginLeft="@dimen/valid_photo_margin"
         android:layout_marginRight="@dimen/valid_photo_margin"
-        android:src="@drawable/ic_switchboard_icon_validacio_large"/>
+        android:src="@drawable/ic_switchboard_icon_validacio_large"/>-->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -75,7 +75,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:layout_marginLeft="@dimen/valid_photo_margin_less"
+            android:layout_marginStart="@dimen/valid_photo_margin_less"
             android:layout_marginRight="@dimen/valid_photo_margin"
+            android:layout_marginEnd="@dimen/valid_photo_margin"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/validMosquitoYellowButton"
@@ -92,16 +94,5 @@
                 android:text="@string/i18n_noneofbothbtn"/>
             </LinearLayout>
     </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/valid_photo_margin_less"
-        android:layout_marginRight="@dimen/valid_photo_margin_less"
-        android:orientation="horizontal">
-
-
-    </LinearLayout>
-
 
 </LinearLayout>

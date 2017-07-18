@@ -46,6 +46,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
@@ -66,6 +67,7 @@ import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
 import static ceab.movelab.tigabib.NotificationActivity.NOTIFICATION_ID;
+import static ceab.movelab.tigabib.Util.isOnline;
 
 
 /**
@@ -173,7 +175,7 @@ Util.logInfo("=========", "New Intent");
 
 				Util.registerOnServer(MyApp.getAppContext());
 
-				// Get token and register on server
+				// Get FCM token and register on server
 				String token = FirebaseInstanceId.getInstance().getToken();
 				Util.registerFCMToken(SwitchboardActivity.this, token, PropertyHolder.getUserId());
 
@@ -288,8 +290,13 @@ Util.logInfo("=========", "New Intent");
 			pybossaButton.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Intent i = new Intent(SwitchboardActivity.this, PhotoValidationActivity.class);
-					startActivity(i);
+					if ( !isOnline(SwitchboardActivity.this) ) {
+						Toast.makeText(SwitchboardActivity.this, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+					}
+					else {
+						Intent i = new Intent(SwitchboardActivity.this, PhotoValidationActivity.class);
+						startActivity(i);
+					}
 					/*CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder()
 							.setToolbarColor(getResources().getColor(R.color.pybossa_bar)).build();
 					CustomTabActivityHelper.openCustomTab(
@@ -607,6 +614,8 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 			// add a subject
 			shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, R.string.app_name);
 			// build the body of the message to be shared
+			// https://play.google.com/store/apps/details?id=ceab.movelab.tigatrapp&hl=ca
+
 			String shareMessage = getResources().getString(R.string.project_website);
 			// add the message
 			shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareMessage);

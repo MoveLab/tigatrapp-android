@@ -36,12 +36,12 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="8dp"
             android:orientation="horizontal" >
 
             <RelativeLayout
-                android:layout_width="100dip"
-                android:layout_height="90dip"
+                android:layout_width="110dip"
+                android:layout_height="100dip"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
                 android:background="@drawable/selectorcolors_light" >
@@ -72,12 +72,11 @@
             </RelativeLayout>
 
             <RelativeLayout
-                android:layout_width="100dp"
-                android:layout_height="90dp"
+                android:layout_width="110dp"
+                android:layout_height="100dp"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
                 android:background="@drawable/selectorcolors_light" >
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -96,8 +95,8 @@
                     android:gravity="center"
                     android:paddingTop="24dip"
                     android:text="-"
-                    tools:text="Principiante"
-                    android:textSize="12sp"
+                    tools:text="Bronze"
+                    android:textSize="14sp"
                     android:textStyle="bold"
                     android:textColor="@color/light_orange" />
             </RelativeLayout>
@@ -107,39 +106,50 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="8dp"
             android:layout_gravity="center"
             android:orientation="horizontal" >
 
             <RelativeLayout
                 android:id="@+id/reportButtonSite"
-                android:layout_width="100dip"
-                android:layout_height="90dip"
+                android:layout_width="110dip"
+                android:layout_height="100dip"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
                 android:background="@drawable/selectorcolors_light" >
                 <ImageView
                     android:layout_width="60dip"
                     android:layout_height="60dip"
-                    android:layout_centerInParent="true"
+                    android:layout_above="@+id/reportButtonSiteText"
+                    android:layout_centerHorizontal="true"
                     android:src="@drawable/ic_switchboard_icon_breeding_site" />
                 <TextView
                     android:id="@+id/reportButtonSiteText"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
                     android:gravity="center"
-                    android:paddingTop="5dip"
-                    android:text="@string/switchboard_button_text_sites"
+                    android:paddingBottom="16dip"
+                    android:text="@string/switchboard_button_text_report"
                     android:textColor="@color/switchboard_button_text"
                     android:textSize="12sp"
-                    android:visibility="gone" />
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center"
+                    android:paddingBottom="2dip"
+                    android:text="@string/switchboard_button_text_sites"
+                    android:textSize="12sp"
+                    android:textColor="@color/switchboard_button_text" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/reportButtonAdult"
-                android:layout_width="100dip"
-                android:layout_height="90dip"
+                android:layout_width="110dip"
+                android:layout_height="100dip"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
                 android:background="@drawable/selectorcolors_light">
@@ -147,95 +157,116 @@
                 <ImageView
                     android:layout_width="60dip"
                     android:layout_height="60dip"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/ic_switchboard_icon_adult"/>
+                    android:layout_above="@+id/reportButtonAdultText"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ic_switchboard_icon_adult" />
                 <TextView
                     android:id="@+id/reportButtonAdultText"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"
                     android:gravity="center"
-                    android:paddingTop="5dip"
-                    android:text="@string/switchboard_button_text_adult"
-                    android:textColor="@color/switchboard_button_text"
+                    android:paddingBottom="16dip"
+                    android:text="@string/switchboard_button_text_report"
                     android:textSize="12sp"
-                    android:visibility="gone"/>
+                    android:textColor="@color/switchboard_button_text"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center"
+                    android:paddingBottom="2dip"
+                    android:text="@string/switchboard_button_text_adult"
+                    android:textSize="12sp"
+                    android:textColor="@color/switchboard_button_text" />
             </RelativeLayout>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="5dp"
             android:layout_gravity="center"
-            android:orientation="horizontal" >
+            android:layout_marginBottom="5dp"
+            android:orientation="horizontal">
 
             <RelativeLayout
                 android:id="@+id/reportButtonMap"
-                android:layout_width="100dip"
-                android:layout_height="90dip"
+                android:layout_width="110dip"
+                android:layout_height="100dip"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
-                android:background="@drawable/selectorcolors_light" >
+                android:background="@drawable/selectorcolors_light">
+
                 <ImageView
                     android:layout_width="60dip"
                     android:layout_height="60dip"
-                    android:layout_centerInParent="true"
-                    android:src="@drawable/ic_switchboard_icon_map" />
+                    android:layout_above="@+id/reportButtonMapText"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ic_switchboard_icon_map"/>
                 <TextView
                     android:id="@+id/reportButtonMapText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"
                     android:gravity="center"
-                    android:paddingTop="5dip"
+                    android:paddingTop="8dip"
+                    android:paddingBottom="8dip"
                     android:text="@string/switchboard_button_text_map"
-                    android:textColor="@color/switchboard_button_text"
                     android:textSize="12sp"
-                    android:visibility="gone" />
+                    android:textColor="@color/switchboard_button_text" />
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/reportMainPic"
-                android:layout_width="100dip"
-                android:layout_height="90dip"
+                android:layout_width="110dip"
+                android:layout_height="100dip"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
-                android:background="@drawable/selectorcolors_light" >
+                android:background="@drawable/selectorcolors_light">
+
                 <ImageView
                     android:layout_width="60dip"
                     android:layout_height="60dip"
-                    android:layout_centerInParent="true"
-                    android:padding="3dp"
-                    android:src="@drawable/ic_switchboard_icon_validacio" />
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/ic_switchboard_icon_validacio"/>
                 <TextView
                     android:id="@+id/reportButtonGalleryText"
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
+                    android:layout_alignParentBottom="true"
                     android:gravity="center"
-                    android:paddingTop="5dip"
-                    android:text="@string/switchboard_button_text_gallery"
-                    android:textColor="@color/switchboard_button_text"
+                    android:paddingBottom="16dip"
+                    android:text="@string/switchboard_button_validations_photos"
                     android:textSize="12sp"
-                    android:visibility="gone" />
+                    android:textColor="@color/switchboard_button_text"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center"
+                    android:paddingBottom="2dip"
+                    android:text="@string/switchboard_button_validation_photos2"
+                    android:textSize="12sp"
+                    android:textColor="@color/switchboard_button_text"/>
             </RelativeLayout>
         </LinearLayout>
 
         <RelativeLayout
             android:id="@+id/reportNotificationsLayout"
-            android:layout_width="220dip"
+            android:layout_width="232dip"
             android:layout_height="34dp"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="12dp"
             android:layout_marginBottom="2dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginRight="6dp"
             android:background="@drawable/selectorcolors_light" >
             <TextView
                 android:id="@+id/reportNotificationsText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dip"
                 android:paddingStart="10dip"
@@ -246,7 +277,7 @@
                 android:drawablePadding="6dp"
                 android:textSize="12sp"
                 android:text="@string/switchboard_button_notifications_site"
-                android:textColor="@color/switchboard_button_text" />
+                android:textColor="@color/switchboard_button_text"/>
             <TextView
                 android:id="@+id/reportNotificationsNumberText"
                 android:layout_width="24dp"

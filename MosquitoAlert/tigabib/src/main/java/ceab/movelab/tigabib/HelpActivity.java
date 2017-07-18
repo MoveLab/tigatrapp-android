@@ -82,7 +82,7 @@ public class HelpActivity extends FragmentActivity {
 			WebViewApi7.api7settings(myWebView, this);
 		}
 
-		if (!Util.isOnline(this)) { // loading offline only if not online
+		if ( !Util.isOnline(this) ) { // loading offline only if not online
 			myWebView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
 		}
 
@@ -100,9 +100,9 @@ public class HelpActivity extends FragmentActivity {
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (Util.isOnline(this)) {
+		if ( Util.isOnline(this) ) {
 			// Check if the key event was the Back button and if there's history
-			if ((keyCode == KeyEvent.KEYCODE_BACK) && myWebView.canGoBack()) {
+			if ( (keyCode == KeyEvent.KEYCODE_BACK) && myWebView.canGoBack() ) {
 				myWebView.goBack();
 				return true;
 			}

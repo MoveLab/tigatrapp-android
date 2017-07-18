@@ -1,10 +1,8 @@
 package ceab.movelab.tigabib.model;
 
-import android.content.Context;
-
 public class DataModel {
 	
-	private static DataModel instance = null;
+	//private static DataModel instance = null;
 
 	public static float scale = 0.0f;
 
@@ -15,16 +13,16 @@ public class DataModel {
 		// Exists only to defeat instantiation
 	}
 	
-	public static void initialize(Context ctx) {
+/*	public static void initialize(Context ctx) {
 		instance = null;
 		getInstance();
 	}
-	
+
 	public static synchronized DataModel getInstance() {
 		if ( instance == null ) {
 			instance = new DataModel();
 	    }
 	    return instance;
-	}
+	}*/
 	
 }

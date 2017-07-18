@@ -28,20 +28,20 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="16dp"
+        android:paddingTop="8dp"
         android:orientation="vertical"
-        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
             android:orientation="horizontal" >
 
             <RelativeLayout
                 android:layout_width="150dip"
                 android:layout_height="100dip"
-                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/selectorcolors_light" >
@@ -72,7 +72,7 @@
             <RelativeLayout
                 android:layout_width="150dp"
                 android:layout_height="100dp"
-                android:layout_marginBottom="10dp"
+
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/selectorcolors_light" >
@@ -93,8 +93,9 @@
                     android:layout_centerInParent="true"
                     android:gravity="center"
                     android:paddingTop="24dip"
+                    tools:text="Bronze"
                     android:text="-"
-                    android:textSize="16sp"
+                    android:textSize="18sp"
                     android:textStyle="bold"
                     android:textColor="@color/light_orange" />
             </RelativeLayout>
@@ -103,13 +104,13 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
             android:orientation="horizontal" >
 
             <RelativeLayout
                 android:id="@+id/reportButtonSite"
                 android:layout_width="150dip"
                 android:layout_height="140dip"
-                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/selectorcolors_light" >
@@ -144,7 +145,7 @@
                 android:id="@+id/reportButtonAdult"
                 android:layout_width="150dip"
                 android:layout_height="140dip"
-                android:layout_marginBottom="10dp"
+
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/selectorcolors_light" >
@@ -177,23 +178,24 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="12dp"
             android:orientation="horizontal" >
 
             <RelativeLayout
                 android:id="@+id/reportButtonMap"
                 android:layout_width="150dip"
                 android:layout_height="140dip"
-                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/selectorcolors_light" >
+                android:background="@drawable/selectorcolors_light">
 
                 <ImageView
                     android:layout_width="96dip"
                     android:layout_height="96dip"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="6dp"
-                    android:src="@drawable/ic_switchboard_icon_map" />
+                    android:src="@drawable/ic_switchboard_icon_map"/>
+
                 <TextView
                     android:id="@+id/reportButtonMapText"
                     android:layout_width="match_parent"
@@ -202,14 +204,13 @@
                     android:gravity="center"
                     android:paddingBottom="12dip"
                     android:text="@string/switchboard_button_text_map"
-                    android:textColor="@color/switchboard_button_text" />
+                    android:textColor="@color/switchboard_button_text"/>
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/reportMainPic"
                 android:layout_width="150dip"
                 android:layout_height="140dip"
-                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:background="@drawable/selectorcolors_light">
@@ -246,8 +247,8 @@
             android:id="@+id/reportNotificationsLayout"
             android:layout_width="320dip"
             android:layout_height="44dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/selectorcolors_light" >
@@ -256,6 +257,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:gravity="center_vertical"
                 android:paddingLeft="12dip"
                 android:paddingStart="12dip"

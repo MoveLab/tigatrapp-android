@@ -51,6 +51,8 @@ import android.database.Cursor;
 import android.os.IBinder;
 import android.support.v4.content.LocalBroadcastManager;
 
+import com.google.firebase.iid.FirebaseInstanceId;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -116,8 +118,16 @@ public class SyncData extends Service {
 
 	private void tryUploads() {
 		// Check if user has registered on server - if not, try to register
-		if (!PropertyHolder.isRegistered())
+		if ( !PropertyHolder.isRegistered() ) {
 			Util.registerOnServer(context);
+			try {
+				// Get FCM token and register on server
+				String token = FirebaseInstanceId.getInstance().getToken();
+				Util.registerFCMToken(context, token, PropertyHolder.getUserId());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 
 		// try to get config
 		try {

@@ -14,8 +14,21 @@
     <string name="decline_button_label">我拒絕同意</string>
     <string name="mosquito_alert_pop">&lt;p&gt;&lt;b&gt;AtrapaelTigre 已改名為 Mosquito Alert!&lt;/b&gt;&lt;/p&gt;\n&lt;p&gt;我們均源自同一個團隊，但我們已進行項目拓展，並添加了新原素：現在你不但可以報告白紋伊蚊 (&lt;i&gt;Aedes albopictus&lt;/i&gt;) ，你亦可同時報告埃及斑蚊 (&lt;i&gt;Aedes aegypti&lt;/i&gt;)的蹤影。&lt;p&gt;\n&lt;p&gt;你可瀏覽 www.mosquitoalert.com 以了解更多相關資訊&lt;/p&gt;\n&lt;p&gt;謝謝你的支持和參與&lt;/p&gt;\n&lt;p&gt;Mosquito Alert 團隊&lt;/p&gt;\n</string>
     <string-array name="gallery_array">
+        <!-- Gallery -->
+        <item name="gallery_array0">埃及斑蚊&lt;i&gt;Aedes aegypti&lt;/i&gt;(左) 和 白紋伊蚊&lt;i&gt;Aedes albopictus&lt;/i&gt;(右)的最大分別為：埃及斑蚊的胸部有數條白色呈豎琴形的條紋，而白紋伊蚊的胸部只有一條白色條紋。&lt;b&gt;照片來源: Vincent Robert (CC BY 2.0)&lt;/b&gt;</item>
+        <item name="gallery_array1">白紋伊蚊(&lt;i&gt;Aedes albopictus&lt;/i&gt;). 牠的特徵包括佈滿白點和白色條紋的黑色身軀，以及在頭部和胸腔部份的白線。另外，雌性白紋伊蚊的腹部是充滿血的。 &lt;b&gt; Photo: Roger Eritja (©)&lt;/ b&gt;</item>
+        <item name="gallery_array2">埃及斑蚊 (&lt;i&gt;Aedes aegypti&lt;/i&gt;) . 牠的特徵包括佈滿白點和白色條紋的深棕色身軀。以及在牠頭部上方(即其軀幹)有四條豎琴形的白色條紋。 &lt;b&gt;Photo: James Gathany (ECDC, domini públic)&lt;/b&gt;</item>
+        <item name="gallery_array3">觀察白紋伊蚊 (&lt;i&gt;Ae. albopictus&lt;/i&gt;)特有的黑色身軀。&lt;b&gt;照片來源: Roger Eritja (©)&lt;/b&gt;</item>
         <item name="gallery_array4">觀察埃及斑蚊 (&lt;i&gt;Aedes aegypti&lt;/i&gt;) 特有的深棕色身軀。&lt;b&gt;照片來源: Mark Yokoyama (CC BY 2.0)&lt;/b&gt;</item>
+        <item name="gallery_array5">那些蚊子會叮人？只有雌性的蚊子會，而在這情況下為白紋伊蚊 (&lt;i&gt;Ae. albopictus&lt;/i&gt;)。都市&lt;i&gt;伊蚊&lt;/i&gt;通常只會於日間，而非夜間出沒，而牠們主要叮人的腿部位置。&lt;b&gt;照片來源: Roger Eritja (©)&lt;/b&gt;\n</item>
+        <item name="gallery_array6">兩隻雌性的埃及斑蚊(&lt;i&gt;Aedes aegypti&lt;/i&gt;)。&lt;b&gt;照片來源: Roger Eritja (©)&lt;/b&gt;</item>
+        <item name="gallery_array7">雄性(左) 和 雌性(右) 白紋伊蚊 (&lt;i&gt;Ae. albopictus&lt;/i&gt;) 的分別－雄性白紋伊蚊的頭部具有羽毛。&lt;b&gt;照片來源: Roger Eritja (©)&lt;/b&gt;</item>
+        <item name="gallery_array8">伊蚊&lt;i&gt;Aedes&lt;/i&gt;的蚊卵。這些蚊卵細得幾乎無法目測。都市中的伊蚊通常會在積水附近乾爽的渠道生卵。&lt;b&gt;照片來源: Roger Eritja (©)&lt;/b&gt;</item>
+        <item name="gallery_array9">伊蚊&lt;i&gt;Aedes&lt;/i&gt;的幼蟲(外形較長) 或蛹(外形較圓)。注意，牠們兩者皆為水生動物－當蚊卵被水覆蓋，它便會轉化為幼蟲，而幼蟲最終亦會轉化為蛹。&lt;b&gt;照片來源: Roger Eritja (©)&lt;/b&gt;</item>
+        <item name="gallery_array10">伊蚊&lt;i&gt;Aedes&lt;/i&gt; 在水中的幼蟲(外形較長)和蛹(外形較圓). &lt;b&gt;照片來源:Roger Eritja (©)&lt;/b&gt;</item>
+        <item name="gallery_array11">生物的變態(型態改變): 成年蚊子 (白紋伊蚊 &lt;i&gt;Ae. albopictus&lt;/i&gt;)破蛹而出。要預防伊蚊&lt;i&gt;Aedes&lt;/i&gt;出現於家居環境，請移除積水和定期清理容易載有積水的器皿. &lt;b&gt;照片來源: Roger Eritja (©)&lt;/b&gt;</item>
     </string-array>
+
     <!-- Toasts -->
     <string name="toast_report_before_submitting_site">在提交蚊蹤滋生地的報告前，請：</string>
     <string name="toast_report_before_submitting_adult">在提交蚊蹤報告前，請：</string>
@@ -327,5 +340,10 @@
     <string name="menu_web">網站</string>
     <string name="info_scoring">積分代表您使用此app的頻率、貢獻等以及所發送照片的質量。</string>
     <string name="help_zoom">拖動手指以放大圖片</string>
-    <string name="menu_close">Close</string>
+    <string name="no_internet_connection">沒有互聯網連接。將設備連接到網絡以繼續驗證。</string>
+
+    <string name="menu_close">關</string>
+
+    <string name="loading_picture"></string>
+    <string name="pybossa_error"></string>
 </resources>

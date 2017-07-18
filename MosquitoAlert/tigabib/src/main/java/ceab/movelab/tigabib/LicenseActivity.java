@@ -134,9 +134,9 @@ public class LicenseActivity extends Activity {
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (Util.isOnline(context)) {
+		if ( Util.isOnline(context) ) {
 			// Check if the key event was the Back button and if there's history
-			if ((keyCode == KeyEvent.KEYCODE_BACK) && myWebView.canGoBack()) {
+			if ( (keyCode == KeyEvent.KEYCODE_BACK) && myWebView.canGoBack() ) {
 				myWebView.goBack();
 				return true;
 			}

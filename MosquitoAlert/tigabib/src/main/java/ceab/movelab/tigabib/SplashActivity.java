@@ -84,7 +84,7 @@ public class SplashActivity extends FragmentActivity {
 
        	setContentView(R.layout.splash);
 
-		UtilPybossa pybossa = new UtilPybossa(BuildConfig.DEBUG);	// !!!! false is not production
+		UtilPybossa pybossa = new UtilPybossa(Util.pybossaMode());
 		pybossa.fetchPybossaToken(this);
 
 		//Set Runnable to remove splash screen just in case

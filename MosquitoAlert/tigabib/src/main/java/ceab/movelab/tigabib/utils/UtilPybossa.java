@@ -103,7 +103,7 @@ public class UtilPybossa {
         return "http://mosquitoalert.pybossa.com/api/auth/project/" + getProjectShortName() + "/token";
     }
 
-    public String getTokenAuth() {  // !!! mask to hide it from github
+    public String getTokenAuth() {
         return (isProduction ? PYBOSSA_TOKEN : PYBOSSA_TOKEN_DEV);
     }
 
@@ -140,7 +140,7 @@ public class UtilPybossa {
     }
 
     public String getPybossaNewtaskUrl(int offset) {
-        String projectId = (isProduction ? "1" : "2"); // $!!!! 1 - production, 2- development
+        String projectId = (isProduction ? "1" : "2"); // !!!!$$$ 1 - production, 2- development
         return UtilPybossa.URL_NEW_TASK + projectId + "/newtask?offset=" + offset + "&external_uid=" + PropertyHolder.getUserId();
     }
 

@@ -36,7 +36,6 @@ import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -449,8 +448,8 @@ Util.logInfo(this.getClass().getName(), "onResume IllegalArgumentException");
 		//  (recordeu que a la crida de notificacions se li pot passar un paràmetre locale=[es|ca|en] per controlar l'idioma de les notificacions).
 		String notificationUrl = Util.URL_TIGASERVER_API_ROOT + Util.API_NOTIFICATION + "?user_id=" + PropertyHolder.getUserId();
 //Util.logInfo("==============", "TEST");
-Log.d("===========", "Authorization >> " + UtilLocal.TIGASERVER_AUTHORIZATION);
-Log.d("===========", notificationUrl);
+Util.logInfo("===========", "Authorization >> " + UtilLocal.TIGASERVER_AUTHORIZATION);
+Util.logInfo("===========", notificationUrl);
 		Ion.with(this)
 			.load(notificationUrl)
 			.setHeader("Accept", "application/json")
@@ -476,8 +475,8 @@ Util.logInfo("===========", "result " + result);
 		// http://humboldt.ceab.csic.es/api/user_score/?user_id=be0fb42b-6cb2-4cfc-bc92-8762b86faf89 >> Nexus 5
 		// 2d039878-0aab-454a-862e-626011b780ff
 		String notificationUrl = Util.URL_TIGASERVER_API_ROOT + Util.API_SCORE + "?user_id=" + PropertyHolder.getUserId();
-Log.d("===========", "Authorization >> " + UtilLocal.TIGASERVER_AUTHORIZATION);
-Log.d("===========", notificationUrl);
+Util.logInfo("===========", "Authorization >> " + UtilLocal.TIGASERVER_AUTHORIZATION);
+Util.logInfo("===========", notificationUrl);
 		Ion.with(this)
 			.load(notificationUrl)
 			.setHeader("Accept", "application/json")
@@ -579,15 +578,15 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 	public boolean onOptionsItemSelected(MenuItem item) {
 		super.onOptionsItemSelected(item);
 
-		if (item.getItemId() == R.id.tigatrappNews) {
+		if ( item.getItemId() == R.id.tigatrappNews ) {
 			Intent i = new Intent(SwitchboardActivity.this, RSSActivity.class);
 			i.putExtra(RSSActivity.RSSEXTRA_TITLE, getResources().getString(R.string.rss_title_tigatrapp));
 			if (lang.equals("ca"))
 				i.putExtra(RSSActivity.RSSEXTRA_URL, Util.URL_RSS_CA);
-			// Note we are only doing the blog in Catalan or Spanish, so if user
-			// is in English or Spanish, both will go to Spanish RSS feed
-			else
+			else if (lang.equals("es"))
 				i.putExtra(RSSActivity.RSSEXTRA_URL, Util.URL_RSS_ES);
+			else
+				i.putExtra(RSSActivity.RSSEXTRA_URL, Util.URL_RSS_EN);
 			i.putExtra(RSSActivity.RSSEXTRA_DEFAULT_THUMB, R.drawable.ic_launcher);
 			startActivity(i);
 			return true;

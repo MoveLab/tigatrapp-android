@@ -93,7 +93,7 @@ public class PhotoValidationActivity extends Activity {
 
 		setContentView(R.layout.validation_layout);
 
-		pybossa = new UtilPybossa(BuildConfig.DEBUG);	// !!!! false is not production
+		pybossa = new UtilPybossa(Util.pybossaMode());
 		String pybossaToken = PropertyHolder.getPybossaToken();
 		if ( TextUtils.isEmpty(pybossaToken) ) {
 			pybossa.fetchPybossaToken(this);

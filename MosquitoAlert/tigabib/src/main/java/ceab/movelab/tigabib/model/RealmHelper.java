@@ -85,8 +85,13 @@ public class RealmHelper {
     }
 
     public Score getScore(final Realm realm) {
-        Score results = realm.where(Score.class).findFirst();
+        try {
+            Score results = realm.where(Score.class).findFirst();
 Util.logInfo(this.getClass().getName(), "getScore >> " + results.getScore());
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
         return realm.where(Score.class).findFirst();
     }
 

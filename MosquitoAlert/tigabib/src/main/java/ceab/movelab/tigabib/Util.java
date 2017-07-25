@@ -153,9 +153,8 @@ public class Util {
 
 	public static final int MAX_MISSION_VERSION = 1;
 
-	// if we ignore fixes above 60 degrees latitude or below -60 degrees
-	// latitude, then the size of the
-	// .05x.05 degree areas should all be larger than 15.5 km. See
+	// if we ignore fixes above 60 degrees latitude or below -60 degrees latitude, then
+	// the size of the .05x.05 degree areas should all be larger than 15.5 km. See
 	// http://msi.nga.mil/MSISiteContent/StaticFiles/Calculators/degree.html
 	public static int FIX_LAT_CUTOFF = 60;
 
@@ -166,24 +165,26 @@ public class Util {
 		return BuildConfig.PRIVATE_MODE;
 	}
 
-//	public static boolean debugMode(Context context) {
-////		boolean result = false;
-////		if (context.getResources().getString(R.string.debug_mode).equals("true"))
-////			result = true;
-//		return BuildConfig.DEBUG;
-//	}
+	public static boolean pybossaMode() {	// !!!!$$$$
+		return true; // false is test environment, true is production
 
-	public static boolean debugMode() {		// !!!
+	}
+
+	public static boolean debugMode() {		// !!!!$$$$
+		return BuildConfig.DEBUG;
+	}
+
+	public static boolean debugModeLog() {	// !!!!$$$$
 		return BuildConfig.DEBUG;
 	}
 
 	public static void logError(String tag, String message) {
-		if ( debugMode() )
+		if ( debugModeLog() )
 			Log.e(tag, message);
 	}
 
 	public static void logInfo(String tag, String message) {
-		if ( debugMode() )
+		if ( debugModeLog() )
 			Log.i(tag, message);
 	}
 
@@ -201,7 +202,12 @@ public class Util {
 	/**
 	 * RSS URL for Catalan.
 	 */
-	public static final String URL_RSS_CA = UtilLocal.URL_PROJECT + "feed/";
+	public static final String URL_RSS_CA = UtilLocal.URL_PROJECT + "ca/feed/";
+
+	/**
+	 * RSS URL for Catalan.
+	 */
+	public static final String URL_RSS_EN = UtilLocal.URL_PROJECT + "en/feed/";
 
 	/**
 	 * Server API URL.
@@ -627,9 +633,9 @@ Util.logInfo(TAG, "Not online");
 		}
 
 		float powerProportion = (float) level / scale;
-		Util.logInfo(TAG, "battery level: " + level);
-		Util.logInfo(TAG, "battery scale: " + scale);
-		Util.logInfo(TAG, "battery prop: " + powerProportion);
+Util.logInfo(TAG, "battery level: " + level);
+Util.logInfo(TAG, "battery scale: " + scale);
+Util.logInfo(TAG, "battery prop: " + powerProportion);
 		return powerProportion;
 	}
 
@@ -645,14 +651,13 @@ Util.logInfo(TAG, "Not online");
 		return result;
 	}
 
-	public static JSONArray StringArrayList2JsonArray(
-			ArrayList<String> arrayList) {
+	/*public static JSONArray StringArrayList2JsonArray(ArrayList<String> arrayList) {
 		JSONArray result = new JSONArray();
 		for (String e : arrayList) {
 			result.put(e);
 		}
 		return result;
-	}
+	}*/
 
 	public static String getExtension(File f) {
 		String ext = null;
@@ -665,8 +670,7 @@ Util.logInfo(TAG, "Not online");
 		return ext;
 	}
 
-	public static Bitmap getSmallerBitmap(File file, Context context,
-			int pixelSize) throws FileNotFoundException, IOException {
+	public static Bitmap getSmallerBitmap(File file, Context context, int pixelSize) throws FileNotFoundException, IOException {
 
 		FileInputStream input = new FileInputStream(file);
 
@@ -683,8 +687,7 @@ Util.logInfo(TAG, "Not online");
 		int originalSize = (onlyBoundsOptions.outHeight > onlyBoundsOptions.outWidth) ? onlyBoundsOptions.outHeight
 				: onlyBoundsOptions.outWidth;
 
-		double ratio = (originalSize > pixelSize) ? (originalSize / pixelSize)
-				: 1.0;
+		double ratio = (originalSize > pixelSize) ? (originalSize / pixelSize) : 1.0;
 
 		BitmapFactory.Options bitmapOptions = new BitmapFactory.Options();
 		bitmapOptions.inSampleSize = getPowerOfTwoForSampleRatio(ratio);
@@ -757,7 +760,6 @@ Util.logInfo(TAG, "Not online");
 	}
 
 	public static int postPhoto(Context context, String uri, String filename, String versionUUID) {
-
 		int response = 0;
 		HttpURLConnection conn = null;
 		DataOutputStream dos = null;
@@ -828,7 +830,6 @@ Util.logInfo(TAG, "Not online");
 					dos.close();
 				} catch (IOException e) {
 					Log.e(TAG, "exception" + e);
-
 				}
 			}
 			if (fileInputStream != null) {
@@ -836,7 +837,6 @@ Util.logInfo(TAG, "Not online");
 					fileInputStream.close();
 				} catch (IOException e) {
 					Log.e(TAG, "exception" + e);
-
 				}
 			}
 		}
@@ -931,7 +931,6 @@ Util.logInfo(TAG, "Not online");
 	}
 
 	public static String getJSON(String apiEndpoint, Context context) {
-
 		if ( !isOnline(context) ) {
 			return "";
 		} else {
@@ -954,7 +953,7 @@ Util.logInfo(TAG, "Not online");
 				HttpResponse response = client.execute(httpGet);
 				StatusLine statusLine = response.getStatusLine();
 				int statusCode = statusLine.getStatusCode();
-				Util.logInfo(TAG, "Status code:" + statusCode);
+Util.logInfo(TAG, "Status code:" + statusCode);
 
 				if (statusCode == 200) {
 					HttpEntity entity = response.getEntity();
@@ -1001,7 +1000,6 @@ Util.logInfo(TAG, "Not online");
 
 	public static Boolean registerOnServer(Context context) {
 Util.logInfo(TAG, "register on server");
-
 		Boolean result = false;
 		JSONObject jsonUUID;
 		try {
@@ -1033,8 +1031,8 @@ Util.logInfo(TAG, "register status code: " + statusCode);
 		if ( token != null ) {
 			String tokenUrl = Util.URL_TIGASERVER_API_ROOT + Util.API_FCM_TOKEN + "?token=" + token + "&user_id=" + userId;
 Util.logInfo("==============", "TEST");
-Log.d("===========", "BuildConfig.DEBUG >> " + BuildConfig.DEBUG);
-Log.d("===========", tokenUrl);
+Util.logInfo("===========", "BuildConfig.DEBUG >> " + BuildConfig.DEBUG);
+Util.logInfo("===========", tokenUrl);
 
 			Ion.with(ctx)
 					.load(tokenUrl)

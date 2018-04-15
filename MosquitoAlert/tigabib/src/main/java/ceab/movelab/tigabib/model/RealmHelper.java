@@ -32,7 +32,7 @@ public class RealmHelper {
        //if ( mRealm == null ) {
             // https://github.com/realm/realm-java/tree/master/examples/migrationExample/src/main/java/io/realm/examples/realmmigrationexample
             // if migration is needed
-            RealmConfiguration config = new RealmConfiguration.Builder(ctx)
+        RealmConfiguration config = new RealmConfiguration.Builder()
                     .name("myRealmDB.realm")
                     .schemaVersion(2)
                     //.migration(new Migration())
@@ -111,8 +111,7 @@ Util.logInfo(this.getClass().getName(), "getNotificationsRead (" + ack + ") >> "
     }
 
     public int getNewNotificationsCount(final Realm realm) {
-        //RealmResults<Notification> results = realm.where(Notification.class).findAll(); // !!! filter by new
-        //RealmResults<Notification> results = realm.where(Notification.class).equalTo("read", false).findAll();
+        //RealmResults<Notification> results = realm.where(Notification.class).equalTo("acknowledged", false).findAll();
         //RealmResults<Notification> results = getNotificationsRead(realm, false);
         return getNotificationsRead(realm, false).size();
     }

@@ -15,6 +15,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
@@ -47,11 +49,13 @@ public class RSSActivity extends Activity {
 	public static final String RSSEXTRA_TITLE = "rssextra_title";
 	public static final String RSSEXTRA_DEFAULT_THUMB = "default_thumb";
 
-	String thisUrl;
-	String thisTitle;
-	int thisDefaultThumb;
+	private String thisUrl;
+	private String thisTitle;
+	private int thisDefaultThumb;
 
-	String lang;
+	private String lang;
+
+	private FirebaseAnalytics mFirebaseAnalytics;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -97,19 +101,24 @@ public class RSSActivity extends Activity {
 			}
 		});
 
+		// Obtain the FirebaseAnalytics instance.
+		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 	}
 
 	@Override
 	protected void onResume() {
+		super.onResume();
 
 		if (!Util.setDisplayLanguage(getResources()).equals(lang)) {
 			finish();
 			startActivity(getIntent());
 		}
+
+		// [START set_current_screen]
+		mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_news_list", "News List");
+		// [END set_current_screen]
+
 		setInfoDisplay(this, true, thisUrl);
-
-		super.onResume();
-
 	}
 
 	class RssDataController extends AsyncTask<String, Integer, ArrayList<RSSPost>> {
@@ -161,8 +170,7 @@ public class RSSActivity extends Activity {
 						}
 					} else if (eventType == XmlPullParser.END_TAG) {
 						if (xpp.getName().equals("item")) {
-							// format the data here, otherwise format data in
-							// Adapter
+							// format the data here, otherwise format data in Adapter
 							Date postDate = inputDateFormat.parse(pdData.postDate);
 							pdData.postDate = outputDateFomat.format(postDate);
 							RSSPostList.add(pdData);

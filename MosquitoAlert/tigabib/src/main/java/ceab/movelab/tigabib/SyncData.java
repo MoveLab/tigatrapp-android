@@ -84,7 +84,7 @@ public class SyncData extends Service {
 		Util.logInfo(TAG, "on start");
 
 		if ( !Util.isOnline(context) || Util.privateMode() ) {
-			Util.logInfo(TAG, "offline or private mode, stopping service");
+Util.logInfo(TAG, "offline or private mode, stopping service");
 			stopSelf();
 		} else {
 
@@ -112,7 +112,6 @@ public class SyncData extends Service {
 
 	@Override
 	public void onDestroy() {
-
 		super.onDestroy();
 	}
 
@@ -134,12 +133,12 @@ public class SyncData extends Service {
 			JSONObject configJson = new JSONObject(Util.getJSON(Util.API_CONFIGURATION, context));
 			if ( configJson.has("samples_per_day") ) {
 				int samplesPerDay = configJson.getInt("samples_per_day");
-				Util.logInfo(TAG, "samples per day:" + samplesPerDay);
+Util.logInfo(TAG, "samples per day:" + samplesPerDay);
 
 				if (samplesPerDay != PropertyHolder.getSamplesPerDay()) {
 					Util.internalBroadcast(context, Messages.START_DAILY_SAMPLING);
 					PropertyHolder.setSamplesPerDay(samplesPerDay);
-					Util.logInfo(TAG, "set property holder");
+Util.logInfo(TAG, "set property holder");
 				}
 			}
 		} catch (JSONException e) {
@@ -154,12 +153,11 @@ public class SyncData extends Service {
 				+ (latest_id > 0 ? ("id_gt=" + latest_id) : "") + "&platform="
 				+ (Util.debugMode() ? "beta" : "and") + "&versionfixuse_lte="
 				+ Util.MAX_MISSION_VERSION;
-
-		Util.logInfo(TAG, "mission array: " + missionUrl);
+Util.logInfo(TAG, "mission array: " + missionUrl);
 
 		try {
 			JSONArray missions = new JSONArray(Util.getJSON(missionUrl, context));
-			Util.logInfo(TAG, "missions: " + missions.toString());
+Util.logInfo(TAG, "missions: " + missions.toString());
 
 			if (  missions.length() > 0 ) {
 				for (int i = 0; i < missions.length(); i++) {
@@ -168,7 +166,7 @@ public class SyncData extends Service {
 					cr = context.getContentResolver();
 					cr.insert(Util.getMissionsUri(context), ContProvValuesMissions.createTask(mission));
 
-					if (mission.has(Tasks.KEY_TRIGGERS)) {
+					if ( mission.has(Tasks.KEY_TRIGGERS) ) {
 						JSONArray theseTriggers = mission.getJSONArray(Tasks.KEY_TRIGGERS);
 
 						if (theseTriggers.length() == 0) {
@@ -187,12 +185,10 @@ public class SyncData extends Service {
 						}
 					}
 
-					// IF this is last mission, mark the row id in
-					// PropertyHolder for next sync
+					// IF this is last mission, mark the row id in PropertyHolder for next sync
 					PropertyHolder.setLatestMissionId(mission.getInt("id"));
 				}
 			}
-
 		} catch (JSONException e) {
 			Util.logError(TAG, "error: " + e);
 		}
@@ -239,8 +235,7 @@ public class SyncData extends Service {
 		c.close();
 
 		// now reports
-		c = cr.query(Util.getReportsUri(context), Reports.KEYS_ALL,
-				Reports.KEY_UPLOADED + " != " + Report.UPLOADED_ALL, null, null);
+		c = cr.query(Util.getReportsUri(context), Reports.KEYS_ALL, Reports.KEY_UPLOADED + " != " + Report.UPLOADED_ALL, null, null);
 
 		if ( c!=null && !c.moveToFirst()) {
 			c.close();
@@ -317,7 +312,6 @@ public class SyncData extends Service {
 					cv.put(Reports.KEY_UPLOADED, uploadResult);
 					cr.update(Util.getReportsUri(context), cv, sc, null);
 				}
-
 			}
 
 			c.moveToNext();
@@ -326,7 +320,6 @@ public class SyncData extends Service {
 		c.close();
 
 		uploading = false;
-
 	}
 
 	@Override

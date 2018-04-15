@@ -62,7 +62,7 @@
         <activity android:name="ceab.movelab.tigabib.SettingsActivity" >
         </activity>
         <activity
-            android:name="ceab.movelab.tigabib.LanguageSelector"
+            android:name="ceab.movelab.tigabib.LanguageSelectorActivity"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
         <activity android:name="ceab.movelab.tigabib.ConsentActivity" >
@@ -103,7 +103,7 @@
             android:launchMode="singleTop" >
         </activity>
 
-        <activity android:name="ceab.movelab.tigabib.PhotoGallery"/>
+        <activity android:name="ceab.movelab.tigabib.PhotoGalleryActivity"/>
 
         <activity android:name="ceab.movelab.tigabib.AboutActivity" />
         <activity android:name="ceab.movelab.tigabib.LicenseActivity" />

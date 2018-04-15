@@ -22,10 +22,7 @@
 package ceab.movelab.tigabib;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
@@ -35,6 +32,8 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 /**
  * Displays the License screen.
  * 
@@ -42,8 +41,6 @@ import android.webkit.WebViewClient;
  * 
  */
 public class LicenseActivity extends Activity {
-
-	Context context = this;
 
 	private static final String LICENSE_URL_EN = UtilLocal.URL_TIGASERVER + "license/android/en";
 	private static final String LICENSE_URL_CA = UtilLocal.URL_TIGASERVER + "license/android/ca";
@@ -57,18 +54,24 @@ public class LicenseActivity extends Activity {
 
 	private WebView myWebView;
 
-	String lang;
-	Resources res;
+	private String lang;
+
+	private FirebaseAnalytics mFirebaseAnalytics;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		if (!PropertyHolder.isInit())
-			PropertyHolder.init(context);
+			PropertyHolder.init(this);
 
-		res = getResources();
-		lang = Util.setDisplayLanguage(res);
+		lang = Util.setDisplayLanguage(getResources());
+
+		// if (Util.isOnline(context)) {
+		setContentView(R.layout.webview);
+
+		// Obtain the FirebaseAnalytics instance.
+		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 	}
 
 	@Override
@@ -76,18 +79,18 @@ public class LicenseActivity extends Activity {
 		super.onPause();
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void onResume() {
+		super.onResume();
 
-		res = getResources();
-		if (!Util.setDisplayLanguage(res).equals(lang)) {
+		if (!Util.setDisplayLanguage(getResources()).equals(lang)) {
 			finish();
 			startActivity(getIntent());
 		}
 
-		// if (Util.isOnline(context)) {
-		setContentView(R.layout.webview);
+		// [START set_current_screen]
+		mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_license", "License");
+		// [END set_current_screen]
 
 		myWebView = (WebView) findViewById(R.id.webview);
 		myWebView.setWebViewClient(new WebViewClient() {
@@ -110,11 +113,9 @@ public class LicenseActivity extends Activity {
 		myWebView.getSettings().setJavaScriptEnabled(true);
 		myWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
 
-		if (Build.VERSION.SDK_INT >= 7) {
-			WebViewApi7.api7settings(myWebView, context);
-		}
+		WebViewApi7.api7settings(myWebView, this); // replace this
 
-		if (!Util.isOnline(context)) { // loading offline only if not online
+		if (!Util.isOnline(this)) { // loading offline only if not online
 			myWebView.getSettings().setCacheMode(
 					WebSettings.LOAD_CACHE_ELSE_NETWORK);
 		}
@@ -127,14 +128,11 @@ public class LicenseActivity extends Activity {
 			myWebView.loadUrl(LICENSE_URL_ZH);
 		else
 			myWebView.loadUrl(LICENSE_URL_EN);
-
-		super.onResume();
-
 	}
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if ( Util.isOnline(context) ) {
+		if ( Util.isOnline(this) ) {
 			// Check if the key event was the Back button and if there's history
 			if ( (keyCode == KeyEvent.KEYCODE_BACK) && myWebView.canGoBack() ) {
 				myWebView.goBack();
@@ -161,7 +159,7 @@ public class LicenseActivity extends Activity {
 
 		if (item.getItemId() == R.id.language) {
 
-			Intent i = new Intent(LicenseActivity.this, LanguageSelector.class);
+			Intent i = new Intent(LicenseActivity.this, LanguageSelectorActivity.class);
 			startActivity(i);
 			return true;
 		} else if (item.getItemId() == R.id.gpl) {

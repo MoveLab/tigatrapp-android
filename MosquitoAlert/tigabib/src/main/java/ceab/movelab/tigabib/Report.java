@@ -404,20 +404,18 @@ public class Report {
 		JSONObject result = new JSONObject();
 		try {
 			result.put("user", PropertyHolder.getUserId());
-			Util.logInfo(TAG, PropertyHolder.getUserId());
+Util.logInfo(TAG, PropertyHolder.getUserId());
 			result.put("version_UUID", this.versionUUID);
 			result.put("version_number", this.reportVersion);
 			result.put("report_id", this.reportId);
 			// exporting current time as phone upload time on assumption that
 			// JSON export is being done immediately before upload
-			result.put("phone_upload_time",
-					Util.ecma262(System.currentTimeMillis()));
+			result.put("phone_upload_time", Util.ecma262(System.currentTimeMillis()));
 			result.put("creation_time", this.creation_time);
 			result.put("version_time", this.versionTimeString);
 
 			result.put("type", Util.reportType2String(this.type));
-			result.put("location_choice",
-					Util.locationChoice2String(this.locationChoice));
+			result.put("location_choice", Util.locationChoice2String(this.locationChoice));
 			if (this.currentLocationLon != null)
 				result.put("current_location_lon", this.currentLocationLon);
 			if (this.currentLocationLat != null)
@@ -450,14 +448,12 @@ public class Report {
 				while (iter.hasNext()) {
 					String key = iter.next();
 					try {
-
 						JSONObject innerJSON = new JSONObject();
 						JSONObject itemJSON = thisConfirmation.getJSONObject(key);
 						innerJSON.put("question", itemJSON.get(MissionItemModel.KEY_ITEM_TEXT));
 						innerJSON.put("answer", itemJSON.get(MissionItemModel.KEY_ITEM_RESPONSE));
 
 						responsesArray.put(innerJSON);
-
 					} catch (JSONException e) {
 						Util.logError(TAG, "error: " + e);
 					}
@@ -486,12 +482,12 @@ public class Report {
 				int statusCode1 = response.getStatusLine().getStatusCode();
 				if (statusCode1 >= 200 && statusCode1 < 300) {
 					result = UPLOADED_REPORT_ONLY;
-					Util.logInfo(TAG, "statusCode1: " + statusCode1);
+Util.logInfo(TAG, "statusCode1: " + statusCode1);
 					result = uploadPhotos(context);
 				} else if(statusCode1 == 400){
 					// mark report as uploaded because in any case there is no point in sending it back to server.
 					result = UPLOADED_REPORT_ONLY;
-					Util.logInfo(TAG, "statusCode1: " + statusCode1);
+Util.logInfo(TAG, "statusCode1: " + statusCode1);
 					result = uploadPhotos(context);
 				} else {
 					Util.logError(TAG, "fail upload, status code: " + statusCode1 + "uploaded: " + this.uploaded);
@@ -512,13 +508,13 @@ public class Report {
 					String thisUri = this.photoUrisJson.getJSONObject(i).getString(Report.KEY_PHOTO_URI);
 
 					int statusCode2 = Util.postPhoto(context, thisUri, Uri.parse(thisUri).getLastPathSegment(), this.versionUUID);
-					Util.logInfo(TAG, "statusCode2: " + statusCode2);
+Util.logInfo(TAG, "statusCode2: " + statusCode2);
 					if (statusCode2 >= 200 && statusCode2 < 300) {
 						result = UPLOADED_ALL;
 					} else {
 						result = UPLOADED_REPORT_ONLY;
-						Util.logError(TAG, "fail upload, status code: " + this.uploaded);
-						Util.logError(TAG, "failed to upload photos: " + this.photoUrisJson.toString());
+Util.logError(TAG, "fail upload, status code: " + this.uploaded);
+Util.logError(TAG, "failed to upload photos: " + this.photoUrisJson.toString());
 					}
 				} catch (JSONException e) {
 					Util.logError(TAG, "JSON exception: " + e);

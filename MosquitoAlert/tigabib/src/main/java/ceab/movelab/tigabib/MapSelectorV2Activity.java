@@ -78,11 +78,11 @@ public class MapSelectorV2Activity extends FragmentActivity implements OnMapRead
 
 	String TAG = "Map Selector";
 
-	public static final int REQUEST_GOOGLE_PLAY_SERVICES = 999;
+	private static final int REQUEST_GOOGLE_PLAY_SERVICES = 999;
 	public static final String LAT = "lat";
 	public static final String LON = "lon";
 
-	String lang;
+	private String lang;
 
 	private GoogleMap mGoogleMap;
 	private SupportMapFragment mMapFragment;
@@ -125,10 +125,10 @@ public class MapSelectorV2Activity extends FragmentActivity implements OnMapRead
 		}
 
 		Bundle b = getIntent().getExtras();
-		if (b.containsKey(Messages.makeIntentExtraKey(this, ReportToolActivity.PREVIOUS_LAT))) {
+		if (b!= null && b.containsKey(Messages.makeIntentExtraKey(this, ReportToolActivity.PREVIOUS_LAT))) {
 			previous_lat = b.getFloat(Messages.makeIntentExtraKey(this, ReportToolActivity.PREVIOUS_LAT));
 		}
-		if (b.containsKey(Messages.makeIntentExtraKey(this, ReportToolActivity.PREVIOUS_LON))) {
+		if (b!= null && b.containsKey(Messages.makeIntentExtraKey(this, ReportToolActivity.PREVIOUS_LON))) {
 			previous_lon = b.getFloat(Messages.makeIntentExtraKey(this, ReportToolActivity.PREVIOUS_LON));
 		}
 
@@ -359,7 +359,7 @@ public class MapSelectorV2Activity extends FragmentActivity implements OnMapRead
 
 		/**
 		 * Defines behavior when the given provider is disabled.
-		 * 
+		 *
 		 * @param provider
 		 *            The provider to be disabled
 		 */
@@ -370,7 +370,7 @@ public class MapSelectorV2Activity extends FragmentActivity implements OnMapRead
 		/**
 		 * Defines behavior when the given provider is re-enabled. Currently no
 		 * behavior is defined.
-		 * 
+		 *
 		 * @param provider
 		 *            The provider to be re-enabled
 		 */

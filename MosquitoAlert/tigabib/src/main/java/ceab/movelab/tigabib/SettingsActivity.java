@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONArray;
@@ -33,7 +34,7 @@ public class SettingsActivity extends Activity {
 
 	private static String TAG = "SettingsActivity";
 
-	String lang;
+	private String lang;
 
 	ToggleButton tb;
 	Boolean on;
@@ -50,6 +51,8 @@ public class SettingsActivity extends Activity {
 	Cursor c;
 
 	NewSamplesReceiver newSamplesReceiver;
+
+	private FirebaseAnalytics mFirebaseAnalytics;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -69,8 +72,13 @@ public class SettingsActivity extends Activity {
 
 			@Override
 			public void onClick(View arg0) {
-				Intent i = new Intent(SettingsActivity.this, LanguageSelector.class);
+				Intent i = new Intent(SettingsActivity.this, LanguageSelectorActivity.class);
 				startActivity(i);
+
+				// Send Firebase Event
+				Bundle bundle = new Bundle();
+				bundle.putString(FirebaseAnalytics.Param.SOURCE, "Settings");
+				mFirebaseAnalytics.logEvent("ma_evt_language_change", bundle);
 			}
 
 		});
@@ -126,22 +134,29 @@ public class SettingsActivity extends Activity {
 		} else
 			debugView.setVisibility(View.GONE);
 
+		// Obtain the FirebaseAnalytics instance.
+		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
 	}
 
 	@Override
 	protected void onResume() {
+		super.onResume();
 
 		if (!Util.setDisplayLanguage(getResources()).equals(lang)) {
 			finish();
 			startActivity(getIntent());
 		}
 
+		// [START set_current_screen]
+		mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_settings", "Settings");
+		// [END set_current_screen]
+
 		IntentFilter newSamplesFilter;
 		newSamplesFilter = new IntentFilter(Messages.newSamplesReadyAction(this));
 		newSamplesReceiver = new NewSamplesReceiver();
 		registerReceiver(newSamplesReceiver, newSamplesFilter);
 
-		super.onResume();
 	}
 
 	@Override
@@ -242,10 +257,9 @@ public class SettingsActivity extends Activity {
 				// check last id on phone
 				int latest_id = PropertyHolder.getLatestMissionId();
 
-				String missionUrl = Util.API_MISSION + "?"
-						+ (latest_id > 0 ? ("id_gt=" + latest_id) : "") + "&platform="
-						+ (Util.debugMode() ? "beta" : "and") + "&version_lte="
-						+ Util.MAX_MISSION_VERSION;
+				String missionUrl = Util.API_MISSION + "?" + (latest_id > 0 ? ("id_gt=" + latest_id) : "")
+						+ "&platform=" + (Util.debugMode() ? "beta" : "and")
+						+ "&version_lte=" + Util.MAX_MISSION_VERSION;
 
 				Util.logInfo(TAG, "mission array: " + missionUrl);
 

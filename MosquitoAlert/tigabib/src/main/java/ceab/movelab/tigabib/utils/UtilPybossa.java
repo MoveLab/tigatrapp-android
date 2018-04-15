@@ -130,7 +130,7 @@ public class UtilPybossa {
                             if (TextUtils.isEmpty(result)) {
                                 Toast.makeText(ctx, R.string.pybossa_error, Toast.LENGTH_SHORT).show();
                             } else {
-                                Util.logInfo("==========++", result);
+Util.logInfo("==========++", result);
                                 PropertyHolder.setPybossaToken(result);
                             }
                         }
@@ -140,7 +140,7 @@ public class UtilPybossa {
     }
 
     public String getPybossaNewtaskUrl(int offset) {
-        String projectId = (isProduction ? "1" : "2"); // !!!!$$$ 1 - production, 2- development
+        String projectId = (isProduction ? "1" : "2"); // 1 - production, 2- development
         return UtilPybossa.URL_NEW_TASK + projectId + "/newtask?offset=" + offset + "&external_uid=" + PropertyHolder.getUserId();
     }
 

@@ -41,6 +41,7 @@
 
 package ceab.movelab.tigabib;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -83,6 +84,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.maps.GeoPoint;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.reflect.TypeToken;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -112,7 +114,7 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 
 	private static String TAG = "MapDataV2Activity";
 
-	public static final int REQUEST_GOOGLE_PLAY_SERVICES = 999;
+	private static final int REQUEST_GOOGLE_PLAY_SERVICES = 999;
 
 	private static final float ADULT_COLOR_HUE = 5.0f;
 //	private static final float SITE_COLOR_HUE = 244.0f;
@@ -141,6 +143,7 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 	private Location mLastLocationNeighbours;
 	private GeoPoint currentCenter;
 
+	private FirebaseAnalytics mFirebaseAnalytics;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -151,6 +154,9 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 
 		lang = Util.setDisplayLanguage(getResources());
 		checkGoogleApiAvailability();
+
+		// Obtain the FirebaseAnalytics instance
+		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 	}
 
 	private void onCreateContinue() {
@@ -168,6 +174,22 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 		legendLayout = (RelativeLayout)  findViewById(R.id.mapLegend);
 		progressbar = (ProgressBar) findViewById(R.id.mapProgressbar);
 		progressbar.setProgress(0);
+
+		ActionBar actionBar = getActionBar();
+		if (actionBar != null) {
+			actionBar.addOnMenuVisibilityListener(new ActionBar.OnMenuVisibilityListener() {
+				@Override
+				public void onMenuVisibilityChanged(boolean isVisible) {
+					if (isVisible) {
+						// menu expanded
+						Bundle bundle = new Bundle();
+						mFirebaseAnalytics.logEvent("ma_evt_open_menu_map", bundle);
+					} else {
+						// menu collapsed
+					}
+				}
+			});
+		}
 	}
 
 	//http://stackoverflow.com/questions/31016722/googleplayservicesutil-vs-googleapiavailability
@@ -363,6 +385,10 @@ Util.logInfo(TAG, "GMS: onLocationChanged");
 			startActivity(getIntent());
 		}
 
+		// [START set_current_screen]
+		mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_map_data", "Map Data");
+		// [END set_current_screen]
+
 		if ( mGoogleServicesOk ) {
 			setMapType();
 			progressbar.setVisibility(View.VISIBLE);
@@ -400,30 +426,53 @@ Util.logInfo(TAG, "GMS: onLocationChanged");
 		return true;
 	}
 
+/*	@Override
+	public boolean onMenuOpened(int featureId, Menu menu) {
+		if ( featureId == Window.FEATURE_ACTION_BAR ) {
+			// Send Firebase Event
+			Bundle bundle = new Bundle();
+			mFirebaseAnalytics.logEvent("ma_evt_open_menu_map", bundle);
+		}
+		//
+		else if ( featureId == AppCompatDelegate.FEATURE_SUPPORT_ACTION_BAR && menu != null ){
+			// Send Firebase Event
+			Bundle bundle = new Bundle();
+			mFirebaseAnalytics.logEvent("ma_evt_open_menu_map", bundle);
+		}
+		return super.onMenuOpened(featureId, menu);
+	}*/
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		super.onOptionsItemSelected(item);
 
+		Bundle bundle = new Bundle();
 		if (item.getItemId() == R.id.language) {
-			Intent i = new Intent(this, LanguageSelector.class);
+			Intent i = new Intent(this, LanguageSelectorActivity.class);
 			startActivity(i);
+			// Send Firebase Event
+			bundle.putString(FirebaseAnalytics.Param.SOURCE, "Map");
+			mFirebaseAnalytics.logEvent("ma_evt_language_change", bundle);
 			return true;
 		} else if (item.getItemId() == R.id.sat) {
 			item.setChecked(true);
 			satToggle = true;
 			setMapType();
+			mFirebaseAnalytics.logEvent("ma_evt_map_type", bundle);
 			return true;
 		} else if (item.getItemId() == R.id.street) {
 			item.setChecked(true);
 			satToggle = false;
 			setMapType();
+			mFirebaseAnalytics.logEvent("ma_evt_map_type", bundle);
 			return true;
 		} else if (item.getItemId() == R.id.saveMap) {
 			saveMapImage();
+			mFirebaseAnalytics.logEvent("ma_evt_map_save", bundle);
 			return true;
 		} else if (item.getItemId() == R.id.shareMap) {
 			shareMap();
+			mFirebaseAnalytics.logEvent("ma_evt_map_share", bundle);
 			return true;
 		}
 
@@ -674,6 +723,7 @@ Util.logInfo(this.getClass().toString(), "Finished scanning " + path);
 					// add the message
 					share.putExtra(Intent.EXTRA_TEXT, shareMessage);
 					startActivity(Intent.createChooser(share, getResources().getText(R.string.share_with)));
+
 				} else {
 					// Log.e(TAG, "cannot write file");
 					Util.toast(MapDataV2Activity.this, getResources().getString(R.string.data_SD_unavailable));

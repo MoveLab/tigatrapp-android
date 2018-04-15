@@ -22,6 +22,7 @@
 package ceab.movelab.tigabib;
 
 import android.Manifest;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
@@ -50,6 +51,7 @@ import android.widget.Toast;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.ShareEvent;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.reflect.TypeToken;
 import com.koushikdutta.async.future.FutureCallback;
@@ -84,9 +86,6 @@ public class SwitchboardActivity extends Activity {
 	private RelativeLayout pybossaButton;
 	private RelativeLayout notificationsButton;
 	private TextView mScorePointsText;
-//	private RelativeLayout missionsButton;
-//	private ImageView websiteButton;
-//	private ImageView menuButton;
 
 	private String lang;
 	private Realm mRealm;
@@ -96,6 +95,8 @@ public class SwitchboardActivity extends Activity {
 	private final static int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 555;
 	private ArrayList<String> mPermissionsDenied;
 
+	private FirebaseAnalytics mFirebaseAnalytics;
+    private static final int RC_SIGN_IN = 123;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -105,6 +106,9 @@ public class SwitchboardActivity extends Activity {
 			PropertyHolder.init(this);
 
 		lang = Util.setDisplayLanguage(getResources());
+
+		// Obtain the FirebaseAnalytics instance.
+		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
 		// detect push notification
 		try {
@@ -143,6 +147,22 @@ public class SwitchboardActivity extends Activity {
 		else {
 			onCreateWithPermissions();
 		}
+
+		ActionBar actionBar = getActionBar();
+		if (actionBar != null) {
+			actionBar.addOnMenuVisibilityListener(new ActionBar.OnMenuVisibilityListener() {
+				@Override
+				public void onMenuVisibilityChanged(boolean isVisible) {
+					if (isVisible) {
+						// menu expanded
+						Bundle bundle = new Bundle();
+						mFirebaseAnalytics.logEvent("ma_evt_open_menu", bundle);
+					} else {
+						// menu collapsed
+					}
+				}
+			});
+		}
 	}
 
 	@Override
@@ -171,6 +191,9 @@ Util.logInfo("=========", "New Intent");
 				String userId = UUID.randomUUID().toString();
 				PropertyHolder.setUserId(userId);
 				PropertyHolder.setNeedsMosquitoAlertPop(false);
+
+				// Store User ID on Firebase
+				mFirebaseAnalytics.setUserId(userId);
 
 				Util.registerOnServer(MyApp.getAppContext());
 
@@ -202,7 +225,6 @@ Util.logInfo("=========", "New Intent");
 					dialog.show();
 				}
 			}*/
-
 
 			if ( Util.privateMode() ) {
 				final long now = System.currentTimeMillis();
@@ -341,6 +363,10 @@ Util.logInfo("=========", "New Intent");
 					});
 
 					dialog.show();
+
+					// Send Firebase Event
+					Bundle bundle = new Bundle();
+					mFirebaseAnalytics.logEvent("ma_evt_score_alert", bundle);
 				}
 			});
 			/*missionsButton = (RelativeLayout) findViewById(R.id.reportMissionsLayout);
@@ -398,11 +424,20 @@ Util.logInfo("=========", "New Intent");
 
 	@Override
 	protected void onResume() {
+		super.onResume();
 		if ( !Util.setDisplayLanguage(getResources()).equals(lang) ) {
 			finish();
 			startActivity(getIntent());
 		}
-		super.onResume();
+
+		// [START set_current_screen]
+		mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_switchboard", "Home Page" /* class override */);
+		// [END set_current_screen]
+		/* Bundle params = new Bundle();
+    params.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, "screen");
+    params.putString(FirebaseAnalytics.Param.ITEM_NAME, name);
+    mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, params);*/
+
 		if ( mRealm == null ) {
 			try {
 Util.logInfo(this.getClass().getName(), "onResume Realm ==================");
@@ -417,7 +452,8 @@ Util.logInfo(this.getClass().getName(), "onResume IllegalArgumentException");
 				Crashlytics.log("Realm deleting");
 				//Crashlytics.setString("Method", "updateNotificationCount");
 				Crashlytics.logException(e);
-				RealmConfiguration config = new RealmConfiguration.Builder(this)
+				if ( mRealm != null && !mRealm.isClosed() ) mRealm.close(); // Remember to close Realm when done.
+				RealmConfiguration config = new RealmConfiguration.Builder()
 						.name("myRealmDB.realm")
 						.schemaVersion(1)
 						.build();
@@ -499,8 +535,14 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 	private void updateScoreScreenFromRealm() {
 		if ( mRealm != null && !mRealm.isClosed() ) {
 			Score score = RealmHelper.getInstance().getScore(mRealm);
+
 			if ( score != null && score.getScore() != null ) {
-				mScorePointsText.setText(score.getScore() > 100 ? "100" : String.valueOf(score.getScore()));
+				String scoreValue = (score.getScore() > 100 ? "100" : String.valueOf(score.getScore()));
+				mScorePointsText.setText(scoreValue);
+				// [START user_property]
+				mFirebaseAnalytics.setUserProperty("ma_score", scoreValue);
+				// [END user_property]
+
 				// get label value from resources
 				int resourceId = this.getResources().getIdentifier(score.getScoreLabel(), "string", this.getPackageName());
 				((TextView) findViewById(R.id.scoreLevelText)).setText(resourceId);
@@ -509,7 +551,7 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 		else {
 			// throw exception
 			Crashlytics.log("Realm is null or closed");
-			Crashlytics.setString("Method", "updateScore");
+			Crashlytics.setString("Method", "updateScoreScreenFromRealm");
 			Crashlytics.logException(new IllegalStateException());
 		}
 	}
@@ -517,7 +559,11 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 	private void updateNotificationCount() {
 		if ( mRealm != null && !mRealm.isClosed() ) {
 			int count = RealmHelper.getInstance().getNewNotificationsCount(mRealm);
-			((TextView) findViewById(R.id.reportNotificationsNumberText)).setText(count > 99 ? "99+" : String.valueOf(count));
+			try {	// Crashlytics error #38
+				((TextView) findViewById(R.id.reportNotificationsNumberText)).setText(count > 99 ? "99+" : String.valueOf(count));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 		else {
 			// throw exception
@@ -574,6 +620,22 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 		return true;
 	}
 
+	/*@Override
+	public boolean onMenuOpened(int featureId, Menu menu) {
+		if ( featureId == Window.FEATURE_ACTION_BAR ) {
+			// Send Firebase Event
+			Bundle bundle = new Bundle();
+			mFirebaseAnalytics.logEvent("ma_evt_open_menu", bundle);
+		}
+		//
+		else if ( featureId == AppCompatDelegate.FEATURE_SUPPORT_ACTION_BAR && menu != null ){
+			// Send Firebase Event
+			Bundle bundle = new Bundle();
+			mFirebaseAnalytics.logEvent("ma_evt_open_menu", bundle);
+		}
+		return super.onMenuOpened(featureId, menu);
+	}*/
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		super.onOptionsItemSelected(item);
@@ -591,7 +653,7 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 			startActivity(i);
 			return true;
 		} else if (item.getItemId() == R.id.gallery) {
-			Intent i = new Intent(SwitchboardActivity.this, PhotoGallery.class);
+			Intent i = new Intent(SwitchboardActivity.this, PhotoGalleryActivity.class);
 			startActivity(i);
 			return true;
 		} else if (item.getItemId() == R.id.settings) {
@@ -621,6 +683,10 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 			// start the chooser for sharing
 			startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.share_with)));
 
+			// Send Firebase Event
+			Bundle bundle = new Bundle();
+			mFirebaseAnalytics.logEvent("ma_evt_share", bundle);
+
 			Answers.getInstance().logShare(new ShareEvent()
 					.putMethod("Mail")
 					.putContentName("Global")
@@ -631,22 +697,40 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(UtilLocal.URL_PROJECT));
             startActivity(i);
+
+			// Send Firebase Event
+			Bundle bundle = new Bundle();
+			mFirebaseAnalytics.logEvent("ma_evt_web", bundle);
+        }
+        else if (item.getItemId() == R.id.login) {
+/*            // Choose authentication providers
+            List<AuthUI.IdpConfig> providers = Arrays.asList(
+                    new AuthUI.IdpConfig.EmailBuilder().build());
+
+            // Create and launch sign-in intent
+            startActivityForResult(AuthUI.getInstance()
+                    .createSignInIntentBuilder()
+                    .setAvailableProviders(providers)
+                    .setTosUrl("https://superapp.example.com/terms-of-service.html")
+                    .setPrivacyPolicyUrl("https://superapp.example.com/privacy-policy.html")
+                    .setIsSmartLockEnabled(false)
+                    .build(), RC_SIGN_IN);*/
+            return true;
         }
 		return false;
 	}
 
 	public void askForPermissions() {
 		String[] permissionsArray = mPermissionsDenied.toArray(new String[mPermissionsDenied.size()]);
-		if (permissionsArray.length > 0) {
+		if ( permissionsArray.length > 0 ) {
 			ActivityCompat.requestPermissions(SwitchboardActivity.this, permissionsArray, REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
 		}
 	}
 
 	@Override
 	public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-		switch (requestCode) {
-			case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS:
-			{
+		switch ( requestCode ) {
+			case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS: {
 				boolean allGranted = true;
 				// Cbeck for all granted permissions
 				for (int i = 0; i < grantResults.length; i++)
@@ -668,8 +752,7 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 				}
 			}
 			break;
-			default:
-				super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+			default: super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 		}
 
 	}
@@ -684,12 +767,12 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 		// Group ??
 		//permissions.add(Manifest.permission.BATTERY_STATS);
 		// Group Storage
-		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+		if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN ) {
 			permissions.add(Manifest.permission.READ_EXTERNAL_STORAGE);
 		}
 		permissions.add(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-		for (String permission : permissions) {
-			if (!hasPermission(this, permission)) {
+		for ( String permission : permissions ) {
+			if ( !hasPermission(this, permission) ) {
 				permissionsDenied.add(permission);
 			}
 			//else

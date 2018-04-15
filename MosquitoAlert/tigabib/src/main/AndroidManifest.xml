@@ -77,7 +77,7 @@
         <activity android:name="ceab.movelab.tigabib.SettingsActivity"
                   android:screenOrientation="portrait" />
         <activity
-            android:name="ceab.movelab.tigabib.LanguageSelector"
+            android:name="ceab.movelab.tigabib.LanguageSelectorActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Dialog" >
         </activity>
@@ -129,7 +129,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ceab.movelab.tigabib.SwitchboardActivity" />
         </activity>
-        <activity android:name="ceab.movelab.tigabib.PhotoGallery" />
+        <activity android:name="ceab.movelab.tigabib.PhotoGalleryActivity" />
 <!--        <activity
             android:name="ceab.movelab.tigabib.MapSelector"
             android:process=":p1" >
@@ -156,7 +156,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ceab.movelab.tigabib.SwitchboardActivity" />
         </activity>
-
 
         <receiver android:name="ceab.movelab.tigabib.TigerBroadcastReceiver" >
             <intent-filter>

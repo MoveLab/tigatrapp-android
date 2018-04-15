@@ -1,16 +1,16 @@
 package ceab.movelab.tigabib;
 
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 /**
  * Main activity that user interacts with while performing the search..
@@ -31,7 +31,9 @@ public class HelpActivity extends FragmentActivity {
 
 	private WebView myWebView;
 
-	String lang;
+	private String lang;
+
+	private FirebaseAnalytics mFirebaseAnalytics;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,12 @@ public class HelpActivity extends FragmentActivity {
 			PropertyHolder.init(this);
 
 		lang = Util.setDisplayLanguage(getResources());
+
+		// if (Util.isOnline(context)) {
+		setContentView(R.layout.webview);
+
+		// Obtain the FirebaseAnalytics instance.
+		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 	}
 
 	@Override
@@ -51,14 +59,16 @@ public class HelpActivity extends FragmentActivity {
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onResume() {
+		super.onResume();
 
 		if (!Util.setDisplayLanguage(getResources()).equals(lang)) {
 			finish();
 			startActivity(getIntent());
 		}
 
-		// if (Util.isOnline(context)) {
-		setContentView(R.layout.webview);
+		// [START set_current_screen]
+		mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_help", "Help");
+		// [END set_current_screen]
 
 		myWebView = (WebView) findViewById(R.id.webview);
 		myWebView.setWebViewClient(new WebViewClient() {
@@ -78,9 +88,9 @@ public class HelpActivity extends FragmentActivity {
 		myWebView.getSettings().setJavaScriptEnabled(true);
 		myWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
 
-		if (Build.VERSION.SDK_INT >= 7) {
+/*		if (Build.VERSION.SDK_INT >= 7) {
 			WebViewApi7.api7settings(myWebView, this);
-		}
+		}*/
 
 		if ( !Util.isOnline(this) ) { // loading offline only if not online
 			myWebView.getSettings().setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK);
@@ -94,11 +104,9 @@ public class HelpActivity extends FragmentActivity {
 			myWebView.loadUrl(TIGER_HELP_URL_ZH);
 		else
 			myWebView.loadUrl(TIGER_HELP_URL_EN);
-
-		super.onResume();
 	}
 
-	@Override
+/*	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if ( Util.isOnline(this) ) {
 			// Check if the key event was the Back button and if there's history
@@ -108,7 +116,7 @@ public class HelpActivity extends FragmentActivity {
 			}
 		}
 		return super.onKeyDown(keyCode, event);
-	}
+	}*/
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -125,7 +133,7 @@ public class HelpActivity extends FragmentActivity {
 		super.onOptionsItemSelected(item);
 
 		if (item.getItemId() == R.id.language) {
-			Intent i = new Intent(HelpActivity.this, LanguageSelector.class);
+			Intent i = new Intent(HelpActivity.this, LanguageSelectorActivity.class);
 			startActivity(i);
 			return true;
 		}

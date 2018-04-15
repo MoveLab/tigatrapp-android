@@ -61,7 +61,6 @@ public class PhotoValidationWebViewActivity extends Activity {
 
 		if ( !PropertyHolder.isInit() )
 			PropertyHolder.init(this);
-
 		lang = Util.setDisplayLanguage(getResources());
 
 		Bundle b = getIntent().getExtras();
@@ -147,7 +146,7 @@ public class PhotoValidationWebViewActivity extends Activity {
 		super.onOptionsItemSelected(item);
 
 		if (item.getItemId() == R.id.language) {
-			Intent i = new Intent(PhotoValidationWebViewActivity.this, LanguageSelector.class);
+			Intent i = new Intent(PhotoValidationWebViewActivity.this, LanguageSelectorActivity.class);
 			startActivity(i);
 			return true;
 		} else if (item.getItemId() == R.id.license) {

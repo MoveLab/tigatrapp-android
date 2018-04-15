@@ -26,6 +26,8 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.widget.TabHost;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
+
 import ceab.movelab.tigabib.fragments.FragmentList;
 import ceab.movelab.tigabib.model.RealmHelper;
 import io.realm.Realm;
@@ -34,12 +36,14 @@ import io.realm.Realm;
 public class NotificationListActivity extends FragmentActivity implements TabHost.OnTabChangeListener {
 
 	private static final String TAG = "FragmentTabs";
-	public static final String TAB_NEW = "new";
-	public static final String TAB_OLD = "old";
+	private static final String TAB_NEW = "new";
+	private static final String TAB_OLD = "old";
 
 	private String lang;
 	private Realm mRealm;
 	//private TabHost mTabHost;
+
+	private FirebaseAnalytics mFirebaseAnalytics;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -76,8 +80,9 @@ public class NotificationListActivity extends FragmentActivity implements TabHos
 
 		mTabHost.setOnTabChangedListener(this);
 		mTabHost.setCurrentTab(0);
-	}
 
+		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+	}
 
 	@Override
 	public void onTabChanged(String tabId) {
@@ -104,11 +109,15 @@ Util.logInfo("UPDATE TAB", "isDone = " + done);
 
 	@Override
 	protected void onResume() {
+		super.onResume();
+
 		if ( !Util.setDisplayLanguage(getResources()).equals(lang) ) {
 			finish();
 			startActivity(getIntent());
 		}
-		super.onResume();
+		// [START set_current_screen]
+		mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_notification_list", "Notification List");
+		// [END set_current_screen]
 
 		updateTab(TAB_NEW, R.id.tab_1, false);
 		updateTab(TAB_OLD, R.id.tab_2, true);

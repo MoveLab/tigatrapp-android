@@ -77,6 +77,7 @@ import ceab.movelab.tigabib.model.DataModel;
 import ceab.movelab.tigabib.model.RealmHelper;
 import ceab.movelab.tigabib.utils.StethoUtils;
 import io.fabric.sdk.android.Fabric;
+import io.realm.Realm;
 
 public class MyApp extends Application {
 
@@ -93,11 +94,11 @@ public class MyApp extends Application {
 				.core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
 				.build();
 		// Initialize Fabric with the debug-disabled crashlytics.
-		//Fabric.with(this, crashlyticsKit);  //  do not turn on if in debuggable mode
-		Fabric.with(this, new Crashlytics());	// turn on Crashlytics anyway
+		Fabric.with(this, crashlyticsKit);  //  do not turn on if in debuggable mode
+		//Fabric.with(this, new Crashlytics());	// turn on Crashlytics anyway
 
 		RealmHelper.initialize(this);
-		//Realm.init(this); // used in Realm 2.0.0+
+		Realm.init(this); // used in Realm 2.0.0+
 
 //		AndroidNetworking.initialize(getApplicationContext());
 //		AndroidNetworking.enableLogging();
@@ -107,7 +108,7 @@ public class MyApp extends Application {
     }
 
 //	public void forceCrash() {
-//		throw new RuntimeException("This is my test crash");
+//		throw new RuntimeException("This is my test crash from MyApp");
 //	}
 
 	protected void initGlobals() {

@@ -44,6 +44,7 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.github.chrisbanes.photoview_local.PhotoView;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -83,6 +84,8 @@ public class PhotoValidationActivity extends Activity {
 	private ImageView mValidHelp_1, mValidHelp_2, mValidHelp_3, mValidHelp_4;
 	private ImageView mToraxImage, mAbdomenImage;
 	private Boolean mIsTiger = null;
+
+	private FirebaseAnalytics mFirebaseAnalytics;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -141,6 +144,8 @@ public class PhotoValidationActivity extends Activity {
         mAbdomenImage = (ImageView) findViewById(R.id.validAbdomenImage);
 
 		setOnClickListeners();
+
+		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 	}
 
 
@@ -149,7 +154,6 @@ public class PhotoValidationActivity extends Activity {
 		super.onPause();
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -157,6 +161,10 @@ public class PhotoValidationActivity extends Activity {
 		if ( !Util.setDisplayLanguage(getResources()).equals(lang)) {
 			finish();
 		}
+
+		// [START set_current_screen]
+		mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_photo_validation", "Photo Validation");
+		// [END set_current_screen]
 	}
 
 	private void setOnClickListeners() {
@@ -193,6 +201,7 @@ public class PhotoValidationActivity extends Activity {
 		mNoButton_1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				if ( mTaskRun == null ) createTaskRunObject();
 				// user_lang,  tigerAbdomen,  tigerTorax,  mosquito,  yellowTorax,  yellowAbdomen,  type
 				TaskRunInfo info = new TaskRunInfo(lang, "no", "no", "no", "no", "no", "unknown");
 				mTaskRun.setInfo(info);
@@ -290,7 +299,6 @@ public class PhotoValidationActivity extends Activity {
 				showFlipperNext();
 			}
 		});
-
 	}
 
 	private void sendValidationResults() {
@@ -311,7 +319,12 @@ Util.logInfo("===========", "pybossaToken >> " + pybossaToken);
 		String jsonTaskRun = gson.toJson(mTaskRun);
 Util.logInfo("===========", "sendValidationResults >> " + mTaskRun.getTaskId());
 
-		startNewValidation();	// to speed up
+		startNewValidation();	// to speed up next validation
+
+		// Send Firebase Event
+		Bundle bundle = new Bundle();
+		bundle.putInt("task_id",  mTaskRun.getTaskId());
+		mFirebaseAnalytics.logEvent("ma_evt_validation_sent", bundle);
 
 		//mIsTiger = false;
 		Ion.with(this)
@@ -355,9 +368,9 @@ Util.logInfo("==========++", jsonObject.toString());
 		 else {
 			 loadNewTask(0);
 		 }
-
 		 showFlipperFirst();
 	 }
+
 
 	private void showFlipperFirst() {
 		// Next screen comes in from right.
@@ -452,7 +465,7 @@ Util.logInfo("===========", newTaskUrl);
 				@Override
 				public void onCompleted(Exception e, Task resultTask) {
 					// do stuff with the result or error
-					if ( resultTask != null ) {
+					if ( resultTask != null && resultTask.getId() != null ) {
 Util.logInfo(this.getClass().getName(), "loadNewTask >> " + resultTask.getId());
 						if ( offset > 0 ) {    // pre-fetching next task
 Util.logInfo("===========", "prefetching >> " +  resultTask.getId());
@@ -464,12 +477,21 @@ Util.logInfo("===========", "prefetching >> " +  resultTask.getId());
 							createTaskRunObject();
 						}
 					}
+					else {
+						PhotoValidationActivity.this.finish();
+					}
 				}
 			});
 	}
 
 	private void createTaskRunObject() {
-		mTaskRun = new TaskRun(myTask.getProjectId(), myTask.getId(), PropertyHolder.getUserId(), null);
+		try {
+			mTaskRun = new TaskRun(myTask.getProjectId(), myTask.getId(), PropertyHolder.getUserId(), null);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			this.finish();
+		}
 	}
 
 	private void loadPhoto(boolean reload) {
@@ -480,6 +502,11 @@ Util.logInfo("===========", "prefetching >> " +  resultTask.getId());
 			//http://webserver.mosquitoalert.com/get_photo/q0n50KN2Tg1O0Zh/90bb084c-2d6b-48e9-9429-433fceb23447/medium
 			String getPhotoUrl = UtilPybossa.URL_GET_PHOTO + UtilLocal.PHOTO_TOKEN + "/" + myTask.getInfo().getUuid() + "/medium";
 Util.logInfo("===========", myTask.getId() + " >> " + getPhotoUrl);
+
+			// Send Firebase Event
+			Bundle bundle = new Bundle();
+			bundle.putString(FirebaseAnalytics.Param.ITEM_ID, myTask.getInfo().getUuid());
+			mFirebaseAnalytics.logEvent("ma_evt_photo_validation", bundle);
 
 //		Ion.with(mPhoto1View)
 //				.placeholder(R.drawable.ic_switchboard_icon_validacio_large)

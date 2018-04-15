@@ -62,6 +62,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONException;
@@ -77,7 +78,7 @@ import ceab.movelab.tigabib.ContProvContractReports.Reports;
 import static ceab.movelab.tigabib.Util.buildCustomAlert;
 
 /**
- * Activity for identifying and reporting tiger mosquitoes.
+ * Activity for identifying and reporting mosquitoes and breeding sites.
  * 
  * @author John R.B. Palmer
  * 
@@ -157,6 +158,9 @@ public class ReportToolActivity extends Activity {
 
 	private String lang;
 
+	private FirebaseAnalytics mFirebaseAnalytics;
+
+
 	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
@@ -167,6 +171,9 @@ public class ReportToolActivity extends Activity {
 			PropertyHolder.init(context);
 
 		lang = Util.setDisplayLanguage(getResources());
+
+		// Obtain the FirebaseAnalytics instance.
+		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
 		Bundle b = getIntent().getExtras();
 		type = b.getInt("type");
@@ -240,7 +247,6 @@ public class ReportToolActivity extends Activity {
 						c.getString(appLanguageCol), c.getInt(missionIDCol));
 			}
 			if ( c!= null ) c.close();
-
 		} else {
 			this.setTitle(context.getResources().getString(R.string.activity_label_report_new));
 			thisReport = new Report(type, PropertyHolder.getUserId());
@@ -272,8 +278,7 @@ public class ReportToolActivity extends Activity {
 		buttonReportSubmit = (Button) findViewById(R.id.buttonReportSubmit);
 
 		if ( editing ) {
-			reportTitle.setText((type == Report.TYPE_BREEDING_SITE ? getResources().getString(R.string.edit_title_site) :
-							getResources().getString(R.string.edit_title_adult)) + "\n"
+			reportTitle.setText((type == Report.TYPE_BREEDING_SITE ? getResources().getString(R.string.edit_title_site) : getResources().getString(R.string.edit_title_adult)) + "\n"
 							+ getResources().getString(R.string.created_on) + " "
 							+ Util.userDate(new Date((thisReport.reportTime))));
 
@@ -453,7 +458,6 @@ public class ReportToolActivity extends Activity {
 		});
 
 		countDownTimer = new MyCountDownTimer(5 * 60 * 1000, 5 * 60 * 1000);
-
 	}
 
 	private class mLocationListener implements LocationListener {
@@ -565,12 +569,23 @@ public class ReportToolActivity extends Activity {
 
 	@Override
 	protected void onResume() {
-
-		Util.logInfo(TAG, "on resume");
+		super.onResume();
 
 		if (!Util.setDisplayLanguage(getResources()).equals(lang)) {
 			finish();
 			startActivity(getIntent());
+		}
+
+		if ( editing ) {
+			// [START set_current_screen]
+			mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_report_tool",
+					(type == Report.TYPE_BREEDING_SITE ? "Report Breeding Site Edit" : "Report Mosquito Edit"));
+			// [END set_current_screen]
+		} else {
+			// [START set_current_screen]
+			mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_report_tool",
+					( type == Report.TYPE_BREEDING_SITE ? "Report Breeding Site" : "Report Mosquito"));
+			// [END set_current_screen]
 		}
 
 		gpsAvailable = false;
@@ -613,7 +628,6 @@ public class ReportToolActivity extends Activity {
 			reportCurrentLocationImage.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_action_location_found));
 		}
 
-		super.onResume();
 	}
 
 	@Override
@@ -625,7 +639,6 @@ public class ReportToolActivity extends Activity {
 		try {
 			countDownTimer.cancel();
 		} catch (Exception e) {
-
 			Util.logError(TAG, "exception cancelling countdown timer");
 		}
 		countDownTimer = null;
@@ -634,14 +647,12 @@ public class ReportToolActivity extends Activity {
 	@Override
 	public void onStop() {
 		super.onStop();
-
 		Util.logInfo(TAG, "on stop");
 
 		removeLocationUpdates();
 		try {
 			countDownTimer.cancel();
 		} catch (Exception e) {
-
 			Util.logError(TAG, "exception cancelling countdown timer");
 		}
 		countDownTimer = null;
@@ -657,7 +668,6 @@ public class ReportToolActivity extends Activity {
 		try {
 			countDownTimer.cancel();
 		} catch (Exception e) {
-
 			Util.logError(TAG, "exception cancelling countdown timer");
 		}
 		countDownTimer = null;
@@ -900,6 +910,11 @@ public class ReportToolActivity extends Activity {
 			prog.show();
 
 			myProgress = 0;
+
+			// Send Firebase Event
+			Bundle bundle = new Bundle();
+			bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, type == Report.TYPE_BREEDING_SITE ? "Breeding Site" : "Mosquito");
+			mFirebaseAnalytics.logEvent("ma_evt_btn_send_report", bundle);
 		}
 
 		protected Boolean doInBackground(Context... context) {
@@ -920,6 +935,7 @@ public class ReportToolActivity extends Activity {
 				thisReport.packageName = pInfo.packageName;
 				thisReport.packageVersion = pInfo.versionCode;
 			} catch (NameNotFoundException e) {
+				e.printStackTrace();
 			}
 
 			thisReport.phoneManufacturer = Build.MANUFACTURER;
@@ -981,8 +997,8 @@ public class ReportToolActivity extends Activity {
 					cv = new ContentValues();
 					cv.put(Reports.KEY_UPLOADED, uploadResult);
 					int nUpdated = cr.update(thisReportUri, cv, null, null);
-					Util.logInfo(TAG, "report uri " + thisReportUri);
-					Util.logInfo(TAG, "n updated " + nUpdated);
+Util.logInfo(TAG, "report uri " + thisReportUri);
+Util.logInfo(TAG, "n updated " + nUpdated);
 					resultFlag = SUCCESS;
 
 					// try sync and make sure daily syncs are scheduled
@@ -1017,8 +1033,13 @@ public class ReportToolActivity extends Activity {
 
 				thisReport.clear();
 				clearFields();
-				finish();
 
+				// Send Firebase Event
+				Bundle bundle = new Bundle();
+				bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, type == Report.TYPE_BREEDING_SITE ? "Breeding Site" : "Mosquito");
+				mFirebaseAnalytics.logEvent("ma_evt_send_report_success", bundle);
+
+				finish();
 			} else {
 				if (resultFlag == OFFLINE) {
 					buildCustomAlert(context, getResources().getString(R.string.offline_report));

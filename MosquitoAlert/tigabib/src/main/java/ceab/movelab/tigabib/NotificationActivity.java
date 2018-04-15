@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.reflect.TypeToken;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -25,6 +26,8 @@ public class NotificationActivity extends Activity {
 	private int notificationId;
 	private WebView myWebView;
 
+	private FirebaseAnalytics mFirebaseAnalytics;
+
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
@@ -38,9 +41,12 @@ public class NotificationActivity extends Activity {
 		mRealm = RealmHelper.getInstance().getRealm(this);
 
         final Bundle b = getIntent().getExtras();
-        if ( b.containsKey(NOTIFICATION_ID) ) {
+        if ( b != null && b.containsKey(NOTIFICATION_ID) ) {
             notificationId = b.getInt(NOTIFICATION_ID);
         }
+        else
+        	this.finish();
+
 		final Notification notif = RealmHelper.getInstance().getNotificationById(mRealm, notificationId);
 Util.logInfo(TAG, String.valueOf(notif.isAcknowledged()));
 		mRealm.executeTransaction(new Realm.Transaction() {
@@ -58,6 +64,8 @@ Util.logInfo(TAG, String.valueOf(notif.isAcknowledged()));
 
 		myWebView.loadData(notif.getExpertHtml(), "text/html", "UTF-8");
 		acknowledgeNotification(notif.getId());
+
+		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 	}
 
 	private void acknowledgeNotification(int notifId) {
@@ -84,12 +92,16 @@ Util.logInfo("===========", Util.URL_TIGASERVER_API_ROOT + notificationUrl);
 
 	@Override
 	protected void onResume() {
+		super.onResume();
+
 		if ( !Util.setDisplayLanguage(getResources()).equals(lang) ) {
 			finish();
 			startActivity(getIntent());
 		}
 
-		super.onResume();
+		// [START set_current_screen]
+		mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_notification", "Notification Single");
+		// [END set_current_screen]
 	}
 
 	@Override

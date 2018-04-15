@@ -30,12 +30,17 @@ import ceab.movelab.tigabib.ContProvContractReports.Reports;
 public class ViewReportsPhotosTab extends Activity {
 
 	private static String TAG = "ViewReportsPhotosTab";
+	Resources res;
+	String lang;
 	Context context = this;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		Resources res = getResources();
+		if ( !PropertyHolder.isInit() )
+			PropertyHolder.init(this);
+
+		res = getResources();
 		Util.setDisplayLanguage(res);
 
 		TextView textview = new TextView(this);
@@ -61,10 +66,8 @@ public class ViewReportsPhotosTab extends Activity {
 				gridview.setOnItemClickListener(new OnItemClickListener() {
 					public void onItemClick(AdapterView<?> parent, View v,
 							int position, long id) {
-
 						final String thisPhotoUri = Report.getPhotoUri(context, jsonPhotos, position);
 						if (thisPhotoUri != null) {
-
 							try {
 								final Dialog dialog = new Dialog(context);
 								dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -114,10 +117,8 @@ public class ViewReportsPhotosTab extends Activity {
 								Util.logError(TAG, "error: " + e);
 							}
 						}
-
 					}
 				});
-
 			} catch (JSONException e) {
 				Util.logError(TAG, "error: " + e);
 			}

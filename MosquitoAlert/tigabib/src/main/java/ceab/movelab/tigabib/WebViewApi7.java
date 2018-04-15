@@ -11,11 +11,8 @@ public class WebViewApi7{
 public static void api7settings(WebView myWebView, Context context) {
 
 	myWebView.getSettings().setAppCacheMaxSize(5 * 1024 * 1024); // 5MB
-	myWebView.getSettings().setAppCachePath(
-			context.getCacheDir().getAbsolutePath());
+	myWebView.getSettings().setAppCachePath(context.getCacheDir().getAbsolutePath());
 	myWebView.getSettings().setAppCacheEnabled(true);
-
-	return;
 }
 
 }

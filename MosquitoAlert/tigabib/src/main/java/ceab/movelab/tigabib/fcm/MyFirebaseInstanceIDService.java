@@ -15,6 +15,7 @@ package ceab.movelab.tigabib.fcm;
  * limitations under the License.
  */
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
@@ -62,6 +63,10 @@ Util.logInfo(TAG, "Refreshed token: " + refreshedToken);
                 PropertyHolder.setNeedsMosquitoAlertPop(false);
                 Util.registerOnServer(MyApp.getAppContext());
                 Util.registerFCMToken(this, token, userId);
+
+                // Obtain the FirebaseAnalytics instance.
+                FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(MyApp.getAppContext());
+                mFirebaseAnalytics.setUserId(userId);
             }
         }
         catch (Exception e) {
@@ -70,6 +75,10 @@ Util.logInfo(TAG, "Refreshed token: " + refreshedToken);
             PropertyHolder.setNeedsMosquitoAlertPop(false);
             Util.registerOnServer(MyApp.getAppContext());
             Util.registerFCMToken(this, token, userId);
+
+            // Obtain the FirebaseAnalytics instance.
+            FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(MyApp.getAppContext());
+            mFirebaseAnalytics.setUserId(userId);
         }
 
         /*

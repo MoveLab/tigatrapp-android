@@ -71,13 +71,16 @@ import android.os.Handler;
 import android.support.v4.app.FragmentActivity;
 import android.text.TextUtils;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import ceab.movelab.tigabib.utils.UtilPybossa;
 
 public class SplashActivity extends FragmentActivity {
-    
+
+	private FirebaseAnalytics mFirebaseAnalytics;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,6 +90,11 @@ public class SplashActivity extends FragmentActivity {
 		UtilPybossa pybossa = new UtilPybossa(Util.pybossaMode());
 		pybossa.fetchPybossaToken(this);
 
+		// Obtain the FirebaseAnalytics instance.
+		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
+//		mFirebaseAnalytics.resetAnalyticsData();
+
 		//Set Runnable to remove splash screen just in case
 		new Handler().postDelayed(new Runnable() {
 			@Override
@@ -94,15 +102,26 @@ public class SplashActivity extends FragmentActivity {
 				continueFromSplashScreen();
 		  	}
 		}, 2000); // 2500 optional
+
+		// [START app_open]
+		Bundle params = new Bundle();
+		mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.APP_OPEN, params);
+		// [END app_open]
+
+		mFirebaseAnalytics.setUserId(PropertyHolder.getUserId());
     }
 
     protected void continueFromSplashScreen() {
+		// [START set_current_screen]
+		mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_splash", "Splash");
+		// [END set_current_screen]
+
     	Intent intent = new Intent(this, SwitchboardActivity.class);
 		startActivity(intent);
 
 		// Get token
 		String token = FirebaseInstanceId.getInstance().getToken();
-Util.logInfo(this.getClass().getName(), "my token >> " + token);
+Util.logInfo(this.getClass().getName(), "my FCM token >> " + token);
 		if ( !TextUtils.isEmpty(token) )
 			FirebaseMessaging.getInstance().subscribeToTopic("global");
 

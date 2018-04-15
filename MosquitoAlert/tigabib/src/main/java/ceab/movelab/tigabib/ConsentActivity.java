@@ -33,6 +33,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.Date;
@@ -46,8 +47,8 @@ import java.util.UUID;
  */
 public class ConsentActivity extends Activity {
 
-	Context context;
-	String lang;
+	private Context context;
+	private String lang;
 
 	private static final String CONSENT_URL_OFFLINE_EN = "file:///android_asset/html/consent_en.html";
 	private static final String CONSENT_URL_OFFLINE_CA = "file:///android_asset/html/consent_ca.html";
@@ -55,6 +56,8 @@ public class ConsentActivity extends Activity {
 	private static final String CONSENT_URL_OFFLINE_ZH = "file:///android_asset/html/consent_zh.html";
 
 	private WebView myWebView;
+
+	private FirebaseAnalytics mFirebaseAnalytics;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -66,16 +69,25 @@ public class ConsentActivity extends Activity {
 			PropertyHolder.init(context);
 
 		lang = Util.setDisplayLanguage(getResources());
+
+		setContentView(R.layout.consent);
+
+		// Obtain the FirebaseAnalytics instance.
+		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+
 	}
 
 	@Override
 	protected void onResume() {
+		super.onResume();
+
 		if ( !Util.setDisplayLanguage(getResources()).equals(lang) ) {
 			finish();
 			startActivity(getIntent());
 		}
-
-		setContentView(R.layout.consent);
+		// [START set_current_screen]
+		mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_consent", "Consent");
+		// [END set_current_screen]
 
 		final Button consentButton = (Button) findViewById(R.id.consent_button);
 		consentButton.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +110,10 @@ public class ConsentActivity extends Activity {
                     // Get token and register on server
                     String token = FirebaseInstanceId.getInstance().getToken();
                     Util.registerFCMToken(ConsentActivity.this, token, PropertyHolder.getUserId());
+
+					// Obtain the FirebaseAnalytics instance.
+					FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+					mFirebaseAnalytics.setUserId(userId);
 				}
 
 				// start daily sampling
@@ -134,7 +150,6 @@ public class ConsentActivity extends Activity {
 		else
 			myWebView.loadUrl(CONSENT_URL_OFFLINE_EN);
 
-		super.onResume();
 	}
 
 	@Override
@@ -151,7 +166,7 @@ public class ConsentActivity extends Activity {
 		super.onOptionsItemSelected(item);
 
 		if ( item.getItemId() == R.id.language ) {
-			Intent i = new Intent(ConsentActivity.this, LanguageSelector.class);
+			Intent i = new Intent(ConsentActivity.this, LanguageSelectorActivity.class);
 			startActivity(i);
 			return true;
 		}

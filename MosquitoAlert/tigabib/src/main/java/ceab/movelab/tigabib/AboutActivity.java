@@ -24,7 +24,6 @@ package ceab.movelab.tigabib;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -33,6 +32,8 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 /**
  * Displays the About screen.
@@ -56,7 +57,9 @@ public class AboutActivity extends Activity {
 
 	private WebView myWebView;
 
-	String lang;
+	private String lang;
+
+	private FirebaseAnalytics mFirebaseAnalytics;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,11 @@ public class AboutActivity extends Activity {
 			PropertyHolder.init(this);
 
 		lang = Util.setDisplayLanguage(getResources());
+
+		setContentView(R.layout.webview);
+
+		// Obtain the FirebaseAnalytics instance.
+		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 	}
 
 	@Override
@@ -75,15 +83,14 @@ public class AboutActivity extends Activity {
 
 	@Override
 	protected void onResume() {
-
-		if (!Util.setDisplayLanguage(getResources()).equals(lang)) {
+		super.onResume();if (!Util.setDisplayLanguage(getResources()).equals(lang)) {
 			finish();
 			startActivity(getIntent());
 		}
 
-		super.onResume();
-
-		setContentView(R.layout.webview);
+		// [START set_current_screen]
+		mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_about", "About");
+		// [END set_current_screen]
 
 		// https://code.google.com/p/android/issues/detail?id=32755
 		myWebView = (WebView) findViewById(R.id.webview);
@@ -160,7 +167,7 @@ public class AboutActivity extends Activity {
 			myWebView.loadUrl(ABOUT_URL_OFFLINE_EN);
 	}
 
-	@Override
+/*	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if ( Util.isOnline(this) ) {
 			// Check if the key event was the Back button and if there's history
@@ -170,7 +177,7 @@ public class AboutActivity extends Activity {
 			}
 		}
 		return super.onKeyDown(keyCode, event);
-	}
+	}*/
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -187,7 +194,7 @@ public class AboutActivity extends Activity {
 		super.onOptionsItemSelected(item);
 
 		if (item.getItemId() == R.id.language) {
-			Intent i = new Intent(AboutActivity.this, LanguageSelector.class);
+			Intent i = new Intent(AboutActivity.this, LanguageSelectorActivity.class);
 			startActivity(i);
 			return true;
 		} else if (item.getItemId() == R.id.license) {

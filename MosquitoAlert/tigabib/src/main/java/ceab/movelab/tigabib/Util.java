@@ -167,7 +167,6 @@ public class Util {
 
 	public static boolean pybossaMode() {	// !!!!$$$$
 		return true; // false is test environment, true is production
-
 	}
 
 	public static boolean debugMode() {		// !!!!$$$$
@@ -751,7 +750,7 @@ Util.logInfo(TAG, "battery prop: " + powerProportion);
 		DisplayMetrics dm = res.getDisplayMetrics();
 		Configuration conf = res.getConfiguration();
 		String oldLang = conf.locale.getLanguage();
-		if (!oldLang.equals(lang)) {
+		if ( !oldLang.equals(lang) ) {
 			Locale myLocale = new Locale(lang);
 			conf.locale = myLocale;
 			res.updateConfiguration(conf, dm);
@@ -998,17 +997,47 @@ Util.logInfo(TAG, "Status code:" + statusCode);
 		return result;
 	}
 
-	public static Boolean registerOnServer(Context context) {
+	public static void registerOnServer(Context context) {
 Util.logInfo(TAG, "register on server");
+
+		JsonObject jsonUUID = new JsonObject();
+		jsonUUID.addProperty("user_UUID", PropertyHolder.getUserId());
+Util.logInfo(TAG, "register json: " + jsonUUID.toString());
+
+		Ion.with(context)
+			.load(URL_TIGASERVER_API_ROOT + API_USER)
+			.setHeader("Accept", "application/json")
+			.setHeader("Content-type", "application/json")
+			.setHeader("Authorization", UtilLocal.TIGASERVER_AUTHORIZATION)
+			.setLogging("Token", Log.VERBOSE)
+			.setJsonObjectBody(jsonUUID)
+			.asJsonObject()
+			.setCallback(new FutureCallback<JsonObject>() {
+				@Override
+				public void onCompleted(Exception e, JsonObject result) {
+					if ( e ==  null ) {
+						// do stuff with the result or error
+						if (result != null) {
+Util.logInfo(TAG, "sendRegistrationToServer >> " + result.toString());
+							PropertyHolder.setRegistered(true);
+						}
+					}
+				}
+			});
+
+	}
+
+	/*public static Boolean registerOnServerOld(Context context) {
+Util.logInfo(TAG, "register on server OLD");
 		Boolean result = false;
 		JSONObject jsonUUID;
 		try {
 			jsonUUID = new JSONObject();
 			jsonUUID.put("user_UUID", PropertyHolder.getUserId());
-Util.logInfo(TAG, "register json: " + jsonUUID.toString());
-			// !!! update http calls
+			Util.logInfo(TAG, "register json: " + jsonUUID.toString());
+			// !! update http calls
 			int statusCode = Util.getResponseStatusCode(Util.postJSON(jsonUUID, Util.API_USER, context));
-Util.logInfo(TAG, "register status code: " + statusCode);
+			Util.logInfo(TAG, "register status code: " + statusCode);
 
 			if (statusCode < 300 && statusCode > 0) {
 				PropertyHolder.setRegistered(true);
@@ -1025,7 +1054,7 @@ Util.logInfo(TAG, "register status code: " + statusCode);
 			result = false;
 		}
 		return result;
-	}
+	}*/
 
 	public static void registerFCMToken(Context ctx, String token, String userId) {
 		if ( token != null ) {

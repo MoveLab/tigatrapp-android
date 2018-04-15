@@ -33,4 +33,9 @@
        android:id="@+id/web"
        android:title="@string/menu_web">
    </item>
+
+    <item
+        android:id="@+id/login"
+        android:title="Login">
+    </item>
 </menu>

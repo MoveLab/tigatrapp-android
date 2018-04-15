@@ -32,35 +32,36 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingStart="8dip"
-        android:paddingLeft="8dip"
-        android:paddingEnd="8dip"
-        android:paddingRight="8dip" >
+        android:padding="12dp">
 
         <RadioButton
             android:id="@+id/esButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:paddingStart="8dp"
             android:text="@string/language_selector_spanish" />
-
         <RadioButton
             android:id="@+id/caButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:paddingStart="8dp"
             android:text="@string/language_selector_catalan" />
-
         <RadioButton
             android:id="@+id/enButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:paddingStart="8dp"
             android:text="@string/language_selector_english" />
-
         <RadioButton
             android:id="@+id/zhButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:paddingLeft="8dp"
+            android:paddingStart="8dp"
             android:text="@string/language_selector_chinese_hk" />
-        
         </RadioGroup>
 
     <LinearLayout
@@ -68,7 +69,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="10dip" >
+        android:padding="12dip" >
 
         <Button
             android:id="@+id/languageOK"

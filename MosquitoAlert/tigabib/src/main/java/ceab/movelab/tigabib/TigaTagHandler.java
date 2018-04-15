@@ -2,20 +2,23 @@ package ceab.movelab.tigabib;
 
 /* 
  * Taken from https://gist.github.com/mlakkadshaw/5983704 */
-import java.util.Vector;
-
-import org.xml.sax.XMLReader;
-
+import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.Html;
 import android.text.Spannable;
 import android.text.style.BulletSpan;
 import android.text.style.LeadingMarginSpan;
 import android.text.style.TypefaceSpan;
- 
+
+import org.xml.sax.XMLReader;
+
+import java.util.Vector;
+
+import javax.annotation.Nonnull;
+
 public class TigaTagHandler implements Html.TagHandler {
   private int mListItemCount = 0;
-    private Vector<String> mListParents = new Vector<String>();
+    private Vector<String> mListParents = new Vector<>();
  
     @Override
     public void handleTag(final boolean opening, final String tag, Editable output, final XMLReader xmlReader) {
@@ -41,8 +44,9 @@ public class TigaTagHandler implements Html.TagHandler {
       }
     	
     }
- 
-    private Object getLast(Editable text, Class kind) {
+
+    @Nullable
+    private Object getLast(@Nonnull Editable text, Class kind) {
     	Object[] objs = text.getSpans(0, text.length(), kind);
     	if(objs.length == 0) {
     		return null;

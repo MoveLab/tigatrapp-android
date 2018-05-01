@@ -83,7 +83,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.maps.GeoPoint;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.reflect.TypeToken;
 import com.koushikdutta.async.future.FutureCallback;
@@ -137,11 +136,11 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 	private GoogleApiClient mGoogleApiClient;
 	private GoogleMap mGoogleMap;
 	private SupportMapFragment mMapFragment;
-	private Map<Marker, MyOverlayItem> markerMap = new HashMap<>();
+	private Map<Marker, MyMarkerItem> markerMap = new HashMap<>();
 	// Represents a geographical location.
 	private Location mLastLocation;
 	private Location mLastLocationNeighbours;
-	private GeoPoint currentCenter;
+	private LatLng currentCenter;
 
 	private FirebaseAnalytics mFirebaseAnalytics;
 
@@ -480,21 +479,22 @@ Util.logInfo(TAG, "GMS: onLocationChanged");
 	}
 
 	private void onTap(final Marker myMarker) {
-		final MyOverlayItem item = markerMap.get(myMarker);
+		final MyMarkerItem item = markerMap.get(myMarker);
 
 		if ( item != null ) {
 			Intent i = new Intent(this, ViewReportsTab.class);
-			if (item.photoUris != null) {
-				i.putExtra(Reports.KEY_PHOTO_URIS, item.photoUris);
+
+			if (item.getPhotoUris() != null) {
+				i.putExtra(Reports.KEY_PHOTO_URIS, item.getPhotoUris());
 			}
-			if (item.responses != null) {
-				i.putExtra(Reports.KEY_CONFIRMATION, item.responses);
+			if (item.getResponses() != null) {
+				i.putExtra(Reports.KEY_CONFIRMATION, item.getResponses());
 			}
-			if (item.reportId != null) {
-				i.putExtra(Reports.KEY_REPORT_ID, item.reportId);
+			if (item.getReportId() != null) {
+				i.putExtra(Reports.KEY_REPORT_ID, item.getReportId());
 			}
-			if (item.type != Report.MISSING) {
-				i.putExtra(Reports.KEY_TYPE, item.type);
+			if (item.getType() != Report.MISSING) {
+				i.putExtra(Reports.KEY_TYPE, item.getType());
 			}
 			if (item.getSnippet() != null) {
 				i.putExtra(Reports.KEY_NOTE, item.getSnippet());
@@ -521,7 +521,7 @@ Util.logInfo(TAG, nearbyUrl);
 				.load(nearbyUrl)
 				.setHeader("Accept", "application/json")
 				.setHeader("Content-type", "application/json")
-				.setHeader("Authorization", UtilLocal.TIGASERVER_AUTHORIZATION)
+				.setHeader("Authorization", Util.TIGASERVER_AUTHORIZATION)
 				.as(new TypeToken<List<NearbyReport>>() {})
 				.setCallback(new FutureCallback<List<NearbyReport>>() {
 					@Override
@@ -563,18 +563,17 @@ Util.logInfo(TAG, nearbyResults.toString());
 	/*
 	* Draw selected locations on map. Returns true if drawn; false otherwise.
 	*/
-	public boolean drawFixes(ArrayList<MyOverlayItem> myAdultReports, ArrayList<MyOverlayItem> mySiteReports,
+	public boolean drawFixes(ArrayList<MyMarkerItem> myAdultReports, ArrayList<MyMarkerItem> mySiteReports,
 							 boolean clearMapOverlays, boolean recenter) {
 		if ( mGoogleMap != null ) {
 			// Clear any existing overlays if clearMapOverlays set to true
-			if ( clearMapOverlays )
-				mGoogleMap.clear();
+			if ( clearMapOverlays ) mGoogleMap.clear();
 
 			if ( myAdultReports != null && myAdultReports.size() > 0 ) {
-				for ( MyOverlayItem oli : myAdultReports ) {
-					LatLng pointLatLng = new LatLng(oli.getPoint().getLatitudeE6() / 1E6, oli.getPoint().getLongitudeE6() / 1E6);
+				for ( MyMarkerItem oli : myAdultReports ) {
+					//LatLng pointLatLng = new LatLng(oli.getPoint().getLatitudeE6() / 1E6, oli.getPoint().getLongitudeE6() / 1E6);
 					Marker marker = mGoogleMap.addMarker(new MarkerOptions()
-							.position(pointLatLng)
+							.position(oli.getPosition())
 							.title(oli.getTitle())
 							.snippet(oli.getSnippet())
 							.icon(BitmapDescriptorFactory.defaultMarker(ADULT_COLOR_HUE)));
@@ -583,10 +582,10 @@ Util.logInfo(TAG, nearbyResults.toString());
 			}
 
 			if ( mySiteReports != null && mySiteReports.size() > 0 ) {
-				for (MyOverlayItem oli : mySiteReports) {
-					LatLng pointLatLng = new LatLng(oli.getPoint().getLatitudeE6() / 1E6, oli.getPoint().getLongitudeE6() / 1E6);
+				for (MyMarkerItem oli : mySiteReports) {
+					//LatLng pointLatLng = new LatLng(oli.getPoint().getLatitudeE6() / 1E6, oli.getPoint().getLongitudeE6() / 1E6);
 					Marker marker = mGoogleMap.addMarker(new MarkerOptions()
-							.position(pointLatLng)
+							.position(oli.getPosition())
 							.title(oli.getTitle())
 							.snippet(oli.getSnippet())
 							.icon(BitmapDescriptorFactory.defaultMarker(ADULT_COLOR_HUE)));
@@ -595,7 +594,8 @@ Util.logInfo(TAG, nearbyResults.toString());
 			}
 
 			if ( recenter && currentCenter != null ) {
-				LatLng myLatLng = new LatLng(currentCenter.getLatitudeE6() / 1E6, currentCenter.getLongitudeE6() / 1E6);
+				//LatLng myLatLng = new LatLng(currentCenter.getLatitudeE6() / 1E6, currentCenter.getLongitudeE6() / 1E6);
+				LatLng myLatLng = currentCenter;
 				mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, 13), 200, null);
 				Location myLocation = new Location("MyLocation");
 				myLocation.setLatitude(myLatLng.latitude);
@@ -865,8 +865,8 @@ Util.logInfo(this.getClass().toString(), "Finished scanning " + path);
 
 		int myProgress;
 
-		ArrayList<MyOverlayItem> myAdultOverlayList = new ArrayList<>();
-		ArrayList<MyOverlayItem> mySiteOverlayList = new ArrayList<>();
+		ArrayList<MyMarkerItem> myAdultOverlayList = new ArrayList<>();
+		ArrayList<MyMarkerItem> mySiteOverlayList = new ArrayList<>();
 
 
 		@Override
@@ -914,16 +914,33 @@ Util.logInfo(this.getClass().toString(), "Finished scanning " + path);
 						publishProgress(myProgress);
 
 						int locationChoice = c.getInt(locationChoiceCol);
-						Double geoLat = c.getDouble(locationChoice == Report.LOCATION_CHOICE_SELECTED ? selectedLocationLatCol
+						int thisType = c.getInt(typeCol);
+
+/*						Double geoLat = c.getDouble(locationChoice == Report.LOCATION_CHOICE_SELECTED ? selectedLocationLatCol
 								: currentLocationLatCol) * 1E6;
 						Double geoLon = c.getDouble(locationChoice == Report.LOCATION_CHOICE_SELECTED ? selectedLocationLonCol
 								: currentLocationLonCol) * 1E6;
 						GeoPoint point = new GeoPoint(geoLat.intValue(), geoLon.intValue());
 
-						final int thisType = c.getInt(typeCol);
-
-						// !! MG - Build my own object
 						MyOverlayItem overlayItem = new MyOverlayItem(
+								point,
+								(thisType == Report.TYPE_ADULT ? getResources().getString(R.string.view_report_title_adult)
+										: getResources().getString(R.string.view_report_title_site))
+										+ "\n" + Util.userDate(new Date(c.getLong(reportTimeCol))),
+								c.getString(noteCol),
+								c.getString(reportIdCol),
+								c.getInt(typeCol),
+								c.getString(photoUrisCol),
+								c.getString(confirmationCol),
+								c.getLong(reportTimeCol));*/
+
+						Double geoLat = c.getDouble(locationChoice == Report.LOCATION_CHOICE_SELECTED ? selectedLocationLatCol
+								: currentLocationLatCol);
+						Double geoLon = c.getDouble(locationChoice == Report.LOCATION_CHOICE_SELECTED ? selectedLocationLonCol
+								: currentLocationLonCol);
+						LatLng point = new LatLng(geoLat, geoLon);
+
+						MyMarkerItem markerItem = new MyMarkerItem(
 								point,
 								(thisType == Report.TYPE_ADULT ? getResources().getString(R.string.view_report_title_adult)
 										: getResources().getString(R.string.view_report_title_site))
@@ -936,9 +953,9 @@ Util.logInfo(this.getClass().toString(), "Finished scanning " + path);
 								c.getLong(reportTimeCol));
 						currentCenter = point;
 						if ( thisType == Report.TYPE_ADULT )
-							myAdultOverlayList.add(overlayItem);
+							myAdultOverlayList.add(markerItem);
 						else
-							mySiteOverlayList.add(overlayItem);
+							mySiteOverlayList.add(markerItem);
 
 						c.moveToNext();
 					}
@@ -955,9 +972,14 @@ Util.logInfo(this.getClass().toString(), "Finished scanning " + path);
 		protected void onPostExecute(Boolean result) {
 			if (result) {
 				LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-				boolean statusOfGPS = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+				try {
+					boolean statusOfGPS = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
-				drawFixes(myAdultOverlayList, mySiteOverlayList, true, !statusOfGPS);
+					drawFixes(myAdultOverlayList, mySiteOverlayList, true, !statusOfGPS);
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
 			}
 			progressbar.setVisibility(View.INVISIBLE);
 			legendLayout.setVisibility(View.VISIBLE);

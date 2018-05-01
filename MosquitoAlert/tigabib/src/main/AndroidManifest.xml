@@ -107,7 +107,7 @@
         <activity android:name="ceab.movelab.tigabib.NotificationActivity"
                   android:screenOrientation="portrait" />
 
-        <activity android:name="ceab.movelab.tigabib.AttachedPhotos"
+        <activity android:name="ceab.movelab.tigabib.AttachedPhotosActivity"
                   android:screenOrientation="portrait" />
         <activity android:name="ceab.movelab.tigabib.ReportToolActivity"
                   android:screenOrientation="portrait" />

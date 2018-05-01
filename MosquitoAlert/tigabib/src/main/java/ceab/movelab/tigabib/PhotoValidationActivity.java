@@ -65,7 +65,7 @@ public class PhotoValidationActivity extends Activity {
 
 	public static final String HELP_PARAM = "ceab.movelab.tigabib.help";
 
-	String lang;
+	private String lang;
 
 	private NestedScrollView mScrollView;
 	private ViewFlipper mViewFlipper;
@@ -77,13 +77,13 @@ public class PhotoValidationActivity extends Activity {
 
 	private PhotoView mPhoto1View; //, mPhoto2View, mPhoto3View, mPhoto4View;
 	//private ImageViewTouch mPhoto3View, mPhoto4View;
-	private Bitmap mCurrentBitmap;
+	//private Bitmap mCurrentBitmap;
 	private TextView mYesButton_1, mNoButton_1, mNotSureButton_1, mNoneButton_2, mNotSureButton_2;
 	private TextView mYesButton_3, mNoButton_3, mYesButton_4, mNoButton_4;
     private TextView mTigerButton, mYellowButton;
 	private ImageView mValidHelp_1, mValidHelp_2, mValidHelp_3, mValidHelp_4;
 	private ImageView mToraxImage, mAbdomenImage;
-	private Boolean mIsTiger = null;
+	private boolean mIsTiger = false;
 
 	private FirebaseAnalytics mFirebaseAnalytics;
 
@@ -248,7 +248,7 @@ public class PhotoValidationActivity extends Activity {
 		mNoButton_3.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (mTaskRun == null) createTaskRunObject();
+				if ( mTaskRun == null ) createTaskRunObject();
 				// user_lang, tigerAbdomen, tigerTorax,  mosquito, yellowTorax, yellowAbdomen, type
 				TaskRunInfo info = (mIsTiger ? new TaskRunInfo(lang, "no", "no", "yes", "no", "no", "tiger") :
 						new TaskRunInfo(lang, "no", "no", "yes", "no", "no", "yellow"));
@@ -261,7 +261,7 @@ public class PhotoValidationActivity extends Activity {
 		mYesButton_4.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (mTaskRun == null) createTaskRunObject();
+				if ( mTaskRun == null ) createTaskRunObject();
 				// user_lang, tigerAbdomen, tigerTorax, mosquito, yellowTorax, yellowAbdomen, type
 				TaskRunInfo info = (mIsTiger ? new TaskRunInfo(lang, "yes", "yes", "yes", "no", "no", "tiger") :
 						new TaskRunInfo(lang, "no", "no", "yes", "yes", "yes", "yellow"));
@@ -326,7 +326,6 @@ Util.logInfo("===========", "sendValidationResults >> " + mTaskRun.getTaskId());
 		bundle.putInt("task_id",  mTaskRun.getTaskId());
 		mFirebaseAnalytics.logEvent("ma_evt_validation_sent", bundle);
 
-		//mIsTiger = false;
 		Ion.with(this)
 			.load(taskrunUrl)
 			//.setLogging("TaskRun", Log.VERBOSE)
@@ -535,7 +534,7 @@ Util.logInfo("===========", myTask.getId() + " >> " + getPhotoUrl);
 //						mPhoto2View.setImageBitmap(result);
 //						mPhoto3View.setImageBitmap(result);
 //						mPhoto4View.setImageBitmap(result);
-						mCurrentBitmap = result;
+//						mCurrentBitmap = result;
 						//dlg.cancel();
 					}
 				});

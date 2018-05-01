@@ -35,14 +35,14 @@ android {
         }
     }
 
-    compileSdkVersion 'Google Apis:Google Apis:23'
+    compileSdkVersion 27
     buildToolsVersion '27.0.3'
     defaultConfig {
         applicationId "ceab.movelab.tigatrapp"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 26  /* 24 is 1.58 current production version code */
-        versionName "1.61"
+        versionCode 27  /* 26 is 1.61 current production version code */
+        versionName "1.62"
     }
     buildTypes {
         debug {
@@ -71,6 +71,10 @@ dependencies {
     //releaseCompile project(path: ':tigabib', configuration: 'release')
     //debugCompile project(path: ':tigabib', configuration: 'debug')
     implementation project(':tigabib')
+
+    implementation ('com.firebaseui:firebase-ui-auth:3.3.0') {
+        transitive = true
+    }
 
 //    implementation 'com.android.support:support-v4:25.0.1'
 //    implementation 'com.android.support:appcompat-v7:25.0.1'

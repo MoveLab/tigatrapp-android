@@ -162,7 +162,7 @@ public class ViewReportsTab extends TabActivity {
 
 		// checklist tab
 		Intent intentChecklist = new Intent().setClass(this, ViewReportsChecklistTab.class);
-		if (b.containsKey(Reports.KEY_CONFIRMATION))
+		if ( b.containsKey(Reports.KEY_CONFIRMATION) )
 			intentChecklist.putExtra(Reports.KEY_CONFIRMATION, b.getString(Reports.KEY_CONFIRMATION));
 		TabSpec tabSpecChecklist = tabHost
 				.newTabSpec(getResources().getString(R.string.checklist_tab_title))
@@ -170,9 +170,8 @@ public class ViewReportsTab extends TabActivity {
 				.setContent(intentChecklist);
 
 		// photos tab
-		Intent intentPhotos = new Intent().setClass(this,
-				ViewReportsPhotosTab.class);
-		if (b.containsKey(Reports.KEY_PHOTO_URIS))
+		Intent intentPhotos = new Intent().setClass(this, ViewReportsPhotosTab.class);
+		if ( b.containsKey(Reports.KEY_PHOTO_URIS) )
 			intentPhotos.putExtra(Reports.KEY_PHOTO_URIS, b.getString(Reports.KEY_PHOTO_URIS));
 		TabSpec tabSpecPhotos = tabHost
 				.newTabSpec(getResources().getString(R.string.photos_tab_title))
@@ -180,9 +179,8 @@ public class ViewReportsTab extends TabActivity {
 				.setContent(intentPhotos);
 
 		// Notes tab
-		Intent intentNotes = new Intent().setClass(this,
-				ViewReportsNotesTab.class);
-		if (b.containsKey(Reports.KEY_NOTE))
+		Intent intentNotes = new Intent().setClass(this, ViewReportsNotesTab.class);
+		if ( b.containsKey(Reports.KEY_NOTE) )
 			intentNotes.putExtra(Reports.KEY_NOTE, b.getString(Reports.KEY_NOTE));
 		TabSpec tabSpecNotes = tabHost
 				.newTabSpec(getResources().getString(R.string.notes_tab_title))
@@ -209,9 +207,7 @@ public class ViewReportsTab extends TabActivity {
 	}
 
 	public class ReportDeleteTask extends AsyncTask<Context, Integer, Boolean> {
-
 		ProgressDialog prog;
-
 		int myProgress;
 		int resultFlag;
 

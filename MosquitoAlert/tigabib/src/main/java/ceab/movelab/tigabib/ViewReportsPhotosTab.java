@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -30,9 +31,9 @@ import ceab.movelab.tigabib.ContProvContractReports.Reports;
 public class ViewReportsPhotosTab extends Activity {
 
 	private static String TAG = "ViewReportsPhotosTab";
-	Resources res;
-	String lang;
-	Context context = this;
+    private Resources res;
+    private String lang;
+    private Context context = this;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -43,29 +44,26 @@ public class ViewReportsPhotosTab extends Activity {
 		res = getResources();
 		Util.setDisplayLanguage(res);
 
-		TextView textview = new TextView(this);
-		textview.setText(getResources().getString(R.string.no_photo_attached));
-		setContentView(textview);
-		Intent incoming = getIntent();
-		Bundle b = incoming.getExtras();
-		if (b != null && b.containsKey(Reports.KEY_PHOTO_URIS)) {
+		//Intent incoming = getIntent();
+		Bundle b = getIntent().getExtras();
+		if ( b != null && b.containsKey(Reports.KEY_PHOTO_URIS) ) {
 			try {
-				final JSONArray jsonPhotos = new JSONArray(
-						b.getString(Reports.KEY_PHOTO_URIS));
+				final JSONArray jsonPhotos = new JSONArray(b.getString(Reports.KEY_PHOTO_URIS));
 
-				textview.setVisibility(View.GONE);
 				GridView gridview = new GridView(this);
-				gridview.setColumnWidth(86);
-				gridview.setHorizontalSpacing(2);
-				gridview.setNumColumns(GridView.AUTO_FIT);
+                gridview.setPadding(4, 4, 4, 4);
+                gridview.setGravity(Gravity.CENTER);
+                //gridview.setBackgroundColor(getResources().getColor(R.color.light_orange));
+                //gridview.setColumnWidth(186);
+				gridview.setNumColumns(4);
 				gridview.setStretchMode(GridView.STRETCH_COLUMN_WIDTH);
-				gridview.setVerticalSpacing(2);
-				gridview.setPadding(2, 2, 2, 2);
+				gridview.setHorizontalSpacing(16);
+				gridview.setVerticalSpacing(6);
 				setContentView(gridview);
+
 				gridview.setAdapter(new PhotoGridAdapter(this, jsonPhotos));
 				gridview.setOnItemClickListener(new OnItemClickListener() {
-					public void onItemClick(AdapterView<?> parent, View v,
-							int position, long id) {
+					public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 						final String thisPhotoUri = Report.getPhotoUri(context, jsonPhotos, position);
 						if (thisPhotoUri != null) {
 							try {
@@ -122,6 +120,11 @@ public class ViewReportsPhotosTab extends Activity {
 			} catch (JSONException e) {
 				Util.logError(TAG, "error: " + e);
 			}
+		}
+		else  {
+			TextView textview = new TextView(this);
+			textview.setText(getResources().getString(R.string.no_photo_attached));
+			setContentView(textview);
 		}
 
 	}

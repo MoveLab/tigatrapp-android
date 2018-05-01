@@ -68,7 +68,7 @@
         </activity>
         <activity android:name="ceab.movelab.tigabib.MissionActivity" >
         </activity>
-        <activity android:name="ceab.movelab.tigabib.AttachedPhotos" >
+        <activity android:name="ceab.movelab.tigabib.AttachedPhotosActivity" >
         </activity>
         <activity android:name="ceab.movelab.tigabib.ReportToolActivity" >
         </activity>

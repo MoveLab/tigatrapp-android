@@ -16,7 +16,7 @@ public class RealPathFromURI_API19 {
     public static String getRealPathFromURI_API19(Context context, final Uri uri){
 		//http://stackoverflow.com/questions/36128077/android-opening-a-file-with-action-get-content-results-into-different-uris
 		// DocumentProvider
-		if (DocumentsContract.isDocumentUri(context, uri)) {
+		if ( DocumentsContract.isDocumentUri(context, uri) ) {
 			// ExternalStorageProvider
 			if (isExternalStorageDocument(uri)) {
 				final String docId = DocumentsContract.getDocumentId(uri);

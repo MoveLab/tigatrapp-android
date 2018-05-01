@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * Tigatrapp
+ * Copyright (C) 2013, 2014  John R.B. Palmer, Aitana Oltra, Joan Garriga, and Frederic Bartumeus
+ * Contact: info@atrapaeltigre.com
+ *
+ * This file is part of Tigatrapp.
+ *
+ * Tigatrapp is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or (at
+ * your option) any later version.
+ *
+ * Tigatrapp is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with Tigatrapp.  If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<resources>
+
+    <style name="GreenTheme" parent="FirebaseUI">
+    <item name="colorPrimary">@color/material_green_500</item>
+    <item name="colorPrimaryDark">@color/material_green_700</item>
+    <item name="colorAccent">@color/material_purple_a700</item>
+
+    <item name="colorControlNormal">@color/material_green_500</item>
+    <item name="colorControlActivated">@color/material_lime_a700</item>
+    <item name="colorControlHighlight">@color/material_green_a200</item>
+    <item name="android:windowBackground">@color/material_green_50</item>
+</style>
+
+    <color name="material_green_50">#E8F5E9</color>
+    <color name="material_green_500">#4CAF50</color>
+    <color name="material_green_700">#388E3C</color>
+    <color name="material_green_a200">#FF8022</color>
+    <color name="material_lime_a700">#AEEA00</color>
+    <color name="material_purple_a700">#AA00FF</color>
+
+</resources>

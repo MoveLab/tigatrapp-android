@@ -34,6 +34,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
@@ -51,13 +52,22 @@ import android.widget.Toast;
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.ShareEvent;
+import com.firebase.ui.auth.AuthUI;
+import com.firebase.ui.auth.ErrorCodes;
+import com.firebase.ui.auth.IdpResponse;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.analytics.FirebaseAnalytics;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.reflect.TypeToken;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -96,7 +106,7 @@ public class SwitchboardActivity extends Activity {
 	private ArrayList<String> mPermissionsDenied;
 
 	private FirebaseAnalytics mFirebaseAnalytics;
-    private static final int RC_SIGN_IN = 123;
+    private static final int RC_SIGN_IN = 12345;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -703,22 +713,74 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 			mFirebaseAnalytics.logEvent("ma_evt_web", bundle);
         }
         else if (item.getItemId() == R.id.login) {
-/*            // Choose authentication providers
-            List<AuthUI.IdpConfig> providers = Arrays.asList(
-                    new AuthUI.IdpConfig.EmailBuilder().build());
+            // Choose authentication providers
+            List<AuthUI.IdpConfig> providers = Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build(),
+					new AuthUI.IdpConfig.GoogleBuilder().build());
 
             // Create and launch sign-in intent
             startActivityForResult(AuthUI.getInstance()
                     .createSignInIntentBuilder()
                     .setAvailableProviders(providers)
+					.setLogo(R.drawable.logo_signin)
+					.setTheme(R.style.GreenTheme)
                     .setTosUrl("https://superapp.example.com/terms-of-service.html")
                     .setPrivacyPolicyUrl("https://superapp.example.com/privacy-policy.html")
                     .setIsSmartLockEnabled(false)
-                    .build(), RC_SIGN_IN);*/
+                    .build(), RC_SIGN_IN);
             return true;
         }
 		return false;
 	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+
+		if ( requestCode == RC_SIGN_IN ) {
+			IdpResponse idpResponse = IdpResponse.fromResultIntent(data);
+
+			if ( resultCode == RESULT_OK ) {
+				if ( idpResponse != null ) {
+					String idpToken = idpResponse.getIdpToken();
+					Util.logInfo("===========", "idpResponse getIdpToken >> " + idpResponse.getIdpToken());
+				}
+				// Successfully signed in
+				FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+				if ( user != null ) {
+					String token = "" + user.getIdToken(true);
+					Util.logInfo("===========", "User idToken >> " + user.getIdToken(true));
+				}
+				FirebaseAuth.getInstance().getCurrentUser().getIdToken(false).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+					@Override
+					public void onComplete(@NonNull Task<GetTokenResult> task) {
+						Util.logInfo("===========", "User idToken >> " + task.getResult().getToken());
+					}
+				});
+
+			} else {
+				// Sign in failed
+				if ( idpResponse == null ) {
+					// User pressed back button
+					//	showSnackbar(R.string.sign_in_cancelled);
+					Util.logInfo("===========", "Sign in cancelled");
+					return;
+				}
+				try {
+					if (idpResponse.getError().getErrorCode() == ErrorCodes.NO_NETWORK) {
+						//showSnackbar(R.string.no_internet_connection);
+						Util.logInfo("===========", "Sign in no network");
+						return;
+					}
+				}
+				catch ( NullPointerException e) {
+					e.printStackTrace();
+				}
+
+				//showSnackbar(R.string.unknown_error);
+			}
+		}
+	}
+
 
 	public void askForPermissions() {
 		String[] permissionsArray = mPermissionsDenied.toArray(new String[mPermissionsDenied.size()]);

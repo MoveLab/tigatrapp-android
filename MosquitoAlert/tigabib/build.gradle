@@ -27,7 +27,7 @@ android {
 
     useLibrary 'org.apache.http.legacy'
 
-    compileSdkVersion 'Google Apis:Google Apis:23'
+    compileSdkVersion 27
     //compileSdkVersion 23
     buildToolsVersion "27.0.3" // "25.0.2" // "24.0.3"  // "23.0.2"
     defaultConfig {
@@ -63,15 +63,21 @@ android {
 //https://stackoverflow.com/questions/44493378/whats-the-difference-between-implementation-and-compile-in-gradle
 // https://medium.com/mindorks/avoiding-conflicts-in-android-gradle-dependencies-28e4200ca235
 dependencies {
-    implementation 'com.android.support:support-v4:25.0.1'  // 25.0.1
-    implementation 'com.android.support:appcompat-v7:25.0.1'     // 25.0.1
-    implementation 'com.android.support:design:25.0.1' // 25.0.1
-    implementation 'com.android.support:customtabs:25.0.1' // 25.0.1 // chrome tabs
+    implementation 'com.android.support:support-v4:27.1.0'  // 25.0.1
+    implementation 'com.android.support:appcompat-v7:27.1.0'     // 25.0.1
+    implementation 'com.android.support:design:27.1.0' // 25.0.1
+    implementation 'com.android.support:customtabs:27.1.0' // 25.0.1 // chrome tabs
 
     implementation 'com.google.firebase:firebase-core:12.0.1'// 10.0.1, 11.8.0
     implementation 'com.google.firebase:firebase-messaging:12.0.1'// 10.0.1, 11.8.0
     implementation 'com.google.android.gms:play-services-maps:12.0.1'// 11.8.0, 11.0.4, 10.0.1
     implementation 'com.google.android.gms:play-services-location:12.0.1' // 11.8.0, 11.0.4. 10.0.1
+
+    implementation ('com.firebaseui:firebase-ui-auth:3.3.0') {
+        transitive = true
+    }
+
+    implementation 'com.squareup.picasso:picasso:2.71828'
 
     implementation 'org.apache:apache:17'
     implementation 'com.google.code.gson:gson:2.8.0'

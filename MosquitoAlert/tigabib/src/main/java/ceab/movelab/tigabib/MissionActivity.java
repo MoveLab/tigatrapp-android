@@ -89,7 +89,6 @@ public class MissionActivity extends Activity {
 
 		try {
 			String currentLang = PropertyHolder.getLanguage();
-
 			thisTask = new JSONObject(taskJson);
 
 			if (thisTask.has(MissionModel.KEY_TITLE)

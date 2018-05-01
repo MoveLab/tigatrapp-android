@@ -1,47 +1,40 @@
 package ceab.movelab.tigabib;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.lang.ref.WeakReference;
 
 public class PhotoGridAdapter extends BaseAdapter {
 	private static String TAG = "PhotoGridAdapter";
 	private Context mContext;
 	private JSONArray jsonPhotos;
-	private Bitmap mPlaceHolderBitmap;
+	//private Bitmap mPlaceHolderBitmap;
 
-	public PhotoGridAdapter(Context c, JSONArray jsonPhotos) {
-		mContext = c;
+	public PhotoGridAdapter(Context ctx, JSONArray jsonPhotos) {
+		mContext = ctx;
 		this.jsonPhotos = jsonPhotos;
 
-		mPlaceHolderBitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.ic_action_camera);
-
+		//mPlaceHolderBitmap = BitmapFactory.decodeResource(mContext.getResources(), R.drawable.ic_action_camera);
 	}
 
 	public int getCount() {
 		return jsonPhotos.length();
 	}
 
-	public Object getItem(int position) {
+	public String getItem(int position) {
 		String result = "";
-
 		try {
 			result = jsonPhotos.getJSONObject(position).getString(Report.KEY_PHOTO_URI);
 		} catch (JSONException e) {
@@ -56,35 +49,40 @@ public class PhotoGridAdapter extends BaseAdapter {
 
 	// create a new ImageView for each item referenced by the Adapter
 	public View getView(int position, View convertView, ViewGroup parent) {
-		ImageView imageView;
-		if (convertView == null) { // if it's not recycled, initialize some
-									// attributes
+		final ImageView imageView;
+		if ( convertView == null ) { // if it's not recycled, initialize some attributes
 			imageView = new ImageView(mContext);
-			imageView.setLayoutParams(new GridView.LayoutParams(85, 85));
+			LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, 240);
+			layoutParams.gravity = Gravity.CENTER;
+			imageView.setLayoutParams(layoutParams);
+			//imageView.setLayoutParams(new GridView.LayoutParams(FrameLayout.LayoutParams.WRAP_CONTENT, 240));
 			imageView.setScaleType(ImageView.ScaleType.CENTER);
-			imageView.setPadding(0, 0, 0, 0);
+			//imageView.setForegroundGravity();
+			//imageView.setPadding(0, 0, 0, 0);
 		} else {
 			imageView = (ImageView) convertView;
 		}
 
 		String thisUri;
-		if (jsonPhotos.length() > 0) {
-
-			try {
+		if ( jsonPhotos.length() > 0 ) {
+			/*try {
 				thisUri = jsonPhotos.getJSONObject(position).getString(Report.KEY_PHOTO_URI);
-				loadBitmap(thisUri, imageView);
-
-				// imageView.setImageBitmap(Util.getSmallerBitmap(new File(
-				// jsonPhotos.getString(position)), mContext, 85));
+				loadBitmap(getItem(position), imageView);
+				// imageView.setImageBitmap(Util.getSmallerBitmap(new File(jsonPhotos.getString(position)), mContext, 85));
 			} catch (JSONException e) {
 				Util.logError(TAG, "error: " + e);
-			}
+			}*/
+			Picasso.get().load(new File(getItem(position)))
+					.placeholder(R.drawable.ic_action_camera)
+					.error(R.drawable.ic_action_camera)
+					.resize(200, 240)
+					.centerInside()
+					.into(imageView);
 		}
-
 		return imageView;
 	}
 
-	public void loadBitmap(String uri, ImageView imageView) {
+	/*private void loadBitmap(String uri, ImageView imageView) {
 		if (cancelPotentialWork(uri, imageView)) {
 			final BitmapWorkerTask task = new BitmapWorkerTask(imageView);
 			final AsyncDrawable asyncDrawable = new AsyncDrawable(mContext.getResources(), mPlaceHolderBitmap, task);
@@ -93,20 +91,20 @@ public class PhotoGridAdapter extends BaseAdapter {
 		}
 	}
 
-	static class AsyncDrawable extends BitmapDrawable {
+	private static class AsyncDrawable extends BitmapDrawable {
 		private final WeakReference<BitmapWorkerTask> bitmapWorkerTaskReference;
 
-		public AsyncDrawable(Resources res, Bitmap bitmap, BitmapWorkerTask bitmapWorkerTask) {
+		private AsyncDrawable(Resources res, Bitmap bitmap, BitmapWorkerTask bitmapWorkerTask) {
 			super(res, bitmap);
 			bitmapWorkerTaskReference = new WeakReference<BitmapWorkerTask>(bitmapWorkerTask);
 		}
 
-		public BitmapWorkerTask getBitmapWorkerTask() {
+		private BitmapWorkerTask getBitmapWorkerTask() {
 			return bitmapWorkerTaskReference.get();
 		}
 	}
 
-	public static boolean cancelPotentialWork(String data, ImageView imageView) {
+	private static boolean cancelPotentialWork(String data, ImageView imageView) {
 		final BitmapWorkerTask bitmapWorkerTask = getBitmapWorkerTask(imageView);
 
 		if (bitmapWorkerTask != null) {
@@ -156,7 +154,7 @@ public class PhotoGridAdapter extends BaseAdapter {
 			// data, 100, 100));
 			Bitmap result = null;
 			try {
-				result = Util.getSmallerBitmap(new File(data), mContext, 85);
+				result = Util.getSmallerBitmap(new File(data), mContext, 185);
 			} catch (FileNotFoundException e) {
 				Util.logError(TAG, "error: " + e);
 			} catch (IOException e) {
@@ -179,7 +177,6 @@ public class PhotoGridAdapter extends BaseAdapter {
 				}
 			}
 		}
-
-	}
+	}*/
 
 }

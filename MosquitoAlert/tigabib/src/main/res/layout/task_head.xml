@@ -1,17 +1,19 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/header"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/selectorcolors"
     android:clickable="true"
     android:orientation="vertical" >
 
     <RelativeLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="4dip"
         android:paddingLeft="5dip"
+        android:paddingStart="5dip"
         android:paddingRight="11dip"
+        android:paddingEnd="11dip"
         android:paddingTop="4dip" >
 
         <ImageView
@@ -19,6 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:contentDescription="@string/cd_help_icon"
             android:src="@drawable/ic_action_about"
             android:visibility="gone" />
@@ -29,6 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_toLeftOf="@+id/helpIcon"
+            android:layout_toStartOf="@+id/helpIcon"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/light_orange" />
     </RelativeLayout>

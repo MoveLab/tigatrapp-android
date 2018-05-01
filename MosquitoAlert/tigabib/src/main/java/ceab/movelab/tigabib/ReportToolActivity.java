@@ -22,13 +22,11 @@
 package ceab.movelab.tigabib;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -38,7 +36,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
-import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -66,7 +63,6 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.util.Date;
 import java.util.Locale;
@@ -88,6 +84,8 @@ public class ReportToolActivity extends Activity {
 
 	private static String TAG = "ReportToolActivity";
 
+	final Context context = this;
+
 	private MyCountDownTimer countDownTimer;
 
 	private boolean gpsAvailable;
@@ -107,8 +105,6 @@ public class ReportToolActivity extends Activity {
 	int LOCATION_CHOICE_SELECTED = 1;
 	int LOCATION_CHOICE_CURRENT = 0;
 	int LOCATION_CHOICE_MISSING = -1;
-
-	final Context context = this;
 
 	ScrollView reportScroll;
 
@@ -132,13 +128,11 @@ public class ReportToolActivity extends Activity {
 //	ImageView reportMapImage;
 //	ImageView reportNoteImage;
 
-	TextView photoCount;
+	private TextView photoCount;
+	private Button buttonReportSubmit;
+	private RadioGroup locationRadioGroup;
 
-	Button buttonReportSubmit;
-
-	RadioGroup locationRadioGroup;
-
-	String message;
+	private String myMessage;
 
 	public static final int REQUEST_CODE_TAKE_PHOTO = 1;
 	public static final int REQUEST_CODE_MAPSELECTOR = 2;
@@ -186,12 +180,11 @@ public class ReportToolActivity extends Activity {
 			ContentResolver cr = getContentResolver();
 			String sc = Reports.KEY_REPORT_ID + " = '" + b.getString("reportId") + "' AND "
 					+ Reports.KEY_LATEST_VERSION + " = 1 AND "
-					+ Reports.KEY_DELETE_REPORT + "= 0";
+					+ Reports.KEY_DELETE_REPORT + " = 0";
 
 			Cursor c = cr.query(Util.getReportsUri(context), Reports.KEYS_ALL, sc, null, null);
 
 			if ( c != null && c.moveToLast() ) {
-
 				int userIdCol = c.getColumnIndexOrThrow(Reports.KEY_USER_ID);
 				int reportIdCol = c.getColumnIndexOrThrow(Reports.KEY_REPORT_ID);
 				int reportTimeCol = c.getColumnIndexOrThrow(Reports.KEY_REPORT_TIME);
@@ -226,19 +219,21 @@ public class ReportToolActivity extends Activity {
 				thisReport = new Report(context, UUID.randomUUID().toString(),
 						c.getString(userIdCol), c.getString(reportIdCol),
 						(c.getInt(reportVersionCol) + 1),
-						c.getLong(reportTimeCol), c.getString(creationTimeCol),
-						c.getString(versionTimeStringCol), c.getInt(typeCol),
+						c.getLong(reportTimeCol),
+						c.getString(creationTimeCol),
+						c.getString(versionTimeStringCol),
+						c.getInt(typeCol),
 						c.getString(confirmationCol),
 						c.getInt(confirmationCodeCol),
 						c.getInt(locationChoiceCol),
-						c.getFloat(currentLocationLatCol),
-						c.getFloat(currentLocationLonCol),
-						c.getFloat(selectedLocationLatCol),
-						c.getFloat(selectedLocationLonCol),
-						c.getInt(photoAttachedCol), c.getString(photoUrisCol),
+						c.getFloat(currentLocationLatCol), c.getFloat(currentLocationLonCol),
+						c.getFloat(selectedLocationLatCol), c.getFloat(selectedLocationLonCol),
+						c.getInt(photoAttachedCol),
+						c.getString(photoUrisCol),
 						c.getString(noteCol), Report.UPLOADED_NONE,
 						c.getLong(serverTimestampCol),
-						c.getInt(deleteReportCol), c.getInt(latestVersionCol),
+						c.getInt(deleteReportCol),
+						c.getInt(latestVersionCol),
 						c.getString(packageNameCol),
 						c.getInt(packageVersionCol),
 						c.getString(phoneManufacturerCol),
@@ -255,10 +250,6 @@ public class ReportToolActivity extends Activity {
 		setContentView(R.layout.report);
 
 		reportScroll = (ScrollView) findViewById(R.id.reportView);
-		reportTitle = (TextView) findViewById(R.id.reportTitle);
-		reportTitle = (TextView) findViewById(R.id.reportTitle);
-		reportTitle = (TextView) findViewById(R.id.reportTitle);
-		reportTitle = (TextView) findViewById(R.id.reportTitle);
 		reportTitle = (TextView) findViewById(R.id.reportTitle);
 		reportTitleRow = (RelativeLayout) findViewById(R.id.reportTitleRow);
 
@@ -384,9 +375,9 @@ public class ReportToolActivity extends Activity {
 					goToMapSelector();
 					return;
 				} else if (v.getId() == R.id.reportPhotoRow) {
-					Intent i = new Intent(ReportToolActivity.this, AttachedPhotos.class);
-					i.putExtra(Reports.KEY_PHOTO_URIS, thisReport.photoUrisJson.toString());
-					startActivityForResult(i, REQUEST_CODE_ATTACHED_PHOTOS);
+					Intent intentPhotos = new Intent(ReportToolActivity.this, AttachedPhotosActivity.class);
+					intentPhotos.putExtra(Reports.KEY_PHOTO_URIS, thisReport.photoUrisJson.toString());
+					startActivityForResult(intentPhotos, REQUEST_CODE_ATTACHED_PHOTOS);
 					return;
 				} else if (v.getId() == R.id.reportNoteRow) {
 					buildReportNoteDialog();
@@ -406,9 +397,9 @@ public class ReportToolActivity extends Activity {
 		reportConfirmationCheck.setChecked(thisReport.confirmationCode > 0);
 
 		if ( has_edited_location ) {
-			if (thisReport.locationChoice == Report.LOCATION_CHOICE_CURRENT)
+			if ( thisReport.locationChoice == Report.LOCATION_CHOICE_CURRENT )
 				locationRadioGroup.check(R.id.whereRadioButtonHere);
-			else if (thisReport.locationChoice == Report.LOCATION_CHOICE_SELECTED)
+			else if ( thisReport.locationChoice == Report.LOCATION_CHOICE_SELECTED )
 				locationRadioGroup.check(R.id.whereRadioButtonOtherPlace);
 		}
 		reportLocationCheck.setChecked(thisReport.locationChoice != Report.MISSING);
@@ -451,8 +442,8 @@ public class ReportToolActivity extends Activity {
 								+ ((type == Report.TYPE_BREEDING_SITE &&
 									!reportPhotoCheck.isChecked()) ? getResources().getString(R.string.toast_attach_photo) : ""));
 				} else {
-					message = getResources().getString(R.string.report_sent);
-					buildMailMessage(message);
+					myMessage = getResources().getString(R.string.report_sent);
+					buildMailMessage(myMessage);
 				}
 			}
 		});
@@ -571,7 +562,7 @@ public class ReportToolActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 
-		if (!Util.setDisplayLanguage(getResources()).equals(lang)) {
+		if ( !Util.setDisplayLanguage(getResources()).equals(lang) ) {
 			finish();
 			startActivity(getIntent());
 		}
@@ -579,12 +570,12 @@ public class ReportToolActivity extends Activity {
 		if ( editing ) {
 			// [START set_current_screen]
 			mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_report_tool",
-					(type == Report.TYPE_BREEDING_SITE ? "Report Breeding Site Edit" : "Report Mosquito Edit"));
+					( type == Report.TYPE_BREEDING_SITE ? "Report Breeding Site Edit" : "Report Mosquito Edit") );
 			// [END set_current_screen]
 		} else {
 			// [START set_current_screen]
 			mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_report_tool",
-					( type == Report.TYPE_BREEDING_SITE ? "Report Breeding Site" : "Report Mosquito"));
+					( type == Report.TYPE_BREEDING_SITE ? "Report Breeding Site" : "Report Mosquito") );
 			// [END set_current_screen]
 		}
 
@@ -592,14 +583,13 @@ public class ReportToolActivity extends Activity {
 		networkLocationAvailable = false;
 
 		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-
 		try {
-			if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+			if ( locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ) {
 				gpsListener = new mLocationListener();
 				locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, gpsListener);
 				gpsAvailable = true;
 			}
-			if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+			if ( locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) ) {
 				networkListener = new mLocationListener();
 				locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, networkListener);
 				networkLocationAvailable = true;
@@ -743,7 +733,6 @@ public class ReportToolActivity extends Activity {
 
 		TextView reportIdTitle = (TextView) dialog.findViewById(R.id.yourIdIsText);
 		TextView reportIdText = (TextView) dialog.findViewById(R.id.reportIdText);
-
 		reportIdTitle.setVisibility(View.GONE);
 		reportIdText.setVisibility(View.GONE);
 
@@ -779,7 +768,16 @@ public class ReportToolActivity extends Activity {
 				if (thisReport.reportTime == Report.MISSING)
 					thisReport.reportTime = System.currentTimeMillis();
 
-				new ReportUploadTask().execute(context);
+				try {
+					PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+					thisReport.packageName = pInfo.packageName;
+					thisReport.packageVersion = pInfo.versionCode;
+				} catch (NameNotFoundException e) {
+					e.printStackTrace();
+				}
+
+				String language = PropertyHolder.getLanguage();
+				new ReportUploadTask(context, getContentResolver(), thisReport, editing, language).execute(context);
 
 				dialog.cancel();
 			}
@@ -813,18 +811,25 @@ public class ReportToolActivity extends Activity {
 						reportPhotoCheck.setChecked(true);
 						thisReport.photoAttached = Report.YES;
 
-						for (int i = 0; i < thisReport.photoUrisJson.length(); i++) {
+						// MG - Following method removed file from gallery
+/*						for (int i = 0; i < thisReport.photoUrisJson.length(); i++) {
 							try {
 								JSONObject row = thisReport.photoUrisJson.getJSONObject(i);
-								MediaScannerConnection.scanFile(ReportToolActivity.this, new String[]{row.getString("photo_uri")},
+								*//*MediaScannerConnection.scanFile(context, new String[]{row.getString("photo_uri")},
 										new String[]{"image/*"}, new MediaScannerConnection.OnScanCompletedListener() {
 											public void onScanCompleted(String path, Uri uri) {
 												Util.logInfo(this.getClass().toString(), "Finished scanning " + path);
 											}
 										});
+										https://stackoverflow.com/questions/8379690/androids-media-scanner-how-do-i-remove-files
+										MediaScannerConnection.scanFile(context,
+										new String[]{fileToDelete, fileToAdd},
+										null, null); *//*
 							}
-							catch (Exception e) {};
-						}
+							catch (Exception e) {
+								e.printStackTrace();
+							};
+						}*/
 					}
 					else {
 						photoCount.setVisibility(View.GONE);
@@ -884,26 +889,39 @@ public class ReportToolActivity extends Activity {
 		}
 	}
 
-	public class ReportUploadTask extends AsyncTask<Context, Integer, Boolean> {
+	private class ReportUploadTask extends AsyncTask<Context, Integer, Boolean> {
 
-		ProgressDialog prog;
-		int myProgress;
-		int resultFlag;
+		private Context mContext;
+		private ContentResolver mCR;
+		private Report mReport;
+		private boolean isEditing;
+		private String mLanguage;
 
-		int OFFLINE = 0;
-		int UPLOAD_ERROR = 1;
-		int DATABASE_ERROR = 2;
-		int SUCCESS = 3;
-		int PRIVATE_MODE = 4;
+		private ProgressDialog prog;
+		private int myProgress;
+		private int resultFlag;
+
+		private int OFFLINE = 0;
+		private int UPLOAD_ERROR = 1;
+		private int DATABASE_ERROR = 2;
+		private int SUCCESS = 3;
+		private int PRIVATE_MODE = 4;
+
+		ReportUploadTask(Context ctx, ContentResolver cr, Report report, boolean editing, String language)  {
+			this.mContext = ctx;
+			this.mCR = cr;
+			this.mReport = report;
+			this.isEditing = editing;
+			this.mLanguage = language;
+		}
 
 		@Override
 		protected void onPreExecute() {
 
-			PropertyHolder.init(context);
 			resultFlag = SUCCESS;
 
-			prog = new ProgressDialog(context);
-			prog.setTitle(getResources().getString(R.string.progtitle_report));
+			prog = new ProgressDialog(mContext);
+			prog.setTitle(mContext.getResources().getString(R.string.progtitle_report));
 			prog.setIndeterminate(false);
 			prog.setMax(100);
 			prog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -912,9 +930,9 @@ public class ReportToolActivity extends Activity {
 			myProgress = 0;
 
 			// Send Firebase Event
-			Bundle bundle = new Bundle();
-			bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, type == Report.TYPE_BREEDING_SITE ? "Breeding Site" : "Mosquito");
-			mFirebaseAnalytics.logEvent("ma_evt_btn_send_report", bundle);
+//			Bundle bundle = new Bundle();
+//			bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, type == Report.TYPE_BREEDING_SITE ? "Breeding Site" : "Mosquito");
+//			mFirebaseAnalytics.logEvent("ma_evt_btn_send_report", bundle);
 		}
 
 		protected Boolean doInBackground(Context... context) {
@@ -922,21 +940,13 @@ public class ReportToolActivity extends Activity {
 			myProgress = 2;
 			publishProgress(myProgress);
 
-			if ( !editing )
-				thisReport.creation_time = Util.ecma262(System.currentTimeMillis());
+			mReport.versionTimeString = Util.ecma262(System.currentTimeMillis());
 
-			thisReport.versionTimeString = Util.ecma262(System.currentTimeMillis());
+			if ( !isEditing )
+				mReport.creation_time = Util.ecma262(System.currentTimeMillis());
 
 			myProgress = 4;
 			publishProgress(myProgress);
-
-			try {
-				PackageInfo pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-				thisReport.packageName = pInfo.packageName;
-				thisReport.packageVersion = pInfo.versionCode;
-			} catch (NameNotFoundException e) {
-				e.printStackTrace();
-			}
 
 			thisReport.phoneManufacturer = Build.MANUFACTURER;
 			thisReport.phoneModel = Build.MODEL;
@@ -944,16 +954,14 @@ public class ReportToolActivity extends Activity {
 			thisReport.os = "Android";
 			thisReport.osversion = Integer.toString(Build.VERSION.SDK_INT);
 			thisReport.osLanguage = Locale.getDefault().getLanguage();
-			thisReport.appLanguage = PropertyHolder.getLanguage();
+			thisReport.appLanguage = mLanguage;
 
 			myProgress = 10;
 			publishProgress(myProgress);
 
 			// First save report to internal DB
-			ContentResolver cr = getContentResolver();
 			Uri repUri = Util.getReportsUri(context[0]);
-
-			Uri thisReportUri = cr.insert(repUri, ContProvValuesReports.createReport(thisReport));
+			Uri thisReportUri = mCR.insert(repUri, ContProvValuesReports.createReport(thisReport));
 
 			// now mark all prior reports as not latest version
 			String sc = Reports.KEY_REPORT_ID + " = '" + thisReport.reportId
@@ -961,8 +969,7 @@ public class ReportToolActivity extends Activity {
 
 			ContentValues cv = new ContentValues();
 			cv.put(Reports.KEY_LATEST_VERSION, 0);
-
-			cr.update(repUri, cv, sc, null);
+			mCR.update(repUri, cv, sc, null);
 
 			myProgress = 20;
 			publishProgress(myProgress);
@@ -996,7 +1003,7 @@ public class ReportToolActivity extends Activity {
 					// mark as uploaded
 					cv = new ContentValues();
 					cv.put(Reports.KEY_UPLOADED, uploadResult);
-					int nUpdated = cr.update(thisReportUri, cv, null, null);
+					int nUpdated = mCR.update(thisReportUri, cv, null, null);
 Util.logInfo(TAG, "report uri " + thisReportUri);
 Util.logInfo(TAG, "n updated " + nUpdated);
 					resultFlag = SUCCESS;
@@ -1028,20 +1035,20 @@ Util.logInfo(TAG, "n updated " + nUpdated);
 				// https://stackoverflow.com/questions/2745061/java-lang-illegalargumentexception-view-not-attached-to-window-manager/5102572#5102572
 			}
 
-			if (result && resultFlag == SUCCESS) {
+			if ( result && resultFlag == SUCCESS ) {
 				Util.toastTimed(context, getResources().getString(R.string.report_sent_confirmation), Toast.LENGTH_LONG);
 
-				thisReport.clear();
+				mReport.clear();
 				clearFields();
 
 				// Send Firebase Event
-				Bundle bundle = new Bundle();
-				bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, type == Report.TYPE_BREEDING_SITE ? "Breeding Site" : "Mosquito");
-				mFirebaseAnalytics.logEvent("ma_evt_send_report_success", bundle);
+//				Bundle bundle = new Bundle();
+//				bundle.putString(FirebaseAnalytics.Param.CONTENT_TYPE, type == Report.TYPE_BREEDING_SITE ? "Breeding Site" : "Mosquito");
+//				mFirebaseAnalytics.logEvent("ma_evt_send_report_success", bundle);
 
 				finish();
 			} else {
-				if (resultFlag == OFFLINE) {
+				if ( resultFlag == OFFLINE ) {
 					buildCustomAlert(context, getResources().getString(R.string.offline_report));
 				}
 
@@ -1068,7 +1075,7 @@ Util.logInfo(TAG, "n updated " + nUpdated);
 	public void clearFields() {
 		currentLocation = null;
 		locationChoice = -1;
-		message = null;
+		myMessage = null;
 	}
 
 	// https://stackoverflow.com/questions/2306503/how-to-make-an-alert-dialog-fill-90-of-screen-size
@@ -1263,7 +1270,7 @@ Util.logInfo(TAG, "n updated " + nUpdated);
 		}
 	}
 
-	public void buildLeaveReportWarning() {
+	/*public void buildLeaveReportWarning() {
 		AlertDialog.Builder dialog = new AlertDialog.Builder(context);
 		dialog.setTitle(getResources().getString(R.string.exit_question));
 		dialog.setMessage(getResources().getString(
@@ -1287,7 +1294,7 @@ Util.logInfo(TAG, "n updated " + nUpdated);
 				});
 
 		dialog.show();
-	}
+	}*/
 
 	private void goToMapSelector() {
 		Intent i = new Intent(ReportToolActivity.this, MapSelectorV2Activity.class);

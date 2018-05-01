@@ -256,11 +256,9 @@ public class SettingsActivity extends Activity {
 				// try to get missions
 				// check last id on phone
 				int latest_id = PropertyHolder.getLatestMissionId();
-
 				String missionUrl = Util.API_MISSION + "?" + (latest_id > 0 ? ("id_gt=" + latest_id) : "")
 						+ "&platform=" + (Util.debugMode() ? "beta" : "and")
 						+ "&version_lte=" + Util.MAX_MISSION_VERSION;
-
 				Util.logInfo(TAG, "mission array: " + missionUrl);
 
 				try {
@@ -307,6 +305,7 @@ public class SettingsActivity extends Activity {
 
 				cr = getContentResolver();
 
+				//////////////////////////////////////////
 				// start with Tracks
 				c = cr.query(Util.getTracksUri(context[0]), Fixes.KEYS_ALL, Fixes.KEY_UPLOADED + " = 0", null, null);
 
@@ -334,7 +333,6 @@ public class SettingsActivity extends Activity {
 
 					Fix thisFix = new Fix(c.getDouble(latIndex), c.getDouble(lngIndex), c.getLong(timeIndex),
 							c.getFloat(powIndex), (c.getInt(taskFixIndex)==1));
-
 					thisFix.exportJSON(context[0]);
 
 					int statusCode = Util.getResponseStatusCode(thisFix.upload(context[0]));
@@ -356,6 +354,7 @@ public class SettingsActivity extends Activity {
 
 				c.close();
 
+				//////////////////////////////////////////
 				// now reports
 				c = cr.query(Util.getReportsUri(context[0]), Reports.KEYS_ALL,
 						Reports.KEY_UPLOADED + " != " + Report.UPLOADED_ALL,
@@ -410,12 +409,14 @@ public class SettingsActivity extends Activity {
 
 					Report report = new Report(context[0],
 							c.getString(versionUUIDCol),
-							c.getString(userIdCol), c.getString(reportIdCol),
+							c.getString(userIdCol),
+							c.getString(reportIdCol),
 							c.getInt(reportVersionCol),
 							c.getLong(reportTimeCol),
 							c.getString(creationTimeCol),
 							c.getString(versionTimeStringCol),
-							c.getInt(typeCol), c.getString(confirmationCol),
+							c.getInt(typeCol),
+							c.getString(confirmationCol),
 							c.getInt(confirmationCodeCol),
 							c.getInt(locationChoiceCol),
 							c.getFloat(currentLocationLatCol),
@@ -423,7 +424,8 @@ public class SettingsActivity extends Activity {
 							c.getFloat(selectedLocationLatCol),
 							c.getFloat(selectedLocationLonCol),
 							c.getInt(photoAttachedCol),
-							c.getString(photoUrisCol), c.getString(noteCol),
+							c.getString(photoUrisCol),
+							c.getString(noteCol),
 							c.getInt(uploadedCol),
 							c.getLong(serverTimestampCol),
 							c.getInt(deleteReportCol),
@@ -431,17 +433,19 @@ public class SettingsActivity extends Activity {
 							c.getString(packageNameCol),
 							c.getInt(packageVersionCol),
 							c.getString(phoneManufacturerCol),
-							c.getString(phoneModelCol), c.getString(osCol),
+							c.getString(phoneModelCol),
+							c.getString(osCol),
 							c.getString(osVersionCol),
 							c.getString(osLanguageCol),
-							c.getString(appLanguageCol), c.getInt(missionIDCol));
+							c.getString(appLanguageCol),
+							c.getInt(missionIDCol));
 
 					int uploadResult = report.upload(context[0]);
-					if (uploadResult > 0) {
+					if ( uploadResult > 0 ) {
 						// mark record as uploaded
 						ContentValues cv = new ContentValues();
-						String sc = Reports.KEY_ROW_ID + " = " + c.getInt(rowIdCol);
 						cv.put(Reports.KEY_UPLOADED, uploadResult);
+						String sc = Reports.KEY_ROW_ID + " = " + c.getInt(rowIdCol);
 						cr.update(Util.getReportsUri(context[0]), cv, sc, null);
 					} else {
 						resultFlag = UPLOAD_ERROR;

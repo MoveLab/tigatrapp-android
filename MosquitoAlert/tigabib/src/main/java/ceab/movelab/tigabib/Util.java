@@ -469,10 +469,10 @@ public class Util {
 	public static void toastTimed(Context context, String msg, int time) {
 		TextView tv = new TextView(context);
 		tv.setText(msg);
-		Drawable bknd = context.getResources().getDrawable(R.drawable.white_border);
-		tv.setBackgroundDrawable(bknd);
 		tv.setPadding(40, 20, 40, 20);
 		tv.setTextSize(20);
+		Drawable bknd = context.getResources().getDrawable(R.drawable.white_border);
+		tv.setBackground(bknd);
 
 		final Toast t = new Toast(context);
 		t.setDuration(time);
@@ -486,7 +486,6 @@ public class Util {
 			}
 
 		});
-
 		t.show();
 	}
 

@@ -379,9 +379,7 @@ public class Report {
 	public static JSONArray deletePhoto(Context context, JSONArray jsonPhotos, int pos) {
 		JSONArray result = null;
 		try {
-			if ( jsonPhotos == null ) {
-				// nothing
-			} else {
+			if ( jsonPhotos != null ) {
 				JSONArray newArray = new JSONArray();
 				for (int i = 0; i < jsonPhotos.length(); i++) {
 					JSONObject thisJsonObj = jsonPhotos.getJSONObject(i);
@@ -397,8 +395,7 @@ public class Report {
 		return result;
 	}
 
-	public JSONObject exportJSON(Context context) {
-
+	private JSONObject exportJSON(Context context) {
 		PropertyHolder.init(context);
 
 		JSONObject result = new JSONObject();

@@ -299,7 +299,7 @@
     <string name="user_score_pro">Gold</string>
 
     <string name="end_validation">Validation completed</string>
-    <string name="menu_web">Website</string>
+    <string name="menu_web">mosquitoalert.com</string>
     <string name="menu_close">Close</string>
     <string name="menu_refresh">Refresh</string>
     <string name="info_scoring">This scoring considers your activity using the app and the quality of your sent photos.</string>
@@ -356,10 +356,31 @@
     <string name="site_report_item_help_1">&lt;p&gt;Storm drains and sewers are the most productive breeding sites for the tiger mosquito and the yellow fever mosquito because they accumulate stagnant water inside. These mosquitoes do not breed on beaches or in rivers, lakes, ponds, or wetlands.&lt;/p&gt;\\u0020\\u0020\\u0020\\u0020\\u0020\\u0020\\u0020\\n&lt;p&gt;A number of these images have been donated by the Barcelona Public Health Agency.&lt;/p&gt;</string>
     <string name="site_report_item_help_2">Public areas are those with free access to the public, like roads, squares, parks, and green spaces. They do not include private lots or other private properties.</string>
     <string name="site_report_item_help_3">In order to survive, mosquito larvae need stagnant and turbid water available for several days before they become adult mosquitoes.</string>
-    <string name="site_report_item_help_4">The tiger mosquito and the yellow fever mosquito do not normally travel far from their breeding site -- usually no more than 500 meters. Therefore, adults are often found near their breeding sites.\\n\\n\\u0020\\u0020\\u0020\\u0020</string>
+    <string name="site_report_item_help_4">The tiger mosquito and the yellow fever mosquito do not normally travel far from their breeding site - usually no more than 500 meters. Therefore, adults are often found near their breeding sites.\\n\\n\\u0020\\u0020\\u0020\\u0020</string>
 
     <string name="help_zoom">Zoom in with fingers to expand the image view.</string>
     <string name="no_internet_connection">There is no internet connection. Connect the device to the network to continue validating.</string>
     <string name="loading_picture">Reloading picture</string>
     <string name="pybossa_error">Error connecting with picture validation server.</string>
+
+    <string name="tutorial_1_1">Welcome</string>
+    <string name="tutorial_1_2">Check this short guide before starting using the app</string>
+    <string name="tutorial_1_3">SEE GUIDE</string>
+    <string name="tutorial_1_4">Skip</string>
+
+    <string name="tutorial_2_1">Send breeding sites</string>
+    <string name="tutorial_2_2">Take a photo if you see a breeding site on a public space.</string>
+    <string name="tutorial_3_1">Send photos of tiger mosquito or fever yellow mosquito</string>
+    <string name="tutorial_3_2">Take a good photo and show all the body parts of the mosquito.</string>
+    <string name="tutorial_4_1">Consult your sent reports and validate photos from other participants</string>
+    <string name="tutorial_4_2">See your record participation and learn to validate photos of tiger mosquitos. </string>
+    <string name="tutorial_5_1">Stay informed!</string>
+    <string name="tutorial_5_2">You will receive news and notifications from experts about your sent data.</string>
+    <string name="tutorial_6_1">Get score!</string>
+    <string name="tutorial_6_2">Send good photos and validate photos from other participants to get a higher level.</string>
+    <string name="tutorial_7_1">Set your app</string>
+    <string name="tutorial_7_2">Configure the app from the menu, go to extra content and adjust the settings.</string>
+    <string name="tutorial_8_1">Now you can start!</string>
+    <string name="tutorial_8_2">You will find more information and tips to take good photos at:\nwww.mosquitoalert.com</string>
+    <string name="tutorial_8_3">START</string>
 </resources>

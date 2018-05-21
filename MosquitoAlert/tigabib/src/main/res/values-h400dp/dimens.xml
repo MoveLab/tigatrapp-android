@@ -28,4 +28,12 @@
     <dimen name="valid_photo_size">240dp</dimen>
     <dimen name="valid_photo_margin">12dp</dimen>
     <dimen name="valid_photo_margin_less">6dp</dimen>
+
+    <dimen name="tutorial_global_margin">20dp</dimen>
+    <dimen name="tutorial_text_margin_LR">8dp</dimen>
+    <dimen name="tutorial_text_margin_TB">4dp</dimen>
+    <dimen name="tutorial_height_dots">60dp</dimen>
+    <dimen name="tutorial_margin_arrows">16dp</dimen>
+    <dimen name="tutorial_margin_bottom_arrows">6dp</dimen>
+
 </resources>

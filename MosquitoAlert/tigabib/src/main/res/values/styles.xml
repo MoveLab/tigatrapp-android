@@ -27,6 +27,11 @@
 <!--    <style name="LightThemeSelector" parent="android:Theme.Light" />
     <style name="DarkThemeSelector" parent="android:Theme" />-->
 
+<style name="DarkThemeNoActionBar" parent="DarkThemeSelector">
+    <item name="android:windowActionBar">false</item>
+    <item name="android:windowNoTitle">true</item>
+</style>
+
 <style name="ValidationHelpTitle">
     <item name="android:textColor">#00ee00</item>
     <item name="android:textSize">32sp</item>
@@ -34,6 +39,5 @@
     <item name="android:padding">32dp</item>
     <item name="android:layout_gravity">center_horizontal</item>
 </style>
-
 
 </resources>

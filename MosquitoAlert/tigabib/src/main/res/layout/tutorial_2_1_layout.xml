@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:paddingLeft="@dimen/tutorial_global_margin"
+              android:paddingStart="@dimen/tutorial_global_margin"
+              android:paddingRight="@dimen/tutorial_global_margin"
+              android:paddingEnd="@dimen/tutorial_global_margin"
+              android:background="@color/white"
+              android:gravity="center_horizontal"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:src="@drawable/logo_mosquito_mini"
+        android:layout_gravity="center_horizontal"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:padding="12dp"
+        android:src="@drawable/img_slide1"
+        android:layout_gravity="center_horizontal"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tutorial_2_1"
+            style="@style/TutorialTextTop" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/tutorial_2_2"
+            style="@style/TutorialText" />
+    </LinearLayout>
+
+<!--    <LinearLayout
+        android:id="@+id/layoutDots"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tutorial_height_dots"
+        android:layout_marginBottom="0dp"
+        android:gravity="center"
+        android:orientation="horizontal"/>
+    <TextView
+        android:id="@+id/skipText2"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/tutorial_height_dots"
+        android:text="@string/tutorial_1_4"
+        style="@style/TutorialTextSkip" />-->
+</LinearLayout>

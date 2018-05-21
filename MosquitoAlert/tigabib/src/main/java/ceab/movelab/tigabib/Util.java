@@ -254,6 +254,11 @@ public class Util {
 	public static final String API_FCM_TOKEN = UtilLocal.API_FCM_TOKEN;
 
 	/**
+	 * API to register Login Uid token on server endpoint.
+	 */
+	public static final String API_UID_TOKEN = UtilLocal.API_UID_TOKEN;
+
+	/**
 	 * API nearby reports endpoint.
 	 */
 	public static final String API_NEARBY_REPORTS = UtilLocal.API_NEARBY_REPORTS;
@@ -598,9 +603,14 @@ public class Util {
 	 */
 	public static boolean isOnline(Context context) {
 		ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-		NetworkInfo netInfo = cm.getActiveNetworkInfo();
-		if ( netInfo != null && netInfo.isConnected() ) {
-			return true;
+		if ( cm != null )  {
+			NetworkInfo netInfo = cm.getActiveNetworkInfo();
+			if ( netInfo != null && netInfo.isConnected() ) {
+				return true;
+			}
+		}
+		else {
+			return false;
 		}
 Util.logInfo(TAG, "Not online");
 		return false;
@@ -884,7 +894,6 @@ Util.logInfo(TAG, "battery prop: " + powerProportion);
 				httpost.setHeader("Authorization", TIGASERVER_AUTHORIZATION);
 
 				result = httpclient.execute(httpost);
-
 			} catch (UnsupportedEncodingException e) {
 				Util.logError(TAG, "error: " + e);
 			} catch (IOException e) {
@@ -902,7 +911,7 @@ Util.logInfo(TAG, "battery prop: " + powerProportion);
 		}
 		return statusCode;
 	}
-
+/*
 	public static JSONObject parseResponse(Context context, HttpResponse response) {
 		JSONObject json = new JSONObject();
 		if (response != null) {
@@ -926,7 +935,7 @@ Util.logInfo(TAG, "battery prop: " + powerProportion);
 			}
 		}
 		return json;
-	}
+	}*/
 
 	public static String getJSON(String apiEndpoint, Context context) {
 		if ( !isOnline(context) ) {
@@ -998,7 +1007,6 @@ Util.logInfo(TAG, "Status code:" + statusCode);
 
 	public static void registerOnServer(Context context) {
 Util.logInfo(TAG, "register on server");
-
 		JsonObject jsonUUID = new JsonObject();
 		jsonUUID.addProperty("user_UUID", PropertyHolder.getUserId());
 Util.logInfo(TAG, "register json: " + jsonUUID.toString());
@@ -1023,7 +1031,6 @@ Util.logInfo(TAG, "sendRegistrationToServer >> " + result.toString());
 					}
 				}
 			});
-
 	}
 
 	/*public static Boolean registerOnServerOld(Context context) {
@@ -1058,7 +1065,7 @@ Util.logInfo(TAG, "register on server OLD");
 	public static void registerFCMToken(Context ctx, String token, String userId) {
 		if ( token != null ) {
 			String tokenUrl = Util.URL_TIGASERVER_API_ROOT + Util.API_FCM_TOKEN + "?token=" + token + "&user_id=" + userId;
-Util.logInfo("==============", "TEST");
+Util.logInfo("==============", "TEST registerFCMToken");
 Util.logInfo("===========", "BuildConfig.DEBUG >> " + BuildConfig.DEBUG);
 Util.logInfo("===========", tokenUrl);
 
@@ -1083,6 +1090,30 @@ Util.logInfo("===========", tokenUrl);
 		}
 	}
 
+	public static void registerFirebaseLogin(Context ctx, String uid, String userId) {
+		if ( uid != null ) {
+			String tokenLoginUrl = Util.URL_TIGASERVER_API_ROOT + Util.API_UID_TOKEN + "?fbt=" + uid + "&usr=" + userId;
+Util.logInfo("==============", "TEST registerFirebaseLogin: " + tokenLoginUrl);
+
+			Ion.with(ctx)
+					.load(tokenLoginUrl)
+					//.setHeader("Accept", "application/json")
+					.setLogging("Token", Log.VERBOSE)
+					.setHeader("Authorization", UtilLocal.TIGASERVER_AUTHORIZATION)
+					.setBodyParameter("fbt", uid)
+					.setBodyParameter("usr", PropertyHolder.getUserId())
+					.asJsonObject()
+					.setCallback(new FutureCallback<JsonObject>() {
+						@Override
+						public void onCompleted(Exception e, JsonObject result) {
+							// do stuff with the result or error
+							if ( result != null ) {
+								Util.logInfo(">>>>>>>>", "sendRegistrationLoginToServer >> " + result.toString());
+							}
+						}
+					});
+		}
+	}
 	public static String makeReportId() {
 		Random mRandom = new Random();
 

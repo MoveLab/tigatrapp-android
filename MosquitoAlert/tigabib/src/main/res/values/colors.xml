@@ -34,11 +34,20 @@
 
     <color name="discolor">#F7E89E</color>
     <color name="white">#FFFFFF</color>
+    <color name="whiteDark">#ECF0F1</color>
     <color name="light_orange">#FF9900</color>
+    <color name="orange">#F4B300</color>
     <color name="black">#000000</color>
     <color name="dark_grey">#313433</color>
     <color name="light_grey">#cccccc</color>
     <color name="switchboard_button_text">#444</color>
 
     <color name="switchboard_bg">#F0F0F0</color>
+
+    <!--   Colors tutorial   -->
+    <color name="dot_dark">#95A5A6</color>
+    <color name="dot_light">#ECF0F1</color>
+    <color name="tutorial_text">#2C3E50</color>
+    <color name="tutorial_text_skip">#95A5A6</color>
+
 </resources>

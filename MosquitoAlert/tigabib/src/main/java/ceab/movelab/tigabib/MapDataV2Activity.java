@@ -227,7 +227,7 @@ Util.logInfo(TAG, "GMS: Connected to GoogleApiClient");
 		if ( mLastLocation == null ) {
 			try {
 				mLastLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
-				if ( mLastLocation != null ) {
+				if ( mLastLocation != null && mGoogleMap != null ) {
 					loadNeighbours(mLastLocation, NEARBY_RADIUS);
 					LatLng myLatLng = new LatLng(mLastLocation.getLatitude(), mLastLocation.getLongitude());
 					mGoogleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(myLatLng, 13), 250, null);

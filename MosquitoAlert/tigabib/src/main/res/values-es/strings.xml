@@ -336,7 +336,7 @@
     <string name="i18n_thorax_question">¿Reconoces el tórax?</string>
     <string name="i18n_abdomen_question">¿Y el abdomen?</string>
     <string name="end_validation">Validación finalizada</string>
-    <string name="menu_web">Web</string>
+    <string name="menu_web">mosquitoalert.com</string>
     <string name="info_scoring">Esta puntuación tiene en cuenta tu actividad con la app y la calidad de las fotos que has enviado.</string>
 
     <string name="menu_close">Cerrar</string>
@@ -346,6 +346,27 @@
     <string name="loading_picture">Recargando foto</string>
     <string name="pybossa_error">Error conectando con el servidor de validación de fotos.</string>
 
+
+    <string name="tutorial_1_1">Te damos\nla bienvenida</string>
+    <string name="tutorial_1_2">Consulta esta sencilla guía para empezar a utilizar la app</string>
+    <string name="tutorial_1_3">INICIAR GUÍA</string>
+    <string name="tutorial_1_4">Omitir guía</string>
+
+    <string name="tutorial_2_1">Envía lugares de cría</string>
+    <string name="tutorial_2_2">Haz una foto si encuentras un lugar de cría en la vía pública.</string>
+    <string name="tutorial_3_1">Envía fotos de mosquito tigre o de mosquito de la fiebre amarilla</string>
+    <string name="tutorial_3_2">Es importante que se vean todas las partes del mosquito.</string>
+    <string name="tutorial_4_1">Consulta tus datos enviados y valida fotos de otros participantes</string>
+    <string name="tutorial_4_2">Mira tu historial de participación y aprende a validar fotos de mosquito tigre.</string>
+    <string name="tutorial_5_1">¡Mantente informado!</string>
+    <string name="tutorial_5_2">Recibirás noticias y notificaciones de los expertos sobre tus datos enviados.</string>
+    <string name="tutorial_6_1">¡Consigue puntos!</string>
+    <string name="tutorial_6_2">Envía fotos de calidad y valida fotos de otros participantes para subir de nivel.</string>
+    <string name="tutorial_7_1">La app a tu medida</string>
+    <string name="tutorial_7_2">Configura la app desde el menú, accede a contenido extra y cambia los ajustes a tu gusto.</string>
+    <string name="tutorial_8_1">¡Ya puedes empezar!</string>
+    <string name="tutorial_8_2">Encontrarás toda la información y trucos para hacer buenas fotos en:\nwww.mosquitoalert.com</string>
+    <string name="tutorial_8_3">EMPEZAR</string>
 </resources>
 
 

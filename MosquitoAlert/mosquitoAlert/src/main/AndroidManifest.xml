@@ -103,7 +103,7 @@
             android:launchMode="singleTop" >
         </activity>
 
-        <activity android:name="ceab.movelab.tigabib.PhotoGalleryActivity"/>
+        <!--<activity android:name="ceab.movelab.tigabib.PhotoGalleryActivity"/>
 
         <activity android:name="ceab.movelab.tigabib.AboutActivity" />
         <activity android:name="ceab.movelab.tigabib.LicenseActivity" />
@@ -115,7 +115,7 @@
                 tools:replace="android:value"
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ceab.movelab.tigabib.SwitchboardActivity" />
-        </activity>
+        </activity>-->
 
         <receiver android:name="ceab.movelab.tigabib.TigerBroadcastReceiver" >
             <intent-filter>

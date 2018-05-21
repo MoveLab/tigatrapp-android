@@ -74,10 +74,10 @@ public class SyncData extends Service {
 
 	private boolean uploading = false;
 
-	Context context;
+	private Context context;
 
-	ContentResolver cr;
-	Cursor c;
+	private ContentResolver cr;
+	private Cursor c;
 
 	@Override
 	public void onStart(Intent intent, int startId) {
@@ -87,7 +87,6 @@ public class SyncData extends Service {
 Util.logInfo(TAG, "offline or private mode, stopping service");
 			stopSelf();
 		} else {
-
 			if ( !uploading && !Util.privateMode() ) {
 				uploading = true;
 
@@ -116,6 +115,7 @@ Util.logInfo(TAG, "offline or private mode, stopping service");
 	}
 
 	private void tryUploads() {
+
 		// Check if user has registered on server - if not, try to register
 		if ( !PropertyHolder.isRegistered() ) {
 			Util.registerOnServer(context);
@@ -134,7 +134,6 @@ Util.logInfo(TAG, "offline or private mode, stopping service");
 			if ( configJson.has("samples_per_day") ) {
 				int samplesPerDay = configJson.getInt("samples_per_day");
 Util.logInfo(TAG, "samples per day:" + samplesPerDay);
-
 				if (samplesPerDay != PropertyHolder.getSamplesPerDay()) {
 					Util.internalBroadcast(context, Messages.START_DAILY_SAMPLING);
 					PropertyHolder.setSamplesPerDay(samplesPerDay);
@@ -145,14 +144,13 @@ Util.logInfo(TAG, "set property holder");
 			Util.logError(TAG, "error: " + e);
 		}
 
-		// try to get missions
+		// try to get missions from server
 		// check last id on phone
 		int latest_id = PropertyHolder.getLatestMissionId();
 
-		String missionUrl = Util.API_MISSION + "?"
-				+ (latest_id > 0 ? ("id_gt=" + latest_id) : "") + "&platform="
-				+ (Util.debugMode() ? "beta" : "and") + "&versionfixuse_lte="
-				+ Util.MAX_MISSION_VERSION;
+		String missionUrl = Util.API_MISSION + "?" + (latest_id > 0 ? ("id_gt=" + latest_id) : "")
+				+ "&platform=" + (Util.debugMode() ? "beta" : "and")
+				+ "&versionfixuse_lte=" + Util.MAX_MISSION_VERSION;
 Util.logInfo(TAG, "mission array: " + missionUrl);
 
 		try {

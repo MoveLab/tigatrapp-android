@@ -6,36 +6,41 @@
         android:title="@string/menu_option_task_list">
     </item>-->
     <item
+        android:id="@+id/shareApp"
+        android:title="@string/menu_option_share">
+    </item>
+    <item
+        android:id="@+id/web"
+        android:title="@string/menu_web">
+    </item>
+    <item
         android:id="@+id/gallery"
         android:title="@string/menu_option_gallery">
     </item>
     <item
+        android:id="@+id/tutorial"
+        android:title="@string/menu_option_tutorial">
+    </item>
+<!--    <item
         android:id="@+id/tigatrappNews"
         android:title="@string/menu_option_tigatrapp_news">
-    </item>
+    </item>-->
     <item
         android:id="@+id/settings"
         android:title="@string/menu_option_settings">
     </item>
-    <item
+<!--    <item
         android:id="@+id/help"
         android:title="@string/menu_option_help">
-    </item>
+    </item>-->
     <item
         android:id="@+id/about"
         android:title="@string/menu_option_about">
     </item>
-    <item
-        android:id="@+id/shareApp"
-        android:title="@string/menu_option_share">
-    </item>
-   <item
-       android:id="@+id/web"
-       android:title="@string/menu_web">
-   </item>
+
 
     <item
         android:id="@+id/login"
-        android:title="Login">
+        android:title="@string/menu_option_login">
     </item>
 </menu>

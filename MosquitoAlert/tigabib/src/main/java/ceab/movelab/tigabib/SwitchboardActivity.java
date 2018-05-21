@@ -22,7 +22,6 @@
 package ceab.movelab.tigabib;
 
 import android.Manifest;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
@@ -61,6 +60,7 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GetTokenResult;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.reflect.TypeToken;
 import com.koushikdutta.async.future.FutureCallback;
@@ -158,7 +158,7 @@ public class SwitchboardActivity extends Activity {
 			onCreateWithPermissions();
 		}
 
-		ActionBar actionBar = getActionBar();
+		/*ActionBar actionBar = getActionBar();
 		if (actionBar != null) {
 			actionBar.addOnMenuVisibilityListener(new ActionBar.OnMenuVisibilityListener() {
 				@Override
@@ -172,7 +172,7 @@ public class SwitchboardActivity extends Activity {
 					}
 				}
 			});
-		}
+		}*/
 	}
 
 	@Override
@@ -193,7 +193,7 @@ Util.logInfo("=========", "New Intent");
 
 	private void onCreateWithPermissions() {
 		if ( !Util.privateMode() && !PropertyHolder.hasReconsented() ) { // MG - 9/8/16
-			Intent i2c = new Intent(SwitchboardActivity.this, ConsentActivity.class);
+			Intent i2c = new Intent(this, ConsentActivity.class);
 			startActivity(i2c);
 			finish();
 		} else {
@@ -209,7 +209,7 @@ Util.logInfo("=========", "New Intent");
 
 				// Get FCM token and register on server
 				String token = FirebaseInstanceId.getInstance().getToken();
-				Util.registerFCMToken(SwitchboardActivity.this, token, PropertyHolder.getUserId());
+				Util.registerFCMToken(this, token, PropertyHolder.getUserId());
 
 			} /*else {
 				if (PropertyHolder.needsMosquitoAlertPop()) {
@@ -650,8 +650,8 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 	public boolean onOptionsItemSelected(MenuItem item) {
 		super.onOptionsItemSelected(item);
 
-		if ( item.getItemId() == R.id.tigatrappNews ) {
-			Intent i = new Intent(SwitchboardActivity.this, RSSActivity.class);
+/*		if ( item.getItemId() == R.id.tigatrappNews ) {
+			Intent i = new Intent(this, RSSActivity.class);
 			i.putExtra(RSSActivity.RSSEXTRA_TITLE, getResources().getString(R.string.rss_title_tigatrapp));
 			if (lang.equals("ca"))
 				i.putExtra(RSSActivity.RSSEXTRA_URL, Util.URL_RSS_CA);
@@ -662,23 +662,27 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 			i.putExtra(RSSActivity.RSSEXTRA_DEFAULT_THUMB, R.drawable.ic_launcher);
 			startActivity(i);
 			return true;
-		} else if (item.getItemId() == R.id.gallery) {
-			Intent i = new Intent(SwitchboardActivity.this, PhotoGalleryActivity.class);
+		} else*/ if ( item.getItemId() == R.id.gallery ) {
+			Intent i = new Intent(this, PhotoGalleryActivity.class);
 			startActivity(i);
 			return true;
-		} else if (item.getItemId() == R.id.settings) {
-			Intent i = new Intent(SwitchboardActivity.this, SettingsActivity.class);
+		} else if ( item.getItemId() == R.id.settings ) {
+			Intent i = new Intent(this, SettingsActivity.class);
 			startActivity(i);
 			return true;
-		} else if (item.getItemId() == R.id.help) {
-			Intent i = new Intent(SwitchboardActivity.this, HelpActivity.class);
+		}/* else if (item.getItemId() == R.id.help) {
+			Intent i = new Intent(this, HelpActivity.class);
 			startActivity(i);
 			return true;
-		} else if (item.getItemId() == R.id.about) {
-			Intent i = new Intent(SwitchboardActivity.this, AboutActivity.class);
+		} else*/ if ( item.getItemId() == R.id.about ) {
+			Intent i = new Intent(this, AboutActivity.class);
 			startActivity(i);
 			return true;
-		} else if (item.getItemId() == R.id.shareApp) {
+		} else if ( item.getItemId() == R.id.tutorial ) {
+			Intent i = new Intent(this, TutorialActivity.class);
+			startActivity(i);
+			return true;
+		} else if ( item.getItemId() == R.id.shareApp ) {
 			Intent shareIntent = new Intent(Intent.ACTION_SEND);
 			// set the type
 			shareIntent.setType("text/plain");
@@ -688,14 +692,12 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 			// https://play.google.com/store/apps/details?id=ceab.movelab.tigatrapp&hl=ca
 
 			String shareMessage = getResources().getString(R.string.project_website);
-			// add the message
 			shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareMessage);
-			// start the chooser for sharing
 			startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.share_with)));
 
 			// Send Firebase Event
-			Bundle bundle = new Bundle();
-			mFirebaseAnalytics.logEvent("ma_evt_share", bundle);
+//			Bundle bundle = new Bundle();
+//			mFirebaseAnalytics.logEvent("ma_evt_share", bundle);
 
 			Answers.getInstance().logShare(new ShareEvent()
 					.putMethod("Mail")
@@ -703,30 +705,33 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 					.putContentType("App") // Map, Photo
 					.putContentId(PropertyHolder.getUserId()));
 			return true;
-        } else if (item.getItemId() == R.id.web) {
+        } else if ( item.getItemId() == R.id.web ) {
             Intent i = new Intent(Intent.ACTION_VIEW);
             i.setData(Uri.parse(UtilLocal.URL_PROJECT));
             startActivity(i);
 
 			// Send Firebase Event
-			Bundle bundle = new Bundle();
-			mFirebaseAnalytics.logEvent("ma_evt_web", bundle);
+//			Bundle bundle = new Bundle();
+//			mFirebaseAnalytics.logEvent("ma_evt_web", bundle);
         }
-        else if (item.getItemId() == R.id.login) {
+        else if ( item.getItemId() == R.id.login ) {
+			// Comprovar if Util.isOnline first
+
             // Choose authentication providers
             List<AuthUI.IdpConfig> providers = Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build(),
-					new AuthUI.IdpConfig.GoogleBuilder().build());
+					new AuthUI.IdpConfig.GoogleBuilder().build(),
+					new AuthUI.IdpConfig.FacebookBuilder().build());
 
             // Create and launch sign-in intent
             startActivityForResult(AuthUI.getInstance()
-                    .createSignInIntentBuilder()
-                    .setAvailableProviders(providers)
+					.createSignInIntentBuilder()
+					.setAvailableProviders(providers)
 					.setLogo(R.drawable.logo_signin)
 					.setTheme(R.style.GreenTheme)
-                    .setTosUrl("https://superapp.example.com/terms-of-service.html")
-                    .setPrivacyPolicyUrl("https://superapp.example.com/privacy-policy.html")
-                    .setIsSmartLockEnabled(false)
-                    .build(), RC_SIGN_IN);
+					.setTosUrl("https://www.mosquitoalert.com/terms-of-service.html")
+					.setPrivacyPolicyUrl("https://www.mosquitoalert.com/privacy-policy.html")
+					.setIsSmartLockEnabled(false)
+					.build(), RC_SIGN_IN);
             return true;
         }
 		return false;
@@ -742,21 +747,43 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 			if ( resultCode == RESULT_OK ) {
 				if ( idpResponse != null ) {
 					String idpToken = idpResponse.getIdpToken();
-					Util.logInfo("===========", "idpResponse getIdpToken >> " + idpResponse.getIdpToken());
+					Util.logInfo("===========", "idpResponse getIdpToken >> " + idpToken);
 				}
 				// Successfully signed in
-				FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-				if ( user != null ) {
-					String token = "" + user.getIdToken(true);
-					Util.logInfo("===========", "User idToken >> " + user.getIdToken(true));
+				FirebaseUser user1 = FirebaseAuth.getInstance().getCurrentUser();
+				if ( user1 != null ) {
+					String uid = user1.getUid();
+					Util.logInfo("===========", "User uid >> " + uid);
+
+					Util.registerFirebaseLogin(this, uid, PropertyHolder.getUserId());
 				}
+				// https://stackoverflow.com/questions/40365410/how-to-get-firebase-auth-token-without-using-task-listeners
 				FirebaseAuth.getInstance().getCurrentUser().getIdToken(false).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
 					@Override
 					public void onComplete(@NonNull Task<GetTokenResult> task) {
-						Util.logInfo("===========", "User idToken >> " + task.getResult().getToken());
+						Util.logInfo("===========", "User idToken User >> " + task.getResult().getToken());
 					}
 				});
 
+				FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+				if ( user != null ) {
+					for (UserInfo profile : user.getProviderData()) {
+						// Id of the provider (ex: google.com)
+						String providerId = profile.getProviderId();
+
+						// UID specific to the provider
+						String uid = profile.getUid();
+
+						// Name, email address, and profile photo Url
+						String name = profile.getDisplayName();
+						String email = profile.getEmail();
+						Uri photoUrl = profile.getPhotoUrl();
+
+						Util.logInfo("===========", "User providerId >> " + providerId);
+						Util.logInfo("===========", "User profile >> " + uid);
+						Util.logInfo("===========", "User profile >> " + name + ", " + email + ", " + photoUrl);
+					};
+				}
 			} else {
 				// Sign in failed
 				if ( idpResponse == null ) {
@@ -785,7 +812,7 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 	public void askForPermissions() {
 		String[] permissionsArray = mPermissionsDenied.toArray(new String[mPermissionsDenied.size()]);
 		if ( permissionsArray.length > 0 ) {
-			ActivityCompat.requestPermissions(SwitchboardActivity.this, permissionsArray, REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
+			ActivityCompat.requestPermissions(this, permissionsArray, REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS);
 		}
 	}
 
@@ -804,7 +831,7 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 				else {
 					// Permission Denied
 					mPermissionsDenied = getDeniedPermissions();
-//Toast.makeText(SwitchboardActivity.this, "Some Permission is Denied", Toast.LENGTH_SHORT).show();
+//Toast.makeText(this, "Some Permission is Denied", Toast.LENGTH_SHORT).show();
 					new Handler().postDelayed(new Runnable() {
 						@Override
 						public void run() {

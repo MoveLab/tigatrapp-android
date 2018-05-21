@@ -18,7 +18,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONArray;
@@ -52,7 +51,7 @@ public class SettingsActivity extends Activity {
 
 	NewSamplesReceiver newSamplesReceiver;
 
-	private FirebaseAnalytics mFirebaseAnalytics;
+	// private FirebaseAnalytics mFirebaseAnalytics;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -76,11 +75,10 @@ public class SettingsActivity extends Activity {
 				startActivity(i);
 
 				// Send Firebase Event
-				Bundle bundle = new Bundle();
-				bundle.putString(FirebaseAnalytics.Param.SOURCE, "Settings");
-				mFirebaseAnalytics.logEvent("ma_evt_language_change", bundle);
+//				Bundle bundle = new Bundle();
+//				bundle.putString(FirebaseAnalytics.Param.SOURCE, "Settings");
+//				mFirebaseAnalytics.logEvent("ma_evt_language_change", bundle);
 			}
-
 		});
 
 		syncButton = (Button) findViewById(R.id.syncButton);
@@ -135,7 +133,7 @@ public class SettingsActivity extends Activity {
 			debugView.setVisibility(View.GONE);
 
 		// Obtain the FirebaseAnalytics instance.
-		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+		//mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
 	}
 
@@ -149,14 +147,13 @@ public class SettingsActivity extends Activity {
 		}
 
 		// [START set_current_screen]
-		mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_settings", "Settings");
+		//mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_settings", "Settings");
 		// [END set_current_screen]
 
 		IntentFilter newSamplesFilter;
 		newSamplesFilter = new IntentFilter(Messages.newSamplesReadyAction(this));
 		newSamplesReceiver = new NewSamplesReceiver();
 		registerReceiver(newSamplesReceiver, newSamplesFilter);
-
 	}
 
 	@Override

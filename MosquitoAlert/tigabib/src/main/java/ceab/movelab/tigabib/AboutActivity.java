@@ -33,8 +33,6 @@ import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
-
 /**
  * Displays the About screen.
  * 
@@ -56,10 +54,11 @@ public class AboutActivity extends Activity {
 	private static final String ABOUT_URL_OFFLINE_ZH = "file:///android_asset/html/about_zh.html";
 
 	private WebView myWebView;
+	private boolean isLoaded = false;
 
 	private String lang;
 
-	private FirebaseAnalytics mFirebaseAnalytics;
+	//private FirebaseAnalytics mFirebaseAnalytics;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -73,7 +72,7 @@ public class AboutActivity extends Activity {
 		setContentView(R.layout.webview);
 
 		// Obtain the FirebaseAnalytics instance.
-		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+		//mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 	}
 
 	@Override
@@ -83,29 +82,30 @@ public class AboutActivity extends Activity {
 
 	@Override
 	protected void onResume() {
-		super.onResume();if (!Util.setDisplayLanguage(getResources()).equals(lang)) {
+		super.onResume();
+		if (!Util.setDisplayLanguage(getResources()).equals(lang)) {
 			finish();
 			startActivity(getIntent());
 		}
 
 		// [START set_current_screen]
-		mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_about", "About");
+		//mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_about", "About");
 		// [END set_current_screen]
 
 		// https://code.google.com/p/android/issues/detail?id=32755
 		myWebView = (WebView) findViewById(R.id.webview);
 		myWebView.setWebViewClient(new WebViewClient() {
 			public void onReceivedError(WebView view, int errorCode, String description, String failingUrl) {
-				loadOffline();
+				if ( !isLoaded ) loadOffline();
 			}
 			@Override
 			public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
-				loadOffline();
+				if ( !isLoaded ) loadOffline();
 			}
 
 			@Override
 			public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
-				loadOffline();
+				if ( !isLoaded ) loadOffline();
 			}
 
 			/*@Override
@@ -134,7 +134,7 @@ public class AboutActivity extends Activity {
 		});*/
 
 		myWebView.getSettings().setAllowFileAccess(true);
-		myWebView.getSettings().setJavaScriptEnabled(true);
+		//myWebView.getSettings().setJavaScriptEnabled(true);
 		//myWebView.getSettings().setCacheMode(WebSettings.LOAD_DEFAULT);
 
 		/*if (Build.VERSION.SDK_INT >= 7) {
@@ -165,6 +165,7 @@ public class AboutActivity extends Activity {
 			myWebView.loadUrl(ABOUT_URL_OFFLINE_ZH);
 		else
 			myWebView.loadUrl(ABOUT_URL_OFFLINE_EN);
+		isLoaded = true;
 	}
 
 /*	@Override
@@ -194,11 +195,11 @@ public class AboutActivity extends Activity {
 		super.onOptionsItemSelected(item);
 
 		if (item.getItemId() == R.id.language) {
-			Intent i = new Intent(AboutActivity.this, LanguageSelectorActivity.class);
+			Intent i = new Intent(this, LanguageSelectorActivity.class);
 			startActivity(i);
 			return true;
 		} else if (item.getItemId() == R.id.license) {
-			Intent i = new Intent(AboutActivity.this, LicenseActivity.class);
+			Intent i = new Intent(this, LicenseActivity.class);
 			startActivity(i);
 			return true;
 		}

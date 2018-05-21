@@ -184,7 +184,7 @@ Util.logInfo(TAG, "create notification");
 		String myTitle = ( TextUtils.isEmpty(taskTitle) ? res.getString(R.string.new_mission) : taskTitle );
 
 		NotificationCompat.Builder mBuilder =
-				new NotificationCompat.Builder(context)
+				new NotificationCompat.Builder(context, "MosquitoAlert")
 						.setSmallIcon(R.drawable.ic_stat_mission)
 						.setContentTitle(myTitle);
 						//.setContentText("Text below title"); !!! check with John

@@ -152,8 +152,11 @@
     <string name="menu_option_tigatrapp_news">Notícies</string>
     <string name="menu_option_settings">Ajustos</string>
     <string name="menu_option_help">Ajuda</string>
-    <string name="menu_option_about">Sobre</string>
-    <string name="menu_option_share">Comparteix</string>
+    <string name="menu_option_about">Més Info</string>
+    <string name="menu_option_share">Comparteix app</string>
+    <string name="menu_option_gallery">Fotos d\'ajuda</string>
+    <string name="menu_option_tutorial">Tutorial app</string>
+    <string name="menu_option_login">Login</string>
     <string name="menu_option_filter">Filtra</string>
     <string name="menu_option_show_pending_tasks_only">Només missions pendents</string>
     <string name="menu_option_show_all_tasks">Totes</string>
@@ -161,6 +164,7 @@
     <string name="menu_option_map_type_satellite">Imatge</string>
     <string name="menu_option_map_type_street">Topogràfic</string>
     <string name="menu_option_share_map">Comparteix mapa</string>
+
     <string name="menu_option_save_map">Guarda mapa</string>
     <string name="menu_map_save">Guarda</string>
     <string name="menu_map_share">Comparteix</string>
@@ -263,8 +267,6 @@
     <string name="switchboard_button_notifications_site">NOTIFICACIONS</string>
     <string name="switchboard_button_missions_site">MISSIONS</string>
     <string name="header_title">Mosquito Alert</string>
-    <string name="menu_option_gallery">Galeria</string>
-    <string name="back">Torna</string>
     <string name="notifications_new">Rebudes</string>
     <string name="notifications_old">Antigues</string>
     <string name="task_expires">Expira</string>
@@ -345,5 +347,26 @@
 
     <string name="loading_picture">Recarregant foto</string>
     <string name="pybossa_error">Error connectant amb el servidor de validació de fotos.</string>
+
+    <string name="tutorial_1_1">Et donem\nla benvinguda</string>
+    <string name="tutorial_1_2">Consulta aquesta senzilla guia per començar a utilitzar l\'app</string>
+    <string name="tutorial_1_3">VEURE GUIA</string>
+    <string name="tutorial_1_4">Omet</string>
+
+    <string name="tutorial_2_1">Envia llocs de cria</string>
+    <string name="tutorial_2_2">Fes una foto si trobes un lloc de cria a la via pública.</string>
+    <string name="tutorial_3_1">Envia fotos de mosquit tigre o de mosquit de la febre groga</string>
+    <string name="tutorial_3_2">És important que es vegin totes les parts del mosquit.</string>
+    <string name="tutorial_4_1">Consulta les teves dades enviades i valida fotos d’altres participants</string>
+    <string name="tutorial_4_2">Mira el teu historial de participació i aprèn a validar fotos de mosquit tigre. </string>
+    <string name="tutorial_5_1">Mantén-te informat</string>
+    <string name="tutorial_5_2">Rebràs notícies i notificacions dels experts sobre les teves dades enviades.</string>
+    <string name="tutorial_6_1">Aconsegueix punts!</string>
+    <string name="tutorial_6_2">Envia fotos de qualitat i valida fotos d’altres participants per pujar de nivell.</string>
+    <string name="tutorial_7_1">L\'app al teu gust</string>
+    <string name="tutorial_7_2">Configura l\'app des del menú, accedeix a contingut extra i canvia els ajustos.</string>
+    <string name="tutorial_8_1">Ja pots començar!</string>
+    <string name="tutorial_8_2">Trobaràs tota la informació i trucs per fer bones fotos a:\nwww.mosquitoalert.com</string>
+    <string name="tutorial_8_3">COMENÇAR</string>
 
 </resources>

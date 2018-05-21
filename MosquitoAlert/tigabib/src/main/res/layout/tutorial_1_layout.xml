@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="@dimen/tutorial_global_margin"
+        android:paddingStart="@dimen/tutorial_global_margin"
+        android:paddingRight="@dimen/tutorial_global_margin"
+        android:paddingEnd="@dimen/tutorial_global_margin"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/bottomLayout"
+        android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3"
+        android:text="@string/tutorial_1_1"
+        style="@style/TutorialTitle" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.2"
+        android:padding="0dp"
+        android:src="@drawable/logo_mosquito"
+        android:layout_gravity="center_horizontal"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.5"
+        android:text="@string/tutorial_1_2"
+        style="@style/TutorialText" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/bottomLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/tutorialStartBtn"
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:text="@string/tutorial_1_3"
+            style="@style/TutorialButton" />
+        <TextView
+            android:id="@+id/skipText1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/tutorial_height_dots"
+            android:text="@string/tutorial_1_4"
+            style="@style/TutorialTextSkip" />
+    </LinearLayout>
+
+</RelativeLayout>

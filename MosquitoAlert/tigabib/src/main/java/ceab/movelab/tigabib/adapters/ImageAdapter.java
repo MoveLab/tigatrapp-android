@@ -18,11 +18,11 @@ public class ImageAdapter extends BaseAdapter {
 			R.drawable.h, R.drawable.i, R.drawable.j, R.drawable.k,
 			R.drawable.l, };
 
-	private String[] captions;
+	//private String[] captions;
 
-	public ImageAdapter(Activity a, String[] captions) {
-		activity = a;
-		this.captions = captions;
+	public ImageAdapter(Activity act, String[] captions) {
+		activity = act;
+		//this.captions = captions;
 		inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
@@ -45,14 +45,15 @@ public class ImageAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View vi = convertView;
 		ViewHolder holder;
-		if (convertView == null) {
+		if ( convertView == null ) {
 			vi = inflater.inflate(R.layout.image_gallery_items, parent, false);
 			holder = new ViewHolder();
 			holder.image = (ImageView) vi.findViewById(R.id.image);
 			vi.setTag(holder);
 		} else
 			holder = (ViewHolder) vi.getTag();
-		final int stub_id = data[position];
+
+		int stub_id = data[position];
 		holder.image.setImageResource(stub_id);
 		return vi;
 	}

@@ -209,21 +209,19 @@ Util.logInfo(TAG, "missions: " + missions.toString());
 		int uploadedIndex = c.getColumnIndexOrThrow(Fixes.KEY_UPLOADED);
 
 		while (!c.isAfterLast()) {
-
 			int thisId = c.getInt(idIndex);
 
 			if (c.getInt(uploadedIndex) == 1) {
 				cr.delete(Util.getTracksUri(context), Fixes.KEY_ROWID + " = " + String.valueOf(thisId), null);
 			}
 
-			Fix thisFix = new Fix(c.getDouble(latIndex), c.getDouble(lngIndex), c.getLong(timeIndex),
-					c.getFloat(powIndex), (c.getInt(taskFixIndex) == 1));
-
+			Fix thisFix = new Fix(c.getDouble(latIndex), c.getDouble(lngIndex), c.getLong(timeIndex), c.getFloat(powIndex),
+					(c.getInt(taskFixIndex) == 1));
 			thisFix.exportJSON(context);
 
 			int statusCode = Util.getResponseStatusCode(thisFix.upload(context));
 
-			if (statusCode < 300 && statusCode > 0) {
+			if ( statusCode > 0 && statusCode < 300 ) {
 				cr.delete(Util.getTracksUri(context), Fixes.KEY_ROWID + " = " + String.valueOf(thisId), null);
 			}
 
@@ -235,7 +233,7 @@ Util.logInfo(TAG, "missions: " + missions.toString());
 		// now reports
 		c = cr.query(Util.getReportsUri(context), Reports.KEYS_ALL, Reports.KEY_UPLOADED + " != " + Report.UPLOADED_ALL, null, null);
 
-		if ( c!=null && !c.moveToFirst()) {
+		if ( c != null && !c.moveToFirst() ) {
 			c.close();
 		}
 

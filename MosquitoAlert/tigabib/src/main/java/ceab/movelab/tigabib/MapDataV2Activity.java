@@ -41,7 +41,6 @@
 
 package ceab.movelab.tigabib;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.Context;
@@ -83,7 +82,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.reflect.TypeToken;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -142,7 +140,7 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 	private Location mLastLocationNeighbours;
 	private LatLng currentCenter;
 
-	private FirebaseAnalytics mFirebaseAnalytics;
+	//private FirebaseAnalytics mFirebaseAnalytics;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -155,7 +153,7 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 		checkGoogleApiAvailability();
 
 		// Obtain the FirebaseAnalytics instance
-		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+		//mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 	}
 
 	private void onCreateContinue() {
@@ -174,7 +172,7 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 		progressbar = (ProgressBar) findViewById(R.id.mapProgressbar);
 		progressbar.setProgress(0);
 
-		ActionBar actionBar = getActionBar();
+		/*ActionBar actionBar = getActionBar();
 		if (actionBar != null) {
 			actionBar.addOnMenuVisibilityListener(new ActionBar.OnMenuVisibilityListener() {
 				@Override
@@ -188,7 +186,7 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 					}
 				}
 			});
-		}
+		}*/
 	}
 
 	//http://stackoverflow.com/questions/31016722/googleplayservicesutil-vs-googleapiavailability
@@ -385,7 +383,7 @@ Util.logInfo(TAG, "GMS: onLocationChanged");
 		}
 
 		// [START set_current_screen]
-		mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_map_data", "Map Data");
+		//mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_map_data", "Map Data");
 		// [END set_current_screen]
 
 		if ( mGoogleServicesOk ) {
@@ -449,29 +447,29 @@ Util.logInfo(TAG, "GMS: onLocationChanged");
 		if (item.getItemId() == R.id.language) {
 			Intent i = new Intent(this, LanguageSelectorActivity.class);
 			startActivity(i);
-			// Send Firebase Event
+			/*// Send Firebase Event
 			bundle.putString(FirebaseAnalytics.Param.SOURCE, "Map");
-			mFirebaseAnalytics.logEvent("ma_evt_language_change", bundle);
+			mFirebaseAnalytics.logEvent("ma_evt_language_change", bundle);*/
 			return true;
 		} else if (item.getItemId() == R.id.sat) {
 			item.setChecked(true);
 			satToggle = true;
 			setMapType();
-			mFirebaseAnalytics.logEvent("ma_evt_map_type", bundle);
+			//mFirebaseAnalytics.logEvent("ma_evt_map_type", bundle);
 			return true;
 		} else if (item.getItemId() == R.id.street) {
 			item.setChecked(true);
 			satToggle = false;
 			setMapType();
-			mFirebaseAnalytics.logEvent("ma_evt_map_type", bundle);
+			//mFirebaseAnalytics.logEvent("ma_evt_map_type", bundle);
 			return true;
 		} else if (item.getItemId() == R.id.saveMap) {
 			saveMapImage();
-			mFirebaseAnalytics.logEvent("ma_evt_map_save", bundle);
+			//mFirebaseAnalytics.logEvent("ma_evt_map_save", bundle);
 			return true;
 		} else if (item.getItemId() == R.id.shareMap) {
 			shareMap();
-			mFirebaseAnalytics.logEvent("ma_evt_map_share", bundle);
+			//mFirebaseAnalytics.logEvent("ma_evt_map_share", bundle);
 			return true;
 		}
 
@@ -907,11 +905,9 @@ Util.logInfo(this.getClass().toString(), "Finished scanning " + path);
 					int currentRecord = 0;
 					int nRecords = c.getCount();
 
-					while (!c.isAfterLast()) {
-
-						myProgress = (int) (((currentRecord++) / (float) nRecords) * 100);
-
-						publishProgress(myProgress);
+					while ( !c.isAfterLast() ) {
+						//myProgress = (int) (((currentRecord++) / (float) nRecords) * 100);
+						//publishProgress(myProgress);
 
 						int locationChoice = c.getInt(locationChoiceCol);
 						int thisType = c.getInt(typeCol);
@@ -972,14 +968,12 @@ Util.logInfo(this.getClass().toString(), "Finished scanning " + path);
 		protected void onPostExecute(Boolean result) {
 			if (result) {
 				LocationManager manager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-				try {
+				if ( manager != null ) {
 					boolean statusOfGPS = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
-					drawFixes(myAdultOverlayList, mySiteOverlayList, true, !statusOfGPS);
+					boolean b = drawFixes(myAdultOverlayList, mySiteOverlayList, true, !statusOfGPS);
 				}
-				catch (Exception e) {
-					e.printStackTrace();
-				}
+
 			}
 			progressbar.setVisibility(View.INVISIBLE);
 			legendLayout.setVisibility(View.VISIBLE);

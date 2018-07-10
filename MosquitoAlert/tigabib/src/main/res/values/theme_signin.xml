@@ -22,16 +22,19 @@
 
 <resources>
 
-    <style name="GreenTheme" parent="FirebaseUI">
+    <style name="FirebaseUITheme" parent="FirebaseUI">
     <item name="colorPrimary">@color/white</item>
     <item name="colorPrimaryDark">@color/whiteDark</item>
     <item name="colorAccent">@color/orange</item>
 
     <item name="colorControlNormal">@color/orange</item>
     <item name="colorControlActivated">@color/orange</item>
-    <item name="colorControlHighlight">@color/orange</item>
+    <item name="colorControlHighlight">@color/whiteDark</item>
+
     <item name="android:windowBackground">@color/white</item>
-</style>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 
 <!--    <color name="material_green_50">#E8F5E9</color>
     <color name="material_green_500">#4CAF50</color>

@@ -5,6 +5,6 @@
     <string name="facebook_login_protocol_scheme" translatable="false">fb1971217746245293</string>
 
     <!-- Twitter consumer key and secret -->
-    <string name="twitter_consumer_key" translatable="false">YOUR_CONSUMER_KEY</string>
-    <string name="twitter_consumer_secret" translatable="false">YOUR_CONSUMER_SECRET</string>
+    <string name="twitter_consumer_key" translatable="false">4mhrNfBnXQXaVntPFYdIfXtCz</string>
+    <string name="twitter_consumer_secret" translatable="false">Vi3SE7MgpTUyOBL6ouZHKfei6okzMElpwteN2gr3QyEyapZc3F</string>
 </resources>

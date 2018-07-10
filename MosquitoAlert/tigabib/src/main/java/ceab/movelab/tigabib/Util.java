@@ -69,19 +69,22 @@ package ceab.movelab.tigabib;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.provider.MediaStore;
+import android.os.AsyncTask;
+import android.os.Environment;
 import android.text.Html;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -97,8 +100,10 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
+import com.koushikdutta.ion.ProgressCallback;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -131,12 +136,19 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
+
+import ceab.movelab.tigabib.ContProvContractReports.Reports;
+import ceab.movelab.tigabib.model.profile.PhotoServer;
+import ceab.movelab.tigabib.model.profile.ProfileDevice;
+import ceab.movelab.tigabib.model.profile.Response;
+import ceab.movelab.tigabib.model.profile.UserProfile;
+import ceab.movelab.tigabib.model.profile.UserReport;
 
 
 /**
@@ -165,15 +177,15 @@ public class Util {
 		return BuildConfig.PRIVATE_MODE;
 	}
 
-	public static boolean pybossaMode() {	// !!!!$$$$
-		return true; // false is test environment, true is production
+	public static boolean pybossaMode() {
+		return BuildConfig.PYBOSSA_LIVE; // false is test environment, true is production
 	}
 
-	public static boolean debugMode() {		// !!!!$$$$
+	public static boolean debugMode() {	// !!!!$$$$
 		return BuildConfig.DEBUG;
 	}
 
-	public static boolean debugModeLog() {	// !!!!$$$$
+	private static boolean debugModeLog() {	// !!!!$$$$
 		return BuildConfig.DEBUG;
 	}
 
@@ -216,7 +228,7 @@ public class Util {
 	/**
 	 * API user endpoint.
 	 */
-	public static final String API_USER = UtilLocal.API_USER;
+	private static final String API_USER = UtilLocal.API_USER;
 
 	/**
 	 * API report endpoint.
@@ -259,6 +271,11 @@ public class Util {
 	public static final String API_UID_TOKEN = UtilLocal.API_UID_TOKEN;
 
 	/**
+	 * API to retrieve user profile from Uid token on server endpoint.
+	 */
+	public static final String API_GET_PROFILE = UtilLocal.API_GET_PROFILE;
+
+	/**
 	 * API nearby reports endpoint.
 	 */
 	public static final String API_NEARBY_REPORTS = UtilLocal.API_NEARBY_REPORTS;
@@ -267,6 +284,11 @@ public class Util {
 	 * API config endpoint.
 	 */
 	public static final String API_CONFIGURATION = UtilLocal.API_CONFIGURATION;
+
+	/**
+	 * API media endpoint.
+	 */
+	public static final String API_MEDIA = UtilLocal.API_MEDIA;
 
 	/**
 	 * Server authorization.
@@ -437,8 +459,8 @@ public class Util {
 	public static String fileNameDate(long locationTime) {
 		Date date = new Date(locationTime);
 		SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
-		String format = s.format(date);
-		return format;
+		//String format = s.format(date);
+		return  s.format(date);
 	}
 
 	public static long hour(long unixtime) {
@@ -760,8 +782,8 @@ Util.logInfo(TAG, "battery prop: " + powerProportion);
 		Configuration conf = res.getConfiguration();
 		String oldLang = conf.locale.getLanguage();
 		if ( !oldLang.equals(lang) ) {
-			Locale myLocale = new Locale(lang);
-			conf.locale = myLocale;
+			//Locale myLocale = new Locale(lang);
+			conf.locale = new Locale(lang);
 			res.updateConfiguration(conf, dm);
 		}
 		return lang;
@@ -872,12 +894,12 @@ Util.logInfo(TAG, "battery prop: " + powerProportion);
 	 * @param path
 	 *            String representing URL to the server API.
 	 */
+	//https://medium.com/@fabionegri/remember-remember-to-target-api-26-on-november-7ce4fdde2c08
 	public static HttpResponse postJSON(JSONObject jsonData, String apiEndpoint, Context context) {
 		HttpResponse result = null;
 		if ( !isOnline(context) ) {
 			return null;
 		} else {
-
 			try {
 				HttpParams httpParameters = new BasicHttpParams();
 				int timeoutConnection = 3000;
@@ -962,7 +984,7 @@ Util.logInfo(TAG, "battery prop: " + powerProportion);
 				int statusCode = statusLine.getStatusCode();
 Util.logInfo(TAG, "Status code:" + statusCode);
 
-				if (statusCode == 200) {
+				if ( statusCode == 200 ) {
 					HttpEntity entity = response.getEntity();
 					InputStream content = entity.getContent();
 					BufferedReader reader = new BufferedReader(new InputStreamReader(content));
@@ -973,9 +995,9 @@ Util.logInfo(TAG, "Status code:" + statusCode);
 				} else {
 					Util.logInfo(TAG, "failed to get JSON data");
 				}
-			} catch (ClientProtocolException e) {
+			} catch ( ClientProtocolException e ) {
 				Util.logError(TAG, "error: " + e);
-			} catch (IOException e) {
+			} catch ( IOException e ) {
 				Util.logError(TAG, "error: " + e);
 			}
 
@@ -985,22 +1007,22 @@ Util.logInfo(TAG, "Status code:" + statusCode);
 
 	public static String reportType2String(int reportType) {
 		String result = "";
-		if (reportType == Report.TYPE_ADULT)
+		if ( reportType == Report.TYPE_ADULT )
 			result = "adult";
-		else if (reportType == Report.TYPE_BREEDING_SITE)
+		else if ( reportType == Report.TYPE_BREEDING_SITE )
 			result = "site";
-		else if (reportType == Report.TYPE_MISSION)
+		else if ( reportType == Report.TYPE_MISSION )
 			result = "mission";
 		return result;
 	}
 
 	public static String locationChoice2String(int locationChoice) {
 		String result = "";
-		if (locationChoice == Report.LOCATION_CHOICE_CURRENT)
+		if ( locationChoice == Report.LOCATION_CHOICE_CURRENT )
 			result = "current";
-		else if (locationChoice == Report.LOCATION_CHOICE_SELECTED)
+		else if ( locationChoice == Report.LOCATION_CHOICE_SELECTED )
 			result = "selected";
-		else if (locationChoice == Report.LOCATION_CHOICE_MISSING)
+		else if ( locationChoice == Report.LOCATION_CHOICE_MISSING )
 			result = "missing";
 		return result;
 	}
@@ -1063,10 +1085,10 @@ Util.logInfo(TAG, "register on server OLD");
 	}*/
 
 	public static void registerFCMToken(Context ctx, String token, String userId) {
-		if ( token != null ) {
-			String tokenUrl = Util.URL_TIGASERVER_API_ROOT + Util.API_FCM_TOKEN + "?token=" + token + "&user_id=" + userId;
 Util.logInfo("==============", "TEST registerFCMToken");
+		if ( token != null ) {
 Util.logInfo("===========", "BuildConfig.DEBUG >> " + BuildConfig.DEBUG);
+			String tokenUrl = Util.URL_TIGASERVER_API_ROOT + Util.API_FCM_TOKEN + "?token=" + token + "&user_id=" + userId;
 Util.logInfo("===========", tokenUrl);
 
 			Ion.with(ctx)
@@ -1090,30 +1112,349 @@ Util.logInfo("===========", tokenUrl);
 		}
 	}
 
-	public static void registerFirebaseLogin(Context ctx, String uid, String userId) {
-		if ( uid != null ) {
-			String tokenLoginUrl = Util.URL_TIGASERVER_API_ROOT + Util.API_UID_TOKEN + "?fbt=" + uid + "&usr=" + userId;
+	public static void registerFirebaseLogin(final Context ctx, final String uidToken, String userId) {
+		if ( uidToken != null ) {
+			String tokenLoginUrl = Util.URL_TIGASERVER_API_ROOT + Util.API_UID_TOKEN + "?fbt=" + uidToken + "&usr=" + userId;
 Util.logInfo("==============", "TEST registerFirebaseLogin: " + tokenLoginUrl);
 
-			Ion.with(ctx)
-					.load(tokenLoginUrl)
+			Ion.with(ctx).load(tokenLoginUrl)
 					//.setHeader("Accept", "application/json")
-					.setLogging("Token", Log.VERBOSE)
+					//.setLogging("Token", Log.VERBOSE)
 					.setHeader("Authorization", UtilLocal.TIGASERVER_AUTHORIZATION)
-					.setBodyParameter("fbt", uid)
-					.setBodyParameter("usr", PropertyHolder.getUserId())
+					.setBodyParameter("fbt", uidToken)
+					.setBodyParameter("usr", userId)
 					.asJsonObject()
 					.setCallback(new FutureCallback<JsonObject>() {
 						@Override
 						public void onCompleted(Exception e, JsonObject result) {
 							// do stuff with the result or error
 							if ( result != null ) {
-								Util.logInfo(">>>>>>>>", "sendRegistrationLoginToServer >> " + result.toString());
+Util.logInfo(">>>>>>>>", "sendRegistrationLoginToServer >> " + result.toString());
+								getProfileReports(ctx, uidToken);
 							}
 						}
 					});
 		}
 	}
+
+	private static void getProfileReports(final Context ctx, final String uidToken) {
+		if ( uidToken != null ) {
+			String profileUrl = Util.URL_TIGASERVER_API_ROOT + Util.API_GET_PROFILE + "?fbt=" + uidToken;
+Util.logInfo("==============", "TEST getProfileReports: " + profileUrl);
+
+			Ion.with(ctx).load(profileUrl)
+					//.setHeader("Accept", "application/json")
+					//.setLogging("Token", Log.VERBOSE)
+					.setHeader("Authorization", UtilLocal.TIGASERVER_AUTHORIZATION)
+					//.setBodyParameter("fbt", uidToken)
+					.as(new TypeToken<UserProfile>(){})
+					.setCallback(new FutureCallback<UserProfile>() {
+						@Override
+						public void onCompleted(Exception e, UserProfile userProfile) {
+							// do stuff with the result or error
+							if ( userProfile != null ) {
+Util.logInfo(">>>>>>>>", "getProfileReports >> " + userProfile.toString());
+								//importProfile(ctx, userProfile.getProfileDevices());
+								new ReportsDownloadTask(ctx, ctx.getContentResolver(), userProfile.getProfileDevices()).execute(ctx);
+							}
+						}
+					});
+		}
+	}
+/*	Report(Context context, String version_UUID, String userId,
+		   String reportId, int reportVersion, long reportTime,
+		   String creation_time, String version_time_string, int type,
+		   String confirmation, int confirmationCode, int locationChoice,
+		   float currentLocationLat, float currentLocationLon,
+		   float selectedLocationLat, float selectedLocationLon,
+		   int photoAttached, String photoUrisString, String note,
+		   int uploaded, long serverTimestamp, int deleteReport,
+		   int latestVersion, String packageName, int packageVersion,
+		   String phoneManufacturer, String phoneModel, String OS,
+		   String OSversion, String osLanguage, String appLanguage,
+		   int missionId) {*/
+
+/*	private static void importProfile(Context ctx, List<ProfileDevice> profileDeviceList) {
+		for ( ProfileDevice profileDevice: profileDeviceList ) {
+			List<UserReport> userReportsList = profileDevice.getUserReports();
+			for ( UserReport userReport : userReportsList ) {
+				int type = ( userReport.getType().contentEquals("adult") ? Report.TYPE_ADULT : Report.TYPE_BREEDING_SITE);
+				JSONObject responses = new JSONObject();;
+				try {
+					String thisTaskModel = type == Report.TYPE_ADULT ?
+						MissionModel.makeAdultConfirmation(ctx).getString(ContProvContractMissions.Tasks.KEY_TASK_JSON) :
+						MissionModel.makeSiteConfirmation(ctx).getString(ContProvContractMissions.Tasks.KEY_TASK_JSON);
+					JSONObject thisTask = new JSONObject(thisTaskModel);
+					if ( thisTask.has(MissionModel.KEY_ITEMS )) {
+						JSONArray theseItems = new JSONArray(thisTask.getString(MissionModel.KEY_ITEMS));
+						int i = 0;
+						List<Response> responseList = userReport.getResponses();
+						for ( Response response : responseList ) {
+							JSONObject json = new JSONObject(theseItems.getString(i++));
+							String itemId = json.getString("id");
+
+							JSONObject thisResponse = new JSONObject();
+							thisResponse.put(MissionItemModel.KEY_ITEM_ID, itemId);
+							thisResponse.put(MissionItemModel.KEY_ITEM_TEXT, response.getQuestion());
+							thisResponse.put(MissionItemModel.KEY_ITEM_RESPONSE, response.getAnswer());
+
+							responses.put(itemId, thisResponse);
+						}
+					}
+				}
+				catch (Exception e) {
+					e.printStackTrace();
+				}
+
+				int locationChoice = ( userReport.getLocationChoice().contentEquals("selected") ?
+						Report.LOCATION_CHOICE_SELECTED : Report.LOCATION_CHOICE_CURRENT );
+
+				File directory = new File(Environment.getExternalStorageDirectory(), ctx.getResources().getString(R.string.app_directory));
+				directory.mkdirs();
+
+				JSONArray jsonPhotos = new JSONArray();
+				List<PhotoServer> photosList = userReport.getPhotos();
+				for (PhotoServer photo : photosList) {
+					String photoPath = directory + "/" + photo.getPhoto();
+					JSONObject newPhoto = new JSONObject();
+					try {
+						newPhoto.put(Report.KEY_PHOTO_URI, photoPath.replace("tigapics/", ""));
+						newPhoto.put(Report.KEY_PHOTO_TIME, System.currentTimeMillis());
+						jsonPhotos.put(newPhoto);
+					} catch (JSONException e) {
+						e.printStackTrace();
+					}
+				}
+				int photoAttached = ( jsonPhotos.length() > 0 ? Report.YES : Report.NO );
+
+				*//*Report thisReport = new Report(ctx, userReport.getVersionUUID(), userReport.getUser(),
+						userReport.getReportId(), userReport.getVersionNumber(), 0,
+						userReport.getCreationTime(), userReport.getVersionTime(), type,
+						responses.toString(), Report.CONFIRMATION_CODE_POSITIVE, locationChoice,
+						userReport.getCurrentLocationLat(), userReport.getCurrentLocationLon(),
+						userReport.getSelectedLocationLat(), userReport.getSelectedLocationLon(),
+						photoAttached, jsonPhotos.toString(), userReport.getNote(),
+						Report.UPLOADED_ALL, -1, 0,
+						1,
+						userReport.getPackageName(), userReport.getPackageVersion(),
+						userReport.getDeviceManufacturer(), userReport.getDeviceModel(), userReport.getOs(),
+						userReport.getOsVersion(), userReport.getOsLanguage(), userReport.getAppLanguage(),
+						0);
+				ContProvValuesReports.createReport(thisReport);*//*
+			}
+		}
+	}*/
+
+
+	private static class ReportsDownloadTask extends AsyncTask<Context, Integer, Boolean> {
+		private Context mContext;
+		private ContentResolver mCR;
+		private  List<ProfileDevice> mProfileDeviceList;
+
+		private ProgressDialog prog;
+		private int myProgress;
+		private int resultFlag;
+
+		private int OFFLINE = 0;
+		private int UPLOAD_ERROR = 1;
+		private int DATABASE_ERROR = 2;
+		private int SUCCESS = 3;
+		private int PRIVATE_MODE = 4;
+
+		ReportsDownloadTask(Context ctx, ContentResolver cr, List<ProfileDevice> profileDeviceList)  {
+			this.mContext = ctx;
+			this.mCR = cr;
+			this.mProfileDeviceList = profileDeviceList;
+		}
+
+		@Override
+		protected void onPreExecute() {
+
+			resultFlag = SUCCESS;
+
+			prog = new ProgressDialog(mContext);
+			prog.setTitle("Descargando datos de usuario"); // !!!! update message
+			prog.setIndeterminate(false);
+			prog.setCancelable(false);
+			prog.setMax(100);
+			prog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+			prog.show();
+
+			myProgress = 0;
+		}
+
+		protected Boolean doInBackground(Context... context) {
+
+			int currentOffset = 2;
+			myProgress = currentOffset;
+			publishProgress(myProgress);
+
+			int numReports = 0;
+			for ( ProfileDevice profileDevice: mProfileDeviceList ) {
+				numReports += profileDevice.getUserReports().size();
+			}
+			int progressReports = ( numReports == 0 ? 100 : (98 / numReports) );
+
+			for ( ProfileDevice profileDevice: mProfileDeviceList ) {
+				List<UserReport> userReportsList = profileDevice.getUserReports();
+				for ( UserReport userReport : userReportsList ) {
+					int type = (userReport.getType().contentEquals("adult") ? Report.TYPE_ADULT : Report.TYPE_BREEDING_SITE);
+					JSONObject responses = new JSONObject();
+					try {
+						String thisTaskModel = type == Report.TYPE_ADULT ?
+								MissionModel.makeAdultConfirmation(mContext).getString(ContProvContractMissions.Tasks.KEY_TASK_JSON) :
+								MissionModel.makeSiteConfirmation(mContext).getString(ContProvContractMissions.Tasks.KEY_TASK_JSON);
+						JSONObject thisTask = new JSONObject(thisTaskModel);
+						if ( thisTask.has(MissionModel.KEY_ITEMS) ) {
+							JSONArray theseItems = new JSONArray(thisTask.getString(MissionModel.KEY_ITEMS));
+							int i = 0;
+							List<Response> responseList = userReport.getResponses();
+							for ( Response response : responseList ) {
+								JSONObject json = new JSONObject(theseItems.getString(i++));
+								String itemId = json.getString("id");
+
+								JSONObject thisResponse = new JSONObject();
+								thisResponse.put(MissionItemModel.KEY_ITEM_ID, itemId);
+								thisResponse.put(MissionItemModel.KEY_ITEM_TEXT, response.getQuestion());
+								thisResponse.put(MissionItemModel.KEY_ITEM_RESPONSE, response.getAnswer());
+
+								responses.put(itemId, thisResponse);
+							}
+						}
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+
+					int locationChoice = (userReport.getLocationChoice().contentEquals("selected") ?
+							Report.LOCATION_CHOICE_SELECTED : Report.LOCATION_CHOICE_CURRENT);
+
+					File directory = new File(Environment.getExternalStorageDirectory(),
+							mContext.getResources().getString(R.string.app_directory));
+					directory.mkdirs();
+
+					JSONArray jsonPhotos = new JSONArray();
+					List<PhotoServer> photosList = userReport.getPhotos();
+					for ( PhotoServer photo : photosList ) {
+						String photoPath = directory + "/" + photo.getPhoto().replace("tigapics/", "");
+						JSONObject newPhoto = new JSONObject();
+						try {
+							newPhoto.put(Report.KEY_PHOTO_URI, photoPath);
+							newPhoto.put(Report.KEY_PHOTO_TIME, System.currentTimeMillis());
+							jsonPhotos.put(newPhoto);
+							downloadPhoto(context[0], photo.getPhoto(), photoPath);
+						} catch (JSONException e) {
+							e.printStackTrace();
+						}
+					}
+					int photoAttached = (jsonPhotos.length() > 0 ? Report.YES : Report.NO);
+
+					Report thisReport = new Report(mContext, userReport.getVersionUUID(), userReport.getUser(),
+							userReport.getReportId(), userReport.getVersionNumber(), 0,
+							userReport.getCreationTime(), userReport.getVersionTime(), type,
+							responses.toString(), Report.CONFIRMATION_CODE_POSITIVE, locationChoice,
+							userReport.getCurrentLocationLat(), userReport.getCurrentLocationLon(),
+							userReport.getSelectedLocationLat(), userReport.getSelectedLocationLon(),
+							photoAttached, jsonPhotos.toString(), userReport.getNote(),
+							Report.UPLOADED_ALL, -1, 0,
+							1,
+							userReport.getPackageName(), userReport.getPackageVersion(),
+							userReport.getDeviceManufacturer(), userReport.getDeviceModel(), userReport.getOs(),
+							userReport.getOsVersion(), userReport.getOsLanguage(), userReport.getAppLanguage(),
+							0);
+
+/*					Report thisssReport = new Report(mContext, userReport.getVersionUUID(), userReport.getUser(),
+							userReport.getReportId(), userReport.getVersionNumber(), 0,
+							userReport.getCreationTime(), userReport.getVersionTime(), type,
+							responses.toString(), Report.CONFIRMATION_CODE_POSITIVE, locationChoice,
+							userReport.getCurrentLocationLat(), userReport.getCurrentLocationLon(),
+							userReport.getSelectedLocationLat(), userReport.getSelectedLocationLon(),
+							photoAttached, jsonPhotos.toString(), userReport.getNote(),
+					0, 0, 0,
+					0, "", 0,
+							"", "", "",
+							"","","",
+					0) {
+
+					}*/
+					// First delete any previous existing report with same id
+					String sc = Reports.KEY_REPORT_ID + " = '" + userReport.getReportId() + "'";
+					int nDeleted = mCR.delete(Util.getReportsUri(context[0]), sc, null);
+Util.logInfo(TAG, sc);
+Util.logInfo(TAG, "n deleted: " + nDeleted);
+
+					// ContProvValuesReports.createReport(thisReport);
+					// Then save report to internal DB
+					Uri repUri = getReportsUri(context[0]);
+					mCR.insert(repUri, ContProvValuesReports.createReport(thisReport));
+
+					// now mark all prior reports as not latest version
+					String where = Reports.KEY_REPORT_ID + " = '" + thisReport.reportId + "' AND "
+							+ Reports.KEY_REPORT_VERSION + " < " + thisReport.reportVersion;
+					ContentValues cv = new ContentValues();
+					cv.put(Reports.KEY_LATEST_VERSION, 0);
+					mCR.update(repUri, cv, where, null);
+
+					currentOffset += progressReports;
+					myProgress = currentOffset;
+					publishProgress(myProgress);
+				}
+			}
+
+			myProgress = 100;
+			publishProgress(myProgress);
+
+
+			return true;
+		}
+
+		protected void onProgressUpdate(Integer... progress) {
+			prog.setProgress(progress[0]);
+		}
+
+		protected void onPostExecute(Boolean result){
+			try {
+				prog.dismiss();
+				prog = null;
+			} catch (Exception e) {
+				// I realize this is ugly, but it is a solution to the problem discussed here:
+				// https://stackoverflow.com/questions/2745061/java-lang-illegalargumentexception-view-not-attached-to-window-manager/5102572#5102572
+			}
+//			if ( result && resultFlag == SUCCESS ) {
+//				Util.toastTimed(mContext, mContext.getResources().getString(R.string.report_sent_confirmation), Toast.LENGTH_LONG);
+//				mReport.clear();
+//			}
+		}
+
+		private void downloadPhoto(Context ctx, String remotePhoto, String localPhotoPath) {
+			//http://humboldt.ceab.csic.es/media/tigapics/4f9f58ce-901e-4e0b-81ff-061a43f8e5a5.jpg
+			String urlPhoto = UtilLocal.URL_TIGASERVER + Util.API_MEDIA + remotePhoto;
+Util.logInfo("==============", "TEST downloadPhoto: " + urlPhoto);
+
+			Ion.with(ctx)
+					.load(urlPhoto)
+// have a ProgressBar get updated automatically with the percent
+					//.progressBar(progressBar)
+// and a ProgressDialog
+					//.progressDialog(progressDialog)
+// can also use a custom callback
+					.progress(new ProgressCallback() {@Override
+						public void onProgress(long downloaded, long total) {
+							//System.out.println("" + downloaded + " / " + total);
+						}
+					})
+					.write(new File(localPhotoPath))
+					.setCallback(new FutureCallback<File>() {
+						@Override
+						public void onCompleted(Exception e, File file) {
+							// download done...
+							// do stuff with the File or error
+						}
+					});
+		}
+
+	}
+
+
 	public static String makeReportId() {
 		Random mRandom = new Random();
 
@@ -1147,23 +1488,22 @@ Util.logInfo("==============", "TEST registerFirebaseLogin: " + tokenLoginUrl);
 	}
 
 	public static Uri getReportsUri(Context context) {
-		return Uri.parse("content://" + context.getResources().getString(R.string.content_provider_auth_reports) + "/" + ContProvReports.DATABASE_TABLE);
+		return Uri.parse("content://" + context.getResources().getString(
+				R.string.content_provider_auth_reports) + "/" + ContProvReports.DATABASE_TABLE);
 	}
 
 	public static Uri getMissionsUri(Context context) {
 		return Uri.parse("content://" + context.getResources().getString(
-						R.string.content_provider_auth_missions) + "/" + ContProvMissions.DATABASE_TABLE);
+				R.string.content_provider_auth_missions) + "/" + ContProvMissions.DATABASE_TABLE);
 	}
 
 	public static Uri getTracksUri(Context context) {
 		return Uri.parse("content://" + context.getResources().getString(
-						R.string.content_provider_auth_tracks) + "/" + ContProvTracks.DATABASE_TABLE);
+				R.string.content_provider_auth_tracks) + "/" + ContProvTracks.DATABASE_TABLE);
 	}
 
-	public static void buildCustomAlert(Context context, String message) {
-
+	public static void buildCustomAlert(final Context context, String message) {
 		final Dialog dialog = new Dialog(context);
-
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.custom_alert);
 		dialog.setCancelable(false);
@@ -1179,19 +1519,20 @@ Util.logInfo("==============", "TEST registerFirebaseLogin: " + tokenLoginUrl);
 			@Override
 			public void onClick(View v) {
 				dialog.cancel();
+				//if ( context instanceof Activity ) ((Activity) context).finish();
 			}
 		});
 
-		dialog.show();
+		// sometimes when trying to display the alert dialog window, the context is not there
+		// Crashlytics #25
+		try {
+			dialog.show();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
-    public static String getRealPathFromURI_BelowAPI11(Context context, Uri contentUri){
-               String[] proj = { MediaStore.Images.Media.DATA };
-               Cursor cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
-               int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-               cursor.moveToFirst();
-               return cursor.getString(column_index);
-    }
 
 	public static void buildCustomAlert(final Activity activity, String message) {
 		final Dialog dialog = new Dialog(activity);
@@ -1214,7 +1555,7 @@ Util.logInfo("==============", "TEST registerFirebaseLogin: " + tokenLoginUrl);
 			}
 		});
 
-		// sometimes when trying to display the alert dialow window, the activity has finished
+		// sometimes when trying to display the alert dialog window, the activity has already finished
 		// Crashlytics #25
 		try {
 			dialog.show();
@@ -1222,6 +1563,13 @@ Util.logInfo("==============", "TEST registerFirebaseLogin: " + tokenLoginUrl);
 		catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
+
+/*    public static String getRealPathFromURI_BelowAPI11(Context context, Uri contentUri){
+               String[] proj = { MediaStore.Images.Media.DATA };
+               Cursor cursor = context.getContentResolver().query(contentUri, proj, null, null, null);
+               int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+               cursor.moveToFirst();
+               return cursor.getString(column_index);
+    }*/
 }

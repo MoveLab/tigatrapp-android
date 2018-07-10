@@ -44,7 +44,6 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.github.chrisbanes.photoview_local.PhotoView;
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -85,7 +84,7 @@ public class PhotoValidationActivity extends Activity {
 	private ImageView mToraxImage, mAbdomenImage;
 	private boolean mIsTiger = false;
 
-	private FirebaseAnalytics mFirebaseAnalytics;
+	//private FirebaseAnalytics mFirebaseAnalytics;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -145,7 +144,7 @@ public class PhotoValidationActivity extends Activity {
 
 		setOnClickListeners();
 
-		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+		//mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 	}
 
 
@@ -163,7 +162,7 @@ public class PhotoValidationActivity extends Activity {
 		}
 
 		// [START set_current_screen]
-		mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_photo_validation", "Photo Validation");
+		//mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_photo_validation", "Photo Validation");
 		// [END set_current_screen]
 	}
 
@@ -322,9 +321,9 @@ Util.logInfo("===========", "sendValidationResults >> " + mTaskRun.getTaskId());
 		startNewValidation();	// to speed up next validation
 
 		// Send Firebase Event
-		Bundle bundle = new Bundle();
+		/*Bundle bundle = new Bundle();
 		bundle.putInt("task_id",  mTaskRun.getTaskId());
-		mFirebaseAnalytics.logEvent("ma_evt_validation_sent", bundle);
+		mFirebaseAnalytics.logEvent("ma_evt_validation_sent", bundle);*/
 
 		Ion.with(this)
 			.load(taskrunUrl)
@@ -503,9 +502,9 @@ Util.logInfo("===========", "prefetching >> " +  resultTask.getId());
 Util.logInfo("===========", myTask.getId() + " >> " + getPhotoUrl);
 
 			// Send Firebase Event
-			Bundle bundle = new Bundle();
+			/*Bundle bundle = new Bundle();
 			bundle.putString(FirebaseAnalytics.Param.ITEM_ID, myTask.getInfo().getUuid());
-			mFirebaseAnalytics.logEvent("ma_evt_photo_validation", bundle);
+			mFirebaseAnalytics.logEvent("ma_evt_photo_validation", bundle);*/
 
 //		Ion.with(mPhoto1View)
 //				.placeholder(R.drawable.ic_switchboard_icon_validacio_large)

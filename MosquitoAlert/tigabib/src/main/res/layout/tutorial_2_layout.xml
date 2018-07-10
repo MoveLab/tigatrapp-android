@@ -4,7 +4,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/white">
 
-    <android.support.v4.view.ViewPager
+    <ceab.movelab.tigabib.ui.ViewPagerCustomDuration
         android:id="@+id/tutorialViewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

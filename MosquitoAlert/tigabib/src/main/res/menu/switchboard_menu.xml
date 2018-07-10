@@ -37,8 +37,6 @@
         android:id="@+id/about"
         android:title="@string/menu_option_about">
     </item>
-
-
     <item
         android:id="@+id/login"
         android:title="@string/menu_option_login">

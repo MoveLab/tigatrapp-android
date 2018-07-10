@@ -39,9 +39,7 @@ public class Photo {
 	int serverTimestamp;
 	int deletePhoto;
 
-	Photo(String reportId, int reportVersion, String photoUri, long photoTime,
-			int uploaded, int serverTimestamp, int deletePhoto) {
-
+	Photo(String reportId, int reportVersion, String photoUri, long photoTime, int uploaded, int serverTimestamp, int deletePhoto) {
 		this.userId = PropertyHolder.getUserId();
 		this.reportId = reportId;
 		this.reportVersion = reportVersion;
@@ -55,7 +53,6 @@ public class Photo {
 
 	Photo(String userId, String reportId, int reportVersion, String photoUri, long photoTime,
 			int uploaded, int serverTimestamp, int deletePhoto) {
-
 		this.userId = userId;
 		this.reportId = reportId;
 		this.reportVersion = reportVersion;
@@ -68,7 +65,6 @@ public class Photo {
 
 	
 	public void clear() {
-
 		this.reportId = null;
 		this.reportVersion = Report.MISSING;
 		this.photoUri = null;
@@ -76,7 +72,6 @@ public class Photo {
 		this.uploaded = Report.NO;
 		this.serverTimestamp = Report.MISSING;
 		this.deletePhoto = Report.NO;
-
 	}
 
 }

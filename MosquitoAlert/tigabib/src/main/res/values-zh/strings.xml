@@ -154,6 +154,9 @@
     <string name="menu_option_help">協助</string>
     <string name="menu_option_about">關於</string>
     <string name="menu_option_share">分享</string>
+    <string name="menu_option_gallery">圖片庫</string>
+    <string name="menu_option_login"></string>
+    <string name="menu_option_logout"></string>
     <string name="menu_option_filter">過濾</string>
     <string name="menu_option_show_pending_tasks_only">顯示尚未完成的任務</string>
     <string name="menu_option_show_all_tasks">顯示所有任務</string>
@@ -264,7 +267,6 @@
     <string name="switchboard_button_notifications_site">通知</string>
     <string name="switchboard_button_missions_site">任務</string>
     <string name="header_title">Mosquito Alert</string>
-    <string name="menu_option_gallery">圖片庫</string>
     <string name="back">返回</string>
     <string name="notifications_new">新</string>
     <string name="notifications_old">舊</string>
@@ -346,4 +348,28 @@
 
     <string name="loading_picture"></string>
     <string name="pybossa_error"></string>
+
+
+    <string name="tutorial_1_1">歡迎</string>
+    <string name="tutorial_1_2">使用應用前請先閱讀此簡介。</string>
+    <string name="tutorial_1_3">見指引</string>
+    <string name="tutorial_1_4">略過</string>
+    <string name="tutorial_2_1">上傳蚊子滋生處</string>
+    <string name="tutorial_2_2">請紀錄任何在公眾地方發現到的蚊子滋生處。</string>
+    <string name="tutorial_3_1">上傳一張白蚊伊蚊或埃及斑蚊的相片。</string>
+    <string name="tutorial_3_2">一張良好的相片需要清楚顯示蚊子身體的各部分。</string>
+    <string name="tutorial_4_1">向其他參與者請教有關過往觀察報告及鑑識紀錄。</string>
+    <string name="tutorial_4_2">查詢過往參與紀錄及了解如何識別出白紋伊蚊。</string>
+    <string name="tutorial_5_1">會將第一手資訊送到你面前！</string>
+    <string name="tutorial_5_2">專家們會對你所上載的資料作出評價並把資訊回饋給你。</string>
+    <string name="tutorial_6_1">得分！</string>
+    <string name="tutorial_6_2">上載高質素相片及驗證他人的相片便可升級。</string>
+    <string name="tutorial_7_1">設定手機應用</string>
+    <string name="tutorial_7_2">可透過更改在主選單的更多內容中的設定。</string>
+    <string name="tutorial_8_1">可以開始！</string>
+    <string name="tutorial_8_2">更多資訊和拍攝小貼士在www.mosqutioalert.com</string>
+    <string name="tutorial_8_3">開始</string>
+
+    <string name="menu_option_tutorial">使用指南</string>
+
 </resources>

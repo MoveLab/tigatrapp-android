@@ -40,10 +40,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ViewFlipper;
 
+import ceab.movelab.tigabib.ui.ViewPagerCustomDuration;
+
 /**
  * Displays the guide for the app usage
  * 
  * @author Màrius Garcia
+ *
+ * https://www.androidhive.info/2016/05/android-build-intro-slider-app/
  * 
  */
 public class TutorialActivity extends Activity {
@@ -51,7 +55,7 @@ public class TutorialActivity extends Activity {
 	private String lang;
 	private ViewFlipper mViewFlipper;
 
-	private ViewPager viewPager;
+	private ViewPagerCustomDuration viewPager;
 	private MyViewPagerAdapter myViewPagerAdapter;
 	private LinearLayout dotsLayout;
 	private TextView[] dots;
@@ -123,16 +127,13 @@ public class TutorialActivity extends Activity {
 		myViewPagerAdapter = new MyViewPagerAdapter();
 		viewPager.setAdapter(myViewPagerAdapter);
 		viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
+		//viewPager.setPageTransformer(true, new DrawFromBackTransformer());
 
-		// adding bottom dots
+/*		// adding bottom dots
 		updateBottomDotsLayout(0);
 
 		// making notification bar transparent
-		changeStatusBarColor();
-
-		myViewPagerAdapter = new MyViewPagerAdapter();
-		viewPager.setAdapter(myViewPagerAdapter);
-		viewPager.addOnPageChangeListener(viewPagerPageChangeListener);
+		changeStatusBarColor();*/
 
 		imgPrev = findViewById(R.id.tutorialPrevImageView);
 		imgNext = findViewById(R.id.tutorialNextImageView);
@@ -163,6 +164,8 @@ public class TutorialActivity extends Activity {
 				}
 			}
 		});
+
+		PropertyHolder.setTutorial(true); // Mark tutorial as seen at least for the first time
 	}
 
 	@Override
@@ -171,7 +174,7 @@ public class TutorialActivity extends Activity {
 			super.onBackPressed();
 		else {
 			int current = getItem(0);
-			if (mViewFlipper.getCurrentView().getId() == R.id.vfLayout2 && current > 0)
+			if ( mViewFlipper.getCurrentView().getId() == R.id.vfLayout2 && current > 0 )
 				viewPager.setCurrentItem(current - 1);
 			else
 				showPrev();
@@ -205,10 +208,10 @@ public class TutorialActivity extends Activity {
 	}
 
 	private void updateBottomDotsLayout(int currentPage) {
-		dots = new TextView[layouts.length];
-
 		dotsLayout.removeAllViews();
-		for (int i = 0; i < dots.length; i++) {
+
+		dots = new TextView[layouts.length];
+		for ( int i = 0; i < dots.length; i++ ) {
 			dots[i] = new TextView(this);
 			dots[i].setText(Html.fromHtml("&#8226;"));
 			dots[i].setPadding(6,0,6,0);
@@ -217,7 +220,7 @@ public class TutorialActivity extends Activity {
 			dotsLayout.addView(dots[i]);
 		}
 
-		if (dots.length > 0)
+		if ( dots.length > 0 )
 			dots[currentPage].setTextColor(getResources().getColor(R.color.dot_dark));
 	}
 
@@ -233,15 +236,15 @@ public class TutorialActivity extends Activity {
 			updateBottomDotsLayout(position);
 
 			// changing the next button text 'NEXT' / 'GOT IT'
-			if (position == layouts.length - 1) {
-				// last page. make button text to GOT IT
-				//btnNext.setText(getString(R.string.start));
-				//btnSkip.setVisibility(View.GONE);
-			} else {
-				// still pages are left
-				//btnNext.setText(getString(R.string.next));
-				//btnSkip.setVisibility(View.VISIBLE);
-			}
+//			if (position == layouts.length - 1) {
+//				// last page. make button text to GOT IT
+//				//btnNext.setText(getString(R.string.start));
+//				//btnSkip.setVisibility(View.GONE);
+//			} else {
+//				// still pages are left
+//				//btnNext.setText(getString(R.string.next));
+//				//btnSkip.setVisibility(View.VISIBLE);
+//			}
 		}
 
 		@Override

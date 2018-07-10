@@ -23,7 +23,6 @@ import java.util.ArrayList;
 
 import ceab.movelab.tigabib.MissionActivity;
 import ceab.movelab.tigabib.MissionItemModel;
-import ceab.movelab.tigabib.PropertyHolder;
 import ceab.movelab.tigabib.R;
 import ceab.movelab.tigabib.Util;
 
@@ -39,10 +38,10 @@ public class MissionAdapter extends BaseAdapter implements OnClickListener {
 	int i = 0;
 
 	/************* CustomAdapter Constructor *****************/
-	public MissionAdapter(Activity a, ArrayList d, Resources resLocal) {
+	public MissionAdapter(Activity act, ArrayList d, Resources resLocal) {
 
 		/********** Take passed values **********/
-		activity = a;
+		activity = act;
 		data = d;
 		//res = resLocal;
 
@@ -139,13 +138,10 @@ public class MissionAdapter extends BaseAdapter implements OnClickListener {
 			}
 
 			holder.itemChoices.setOnItemSelectedListener(new OnItemSelectedListener() {
-
 				@Override
 				public void onItemSelected(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-
 						try {
 							JSONObject thisResponse = new JSONObject();
-
 							thisResponse.put(MissionItemModel.KEY_ITEM_ID, holder.itemId);
 							thisResponse.put(MissionItemModel.KEY_ITEM_TEXT, holder.itemText.getText());
 							thisResponse.put(MissionItemModel.KEY_ITEM_RESPONSE, String.valueOf(holder.itemChoices.getSelectedItem()));

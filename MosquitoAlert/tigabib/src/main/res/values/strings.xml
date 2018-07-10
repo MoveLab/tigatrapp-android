@@ -101,6 +101,10 @@
     <string name="menu_option_help">Help</string>
     <string name="menu_option_about">About</string>
     <string name="menu_option_share">Share</string>
+    <string name="menu_option_gallery">Gallery</string>
+    <string name="menu_option_tutorial">Tutorial app</string>
+    <string name="menu_option_login">Login</string>
+    <string name="menu_option_logout">Logout</string>
     <string name="menu_option_filter">Filter</string>
     <string name="menu_option_show_pending_tasks_only">Show pending tasks only</string>
     <string name="menu_option_show_all_tasks">Show all tasks</string>
@@ -222,7 +226,6 @@
     <string name="switchboard_button_notifications_site">NOTIFICATIONS</string>
     <string name="switchboard_button_missions_site">MISSIONS</string>
     <string name="header_title">Mosquito Alert</string>
-    <string name="menu_option_gallery">Gallery</string>
     <string name="back">Back</string>
     <string name="notifications_new">New</string>
     <string name="notifications_old">Old</string>
@@ -383,4 +386,7 @@
     <string name="tutorial_8_1">Now you can start!</string>
     <string name="tutorial_8_2">You will find more information and tips to take good photos at:\nwww.mosquitoalert.com</string>
     <string name="tutorial_8_3">START</string>
+
+    <string name="logout_success">Successfully logged out</string>
+
 </resources>

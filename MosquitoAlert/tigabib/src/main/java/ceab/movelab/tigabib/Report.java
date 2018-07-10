@@ -124,8 +124,6 @@ public class Report {
 
 		this.versionUUID = version_UUID;
 
-		this.photoUrisJson = new JSONArray();
-
 		this.reportId = reportId;
 		this.userId = userId;
 		this.reportVersion = reportVersion;
@@ -142,7 +140,9 @@ public class Report {
 		this.selectedLocationLon = selectedLocationLon;
 		this.photoAttached = NO;
 
-		if (photoUrisString != null) {
+		this.photoUrisJson = new JSONArray();
+
+		if ( photoUrisString != null ) {
 			try {
 				this.photoUrisJson = new JSONArray(photoUrisString);
 			} catch (JSONException e) {
@@ -219,9 +219,9 @@ public class Report {
 		this.latestVersion = MISSING;
 		this.reportTime = reportTime;
 		this.creation_time = Util.ecma262(reportTime);
-		;
+
 		this.versionTimeString = Util.ecma262(System.currentTimeMillis());
-		;
+
 		this.type = type;
 		this.deleteReport = 1;
 		this.confirmation = null;
@@ -231,6 +231,7 @@ public class Report {
 			this.packageName = pInfo.packageName;
 			this.packageVersion = pInfo.versionCode;
 		} catch (NameNotFoundException e) {
+			e.printStackTrace();
 		}
 		this.phoneManufacturer = Build.MANUFACTURER;
 		this.phoneModel = Build.MODEL;
@@ -432,7 +433,6 @@ Util.logInfo(TAG, PropertyHolder.getUserId());
 			result.put("app_language", this.appLanguage);
 
 			// making responses array
-
 			JSONArray responsesArray = new JSONArray();
 			if (this.confirmation == null || this.confirmation.equals("none")) {
 				JSONObject thisConfirmation = new JSONObject();
@@ -462,36 +462,35 @@ Util.logInfo(TAG, PropertyHolder.getUserId());
 				result.put("mission", this.missionId);
 
 		} catch (JSONException e) {
+			e.printStackTrace();
 		}
 		return result;
 	}
 
 	public int upload(Context context) {
-
 		int result = UPLOADED_NONE;
-
 		if ( this.uploaded == UPLOADED_NONE ) {
 			// TESTING ONLY NOW
 			JSONObject data = this.exportJSON(context);
-			Util.logInfo(TAG, "Report JSON conversion:" + data.toString());
+Util.logInfo(TAG, "Report JSON conversion:" + data.toString());
 			HttpResponse response = Util.postJSON(data, Util.API_REPORT, context);
-			if (response != null) {
+			if ( response != null ) {
 				int statusCode1 = response.getStatusLine().getStatusCode();
-				if (statusCode1 >= 200 && statusCode1 < 300) {
+				if ( statusCode1 >= 200 && statusCode1 < 300 ) {
 					result = UPLOADED_REPORT_ONLY;
 Util.logInfo(TAG, "statusCode1: " + statusCode1);
 					result = uploadPhotos(context);
-				} else if(statusCode1 == 400){
+				} else if ( statusCode1 == 400 ){
 					// mark report as uploaded because in any case there is no point in sending it back to server.
 					result = UPLOADED_REPORT_ONLY;
 Util.logInfo(TAG, "statusCode1: " + statusCode1);
 					result = uploadPhotos(context);
 				} else {
-					Util.logError(TAG, "fail upload, status code: " + statusCode1 + "uploaded: " + this.uploaded);
-					Util.logError(TAG, "failed to upload report: " + this.exportJSON(context).toString());
+Util.logError(TAG, "fail upload, status code: " + statusCode1 + ", uploaded: " + this.uploaded);
+Util.logError(TAG, "failed to upload report: " + this.exportJSON(context).toString());
 				}
 			}
-		} else if (this.uploaded == UPLOADED_REPORT_ONLY) {
+		} else if ( this.uploaded == UPLOADED_REPORT_ONLY ) {
 			result = uploadPhotos(context);
 		}
 		return result;
@@ -499,14 +498,13 @@ Util.logInfo(TAG, "statusCode1: " + statusCode1);
 
 	private int uploadPhotos(Context context) {
 		int result = UPLOADED_NONE;
-		if (this.photoUrisJson != null && this.photoUrisJson.length() > 0) {
+		if ( this.photoUrisJson != null && this.photoUrisJson.length() > 0 ) {
 			for (int i = 0; i < this.photoUrisJson.length(); i++) {
 				try {
 					String thisUri = this.photoUrisJson.getJSONObject(i).getString(Report.KEY_PHOTO_URI);
-
 					int statusCode2 = Util.postPhoto(context, thisUri, Uri.parse(thisUri).getLastPathSegment(), this.versionUUID);
 Util.logInfo(TAG, "statusCode2: " + statusCode2);
-					if (statusCode2 >= 200 && statusCode2 < 300) {
+					if ( statusCode2 >= 200 && statusCode2 < 300 ) {
 						result = UPLOADED_ALL;
 					} else {
 						result = UPLOADED_REPORT_ONLY;
@@ -514,7 +512,8 @@ Util.logError(TAG, "fail upload, status code: " + this.uploaded);
 Util.logError(TAG, "failed to upload photos: " + this.photoUrisJson.toString());
 					}
 				} catch (JSONException e) {
-					Util.logError(TAG, "JSON exception: " + e);
+					e.printStackTrace();
+Util.logError(TAG, "JSON exception: " + e);
 				}
 			}
 		} else {

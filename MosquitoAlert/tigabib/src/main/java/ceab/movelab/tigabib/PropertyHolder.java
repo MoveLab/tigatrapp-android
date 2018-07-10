@@ -204,7 +204,7 @@ public class PropertyHolder {
 	 * Sets flag indicating user has consented.
 	 *
 	 * @param _reconsented
-	 *            True if user has consented; false otherwise.
+	 *            True if user has consented the new consent version; false otherwise.
 	 */
 	public static void setReconsent(boolean _reconsented) {
 		editor.putBoolean("RECONSENTED_BT", _reconsented);
@@ -229,6 +229,23 @@ public class PropertyHolder {
 	public static String getConsentTime() {
 		return sharedPreferences.getString("CONSENT_TIME", "");
 	}
+
+
+	/**
+	 * Sets flag indicating user has seen tutorial.
+	 *
+	 * @param _tutorial
+	 *            True if user has consented; false otherwise.
+	 */
+	public static void setTutorial(boolean _tutorial) {
+		editor.putBoolean("TUTORIAL", _tutorial);
+		editor.commit();
+	}
+
+	public static boolean hasSeenTutorial() {
+		return sharedPreferences.getBoolean("TUTORIAL", false);
+	}
+
 
 	public static String getLanguage() {
 		return sharedPreferences.getString("LANGUAGE", Locale.getDefault().getLanguage());

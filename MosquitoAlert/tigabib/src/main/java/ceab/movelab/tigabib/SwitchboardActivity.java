@@ -56,11 +56,8 @@ import com.firebase.ui.auth.ErrorCodes;
 import com.firebase.ui.auth.IdpResponse;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GetTokenResult;
-import com.google.firebase.auth.UserInfo;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.reflect.TypeToken;
 import com.koushikdutta.async.future.FutureCallback;
@@ -105,7 +102,7 @@ public class SwitchboardActivity extends Activity {
 	private final static int REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS = 555;
 	private ArrayList<String> mPermissionsDenied;
 
-	private FirebaseAnalytics mFirebaseAnalytics;
+	//private FirebaseAnalytics mFirebaseAnalytics;
     private static final int RC_SIGN_IN = 12345;
 
 	@Override
@@ -118,7 +115,7 @@ public class SwitchboardActivity extends Activity {
 		lang = Util.setDisplayLanguage(getResources());
 
 		// Obtain the FirebaseAnalytics instance.
-		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+		//mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
 		// detect push notification
 		try {
@@ -197,13 +194,17 @@ Util.logInfo("=========", "New Intent");
 			startActivity(i2c);
 			finish();
 		} else {
-			if ( PropertyHolder.getUserId() == null ) {
+			if  ( !PropertyHolder.hasSeenTutorial() ) {
+				Intent intentTutorial = new Intent(this, TutorialActivity.class);
+				startActivity(intentTutorial);
+			}
+			else if ( PropertyHolder.getUserId() == null ) {
 				String userId = UUID.randomUUID().toString();
 				PropertyHolder.setUserId(userId);
 				PropertyHolder.setNeedsMosquitoAlertPop(false);
 
 				// Store User ID on Firebase
-				mFirebaseAnalytics.setUserId(userId);
+				//mFirebaseAnalytics.setUserId(userId);
 
 				Util.registerOnServer(MyApp.getAppContext());
 
@@ -375,8 +376,8 @@ Util.logInfo("=========", "New Intent");
 					dialog.show();
 
 					// Send Firebase Event
-					Bundle bundle = new Bundle();
-					mFirebaseAnalytics.logEvent("ma_evt_score_alert", bundle);
+					//Bundle bundle = new Bundle();
+					//mFirebaseAnalytics.logEvent("ma_evt_score_alert", bundle);
 				}
 			});
 			/*missionsButton = (RelativeLayout) findViewById(R.id.reportMissionsLayout);
@@ -441,7 +442,7 @@ Util.logInfo("=========", "New Intent");
 		}
 
 		// [START set_current_screen]
-		mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_switchboard", "Home Page" /* class override */);
+		//mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_switchboard", "Home Page" /* class override */);
 		// [END set_current_screen]
 		/* Bundle params = new Bundle();
     params.putString(FirebaseAnalytics.Param.ITEM_CATEGORY, "screen");
@@ -550,7 +551,7 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 				String scoreValue = (score.getScore() > 100 ? "100" : String.valueOf(score.getScore()));
 				mScorePointsText.setText(scoreValue);
 				// [START user_property]
-				mFirebaseAnalytics.setUserProperty("ma_score", scoreValue);
+				//mFirebaseAnalytics.setUserProperty("ma_score", scoreValue);
 				// [END user_property]
 
 				// get label value from resources
@@ -625,7 +626,13 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 		super.onCreateOptionsMenu(menu);
 
 		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.switchboard_menu, menu);
+		FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+		// Check if user is signed in (non-null) and update UI accordingly.
+		if ( currentUser == null )
+			inflater.inflate(R.menu.switchboard_menu, menu);
+		else
+			inflater.inflate(R.menu.switchboard_menu_logout, menu);
 
 		return true;
 	}
@@ -720,20 +727,33 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
             // Choose authentication providers
             List<AuthUI.IdpConfig> providers = Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build(),
 					new AuthUI.IdpConfig.GoogleBuilder().build(),
-					new AuthUI.IdpConfig.FacebookBuilder().build());
+					new AuthUI.IdpConfig.FacebookBuilder().build(),
+                    new AuthUI.IdpConfig.TwitterBuilder().build());
 
             // Create and launch sign-in intent
             startActivityForResult(AuthUI.getInstance()
 					.createSignInIntentBuilder()
 					.setAvailableProviders(providers)
 					.setLogo(R.drawable.logo_signin)
-					.setTheme(R.style.GreenTheme)
-					.setTosUrl("https://www.mosquitoalert.com/terms-of-service.html")
-					.setPrivacyPolicyUrl("https://www.mosquitoalert.com/privacy-policy.html")
+					.setTheme(R.style.FirebaseUITheme)
+					.setTosAndPrivacyPolicyUrls("http://www.mosquitoalert.com/en/legal-advice/",
+							"http://www.mosquitoalert.com/en/privacy-policy/")
 					.setIsSmartLockEnabled(false)
 					.build(), RC_SIGN_IN);
-            return true;
+            return true; // "http://www.mosquitoalert.com/en/legal-advice/"
         }
+		else if ( item.getItemId() == R.id.logout ) {
+			AuthUI.getInstance()
+					.signOut(this)
+					.addOnCompleteListener(new OnCompleteListener<Void>() {
+						public void onComplete(@NonNull Task<Void> task) {
+							invalidateOptionsMenu();
+							// user is now signed out
+							Util.toastTimed(SwitchboardActivity.this, SwitchboardActivity.this.getString(R.string.logout_success), Toast.LENGTH_LONG);
+						}
+					});
+		}
+
 		return false;
 	}
 
@@ -745,29 +765,29 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 			IdpResponse idpResponse = IdpResponse.fromResultIntent(data);
 
 			if ( resultCode == RESULT_OK ) {
-				if ( idpResponse != null ) {
+/*				if ( idpResponse != null ) {
 					String idpToken = idpResponse.getIdpToken();
 					Util.logInfo("===========", "idpResponse getIdpToken >> " + idpToken);
-				}
+				}*/
+
 				// Successfully signed in
-				FirebaseUser user1 = FirebaseAuth.getInstance().getCurrentUser();
-				if ( user1 != null ) {
-					String uid = user1.getUid();
-					Util.logInfo("===========", "User uid >> " + uid);
-
-					Util.registerFirebaseLogin(this, uid, PropertyHolder.getUserId());
-				}
-				// https://stackoverflow.com/questions/40365410/how-to-get-firebase-auth-token-without-using-task-listeners
-				FirebaseAuth.getInstance().getCurrentUser().getIdToken(false).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
-					@Override
-					public void onComplete(@NonNull Task<GetTokenResult> task) {
-						Util.logInfo("===========", "User idToken User >> " + task.getResult().getToken());
-					}
-				});
-
 				FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 				if ( user != null ) {
-					for (UserInfo profile : user.getProviderData()) {
+					String uid = user.getUid();
+Util.logInfo("===========", "User uid >> " + uid);
+					Util.registerFirebaseLogin(this, uid, PropertyHolder.getUserId());
+					invalidateOptionsMenu();
+				}
+				// https://stackoverflow.com/questions/40365410/how-to-get-firebase-auth-token-without-using-task-listeners
+/*				FirebaseAuth.getInstance().getCurrentUser().getIdToken(false).addOnCompleteListener(new OnCompleteListener<GetTokenResult>() {
+					@Override
+					public void onComplete(@NonNull Task<GetTokenResult> task) {
+Util.logInfo("===========", "User idToken >> " + task.getResult().getToken());
+					}
+				});*/
+
+				if ( user != null ) {
+					/*for (UserInfo profile : user.getProviderData()) {
 						// Id of the provider (ex: google.com)
 						String providerId = profile.getProviderId();
 
@@ -779,30 +799,28 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 						String email = profile.getEmail();
 						Uri photoUrl = profile.getPhotoUrl();
 
-						Util.logInfo("===========", "User providerId >> " + providerId);
-						Util.logInfo("===========", "User profile >> " + uid);
-						Util.logInfo("===========", "User profile >> " + name + ", " + email + ", " + photoUrl);
-					};
+Util.logInfo("===========", "User providerId >> " + providerId);
+Util.logInfo("===========", "User profile >> " + uid);
+Util.logInfo("===========", "User profile >> " + name + ", " + email + ", " + photoUrl);
+					};*/
 				}
 			} else {
 				// Sign in failed
 				if ( idpResponse == null ) {
 					// User pressed back button
-					//	showSnackbar(R.string.sign_in_cancelled);
-					Util.logInfo("===========", "Sign in cancelled");
+Util.logInfo("===========", "Sign in cancelled");
 					return;
 				}
 				try {
-					if (idpResponse.getError().getErrorCode() == ErrorCodes.NO_NETWORK) {
-						//showSnackbar(R.string.no_internet_connection);
-						Util.logInfo("===========", "Sign in no network");
+					if ( idpResponse.getError().getErrorCode() == ErrorCodes.NO_NETWORK ) {
+Util.logInfo("===========", "Sign in no network");
 						return;
 					}
 				}
 				catch ( NullPointerException e) {
 					e.printStackTrace();
 				}
-
+				// MA team, show alert messages informing user ?? !!
 				//showSnackbar(R.string.unknown_error);
 			}
 		}
@@ -822,6 +840,7 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 			case REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS: {
 				boolean allGranted = true;
 				// Cbeck for all granted permissions
+				//for ( int grantResult : grantResults ) { }
 				for (int i = 0; i < grantResults.length; i++)
 					allGranted = allGranted && (grantResults[i] == PackageManager.PERMISSION_GRANTED);
 

@@ -67,8 +67,8 @@
 
 package ceab.movelab.tigabib;
 
-import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDexApplication;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
@@ -79,7 +79,7 @@ import ceab.movelab.tigabib.utils.StethoUtils;
 import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
 
-public class MyApp extends Application {
+public class MyApp extends MultiDexApplication {
 
     @Override
     public void onCreate() {
@@ -99,9 +99,6 @@ public class MyApp extends Application {
 
 		RealmHelper.initialize(this);
 		Realm.init(this); // used in Realm 2.0.0+
-
-//		AndroidNetworking.initialize(getApplicationContext());
-//		AndroidNetworking.enableLogging();
 
 		StethoUtils.install(this);
 		//forceCrash();

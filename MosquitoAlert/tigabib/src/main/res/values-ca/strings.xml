@@ -157,6 +157,7 @@
     <string name="menu_option_gallery">Fotos d\'ajuda</string>
     <string name="menu_option_tutorial">Tutorial app</string>
     <string name="menu_option_login">Login</string>
+    <string name="menu_option_logout">Logout</string>
     <string name="menu_option_filter">Filtra</string>
     <string name="menu_option_show_pending_tasks_only">Només missions pendents</string>
     <string name="menu_option_show_all_tasks">Totes</string>

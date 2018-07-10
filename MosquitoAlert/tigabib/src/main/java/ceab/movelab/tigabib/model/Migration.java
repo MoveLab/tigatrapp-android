@@ -24,6 +24,7 @@ public class Migration implements RealmMigration {
         if ( oldVersion == 1 ) {
             RealmObjectSchema notifSchema = schema.get("Notification");
             RealmObjectSchema scoreSchema = schema.get("Score");
+            // Add profile !!!!
             oldVersion++;
         }
     }

@@ -360,10 +360,11 @@ public class AttachedPhotosActivity extends Activity {
 					if ( thisData != null ) {
 						String realPath;
 						// SDK < API11
-						if (Build.VERSION.SDK_INT < 11)
-							realPath = Util.getRealPathFromURI_BelowAPI11(this, data.getData());
-						// SDK >= 11 && SDK < 19
-						else if (Build.VERSION.SDK_INT < 19)
+//						if (Build.VERSION.SDK_INT < 11)
+//							realPath = Util.getRealPathFromURI_BelowAPI11(this, data.getData());
+//						// SDK >= 11 && SDK < 19
+//						else
+						if (Build.VERSION.SDK_INT < 19)
 							realPath = RealPathFromURI_API11to18.getRealPathFromURI_API11to18(this, data.getData());
 						// SDK >= 19 (Android 4.4)
 						else

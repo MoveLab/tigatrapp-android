@@ -77,11 +77,11 @@ public class MissionActivity extends Activity {
 
 		String taskJson = b.getString(Tasks.KEY_TASK_JSON);
 
-		if (b.containsKey(Tasks.KEY_RESPONSES_JSON)) {
+		if ( b.containsKey(Tasks.KEY_RESPONSES_JSON) ) {
 			currentResponses = b.getString(Tasks.KEY_RESPONSES_JSON);
 		}
 
-		if (b.containsKey(Tasks.KEY_ID)) {
+		if ( b.containsKey(Tasks.KEY_ID) ) {
 			missionId = b.getInt(Tasks.KEY_ID);
 		}
 
@@ -141,14 +141,14 @@ public class MissionActivity extends Activity {
 			} else
 				helpIcon.setVisibility(View.GONE);
 
-			if (thisTask.has(MissionModel.KEY_ITEMS)) {
+			if ( thisTask.has(MissionModel.KEY_ITEMS )) {
 				JSONArray theseItems = new JSONArray(thisTask.getString(MissionModel.KEY_ITEMS));
 				for (int i = 0; i < theseItems.length(); i++) {
 					MissionItemModel thisTaskItem = new MissionItemModel(MissionActivity.this, new JSONObject(theseItems.getString(i)));
 
-					if (currentResponses != null) {
+					if ( currentResponses != null ) {
 						JSONObject cr = new JSONObject(currentResponses);
-						if (cr.has(thisTaskItem.getItemId())) {
+						if ( cr.has(thisTaskItem.getItemId()) ) {
 							String thisItemResponse = cr.getString(thisTaskItem.getItemId());
 
 							thisTaskItem.setItemResponse(thisItemResponse);
@@ -177,26 +177,20 @@ public class MissionActivity extends Activity {
 					buttonRight.setOnClickListener(new OnClickListener() {
 						@Override
 						public void onClick(View v) {
-							Intent dataForReport = new Intent();
-							if (responses.length() > 0) {
-								dataForReport.putExtra(
-										Tasks.KEY_RESPONSES_JSON,
-										responses.toString());
+							Intent intentReport = new Intent();
+							if ( responses.length() > 0 ) {
+								intentReport.putExtra(Tasks.KEY_RESPONSES_JSON, responses.toString());
 
 								// For adult report, user must select something
-								// for
-								// each question to send it. So testing that
-								// here:
+								// for each question to send it. So testing that here:
 								int responseCount = 0;
 								Iterator<String> iter = responses.keys();
 								while (iter.hasNext()) {
 									String key = iter.next();
 									try {
 										JSONObject thisItem = responses.getJSONObject(key);
-
 										if (!thisItem.getString(MissionItemModel.KEY_ITEM_RESPONSE).equals(getResources()
-														.getString(
-																R.string.spinner_nothing_selected)))
+														.getString(R.string.spinner_nothing_selected)))
 											responseCount++;
 									} catch (JSONException e) {
 										// TODO Auto-generated catch block
@@ -204,54 +198,42 @@ public class MissionActivity extends Activity {
 									}
 								}
 								if (responseCount == 3) {
-
-									dataForReport.putExtra(
-											Reports.KEY_CONFIRMATION_CODE,
-											Report.CONFIRMATION_CODE_POSITIVE);
-									setResult(RESULT_OK, dataForReport);
+									intentReport.putExtra(Reports.KEY_CONFIRMATION_CODE, Report.CONFIRMATION_CODE_POSITIVE);
+									setResult(RESULT_OK, intentReport);
 								}
 							}
 							finish();
 						}
 					});
 
-				} else if (thisTask
-						.getInt(MissionModel.KEY_PRESET_CONFIGURATION) == MissionModel.PRECONFIRUATION_SITES) {
+				} else if (thisTask.getInt(MissionModel.KEY_PRESET_CONFIGURATION) == MissionModel.PRECONFIRUATION_SITES) {
 
 					buttonLeft.setVisibility(View.GONE);
 					buttonMiddle.setVisibility(View.GONE);
 					buttonRight.setVisibility(View.VISIBLE);
 					buttonRight.setText(getResources().getString(R.string.ok));
 					buttonRight.setOnClickListener(new OnClickListener() {
-
 						@Override
 						public void onClick(View v) {
 							Intent dataForReport = new Intent();
-							if (responses.length() > 0) {
-								dataForReport.putExtra(
-										Tasks.KEY_RESPONSES_JSON,
-										responses.toString());
+							if ( responses.length() > 0 ) {
+								dataForReport.putExtra(Tasks.KEY_RESPONSES_JSON, responses.toString());
 
 								// For site report, user must select something
-								// for
-								// each question to send it. So testing that
-								// here:
+								// for each question to send it. So testing that here:
 								int responseCount = 0;
 								Iterator<String> iter = responses.keys();
 								while (iter.hasNext()) {
 									String key = iter.next();
 									try {
 										JSONObject thisItem = responses.getJSONObject(key);
-
 										if (!thisItem.getString(MissionItemModel.KEY_ITEM_RESPONSE).equals(getResources()
-														.getString(
-																R.string.spinner_nothing_selected)))
+														.getString(R.string.spinner_nothing_selected)))
 											responseCount++;
 									} catch (JSONException e) {
 										// TODO Auto-generated catch block
 										e.printStackTrace();
 									}
-
 								}
 								if (responseCount == 4) {
 									dataForReport.putExtra(Reports.KEY_CONFIRMATION_CODE, Report.CONFIRMATION_CODE_POSITIVE);
@@ -300,16 +282,12 @@ public class MissionActivity extends Activity {
 
 					// FOR NOW MIDDLE TEXT FIXED DEPENDING ON TASK TYPE
 					if (buttonLeft.getText().equals(getResources().getString(R.string.mission_button_left_url))) {
-						buttonMiddle.setText(getResources().getString(
-								R.string.mission_button_mark_complete));
+						buttonMiddle.setText(getResources().getString(R.string.mission_button_mark_complete));
 					} else {
-
-						buttonMiddle.setText(getResources().getString(
-								R.string.mission_button_middle));
+						buttonMiddle.setText(getResources().getString(R.string.mission_button_middle));
 					}
 					if (thisTask.has(MissionModel.KEY_TASK_BUTTON_MIDDLE_ACTION)) {
-						String middleUrl = thisTask
-								.has(MissionModel.KEY_TASK_BUTTON_MIDDLE_URL) ? thisTask
+						String middleUrl = thisTask.has(MissionModel.KEY_TASK_BUTTON_MIDDLE_URL) ? thisTask
 								.getString(MissionModel.KEY_TASK_BUTTON_MIDDLE_URL)
 								: null;
 						buttonMiddle.setOnClickListener(makeOnClickListener(
@@ -326,12 +304,10 @@ public class MissionActivity extends Activity {
 					buttonRight.setVisibility(View.VISIBLE);
 
 					// FOR NOW ONLY ONE OPTION FOR RIGHT TEXT
-					buttonRight.setText(getResources().getString(
-							R.string.mission_button_right));
+					buttonRight.setText(getResources().getString(R.string.mission_button_right));
 
 					if (thisTask.has(MissionModel.KEY_TASK_BUTTON_RIGHT_ACTION)) {
-						String rightUrl = thisTask
-								.has(MissionModel.KEY_TASK_BUTTON_RIGHT_URL) ? thisTask
+						String rightUrl = thisTask.has(MissionModel.KEY_TASK_BUTTON_RIGHT_URL) ? thisTask
 								.getString(MissionModel.KEY_TASK_BUTTON_RIGHT_URL)
 								: null;
 						buttonRight.setOnClickListener(makeOnClickListener(
@@ -372,7 +348,7 @@ public class MissionActivity extends Activity {
 					ContentValues cv = new ContentValues();
 					int rowId = thisBundle.getInt(Tasks.KEY_ROW_ID);
 					String sc = Tasks.KEY_ROW_ID + " = " + rowId;
-					if (responses.length() > 0) {
+					if ( responses.length() > 0 ) {
 						cv.put(Tasks.KEY_RESPONSES_JSON, responses.toString());
 					}
 					cv.put(Tasks.KEY_DONE, 1);
@@ -497,7 +473,7 @@ Util.logInfo(TAG, "just broadcast: " + Messages.REMOVE_TASK_NOTIFICATION);
 					ContentValues cv = new ContentValues();
 					int rowId = thisBundle.getInt(Tasks.KEY_ROW_ID);
 					String sc = Tasks.KEY_ROW_ID + " = " + rowId;
-					if (responses.length() > 0) {
+					if ( responses.length() > 0 ) {
 						cv.put(Tasks.KEY_RESPONSES_JSON, responses.toString());
 					}
 					cv.put(Tasks.KEY_DONE, 1);

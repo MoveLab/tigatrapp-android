@@ -43,7 +43,6 @@
                 android:layout_toLeftOf="@+id/languageButton"
                 android:layout_toStartOf="@+id/languageButton"
                 android:orientation="vertical" >
-
                 <TextView
                     android:id="@+id/languageText"
                     android:layout_width="wrap_content"
@@ -51,7 +50,6 @@
                     android:text="@string/settings_language_title"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/heading_size" />
-
                 <TextView
                     android:id="@+id/languageDetail"
                     android:layout_width="wrap_content"
@@ -87,7 +85,6 @@
                 android:layout_toLeftOf="@+id/syncButton"
                 android:layout_toStartOf="@+id/syncButton"
                 android:orientation="vertical" >
-
                 <TextView
                     android:id="@+id/syncText"
                     android:layout_width="wrap_content"
@@ -95,7 +92,6 @@
                     android:text="@string/settings_sync_title"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/heading_size" />
-
                 <TextView
                     android:id="@+id/syncDetail"
                     android:layout_width="wrap_content"

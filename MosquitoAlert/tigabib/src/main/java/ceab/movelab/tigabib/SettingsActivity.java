@@ -335,18 +335,14 @@ public class SettingsActivity extends Activity {
 					int statusCode = Util.getResponseStatusCode(thisFix.upload(context[0]));
 
 					if (statusCode < 300 && statusCode > 0) {
-
 						ContentValues cv = new ContentValues();
 						String sc = Fixes.KEY_ROWID + " = " + String.valueOf(thisId);
 						cv.put(Fixes.KEY_UPLOADED, 1);
 						cr.update(Util.getTracksUri(context[0]), cv, sc, null);
-
 					} else {
 						resultFlag = UPLOAD_ERROR;
 					}
-
 					c.moveToNext();
-
 				}
 
 				c.close();
@@ -447,10 +443,8 @@ public class SettingsActivity extends Activity {
 					} else {
 						resultFlag = UPLOAD_ERROR;
 					}
-
 					c.moveToNext();
 				}
-
 				c.close();
 
 				if (resultFlag == SUCCESS) {

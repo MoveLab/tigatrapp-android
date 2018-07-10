@@ -153,6 +153,10 @@
     <string name="menu_option_help">Ayuda</string>
     <string name="menu_option_about">Sobre</string>
     <string name="menu_option_share">Comparte</string>
+    <string name="menu_option_gallery">Galería</string>
+    <string name="menu_option_tutorial">Tutorial app</string>
+    <string name="menu_option_login">Login</string>
+    <string name="menu_option_logout">Logout</string>
     <string name="menu_option_filter">Filtra</string>
     <string name="menu_option_show_pending_tasks_only">Sólo misiones pendientes</string>
     <string name="menu_option_show_all_tasks">Todas</string>
@@ -262,7 +266,6 @@
     <string name="switchboard_button_notifications_site">NOTIFICACIONES</string>
     <string name="switchboard_button_missions_site">MISIONES</string>
     <string name="header_title">Mosquito Alert</string>
-    <string name="menu_option_gallery">Galería</string>
     <string name="back">Volver</string>
     <string name="notifications_new">Recibidas</string>
     <string name="notifications_old">Antiguas</string>
@@ -339,13 +342,13 @@
     <string name="menu_web">mosquitoalert.com</string>
     <string name="info_scoring">Esta puntuación tiene en cuenta tu actividad con la app y la calidad de las fotos que has enviado.</string>
 
-    <string name="menu_close">Cerrar</string>
-
     <string name="help_zoom">Haz zoom con los dedos en la imagen para ampliarla.</string>
     <string name="no_internet_connection">No hay conexión a internet. Conecte el dispositivo a la red para seguir validando.</string>
+
+    <string name="menu_close">Cerrar</string>
+
     <string name="loading_picture">Recargando foto</string>
     <string name="pybossa_error">Error conectando con el servidor de validación de fotos.</string>
-
 
     <string name="tutorial_1_1">Te damos\nla bienvenida</string>
     <string name="tutorial_1_2">Consulta esta sencilla guía para empezar a utilizar la app</string>

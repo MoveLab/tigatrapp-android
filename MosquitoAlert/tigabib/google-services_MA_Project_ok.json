@@ -1,0 +1,102 @@
+{
+  "project_info": {
+    "project_number": "960892168613",
+    "firebase_url": "https://mosquitoalert-push-service.firebaseio.com",
+    "project_id": "mosquitoalert-push-service",
+    "storage_bucket": "mosquitoalert-push-service.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:960892168613:android:966a919d4f62a969",
+        "android_client_info": {
+          "package_name": "ceab.movelab.tigabib"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "960892168613-8qoen49sp0f1g9qkljvhfjjsk7r18kbr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXUxMbfu8yaJwdwKZhAMreQaDofksmuV0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:960892168613:android:3b19a908c8f94830",
+        "android_client_info": {
+          "package_name": "ceab.movelab.tigatrapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "960892168613-mebshjbpud4d381721ov80fgbin0ht84.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ceab.movelab.tigatrapp",
+            "certificate_hash": "255dc9d78277e70224c68b79a87590c9017bfbd5"
+          }
+        },
+        {
+          "client_id": "960892168613-ku22smuugqlp5o06dfk8nhh1b80l5gt6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ceab.movelab.tigatrapp",
+            "certificate_hash": "26af7a10b66c11002ee5682ce8931151daf0af5b"
+          }
+        },
+        {
+          "client_id": "960892168613-8qoen49sp0f1g9qkljvhfjjsk7r18kbr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDXUxMbfu8yaJwdwKZhAMreQaDofksmuV0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "960892168613-8qoen49sp0f1g9qkljvhfjjsk7r18kbr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "960892168613-7b7r7duu9j9setj1vaa2tocola7l6g44.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "cat.ibeji.tigatrapp",
+                "app_store_id": "890635644"
+              }
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

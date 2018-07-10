@@ -91,7 +91,7 @@ public class ReportToolActivity extends Activity {
 	private boolean gpsAvailable;
 	private boolean networkLocationAvailable;
 
-	private boolean editing;
+	private boolean isEditing;
 
 	private Report thisReport;
 
@@ -102,9 +102,9 @@ public class ReportToolActivity extends Activity {
 
 	int type = -1;
 	int locationChoice = -1;
-	int LOCATION_CHOICE_SELECTED = 1;
+/*	int LOCATION_CHOICE_SELECTED = 1;
 	int LOCATION_CHOICE_CURRENT = 0;
-	int LOCATION_CHOICE_MISSING = -1;
+	int LOCATION_CHOICE_MISSING = -1;*/
 
 	ScrollView reportScroll;
 
@@ -171,9 +171,9 @@ public class ReportToolActivity extends Activity {
 
 		Bundle b = getIntent().getExtras();
 		type = b.getInt("type");
-		editing = b.containsKey("reportId");
+		isEditing = b.containsKey("reportId");
 
-		if ( editing ) {
+		if ( isEditing ) {
 
 			this.setTitle(context.getResources().getString(R.string.activity_label_report_editing));
 
@@ -230,16 +230,20 @@ public class ReportToolActivity extends Activity {
 						c.getFloat(selectedLocationLatCol), c.getFloat(selectedLocationLonCol),
 						c.getInt(photoAttachedCol),
 						c.getString(photoUrisCol),
-						c.getString(noteCol), Report.UPLOADED_NONE,
+						c.getString(noteCol),
+						Report.UPLOADED_NONE,
 						c.getLong(serverTimestampCol),
 						c.getInt(deleteReportCol),
 						c.getInt(latestVersionCol),
 						c.getString(packageNameCol),
 						c.getInt(packageVersionCol),
 						c.getString(phoneManufacturerCol),
-						c.getString(phoneModelCol), c.getString(osCol),
-						c.getString(osVersionCol), c.getString(osLanguageCol),
-						c.getString(appLanguageCol), c.getInt(missionIDCol));
+						c.getString(phoneModelCol),
+						c.getString(osCol),
+						c.getString(osVersionCol),
+						c.getString(osLanguageCol),
+						c.getString(appLanguageCol),
+						c.getInt(missionIDCol));
 			}
 			if ( c!= null ) c.close();
 		} else {
@@ -268,7 +272,7 @@ public class ReportToolActivity extends Activity {
 		reportCurrentLocationImage = (ImageView) findViewById(R.id.reportCurrentLocationImage);
 		buttonReportSubmit = (Button) findViewById(R.id.buttonReportSubmit);
 
-		if ( editing ) {
+		if (isEditing) {
 			reportTitle.setText((type == Report.TYPE_BREEDING_SITE ? getResources().getString(R.string.edit_title_site) : getResources().getString(R.string.edit_title_adult)) + "\n"
 							+ getResources().getString(R.string.created_on) + " "
 							+ Util.userDate(new Date((thisReport.reportTime))));
@@ -567,7 +571,7 @@ public class ReportToolActivity extends Activity {
 			startActivity(getIntent());
 		}
 
-		if ( editing ) {
+		if (isEditing) {
 			// [START set_current_screen]
 			mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_report_tool",
 					( type == Report.TYPE_BREEDING_SITE ? "Report Breeding Site Edit" : "Report Mosquito Edit") );
@@ -765,7 +769,7 @@ public class ReportToolActivity extends Activity {
 				 */
 				// uploadReport(thisReport, Util.SERVER);
 
-				if (thisReport.reportTime == Report.MISSING)
+				if ( thisReport.reportTime == Report.MISSING )
 					thisReport.reportTime = System.currentTimeMillis();
 
 				try {
@@ -777,7 +781,7 @@ public class ReportToolActivity extends Activity {
 				}
 
 				String language = PropertyHolder.getLanguage();
-				new ReportUploadTask(context, getContentResolver(), thisReport, editing, language).execute(context);
+				new ReportUploadTask(context, getContentResolver(), thisReport, isEditing, language).execute(context);
 
 				dialog.cancel();
 			}
@@ -862,7 +866,7 @@ public class ReportToolActivity extends Activity {
 					&& thisReport.selectedLocationLon != null ) {
 				locationRadioGroup.check(R.id.whereRadioButtonOtherPlace);
 				reportLocationCheck.setChecked(true);
-				thisReport.locationChoice = LOCATION_CHOICE_SELECTED;
+				thisReport.locationChoice = Report.LOCATION_CHOICE_SELECTED;
 				has_edited_location = true;
 			}
 			break;
@@ -897,7 +901,7 @@ public class ReportToolActivity extends Activity {
 		private boolean isEditing;
 		private String mLanguage;
 
-		private ProgressDialog prog;
+		private ProgressDialog mProgDialog;
 		private int myProgress;
 		private int resultFlag;
 
@@ -920,12 +924,12 @@ public class ReportToolActivity extends Activity {
 
 			resultFlag = SUCCESS;
 
-			prog = new ProgressDialog(mContext);
-			prog.setTitle(mContext.getResources().getString(R.string.progtitle_report));
-			prog.setIndeterminate(false);
-			prog.setMax(100);
-			prog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-			prog.show();
+			mProgDialog = new ProgressDialog(mContext);
+			mProgDialog.setTitle(mContext.getResources().getString(R.string.progtitle_report));
+			mProgDialog.setIndeterminate(false);
+			mProgDialog.setMax(100);
+			mProgDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+			mProgDialog.show();
 
 			myProgress = 0;
 
@@ -941,7 +945,6 @@ public class ReportToolActivity extends Activity {
 			publishProgress(myProgress);
 
 			mReport.versionTimeString = Util.ecma262(System.currentTimeMillis());
-
 			if ( !isEditing )
 				mReport.creation_time = Util.ecma262(System.currentTimeMillis());
 
@@ -950,7 +953,6 @@ public class ReportToolActivity extends Activity {
 
 			thisReport.phoneManufacturer = Build.MANUFACTURER;
 			thisReport.phoneModel = Build.MODEL;
-
 			thisReport.os = "Android";
 			thisReport.osversion = Integer.toString(Build.VERSION.SDK_INT);
 			thisReport.osLanguage = Locale.getDefault().getLanguage();
@@ -964,18 +966,16 @@ public class ReportToolActivity extends Activity {
 			Uri thisReportUri = mCR.insert(repUri, ContProvValuesReports.createReport(thisReport));
 
 			// now mark all prior reports as not latest version
-			String sc = Reports.KEY_REPORT_ID + " = '" + thisReport.reportId
-					+ "' AND " + Reports.KEY_REPORT_VERSION + " < " + thisReport.reportVersion;
-
+			String where = Reports.KEY_REPORT_ID + " = '" + thisReport.reportId + "' AND "
+					+ Reports.KEY_REPORT_VERSION + " < " + thisReport.reportVersion;
 			ContentValues cv = new ContentValues();
 			cv.put(Reports.KEY_LATEST_VERSION, 0);
-			mCR.update(repUri, cv, sc, null);
+			mCR.update(repUri, cv, where, null);
 
 			myProgress = 20;
 			publishProgress(myProgress);
 
 			if ( !Util.privateMode() ) {
-
 				// now test if there is a data connection
 				if ( !Util.isOnline(context[0]) ) {
 					resultFlag = OFFLINE;
@@ -992,7 +992,7 @@ public class ReportToolActivity extends Activity {
 					}
 				}
 
-				myProgress = 90;
+				myProgress = 80;
 				publishProgress(myProgress);
 
 				int uploadResult = thisReport.upload(context[0]);
@@ -1021,23 +1021,21 @@ Util.logInfo(TAG, "n updated " + nUpdated);
 		}
 
 		protected void onProgressUpdate(Integer... progress) {
-			prog.setProgress(progress[0]);
+			mProgDialog.setProgress(progress[0]);
 		}
 
 		protected void onPostExecute(Boolean result) {
 
 			try {
-				prog.dismiss();
-				prog = null;
+				mProgDialog.dismiss();
+				mProgDialog = null;
 			} catch (Exception e) {
-				// I realize this is ugly, but it is a solution to the problem
-				// discussed here:
+				// I realize this is ugly, but it is a solution to the problem discussed here:
 				// https://stackoverflow.com/questions/2745061/java-lang-illegalargumentexception-view-not-attached-to-window-manager/5102572#5102572
 			}
 
 			if ( result && resultFlag == SUCCESS ) {
-				Util.toastTimed(context, getResources().getString(R.string.report_sent_confirmation), Toast.LENGTH_LONG);
-
+				Util.toastTimed(mContext, getResources().getString(R.string.report_sent_confirmation), Toast.LENGTH_LONG);
 				mReport.clear();
 				clearFields();
 
@@ -1057,14 +1055,12 @@ Util.logInfo(TAG, "n updated " + nUpdated);
 					startService(uploaderIntent);
 
 					buildCustomAlert(context, getResources().getString(R.string.upload_error_report));
-
 					thisReport.clear();
 					clearFields();
 				}
 
 				if (resultFlag == PRIVATE_MODE) {
 					buildCustomAlert(context, getResources().getString(R.string.report_sent_confirmation));
-
 					thisReport.clear();
 					clearFields();
 				}
@@ -1299,7 +1295,7 @@ Util.logInfo(TAG, "n updated " + nUpdated);
 	private void goToMapSelector() {
 		Intent i = new Intent(ReportToolActivity.this, MapSelectorV2Activity.class);
 		Bundle b = new Bundle();
-		if ( editing ) {
+		if (isEditing) {
 			Util.logInfo(TAG, "about to put location extras");
 			if (thisReport.locationChoice == Report.LOCATION_CHOICE_CURRENT) {
 				Util.logInfo(TAG, "current location");
@@ -1311,7 +1307,7 @@ Util.logInfo(TAG, "n updated " + nUpdated);
 					Util.logInfo(TAG, "current lon: " + thisReport.currentLocationLon);
 					b.putFloat(Messages.makeIntentExtraKey(context, PREVIOUS_LON), thisReport.currentLocationLon);
 				}
-			} else if (thisReport.locationChoice == Report.LOCATION_CHOICE_SELECTED) {
+			} else if ( thisReport.locationChoice == Report.LOCATION_CHOICE_SELECTED ) {
 				if ( thisReport.selectedLocationLat != null ) {
 					Util.logInfo(TAG, "selected lat: " + thisReport.selectedLocationLat);
 					b.putFloat(Messages.makeIntentExtraKey(context, PREVIOUS_LAT), thisReport.selectedLocationLat);

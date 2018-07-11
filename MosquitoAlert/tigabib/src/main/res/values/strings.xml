@@ -94,6 +94,7 @@
     <string name="mission_button_mark_complete">Mark complete</string>
     <string name="toast__mission_already_complete">You have already completed this mission. Thank you!</string>
     <string name="toast_mission_expired">This mission has expired.</string>
+
     <!-- Menu -->
     <string name="menu_option_task_list">Missions</string>
     <string name="menu_option_tigatrapp_news">News</string>
@@ -117,6 +118,7 @@
     <string name="menu_map_share">Share</string>
     <string name="menu_toggle_view">Satellite</string>
     <string name="menu_option_refresh">Refresh</string>
+
     <!-- Settings -->
     <string name="settings_language_title">Language</string>
     <string name="settings_language_detail">Choose language</string>
@@ -387,6 +389,7 @@
     <string name="tutorial_8_2">You will find more information and tips to take good photos at:\nwww.mosquitoalert.com</string>
     <string name="tutorial_8_3">START</string>
 
-    <string name="logout_success">Successfully logged out</string>
+    <string name="logout_success">Successful logout</string>
+    <string name="downloading_user_data">Downloading user data</string>
 
 </resources>

@@ -101,6 +101,7 @@ import android.widget.Toast;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.koushikdutta.async.future.Future;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
 import com.koushikdutta.ion.ProgressCallback;
@@ -1249,11 +1250,10 @@ Util.logInfo(">>>>>>>>", "getProfileReports >> " + userProfile.toString());
 	private static class ReportsDownloadTask extends AsyncTask<Context, Integer, Boolean> {
 		private Context mContext;
 		private ContentResolver mCR;
-		private  List<ProfileDevice> mProfileDeviceList;
+		private List<ProfileDevice> mProfileDeviceList;
 
-		private ProgressDialog prog;
+		private ProgressDialog mProgDialog;
 		private int myProgress;
-		private int resultFlag;
 
 		private int OFFLINE = 0;
 		private int UPLOAD_ERROR = 1;
@@ -1270,15 +1270,13 @@ Util.logInfo(">>>>>>>>", "getProfileReports >> " + userProfile.toString());
 		@Override
 		protected void onPreExecute() {
 
-			resultFlag = SUCCESS;
-
-			prog = new ProgressDialog(mContext);
-			prog.setTitle("Descargando datos de usuario"); // !!!! update message
-			prog.setIndeterminate(false);
-			prog.setCancelable(false);
-			prog.setMax(100);
-			prog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-			prog.show();
+			mProgDialog = new ProgressDialog(mContext);
+			mProgDialog.setTitle(mContext.getResources().getString(R.string.downloading_user_data));
+			mProgDialog.setIndeterminate(false);
+			mProgDialog.setCancelable(false);
+			mProgDialog.setMax(100);
+			mProgDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+			mProgDialog.show();
 
 			myProgress = 0;
 		}
@@ -1293,11 +1291,12 @@ Util.logInfo(">>>>>>>>", "getProfileReports >> " + userProfile.toString());
 			for ( ProfileDevice profileDevice: mProfileDeviceList ) {
 				numReports += profileDevice.getUserReports().size();
 			}
-			int progressReports = ( numReports == 0 ? 100 : (98 / numReports) );
+			int progressReport = ( numReports == 0 ? 100 : (98/numReports) );
 
 			for ( ProfileDevice profileDevice: mProfileDeviceList ) {
 				List<UserReport> userReportsList = profileDevice.getUserReports();
 				for ( UserReport userReport : userReportsList ) {
+					currentOffset = progressReport;
 					int type = (userReport.getType().contentEquals("adult") ? Report.TYPE_ADULT : Report.TYPE_BREEDING_SITE);
 					JSONObject responses = new JSONObject();
 					try {
@@ -1334,6 +1333,7 @@ Util.logInfo(">>>>>>>>", "getProfileReports >> " + userProfile.toString());
 
 					JSONArray jsonPhotos = new JSONArray();
 					List<PhotoServer> photosList = userReport.getPhotos();
+					int photoOffset = progressReport / (photosList.size()+1);
 					for ( PhotoServer photo : photosList ) {
 						String photoPath = directory + "/" + photo.getPhoto().replace("tigapics/", "");
 						JSONObject newPhoto = new JSONObject();
@@ -1342,6 +1342,9 @@ Util.logInfo(">>>>>>>>", "getProfileReports >> " + userProfile.toString());
 							newPhoto.put(Report.KEY_PHOTO_TIME, System.currentTimeMillis());
 							jsonPhotos.put(newPhoto);
 							downloadPhoto(context[0], photo.getPhoto(), photoPath);
+							myProgress += photoOffset;
+							publishProgress(myProgress);
+							currentOffset -= photoOffset;
 						} catch (JSONException e) {
 							e.printStackTrace();
 						}
@@ -1355,8 +1358,7 @@ Util.logInfo(">>>>>>>>", "getProfileReports >> " + userProfile.toString());
 							userReport.getCurrentLocationLat(), userReport.getCurrentLocationLon(),
 							userReport.getSelectedLocationLat(), userReport.getSelectedLocationLon(),
 							photoAttached, jsonPhotos.toString(), userReport.getNote(),
-							Report.UPLOADED_ALL, -1, 0,
-							1,
+							Report.UPLOADED_ALL, -1, 0,1,
 							userReport.getPackageName(), userReport.getPackageVersion(),
 							userReport.getDeviceManufacturer(), userReport.getDeviceModel(), userReport.getOs(),
 							userReport.getOsVersion(), userReport.getOsLanguage(), userReport.getAppLanguage(),
@@ -1369,12 +1371,7 @@ Util.logInfo(">>>>>>>>", "getProfileReports >> " + userProfile.toString());
 							userReport.getCurrentLocationLat(), userReport.getCurrentLocationLon(),
 							userReport.getSelectedLocationLat(), userReport.getSelectedLocationLon(),
 							photoAttached, jsonPhotos.toString(), userReport.getNote(),
-					0, 0, 0,
-					0, "", 0,
-							"", "", "",
-							"","","",
-					0) {
-
+							0, 0, 0, 0, "", 0, "", "", "", "", "", "", 0) {
 					}*/
 					// First delete any previous existing report with same id
 					String sc = Reports.KEY_REPORT_ID + " = '" + userReport.getReportId() + "'";
@@ -1388,33 +1385,30 @@ Util.logInfo(TAG, "n deleted: " + nDeleted);
 					mCR.insert(repUri, ContProvValuesReports.createReport(thisReport));
 
 					// now mark all prior reports as not latest version
-					String where = Reports.KEY_REPORT_ID + " = '" + thisReport.reportId + "' AND "
-							+ Reports.KEY_REPORT_VERSION + " < " + thisReport.reportVersion;
+					String where = Reports.KEY_REPORT_ID + " = '" + thisReport.reportId +
+							"' AND " + Reports.KEY_REPORT_VERSION + " < " + thisReport.reportVersion;
 					ContentValues cv = new ContentValues();
 					cv.put(Reports.KEY_LATEST_VERSION, 0);
 					mCR.update(repUri, cv, where, null);
 
-					currentOffset += progressReports;
-					myProgress = currentOffset;
+					myProgress += currentOffset;
 					publishProgress(myProgress);
 				}
 			}
-
 			myProgress = 100;
 			publishProgress(myProgress);
-
 
 			return true;
 		}
 
 		protected void onProgressUpdate(Integer... progress) {
-			prog.setProgress(progress[0]);
+			mProgDialog.setProgress(progress[0]);
 		}
 
 		protected void onPostExecute(Boolean result){
 			try {
-				prog.dismiss();
-				prog = null;
+				mProgDialog.dismiss();
+				mProgDialog = null;
 			} catch (Exception e) {
 				// I realize this is ugly, but it is a solution to the problem discussed here:
 				// https://stackoverflow.com/questions/2745061/java-lang-illegalargumentexception-view-not-attached-to-window-manager/5102572#5102572
@@ -1430,26 +1424,35 @@ Util.logInfo(TAG, "n deleted: " + nDeleted);
 			String urlPhoto = UtilLocal.URL_TIGASERVER + Util.API_MEDIA + remotePhoto;
 Util.logInfo("==============", "TEST downloadPhoto: " + urlPhoto);
 
-			Ion.with(ctx)
-					.load(urlPhoto)
-// have a ProgressBar get updated automatically with the percent
-					//.progressBar(progressBar)
-// and a ProgressDialog
-					//.progressDialog(progressDialog)
+			try {
+				Ion.with(ctx)
+						.load(urlPhoto)
+						// have a ProgressDialog
+						//.progressDialog(progressDialog)
 // can also use a custom callback
-					.progress(new ProgressCallback() {@Override
-						public void onProgress(long downloaded, long total) {
-							//System.out.println("" + downloaded + " / " + total);
-						}
-					})
-					.write(new File(localPhotoPath))
-					.setCallback(new FutureCallback<File>() {
+						/*.progress(new ProgressCallback() {
+							@Override
+							public void onProgress(long downloaded, long total) {
+								System.out.println("" + downloaded + " / " + total);
+								//publishProgress(progressOffset);
+								Long offset = downloaded/total;
+								Integer intValue = offset.intValue();
+								progressDialog.setSecondaryProgress(intValue);
+							}
+						})*/
+						.write(new File(localPhotoPath))
+						.get();
+					/*.setCallback(new FutureCallback<File>() {
 						@Override
 						public void onCompleted(Exception e, File file) {
 							// download done...
 							// do stuff with the File or error
 						}
-					});
+					})*/;
+			}
+			catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
 	}

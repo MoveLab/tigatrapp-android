@@ -740,7 +740,7 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 							"http://www.mosquitoalert.com/en/privacy-policy/")
 					.setIsSmartLockEnabled(false)
 					.build(), RC_SIGN_IN);
-            return true; // "http://www.mosquitoalert.com/en/legal-advice/"
+            return true;
         }
 		else if ( item.getItemId() == R.id.logout ) {
 			AuthUI.getInstance()

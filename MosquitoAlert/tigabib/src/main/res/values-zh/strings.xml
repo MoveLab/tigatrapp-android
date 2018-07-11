@@ -147,6 +147,7 @@
     <string name="mission_button_mark_complete">標記完成</string>
     <string name="toast__mission_already_complete">你已完成這項任務，謝謝！</string>
     <string name="toast_mission_expired">這個任務已過期</string>
+
     <!-- Menu -->
     <string name="menu_option_task_list">任務</string>
     <string name="menu_option_tigatrapp_news">最新消息</string>
@@ -155,8 +156,8 @@
     <string name="menu_option_about">關於</string>
     <string name="menu_option_share">分享</string>
     <string name="menu_option_gallery">圖片庫</string>
-    <string name="menu_option_login"></string>
-    <string name="menu_option_logout"></string>
+    <string name="menu_option_login"> 登入</string>
+    <string name="menu_option_logout">登出</string>
     <string name="menu_option_filter">過濾</string>
     <string name="menu_option_show_pending_tasks_only">顯示尚未完成的任務</string>
     <string name="menu_option_show_all_tasks">顯示所有任務</string>
@@ -169,6 +170,8 @@
     <string name="menu_map_share">分享</string>
     <string name="menu_toggle_view">衛星</string>
     <string name="menu_option_refresh">重新整理</string>
+    <string name="menu_option_tutorial">使用指南</string>
+
     <!-- Settings -->
     <string name="settings_language_title">語言</string>
     <string name="settings_language_detail">選擇語言</string>
@@ -346,8 +349,8 @@
 
     <string name="menu_close">關</string>
 
-    <string name="loading_picture"></string>
-    <string name="pybossa_error"></string>
+    <string name="loading_picture">重新載入圖片</string>
+    <string name="pybossa_error">末能連結圖片驗證伺服器</string>
 
 
     <string name="tutorial_1_1">歡迎</string>
@@ -370,6 +373,7 @@
     <string name="tutorial_8_2">更多資訊和拍攝小貼士在www.mosqutioalert.com</string>
     <string name="tutorial_8_3">開始</string>
 
-    <string name="menu_option_tutorial">使用指南</string>
+    <string name="logout_success">成功登出</string>
+    <string name="downloading_user_data">下載用户資料</string>
 
 </resources>

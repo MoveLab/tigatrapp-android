@@ -370,4 +370,7 @@
     <string name="tutorial_8_2">Trobaràs tota la informació i trucs per fer bones fotos a:\nwww.mosquitoalert.com</string>
     <string name="tutorial_8_3">COMENÇAR</string>
 
+    <string name="logout_success">Sessió tancada correctament</string>
+    <string name="downloading_user_data">Descarregant dades d\'usuari</string>
+
 </resources>

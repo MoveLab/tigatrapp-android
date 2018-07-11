@@ -146,6 +146,7 @@
     <string name="mission_button_mark_complete">Misión realizada</string>
     <string name="toast__mission_already_complete">Esta misión ya ha sido realizada. ¡Gracias!</string>
     <string name="toast_mission_expired">Esta misión ha expirado.</string>
+
     <!-- Menu -->
     <string name="menu_option_task_list">Misiones</string>
     <string name="menu_option_tigatrapp_news">Noticias</string>
@@ -169,6 +170,7 @@
     <string name="menu_map_share">Comparte</string>
     <string name="menu_toggle_view">Imagen</string>
     <string name="menu_option_refresh">Actualiza</string>
+
     <!-- Settings -->
     <string name="settings_language_title">Idioma</string>
     <string name="settings_language_detail">Selecciona idioma</string>
@@ -187,6 +189,7 @@
     <string name="sync_success">Sincronizado</string>
     <string name="deletion_network_error">Informe borrado pero error de conexión a internet. Tus datos se enviarán automáticamente más tarde.</string>
     <string name="deletion_no_network">Informe borrado pero sin conexión a internet. Tus datos se enviarán automáticamente cuando vuelva la conexión.</string>
+
     <!-- Misc -->
     <string name="added_current_loc">Posición actual guardada</string>
     <string name="refresh">Actualiza</string>
@@ -274,6 +277,7 @@
     <string name="menu">Menú</string>
     <string name="additional_information">Información adicional</string>
     <string name="turn_on_location">Activa la Localización de tu dispositivo para que Mosquito Alert determine tu posición</string>
+
     <!-- Tasks -->
     <string name="task_list_title2">Notificaciones</string>
     <string name="switchboard_button_validation_photos2">FOTOS</string>
@@ -370,6 +374,10 @@
     <string name="tutorial_8_1">¡Ya puedes empezar!</string>
     <string name="tutorial_8_2">Encontrarás toda la información y trucos para hacer buenas fotos en:\nwww.mosquitoalert.com</string>
     <string name="tutorial_8_3">EMPEZAR</string>
+
+    <string name="logout_success">Sesión cerrada correctamente</string>
+    <string name="downloading_user_data">Descargando datos de usuario</string>
+
 </resources>
 
 

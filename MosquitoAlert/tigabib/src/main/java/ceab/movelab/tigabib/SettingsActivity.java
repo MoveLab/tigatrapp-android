@@ -18,6 +18,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONArray;
@@ -35,9 +37,9 @@ public class SettingsActivity extends Activity {
 
 	private String lang;
 
-	ToggleButton tb;
-	Boolean on;
-	TextView tv;
+	private ToggleButton tb;
+	private Boolean isServiceOn;
+	private TextView tv;
 
 	LinearLayout debugView;
 	TextView sampleView;
@@ -64,7 +66,7 @@ public class SettingsActivity extends Activity {
 
 		setContentView(R.layout.settings);
 
-		on = PropertyHolder.isServiceOn();
+		isServiceOn = PropertyHolder.isServiceOn();
 
 		languageButton = (Button) findViewById(R.id.languageButton);
 		languageButton.setOnClickListener(new OnClickListener() {
@@ -87,7 +89,7 @@ public class SettingsActivity extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				Util.logInfo(TAG, "sync button clicked");
-				new SyncTask().execute(SettingsActivity.this);
+				new SynchronizeTask().execute(SettingsActivity.this);
 			}
 
 		});
@@ -95,13 +97,13 @@ public class SettingsActivity extends Activity {
 		tb = (ToggleButton) findViewById(R.id.service_button);
 		tv = (TextView) findViewById(R.id.service_message);
 
-		tb.setChecked(on);
-		tv.setText(on ? getResources().getString(R.string.sampling_is_on) : getResources().getString(R.string.sampling_is_off));
+		tb.setChecked(isServiceOn);
+		tv.setText(isServiceOn ? getResources().getString(R.string.sampling_is_on) : getResources().getString(R.string.sampling_is_off));
 		tb.setOnClickListener(new ToggleButton.OnClickListener() {
 			public void onClick(View view) {
-				on = !on;
-				tb.setChecked(on);
-				if (on) {
+				isServiceOn = !isServiceOn;
+				tb.setChecked(isServiceOn);
+				if ( isServiceOn ) {
 					long lastScheduleTime = PropertyHolder.lastSampleScheduleMade();
 					if (System.currentTimeMillis() - lastScheduleTime > 1000 * 60 * 60 * 24) {
 						Util.internalBroadcast(SettingsActivity.this, Messages.START_DAILY_SAMPLING);
@@ -141,7 +143,7 @@ public class SettingsActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 
-		if (!Util.setDisplayLanguage(getResources()).equals(lang)) {
+		if ( !Util.setDisplayLanguage(getResources()).equals(lang) ) {
 			finish();
 			startActivity(getIntent());
 		}
@@ -169,12 +171,12 @@ public class SettingsActivity extends Activity {
 	public class NewSamplesReceiver extends BroadcastReceiver {
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			if (Util.debugMode())
+			if ( Util.debugMode() )
 				sampleView.setText(PropertyHolder.getCurrentFixTimes());
 		}
 	}
 
-	private class SyncTask extends AsyncTask<Context, Integer, Boolean> {
+	private class SynchronizeTask extends AsyncTask<Context, Integer, Boolean> {
 
 		ProgressDialog prog;
 		int myProgress;
@@ -234,43 +236,43 @@ public class SettingsActivity extends Activity {
 					JSONObject configJson = new JSONObject(Util.getJSON(Util.API_CONFIGURATION, context[0]));
 					if ( configJson.has("samples_per_day") ) {
 						int samplesPerDay = configJson.getInt("samples_per_day");
-						Util.logInfo(TAG, "samples per day:" + samplesPerDay);
+Util.logInfo(TAG, "samples per day:" + samplesPerDay);
 
-						if (samplesPerDay != PropertyHolder.getSamplesPerDay()) {
+						if ( samplesPerDay != PropertyHolder.getSamplesPerDay() ) {
 							Util.internalBroadcast(context[0], Messages.START_DAILY_SAMPLING);
 							PropertyHolder.setSamplesPerDay(samplesPerDay);
-							Util.logInfo(TAG, "set property holder");
+Util.logInfo(TAG, "set property holder");
 						}
 					}
 				} catch (JSONException e) {
-					Util.logError(TAG, "error: " + e);
+Util.logError(TAG, "error: " + e);
 					resultFlag = UPLOAD_ERROR;
 				}
 
 				myProgress = 10;
 				publishProgress(myProgress);
 
-				// try to get missions
+				// try to get missions from server
 				// check last id on phone
 				int latest_id = PropertyHolder.getLatestMissionId();
 				String missionUrl = Util.API_MISSION + "?" + (latest_id > 0 ? ("id_gt=" + latest_id) : "")
-						+ "&platform=" + (Util.debugMode() ? "beta" : "and")
+						+ "&platform=" + ( Util.debugMode() ? "beta" : "and" )
 						+ "&version_lte=" + Util.MAX_MISSION_VERSION;
-				Util.logInfo(TAG, "mission array: " + missionUrl);
+Util.logInfo(TAG, "mission array: " + missionUrl);
 
 				try {
 					// load remote missions
 					JSONArray missions = new JSONArray(Util.getJSON(missionUrl, context[0]));
-					Util.logInfo(TAG, "missions: " + missions.toString());
+Util.logInfo(TAG, "missions: " + missions.toString());
 
-					if ( missions.length() > 0) {
+					if ( missions.length() > 0 ) {
 						for (int i = 0; i < missions.length(); i++) {
 							JSONObject mission = missions.getJSONObject(i);
 
 							cr = context[0].getContentResolver();
 							cr.insert(Util.getMissionsUri(context[0]), ContProvValuesMissions.createTask(mission));
 
-							if (mission.has(Tasks.KEY_TRIGGERS)) {
+							if ( mission.has(Tasks.KEY_TRIGGERS) ) {
 								JSONArray theseTriggers = mission.getJSONArray(Tasks.KEY_TRIGGERS);
 
 								if (theseTriggers.length() == 0) {
@@ -287,13 +289,12 @@ public class SettingsActivity extends Activity {
 								}
 							}
 
-							// IF this is last mission, mark the row id in
-							// PropertyHolder for next sync
+							// IF this is last mission, mark the row id i PropertyHolder for next sync
 							PropertyHolder.setLatestMissionId(mission.getInt("id"));
 						}
 					}
 				} catch (JSONException e) {
-					Util.logError(TAG, "error: " + e);
+Util.logError(TAG, "error: " + e);
 					resultFlag = UPLOAD_ERROR;
 				}
 
@@ -305,8 +306,7 @@ public class SettingsActivity extends Activity {
 				//////////////////////////////////////////
 				// start with Tracks
 				c = cr.query(Util.getTracksUri(context[0]), Fixes.KEYS_ALL, Fixes.KEY_UPLOADED + " = 0", null, null);
-
-				if (!c.moveToFirst()) {
+				if ( !c.moveToFirst() ) {
 					c.close();
 				}
 
@@ -320,7 +320,7 @@ public class SettingsActivity extends Activity {
 				int fixtotal = c.getCount();
 				int fixcounter = 1;
 
-				while (!c.isAfterLast()) {
+				while ( !c.isAfterLast() ) {
 
 					myProgress = myProgress + 40 * fixcounter / fixtotal;
 					publishProgress(myProgress);
@@ -333,8 +333,7 @@ public class SettingsActivity extends Activity {
 					thisFix.exportJSON(context[0]);
 
 					int statusCode = Util.getResponseStatusCode(thisFix.upload(context[0]));
-
-					if (statusCode < 300 && statusCode > 0) {
+					if ( statusCode < 300 && statusCode > 0 ) {
 						ContentValues cv = new ContentValues();
 						String sc = Fixes.KEY_ROWID + " = " + String.valueOf(thisId);
 						cv.put(Fixes.KEY_UPLOADED, 1);
@@ -344,7 +343,6 @@ public class SettingsActivity extends Activity {
 					}
 					c.moveToNext();
 				}
-
 				c.close();
 
 				//////////////////////////////////////////
@@ -352,8 +350,7 @@ public class SettingsActivity extends Activity {
 				c = cr.query(Util.getReportsUri(context[0]), Reports.KEYS_ALL,
 						Reports.KEY_UPLOADED + " != " + Report.UPLOADED_ALL,
 						null, null);
-
-				if (!c.moveToFirst()) {
+				if ( !c.moveToFirst() ) {
 					c.close();
 				}
 
@@ -394,8 +391,7 @@ public class SettingsActivity extends Activity {
 				int reporttotal = c.getCount();
 				int reportcounter = 1;
 
-				while (!c.isAfterLast()) {
-
+				while ( !c.isAfterLast() ) {
 					myProgress = myProgress + 40 * reportcounter / reporttotal;
 					publishProgress(myProgress);
 					reportcounter++;
@@ -447,7 +443,7 @@ public class SettingsActivity extends Activity {
 				}
 				c.close();
 
-				if (resultFlag == SUCCESS) {
+				if ( resultFlag == SUCCESS ) {
 					myProgress = 100;
 					publishProgress(myProgress);
 				}
@@ -467,20 +463,22 @@ public class SettingsActivity extends Activity {
 
 			prog.dismiss();
 
-			if (result && resultFlag == SUCCESS) {
+			if ( result && resultFlag == SUCCESS ) {
 				Util.toast(SettingsActivity.this, getResources().getString(R.string.sync_success));
-
+				// Successfully signed in
+				FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+				if ( user != null ) {
+					String uid = user.getUid();
+					Util.getProfileReports(SettingsActivity.this, uid);
+				}
 			} else {
-
-				if (resultFlag == OFFLINE) {
+				if ( resultFlag == OFFLINE ) {
 					Util.buildCustomAlert(SettingsActivity.this, getResources().getString(R.string.offline_sync));
 				}
-
-				if (resultFlag == UPLOAD_ERROR) {
+				if ( resultFlag == UPLOAD_ERROR ) {
 					Util.buildCustomAlert(SettingsActivity.this, getResources().getString(R.string.sync_error));
 				}
-
-				if (resultFlag == PRIVATE_MODE) {
+				if ( resultFlag == PRIVATE_MODE ) {
 					Util.buildCustomAlert(SettingsActivity.this, getResources().getString(R.string.sync_success));
 
 				}

@@ -4,9 +4,10 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.content.FileProvider;
 import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,7 +32,7 @@ import ceab.movelab.tigabib.ContProvContractReports.Reports;
 public class ViewReportsPhotosTab extends Activity {
 
 	private static String TAG = "ViewReportsPhotosTab";
-    private Resources res;
+
     private String lang;
     private Context context = this;
 
@@ -39,10 +40,9 @@ public class ViewReportsPhotosTab extends Activity {
 		super.onCreate(savedInstanceState);
 
 		if ( !PropertyHolder.isInit() )
-			PropertyHolder.init(this);
+			PropertyHolder.init(context);
 
-		res = getResources();
-		Util.setDisplayLanguage(res);
+		Util.setDisplayLanguage(getResources());
 
 		//Intent incoming = getIntent();
 		Bundle b = getIntent().getExtras();
@@ -85,7 +85,10 @@ public class ViewReportsPhotosTab extends Activity {
 								positive.setOnClickListener(new OnClickListener() {
 									@Override
 									public void onClick(View v) {
-										Uri imageUri = Uri.fromFile(new File(thisPhotoUri)); 		
+										Uri imageUri = Uri.fromFile(new File(thisPhotoUri));
+										if ( Build.VERSION.SDK_INT >= 24 )	// Nougat and above
+											imageUri = FileProvider.getUriForFile(context, getPackageName() + ".provider", new File(thisPhotoUri));
+
 										Intent shareIntent = new Intent();
 										shareIntent.setAction(Intent.ACTION_SEND);
 										shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
@@ -100,8 +103,7 @@ public class ViewReportsPhotosTab extends Activity {
 										shareIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareMessage);
 
 										// start the chooser for sharing
-										startActivity(Intent.createChooser(shareIntent, getResources()
-												.getText(R.string.share_with)));
+										startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.share_with)));
 									}
 								});
 

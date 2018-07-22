@@ -109,7 +109,7 @@ public class Report {
 	String appLanguage;
 	int missionId;
 
-	Report(Context context, String version_UUID, String userId,
+	public Report(Context context, String version_UUID, String userId,
 			String reportId, int reportVersion, long reportTime,
 			String creation_time, String version_time_string, int type,
 			String confirmation, int confirmationCode, int locationChoice,
@@ -274,6 +274,14 @@ public class Report {
 		this.osLanguage = null;
 		this.appLanguage = null;
 		this.missionId = Report.MISSING;
+	}
+
+	public int getReportVersion(){
+		return reportVersion;
+	}
+
+	public String getReportId() {
+		return reportId;
 	}
 
 	public boolean setPhotoUris(Context context, String photoUris) {

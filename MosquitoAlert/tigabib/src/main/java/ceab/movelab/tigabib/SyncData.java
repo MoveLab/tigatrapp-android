@@ -149,7 +149,7 @@ Util.logInfo(TAG, "set property holder");
 		int latest_id = PropertyHolder.getLatestMissionId();
 
 		String missionUrl = Util.API_MISSION + "?" + (latest_id > 0 ? ("id_gt=" + latest_id) : "")
-				+ "&platform=" + (Util.debugMode() ? "beta" : "and")
+				+ "&platform=" + ( Util.debugMode() ? "beta" : "and" )
 				+ "&versionfixuse_lte=" + Util.MAX_MISSION_VERSION;
 Util.logInfo(TAG, "mission array: " + missionUrl);
 
@@ -195,7 +195,6 @@ Util.logInfo(TAG, "missions: " + missions.toString());
 
 		// start with Tracks
 		c = cr.query(Util.getTracksUri(context), Fixes.KEYS_ALL, null, null, null);
-
 		if ( c!= null && !c.moveToFirst()) {
 			c.close();
 		}

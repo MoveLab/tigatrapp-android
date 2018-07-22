@@ -122,7 +122,7 @@ public class SwitchboardActivity extends Activity {
 			final Bundle b = getIntent().getExtras();
 			if ( b != null && b.containsKey(NOTIFICATION_ID) ) {
 				int notifId = b.getInt(NOTIFICATION_ID);
-				if (notifId > 0) {
+				if ( notifId > 0 ) {
 					Intent intent = new Intent(this, NotificationActivity.class);
 					intent.putExtra(NotificationActivity.NOTIFICATION_ID, notifId);
 					startActivity(intent);
@@ -724,7 +724,18 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
         else if ( item.getItemId() == R.id.login ) {
 			// Comprovar if Util.isOnline first
 
-            // Choose authentication providers
+			String tosUrl = "http://webserver.mosquitoalert.com/en/terms/";
+			if ( lang.equals("es") )
+				tosUrl = "http://webserver.mosquitoalert.com/es/terms/";
+			else if ( lang.equals("ca") )
+				tosUrl = "http://webserver.mosquitoalert.com/ca/terms/";
+			String privacyUrl = "http://webserver.mosquitoalert.com/en/privacy/";
+			if ( lang.equals("es") )
+				privacyUrl = "http://webserver.mosquitoalert.com/es/privacy/";
+			else if ( lang.equals("ca") )
+				privacyUrl = "http://webserver.mosquitoalert.com/ca/privacy/";
+
+			// Choose authentication providers
             List<AuthUI.IdpConfig> providers = Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build(),
 					new AuthUI.IdpConfig.GoogleBuilder().build(),
 					new AuthUI.IdpConfig.FacebookBuilder().build(),
@@ -736,8 +747,7 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 					.setAvailableProviders(providers)
 					.setLogo(R.drawable.logo_signin)
 					.setTheme(R.style.FirebaseUITheme)
-					.setTosAndPrivacyPolicyUrls("http://www.mosquitoalert.com/en/legal-advice/",
-							"http://www.mosquitoalert.com/en/privacy-policy/")
+					.setTosAndPrivacyPolicyUrls(tosUrl, privacyUrl)
 					.setIsSmartLockEnabled(false)
 					.build(), RC_SIGN_IN);
             return true;

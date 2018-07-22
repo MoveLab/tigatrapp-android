@@ -91,7 +91,7 @@ public class MyApp extends MultiDexApplication {
 
 		// Set up Crashlytics, disabled for debug builds
 		Crashlytics crashlyticsKit = new Crashlytics.Builder()
-				.core(new CrashlyticsCore.Builder().disabled(BuildConfig.DEBUG).build())
+				.core(new CrashlyticsCore.Builder().disabled(!BuildConfig.ENABLE_CRASHLYTICS).build())
 				.build();
 		// Initialize Fabric with the debug-disabled crashlytics.
 		Fabric.with(this, crashlyticsKit);  //  do not turn on if in debuggable mode
@@ -101,12 +101,13 @@ public class MyApp extends MultiDexApplication {
 		Realm.init(this); // used in Realm 2.0.0+
 
 		StethoUtils.install(this);
+
 		//forceCrash();
     }
 
-//	public void forceCrash() {
-//		throw new RuntimeException("This is my test crash from MyApp");
-//	}
+	public void forceCrash() {
+		throw new RuntimeException("This is my test crash from MyApp " + BuildConfig.VERSION_NAME);
+	}
 
 	protected void initGlobals() {
     	// Initialize the instances

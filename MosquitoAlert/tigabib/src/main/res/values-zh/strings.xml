@@ -342,7 +342,8 @@
     <string name="i18n_thorax_question">認出它的胸部了嗎？</string>
     <string name="i18n_abdomen_question">腹部呢？</string>
     <string name="end_validation">驗證完畢</string>
-    <string name="menu_web">網站</string>
+    <string name="menu_web">mosquitoalert.com</string>
+    <!--<string name="menu_web">網站</string>-->
     <string name="info_scoring">積分代表您使用此app的頻率、貢獻等以及所發送照片的質量。</string>
     <string name="help_zoom">拖動手指以放大圖片</string>
     <string name="no_internet_connection">沒有互聯網連接。將設備連接到網絡以繼續驗證。</string>

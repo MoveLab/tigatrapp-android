@@ -37,13 +37,17 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField "boolean", "PYBOSSA_LIVE", "false"  // false is test environment, true is production
+            buildConfigField "boolean", "PYBOSSA_LIVE", "false" // false is test environment, true is production
+            buildConfigField "boolean", "SERVER_LIVE", "false"
+            buildConfigField "boolean", "ENABLE_CRASHLYTICS", "false"
             buildConfigField "boolean", "PRIVATE_MODE", "true"
             debuggable true
             ext.enableCrashlytics = false
         }
         release {
-            buildConfigField "boolean", "PYBOSSA_LIVE", "false"  //  !!!!$$$$ true for final release
+            buildConfigField "boolean", "PYBOSSA_LIVE", "false" //  !!!!$$$$ true for final release
+            buildConfigField "boolean", "SERVER_LIVE", "false"  //  !!!!$$$$ true for final release
+            buildConfigField "boolean", "ENABLE_CRASHLYTICS", "true"
             buildConfigField "boolean", "PRIVATE_MODE", "false"
             debuggable true //  !!!!$$$$
 //            minifyEnabled true

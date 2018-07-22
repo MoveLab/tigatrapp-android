@@ -47,7 +47,6 @@ public class AttachedPhotosActivity extends Activity {
 	private Context context = this;
 	private String lang;
 
-	//File root;
 	private File directory;
 	private String mCurrentPhotoPath;
 
@@ -61,7 +60,7 @@ public class AttachedPhotosActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		if (!PropertyHolder.isInit())
+		if ( !PropertyHolder.isInit() )
 			PropertyHolder.init(context);
 
 		lang = Util.setDisplayLanguage(getResources());
@@ -112,7 +111,10 @@ public class AttachedPhotosActivity extends Activity {
 								positive.setOnClickListener(new OnClickListener() {
 									@Override
 									public void onClick(View v) {
+										// https://stackoverflow.com/questions/38200282/android-os-fileuriexposedexception-file-storage-emulated-0-test-txt-exposed
 										Uri imageUri = Uri.fromFile(new File(thisPhotoUri));
+										if ( Build.VERSION.SDK_INT >= 24 )	// Nougat and above
+											imageUri = FileProvider.getUriForFile(context, getPackageName() + ".provider", new File(thisPhotoUri));
 										Intent shareIntent = new Intent();
 										shareIntent.setAction(Intent.ACTION_SEND);
 										shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
@@ -364,7 +366,7 @@ public class AttachedPhotosActivity extends Activity {
 //							realPath = Util.getRealPathFromURI_BelowAPI11(this, data.getData());
 //						// SDK >= 11 && SDK < 19
 //						else
-						if (Build.VERSION.SDK_INT < 19)
+						if ( Build.VERSION.SDK_INT < 19 )
 							realPath = RealPathFromURI_API11to18.getRealPathFromURI_API11to18(this, data.getData());
 						// SDK >= 19 (Android 4.4)
 						else
@@ -373,6 +375,9 @@ public class AttachedPhotosActivity extends Activity {
 						Uri thisUri = null;
 						if ( !TextUtils.isEmpty(realPath) ) {
 							thisUri = Uri.fromFile(new File(realPath));
+							// https://stackoverflow.com/questions/38200282/android-os-fileuriexposedexception-file-storage-emulated-0-test-txt-exposed
+							if ( Build.VERSION.SDK_INT >= 24 )	// Nougat and above
+								thisUri = FileProvider.getUriForFile(context, getPackageName() + ".provider", new File(realPath));
 						}
 
 						if ( resultCode == RESULT_OK && thisUri != null ) {

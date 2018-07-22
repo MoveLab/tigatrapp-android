@@ -43,7 +43,7 @@ android {
         targetSdkVersion 25
         multiDexEnabled true
         versionCode 27  /* 26 is 1.61 current production version code */
-        versionName "1.62"
+        versionName "1.63"
     }
 
     buildTypes {

@@ -152,7 +152,7 @@
     <string name="menu_option_tigatrapp_news">Notícies</string>
     <string name="menu_option_settings">Ajustos</string>
     <string name="menu_option_help">Ajuda</string>
-    <string name="menu_option_about">Més Info</string>
+    <string name="menu_option_about">Més info</string>
     <string name="menu_option_share">Comparteix app</string>
     <string name="menu_option_gallery">Fotos d\'ajuda</string>
     <string name="menu_option_tutorial">Tutorial app</string>
@@ -339,7 +339,7 @@
     <string name="i18n_thorax_question">Reconeixes el tòrax?</string>
     <string name="i18n_abdomen_question">I l\'abdomen?</string>
     <string name="end_validation">Validació completada</string>
-    <string name="menu_web">Web</string>
+    <string name="menu_web">mosquitoalert.com</string>
     <string name="info_scoring">Aquesta puntuació té en compte la teva activitat amb l\'app i la qualitat de les fotos que has enviat.</string>
     <string name="help_zoom">Fes zoom amb els dits al damunt de la imatge per ampliar-la.</string>
     <string name="no_internet_connection">Sense connexió a internet. Conecti el dispositiu a la xarxa per seguir validant.</string>

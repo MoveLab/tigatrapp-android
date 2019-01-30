@@ -77,8 +77,8 @@ Util.logInfo(TAG, "Refreshed token: " + refreshedToken);
             Util.registerFCMToken(this, token, userId);
 
             // Obtain the FirebaseAnalytics instance.
-            FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(MyApp.getAppContext());
-            mFirebaseAnalytics.setUserId(userId);
+            //FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(MyApp.getAppContext());
+            //mFirebaseAnalytics.setUserId(userId);
         }
 
         /*

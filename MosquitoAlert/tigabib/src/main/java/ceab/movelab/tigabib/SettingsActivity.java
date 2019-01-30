@@ -85,13 +85,11 @@ public class SettingsActivity extends Activity {
 
 		syncButton = (Button) findViewById(R.id.syncButton);
 		syncButton.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View arg0) {
-				Util.logInfo(TAG, "sync button clicked");
+Util.logInfo(TAG, "sync button clicked");
 				new SynchronizeTask().execute(SettingsActivity.this);
 			}
-
 		});
 
 		tb = (ToggleButton) findViewById(R.id.service_button);
@@ -177,7 +175,6 @@ public class SettingsActivity extends Activity {
 	}
 
 	private class SynchronizeTask extends AsyncTask<Context, Integer, Boolean> {
-
 		ProgressDialog prog;
 		int myProgress;
 		int resultFlag;
@@ -275,7 +272,7 @@ Util.logInfo(TAG, "missions: " + missions.toString());
 							if ( mission.has(Tasks.KEY_TRIGGERS) ) {
 								JSONArray theseTriggers = mission.getJSONArray(Tasks.KEY_TRIGGERS);
 
-								if (theseTriggers.length() == 0) {
+								if ( theseTriggers.length() == 0 ) {
 									Intent intent = new Intent(Messages.internalAction(context[0]));
 									intent.putExtra(Messages.INTERNAL_MESSAGE_EXTRA, Messages.SHOW_TASK_NOTIFICATION);
 									if (PropertyHolder.getLanguage().equals("ca")) {

@@ -33,7 +33,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Button;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import java.util.Date;
@@ -57,7 +56,7 @@ public class ConsentActivity extends Activity {
 
 	private WebView myWebView;
 
-	private FirebaseAnalytics mFirebaseAnalytics;
+	//private FirebaseAnalytics mFirebaseAnalytics;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -73,7 +72,7 @@ public class ConsentActivity extends Activity {
 		setContentView(R.layout.consent);
 
 		// Obtain the FirebaseAnalytics instance.
-		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+		//mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
 	}
 
@@ -86,7 +85,7 @@ public class ConsentActivity extends Activity {
 			startActivity(getIntent());
 		}
 		// [START set_current_screen]
-		mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_consent", "Consent");
+		//mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_consent", "Consent");
 		// [END set_current_screen]
 
 		final Button consentButton = (Button) findViewById(R.id.consent_button);
@@ -112,8 +111,8 @@ public class ConsentActivity extends Activity {
                     Util.registerFCMToken(ConsentActivity.this, token, PropertyHolder.getUserId());
 
 					// Obtain the FirebaseAnalytics instance.
-					FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
-					mFirebaseAnalytics.setUserId(userId);
+					//FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+					//mFirebaseAnalytics.setUserId(userId);
 				}
 
 				// start daily sampling

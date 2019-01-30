@@ -155,7 +155,7 @@
     </style>
     <style name="TutorialText">
         <item name="android:textColor">@color/tutorial_text</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">14sp</item>
         <item name="android:textStyle">normal</item>
         <item name="android:paddingLeft">@dimen/tutorial_text_margin_LR</item>
         <item name="android:paddingRight">@dimen/tutorial_text_margin_LR</item>

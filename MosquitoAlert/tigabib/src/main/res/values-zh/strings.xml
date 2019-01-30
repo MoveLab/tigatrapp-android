@@ -8,7 +8,7 @@
  Exported by: Agusti Escobar
  Exported at: Tue, 20 Jun 2017 11:40:38 +0200
 -->
-<resources>
+<resources  xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Intro and Consent -->
     <string name="consent_button_label">我已閱讀並接受這些條款</string>
     <string name="decline_button_label">我拒絕同意</string>
@@ -370,11 +370,17 @@
     <string name="tutorial_6_2">上載高質素相片及驗證他人的相片便可升級。</string>
     <string name="tutorial_7_1">設定手機應用</string>
     <string name="tutorial_7_2">可透過更改在主選單的更多內容中的設定。</string>
-    <string name="tutorial_8_1">可以開始！</string>
-    <string name="tutorial_8_2">更多資訊和拍攝小貼士在www.mosqutioalert.com</string>
-    <string name="tutorial_8_3">開始</string>
+    <string name="tutorial_8_1">請儲存數據</string>
+    <string name="tutorial_8_2">以外部帳戶登入時，你可以匿名身份記錄你的發現及積分。不管過去有否更換手機或曾刪除過此應用程式，只要以同一個外部帳戶登入，你都可隨時隨地在不同裝置上存取過往數據和積分。</string>
+    <string name="tutorial_9_1">可以開始！</string>
+    <string name="tutorial_9_2">更多資訊和拍攝小貼士在www.mosqutioalert.com</string>
+    <string name="tutorial_9_3">開始</string>
 
     <string name="logout_success">成功登出</string>
     <string name="downloading_user_data">下載用户資料</string>
+    <string name="login_alert">以這些帳戶登入，不管有否更換過手機或曾刪除本應用程式，你都可隨時隨地在不同裝置上存取過去數據和積分。閣下亦可選擇以匿名狀態下繼續使用。
+\n\n當以外部帳戶登入時，Mosquito Alert將不會收到任何用戶個人資料。對Mosquito Alert而言，所有外部帳戶使用者均視為匿名用家。如有疑問，請參閱我們對用戶私隱的政策。</string>
+    <string name="fui_tos_and_pp" translation_description="Global ToS and privacy policy message"> <xliff:g example="https://google.com/terms" id="tos" translation_description="Terms of service text">%1$s</xliff:g> , <xliff:g example="https://google.com/privacy" id="pp" translation_description="Privacy policy text">%2$s</xliff:g>.</string>
+
 
 </resources>

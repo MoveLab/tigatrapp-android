@@ -22,14 +22,15 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:minWidth="220dp"
     android:orientation="vertical"
     android:padding="10dip" >
 
     <RadioGroup
         android:id="@+id/languageRadioGroup"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="12dp">
@@ -38,29 +39,29 @@
             android:id="@+id/esButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
-            android:paddingStart="8dp"
+            android:paddingLeft="12dp"
+            android:paddingStart="12dp"
             android:text="@string/language_selector_spanish" />
         <RadioButton
             android:id="@+id/caButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
-            android:paddingStart="8dp"
+            android:paddingLeft="12dp"
+            android:paddingStart="12dp"
             android:text="@string/language_selector_catalan" />
         <RadioButton
             android:id="@+id/enButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
-            android:paddingStart="8dp"
+            android:paddingLeft="12dp"
+            android:paddingStart="12dp"
             android:text="@string/language_selector_english" />
         <RadioButton
             android:id="@+id/zhButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="8dp"
-            android:paddingStart="8dp"
+            android:paddingLeft="12dp"
+            android:paddingStart="12dp"
             android:text="@string/language_selector_chinese_hk" />
         </RadioGroup>
 

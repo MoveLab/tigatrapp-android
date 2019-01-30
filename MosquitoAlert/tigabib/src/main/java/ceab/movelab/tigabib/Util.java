@@ -833,7 +833,7 @@ Util.logInfo(TAG, "battery prop: " + powerProportion);
 
 			// read file and write it into form...
 			bytesRead = fileInputStream.read(buffer, 0, bufferSize);
-			while (bytesRead > 0) {
+			while ( bytesRead > 0 ) {
 				dos.write(buffer, 0, bufferSize);
 				bytesAvailable = fileInputStream.available();
 				bufferSize = Math.min(bytesAvailable, maxBufferSize);
@@ -844,30 +844,30 @@ Util.logInfo(TAG, "battery prop: " + powerProportion);
 		} catch (Exception e) {
 			Util.logError(TAG, "error: " + e);
 		} finally {
-			if (dos != null) {
+			if ( dos != null ) {
 				try {
 					dos.close();
 				} catch (IOException e) {
-					Log.e(TAG, "exception" + e);
+Log.e(TAG, "exception" + e);
 				}
 			}
-			if (fileInputStream != null) {
+			if ( fileInputStream != null ) {
 				try {
 					fileInputStream.close();
 				} catch (IOException e) {
-					Log.e(TAG, "exception" + e);
+Log.e(TAG, "exception" + e);
 				}
 			}
 		}
 
 		// ------------------ read the SERVER RESPONSE
 		try {
-			if (conn != null) {
+			if ( conn != null ) {
 				response = conn.getResponseCode();
-				Log.d(TAG, "response: " + conn.getResponseMessage());
+Log.d(TAG, "response: " + conn.getResponseMessage());
 			}
 		} catch (IOException e) {
-			Log.e(TAG, "Connection error", e);
+Log.e(TAG, "Connection error", e);
 		}
 
 		return response;
@@ -1144,7 +1144,11 @@ Util.logInfo("==============", "TEST getProfileReports: " + profileUrl);
 							if ( userProfile != null ) {
 Util.logInfo(">>>>>>>>", "getProfileReports >> " + userProfile.toString());
 								//importProfile(ctx, userProfile.getProfileDevices());
-								new ReportsDownloadTask(new WeakReference<>(ctx), userProfile.getProfileDevices()).execute();
+								if ( userProfile.getProfileDevices() != null )
+									new ReportsDownloadTask(new WeakReference<>(ctx), userProfile.getProfileDevices()).execute();
+							}
+							else {
+Util.logInfo(">>>>>>>>", "getProfileReports >> NONE");
 							}
 						}
 					});

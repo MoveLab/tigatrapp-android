@@ -26,8 +26,6 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.widget.TabHost;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
-
 import ceab.movelab.tigabib.fragments.FragmentList;
 import ceab.movelab.tigabib.model.RealmHelper;
 import io.realm.Realm;
@@ -43,7 +41,7 @@ public class NotificationListActivity extends FragmentActivity implements TabHos
 	private Realm mRealm;
 	//private TabHost mTabHost;
 
-	private FirebaseAnalytics mFirebaseAnalytics;
+	//private FirebaseAnalytics mFirebaseAnalytics;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -81,7 +79,7 @@ public class NotificationListActivity extends FragmentActivity implements TabHos
 		mTabHost.setOnTabChangedListener(this);
 		mTabHost.setCurrentTab(0);
 
-		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+		//mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 	}
 
 	@Override
@@ -116,7 +114,7 @@ Util.logInfo("UPDATE TAB", "isDone = " + done);
 			startActivity(getIntent());
 		}
 		// [START set_current_screen]
-		mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_notification_list", "Notification List");
+		//mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_notification_list", "Notification List");
 		// [END set_current_screen]
 
 		updateTab(TAB_NEW, R.id.tab_1, false);

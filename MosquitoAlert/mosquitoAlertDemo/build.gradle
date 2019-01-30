@@ -5,7 +5,7 @@ buildscript {
 
     dependencies {
         // The Fabric Gradle plugin uses an open ended version to react quickly to Android tooling updates
-        classpath 'io.fabric.tools:gradle:1.25.1'
+        classpath 'io.fabric.tools:gradle:1.26.1'
     }
 }
 
@@ -23,12 +23,12 @@ android {
         }
     }
     compileSdkVersion 27
-    buildToolsVersion "27.0.3"
+    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "ceab.movelab.tigerapp"
         minSdkVersion 16
-        targetSdkVersion 25
-        versionCode 28  /* 28 is current production code */
+        targetSdkVersion 26
+        versionCode 29  /* 28 is current production code */
         versionName "Mosquito Alert Demo 1.04"
     }
     buildTypes {

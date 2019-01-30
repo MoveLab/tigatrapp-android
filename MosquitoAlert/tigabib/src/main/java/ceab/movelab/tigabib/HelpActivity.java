@@ -10,8 +10,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
-
 /**
  * Main activity that user interacts with while performing the search..
  * 
@@ -33,7 +31,7 @@ public class HelpActivity extends FragmentActivity {
 
 	private String lang;
 
-	private FirebaseAnalytics mFirebaseAnalytics;
+	//private FirebaseAnalytics mFirebaseAnalytics;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +46,7 @@ public class HelpActivity extends FragmentActivity {
 		setContentView(R.layout.webview);
 
 		// Obtain the FirebaseAnalytics instance.
-		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+		//mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 	}
 
 	@Override
@@ -67,7 +65,7 @@ public class HelpActivity extends FragmentActivity {
 		}
 
 		// [START set_current_screen]
-		mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_help", "Help");
+		//mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_help", "Help");
 		// [END set_current_screen]
 
 		myWebView = (WebView) findViewById(R.id.webview);

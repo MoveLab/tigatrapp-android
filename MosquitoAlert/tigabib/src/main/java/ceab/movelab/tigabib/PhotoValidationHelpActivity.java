@@ -28,8 +28,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ViewFlipper;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
-
 /**
  * Displays the Pybossa photo validation help screen.
  * 
@@ -43,7 +41,7 @@ public class PhotoValidationHelpActivity extends Activity {
 	private Button mHelp21Button;
 	private Button mHelp22Button;
 
-	private FirebaseAnalytics mFirebaseAnalytics;
+	//private FirebaseAnalytics mFirebaseAnalytics;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -74,7 +72,7 @@ public class PhotoValidationHelpActivity extends Activity {
 		mCloseButton = (Button) findViewById(R.id.validHelpCloseButton);
 		setOnClickListeners();
 
-		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+		//mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 	}
 
 	@Override
@@ -82,7 +80,7 @@ public class PhotoValidationHelpActivity extends Activity {
 		super.onResume();
 
 		// [START set_current_screen]
-		mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_photo_validation_help", "Photo Validation Help");
+		//mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_photo_validation_help", "Photo Validation Help");
 		// [END set_current_screen]
 	}
 

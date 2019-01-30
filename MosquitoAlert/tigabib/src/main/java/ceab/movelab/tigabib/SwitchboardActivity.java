@@ -58,6 +58,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.reflect.TypeToken;
 import com.koushikdutta.async.future.FutureCallback;
@@ -103,13 +104,13 @@ public class SwitchboardActivity extends Activity {
 	private ArrayList<String> mPermissionsDenied;
 
 	//private FirebaseAnalytics mFirebaseAnalytics;
-    private static final int RC_SIGN_IN = 12345;
+	private static final int RC_SIGN_IN = 12345;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		if ( !PropertyHolder.isInit() )
+		if (!PropertyHolder.isInit())
 			PropertyHolder.init(this);
 
 		lang = Util.setDisplayLanguage(getResources());
@@ -120,16 +121,15 @@ public class SwitchboardActivity extends Activity {
 		// detect push notification
 		try {
 			final Bundle b = getIntent().getExtras();
-			if ( b != null && b.containsKey(NOTIFICATION_ID) ) {
+			if (b != null && b.containsKey(NOTIFICATION_ID)) {
 				int notifId = b.getInt(NOTIFICATION_ID);
-				if ( notifId > 0 ) {
+				if (notifId > 0) {
 					Intent intent = new Intent(this, NotificationActivity.class);
 					intent.putExtra(NotificationActivity.NOTIFICATION_ID, notifId);
 					startActivity(intent);
 				}
 			}
-		}
-		catch ( Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 
@@ -148,10 +148,9 @@ public class SwitchboardActivity extends Activity {
 
 		/// Android 6.0 check for permissions first of all
 		mPermissionsDenied = getDeniedPermissions();
-		if ( mPermissionsDenied.size() > 0 ) {
+		if (mPermissionsDenied.size() > 0) {
 			askForPermissions();
-		}
-		else {
+		} else {
 			onCreateWithPermissions();
 		}
 
@@ -175,7 +174,7 @@ public class SwitchboardActivity extends Activity {
 	@Override
 	protected void onNewIntent(Intent intent) {
 		super.onNewIntent(intent);
-Util.logInfo("=========", "New Intent");
+		Util.logInfo("=========", "New Intent");
 
 		final Bundle b = intent.getExtras();
 		if (b != null && b.containsKey(NOTIFICATION_ID)) {
@@ -194,11 +193,10 @@ Util.logInfo("=========", "New Intent");
 			startActivity(i2c);
 			finish();
 		} else {
-			if  ( !PropertyHolder.hasSeenTutorial() ) {
+			if ( !PropertyHolder.hasSeenTutorial() ) {
 				Intent intentTutorial = new Intent(this, TutorialActivity.class);
 				startActivity(intentTutorial);
-			}
-			else if ( PropertyHolder.getUserId() == null ) {
+			} else if ( PropertyHolder.getUserId() == null ) {
 				String userId = UUID.randomUUID().toString();
 				PropertyHolder.setUserId(userId);
 				PropertyHolder.setNeedsMosquitoAlertPop(false);
@@ -322,10 +320,9 @@ Util.logInfo("=========", "New Intent");
 			pybossaButton.setOnClickListener(new View.OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					if ( !isOnline(SwitchboardActivity.this) ) {
+					if (!isOnline(SwitchboardActivity.this)) {
 						Toast.makeText(SwitchboardActivity.this, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
-					}
-					else {
+					} else {
 						Intent i = new Intent(SwitchboardActivity.this, PhotoValidationActivity.class);
 						startActivity(i);
 					}
@@ -436,7 +433,7 @@ Util.logInfo("=========", "New Intent");
 	@Override
 	protected void onResume() {
 		super.onResume();
-		if ( !Util.setDisplayLanguage(getResources()).equals(lang) ) {
+		if (!Util.setDisplayLanguage(getResources()).equals(lang)) {
 			finish();
 			startActivity(getIntent());
 		}
@@ -449,21 +446,22 @@ Util.logInfo("=========", "New Intent");
     params.putString(FirebaseAnalytics.Param.ITEM_NAME, name);
     mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, params);*/
 
-		if ( mRealm == null ) {
+		if (mRealm == null) {
 			try {
-Util.logInfo(this.getClass().getName(), "onResume Realm ==================");
+				Util.logInfo(this.getClass().getName(), "onResume Realm ==================");
 				mRealm = RealmHelper.getInstance().getRealm(this);
-Util.logInfo(this.getClass().getName(), "onResume Realm 2");
+				Util.logInfo(this.getClass().getName(), "onResume Realm 2");
 			}
 			// https://github.com/realm/realm-java/issues/3264
 			catch (IllegalArgumentException e) {
 				e.printStackTrace();
-Util.logInfo(this.getClass().getName(), "onResume IllegalArgumentException");
+				Util.logInfo(this.getClass().getName(), "onResume IllegalArgumentException");
 				// throw non-fatal
 				Crashlytics.log("Realm deleting");
 				//Crashlytics.setString("Method", "updateNotificationCount");
 				Crashlytics.logException(e);
-				if ( mRealm != null && !mRealm.isClosed() ) mRealm.close(); // Remember to close Realm when done.
+				if (mRealm != null && !mRealm.isClosed())
+					mRealm.close(); // Remember to close Realm when done.
 				RealmConfiguration config = new RealmConfiguration.Builder()
 						.name("myRealmDB.realm")
 						.schemaVersion(1)
@@ -477,7 +475,7 @@ Util.logInfo(this.getClass().getName(), "onResume IllegalArgumentException");
 		LocalBroadcastManager.getInstance(this)
 				.registerReceiver(mMissionsBroadcastReceiver, new IntentFilter(Messages.SHOW_TASK_NOTIFICATION));
 
-		if ( mPermissionsDenied.size() == 0 ) {
+		if (mPermissionsDenied.size() == 0) {
 			loadRemoteNotifications();
 			loadScore(); // !!! optimization, call this load score only if the notifications array is empty.
 			updateNotificationCount();
@@ -487,7 +485,7 @@ Util.logInfo(this.getClass().getName(), "onResume IllegalArgumentException");
 
 	@Override
 	protected void onDestroy() {
-		if ( mRealm != null ) mRealm.close(); // Remember to close Realm when done.
+		if (mRealm != null) mRealm.close(); // Remember to close Realm when done.
 		super.onDestroy();
 	}
 
@@ -495,26 +493,27 @@ Util.logInfo(this.getClass().getName(), "onResume IllegalArgumentException");
 		//  (recordeu que a la crida de notificacions se li pot passar un paràmetre locale=[es|ca|en] per controlar l'idioma de les notificacions).
 		String notificationUrl = Util.URL_TIGASERVER_API_ROOT + Util.API_NOTIFICATION + "?user_id=" + PropertyHolder.getUserId();
 //Util.logInfo("==============", "TEST");
-Util.logInfo("===========", "Authorization >> " + UtilLocal.TIGASERVER_AUTHORIZATION);
-Util.logInfo("===========", notificationUrl);
+		Util.logInfo("===========", "Authorization >> " + UtilLocal.TIGASERVER_AUTHORIZATION);
+		Util.logInfo("===========", notificationUrl);
 		Ion.with(this)
-			.load(notificationUrl)
-			.setHeader("Accept", "application/json")
-			.setHeader("Content-type", "application/json")
-			.setHeader("Authorization", UtilLocal.TIGASERVER_AUTHORIZATION)
-			.as(new TypeToken<List<Notification>>(){})
-			.setCallback(new FutureCallback<List<Notification>>() {
-				@Override
-				public void onCompleted(Exception e, List<Notification> result) {
-					// do stuff with the result or error
-Util.logInfo("===========", "result " + result);
-					if ( result != null && result.size() > 0 ) {
-						Util.logInfo(this.getClass().getName(), "loadRemoteNotifications >> " + result.toString());
-						RealmHelper.getInstance().addOrUpdateNotificationList(mRealm, result);
+				.load(notificationUrl)
+				.setHeader("Accept", "application/json")
+				.setHeader("Content-type", "application/json")
+				.setHeader("Authorization", UtilLocal.TIGASERVER_AUTHORIZATION)
+				.as(new TypeToken<List<Notification>>() {
+				})
+				.setCallback(new FutureCallback<List<Notification>>() {
+					@Override
+					public void onCompleted(Exception e, List<Notification> result) {
+						// do stuff with the result or error
+						Util.logInfo("===========", "result " + result);
+						if (result != null && result.size() > 0) {
+							Util.logInfo(this.getClass().getName(), "loadRemoteNotifications >> " + result.toString());
+							RealmHelper.getInstance().addOrUpdateNotificationList(mRealm, result);
+						}
+						updateNotificationCount();
 					}
-					updateNotificationCount();
-				}
-			});
+				});
 	}
 
 	private void loadScore() {
@@ -522,32 +521,33 @@ Util.logInfo("===========", "result " + result);
 		// http://humboldt.ceab.csic.es/api/user_score/?user_id=be0fb42b-6cb2-4cfc-bc92-8762b86faf89 >> Nexus 5
 		// 2d039878-0aab-454a-862e-626011b780ff
 		String notificationUrl = Util.URL_TIGASERVER_API_ROOT + Util.API_SCORE + "?user_id=" + PropertyHolder.getUserId();
-Util.logInfo("===========", "Authorization >> " + UtilLocal.TIGASERVER_AUTHORIZATION);
-Util.logInfo("===========", notificationUrl);
+		Util.logInfo("===========", "Authorization >> " + UtilLocal.TIGASERVER_AUTHORIZATION);
+		Util.logInfo("===========", notificationUrl);
 		Ion.with(this)
-			.load(notificationUrl)
-			.setHeader("Accept", "application/json")
-			.setHeader("Content-type", "application/json")
-			.setHeader("Authorization", UtilLocal.TIGASERVER_AUTHORIZATION)
-			.as(new TypeToken<Score>(){})
-			.setCallback(new FutureCallback<Score>() {
-				@Override
-				public void onCompleted(Exception e, Score result) {
-					// do stuff with the result or error
-					if ( result != null ) {
+				.load(notificationUrl)
+				.setHeader("Accept", "application/json")
+				.setHeader("Content-type", "application/json")
+				.setHeader("Authorization", UtilLocal.TIGASERVER_AUTHORIZATION)
+				.as(new TypeToken<Score>() {
+				})
+				.setCallback(new FutureCallback<Score>() {
+					@Override
+					public void onCompleted(Exception e, Score result) {
+						// do stuff with the result or error
+						if ( result != null ) {
 Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
-						RealmHelper.getInstance().updateScore(mRealm, result);
+							RealmHelper.getInstance().updateScore(mRealm, result);
+						}
+						updateScoreScreenFromRealm();
 					}
-					updateScoreScreenFromRealm();
-				}
-			});
+				});
 	}
 
 	private void updateScoreScreenFromRealm() {
-		if ( mRealm != null && !mRealm.isClosed() ) {
+		if (mRealm != null && !mRealm.isClosed()) {
 			Score score = RealmHelper.getInstance().getScore(mRealm);
 
-			if ( score != null && score.getScore() != null ) {
+			if (score != null && score.getScore() != null) {
 				String scoreValue = (score.getScore() > 100 ? "100" : String.valueOf(score.getScore()));
 				mScorePointsText.setText(scoreValue);
 				// [START user_property]
@@ -558,8 +558,7 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 				int resourceId = this.getResources().getIdentifier(score.getScoreLabel(), "string", this.getPackageName());
 				((TextView) findViewById(R.id.scoreLevelText)).setText(resourceId);
 			}
-		}
-		else {
+		} else {
 			// throw exception
 			Crashlytics.log("Realm is null or closed");
 			Crashlytics.setString("Method", "updateScoreScreenFromRealm");
@@ -568,15 +567,14 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 	}
 
 	private void updateNotificationCount() {
-		if ( mRealm != null && !mRealm.isClosed() ) {
+		if (mRealm != null && !mRealm.isClosed()) {
 			int count = RealmHelper.getInstance().getNewNotificationsCount(mRealm);
-			try {	// Crashlytics error #38
+			try {    // Crashlytics error #38
 				((TextView) findViewById(R.id.reportNotificationsNumberText)).setText(count > 99 ? "99+" : String.valueOf(count));
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
-		else {
+		} else {
 			// throw exception
 			Crashlytics.log("Realm is null");
 			Crashlytics.setString("Method", "updateNotificationCount");
@@ -628,8 +626,26 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 		MenuInflater inflater = getMenuInflater();
 		FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
+		if (currentUser != null) {
+			for (UserInfo profile : currentUser.getProviderData()) {
+				// Id of the provider (ex: google.com)
+				String providerId = profile.getProviderId();
+
+				// UID specific to the provider
+				String uid = profile.getUid();
+
+				// Name, email address, and profile photo Url
+				String name = profile.getDisplayName();
+				String email = profile.getEmail();
+				Uri photoUrl = profile.getPhotoUrl();
+Util.logInfo("Switchboardd", "Provider ID: " + providerId + "\nUid: " + uid +
+						"\nName: " + name + "\nEmail; " + email + "\nPhoto " + photoUrl);
+			}
+			;
+		}
+
 		// Check if user is signed in (non-null) and update UI accordingly.
-		if ( currentUser == null )
+		if (currentUser == null)
 			inflater.inflate(R.menu.switchboard_menu, menu);
 		else
 			inflater.inflate(R.menu.switchboard_menu_logout, menu);
@@ -669,11 +685,12 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 			i.putExtra(RSSActivity.RSSEXTRA_DEFAULT_THUMB, R.drawable.ic_launcher);
 			startActivity(i);
 			return true;
-		} else*/ if ( item.getItemId() == R.id.gallery ) {
+		} else*/
+		if (item.getItemId() == R.id.gallery) {
 			Intent i = new Intent(this, PhotoGalleryActivity.class);
 			startActivity(i);
 			return true;
-		} else if ( item.getItemId() == R.id.settings ) {
+		} else if (item.getItemId() == R.id.settings) {
 			Intent i = new Intent(this, SettingsActivity.class);
 			startActivity(i);
 			return true;
@@ -681,15 +698,16 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 			Intent i = new Intent(this, HelpActivity.class);
 			startActivity(i);
 			return true;
-		} else*/ if ( item.getItemId() == R.id.about ) {
+		} else*/
+		if (item.getItemId() == R.id.about) {
 			Intent i = new Intent(this, AboutActivity.class);
 			startActivity(i);
 			return true;
-		} else if ( item.getItemId() == R.id.tutorial ) {
+		} else if (item.getItemId() == R.id.tutorial) {
 			Intent i = new Intent(this, TutorialActivity.class);
 			startActivity(i);
 			return true;
-		} else if ( item.getItemId() == R.id.shareApp ) {
+		} else if (item.getItemId() == R.id.shareApp) {
 			Intent shareIntent = new Intent(Intent.ACTION_SEND);
 			// set the type
 			shareIntent.setType("text/plain");
@@ -712,47 +730,21 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 					.putContentType("App") // Map, Photo
 					.putContentId(PropertyHolder.getUserId()));
 			return true;
-        } else if ( item.getItemId() == R.id.web ) {
-            Intent i = new Intent(Intent.ACTION_VIEW);
-            i.setData(Uri.parse(UtilLocal.URL_PROJECT));
-            startActivity(i);
+		} else if (item.getItemId() == R.id.web) {
+			Intent i = new Intent(Intent.ACTION_VIEW);
+			i.setData(Uri.parse(UtilLocal.URL_PROJECT));
+			startActivity(i);
 
 			// Send Firebase Event
 //			Bundle bundle = new Bundle();
 //			mFirebaseAnalytics.logEvent("ma_evt_web", bundle);
-        }
-        else if ( item.getItemId() == R.id.login ) {
+		} else if (item.getItemId() == R.id.login) {
 			// Comprovar if Util.isOnline first
 
-			String tosUrl = "http://webserver.mosquitoalert.com/en/terms/";
-			if ( lang.equals("es") )
-				tosUrl = "http://webserver.mosquitoalert.com/es/terms/";
-			else if ( lang.equals("ca") )
-				tosUrl = "http://webserver.mosquitoalert.com/ca/terms/";
-			String privacyUrl = "http://webserver.mosquitoalert.com/en/privacy/";
-			if ( lang.equals("es") )
-				privacyUrl = "http://webserver.mosquitoalert.com/es/privacy/";
-			else if ( lang.equals("ca") )
-				privacyUrl = "http://webserver.mosquitoalert.com/ca/privacy/";
+			createLoginDialog();
 
-			// Choose authentication providers
-            List<AuthUI.IdpConfig> providers = Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build(),
-					new AuthUI.IdpConfig.GoogleBuilder().build(),
-					new AuthUI.IdpConfig.FacebookBuilder().build(),
-                    new AuthUI.IdpConfig.TwitterBuilder().build());
-
-            // Create and launch sign-in intent
-            startActivityForResult(AuthUI.getInstance()
-					.createSignInIntentBuilder()
-					.setAvailableProviders(providers)
-					.setLogo(R.drawable.logo_signin)
-					.setTheme(R.style.FirebaseUITheme)
-					.setTosAndPrivacyPolicyUrls(tosUrl, privacyUrl)
-					.setIsSmartLockEnabled(false)
-					.build(), RC_SIGN_IN);
-            return true;
-        }
-		else if ( item.getItemId() == R.id.logout ) {
+			return true;
+		} else if (item.getItemId() == R.id.logout) {
 			AuthUI.getInstance()
 					.signOut(this)
 					.addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -766,6 +758,65 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 
 		return false;
 	}
+
+	private void createLoginDialog() {
+	final Dialog dialog = new Dialog(this);
+
+		lang = Util.setDisplayLanguage(getResources());
+
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		dialog.setContentView(R.layout.custom_alert);
+		dialog.setCancelable(false);
+
+		((TextView) dialog.findViewById(R.id.alertText)).setText(getString(R.string.login_alert));
+
+		Button positive = dialog.findViewById(R.id.alertOK);
+		Button negative = dialog.findViewById(R.id.alertCancel);
+		negative.setVisibility(View.GONE);
+
+		positive.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				dialog.cancel();
+				String tosUrl = "http://webserver.mosquitoalert.com/en/terms/";
+				if (lang.equals("es"))
+					tosUrl = "http://webserver.mosquitoalert.com/es/terms/";
+				else if (lang.equals("ca"))
+					tosUrl = "http://webserver.mosquitoalert.com/ca/terms/";
+				String privacyUrl = "http://webserver.mosquitoalert.com/en/privacy/";
+				if (lang.equals("es"))
+					privacyUrl = "http://webserver.mosquitoalert.com/es/privacy/";
+				else if (lang.equals("ca"))
+					privacyUrl = "http://webserver.mosquitoalert.com/ca/privacy/";
+
+				// Choose authentication providers
+				List<AuthUI.IdpConfig> providers = Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build(),
+						new AuthUI.IdpConfig.GoogleBuilder().build(),
+						new AuthUI.IdpConfig.FacebookBuilder().build(),
+						new AuthUI.IdpConfig.TwitterBuilder().build());
+
+				// Create and launch sign-in intent
+				startActivityForResult(AuthUI.getInstance()
+						.createSignInIntentBuilder()
+						.setAvailableProviders(providers)
+						.setLogo(R.drawable.logo_signin)
+						.setTheme(R.style.FirebaseUITheme)
+						.setTosAndPrivacyPolicyUrls(tosUrl, privacyUrl)
+						.setIsSmartLockEnabled(false)
+						.build(), RC_SIGN_IN);
+			}
+		});
+
+		// sometimes when trying to display the alert dialog window, the activity has already finished
+		// Crashlytics #25
+		try {
+			dialog.show();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -783,9 +834,9 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 				// Successfully signed in
 				FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 				if ( user != null ) {
-					String uid = user.getUid();
-Util.logInfo("===========", "User uid >> " + uid);
-					Util.registerFirebaseLogin(this, uid, PropertyHolder.getUserId());
+					String firebaseUid = user.getUid();
+Util.logInfo("===========", "User uid >> " + firebaseUid);
+					Util.registerFirebaseLogin(this, firebaseUid, PropertyHolder.getUserId());
 					invalidateOptionsMenu();
 				}
 				// https://stackoverflow.com/questions/40365410/how-to-get-firebase-auth-token-without-using-task-listeners

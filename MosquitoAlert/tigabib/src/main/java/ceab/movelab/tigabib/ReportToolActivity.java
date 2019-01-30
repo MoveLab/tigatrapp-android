@@ -59,7 +59,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.crashlytics.android.Crashlytics;
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.iid.FirebaseInstanceId;
 
 import org.json.JSONException;
@@ -152,14 +151,14 @@ public class ReportToolActivity extends Activity {
 
 	private String lang;
 
-	private FirebaseAnalytics mFirebaseAnalytics;
+	//private FirebaseAnalytics mFirebaseAnalytics;
 
 
 	@Override
 	public void onCreate(Bundle icicle) {
 		super.onCreate(icicle);
 
-		Util.logInfo(TAG, "on create ReportTool");
+Util.logInfo(TAG, "on create ReportTool");
 
 		if (!PropertyHolder.isInit())
 			PropertyHolder.init(context);
@@ -167,7 +166,7 @@ public class ReportToolActivity extends Activity {
 		lang = Util.setDisplayLanguage(getResources());
 
 		// Obtain the FirebaseAnalytics instance.
-		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+		//mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
 		Bundle b = getIntent().getExtras();
 		type = b.getInt("type");
@@ -571,15 +570,13 @@ public class ReportToolActivity extends Activity {
 			startActivity(getIntent());
 		}
 
-		if (isEditing) {
+		if ( isEditing ) {
 			// [START set_current_screen]
-			mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_report_tool",
-					( type == Report.TYPE_BREEDING_SITE ? "Report Breeding Site Edit" : "Report Mosquito Edit") );
+			//mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_report_tool",( type == Report.TYPE_BREEDING_SITE ? "Report Breeding Site Edit" : "Report Mosquito Edit") );
 			// [END set_current_screen]
 		} else {
 			// [START set_current_screen]
-			mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_report_tool",
-					( type == Report.TYPE_BREEDING_SITE ? "Report Breeding Site" : "Report Mosquito") );
+			//mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_report_tool",( type == Report.TYPE_BREEDING_SITE ? "Report Breeding Site" : "Report Mosquito") );
 			// [END set_current_screen]
 		}
 

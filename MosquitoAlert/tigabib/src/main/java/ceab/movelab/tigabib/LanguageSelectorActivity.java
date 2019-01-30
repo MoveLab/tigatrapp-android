@@ -22,7 +22,6 @@
 package ceab.movelab.tigabib;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -30,8 +29,6 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.RadioGroup;
-
-import com.google.firebase.analytics.FirebaseAnalytics;
 
 /**
  * Displays the IRB consent form and allows users to consent or decline.
@@ -41,15 +38,12 @@ import com.google.firebase.analytics.FirebaseAnalytics;
  */
 public class LanguageSelectorActivity extends Activity {
 
-	Context context;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-		context = this;
 
 		setContentView(R.layout.language_selector);
 
@@ -78,30 +72,30 @@ public class LanguageSelectorActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// Obtain the FirebaseAnalytics instance.
-				FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(context);
+				//FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(LanguageSelectorActivity.this);
 
 				if (languageRadioGroup.getCheckedRadioButtonId() == R.id.caButton) {
 					PropertyHolder.setLanguage("ca");
 					// [START user_property]
-					mFirebaseAnalytics.setUserProperty("ma_language", "Catalan");
+					//mFirebaseAnalytics.setUserProperty("ma_language", "Catalan");
 					// [END user_property]
 					finish();
 				} else if (languageRadioGroup.getCheckedRadioButtonId() == R.id.esButton) {
 					PropertyHolder.setLanguage("es");
 					// [START user_property]
-					mFirebaseAnalytics.setUserProperty("ma_language", "Spanish");
+					//mFirebaseAnalytics.setUserProperty("ma_language", "Spanish");
 					// [END user_property]
 					finish();
 				} else if (languageRadioGroup.getCheckedRadioButtonId() == R.id.enButton) {
 					PropertyHolder.setLanguage("en");
 					// [START user_property]
-					mFirebaseAnalytics.setUserProperty("ma_language", "English");
+					//mFirebaseAnalytics.setUserProperty("ma_language", "English");
 					// [END user_property]
 					finish();
 				} else if (languageRadioGroup.getCheckedRadioButtonId() == R.id.zhButton) {
 					PropertyHolder.setLanguage("zh");
 					// [START user_property]
-					mFirebaseAnalytics.setUserProperty("ma_language", "Chinese");
+					//mFirebaseAnalytics.setUserProperty("ma_language", "Chinese");
 					// [END user_property]
 					finish();
 				/*} else {

@@ -385,11 +385,18 @@
     <string name="tutorial_6_2">Send good photos and validate photos from other participants to get a higher level.</string>
     <string name="tutorial_7_1">Set your app</string>
     <string name="tutorial_7_2">Configure the app from the menu, go to extra content and adjust the settings.</string>
-    <string name="tutorial_8_1">Now you can start!</string>
-    <string name="tutorial_8_2">You will find more information and tips to take good photos at:\nwww.mosquitoalert.com</string>
-    <string name="tutorial_8_3">START</string>
+    <string name="tutorial_8_1">Save your data</string>
+    <string name="tutorial_8_2">If you want, you can login to save your sightings and score, so that you will be able to synchronize different devices as well as to retrieve your data if you have uninstalled the app.
+        More information on the settings and privacy policy.</string>
+    <string name="tutorial_9_1">Now you can start!</string>
+    <string name="tutorial_9_2">You will find more information and tips to take good photos at:\nwww.mosquitoalert.com</string>
+    <string name="tutorial_9_3">START</string>
 
     <string name="logout_success">Successful logout</string>
     <string name="downloading_user_data">Downloading user data</string>
-    <string name="fui_tos_and_pp" translation_description="Global ToS and privacy policy message"><xliff:g example="https://google.com/terms" id="tos" translation_description="Terms of service text">%1$s</xliff:g> and <xliff:g example="https://google.com/privacy" id="pp" translation_description="Privacy policy text">%2$s</xliff:g>.</string>
+    <string name="login_alert">Logging in using one of these accounts will enable you to save your data and points, retrieve them via another device (if you lose or change your mobile or uninstall the app), and participate via different devices simultaneously. If you prefer not to log in, you can continue anonymously.
+\n\nMosquito Alert never receives personal information when you log in using an external account. All participants are anonymous as far as Mosquito Alert is concerned.
+\n\nSee our privacy policy for more information.</string>
+    <string name="fui_tos_and_pp" translation_description="Global ToS and privacy policy message"> <xliff:g example="https://google.com/terms" id="tos" translation_description="Terms of service text">%1$s</xliff:g> and <xliff:g example="https://google.com/privacy" id="pp" translation_description="Privacy policy text">%2$s</xliff:g>.</string>
+
 </resources>

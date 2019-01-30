@@ -113,9 +113,10 @@ public class TutorialActivity extends Activity {
 				R.layout.tutorial_2_1_layout,
 				R.layout.tutorial_2_2_layout,
 				R.layout.tutorial_2_3_layout,
-				R.layout.tutorial_2_1_layout,
-				R.layout.tutorial_2_1_layout,
-				R.layout.tutorial_2_1_layout};
+				R.layout.tutorial_2_4_layout,
+				R.layout.tutorial_2_5_layout,
+				R.layout.tutorial_2_6_layout,
+				R.layout.tutorial_2_7_layout};
 		viewPager = findViewById(R.id.tutorialViewPager);
 		dotsLayout =  findViewById(R.id.layoutDots);
 		// adding bottom dots

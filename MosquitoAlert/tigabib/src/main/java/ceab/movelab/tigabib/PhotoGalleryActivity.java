@@ -13,8 +13,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Gallery;
 import android.widget.TextView;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
-
 import ceab.movelab.tigabib.adapters.ImageAdapter;
 
 public class PhotoGalleryActivity extends Activity {
@@ -23,7 +21,7 @@ public class PhotoGalleryActivity extends Activity {
 	private TextView captionView;
 	private String lang;
 
-	private FirebaseAnalytics mFirebaseAnalytics;
+	//private FirebaseAnalytics mFirebaseAnalytics;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -58,7 +56,7 @@ public class PhotoGalleryActivity extends Activity {
 			}
 		});
 
-		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+		//mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 	}
 
 	@Override
@@ -71,7 +69,7 @@ public class PhotoGalleryActivity extends Activity {
 		}
 
 		// [START set_current_screen]
-		mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_photo_gallery", "Photo Gallery");
+		//mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_photo_gallery", "Photo Gallery");
 		// [END set_current_screen]
 	}
 

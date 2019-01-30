@@ -32,8 +32,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
-
 /**
  * Displays the License screen.
  * 
@@ -56,7 +54,7 @@ public class LicenseActivity extends Activity {
 
 	private String lang;
 
-	private FirebaseAnalytics mFirebaseAnalytics;
+	//private FirebaseAnalytics mFirebaseAnalytics;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -71,7 +69,7 @@ public class LicenseActivity extends Activity {
 		setContentView(R.layout.webview);
 
 		// Obtain the FirebaseAnalytics instance.
-		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+		//mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 	}
 
 	@Override
@@ -89,7 +87,7 @@ public class LicenseActivity extends Activity {
 		}
 
 		// [START set_current_screen]
-		mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_license", "License");
+		//mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_license", "License");
 		// [END set_current_screen]
 
 		myWebView = (WebView) findViewById(R.id.webview);

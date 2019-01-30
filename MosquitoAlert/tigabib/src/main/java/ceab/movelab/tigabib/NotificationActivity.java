@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.gson.reflect.TypeToken;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Ion;
@@ -26,7 +25,7 @@ public class NotificationActivity extends Activity {
 	private int notificationId;
 	private WebView myWebView;
 
-	private FirebaseAnalytics mFirebaseAnalytics;
+	//private FirebaseAnalytics mFirebaseAnalytics;
 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -65,7 +64,7 @@ Util.logInfo(TAG, String.valueOf(notif.isAcknowledged()));
 		myWebView.loadData(notif.getExpertHtml(), "text/html", "UTF-8");
 		acknowledgeNotification(notif.getId());
 
-		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+		//mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 	}
 
 	private void acknowledgeNotification(int notifId) {
@@ -100,7 +99,7 @@ Util.logInfo("===========", Util.URL_TIGASERVER_API_ROOT + notificationUrl);
 		}
 
 		// [START set_current_screen]
-		mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_notification", "Notification Single");
+		//mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_notification", "Notification Single");
 		// [END set_current_screen]
 	}
 

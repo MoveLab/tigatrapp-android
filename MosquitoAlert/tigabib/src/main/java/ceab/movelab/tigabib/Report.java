@@ -346,8 +346,7 @@ public class Report {
 		return result;
 	}
 
-	public static String getPhotoUri(Context context, JSONArray jsonPhotos,
-			int position) {
+	public static String getPhotoUri(Context context, JSONArray jsonPhotos, int position) {
 		String result = null;
 		if (jsonPhotos == null || jsonPhotos.length() < 1) {
 			// nothing
@@ -361,15 +360,11 @@ public class Report {
 		return result;
 	}
 
-	public static JSONArray deletePhoto(Context context, JSONArray jsonPhotos,
-			String photoUri, int photoTime) {
+	public static JSONArray deletePhoto(Context context, JSONArray jsonPhotos, String photoUri, int photoTime) {
 		JSONArray result = null;
 		try {
-			if (jsonPhotos == null) {
-				// nothing
-			} else {
+			if ( jsonPhotos != null ) {
 				JSONArray newArray = new JSONArray();
-
 				for (int i = 0; i < jsonPhotos.length(); i++) {
 					JSONObject thisJsonObj = jsonPhotos.getJSONObject(i);
 					if (!(thisJsonObj.getString(KEY_PHOTO_URI).equals(photoUri) &&

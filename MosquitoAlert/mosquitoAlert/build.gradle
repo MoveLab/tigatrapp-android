@@ -7,7 +7,7 @@ buildscript {
         // The Fabric Gradle plugin uses an open ended version to react quickly to Android tooling updates
 //         classpath 'io.fabric.tools:gradle:1.+'
         // https://maven.fabric.io/public/io/fabric/tools/gradle/maven-metadata.xml
-        classpath 'io.fabric.tools:gradle:1.25.1'  // 1.22.0' // 1.21.5
+        classpath 'io.fabric.tools:gradle:1.26.1'  // 1.22.0' // 1.21.5
     }
 }
 
@@ -36,14 +36,14 @@ android {
     }
 
     compileSdkVersion 27
-    buildToolsVersion '27.0.3'
+    buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "ceab.movelab.tigatrapp"
         minSdkVersion 16
-        targetSdkVersion 25
+        targetSdkVersion 26
         multiDexEnabled true
-        versionCode 27  /* 26 is 1.61 current production version code */
-        versionName "1.63"
+        versionCode 29  /* 26 is 1.61 current production version code */
+        versionName "1.64"
     }
 
     buildTypes {
@@ -76,10 +76,11 @@ dependencies {
     //debugCompile project(path: ':tigabib', configuration: 'debug')
     implementation project(':tigabib')
 
-    implementation 'com.google.firebase:firebase-core:16.0.1'       // 12.0.1, 11.8.0, 10.0.1
-    implementation 'com.google.firebase:firebase-messaging:17.1.0'  // 12.0.1, 11.8.0, 10.0.1
+    implementation 'com.google.firebase:firebase-core:16.0.1'       // 16.0.1, 12.0.1, 11.8.0, 10.0.1
+    implementation 'com.google.firebase:firebase-messaging:17.1.0'  // 17.1.0, 12.0.1, 11.8.0, 10.0.1
 
-    implementation ('com.firebaseui:firebase-ui-auth:4.1.0') {
+    // https://github.com/firebase/FirebaseUI-Android
+    implementation ('com.firebaseui:firebase-ui-auth:4.2.0') {  // 4.1.0
         transitive = true
     }
 

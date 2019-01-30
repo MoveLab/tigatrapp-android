@@ -15,8 +15,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.google.firebase.analytics.FirebaseAnalytics;
-
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserFactory;
 
@@ -55,7 +53,7 @@ public class RSSActivity extends Activity {
 
 	private String lang;
 
-	private FirebaseAnalytics mFirebaseAnalytics;
+	//private FirebaseAnalytics mFirebaseAnalytics;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -102,7 +100,7 @@ public class RSSActivity extends Activity {
 		});
 
 		// Obtain the FirebaseAnalytics instance.
-		mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
+		//mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 	}
 
 	@Override
@@ -115,7 +113,7 @@ public class RSSActivity extends Activity {
 		}
 
 		// [START set_current_screen]
-		mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_news_list", "News List");
+		//mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_news_list", "News List");
 		// [END set_current_screen]
 
 		setInfoDisplay(this, true, thisUrl);

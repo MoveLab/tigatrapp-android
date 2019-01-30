@@ -31,7 +31,7 @@
 
     <dimen name="tutorial_global_margin">32dp</dimen>
     <dimen name="tutorial_text_margin_LR">16dp</dimen>
-    <dimen name="tutorial_text_margin_TB">16dp</dimen>
+    <dimen name="tutorial_text_margin_TB">10dp</dimen>
     <dimen name="tutorial_height_dots">60dp</dimen>
 
 </resources>

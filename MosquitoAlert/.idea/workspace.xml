@@ -76,71 +76,7 @@
     <bookmark url="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ReportToolActivity.java" line="964" mnemonic="2" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fd4c6398-fd5a-4321-ba38-0a3db62a4707" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_firebaseui_firebase_ui_auth_4_2_0.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_auth_16_0_0.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_auth_base_15_1_0.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_auth_16_0_3.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/tigabib/src/main/res/drawable-xxhdpi/img_slide7.png" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/tigabib/src/main/res/layout/tutorial_2_4_layout.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/tigabib/src/main/res/layout/tutorial_2_5_layout.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/tigabib/src/main/res/layout/tutorial_2_6_layout.xml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/tigabib/src/main/res/layout/tutorial_2_7_layout.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_ads_identifier_16_0_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_base_16_0_1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_basement_16_0_1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_measurement_base_16_0_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_stats_16_0_1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_android_gms_play_services_tasks_16_0_1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_analytics_16_0_1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_analytics_impl_16_1_1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_common_16_0_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_core_16_0_6.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_iid_16_2_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_iid_interop_16_0_1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_measurement_connector_17_0_1.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_measurement_connector_impl_17_0_4.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_messaging_17_1_0.xml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" afterPath="$PROJECT_DIR$/build.gradle" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" />
-      <change beforePath="$PROJECT_DIR$/mosquitoAlert/build.gradle" afterPath="$PROJECT_DIR$/mosquitoAlert/build.gradle" />
-      <change beforePath="$PROJECT_DIR$/mosquitoAlert/mosquitoAlert.iml" afterPath="$PROJECT_DIR$/mosquitoAlert/mosquitoAlert.iml" />
-      <change beforePath="$PROJECT_DIR$/mosquitoAlert/release/output.json" afterPath="$PROJECT_DIR$/mosquitoAlert/release/output.json" />
-      <change beforePath="$PROJECT_DIR$/mosquitoAlertDemo/build.gradle" afterPath="$PROJECT_DIR$/mosquitoAlertDemo/build.gradle" />
-      <change beforePath="$PROJECT_DIR$/mosquitoAlertDemo/mosquitoAlertDemo.iml" afterPath="$PROJECT_DIR$/mosquitoAlertDemo/mosquitoAlertDemo.iml" />
-      <change beforePath="$PROJECT_DIR$/tigabib/build.gradle" afterPath="$PROJECT_DIR$/tigabib/build.gradle" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ConsentActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ConsentActivity.java" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/HelpActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/HelpActivity.java" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/LanguageSelectorActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/LanguageSelectorActivity.java" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/LicenseActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/LicenseActivity.java" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/NotificationActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/NotificationActivity.java" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/NotificationListActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/NotificationListActivity.java" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PhotoGalleryActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PhotoGalleryActivity.java" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PhotoValidationHelpActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PhotoValidationHelpActivity.java" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/RSSActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/RSSActivity.java" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/Report.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/Report.java" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ReportToolActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ReportToolActivity.java" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SettingsActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SettingsActivity.java" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SimpleFileDialog.java" afterPath="$PROJECT_DIR$/../SimpleFileDialog.java" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SplashActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SplashActivity.java" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SwitchboardActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SwitchboardActivity.java" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/TutorialActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/TutorialActivity.java" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/Util.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/Util.java" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/fcm/MyFirebaseInstanceIDService.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/fcm/MyFirebaseInstanceIDService.java" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/res/layout/language_selector.xml" afterPath="$PROJECT_DIR$/tigabib/src/main/res/layout/language_selector.xml" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/res/layout/settings.xml" afterPath="$PROJECT_DIR$/tigabib/src/main/res/layout/settings.xml" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/res/layout/tutorial_3_layout.xml" afterPath="$PROJECT_DIR$/tigabib/src/main/res/layout/tutorial_3_layout.xml" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/res/values-ca/strings.xml" afterPath="$PROJECT_DIR$/tigabib/src/main/res/values-ca/strings.xml" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/res/values-es/strings.xml" afterPath="$PROJECT_DIR$/tigabib/src/main/res/values-es/strings.xml" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/res/values-h400dp/styles.xml" afterPath="$PROJECT_DIR$/tigabib/src/main/res/values-h400dp/styles.xml" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/res/values-h600dp/dimens.xml" afterPath="$PROJECT_DIR$/tigabib/src/main/res/values-h600dp/dimens.xml" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/res/values-zh/strings.xml" afterPath="$PROJECT_DIR$/tigabib/src/main/res/values-zh/strings.xml" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/tigabib/src/main/res/values/strings.xml" />
-      <change beforePath="$PROJECT_DIR$/tigabib/tigabib.iml" afterPath="$PROJECT_DIR$/tigabib/tigabib.iml" />
-    </list>
+    <list default="true" id="fd4c6398-fd5a-4321-ba38-0a3db62a4707" name="Default" comment="" />
     <ignored path="MosquitoAlert.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/.gradle/" />
@@ -5055,7 +4991,7 @@
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
+  <component name="ProjectFrameBounds" extendedState="7">
     <option name="x" value="1" />
     <option name="y" value="1" />
     <option name="width" value="1278" />
@@ -5168,7 +5104,7 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
     <property name="ExportApk.SignV1" value="true" />
     <property name="android.profiler.active" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548876943473" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1548879634479" />
     <property name="sync.plugin.last.upgrade.timestamp" value="1523387436413" />
   </component>
   <component name="RecentsManager">
@@ -5792,7 +5728,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />

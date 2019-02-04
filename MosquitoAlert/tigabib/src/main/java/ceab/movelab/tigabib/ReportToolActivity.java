@@ -42,6 +42,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Html;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -90,7 +91,7 @@ public class ReportToolActivity extends Activity {
 	private boolean gpsAvailable;
 	private boolean networkLocationAvailable;
 
-	private boolean isEditing;
+	private boolean isEditing = false;
 
 	private Report thisReport;
 
@@ -160,7 +161,7 @@ public class ReportToolActivity extends Activity {
 
 Util.logInfo(TAG, "on create ReportTool");
 
-		if (!PropertyHolder.isInit())
+		if ( !PropertyHolder.isInit() )
 			PropertyHolder.init(context);
 
 		lang = Util.setDisplayLanguage(getResources());
@@ -169,8 +170,10 @@ Util.logInfo(TAG, "on create ReportTool");
 		//mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
 		Bundle b = getIntent().getExtras();
-		type = b.getInt("type");
-		isEditing = b.containsKey("reportId");
+		if ( b != null ) {
+			type = b.getInt("type");
+			isEditing = b.containsKey("reportId");
+		}
 
 		if ( isEditing ) {
 
@@ -271,7 +274,7 @@ Util.logInfo(TAG, "on create ReportTool");
 		reportCurrentLocationImage = (ImageView) findViewById(R.id.reportCurrentLocationImage);
 		buttonReportSubmit = (Button) findViewById(R.id.buttonReportSubmit);
 
-		if (isEditing) {
+		if ( isEditing ) {
 			reportTitle.setText((type == Report.TYPE_BREEDING_SITE ? getResources().getString(R.string.edit_title_site) : getResources().getString(R.string.edit_title_adult)) + "\n"
 							+ getResources().getString(R.string.created_on) + " "
 							+ Util.userDate(new Date((thisReport.reportTime))));
@@ -474,9 +477,9 @@ Util.logInfo(TAG, "on create ReportTool");
 					reportCurrentLocationImage.setBackgroundDrawable(getResources().getDrawable(R.drawable.ic_action_location_found));
 				}
 
-				if (location.getAccuracy() < 100) {
+				if ( location.getAccuracy() < 100 ) {
 					removeLocationUpdates();
-					if (countDownTimer != null) {
+					if ( countDownTimer != null ) {
 						try {
 							countDownTimer.cancel();
 						} catch (Exception e) {
@@ -487,7 +490,6 @@ Util.logInfo(TAG, "on create ReportTool");
 					}
 					countDownTimer.start();
 				}
-
 			}
 		}
 
@@ -517,7 +519,7 @@ Util.logInfo(TAG, "on create ReportTool");
 			 */
 			if ( status != LocationProvider.AVAILABLE ) {
 				removeLocationUpdate(provider);
-				if (countDownTimer != null) {
+				if ( countDownTimer != null ) {
 					try {
 						countDownTimer.cancel();
 					} catch (Exception e) {
@@ -624,63 +626,66 @@ Util.logInfo(TAG, "on create ReportTool");
 	@Override
 	public void onPause() {
 		super.onPause();
-		Util.logInfo(TAG, "on pause");
+Util.logInfo(TAG, "on pause");
 
 		removeLocationUpdates();
-		try {
-			countDownTimer.cancel();
-		} catch (Exception e) {
-			Util.logError(TAG, "exception cancelling countdown timer");
+		if ( countDownTimer != null ) {
+			try {
+				countDownTimer.cancel();
+			} catch (Exception e) {
+Util.logError(TAG, "exception cancelling countdown timer");
+			}
+			countDownTimer = null;
 		}
-		countDownTimer = null;
 	}
 
 	@Override
 	public void onStop() {
 		super.onStop();
-		Util.logInfo(TAG, "on stop");
+Util.logInfo(TAG, "on stop");
 
 		removeLocationUpdates();
-		try {
-			countDownTimer.cancel();
-		} catch (Exception e) {
-			Util.logError(TAG, "exception cancelling countdown timer");
+		if ( countDownTimer != null ) {
+			try {
+				countDownTimer.cancel();
+			} catch (Exception e) {
+Util.logError(TAG, "exception cancelling countdown timer");
+			}
+			countDownTimer = null;
 		}
-		countDownTimer = null;
 	}
 
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
-		Util.logInfo(TAG, "on destroy");
+Util.logInfo(TAG, "on destroy");
 
 		removeLocationUpdates();
 		clearFields();
 		try {
 			countDownTimer.cancel();
 		} catch (Exception e) {
-			Util.logError(TAG, "exception cancelling countdown timer");
+Util.logError(TAG, "exception cancelling countdown timer ");
 		}
 		countDownTimer = null;
 	}
 
 	// utilities
 	private void removeLocationUpdates() {
-		Util.logInfo(TAG, "remove location updates");
-
+		//Util.logInfo(TAG, "remove location updates");
 		try {
-			if (locationManager != null) {
-				Util.logInfo(TAG, "remove location updates 1");
-				if (gpsListener != null)
+			if ( locationManager != null ) {
+				//Util.logInfo(TAG, "remove location updates 1");
+				if ( gpsListener != null )
 					locationManager.removeUpdates(gpsListener);
-				if (networkListener != null)
+				if ( networkListener != null )
 					locationManager.removeUpdates(networkListener);
 			} else {
-				Util.logInfo(TAG, "remove location updates 2");
+				//Util.logInfo(TAG, "remove location updates 2");
 				locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-				if (gpsListener != null)
+				if ( gpsListener != null )
 					locationManager.removeUpdates(gpsListener);
-				if (networkListener != null)
+				if ( networkListener != null )
 					locationManager.removeUpdates(networkListener);
 			}
 		} catch (SecurityException se) {
@@ -695,14 +700,14 @@ Util.logInfo(TAG, "on create ReportTool");
 	// utilities
 	private void removeLocationUpdate(String provider) {
 		try {
-			if (locationManager != null) {
+			if ( locationManager != null ) {
 				if ( provider.contentEquals(LocationManager.NETWORK_PROVIDER) ) {
-					if (networkListener != null) {
+					if ( networkListener != null ) {
 						locationManager.removeUpdates(networkListener);
 						networkListener = null;
 					}
 				} else {
-					if (gpsListener != null) {
+					if ( gpsListener != null ) {
 						locationManager.removeUpdates(gpsListener);
 						gpsListener = null;
 					}
@@ -710,12 +715,12 @@ Util.logInfo(TAG, "on create ReportTool");
 			} else {
 				locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 				if ( provider.contentEquals(LocationManager.NETWORK_PROVIDER) ) {
-					if (networkListener != null) {
+					if ( networkListener != null ) {
 						locationManager.removeUpdates(networkListener);
 						networkListener = null;
 					}
 				} else {
-					if (gpsListener != null) {
+					if ( gpsListener != null ) {
 						locationManager.removeUpdates(gpsListener);
 						gpsListener = null;
 					}
@@ -745,7 +750,6 @@ Util.logInfo(TAG, "on create ReportTool");
 		Button cancel = (Button) dialog.findViewById(R.id.alertCancel);
 
 		positive.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
 				removeLocationUpdates();
@@ -785,7 +789,6 @@ Util.logInfo(TAG, "on create ReportTool");
 		});
 
 		cancel.setOnClickListener(new OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
 				dialog.cancel();
@@ -796,7 +799,7 @@ Util.logInfo(TAG, "on create ReportTool");
 	}
 
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (!Util.setDisplayLanguage(getResources()).equals(lang)) {
+		if ( !Util.setDisplayLanguage(getResources()).equals(lang) ) {
 			finish();
 			startActivity(getIntent());
 		}
@@ -871,11 +874,11 @@ Util.logInfo(TAG, "on create ReportTool");
 		case REQUEST_CODE_REPORT_RESPONSES: {
 			reportConfirmationCheck.setChecked(false);
 			if ( resultCode == RESULT_OK ) {
-				if (data.hasExtra(Tasks.KEY_RESPONSES_JSON)) {
-					String responses = data.getStringExtra(Tasks.KEY_RESPONSES_JSON);
-					thisReport.confirmation = responses;
+				if ( data.hasExtra(Tasks.KEY_RESPONSES_JSON )) {
+					//String responses = data.getStringExtra(Tasks.KEY_RESPONSES_JSON);
+					thisReport.confirmation = data.getStringExtra(Tasks.KEY_RESPONSES_JSON);
 				}
-				if (data.hasExtra(Reports.KEY_CONFIRMATION_CODE)) {
+				if ( data.hasExtra(Reports.KEY_CONFIRMATION_CODE )) {
 					thisReport.confirmationCode = data.getIntExtra(
 							Reports.KEY_CONFIRMATION_CODE,
 							Report.CONFIRMATION_CODE_POSITIVE);
@@ -918,7 +921,6 @@ Util.logInfo(TAG, "on create ReportTool");
 
 		@Override
 		protected void onPreExecute() {
-
 			resultFlag = SUCCESS;
 
 			mProgDialog = new ProgressDialog(mContext);
@@ -937,7 +939,6 @@ Util.logInfo(TAG, "on create ReportTool");
 		}
 
 		protected Boolean doInBackground(Context... context) {
-
 			myProgress = 2;
 			publishProgress(myProgress);
 
@@ -945,8 +946,9 @@ Util.logInfo(TAG, "on create ReportTool");
 			if ( !isEditing )
 				mReport.creation_time = Util.ecma262(System.currentTimeMillis());
 
-			myProgress = 4;
+			myProgress = 6;
 			publishProgress(myProgress);
+Log.d("PROGRESS:: ", String.valueOf(myProgress));
 
 			thisReport.phoneManufacturer = Build.MANUFACTURER;
 			thisReport.phoneModel = Build.MODEL;
@@ -957,6 +959,7 @@ Util.logInfo(TAG, "on create ReportTool");
 
 			myProgress = 10;
 			publishProgress(myProgress);
+Log.d("PROGRESS:: ", String.valueOf(myProgress));
 
 			// First save report to internal DB
 			Uri repUri = Util.getReportsUri(context[0]);
@@ -971,6 +974,7 @@ Util.logInfo(TAG, "on create ReportTool");
 
 			myProgress = 20;
 			publishProgress(myProgress);
+Log.d("PROGRESS:: ", String.valueOf(myProgress));
 
 			if ( !Util.privateMode() ) {
 				// now test if there is a data connection
@@ -989,14 +993,16 @@ Util.logInfo(TAG, "on create ReportTool");
 					}
 				}
 
-				myProgress = 80;
+				myProgress = 40;
 				publishProgress(myProgress);
+Log.d("PROGRESS:: ", String.valueOf(myProgress));
 
 				int uploadResult = thisReport.upload(context[0]);
 
-				if ( uploadResult == Report.UPLOADED_ALL ) {
+				if ( uploadResult == Report.UPLOADED_ALL && thisReportUri != null ) {
 					myProgress = 100;
 					publishProgress(myProgress);
+Log.d("PROGRESS:: ", String.valueOf(myProgress));
 					// mark as uploaded
 					cv = new ContentValues();
 					cv.put(Reports.KEY_UPLOADED, uploadResult);
@@ -1086,7 +1092,7 @@ Util.logInfo(TAG, "n updated " + nUpdated);
 
 		final EditText noteText = (EditText) dialog.findViewById(R.id.noteEditText);
 
-		if (thisReport.note != null && thisReport.note.length() > 0)
+		if ( thisReport.note != null && thisReport.note.length() > 0 )
 			noteText.setText(thisReport.note);
 
 		Button okB = (Button) dialog.findViewById(R.id.addNoteOKButton);
@@ -1130,7 +1136,6 @@ Util.logInfo(TAG, "n updated " + nUpdated);
 		});
 
 		dialog.show();
-
 	}
 
 	public void buildLocationMenu() {
@@ -1161,9 +1166,9 @@ Util.logInfo(TAG, "n updated " + nUpdated);
 					locationRadioGroup.check(R.id.whereRadioButtonHere);
 					reportLocationCheck.setChecked(true);
 					has_edited_location = true;
+
 					final float cLat = (float) currentLocation.getLatitude();
 					final float cLon = (float) currentLocation.getLongitude();
-
 					thisReport.currentLocationLat = cLat;
 					thisReport.currentLocationLon = cLon;
 					thisReport.locationChoice = Report.LOCATION_CHOICE_CURRENT;
@@ -1191,9 +1196,7 @@ Util.logInfo(TAG, "n updated " + nUpdated);
 				dialog.cancel();
 			}
 		});
-
 		dialog.show();
-
 	}
 
 	public void buildAlertMessageNoGpsNoNet(String message) {
@@ -1222,13 +1225,11 @@ Util.logInfo(TAG, "n updated " + nUpdated);
 				dialog.cancel();
 			}
 		});
-
 		dialog.show();
-
 	}
 
 	public class MyCountDownTimer extends CountDownTimer {
-		public MyCountDownTimer(long startTime, long interval) {
+		private MyCountDownTimer(long startTime, long interval) {
 			super(startTime, interval);
 		}
 
@@ -1239,21 +1240,21 @@ Util.logInfo(TAG, "n updated " + nUpdated);
 			if ( locationManager == null ) {
 				locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 			}
-
-			try {
-				if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-					gpsListener = new mLocationListener();
-					locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, gpsListener);
-					gpsAvailable = true;
+			if ( locationManager != null ) {
+				try {
+					if ( locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ) {
+						gpsListener = new mLocationListener();
+						locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, gpsListener);
+						gpsAvailable = true;
+					}
+					if ( locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) ) {
+						networkListener = new mLocationListener();
+						locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, networkListener);
+						networkLocationAvailable = true;
+					}
+				} catch (SecurityException se) {
+					Util.logCrashlyticsException("ReportToolActivity: onFinish", se);
 				}
-				if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
-					networkListener = new mLocationListener();
-					locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, networkListener);
-					networkLocationAvailable = true;
-				}
-			} catch (SecurityException se) {
-				Crashlytics.log("ReportToolActivity: onFinish");
-				Crashlytics.logException(new SecurityException());
 			}
 		}
 
@@ -1276,7 +1277,6 @@ Util.logInfo(TAG, "n updated " + nUpdated);
 						startActivity(i);
 						finish();
 					}
-
 				});
 
 		dialog.setNegativeButton(getResources().getString(R.string.cancel), new DialogInterface.OnClickListener() {

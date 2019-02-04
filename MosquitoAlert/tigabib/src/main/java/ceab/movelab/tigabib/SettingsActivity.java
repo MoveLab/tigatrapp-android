@@ -225,7 +225,7 @@ Util.logInfo(TAG, "sync button clicked");
 					}
 				}
 
-				myProgress = 5;
+				myProgress = 6;
 				publishProgress(myProgress);
 
 				// try to get config
@@ -318,7 +318,6 @@ Util.logError(TAG, "error: " + e);
 				int fixcounter = 1;
 
 				while ( !c.isAfterLast() ) {
-
 					myProgress = myProgress + 40 * fixcounter / fixtotal;
 					publishProgress(myProgress);
 					fixcounter++;

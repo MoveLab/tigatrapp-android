@@ -446,21 +446,21 @@ public class SwitchboardActivity extends Activity {
     params.putString(FirebaseAnalytics.Param.ITEM_NAME, name);
     mFirebaseAnalytics.logEvent(FirebaseAnalytics.Event.VIEW_ITEM, params);*/
 
-		if (mRealm == null) {
+		if ( mRealm == null ) {
 			try {
-				Util.logInfo(this.getClass().getName(), "onResume Realm ==================");
+Util.logInfo(this.getClass().getName(), "onResume Realm ==================");
 				mRealm = RealmHelper.getInstance().getRealm(this);
-				Util.logInfo(this.getClass().getName(), "onResume Realm 2");
+Util.logInfo(this.getClass().getName(), "onResume Realm 2");
 			}
 			// https://github.com/realm/realm-java/issues/3264
 			catch (IllegalArgumentException e) {
 				e.printStackTrace();
-				Util.logInfo(this.getClass().getName(), "onResume IllegalArgumentException");
+Util.logInfo(this.getClass().getName(), "onResume IllegalArgumentException");
 				// throw non-fatal
 				Crashlytics.log("Realm deleting");
 				//Crashlytics.setString("Method", "updateNotificationCount");
 				Crashlytics.logException(e);
-				if (mRealm != null && !mRealm.isClosed())
+				if ( mRealm != null && !mRealm.isClosed() )
 					mRealm.close(); // Remember to close Realm when done.
 				RealmConfiguration config = new RealmConfiguration.Builder()
 						.name("myRealmDB.realm")
@@ -472,10 +472,10 @@ public class SwitchboardActivity extends Activity {
 			}
 		}
 
-		LocalBroadcastManager.getInstance(this)
-				.registerReceiver(mMissionsBroadcastReceiver, new IntentFilter(Messages.SHOW_TASK_NOTIFICATION));
+		LocalBroadcastManager.getInstance(this).registerReceiver(mMissionsBroadcastReceiver,
+				new IntentFilter(Messages.SHOW_TASK_NOTIFICATION));
 
-		if (mPermissionsDenied.size() == 0) {
+		if ( mPermissionsDenied.size() == 0 ) {
 			loadRemoteNotifications();
 			loadScore(); // !!! optimization, call this load score only if the notifications array is empty.
 			updateNotificationCount();
@@ -490,11 +490,10 @@ public class SwitchboardActivity extends Activity {
 	}
 
 	private void loadRemoteNotifications() {
-		//  (recordeu que a la crida de notificacions se li pot passar un paràmetre locale=[es|ca|en] per controlar l'idioma de les notificacions).
+		//  !!(recordeu que a la crida de notificacions se li pot passar un paràmetre locale=[es|ca|en] per controlar l'idioma de les notificacions).
 		String notificationUrl = Util.URL_TIGASERVER_API_ROOT + Util.API_NOTIFICATION + "?user_id=" + PropertyHolder.getUserId();
-//Util.logInfo("==============", "TEST");
-		Util.logInfo("===========", "Authorization >> " + UtilLocal.TIGASERVER_AUTHORIZATION);
-		Util.logInfo("===========", notificationUrl);
+Util.logInfo("===========", "Authorization >> " + UtilLocal.TIGASERVER_AUTHORIZATION);
+Util.logInfo("===========", notificationUrl);
 		Ion.with(this)
 				.load(notificationUrl)
 				.setHeader("Accept", "application/json")
@@ -506,9 +505,9 @@ public class SwitchboardActivity extends Activity {
 					@Override
 					public void onCompleted(Exception e, List<Notification> result) {
 						// do stuff with the result or error
-						Util.logInfo("===========", "result " + result);
+Util.logInfo("===========", "result " + result);
 						if (result != null && result.size() > 0) {
-							Util.logInfo(this.getClass().getName(), "loadRemoteNotifications >> " + result.toString());
+Util.logInfo(this.getClass().getName(), "loadRemoteNotifications >> " + result.toString());
 							RealmHelper.getInstance().addOrUpdateNotificationList(mRealm, result);
 						}
 						updateNotificationCount();
@@ -521,8 +520,8 @@ public class SwitchboardActivity extends Activity {
 		// http://humboldt.ceab.csic.es/api/user_score/?user_id=be0fb42b-6cb2-4cfc-bc92-8762b86faf89 >> Nexus 5
 		// 2d039878-0aab-454a-862e-626011b780ff
 		String notificationUrl = Util.URL_TIGASERVER_API_ROOT + Util.API_SCORE + "?user_id=" + PropertyHolder.getUserId();
-		Util.logInfo("===========", "Authorization >> " + UtilLocal.TIGASERVER_AUTHORIZATION);
-		Util.logInfo("===========", notificationUrl);
+Util.logInfo("===========", "Authorization >> " + UtilLocal.TIGASERVER_AUTHORIZATION);
+Util.logInfo("===========", notificationUrl);
 		Ion.with(this)
 				.load(notificationUrl)
 				.setHeader("Accept", "application/json")
@@ -544,7 +543,7 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 	}
 
 	private void updateScoreScreenFromRealm() {
-		if (mRealm != null && !mRealm.isClosed()) {
+		if ( mRealm != null && !mRealm.isClosed() ) {
 			Score score = RealmHelper.getInstance().getScore(mRealm);
 
 			if (score != null && score.getScore() != null) {
@@ -567,7 +566,7 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 	}
 
 	private void updateNotificationCount() {
-		if (mRealm != null && !mRealm.isClosed()) {
+		if ( mRealm != null && !mRealm.isClosed() ) {
 			int count = RealmHelper.getInstance().getNewNotificationsCount(mRealm);
 			try {    // Crashlytics error #38
 				((TextView) findViewById(R.id.reportNotificationsNumberText)).setText(count > 99 ? "99+" : String.valueOf(count));
@@ -610,7 +609,7 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+		if ( keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0 ) {
 			// do something on back.
 			finish();
 			return true;
@@ -626,7 +625,7 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 		MenuInflater inflater = getMenuInflater();
 		FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
 
-		if (currentUser != null) {
+		if ( currentUser != null ) {
 			for (UserInfo profile : currentUser.getProviderData()) {
 				// Id of the provider (ex: google.com)
 				String providerId = profile.getProviderId();
@@ -641,7 +640,6 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 Util.logInfo("Switchboardd", "Provider ID: " + providerId + "\nUid: " + uid +
 						"\nName: " + name + "\nEmail; " + email + "\nPhoto " + photoUrl);
 			}
-			;
 		}
 
 		// Check if user is signed in (non-null) and update UI accordingly.
@@ -740,8 +738,11 @@ Util.logInfo("Switchboardd", "Provider ID: " + providerId + "\nUid: " + uid +
 //			mFirebaseAnalytics.logEvent("ma_evt_web", bundle);
 		} else if (item.getItemId() == R.id.login) {
 			// Comprovar if Util.isOnline first
-
-			createLoginDialog();
+			if (!isOnline(SwitchboardActivity.this)) {
+				//Toast.makeText(SwitchboardActivity.this, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+			} else {
+				createLoginDialog();
+			}
 
 			return true;
 		} else if (item.getItemId() == R.id.logout) {

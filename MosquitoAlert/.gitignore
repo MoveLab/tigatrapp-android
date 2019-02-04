@@ -31,13 +31,11 @@ MosquitoAlert/tigabib/src/main/java/ceab/movelab/tigabib/UtilLocal.java
 
 # Android Studio
 *.iml
-MosquitoAlert/mosquitoAlert/*.iml
-MosquitoAlert/mosquitoAlertDemo/*.iml
-MosquitoAlert/tigabib/*.iml
+mosquitoAlert/*.iml
+mosquitoAlertDemo/*.iml
+tigabib/*.iml
 .idea/workspace.xml
 .idea/libraries
-MosquitoAlert/.idea/workspace.xml
-MosquitoAlert/.idea/caches/
 .navigation
 captures/
 output.json 

@@ -32,7 +32,7 @@ android {
     buildToolsVersion "28.0.3"  //"27.0.3" // "25.0.2" // "24.0.3"  // "23.0.2"
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 27
     }
 
     buildTypes {
@@ -45,8 +45,8 @@ android {
             ext.enableCrashlytics = false
         }
         release {
-            buildConfigField "boolean", "PYBOSSA_LIVE", "false" //  !!!!$$$$ true for final release
-            buildConfigField "boolean", "SERVER_LIVE", "false"  //  !!!!$$$$ true for final release
+            buildConfigField "boolean", "PYBOSSA_LIVE", "true" //  !!!!$$$$ true for final release
+            buildConfigField "boolean", "SERVER_LIVE", "true"  //  !!!!$$$$ true for final release
             buildConfigField "boolean", "ENABLE_CRASHLYTICS", "true"
             buildConfigField "boolean", "PRIVATE_MODE", "false"
             debuggable true //  !!!!$$$$
@@ -75,15 +75,15 @@ android {
 dependencies {
     implementation 'com.android.support:multidex:1.0.3'
 
-    implementation 'com.android.support:support-v4:27.1.1'      // 27.1.0, 25.0.1
-    implementation 'com.android.support:appcompat-v7:27.1.1'    // 27.1.0, 25.0.1
-    implementation 'com.android.support:design:27.1.1'          // 27.1.0, 25.0.1
+    implementation 'com.android.support:support-v4:27.1.0'      // 27.1.0, 25.0.1
+    implementation 'com.android.support:appcompat-v7:27.1.0'    // 27.1.0, 25.0.1
+    implementation 'com.android.support:design:27.1.0'          // 27.1.0, 25.0.1
     //implementation 'com.android.support:customtabs:27.1.0' // 25.0.1 // chrome tabs
 
     implementation 'com.google.firebase:firebase-core:16.0.1'       // 16.0.1, 12.0.1, 11.8.0, 10.0.1
     implementation 'com.google.firebase:firebase-messaging:17.1.0'  // 17.1.0, 12.0.1, 11.8.0, 10.0.1
-    implementation 'com.google.android.gms:play-services-maps:15.0.1'       // 12.0.1, 11.8.0, 11.0.4, 10.0.1
-    implementation 'com.google.android.gms:play-services-location:15.0.1'   // 12.0.1, 11.8.0, 11.0.4. 10.0.1
+    implementation 'com.google.android.gms:play-services-maps:16.0.0'       // 15.0.1, 12.0.1, 11.8.0, 11.0.4, 10.0.1
+    implementation 'com.google.android.gms:play-services-location:16.0.0'   // 15.0.1, 12.0.1, 11.8.0, 11.0.4. 10.0.1
 
     implementation ('com.firebaseui:firebase-ui-auth:4.1.0') { // 3.3.0
         transitive = true
@@ -111,7 +111,7 @@ dependencies {
     //debugImplementation 'com.facebook.stetho:stetho:1.4.1'// 1.3.1
     //debugImplementation 'com.uphyca:stetho_realm:2.0.0'// 0.9.0
 
-    implementation('com.crashlytics.sdk.android:crashlytics:2.9.3@aar') {
+    implementation('com.crashlytics.sdk.android:crashlytics:2.9.8@aar') { // 2.9.3
         transitive = true
     }
 }

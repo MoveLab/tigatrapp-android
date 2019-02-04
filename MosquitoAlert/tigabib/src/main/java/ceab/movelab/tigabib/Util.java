@@ -93,6 +93,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -186,6 +187,12 @@ public class Util {
 	public static void logInfo(String tag, String message) {
 		if ( debugModeLog() )
 			Log.i(tag, message);
+	}
+
+	public static void logCrashlyticsException(String msg,  Exception e) {
+		Util.logError(TAG, "Exception [" + msg + "]: " + e);
+		Crashlytics.log(msg);
+		Crashlytics.logException(e);
 	}
 
 	public static void internalBroadcast(Context context, String message) {
@@ -887,7 +894,7 @@ Log.e(TAG, "Connection error", e);
 	public static HttpResponse postJSON(JSONObject jsonData, String apiEndpoint, Context context) {
 		HttpResponse result = null;
 		if ( !isOnline(context) ) {
-			return null;
+			return result;
 		} else {
 			try {
 				HttpParams httpParameters = new BasicHttpParams();
@@ -905,10 +912,11 @@ Log.e(TAG, "Connection error", e);
 				httpost.setHeader("Authorization", TIGASERVER_AUTHORIZATION);
 
 				result = httpclient.execute(httpost);
+				return result;
 			} catch (UnsupportedEncodingException e) {
-				Util.logError(TAG, "error: " + e);
+				Util.logCrashlyticsException("postJSON", e);
 			} catch (IOException e) {
-				Util.logError(TAG, "error: " + e);
+				Util.logCrashlyticsException("postJSON", e);
 			}
 			return result;
 		}

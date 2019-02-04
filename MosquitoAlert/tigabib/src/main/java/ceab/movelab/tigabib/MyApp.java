@@ -72,6 +72,7 @@ import android.support.multidex.MultiDexApplication;
 
 import com.crashlytics.android.Crashlytics;
 import com.crashlytics.android.core.CrashlyticsCore;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import ceab.movelab.tigabib.model.DataModel;
 import ceab.movelab.tigabib.model.RealmHelper;
@@ -95,7 +96,10 @@ public class MyApp extends MultiDexApplication {
 				.build();
 		// Initialize Fabric with the debug-disabled crashlytics.
 		Fabric.with(this, crashlyticsKit);  //  do not turn on if in debuggable mode
-		//Fabric.with(this, new Crashlytics());	// turn on Crashlytics anyway
+		//Fabric.with(this, new Crashlytics());		// turn on Crashlytics anyway
+
+		// https://firebase.google.com/support/guides/disable-analytics#temporarily_disable_collection_1
+		FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(false); // !!! Comentar amb Jordi
 
 		RealmHelper.initialize(this);
 		Realm.init(this); // used in Realm 2.0.0+

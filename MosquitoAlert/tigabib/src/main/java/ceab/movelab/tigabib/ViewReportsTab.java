@@ -214,7 +214,6 @@ public class ViewReportsTab extends TabActivity {
 
 		@Override
 		protected void onPreExecute() {
-
 			PropertyHolder.init(context);
 			resultFlag = SUCCESS;
 

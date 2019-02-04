@@ -27,7 +27,7 @@ android {
     defaultConfig {
         applicationId "ceab.movelab.tigerapp"
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 27
         versionCode 29  /* 28 is current production code */
         versionName "Mosquito Alert Demo 1.04"
     }

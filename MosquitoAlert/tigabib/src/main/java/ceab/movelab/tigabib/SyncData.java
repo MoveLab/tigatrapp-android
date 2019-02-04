@@ -114,8 +114,8 @@ Util.logInfo(TAG, "offline or private mode, stopping service");
 		super.onDestroy();
 	}
 
-	private void tryUploads() {
 
+	private void tryUploads() {
 		// Check if user has registered on server - if not, try to register
 		if ( !PropertyHolder.isRegistered() ) {
 			Util.registerOnServer(context);
@@ -207,7 +207,7 @@ Util.logInfo(TAG, "missions: " + missions.toString());
 		int taskFixIndex = c.getColumnIndexOrThrow(Fixes.KEY_TASK_FIX);
 		int uploadedIndex = c.getColumnIndexOrThrow(Fixes.KEY_UPLOADED);
 
-		while (!c.isAfterLast()) {
+		while ( !c.isAfterLast() ) {
 			int thisId = c.getInt(idIndex);
 
 			if (c.getInt(uploadedIndex) == 1) {

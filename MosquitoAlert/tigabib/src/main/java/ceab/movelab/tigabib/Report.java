@@ -307,7 +307,6 @@ public class Report {
 			if (this.photoUrisJson == null) {
 				this.photoUrisJson = new JSONArray(photoUri);
 			} else {
-
 				JSONObject thisPhoto = new JSONObject();
 				thisPhoto.put(KEY_PHOTO_URI, photoUri);
 				thisPhoto.put(KEY_PHOTO_TIME, photoTime);
@@ -320,7 +319,7 @@ public class Report {
 		return result;
 	}
 
-	public boolean deletePhoto(Context context, String photoUri, int photoTime) {
+	/*public boolean deletePhoto(Context context, String photoUri, int photoTime) {
 		boolean result = false;
 		try {
 			if (this.photoUrisJson == null) {
@@ -345,7 +344,7 @@ public class Report {
 		}
 		return result;
 	}
-
+*/
 	public static String getPhotoUri(Context context, JSONArray jsonPhotos, int position) {
 		String result = null;
 		if (jsonPhotos == null || jsonPhotos.length() < 1) {
@@ -360,7 +359,7 @@ public class Report {
 		return result;
 	}
 
-	public static JSONArray deletePhoto(Context context, JSONArray jsonPhotos, String photoUri, int photoTime) {
+	/*public static JSONArray deletePhoto(Context context, JSONArray jsonPhotos, String photoUri, int photoTime) {
 		JSONArray result = null;
 		try {
 			if ( jsonPhotos != null ) {
@@ -378,7 +377,7 @@ public class Report {
 			Util.logError(TAG, "error: " + e);
 		}
 		return result;
-	}
+	}*/
 
 	public static JSONArray deletePhoto(Context context, JSONArray jsonPhotos, int pos) {
 		JSONArray result = null;
@@ -477,13 +476,14 @@ Util.logInfo(TAG, PropertyHolder.getUserId());
 			JSONObject data = this.exportJSON(context);
 Util.logInfo(TAG, "Report JSON conversion:" + data.toString());
 			HttpResponse response = Util.postJSON(data, Util.API_REPORT, context);
+
 			if ( response != null ) {
 				int statusCode1 = response.getStatusLine().getStatusCode();
 				if ( statusCode1 >= 200 && statusCode1 < 300 ) {
 					result = UPLOADED_REPORT_ONLY;
 Util.logInfo(TAG, "statusCode1: " + statusCode1);
 					result = uploadPhotos(context);
-				} else if ( statusCode1 == 400 ){
+				} else if ( statusCode1 == 400 ) {
 					// mark report as uploaded because in any case there is no point in sending it back to server.
 					result = UPLOADED_REPORT_ONLY;
 Util.logInfo(TAG, "statusCode1: " + statusCode1);

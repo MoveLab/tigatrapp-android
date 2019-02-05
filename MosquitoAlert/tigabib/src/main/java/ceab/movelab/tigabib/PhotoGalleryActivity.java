@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -77,8 +76,8 @@ public class PhotoGalleryActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.consent_menu, menu);
+		getMenuInflater().inflate(R.menu.consent_menu, menu);
+		Util.setMenuTextColor(menu);
 
 		return true;
 	}

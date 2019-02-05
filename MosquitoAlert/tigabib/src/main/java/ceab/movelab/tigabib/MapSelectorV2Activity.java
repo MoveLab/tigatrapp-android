@@ -50,7 +50,6 @@ import android.location.LocationProvider;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -288,12 +287,11 @@ public class MapSelectorV2Activity extends FragmentActivity implements OnMapRead
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.map_selector_menu, menu);
+		getMenuInflater().inflate(R.menu.map_selector_menu, menu);
+		Util.setMenuTextColor(menu);
 
 		MenuItem mSat = menu.findItem(R.id.sat);
 		MenuItem mStreet = menu.findItem(R.id.street);
-
 		if ( satToggle )
 			mSat.setChecked(true);
 		else

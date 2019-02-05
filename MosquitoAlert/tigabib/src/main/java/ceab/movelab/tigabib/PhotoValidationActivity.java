@@ -543,11 +543,12 @@ Util.logInfo("===========", myTask.getId() + " >> " + getPhotoUrl);
 		}
 	}
 
-
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 
 		getMenuInflater().inflate(R.menu.validation_menu, menu);
+		Util.setMenuTextColor(menu);
+
 		return true;
 	}
 

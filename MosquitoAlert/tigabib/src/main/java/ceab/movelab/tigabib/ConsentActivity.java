@@ -148,7 +148,6 @@ public class ConsentActivity extends Activity {
 			myWebView.loadUrl(CONSENT_URL_OFFLINE_ZH);
 		else
 			myWebView.loadUrl(CONSENT_URL_OFFLINE_EN);
-
 	}
 
 	@Override
@@ -156,6 +155,7 @@ public class ConsentActivity extends Activity {
 		super.onCreateOptionsMenu(menu);
 
 		getMenuInflater().inflate(R.menu.consent_menu, menu);
+		Util.setMenuTextColor(menu);
 
 		return true;
 	}

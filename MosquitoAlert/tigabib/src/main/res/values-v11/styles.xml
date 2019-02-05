@@ -27,7 +27,6 @@
         <item name="actionBarStyle">@style/MyActionBar</item>&ndash;&gt;
     </style>-->
 
-
 <!--    <style name="MyActionBar" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="background">@color/black</item>
         <item name="android:background">@color/black</item>

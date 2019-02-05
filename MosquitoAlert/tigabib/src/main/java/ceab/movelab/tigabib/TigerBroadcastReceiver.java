@@ -197,7 +197,9 @@ Util.logInfo(TAG, "create notification");
 
 		// Gets an instance of the NotificationManager service
 		NotificationManager mNotifyMgr = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-		mNotifyMgr.notify(NOTIFICATION_ID_MISSION, mBuilder.build());
+		if ( mNotifyMgr != null ) {
+			mNotifyMgr.notify(NOTIFICATION_ID_MISSION, mBuilder.build());
+		}
 	}
 
 	public void createNotification_beforeAPI23(Context context, String taskTitle) {

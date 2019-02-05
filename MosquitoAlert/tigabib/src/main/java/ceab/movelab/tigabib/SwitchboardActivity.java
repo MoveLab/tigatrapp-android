@@ -39,7 +39,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.view.KeyEvent;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -58,7 +57,6 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.UserInfo;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.gson.reflect.TypeToken;
 import com.koushikdutta.async.future.FutureCallback;
@@ -622,10 +620,8 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 
-		MenuInflater inflater = getMenuInflater();
 		FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-
-		if ( currentUser != null ) {
+		/*if ( currentUser != null ) {
 			for (UserInfo profile : currentUser.getProviderData()) {
 				// Id of the provider (ex: google.com)
 				String providerId = profile.getProviderId();
@@ -634,19 +630,23 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 				String uid = profile.getUid();
 
 				// Name, email address, and profile photo Url
-				String name = profile.getDisplayName();
+				*//*String name = profile.getDisplayName();
 				String email = profile.getEmail();
 				Uri photoUrl = profile.getPhotoUrl();
 Util.logInfo("Switchboardd", "Provider ID: " + providerId + "\nUid: " + uid +
-						"\nName: " + name + "\nEmail; " + email + "\nPhoto " + photoUrl);
+						"\nName: " + name + "\nEmail; " + email + "\nPhoto " + photoUrl);*//*
 			}
-		}
+		}*/
 
 		// Check if user is signed in (non-null) and update UI accordingly.
-		if (currentUser == null)
-			inflater.inflate(R.menu.switchboard_menu, menu);
-		else
-			inflater.inflate(R.menu.switchboard_menu_logout, menu);
+		if ( currentUser == null ) {
+			getMenuInflater().inflate(R.menu.switchboard_menu, menu);
+			Util.setMenuTextColor(menu);
+		}
+		else {
+			getMenuInflater().inflate(R.menu.switchboard_menu_logout, menu);
+			Util.setMenuTextColor(menu);
+		}
 
 		return true;
 	}

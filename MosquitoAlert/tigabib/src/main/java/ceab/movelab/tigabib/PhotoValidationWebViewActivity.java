@@ -27,7 +27,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.webkit.ConsoleMessage;
 import android.webkit.WebChromeClient;
@@ -135,8 +134,8 @@ public class PhotoValidationWebViewActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.about_menu, menu);
+		getMenuInflater().inflate(R.menu.about_menu, menu);
+		Util.setMenuTextColor(menu);
 
 		return true;
 	}

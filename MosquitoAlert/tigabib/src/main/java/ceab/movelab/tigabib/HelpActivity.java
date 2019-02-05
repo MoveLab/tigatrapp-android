@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -120,8 +119,8 @@ public class HelpActivity extends FragmentActivity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.consent_menu, menu);
+		getMenuInflater().inflate(R.menu.consent_menu, menu);
+		Util.setMenuTextColor(menu);
 
 		return true;
 	}

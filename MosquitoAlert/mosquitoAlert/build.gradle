@@ -20,7 +20,20 @@ repositories {
 }
 
 android {
-
+    signingConfigs {
+        config {
+            keyAlias 'tigakeys'
+            keyPassword '2=U:8QZw'
+            storeFile file('D:/Projectes/MosquitoAlert/apk/tigakeys')
+            storePassword '=2qC+6!R'
+        }
+        config_new {
+            keyAlias 'jrbpandroidkey'
+            keyPassword 'uSe1W9cP'
+            storeFile file('D:/Projectes/MosquitoAlert/apk/JRBP_Keystore_New')
+            storePassword 'uSe1W9cP'
+        }
+    }
 
     compileSdkVersion 27
     buildToolsVersion '28.0.3'

@@ -58,7 +58,6 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -410,8 +409,8 @@ Util.logInfo(TAG, "GMS: onLocationChanged");
 	public boolean onCreateOptionsMenu(Menu menu) {
 		super.onCreateOptionsMenu(menu);
 
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.view_data_menu, menu);
+		getMenuInflater().inflate(R.menu.view_data_menu, menu);
+		Util.setMenuTextColor(menu);
 
 		MenuItem mSat = menu.findItem(R.id.sat);
 		MenuItem mStreet = menu.findItem(R.id.street);

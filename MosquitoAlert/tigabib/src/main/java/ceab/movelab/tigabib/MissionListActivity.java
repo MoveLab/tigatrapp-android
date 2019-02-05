@@ -32,7 +32,6 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Adapter;
@@ -170,11 +169,15 @@ public class MissionListActivity extends FragmentActivity implements LoaderManag
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.task_list_menu, menu);
+		super.onCreateOptionsMenu(menu);
+
+		getMenuInflater().inflate(R.menu.task_list_menu, menu);
+		Util.setMenuTextColor(menu);
+
 		MenuItem miAll = menu.findItem(R.id.all);
 		//MenuItem miPending = menu.findItem(R.id.pending);
 		miAll.setChecked(all);
+
 		return true;
 	}
 

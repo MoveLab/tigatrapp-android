@@ -76,13 +76,18 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.text.Html;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -1355,6 +1360,17 @@ Util.logInfo(">>>>>>>>", "getProfileReports >> NONE");
 		}
 		catch (Exception e) {
 			e.printStackTrace();
+		}
+	}
+
+
+	// https://stackoverflow.com/questions/18015010/action-bar-menu-item-text-color
+	public static void setMenuTextColor(Menu menu) {
+		for (int i = 0; i < menu.size(); i++) {
+			MenuItem item = menu.getItem(i);
+			SpannableString spanString = new SpannableString(item.getTitle().toString());
+			spanString.setSpan(new ForegroundColorSpan(Color.RED), 0, spanString.length(), 0); //fix the color to white
+			item.setTitle(spanString);
 		}
 	}
 

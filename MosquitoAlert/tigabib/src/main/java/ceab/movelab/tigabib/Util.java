@@ -1369,7 +1369,7 @@ Util.logInfo(">>>>>>>>", "getProfileReports >> NONE");
 		for (int i = 0; i < menu.size(); i++) {
 			MenuItem item = menu.getItem(i);
 			SpannableString spanString = new SpannableString(item.getTitle().toString());
-			spanString.setSpan(new ForegroundColorSpan(Color.RED), 0, spanString.length(), 0); //fix the color to white
+			spanString.setSpan(new ForegroundColorSpan(Color.WHITE), 0, spanString.length(), 0); //fix the color to white
 			item.setTitle(spanString);
 		}
 	}

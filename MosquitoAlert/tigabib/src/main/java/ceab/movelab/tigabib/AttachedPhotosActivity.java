@@ -128,8 +128,7 @@ public class AttachedPhotosActivity extends Activity {
 										shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
 
 										// start the chooser for sharing
-										startActivity(Intent.createChooser(shareIntent, getResources()
-												.getText(R.string.share_with)));
+										startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.share_with)));
 									}
 								});
 
@@ -166,13 +165,14 @@ public class AttachedPhotosActivity extends Activity {
 						dialog.setPositiveButton(getResources().getString(R.string.photo_selector_remove_button_label),
 								new DialogInterface.OnClickListener() {
 									@Override
-									public void onClick(DialogInterface d, int arg1) {
+									public void onClick(DialogInterface di, int arg1) {
 										jsonPhotos = Report.deletePhoto(context, jsonPhotos, pos);
+										//adapter.notifyDataSetChanged();
 										// I realize this is ugly, but it is the quickest fix right now to get the grid updated...
 										adapter = new PhotoGridAdapter(context, jsonPhotos);
 										gridview.setAdapter(adapter);
 
-										d.dismiss();
+										di.dismiss();
 									}
 
 								});
@@ -211,6 +211,7 @@ public class AttachedPhotosActivity extends Activity {
 				intent.setType("image/*");
 				intent.setAction(Intent.ACTION_GET_CONTENT);
 				intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+				intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 				// Always show the chooser (if there are multiple options available)
 				startActivityForResult(Intent.createChooser(intent,
 						getResources().getString(R.string.photo_selector_attach_photo_button)),
@@ -277,7 +278,6 @@ public class AttachedPhotosActivity extends Activity {
 
 		if ( mCurrentPhotoPath != null )
 			icicle.putString("photoUri", mCurrentPhotoPath);
-
 	}
 
 	private File createImageFile() {
@@ -285,14 +285,14 @@ public class AttachedPhotosActivity extends Activity {
 		String stringDate = dateFormat.format(new Date());
 		String photoFileName = getResources().getString(R.string.saved_image_prefix) + stringDate;
 		try {
-			File image = File.createTempFile(
+			File imageFile = File.createTempFile(
 					photoFileName, /* prefix */
 					".jpg",  /* suffix */
 					directory      /* directory */
 			);
 			// Save a file: path for use with ACTION_VIEW intents
-			mCurrentPhotoPath = "file://" + image.getAbsolutePath();
-			return image;
+			mCurrentPhotoPath = "file://" + imageFile.getAbsolutePath();
+			return imageFile;
 		} catch (IOException e) {
 			return null;
 		}
@@ -339,9 +339,10 @@ public class AttachedPhotosActivity extends Activity {
 					Util.logError(TAG, "error: " + e);
 				}
 
+				adapter.notifyDataSetChanged();
 				// I realize this is ugly, but it is the quickest fix right now to get the grid updated...
-				adapter = new PhotoGridAdapter(context, jsonPhotos);
-				gridview.setAdapter(adapter);
+				//adapter = new PhotoGridAdapter(context, jsonPhotos);
+				//gridview.setAdapter(adapter);
 
 				// ScanFile so it will appear on Gallery
 				MediaScannerConnection.scanFile(this,
@@ -377,7 +378,8 @@ public class AttachedPhotosActivity extends Activity {
 							thisUri = Uri.fromFile(new File(realPath));
 							// https://stackoverflow.com/questions/38200282/android-os-fileuriexposedexception-file-storage-emulated-0-test-txt-exposed
 							if ( Build.VERSION.SDK_INT >= 24 )	// Nougat and above
-								thisUri = FileProvider.getUriForFile(context, getPackageName() + ".provider", new File(realPath));
+								//thisUri = FileProvider.getUriForFile(context, getPackageName() + ".provider", new File(realPath));
+								thisUri = Uri.parse(new File(realPath).getPath());
 						}
 
 						if ( resultCode == RESULT_OK && thisUri != null ) {
@@ -390,14 +392,15 @@ public class AttachedPhotosActivity extends Activity {
 								e.printStackTrace();
 							}
 
+							adapter.notifyDataSetChanged();
 							// I realize this is ugly, but it is the quickest fix right now to get the grid updated...
-							adapter = new PhotoGridAdapter(context, jsonPhotos);
-							gridview.setAdapter(adapter);
+							//adapter = new PhotoGridAdapter(context, jsonPhotos);
+							//gridview.setAdapter(adapter);
 						}
 					}
 				}
 			} catch (Exception e){
-				// do nothing for now... TODO
+				Util.logError(TAG, "photo from gallery exception: " + e);
 			}
 			break;
 		}

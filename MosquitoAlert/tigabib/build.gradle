@@ -80,12 +80,12 @@ dependencies {
     implementation 'com.android.support:design:27.1.0'          // 27.1.0, 25.0.1
     //implementation 'com.android.support:customtabs:27.1.0' // 25.0.1 // chrome tabs
 
-    implementation 'com.google.firebase:firebase-core:16.0.1'       // 16.0.1, 12.0.1, 11.8.0, 10.0.1
-    implementation 'com.google.firebase:firebase-messaging:17.1.0'  // 17.1.0, 12.0.1, 11.8.0, 10.0.1
-    implementation 'com.google.android.gms:play-services-maps:16.0.0'       // 15.0.1, 12.0.1, 11.8.0, 11.0.4, 10.0.1
+    implementation 'com.google.firebase:firebase-core:16.0.7'       // 16.0.1, 12.0.1, 11.8.0, 10.0.1
+    implementation 'com.google.firebase:firebase-messaging:17.3.4'  // 17.1.0, 12.0.1, 11.8.0, 10.0.1
+    implementation 'com.google.android.gms:play-services-maps:16.1.0'       // 15.0.1, 12.0.1, 11.8.0, 11.0.4, 10.0.1
     implementation 'com.google.android.gms:play-services-location:16.0.0'   // 15.0.1, 12.0.1, 11.8.0, 11.0.4. 10.0.1
 
-    implementation ('com.firebaseui:firebase-ui-auth:4.1.0') { // 3.3.0
+    implementation ('com.firebaseui:firebase-ui-auth:4.2.0') { // 4.1.0, 3.3.0
         transitive = true
     }
     // Required only if Facebook login support is required

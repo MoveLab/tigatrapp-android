@@ -146,7 +146,7 @@ public class Report {
 			try {
 				this.photoUrisJson = new JSONArray(photoUrisString);
 			} catch (JSONException e) {
-				Util.logError(TAG, "error: " + e);
+				Util.logError(TAG, "photoUrisString: " + e);
 			}
 		}
 
@@ -295,13 +295,13 @@ public class Report {
 				this.photoUrisJson = new JSONArray(photoUris);
 				result = true;
 			} catch (JSONException e) {
-				Util.logError(TAG, "error: " + e);
+				Util.logError(TAG, "photoUrisJson: " + e);
 			}
 		}
 		return result;
 	}
 
-	public boolean addPhoto(Context context, String photoUri, int photoTime) {
+	/*public boolean addPhoto(Context context, String photoUri, int photoTime) {
 		boolean result = false;
 		try {
 			if (this.photoUrisJson == null) {
@@ -317,7 +317,7 @@ public class Report {
 			Util.logError(TAG, "error: " + e);
 		}
 		return result;
-	}
+	}*/
 
 	/*public boolean deletePhoto(Context context, String photoUri, int photoTime) {
 		boolean result = false;
@@ -347,13 +347,13 @@ public class Report {
 */
 	public static String getPhotoUri(Context context, JSONArray jsonPhotos, int position) {
 		String result = null;
-		if (jsonPhotos == null || jsonPhotos.length() < 1) {
+		if ( jsonPhotos == null || jsonPhotos.length() == 0 ) {
 			// nothing
 		} else {
 			try {
 				result = jsonPhotos.getJSONObject(position).getString(KEY_PHOTO_URI);
 			} catch (JSONException e) {
-				Util.logError(TAG, "error: " + e);
+				Util.logError(TAG, "getPhotoUri: " + e);
 			}
 		}
 		return result;
@@ -393,7 +393,7 @@ public class Report {
 				result = newArray;
 			}
 		} catch (JSONException e) {
-			Util.logError(TAG, "error: " + e);
+			Util.logError(TAG, "deletePhoto: " + e);
 		}
 		return result;
 	}
@@ -444,7 +444,7 @@ Util.logInfo(TAG, PropertyHolder.getUserId());
 			} else {
 				JSONObject thisConfirmation = new JSONObject(this.confirmation);
 				Iterator<String> iter = thisConfirmation.keys();
-				while (iter.hasNext()) {
+				while ( iter.hasNext() ) {
 					String key = iter.next();
 					try {
 						JSONObject innerJSON = new JSONObject();
@@ -454,7 +454,7 @@ Util.logInfo(TAG, PropertyHolder.getUserId());
 
 						responsesArray.put(innerJSON);
 					} catch (JSONException e) {
-						Util.logError(TAG, "error: " + e);
+						Util.logError(TAG, "exportJSON: " + e);
 					}
 				}
 			}
@@ -481,16 +481,16 @@ Util.logInfo(TAG, "Report JSON conversion:" + data.toString());
 				int statusCode1 = response.getStatusLine().getStatusCode();
 				if ( statusCode1 >= 200 && statusCode1 < 300 ) {
 					result = UPLOADED_REPORT_ONLY;
-Util.logInfo(TAG, "statusCode1: " + statusCode1);
+Util.logInfo(TAG,"statusCode report: " + statusCode1);
 					result = uploadPhotos(context);
 				} else if ( statusCode1 == 400 ) {
 					// mark report as uploaded because in any case there is no point in sending it back to server.
 					result = UPLOADED_REPORT_ONLY;
-Util.logInfo(TAG, "statusCode1: " + statusCode1);
+Util.logInfo(TAG,"statusCode1: " + statusCode1);
 					result = uploadPhotos(context);
 				} else {
-Util.logError(TAG, "fail upload, status code: " + statusCode1 + ", uploaded: " + this.uploaded);
-Util.logError(TAG, "failed to upload report: " + this.exportJSON(context).toString());
+Util.logError(TAG,"fail upload, status code: " + statusCode1 + ", uploaded: " + this.uploaded);
+Util.logError(TAG,"failed to upload report: " + this.exportJSON(context).toString());
 				}
 			}
 		} else if ( this.uploaded == UPLOADED_REPORT_ONLY ) {
@@ -505,8 +505,9 @@ Util.logError(TAG, "failed to upload report: " + this.exportJSON(context).toStri
 			for (int i = 0; i < this.photoUrisJson.length(); i++) {
 				try {
 					String thisUri = this.photoUrisJson.getJSONObject(i).getString(Report.KEY_PHOTO_URI);
+Util.logInfo(TAG,"uploading photo: " + this.photoUrisJson.toString());
 					int statusCode2 = Util.postPhoto(context, thisUri, Uri.parse(thisUri).getLastPathSegment(), this.versionUUID);
-Util.logInfo(TAG, "statusCode2: " + statusCode2);
+Util.logInfo(TAG,"statusCode photo upload: " + statusCode2);
 					if ( statusCode2 >= 200 && statusCode2 < 300 ) {
 						result = UPLOADED_ALL;
 					} else {

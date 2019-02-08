@@ -63,7 +63,7 @@ public class PhotoGridAdapter extends BaseAdapter {
 			imageView = (ImageView) convertView;
 		}
 
-		String thisUri;
+		//String thisUri;
 		if ( jsonPhotos.length() > 0 ) {
 			/*try {
 				thisUri = jsonPhotos.getJSONObject(position).getString(Report.KEY_PHOTO_URI);

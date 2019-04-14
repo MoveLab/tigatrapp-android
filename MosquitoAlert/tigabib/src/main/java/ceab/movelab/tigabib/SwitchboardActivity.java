@@ -737,9 +737,9 @@ Util.logInfo("Switchboardd", "Provider ID: " + providerId + "\nUid: " + uid +
 //			Bundle bundle = new Bundle();
 //			mFirebaseAnalytics.logEvent("ma_evt_web", bundle);
 		} else if (item.getItemId() == R.id.login) {
-			// Comprovar if Util.isOnline first
+			// Check if online first
 			if (!isOnline(SwitchboardActivity.this)) {
-				//Toast.makeText(SwitchboardActivity.this, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+				Toast.makeText(SwitchboardActivity.this, R.string.login_no_internet_connection, Toast.LENGTH_LONG).show();
 			} else {
 				createLoginDialog();
 			}

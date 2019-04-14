@@ -195,7 +195,7 @@ public class Util {
 	}
 
 	public static void logCrashlyticsException(String msg,  Exception e) {
-		Util.logError(TAG, "Exception [" + msg + "]: " + e);
+Util.logError(TAG, "Exception [" + msg + "]: " + e);
 		Crashlytics.log(msg);
 		Crashlytics.logException(e);
 	}
@@ -629,13 +629,14 @@ public class Util {
 		if ( cm != null )  {
 			NetworkInfo netInfo = cm.getActiveNetworkInfo();
 			if ( netInfo != null && netInfo.isConnected() ) {
+Util.logInfo(TAG, "Is online");
 				return true;
 			}
 		}
 		else {
+Util.logInfo(TAG, "Not Online");
 			return false;
 		}
-Util.logInfo(TAG, "Not online");
 		return false;
 	}
 
@@ -1048,7 +1049,7 @@ Util.logInfo(TAG, "register json: " + jsonUUID.toString());
 				public void onCompleted(Exception e, JsonObject result) {
 					if ( e ==  null ) {
 						// do stuff with the result or error
-						if (result != null) {
+						if ( result != null ) {
 Util.logInfo(TAG, "sendRegistrationToServer >> " + result.toString());
 							PropertyHolder.setRegistered(true);
 						}

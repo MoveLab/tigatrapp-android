@@ -102,7 +102,7 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		Util.logInfo(TAG, "on receive");
+Util.logInfo(TAG, "on receive");
 
 		if ( !PropertyHolder.isInit() )
 			PropertyHolder.init(context);
@@ -110,9 +110,9 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 		if ( PropertyHolder.hasConsented() && !Util.privateMode() ) {
 			String action = intent.getAction();
 			String extra = "";
-			if (intent.hasExtra(Messages.INTERNAL_MESSAGE_EXTRA)) {
+			if ( intent.hasExtra(Messages.INTERNAL_MESSAGE_EXTRA) )  {
 				extra = intent.getStringExtra(Messages.INTERNAL_MESSAGE_EXTRA);
-				Util.logInfo(TAG, "extra: " + extra);
+Util.logInfo(TAG, "extra: " + extra);
 			}
 			AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
@@ -179,7 +179,7 @@ Util.logInfo(TAG, "power connected");
 Util.logInfo(TAG, "create notification");
 
 		Resources res = context.getResources();
-		Util.setDisplayLanguage(res);
+Util.setDisplayLanguage(res);
 
 		String myTitle = ( TextUtils.isEmpty(taskTitle) ? res.getString(R.string.new_mission) : taskTitle );
 

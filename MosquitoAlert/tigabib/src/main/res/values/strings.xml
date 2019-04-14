@@ -8,7 +8,7 @@
  Exported by: Agusti Escobar
  Exported at: Mon, 19 Jun 2017 16:42:20 +0200
 -->
-<resources xmlns:tools="http://schemas.android.com/tools" xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- Intro and Consent -->
     <string name="consent_button_label">I have read and I accept these conditions</string>
     <string name="decline_button_label">I decline to consent</string>
@@ -399,4 +399,5 @@
 \n\nSee our privacy policy for more information.</string>
     <string name="fui_tos_and_pp" translation_description="Global ToS and privacy policy message"> <xliff:g example="https://google.com/terms" id="tos" translation_description="Terms of service text">%1$s</xliff:g> and <xliff:g example="https://google.com/privacy" id="pp" translation_description="Privacy policy text">%2$s</xliff:g>.</string>
 
+    <string name="login_no_internet_connection"> Without internet conexion. Connect the device to the network to start with a personal login </string>
 </resources>

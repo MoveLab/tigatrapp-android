@@ -112,6 +112,7 @@ import ceab.movelab.tigabib.Util;
  */
 public class FixGet extends Service {
 	private static final String TAG = "FixGet";
+
 	private LocationManager locationManager;
 	private LocationListener gpsListener; // gps
 	private LocationListener networkListener; // network
@@ -147,32 +148,30 @@ public class FixGet extends Service {
 	 */
 	@Override
 	public void onCreate() {
-
 		context = getApplicationContext();
 
 		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-		wifiLock = ((WifiManager) getApplicationContext().getSystemService(Context.WIFI_SERVICE)).createWifiLock(
+		wifiLock = ((WifiManager) context.getSystemService(Context.WIFI_SERVICE)).createWifiLock(
 				WifiManager.WIFI_MODE_SCAN_ONLY, "MosquitTigreWifiLock");
 
 		wakeLock = ((PowerManager) context.getSystemService(Context.POWER_SERVICE)).newWakeLock(
 				PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "MosquitTigreScreenDimWakeLock");
-
 	}
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		if (!PropertyHolder.isInit())
+		if ( !PropertyHolder.isInit() )
 			PropertyHolder.init(context);
 
-		if (!PropertyHolder.hasConsented() || Util.privateMode() || getDeniedPermissions().size() > 0 ) {
+		if ( !PropertyHolder.hasConsented() || Util.privateMode() || getDeniedPermissions().size() > 0 ) {
 			stopSelf();
 		} else {
 
 			if ( intent != null  ) {
 				String action = intent.getAction();
 
-				if (action != null && action.contains(Messages.stopFixAction(context))) {
+				if ( action != null && action.contains(Messages.stopFixAction(context)) ) {
 Util.logInfo(TAG, "stop FixGet received");
 					removeLocationUpdates();
 					unWakeLock();
@@ -183,14 +182,14 @@ Util.logInfo(TAG, "stop FixGet received");
 					stopSelf();
 				} else {
 
-					if (!fixInProgress) {
+					if ( !fixInProgress ) {
 						fixInProgress = true;
 
 						if (action != null && action.contains(Messages.taskFixAction(context))) {
 							taskFix = true;
 						}
 
-						Util.logInfo(TAG, "test");
+Util.logInfo(TAG, "test");
 						long thisWindow = taskFix ? Util.TASK_FIX_WINDOW : Util.LISTENER_WINDOW;
 
 						AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -201,7 +200,7 @@ Util.logInfo(TAG, "stop FixGet received");
 
 						alarmManager.set(alarmType, (SystemClock.elapsedRealtime() + thisWindow),
 								PendingIntent.getService(context, ALARM_ID_STOP_FIX, intent2StopFixGet, 0));
-						Util.logInfo(TAG, "set alarm to stop self at " + Util.iso8601(System.currentTimeMillis() + thisWindow));
+Util.logInfo(TAG, "set alarm to stop self at " + Util.iso8601(System.currentTimeMillis() + thisWindow));
 
 						// stopListening = null;
 						bestLocation = null;
@@ -226,8 +225,9 @@ Util.logInfo(TAG, "stop FixGet received");
 								locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, networkListener);
 							}
 						} catch (SecurityException se) {
-							Crashlytics.log("FixGet: onStartCommand");
-							Crashlytics.logException(new SecurityException());
+							Util.logCrashlyticsException("FixGet: onStartCommand", new SecurityException());
+//							Crashlytics.log("FixGet: onStartCommand");
+//							Crashlytics.logException(new SecurityException());
 						}
 
 						if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
@@ -250,10 +250,10 @@ Util.logInfo(TAG, "stop FixGet received");
 				}
 			}
 			else {
-				Crashlytics.log("FixGet: intent is null");
-				Crashlytics.logException(new Exception());
+				Util.logCrashlyticsException("FixGet: intent is null", new SecurityException());
+//				Crashlytics.log("FixGet: intent is null");
+//				Crashlytics.logException(new Exception());
 			}
-
 		}
 		return START_STICKY_COMPATIBILITY;
 	}
@@ -300,22 +300,22 @@ Util.logInfo(TAG, "stop FixGet received");
 			Context context = getApplicationContext();
 
 			// Quick return if given location is null or has an invalid time
-			if (location == null || location.getTime() < 0) {
+			if ( location == null || location.getTime() < 0 ) {
 				return;
 			} else {
 
 				// if the location is within the optimum accuracy
 				// then use it and stop.
-				if ((location.getAccuracy() <= Util.OPT_ACCURACY)) {
+				if ( location.getAccuracy() <= Util.OPT_ACCURACY ) {
 					removeLocationUpdates();
 					useFix(context, location);
 					stopSelf();
 				} else {
 					// if no best location set yet, current location is best
-					if (bestLocation == null) {
+					if ( bestLocation == null ) {
 						bestLocation = location;
 						return;
-					} else if (location.getAccuracy() < bestLocation.getAccuracy()) {
+					} else if ( location.getAccuracy() < bestLocation.getAccuracy() ) {
 						bestLocation = location;
 						return;
 					} else
@@ -351,7 +351,7 @@ Util.logInfo(TAG, "stop FixGet received");
 			 * If provider service is no longer available, stop trying to get
 			 * updates from both ceab.movelab.tigabib.providers and quit.
 			 */
-			if (status != LocationProvider.AVAILABLE) {
+			if ( status != LocationProvider.AVAILABLE ) {
 				removeLocationUpdate(provider);
 				stopSelf();
 			}
@@ -374,8 +374,9 @@ Util.logInfo(TAG, "stop FixGet received");
 					locationManager.removeUpdates(networkListener);
 			}
 		} catch (SecurityException se) {
-			Crashlytics.log("FixGet: removeLocationUpdates");
-			Crashlytics.logException(new SecurityException());
+			Util.logCrashlyticsException("FixGet: removeLocationUpdates", new SecurityException());
+//			Crashlytics.log("FixGet: removeLocationUpdates");
+//			Crashlytics.logException(new SecurityException());
 		}
 		gpsListener = null;
 		networkListener = null;
@@ -448,10 +449,10 @@ Util.logInfo(TAG, "just started useFix");
 	}
 
 	public void unWakeLock() {
-		if (wakeLock != null && wakeLock.isHeld()) {
+		if ( wakeLock != null && wakeLock.isHeld() ) {
 			wakeLock.release();
 		}
-		if (wifiLock != null && wifiLock.isHeld()) {
+		if ( wifiLock != null && wifiLock.isHeld() ) {
 			wifiLock.release();
 		}
 	}

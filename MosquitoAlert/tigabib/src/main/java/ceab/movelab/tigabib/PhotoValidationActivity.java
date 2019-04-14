@@ -439,7 +439,7 @@ Util.logInfo("==========++", jsonObject.toString());
 
 	private void loadNewTask(final int offset) {
 		if ( !isOnline(this) ) {
-			Toast.makeText(this, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, R.string.no_internet_connection, Toast.LENGTH_LONG).show();
 			return;
 		}
 
@@ -488,6 +488,7 @@ Util.logInfo("===========", "prefetching >> " +  resultTask.getId());
 		}
 		catch (Exception e) {
 			e.printStackTrace();
+			Util.logCrashlyticsException("createTaskRunObject", e);
 			this.finish();
 		}
 	}

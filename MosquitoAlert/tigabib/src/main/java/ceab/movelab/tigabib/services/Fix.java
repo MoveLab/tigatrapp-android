@@ -77,8 +77,7 @@ public class Fix {
 	
 
 	public HttpResponse upload(Context context) {
-		HttpResponse result = null;
-		result = Util.postJSON(this.exportJSON(context), Util.API_FIXES, context);
+		HttpResponse result = Util.postJSON(this.exportJSON(context), Util.API_FIXES, context);
 
 		return result;
 	}

@@ -129,12 +129,13 @@ Util.logInfo(TAG, "sync button clicked");
 					Util.internalBroadcast(SettingsActivity.this, Messages.START_DAILY_SAMPLING);
 				}
 			});
+			TextView userView = (TextView) findViewById(R.id.userView);
+			userView.setText(UtilLocal.URL_TIGASERVER + "  -  " + PropertyHolder.getUserId());
 		} else
 			debugView.setVisibility(View.GONE);
 
 		// Obtain the FirebaseAnalytics instance.
 		//mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-
 	}
 
 	@Override

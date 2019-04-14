@@ -36,9 +36,16 @@ public class FixUse extends Service {
 	boolean taskFix = false;
 
 	@Override
-	public void onStart(Intent intent, int startId) {
+	public void onCreate() {
+		// Util.logInfo(TAG, "FileUploader onCreate.");
+		context = getApplicationContext();
+		if ( !PropertyHolder.isInit() )
+			PropertyHolder.init(context);
+	}
 
-		Util.logInfo(TAG, "on start");
+	@Override
+	public void onStart(Intent intent, int startId) {
+Util.logInfo(TAG, "on start");
 
 		if ( !PropertyHolder.hasReconsented() || Util.privateMode() ) {
 			stopSelf();
@@ -73,13 +80,7 @@ public class FixUse extends Service {
 		}
 	};
 
-	@Override
-	public void onCreate() {
-		// Util.logInfo(TAG, "FileUploader onCreate.");
-		context = getApplicationContext();
-		if ( !PropertyHolder.isInit() )
-			PropertyHolder.init(context);
-	}
+
 
 	@Override
 	public void onDestroy() {
@@ -98,7 +99,8 @@ public class FixUse extends Service {
 			double maskedLon = Math.floor(lon / Util.lonMask) * Util.lonMask;
 			long thisHour = Util.hour(time);
 
-			Fix thisFix = new Fix(maskedLat, maskedLon, time, power, taskFix);
+			//Fix thisFix = new Fix(maskedLat, maskedLon, time, power, taskFix); original version
+			Fix thisFix = new Fix(maskedLat, maskedLon, thisHour, power, taskFix);
 Util.logInfo(TAG, "this fix: " + thisFix.lat + ';' + thisFix.lng + ';' + thisFix.time + ';' + thisFix.pow);
 
 			cr.insert(Util.getTracksUri(context),
@@ -116,7 +118,6 @@ Util.logInfo(TAG, "sql: " + sc1);
 			Cursor c = cr.query(Util.getMissionsUri(context), Tasks.KEYS_TRIGGERS, sc1, null, null);
 
 			while ( c.moveToNext() ) {
-
 				try {
 					JSONArray theseTriggers = new JSONArray(c.getString(c.getColumnIndexOrThrow(Tasks.KEY_TRIGGERS)));
 
@@ -129,15 +130,15 @@ Util.logInfo(TAG, "thisLoc Lat:" + lat + " Lon:" + lon);
 Util.logInfo(TAG, "this trigger time lower bound equals null "
 		+ (thisTrigger.getString(MissionModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND).equals("null")));
 
-						if (lat >= thisTrigger.getDouble(MissionModel.KEY_TASK_TRIGGER_LAT_LOWERBOUND)
+						if ( lat >= thisTrigger.getDouble(MissionModel.KEY_TASK_TRIGGER_LAT_LOWERBOUND)
 								&& lat <= thisTrigger.getDouble(MissionModel.KEY_TASK_TRIGGER_LAT_UPPERBOUND)
 								&& lon >= thisTrigger.getDouble(MissionModel.KEY_TASK_TRIGGER_LON_LOWERBOUND)
 								&& lon <= thisTrigger.getDouble(MissionModel.KEY_TASK_TRIGGER_LON_UPPERBOUND)
 								&& (thisTrigger.getString(MissionModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND).equals("null") ||
 								(thisHour >= Util.triggerTime2HourInt(thisTrigger.getString(MissionModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND))))
 								&& (thisTrigger.getString(MissionModel.KEY_TASK_TRIGGER_TIME_UPPERBOUND).equals("null") ||
-								(thisHour <= Util.triggerTime2HourInt(thisTrigger.getString(MissionModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND)))
-								)) {
+								(thisHour <= Util.triggerTime2HourInt(thisTrigger.getString(MissionModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND))))
+							) {
 Util.logInfo(TAG, "task triggered");
 
 							ContentValues cv = new ContentValues();

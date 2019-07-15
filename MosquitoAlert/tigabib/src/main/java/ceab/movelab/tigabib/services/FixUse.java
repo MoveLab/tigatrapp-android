@@ -23,37 +23,33 @@ public class FixUse extends Service {
 
 	private static String TAG = "FixUse";
 
-	Context context;
+	private Context context;
 	private boolean inUse = false;
 
-//	ContentResolver cr;
-//	Cursor c;
-
-	double lat = 0;
-	double lon = 0;
-	long time = 0;
-	float power = 0;
-	boolean taskFix = false;
+	private double lat = 0;
+	private double lon = 0;
+	private long time = 0;
+	private float power = 0;
+	private boolean taskFix = false;
 
 	@Override
 	public void onCreate() {
-		// Util.logInfo(TAG, "FileUploader onCreate.");
+Util.logInfo(TAG, "FixUse onCreate.");
 		context = getApplicationContext();
 		if ( !PropertyHolder.isInit() )
 			PropertyHolder.init(context);
 	}
 
 	@Override
-	public void onStart(Intent intent, int startId) {
-Util.logInfo(TAG, "on start");
+	public int onStartCommand(Intent intent, int flags, int startId) {
+//public void onStaStart(Intent intent, int startId){
+Util.logInfo(TAG, "on start FixUse ");
 
 		if ( !PropertyHolder.hasReconsented() || Util.privateMode() ) {
 			stopSelf();
 		} else {
-
 			if ( !inUse ) {
 				inUse = true;
-
 				if ( intent != null
 						&& intent.hasExtra(Messages.makeIntentExtraKey(context, FixGet.KEY_LAT))
 						&& intent.hasExtra(Messages.makeIntentExtraKey(context, FixGet.KEY_LON))
@@ -72,6 +68,7 @@ Util.logInfo(TAG, "on start");
 				}
 			}
 		}
+		return START_STICKY_COMPATIBILITY;
 	}
 
 	private Runnable doUseFix = new Runnable() {
@@ -80,17 +77,13 @@ Util.logInfo(TAG, "on start");
 		}
 	};
 
-
-
 	@Override
 	public void onDestroy() {
 		super.onDestroy();
 	}
 
 	private void useFix() {
-
 		if ( Math.abs(lat) < Util.FIX_LAT_CUTOFF ) {
-
 			if ( !PropertyHolder.isInit() )
 				PropertyHolder.init(context);
 			ContentResolver cr = getContentResolver();
@@ -102,7 +95,6 @@ Util.logInfo(TAG, "on start");
 			//Fix thisFix = new Fix(maskedLat, maskedLon, time, power, taskFix); original version
 			Fix thisFix = new Fix(maskedLat, maskedLon, thisHour, power, taskFix);
 Util.logInfo(TAG, "this fix: " + thisFix.lat + ';' + thisFix.lng + ';' + thisFix.time + ';' + thisFix.pow);
-
 			cr.insert(Util.getTracksUri(context),
 					ContProvValuesTracks.createFix(thisFix.lat, thisFix.lng, thisFix.time, thisFix.pow, taskFix));
 
@@ -113,18 +105,15 @@ Util.logInfo(TAG, "this fix: " + thisFix.lat + ';' + thisFix.lng + ';' + thisFix
 					+ " OR " + Tasks.KEY_EXPIRATION_TIME + " = 0)";
 Util.logInfo(TAG, "sql: " + sc1);
 
-			// grab tasks that have location triggers, that are not yet active,
-			// that are not yet done, and that have not expired
+			// grab tasks that have location triggers, that are not yet active, that are not yet done, and that have not expired
 			Cursor c = cr.query(Util.getMissionsUri(context), Tasks.KEYS_TRIGGERS, sc1, null, null);
+Util.logInfo(TAG, "#location-based tasks: " + (c != null ? c.getCount() : "-1"));
 
 			while ( c.moveToNext() ) {
 				try {
 					JSONArray theseTriggers = new JSONArray(c.getString(c.getColumnIndexOrThrow(Tasks.KEY_TRIGGERS)));
-
 					for (int i = 0; i < theseTriggers.length(); i++) {
-
 						JSONObject thisTrigger = theseTriggers.getJSONObject(i);
-
 Util.logInfo(TAG, "thisTrigger: " + thisTrigger.toString());
 Util.logInfo(TAG, "thisLoc Lat:" + lat + " Lon:" + lon);
 Util.logInfo(TAG, "this trigger time lower bound equals null "
@@ -140,11 +129,10 @@ Util.logInfo(TAG, "this trigger time lower bound equals null "
 								(thisHour <= Util.triggerTime2HourInt(thisTrigger.getString(MissionModel.KEY_TASK_TRIGGER_TIME_LOWERBOUND))))
 							) {
 Util.logInfo(TAG, "task triggered");
-
 							ContentValues cv = new ContentValues();
+							cv.put(Tasks.KEY_ACTIVE, 1);
 							int rowId = c.getInt(c.getColumnIndexOrThrow(Tasks.KEY_ROW_ID));
 							String sc = Tasks.KEY_ROW_ID + " = " + rowId;
-							cv.put(Tasks.KEY_ACTIVE, 1);
 							cr.update(Util.getMissionsUri(context), cv, sc, null);
 
 							Intent intent = new Intent(Messages.internalAction(context));
@@ -156,12 +144,13 @@ Util.logInfo(TAG, "task triggered");
 							} else if (PropertyHolder.getLanguage().equals("en")) {
 								intent.putExtra(Tasks.KEY_TITLE, c.getString(c.getColumnIndexOrThrow(Tasks.KEY_TITLE_ENGLISH)));
 							}
+							intent.setPackage(context.getPackageName());
 							context.sendBroadcast(intent);
 						}
 					}
 				} catch (JSONException e) {
 					e.printStackTrace();
-					Util.logError(TAG, "error: " + e);
+					Util.logCrashlyticsException("FixUse JSON error", e);
 				}
 			}
 			c.close();

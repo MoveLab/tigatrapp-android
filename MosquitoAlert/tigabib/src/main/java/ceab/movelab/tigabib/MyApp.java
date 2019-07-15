@@ -68,6 +68,7 @@
 package ceab.movelab.tigabib;
 
 import android.content.Context;
+import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
 import com.crashlytics.android.Crashlytics;
@@ -76,11 +77,16 @@ import com.google.firebase.analytics.FirebaseAnalytics;
 
 import ceab.movelab.tigabib.model.DataModel;
 import ceab.movelab.tigabib.model.RealmHelper;
-import ceab.movelab.tigabib.utils.StethoUtils;
 import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
 
 public class MyApp extends MultiDexApplication {
+
+	@Override
+	protected void attachBaseContext(Context base) {
+		super.attachBaseContext(base);
+		MultiDex.install(this);
+	}
 
     @Override
     public void onCreate() {
@@ -104,7 +110,7 @@ public class MyApp extends MultiDexApplication {
 		RealmHelper.initialize(this);
 		Realm.init(this); // used in Realm 2.0.0+
 
-		StethoUtils.install(this);
+		//StethoUtils.install(this);
 
 		//forceCrash();
     }
@@ -118,6 +124,7 @@ public class MyApp extends MultiDexApplication {
     	//DataModel.initialize(this);
 		DataModel.scale = getResources().getDisplayMetrics().density;
 	}
+
 
 	// StrictMode VmPolicy violation with POLICY_DEATH; shutting down.
 	public void initStrictMode() {

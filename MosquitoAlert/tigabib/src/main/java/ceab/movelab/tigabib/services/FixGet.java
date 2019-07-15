@@ -75,20 +75,14 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.location.LocationProvider;
-import android.net.wifi.WifiManager;
-import android.net.wifi.WifiManager.WifiLock;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.IBinder;
 import android.os.Parcel;
-import android.os.PowerManager;
-import android.os.PowerManager.WakeLock;
 import android.os.RemoteException;
 import android.os.SystemClock;
 import android.support.v4.content.ContextCompat;
-
-import com.crashlytics.android.Crashlytics;
 
 import java.util.ArrayList;
 
@@ -102,8 +96,7 @@ import ceab.movelab.tigabib.Util;
  * Dependencies: DriverMapActivity.java, TigerBroadcastReceiver.java,
  * FixGet.java, DriverMapActivity.java, SettingsActivity.java, Withdraw.java.
  * <p>
- * This class is a modified version of the one used in the Human Mobility
- * Project.
+ * This class is a modified version of the one used in the Human Mobility Project.
  * 
  * @author Chang Y. Chung
  * @author Necati E. Ozgencil
@@ -116,13 +109,12 @@ public class FixGet extends Service {
 	private LocationManager locationManager;
 	private LocationListener gpsListener; // gps
 	private LocationListener networkListener; // network
+	private	Location bestLocation;
 
-	Location bestLocation;
+	//private WifiLock wifiLock;
+	//private WakeLock wakeLock;
 
-	WifiLock wifiLock;
-	WakeLock wakeLock;
-
-	Context context;
+	private Context context;
 
 	public static String KEY_LAT = "extra_lat";
 	public static String KEY_LON = "extra_lon";
@@ -148,19 +140,26 @@ public class FixGet extends Service {
 	 */
 	@Override
 	public void onCreate() {
+Util.logInfo(TAG, "on Create FixGet ");
 		context = getApplicationContext();
-
 		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
-		wifiLock = ((WifiManager) context.getSystemService(Context.WIFI_SERVICE)).createWifiLock(
-				WifiManager.WIFI_MODE_SCAN_ONLY, "MosquitTigreWifiLock");
+/*		try {
+			wifiLock = ((WifiManager) context.getApplicationContext().getSystemService(Context.WIFI_SERVICE)).createWifiLock(
+					WifiManager.WIFI_MODE_SCAN_ONLY, "MosquitTigreWifiLock");
 
-		wakeLock = ((PowerManager) context.getSystemService(Context.POWER_SERVICE)).newWakeLock(
-				PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "MosquitTigreScreenDimWakeLock");
+			wakeLock = ((PowerManager) context.getApplicationContext().getSystemService(Context.POWER_SERVICE)).newWakeLock(
+					PowerManager.SCREEN_DIM_WAKE_LOCK | PowerManager.ACQUIRE_CAUSES_WAKEUP, "MosquitTigreScreenDimWakeLock");
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			Util.logCrashlyticsException("FixGet: onCreate", new NullPointerException());
+		}*/
 	}
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
+Util.logInfo(TAG, "onStartCommand FixGet ");
 		if ( !PropertyHolder.isInit() )
 			PropertyHolder.init(context);
 
@@ -170,26 +169,22 @@ public class FixGet extends Service {
 
 			if ( intent != null  ) {
 				String action = intent.getAction();
-
 				if ( action != null && action.contains(Messages.stopFixAction(context)) ) {
 Util.logInfo(TAG, "stop FixGet received");
 					removeLocationUpdates();
-					unWakeLock();
-					if (bestLocation != null && bestLocation.getAccuracy() < Util.MIN_ACCURACY) {
+					//unWakeLock();
+					if ( bestLocation != null && bestLocation.getAccuracy() < Util.MIN_ACCURACY ) {
 						useFix(context, bestLocation);
 					}
 					fixInProgress = false;
 					stopSelf();
 				} else {
-
 					if ( !fixInProgress ) {
 						fixInProgress = true;
-
-						if (action != null && action.contains(Messages.taskFixAction(context))) {
+Util.logInfo(TAG, "fix in progress");
+						if ( action != null && action.contains(Messages.taskFixAction(context)) ) {
 							taskFix = true;
 						}
-
-Util.logInfo(TAG, "test");
 						long thisWindow = taskFix ? Util.TASK_FIX_WINDOW : Util.LISTENER_WINDOW;
 
 						AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
@@ -204,11 +199,10 @@ Util.logInfo(TAG, "set alarm to stop self at " + Util.iso8601(System.currentTime
 
 						// stopListening = null;
 						bestLocation = null;
-
 						gpsListener = null;
 						networkListener = null;
 
-						if (locationManager == null)
+						if ( locationManager == null )
 							locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
 						try {
@@ -219,7 +213,6 @@ Util.logInfo(TAG, "set alarm to stop self at " + Util.iso8601(System.currentTime
 								// mGpsStatusListener= new GpsStatusListener();
 								// locationManager.addGpsStatusListener(mGpsStatusListener);
 							}
-
 							if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 								networkListener = new mLocationListener();
 								locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, networkListener);
@@ -230,16 +223,15 @@ Util.logInfo(TAG, "set alarm to stop self at " + Util.iso8601(System.currentTime
 //							Crashlytics.logException(new SecurityException());
 						}
 
-						if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-								|| locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+						if ( locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+								|| locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) ) {
 							new CountDownTimer(thisWindow, (thisWindow / 2)) {
 								public void onTick(long millisUntilFinished) {}
 								public void onFinish() {
 									fixInProgress = false;
 									removeLocationUpdates();
-									unWakeLock();
-
-									if (bestLocation != null && bestLocation.getAccuracy() < Util.MIN_ACCURACY) {
+									//unWakeLock();
+									if ( bestLocation != null && bestLocation.getAccuracy() < Util.MIN_ACCURACY ) {
 										useFix(context, bestLocation);
 									}
 									stopSelf();
@@ -265,7 +257,7 @@ Util.logInfo(TAG, "set alarm to stop self at " + Util.iso8601(System.currentTime
 	public void onDestroy() {
 		fixInProgress = false;
 		removeLocationUpdates();
-		unWakeLock();
+		//unWakeLock();
 	}
 
 	/**
@@ -291,7 +283,6 @@ Util.logInfo(TAG, "set alarm to stop self at " + Util.iso8601(System.currentTime
 	 * Defines LocationListener behavior.
 	 */
 	private class mLocationListener implements LocationListener {
-
 		/**
 		 * Defines LocationListener behavior upon reception of a location fix
 		 * update from the LocationManager.
@@ -303,9 +294,7 @@ Util.logInfo(TAG, "set alarm to stop self at " + Util.iso8601(System.currentTime
 			if ( location == null || location.getTime() < 0 ) {
 				return;
 			} else {
-
-				// if the location is within the optimum accuracy
-				// then use it and stop.
+				// if the location is within the optimum accuracy then use it and stop.
 				if ( location.getAccuracy() <= Util.OPT_ACCURACY ) {
 					removeLocationUpdates();
 					useFix(context, location);
@@ -413,25 +402,27 @@ Util.logInfo(TAG, "set alarm to stop self at " + Util.iso8601(System.currentTime
 				}
 			}
 		} catch (SecurityException se) {
-			Crashlytics.log("ReportToolActivity: removeLocationUpdate");
-			Crashlytics.logException(new SecurityException());
+			Util.logCrashlyticsException("ReportToolActivity: removeLocationUpdate", new SecurityException());
+//			Crashlytics.log("ReportToolActivity: removeLocationUpdate");
+//			Crashlytics.logException(new SecurityException());
 		}
 	}
 
 	private void useFix(Context context, Location location) {
-Util.logInfo(TAG, "useFix");
+Util.logInfo(TAG, "intent useFix");
 		Intent ufi = new Intent(context, FixUse.class);
 		ufi.putExtra(Messages.makeIntentExtraKey(context, FixGet.KEY_LAT), location.getLatitude());
 		ufi.putExtra(Messages.makeIntentExtraKey(context, FixGet.KEY_LON), location.getLongitude());
 		ufi.putExtra(Messages.makeIntentExtraKey(context, FixGet.KEY_TIME), location.getTime());
 		ufi.putExtra(Messages.makeIntentExtraKey(context, FixGet.KEY_POWER), Util.getBatteryProportion(context));
 		ufi.putExtra(Messages.makeIntentExtraKey(context, FixGet.KEY_TASK_FIX), taskFix);
+		ufi.setPackage(context.getPackageName());
+Util.logInfo(TAG, "just starting useFix");
 		getApplication().startService(ufi);
-Util.logInfo(TAG, "just started useFix");
-		unWakeLock();
+		//unWakeLock();
 	}
 
-	public void wakeUpAndWakeLock() {
+/*	public void wakeUpAndWakeLock() {
 		if ( !wifiLock.isHeld( )) {
 			try {
 				wifiLock.acquire();
@@ -446,16 +437,16 @@ Util.logInfo(TAG, "just started useFix");
 				e.printStackTrace();
 			}
 		}
-	}
+	}*/
 
-	public void unWakeLock() {
+/*	public void unWakeLock() {
 		if ( wakeLock != null && wakeLock.isHeld() ) {
 			wakeLock.release();
 		}
 		if ( wifiLock != null && wifiLock.isHeld() ) {
 			wifiLock.release();
 		}
-	}
+	}*/
 
 	public ArrayList<String> getDeniedPermissions() {
 		ArrayList<String> permissions = new ArrayList<>();
@@ -472,7 +463,6 @@ Util.logInfo(TAG, "just started useFix");
 		}
 		return permissionsDenied;
 	}
-
 
 	public boolean hasPermission(Context context, String permission) {
 		return ContextCompat.checkSelfPermission(context, permission) == 0;

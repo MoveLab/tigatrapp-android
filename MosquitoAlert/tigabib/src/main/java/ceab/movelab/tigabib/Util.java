@@ -69,9 +69,12 @@ package ceab.movelab.tigabib;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -136,9 +139,8 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
@@ -176,8 +178,8 @@ public class Util {
 		return BuildConfig.PYBOSSA_LIVE; // false is test environment, true is production
 	}
 
-	public static boolean debugMode() {	// !!!!$$$$
-		return BuildConfig.DEBUG;
+	public static boolean debugMode() {
+		return BuildConfig.DEBUG; // !!!!$$$$ BuildConfig.DEBUG for final release
 	}
 
 	private static boolean debugModeLog() {	// !!!!$$$$
@@ -201,9 +203,24 @@ Util.logError(TAG, "Exception [" + msg + "]: " + e);
 	}
 
 	public static void internalBroadcast(Context context, String message) {
-		Intent i = new Intent(Messages.internalAction(context));
-		i.putExtra(Messages.INTERNAL_MESSAGE_EXTRA, message);
-		context.sendBroadcast(i);
+		Intent intent = new Intent(Messages.internalAction(context));
+		intent.putExtra(Messages.INTERNAL_MESSAGE_EXTRA, message);
+		intent.setPackage(context.getPackageName());
+		context.sendBroadcast(intent);
+	}
+
+	public static Intent convertImplicitIntentToExplicitIntent(Intent implicitIntent, Context context) {
+		PackageManager pm = context.getPackageManager();
+		List<ResolveInfo> resolveInfoList = pm.queryIntentServices(implicitIntent, 0);
+
+		if (resolveInfoList == null || resolveInfoList.size() != 1) {
+			return null;
+		}
+		ResolveInfo serviceInfo = resolveInfoList.get(0);
+		ComponentName component = new ComponentName(serviceInfo.serviceInfo.packageName, serviceInfo.serviceInfo.name);
+		Intent explicitIntent = new Intent(implicitIntent);
+		explicitIntent.setComponent(component);
+		return explicitIntent;
 	}
 
 	/**
@@ -457,18 +474,23 @@ Util.logError(TAG, "Exception [" + msg + "]: " + e);
 	 *            The long value to be formatted.
 	 * @return The properly formatted time and date as a String.
 	 */
-	public static String fileNameDate(long locationTime) {
+/*	public static String fileNameDate(long locationTime) {
 		Date date = new Date(locationTime);
 		SimpleDateFormat s = new SimpleDateFormat("yyyy-MM-dd-HH-mm-ss");
 		//String format = s.format(date);
-		return  s.format(date);
-	}
+		return s.format(date);
+	}*/
 
-	public static long hour(long unixtime) {
+/*	public static long hour(long unixtime) {
 		GregorianCalendar cal = new GregorianCalendar();
 		cal.setTimeInMillis(unixtime);
-		return cal.get(Calendar.HOUR_OF_DAY);
-		//return hour;
+		cal.set(cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH),
+				cal.get(Calendar.HOUR_OF_DAY), 0, 0);
+		return cal.getTimeInMillis();
+	}*/
+
+	public static long hour(long unixtime) {
+		return (unixtime/(60*60*1000)) * (60*60*1000);
 	}
 
 	/**
@@ -916,7 +938,8 @@ Log.e(TAG, "Connection error", e);
 				httpost.setHeader("Accept", "application/json");
 				httpost.setHeader("Content-type", "application/json");
 				httpost.setHeader("Authorization", TIGASERVER_AUTHORIZATION);
-
+Util.logInfo(TAG, httpost.getURI().toString());
+Util.logInfo(TAG, jsonData.toString());
 				result = httpclient.execute(httpost);
 				return result;
 			} catch (UnsupportedEncodingException e) {
@@ -930,7 +953,7 @@ Log.e(TAG, "Connection error", e);
 
 	public static int getResponseStatusCode(HttpResponse httpResponse) {
 		int statusCode = 0;
-		if (httpResponse != null) {
+		if ( httpResponse != null ) {
 			StatusLine status = httpResponse.getStatusLine();
 			statusCode = status.getStatusCode();
 		}
@@ -966,7 +989,6 @@ Log.e(TAG, "Connection error", e);
 		if ( !isOnline(context) ) {
 			return "";
 		} else {
-
 			HttpParams httpParameters = new BasicHttpParams();
 			int timeoutConnection = 3000;
 			HttpConnectionParams.setConnectionTimeout(httpParameters, timeoutConnection);
@@ -1003,7 +1025,6 @@ Util.logInfo(TAG, "Status code:" + statusCode);
 			} catch ( IOException e ) {
 				Util.logError(TAG, "error: " + e);
 			}
-
 			return builder.toString();
 		}
 	}

@@ -41,19 +41,17 @@ public class SettingsActivity extends Activity {
 	private Boolean isServiceOn;
 	private TextView tv;
 
-	LinearLayout debugView;
-	TextView sampleView;
-	Button fixButton;
+	private LinearLayout debugView;
+	private TextView sampleView;
+	private Button fixButton;
 
-	Button syncButton;
-	Button languageButton;
+	private Button syncButton;
+	private Button languageButton;
 
-	ContentResolver cr;
-	Cursor c;
+	private ContentResolver cr;
+	private Cursor c;
 
-	NewSamplesReceiver newSamplesReceiver;
-
-	// private FirebaseAnalytics mFirebaseAnalytics;
+	private NewSamplesReceiver newSamplesReceiver;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -75,11 +73,6 @@ public class SettingsActivity extends Activity {
 			public void onClick(View arg0) {
 				Intent i = new Intent(SettingsActivity.this, LanguageSelectorActivity.class);
 				startActivity(i);
-
-				// Send Firebase Event
-//				Bundle bundle = new Bundle();
-//				bundle.putString(FirebaseAnalytics.Param.SOURCE, "Settings");
-//				mFirebaseAnalytics.logEvent("ma_evt_language_change", bundle);
 			}
 		});
 
@@ -92,11 +85,11 @@ Util.logInfo(TAG, "sync button clicked");
 			}
 		});
 
-		tb = (ToggleButton) findViewById(R.id.service_button);
 		tv = (TextView) findViewById(R.id.service_message);
-
-		tb.setChecked(isServiceOn);
 		tv.setText(isServiceOn ? getResources().getString(R.string.sampling_is_on) : getResources().getString(R.string.sampling_is_off));
+
+		tb = (ToggleButton) findViewById(R.id.service_button);
+		tb.setChecked(isServiceOn);
 		tb.setOnClickListener(new ToggleButton.OnClickListener() {
 			public void onClick(View view) {
 				isServiceOn = !isServiceOn;
@@ -133,9 +126,6 @@ Util.logInfo(TAG, "sync button clicked");
 			userView.setText(UtilLocal.URL_TIGASERVER + "  -  " + PropertyHolder.getUserId());
 		} else
 			debugView.setVisibility(View.GONE);
-
-		// Obtain the FirebaseAnalytics instance.
-		//mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 	}
 
 	@Override
@@ -147,12 +137,7 @@ Util.logInfo(TAG, "sync button clicked");
 			startActivity(getIntent());
 		}
 
-		// [START set_current_screen]
-		//mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_settings", "Settings");
-		// [END set_current_screen]
-
-		IntentFilter newSamplesFilter;
-		newSamplesFilter = new IntentFilter(Messages.newSamplesReadyAction(this));
+		IntentFilter newSamplesFilter = new IntentFilter(Messages.newSamplesReadyAction(this));
 		newSamplesReceiver = new NewSamplesReceiver();
 		registerReceiver(newSamplesReceiver, newSamplesFilter);
 	}
@@ -250,8 +235,7 @@ Util.logError(TAG, "error: " + e);
 				myProgress = 10;
 				publishProgress(myProgress);
 
-				// try to get missions from server
-				// check last id on phone
+				// try to get missions from server check last id on phone
 				int latest_id = PropertyHolder.getLatestMissionId();
 				String missionUrl = Util.API_MISSION + "?" + (latest_id > 0 ? ("id_gt=" + latest_id) : "")
 						+ "&platform=" + ( Util.debugMode() ? "beta" : "and" )
@@ -283,10 +267,10 @@ Util.logInfo(TAG, "missions: " + missions.toString());
 									} else if (PropertyHolder.getLanguage().equals("en")) {
 										intent.putExtra(Tasks.KEY_TITLE, mission.getString(Tasks.KEY_TITLE_ENGLISH));
 									}
+									intent.setPackage(context[0].getPackageName());
 									context[0].sendBroadcast(intent);
 								}
 							}
-
 							// IF this is last mission, mark the row id i PropertyHolder for next sync
 							PropertyHolder.setLatestMissionId(mission.getInt("id"));
 						}
@@ -324,12 +308,11 @@ Util.logError(TAG, "error: " + e);
 					fixcounter++;
 
 					int thisId = c.getInt(idIndex);
-
 					Fix thisFix = new Fix(c.getDouble(latIndex), c.getDouble(lngIndex), c.getLong(timeIndex),
 							c.getFloat(powIndex), (c.getInt(taskFixIndex)==1));
-					thisFix.exportJSON(context[0]);
-
-					int statusCode = Util.getResponseStatusCode(thisFix.upload(context[0]));
+					//thisFix.exportJSON(context[0]);
+					int statusCode = Util.getResponseStatusCode(thisFix.upload(context[0]));  // Uploading fix to server
+Util.logInfo(TAG, String.valueOf(statusCode));
 					if ( statusCode < 300 && statusCode > 0 ) {
 						ContentValues cv = new ContentValues();
 						String sc = Fixes.KEY_ROWID + " = " + String.valueOf(thisId);

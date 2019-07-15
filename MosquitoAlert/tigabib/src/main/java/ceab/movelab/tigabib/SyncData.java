@@ -75,13 +75,12 @@ public class SyncData extends Service {
 	private boolean uploading = false;
 
 	private Context context;
-
 	private ContentResolver cr;
 	private Cursor c;
 
 	@Override
 	public void onStart(Intent intent, int startId) {
-		Util.logInfo(TAG, "on start");
+Util.logInfo(TAG, "on start SyncData");
 
 		if ( !Util.isOnline(context) || Util.privateMode() ) {
 Util.logInfo(TAG, "offline or private mode, stopping service");
@@ -96,12 +95,6 @@ Util.logInfo(TAG, "offline or private mode, stopping service");
 		}
 	}
 
-	private Runnable doSyncing = new Runnable() {
-		public void run() {
-			tryUploads();
-		}
-	};
-
 	@Override
 	public void onCreate() {
 		context = getApplicationContext();
@@ -114,6 +107,12 @@ Util.logInfo(TAG, "offline or private mode, stopping service");
 		super.onDestroy();
 	}
 
+
+	private Runnable doSyncing = new Runnable() {
+		public void run() {
+			tryUploads();
+		}
+	};
 
 	private void tryUploads() {
 		// Check if user has registered on server - if not, try to register
@@ -144,10 +143,8 @@ Util.logInfo(TAG, "set property holder");
 			Util.logError(TAG, "error: " + e);
 		}
 
-		// try to get missions from server
-		// check last id on phone
+		// try to get missions from server check last id on phone
 		int latest_id = PropertyHolder.getLatestMissionId();
-
 		String missionUrl = Util.API_MISSION + "?" + (latest_id > 0 ? ("id_gt=" + latest_id) : "")
 				+ "&platform=" + ( Util.debugMode() ? "beta" : "and" )
 				+ "&versionfixuse_lte=" + Util.MAX_MISSION_VERSION;
@@ -177,8 +174,10 @@ Util.logInfo(TAG, "missions: " + missions.toString());
 							} else if (PropertyHolder.getLanguage().equals("en")) {
 								intent.putExtra(Tasks.KEY_TITLE, mission.getString(Tasks.KEY_TITLE_ENGLISH));
 							}
+							intent.setPackage(context.getPackageName());
 							context.sendBroadcast(intent);
-							Intent intent2 = new Intent(Messages.SHOW_TASK_NOTIFICATION);
+
+							Intent intent2 = new Intent(Messages.SHOW_TASK_NOTIFICATION).setPackage(context.getPackageName());
 							LocalBroadcastManager.getInstance(context).sendBroadcast(intent2);
 						}
 					}
@@ -195,7 +194,7 @@ Util.logInfo(TAG, "missions: " + missions.toString());
 
 		// start with Tracks
 		c = cr.query(Util.getTracksUri(context), Fixes.KEYS_ALL, null, null, null);
-		if ( c!= null && !c.moveToFirst()) {
+		if ( c!= null && !c.moveToFirst() ) {
 			c.close();
 		}
 
@@ -210,16 +209,15 @@ Util.logInfo(TAG, "missions: " + missions.toString());
 		while ( !c.isAfterLast() ) {
 			int thisId = c.getInt(idIndex);
 
-			if (c.getInt(uploadedIndex) == 1) {
+			if ( c.getInt(uploadedIndex) == 1 ) {
 				cr.delete(Util.getTracksUri(context), Fixes.KEY_ROWID + " = " + String.valueOf(thisId), null);
 			}
 
 			Fix thisFix = new Fix(c.getDouble(latIndex), c.getDouble(lngIndex), c.getLong(timeIndex), c.getFloat(powIndex),
-					(c.getInt(taskFixIndex) == 1));
-			thisFix.exportJSON(context);
-
-			int statusCode = Util.getResponseStatusCode(thisFix.upload(context));
-
+				(c.getInt(taskFixIndex) == 1));
+			//thisFix.exportJSON(context);
+			int statusCode = Util.getResponseStatusCode(thisFix.upload(context));  // Uploading fix to server
+Util.logInfo(TAG, String.valueOf(statusCode));
 			if ( statusCode > 0 && statusCode < 300 ) {
 				cr.delete(Util.getTracksUri(context), Fixes.KEY_ROWID + " = " + String.valueOf(thisId), null);
 			}

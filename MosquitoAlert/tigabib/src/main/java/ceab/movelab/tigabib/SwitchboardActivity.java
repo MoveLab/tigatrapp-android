@@ -134,9 +134,9 @@ public class SwitchboardActivity extends Activity {
 		mMissionsBroadcastReceiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context context, Intent intent) {
-				if (intent.hasExtra(Messages.INTERNAL_MESSAGE_EXTRA)) {
+				if ( intent.hasExtra(Messages.INTERNAL_MESSAGE_EXTRA) ) {
 					String extra = intent.getStringExtra(Messages.INTERNAL_MESSAGE_EXTRA);
-					Util.logInfo(this.getClass().getName(), "extra: " + extra);
+Util.logInfo(this.getClass().getName(), "extra: " + extra);
 				}
 //Toast.makeText(SwitchboardActivity.this, "location", Toast.LENGTH_SHORT).show();
 				//updateMissionCount();

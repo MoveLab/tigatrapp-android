@@ -53,7 +53,6 @@ public class Fix {
 	}
 
 	public JSONObject exportJSON(Context context) {
-
 		PropertyHolder.init(context);
 
 		JSONObject result = new JSONObject();
@@ -74,12 +73,9 @@ public class Fix {
 		return result;
 	}
 
-	
-
 	public HttpResponse upload(Context context) {
-		HttpResponse result = Util.postJSON(this.exportJSON(context), Util.API_FIXES, context);
-
-		return result;
+		//HttpResponse result = Util.postJSON(this.exportJSON(context), Util.API_FIXES, context);
+		return Util.postJSON(this.exportJSON(context), Util.API_FIXES, context);
 	}
 
 }

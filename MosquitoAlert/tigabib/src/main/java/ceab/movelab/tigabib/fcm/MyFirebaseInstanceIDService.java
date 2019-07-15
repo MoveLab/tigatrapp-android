@@ -25,6 +25,7 @@ import ceab.movelab.tigabib.MyApp;
 import ceab.movelab.tigabib.PropertyHolder;
 import ceab.movelab.tigabib.Util;
 
+//https://medium.com/android-school/firebaseinstanceidservice-is-deprecated-50651f17a148
 public class MyFirebaseInstanceIDService extends FirebaseInstanceIdService {
 
     private static final String TAG = "MyFirebaseIIDService";
@@ -75,10 +76,6 @@ Util.logInfo(TAG, "Refreshed token: " + refreshedToken);
             PropertyHolder.setNeedsMosquitoAlertPop(false);
             Util.registerOnServer(MyApp.getAppContext());
             Util.registerFCMToken(this, token, userId);
-
-            // Obtain the FirebaseAnalytics instance.
-            //FirebaseAnalytics mFirebaseAnalytics = FirebaseAnalytics.getInstance(MyApp.getAppContext());
-            //mFirebaseAnalytics.setUserId(userId);
         }
 
         /*

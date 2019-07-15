@@ -132,7 +132,7 @@
         <service android:name="ceab.movelab.tigabib.services.Sample" />
 
         <!-- [START firebase_service] -->
-        <service
+        <service android:exported="false"
             android:name="ceab.movelab.tigabib.fcm.MyFirebaseMessagingService2">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT"/>
@@ -140,7 +140,7 @@
         </service>
         <!-- [END firebase_service] -->
         <!-- [START firebase_iid_service] -->
-        <service
+        <service android:exported="false"
             android:name="ceab.movelab.tigabib.fcm.MyFirebaseInstanceIDService">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>

@@ -1055,6 +1055,7 @@ Util.logInfo(TAG, "n updated " + nUpdated);
 
 				if (resultFlag == UPLOAD_ERROR || resultFlag == DATABASE_ERROR) {
 					Intent uploaderIntent = new Intent(ReportToolActivity.this, SyncData.class);
+					uploaderIntent.setPackage(ReportToolActivity.this.getPackageName());
 					startService(uploaderIntent);
 
 					buildCustomAlert(context, getResources().getString(R.string.upload_error_report));

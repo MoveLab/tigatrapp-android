@@ -413,6 +413,7 @@ Util.logInfo(TAG, "just broadcast: " + Messages.REMOVE_TASK_NOTIFICATION);
 
 					// Now trigger sync task
 					Intent syncIntent = new Intent(MissionActivity.this, SyncData.class);
+					syncIntent.setPackage(MissionActivity.this.getPackageName());
 					startService(syncIntent);
 
 					finish();
@@ -532,6 +533,7 @@ Util.logInfo(TAG, "just broadcast: " + Messages.REMOVE_TASK_NOTIFICATION);
 
 					// Now trigger sync task
 					Intent syncIntent = new Intent(MissionActivity.this, SyncData.class);
+					syncIntent.setPackage(MissionActivity.this.getPackageName());
 					startService(syncIntent);
 
 					finish();

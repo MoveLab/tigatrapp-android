@@ -66,16 +66,15 @@
 package ceab.movelab.tigabib;
 
 import android.app.AlarmManager;
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 import android.text.TextUtils;
 
 import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
@@ -83,8 +82,7 @@ import ceab.movelab.tigabib.services.FixGet;
 import ceab.movelab.tigabib.services.Sample;
 
 /**
- * Triggers and stops location fixes at set intervals; also sends notification
- * to notification bar.
+ * Triggers and stops location fixes at set intervals; also sends notification to notification bar.
  * 
  * @author John R.B. Palmer
  */
@@ -94,7 +92,7 @@ public class TigerBroadcastReceiver extends BroadcastReceiver {
 
 	private static final int ALARM_ID_SAMPLING = 0;
 	private static final int ALARM_ID_SYNC = 1;
-	private static final int ALARM_ID_FIX = 2;
+	//private static final int ALARM_ID_FIX = 2;
 
 	private static final int NOTIFICATION_ID_MISSION = 1;
 
@@ -120,19 +118,28 @@ Util.logInfo(TAG, "extra: " + extra);
 			PendingIntent pi2sample = PendingIntent.getBroadcast(context, ALARM_ID_SAMPLING, i2sample, 0);
 
 			Intent i2sync = new Intent(context, SyncData.class);
+			i2sync.setPackage(context.getPackageName());
 			PendingIntent pi2sync = PendingIntent.getService(context, ALARM_ID_SYNC, i2sync, 0);
 
 			Intent i2stopfix = new Intent(context, FixGet.class);
 			i2stopfix.setAction(Messages.stopFixAction(context));
 			//PendingIntent pi2stopfix = PendingIntent.getService(context, ALARM_ID_FIX, i2stopfix, 0);
 
-			if (extra.contains(Messages.START_DAILY_SAMPLING)) {
-				// first sample now
-				context.startService(new Intent(context, Sample.class));
+			if ( extra.contains(Messages.START_DAILY_SAMPLING) ) {
+Util.logInfo(TAG, "start daily sampling");
+				Intent sdsi = new Intent(context, Sample.class);
+				sdsi.setPackage(context.getPackageName());
+				if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ) { // >= 26
+					context.startForegroundService(sdsi);
+				}
+				else {
+					context.startService(sdsi);
+				}
+Util.logInfo(TAG, "daily sampling service started");
+
 				int alarmType = AlarmManager.ELAPSED_REALTIME_WAKEUP;
 				alarmManager.setRepeating(alarmType, SystemClock.elapsedRealtime(), DAILY_INTERVAL, pi2sample);
 				PropertyHolder.setServiceOn(true);
-Util.logInfo(TAG, "started daily sampling");
 				PropertyHolder.lastSampleScheduleMade(System.currentTimeMillis());
 			} else if (extra.contains(Messages.STOP_DAILY_SAMPLING)) {
 				alarmManager.cancel(pi2sample);
@@ -141,7 +148,10 @@ Util.logInfo(TAG, "started daily sampling");
 Util.logInfo(TAG, "stopped sampling");
 			} else if (extra.contains(Messages.START_DAILY_SYNC)) {
 				// first sync now
-				context.startService(new Intent(context, SyncData.class));
+				Intent sdsi = new Intent(context, SyncData.class);
+				sdsi.setPackage(context.getPackageName());
+				context.startService(sdsi);
+
 				int alarmType = AlarmManager.ELAPSED_REALTIME_WAKEUP;
 				alarmManager.setRepeating(alarmType, SystemClock.elapsedRealtime(), DAILY_INTERVAL, pi2sync);
 Util.logInfo(TAG, "started daily sync");
@@ -151,6 +161,7 @@ Util.logInfo(TAG, "stop sync");
 			} else if (extra.contains(Messages.START_TASK_FIX)) {
 				Intent tfi = new Intent(context, FixGet.class);
 				tfi.setAction(Messages.taskFixAction(context));
+				tfi.setPackage(context.getPackageName());
 				context.startService(tfi);
 				// long baseTime = SystemClock.elapsedRealtime();
 				// alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, baseTime + Util.TASK_FIX_WINDOW, pi2stopfix);
@@ -163,23 +174,30 @@ Util.logInfo(TAG, "show task notification");
 				cancelNotification(context);
 Util.logInfo(TAG, "remove task notification");
 			} else if (action.contains(Intent.ACTION_BOOT_COMPLETED)) {
-				if (PropertyHolder.isServiceOn()) {
+				if ( PropertyHolder.isServiceOn() ) {
 					Util.internalBroadcast(context, Messages.START_DAILY_SAMPLING);
 				}
 				Util.internalBroadcast(context, Messages.START_DAILY_SYNC);
 Util.logInfo(TAG, "boot completed");
-			} else if (action.contains(Intent.ACTION_POWER_CONNECTED)) {
-				context.startService(new Intent(context, SyncData.class));
+			} else if ( action.contains(Intent.ACTION_POWER_CONNECTED) ) { // no one is sending intent with this action - MG 02.01.2019
 Util.logInfo(TAG, "power connected");
+				Intent apci = new Intent(context, SyncData.class);
+				apci.setPackage(context.getPackageName());
+				if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ) {
+					context.startForegroundService(apci);
+				}
+				else {
+					context.startService(apci);
+				}
+Util.logInfo(TAG, "power connected service started");
 			}
 		}
 	}
 
 	public void createNotification(Context context, String taskTitle) {
 Util.logInfo(TAG, "create notification");
-
 		Resources res = context.getResources();
-Util.setDisplayLanguage(res);
+		Util.setDisplayLanguage(res);
 
 		String myTitle = ( TextUtils.isEmpty(taskTitle) ? res.getString(R.string.new_mission) : taskTitle );
 
@@ -202,6 +220,7 @@ Util.setDisplayLanguage(res);
 		}
 	}
 
+/*
 	public void createNotification_beforeAPI23(Context context, String taskTitle) {
 		Util.logInfo(TAG, "create notification");
 
@@ -229,9 +248,10 @@ Util.setDisplayLanguage(res);
 
 		notificationManager.notify(NOTIFICATION_ID_MISSION, notification);
 	}
+*/
 
 	public void cancelNotification(Context context) {
-		Util.logInfo(TAG, "cancel notification");
+Util.logInfo(TAG, "cancel notification");
 		NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 		notificationManager.cancel(NOTIFICATION_ID_MISSION);
 	}

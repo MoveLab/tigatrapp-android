@@ -43,13 +43,13 @@
 package ceab.movelab.tigabib.services;
 
 import android.app.AlarmManager;
+import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
 
 import java.util.Arrays;
 import java.util.Calendar;
@@ -57,6 +57,7 @@ import java.util.Random;
 
 import ceab.movelab.tigabib.Messages;
 import ceab.movelab.tigabib.PropertyHolder;
+import ceab.movelab.tigabib.R;
 import ceab.movelab.tigabib.Util;
 
 /**
@@ -66,17 +67,18 @@ import ceab.movelab.tigabib.Util;
  * 
  */
 public class Sample extends Service {
-
 	private String TAG = "Sample";
-	Context context;
+
+	private Context context;
 	private static final int ALARM_ID_START_FIX = 1;
 
-	ContentResolver cr;
-	Cursor c;
+	private static final int NOTIFICATION_ID_SAMPLE = 2;
+	//ContentResolver cr;
+	//Cursor c;
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		Util.logInfo(TAG, "on start");
+Util.logInfo(TAG, "on start");
 		if ( !Util.privateMode() ) {
 			Thread uploadThread = new Thread(null, doSampling, "sampleBackground");
 			uploadThread.start();
@@ -92,11 +94,19 @@ public class Sample extends Service {
 
 	@Override
 	public void onCreate() {
+Util.logInfo(TAG, "Sample onCreate");
 		context = getApplicationContext();
 		if ( !PropertyHolder.isInit() )
 			PropertyHolder.init(context);
 
-		Util.logInfo(TAG, "Sample onCreate");
+		Notification notification = new NotificationCompat.Builder(context, "")
+				.setSmallIcon(R.drawable.ic_stat_mission)
+				.setContentTitle("Sample title")
+				.setContentText("Sending samples")
+				.setPriority(NotificationCompat.PRIORITY_DEFAULT)
+				.build();
+		// Imposed by Android 8 new behaviour on start services in background
+		startForeground(NOTIFICATION_ID_SAMPLE, notification);
 	}
 
 	@Override
@@ -104,19 +114,18 @@ public class Sample extends Service {
 	}
 
 	private void setSamples() {
-		Util.logInfo(TAG, "set samples");
+Util.logInfo(TAG, "set samples");
 
 		int samplesPerDay = PropertyHolder.getSamplesPerDay();
 		AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-
 		int alarmType = AlarmManager.RTC_WAKEUP;
-		Calendar c;
+		Calendar cal;
 
+		Random mRandom = new Random();
 		int thisRandomMinute;
 		int thisRandomHour;
 		int thisRandomMinuteIndex;
 		long thisTriggerTime;
-		Random mRandom = new Random();
 
 		String[] currentSamplingTimes = new String[samplesPerDay];
 
@@ -124,12 +133,11 @@ public class Sample extends Service {
 			// draw random minute index from all minutes in 15 hour period
 			thisRandomMinuteIndex = mRandom.nextInt(15 * 60);
 
-			// figure out the hour of day this corresponds to when minute index
-			// 0 is 00:00
+			// figure out the hour of day this corresponds to when minute index 0 is 00:00
 			thisRandomHour = (int) Math.floor(thisRandomMinuteIndex / ((double) 60));
 
 			// figure out the minute of the hour
-			if (thisRandomHour > 0)
+			if ( thisRandomHour > 0 )
 				thisRandomMinute = thisRandomMinuteIndex % thisRandomHour;
 			else
 				thisRandomMinute = thisRandomMinuteIndex;
@@ -137,17 +145,15 @@ public class Sample extends Service {
 			// push the hour forward so it starts at 07:00 am
 			thisRandomHour += 7;
 
-			c = Calendar.getInstance();
-			c.set(Calendar.HOUR_OF_DAY, thisRandomHour);
-			c.set(Calendar.MINUTE, thisRandomMinute);
+			cal = Calendar.getInstance();
+			cal.set(Calendar.HOUR_OF_DAY, thisRandomHour);
+			cal.set(Calendar.MINUTE, thisRandomMinute);
 
-			// If it is already after 7 am in the user's local time, set this
-			// sample for the next day
-			if (c.getTimeInMillis() < System.currentTimeMillis())
-				c.add(Calendar.DATE, 1);
+			// If it is already after 7 am in the user's local time, set this sample for the next day
+			if ( cal.getTimeInMillis() < System.currentTimeMillis() )
+				cal.add(Calendar.DATE, 1);
 
-			thisTriggerTime = c.getTimeInMillis();
-
+			thisTriggerTime = cal.getTimeInMillis();
 			currentSamplingTimes[i] = Util.iso8601(thisTriggerTime);
 
 			alarmManager.set(alarmType, thisTriggerTime,
@@ -155,8 +161,10 @@ public class Sample extends Service {
 		}
 		Arrays.sort(currentSamplingTimes);
 		PropertyHolder.setCurrentFixTimes(currentSamplingTimes);
-		Intent i = new Intent(Messages.newSamplesReadyAction(context));
-		sendBroadcast(i);
+
+		Intent intent = new Intent(Messages.newSamplesReadyAction(context));
+		intent.setPackage(context.getPackageName());
+		sendBroadcast(intent);
 	}
 
 	@Override

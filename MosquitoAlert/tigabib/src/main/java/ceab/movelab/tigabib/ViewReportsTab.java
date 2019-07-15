@@ -278,7 +278,9 @@ Util.logInfo(TAG, "n updated: " + nUpdated);
 				if ( uploadResult != Report.UPLOADED_ALL ) {
 					myProgress = 90;
 					publishProgress(myProgress);
-					startService(new Intent(context[0], SyncData.class));
+					Intent vrtIntent = new Intent(context[0], SyncData.class);
+					vrtIntent.setPackage(context[0].getPackageName());
+					startService(vrtIntent);
 					resultFlag = UPLOAD_ERROR;
 				} else {
 					int nDeleted = cr.delete(Util.getReportsUri(context[0]), sc, null);

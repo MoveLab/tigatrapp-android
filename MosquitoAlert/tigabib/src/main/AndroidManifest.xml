@@ -23,9 +23,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           xmlns:tools="http://schemas.android.com/tools"
     package="ceab.movelab.tigabib"
-    android:versionName="1.63" >
+    android:versionName="1.64" >
 
-    <uses-sdk tools:overrideLibrary="android.support.customtabs" /> <!-- chrome tabs for minSdk < 15 -->
+    <uses-sdk android:minSdkVersion="16" tools:overrideLibrary="android.support.customtabs" /> <!-- chrome tabs for minSdk < 15 -->
 
 <!--    <uses-sdk android:minSdkVersion="4"android:targetSdkVersion="24" />-->
 

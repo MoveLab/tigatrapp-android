@@ -399,5 +399,8 @@
 \n\nSee our privacy policy for more information.</string>
     <string name="fui_tos_and_pp" translation_description="Global ToS and privacy policy message"> <xliff:g example="https://google.com/terms" id="tos" translation_description="Terms of service text">%1$s</xliff:g> and <xliff:g example="https://google.com/privacy" id="pp" translation_description="Privacy policy text">%2$s</xliff:g>.</string>
 
-    <string name="login_no_internet_connection"> Without internet conexion. Connect the device to the network to start with a personal login </string>
+    <string name="login_no_internet_connection">Without internet connection. Connect the device to the network to start with a personal login.</string>
+
+    <string name="sending_samples_notification">Sending samples</string>
+
 </resources>

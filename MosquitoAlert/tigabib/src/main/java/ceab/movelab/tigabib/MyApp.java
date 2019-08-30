@@ -105,7 +105,7 @@ public class MyApp extends MultiDexApplication {
 		//Fabric.with(this, new Crashlytics());		// turn on Crashlytics anyway
 
 		// https://firebase.google.com/support/guides/disable-analytics#temporarily_disable_collection_1
-		FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(false); // !!! Comentar amb Jordi
+		FirebaseAnalytics.getInstance(this).setAnalyticsCollectionEnabled(false); // Informat en Jordi
 
 		RealmHelper.initialize(this);
 		Realm.init(this); // used in Realm 2.0.0+

@@ -1053,7 +1053,7 @@ Util.logInfo(TAG, "n updated " + nUpdated);
 					buildCustomAlert(context, getResources().getString(R.string.offline_report));
 				}
 
-				if (resultFlag == UPLOAD_ERROR || resultFlag == DATABASE_ERROR) {
+				if ( resultFlag == UPLOAD_ERROR || resultFlag == DATABASE_ERROR ) {
 					Intent uploaderIntent = new Intent(ReportToolActivity.this, SyncData.class);
 					uploaderIntent.setPackage(ReportToolActivity.this.getPackageName());
 					startService(uploaderIntent);
@@ -1063,7 +1063,7 @@ Util.logInfo(TAG, "n updated " + nUpdated);
 					clearFields();
 				}
 
-				if (resultFlag == PRIVATE_MODE) {
+				if ( resultFlag == PRIVATE_MODE ) {
 					buildCustomAlert(context, getResources().getString(R.string.report_sent_confirmation));
 					thisReport.clear();
 					clearFields();
@@ -1089,7 +1089,8 @@ Util.logInfo(TAG, "n updated " + nUpdated);
 		final Dialog dialog = new Dialog(context);
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		dialog.setContentView(R.layout.add_note);
-		dialog.getWindow().setLayout((int) (getScreenWidth(this) * .85), ViewGroup.LayoutParams.WRAP_CONTENT);
+		if ( dialog.getWindow() != null )
+			dialog.getWindow().setLayout((int) (getScreenWidth(this) * .85), ViewGroup.LayoutParams.WRAP_CONTENT);
 
 		final EditText noteText = (EditText) dialog.findViewById(R.id.noteEditText);
 

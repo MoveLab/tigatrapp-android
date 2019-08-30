@@ -130,6 +130,7 @@
         <service android:name="ceab.movelab.tigabib.services.FixUse" />
         <service android:name="ceab.movelab.tigabib.SyncData" />
         <service android:name="ceab.movelab.tigabib.services.Sample" />
+        <service android:name="ceab.movelab.tigabib.services.DummyService"/>
 
         <!-- [START firebase_service] -->
         <service android:exported="false"

@@ -44,10 +44,12 @@ package ceab.movelab.tigabib.services;
 
 import android.app.AlarmManager;
 import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.v4.app.NotificationCompat;
 
@@ -72,7 +74,7 @@ public class Sample extends Service {
 	private Context context;
 	private static final int ALARM_ID_START_FIX = 1;
 
-	private static final int NOTIFICATION_ID_SAMPLE = 2;
+	public static final int NOTIFICATION_ID_SAMPLE = 2;
 	//ContentResolver cr;
 	//Cursor c;
 
@@ -101,12 +103,29 @@ Util.logInfo(TAG, "Sample onCreate");
 
 		Notification notification = new NotificationCompat.Builder(context, "")
 				.setSmallIcon(R.drawable.ic_stat_mission)
-				.setContentTitle("Sample title")
-				.setContentText("Sending samples")
-				.setPriority(NotificationCompat.PRIORITY_DEFAULT)
+				.setContentTitle(getString(R.string.app_name))
+				.setContentText(getString(R.string.sending_samples_notification))
+				.setAutoCancel(true)
+				.setPriority(NotificationCompat.PRIORITY_MIN)
+				.setChannelId("MA")
 				.build();
 		// Imposed by Android 8 new behaviour on start services in background
 		startForeground(NOTIFICATION_ID_SAMPLE, notification);
+
+		Handler mHandler = new Handler();
+		mHandler.postDelayed(new Runnable () {
+			public void run() {
+				NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+				if ( mNotificationManager != null ) {
+                    mNotificationManager.cancel("MA", NOTIFICATION_ID_SAMPLE);
+					mNotificationManager.cancel(NOTIFICATION_ID_SAMPLE);
+                    mNotificationManager.cancelAll();
+                }
+                //https://www.spiria.com/en/blog/mobile-development/hiding-foreground-services-notifications-in-android/
+				startService(new Intent(Sample.this, DummyService.class));
+			}
+		}, 2000);
+
 	}
 
 	@Override

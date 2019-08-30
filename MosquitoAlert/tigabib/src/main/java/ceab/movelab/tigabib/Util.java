@@ -182,8 +182,8 @@ public class Util {
 		return BuildConfig.DEBUG; // !!!!$$$$ BuildConfig.DEBUG for final release
 	}
 
-	private static boolean debugModeLog() {	// !!!!$$$$
-		return BuildConfig.DEBUG;
+	private static boolean debugModeLog() {
+		return BuildConfig.DEBUG; // !!!!$$$$ BuildConfig.DEBUG for final release
 	}
 
 	public static void logError(String tag, String message) {
@@ -1071,7 +1071,7 @@ Util.logInfo(TAG, "register json: " + jsonUUID.toString());
 					if ( e ==  null ) {
 						// do stuff with the result or error
 						if ( result != null ) {
-Util.logInfo(TAG, "sendRegistrationToServer >> " + result.toString());
+Util.logInfo(TAG, "user registered on Server with >> " + result.toString());
 							PropertyHolder.setRegistered(true);
 						}
 					}

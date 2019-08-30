@@ -483,7 +483,7 @@ Util.logInfo(this.getClass().getName(), "onResume IllegalArgumentException");
 
 	@Override
 	protected void onDestroy() {
-		if (mRealm != null) mRealm.close(); // Remember to close Realm when done.
+		if ( mRealm != null ) mRealm.close(); // Remember to close Realm when done.
 		super.onDestroy();
 	}
 

@@ -69,22 +69,17 @@ import ceab.movelab.tigabib.Util;
  * 
  */
 public class Sample extends Service {
-	private String TAG = "Sample";
+	private static String TAG = "Sample";
 
 	private Context context;
 	private static final int ALARM_ID_START_FIX = 1;
 
-	public static final int NOTIFICATION_ID_SAMPLE = 2;
-	//ContentResolver cr;
-	//Cursor c;
-
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-Util.logInfo(TAG, "on start");
-		if ( !Util.privateMode() ) {
-			Thread uploadThread = new Thread(null, doSampling, "sampleBackground");
-			uploadThread.start();
-		}
+Util.logInfo(TAG, "onStartCommand Sample");
+		Thread uploadThread = new Thread(null, doSampling, "sampleBackground");
+		uploadThread.start();
+
 		return START_STICKY_COMPATIBILITY;
 	}
 
@@ -110,15 +105,15 @@ Util.logInfo(TAG, "Sample onCreate");
 				.setChannelId("MA")
 				.build();
 		// Imposed by Android 8 new behaviour on start services in background
-		startForeground(NOTIFICATION_ID_SAMPLE, notification);
+		startForeground(Util.NOTIFICATION_ID_SAMPLE, notification);
 
 		Handler mHandler = new Handler();
 		mHandler.postDelayed(new Runnable () {
 			public void run() {
 				NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 				if ( mNotificationManager != null ) {
-                    mNotificationManager.cancel("MA", NOTIFICATION_ID_SAMPLE);
-					mNotificationManager.cancel(NOTIFICATION_ID_SAMPLE);
+                    mNotificationManager.cancel("MA", Util.NOTIFICATION_ID_SAMPLE);
+					mNotificationManager.cancel(Util.NOTIFICATION_ID_SAMPLE);
                     mNotificationManager.cancelAll();
                 }
                 //https://www.spiria.com/en/blog/mobile-development/hiding-foreground-services-notifications-in-android/

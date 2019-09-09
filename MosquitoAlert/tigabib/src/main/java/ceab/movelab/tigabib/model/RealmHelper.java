@@ -73,7 +73,7 @@ public class RealmHelper {
     }
 
     public void updateScore(final Realm realm, final Score score) {
-        if ( realm != null && score != null ) {
+        if ( realm != null && !realm.isClosed() && score != null ) {
             realm.executeTransaction(new Realm.Transaction() {
                 @Override
                 public void execute(Realm realm) {

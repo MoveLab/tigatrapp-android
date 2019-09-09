@@ -382,6 +382,8 @@
 \n\n當以外部帳戶登入時，Mosquito Alert將不會收到任何用戶個人資料。對Mosquito Alert而言，所有外部帳戶使用者均視為匿名用家。如有疑問，請參閱我們對用戶私隱的政策。</string>
     <string name="fui_tos_and_pp" translation_description="Global ToS and privacy policy message"> <xliff:g example="https://google.com/terms" id="tos" translation_description="Terms of service text">%1$s</xliff:g> , <xliff:g example="https://google.com/privacy" id="pp" translation_description="Privacy policy text">%2$s</xliff:g>.</string>
 
-    <string name="login_no_internet_connection"> Without internet conexion. Connect the device to the network to start with a personal login </string>
+    <string name="login_no_internet_connection">Without internet conection. Connect the device to the network to start with a personal login </string>
+    <string name="sending_samples_notification">Sending samples</string>
+    <string name="photo_validation_no_task">Loading photo validation task</string>
 
 </resources>

@@ -150,7 +150,12 @@ Util.logInfo(TAG, "stopped sampling");
 				// first sync now
 				Intent sdsi = new Intent(context, SyncData.class);
 				sdsi.setPackage(context.getPackageName());
-				context.startService(sdsi);
+				if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ) { // >= 26
+					context.startForegroundService(sdsi);
+				}
+				else {
+					context.startService(sdsi);
+				}
 
 				int alarmType = AlarmManager.ELAPSED_REALTIME_WAKEUP;
 				alarmManager.setRepeating(alarmType, SystemClock.elapsedRealtime(), DAILY_INTERVAL, pi2sync);
@@ -162,7 +167,12 @@ Util.logInfo(TAG, "stop sync");
 				Intent tfi = new Intent(context, FixGet.class);
 				tfi.setAction(Messages.taskFixAction(context));
 				tfi.setPackage(context.getPackageName());
-				context.startService(tfi);
+				if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ) { // >= 26
+					context.startForegroundService(tfi);
+				}
+				else {
+					context.startService(tfi);
+				}
 				// long baseTime = SystemClock.elapsedRealtime();
 				// alarmManager.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, baseTime + Util.TASK_FIX_WINDOW, pi2stopfix);
 Util.logInfo(TAG, "start task fix");

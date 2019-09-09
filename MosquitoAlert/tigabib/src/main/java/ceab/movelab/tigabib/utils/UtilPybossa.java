@@ -140,7 +140,7 @@ Util.logInfo("==========++", result);
     }
 
     public String getPybossaNewtaskUrl(int offset) {
-        String projectId = (isProduction ? "1" : "2"); // 1 - production, 2- development
+        String projectId = (isProduction ? "1" : "2"); // 1- production, 2- development
         return UtilPybossa.URL_NEW_TASK + projectId + "/newtask?offset=" + offset + "&external_uid=" + PropertyHolder.getUserId();
     }
 

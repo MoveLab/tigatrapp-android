@@ -47,9 +47,9 @@ android {
         release {
             buildConfigField "boolean", "PYBOSSA_LIVE", "true" //  !!!!$$$$ true for final release
             buildConfigField "boolean", "SERVER_LIVE", "true"  //  !!!!$$$$ true for final release
-            buildConfigField "boolean", "ENABLE_CRASHLYTICS", "true"
+            buildConfigField "boolean", "ENABLE_CRASHLYTICS", "true" //  !!!!$$$$ true for final release
             buildConfigField "boolean", "PRIVATE_MODE", "false"
-            debuggable false //  !!!!$$$$ false for final release
+            debuggable false     //  !!!!$$$$ false for final release
 //            minifyEnabled true
 //            shrinkResources true
 //            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'

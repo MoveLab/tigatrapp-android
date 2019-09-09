@@ -42,13 +42,17 @@
 
 package ceab.movelab.tigabib;
 
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.Service;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Handler;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.LocalBroadcastManager;
 
 import com.google.firebase.iid.FirebaseInstanceId;
@@ -60,6 +64,7 @@ import org.json.JSONObject;
 import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
 import ceab.movelab.tigabib.ContProvContractReports.Reports;
 import ceab.movelab.tigabib.ContProvContractTracks.Fixes;
+import ceab.movelab.tigabib.services.DummyService;
 import ceab.movelab.tigabib.services.Fix;
 
 /**
@@ -72,15 +77,14 @@ public class SyncData extends Service {
 
 	private static String TAG = "SyncData";
 
+	private Context context;
 	private boolean uploading = false;
 
-	private Context context;
-	private ContentResolver cr;
 	private Cursor c;
 
 	@Override
-	public void onStart(Intent intent, int startId) {
-Util.logInfo(TAG, "on start SyncData");
+	public int onStartCommand(Intent intent, int flags, int startId) {
+Util.logInfo(TAG, "onStartCommand SyncData");
 
 		if ( !Util.isOnline(context) || Util.privateMode() ) {
 Util.logInfo(TAG, "offline or private mode, stopping service");
@@ -93,13 +97,40 @@ Util.logInfo(TAG, "offline or private mode, stopping service");
 				uploadThread.start();
 			}
 		}
+		return START_STICKY_COMPATIBILITY;
 	}
 
 	@Override
 	public void onCreate() {
+Util.logInfo(TAG, "SyncData onCreate");
 		context = getApplicationContext();
 		if ( !PropertyHolder.isInit() )
 			PropertyHolder.init(context);
+
+		Notification notification = new NotificationCompat.Builder(context, "")
+				.setSmallIcon(R.drawable.ic_stat_mission)
+				.setContentTitle(getString(R.string.app_name))
+				.setContentText(getString(R.string.sending_samples_notification))
+				.setAutoCancel(true)
+				.setPriority(NotificationCompat.PRIORITY_MIN)
+				.setChannelId("MA")
+				.build();
+		// Imposed by Android 8 new behaviour on start services in background
+		startForeground(Util.NOTIFICATION_ID_SAMPLE, notification);
+
+		Handler mHandler = new Handler();
+		mHandler.postDelayed(new Runnable () {
+			public void run() {
+				NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+				if ( mNotificationManager != null ) {
+					mNotificationManager.cancel("MA", Util.NOTIFICATION_ID_SAMPLE);
+					mNotificationManager.cancel(Util.NOTIFICATION_ID_SAMPLE);
+					mNotificationManager.cancelAll();
+				}
+				//https://www.spiria.com/en/blog/mobile-development/hiding-foreground-services-notifications-in-android/
+				startService(new Intent(SyncData.this, DummyService.class));
+			}
+		}, 2000);
 	}
 
 	@Override
@@ -153,18 +184,17 @@ Util.logInfo(TAG, "mission array: " + missionUrl);
 		try {
 			JSONArray missions = new JSONArray(Util.getJSON(missionUrl, context));
 Util.logInfo(TAG, "missions: " + missions.toString());
-
 			if (  missions.length() > 0 ) {
 				for (int i = 0; i < missions.length(); i++) {
 					JSONObject mission = missions.getJSONObject(i);
 
-					cr = context.getContentResolver();
+					ContentResolver cr = context.getContentResolver();
 					cr.insert(Util.getMissionsUri(context), ContProvValuesMissions.createTask(mission));
 
 					if ( mission.has(Tasks.KEY_TRIGGERS) ) {
 						JSONArray theseTriggers = mission.getJSONArray(Tasks.KEY_TRIGGERS);
 
-						if (theseTriggers.length() == 0) {
+						if ( theseTriggers.length() == 0 ) {
 							Intent intent = new Intent(Messages.internalAction(context));
 							intent.putExtra(Messages.INTERNAL_MESSAGE_EXTRA, Messages.SHOW_TASK_NOTIFICATION);
 							if (PropertyHolder.getLanguage().equals("ca")) {
@@ -181,7 +211,6 @@ Util.logInfo(TAG, "missions: " + missions.toString());
 							LocalBroadcastManager.getInstance(context).sendBroadcast(intent2);
 						}
 					}
-
 					// IF this is last mission, mark the row id in PropertyHolder for next sync
 					PropertyHolder.setLatestMissionId(mission.getInt("id"));
 				}
@@ -190,42 +219,39 @@ Util.logInfo(TAG, "missions: " + missions.toString());
 			Util.logError(TAG, "error: " + e);
 		}
 
-		cr = getContentResolver();
+		ContentResolver cr = getContentResolver();
 
 		// start with Tracks
 		c = cr.query(Util.getTracksUri(context), Fixes.KEYS_ALL, null, null, null);
-		if ( c!= null && !c.moveToFirst() ) {
+		if ( c != null && !c.moveToFirst() ) {
 			c.close();
 		}
+		if ( c != null ) {
+			int idIndex = c.getColumnIndexOrThrow(Fixes.KEY_ROWID);
+			int latIndex = c.getColumnIndexOrThrow(Fixes.KEY_LATITUDE);
+			int lngIndex = c.getColumnIndexOrThrow(Fixes.KEY_LONGITUDE);
+			int powIndex = c.getColumnIndexOrThrow(Fixes.KEY_POWER_LEVEL);
+			int timeIndex = c.getColumnIndexOrThrow(Fixes.KEY_TIME);
+			int taskFixIndex = c.getColumnIndexOrThrow(Fixes.KEY_TASK_FIX);
+			int uploadedIndex = c.getColumnIndexOrThrow(Fixes.KEY_UPLOADED);
 
-		int idIndex = c.getColumnIndexOrThrow(Fixes.KEY_ROWID);
-		int latIndex = c.getColumnIndexOrThrow(Fixes.KEY_LATITUDE);
-		int lngIndex = c.getColumnIndexOrThrow(Fixes.KEY_LONGITUDE);
-		int powIndex = c.getColumnIndexOrThrow(Fixes.KEY_POWER_LEVEL);
-		int timeIndex = c.getColumnIndexOrThrow(Fixes.KEY_TIME);
-		int taskFixIndex = c.getColumnIndexOrThrow(Fixes.KEY_TASK_FIX);
-		int uploadedIndex = c.getColumnIndexOrThrow(Fixes.KEY_UPLOADED);
+			while ( !c.isAfterLast() ) {
+				int thisId = c.getInt(idIndex);
 
-		while ( !c.isAfterLast() ) {
-			int thisId = c.getInt(idIndex);
+				if ( c.getInt(uploadedIndex) == 1 ) {
+					cr.delete(Util.getTracksUri(context), Fixes.KEY_ROWID + " = " + String.valueOf(thisId), null);
+				}
 
-			if ( c.getInt(uploadedIndex) == 1 ) {
-				cr.delete(Util.getTracksUri(context), Fixes.KEY_ROWID + " = " + String.valueOf(thisId), null);
-			}
-
-			Fix thisFix = new Fix(c.getDouble(latIndex), c.getDouble(lngIndex), c.getLong(timeIndex), c.getFloat(powIndex),
-				(c.getInt(taskFixIndex) == 1));
-			//thisFix.exportJSON(context);
-			int statusCode = Util.getResponseStatusCode(thisFix.upload(context));  // Uploading fix to server
+				Fix thisFix = new Fix(c.getDouble(latIndex), c.getDouble(lngIndex), c.getLong(timeIndex), c.getFloat(powIndex), (c.getInt(taskFixIndex) == 1));
+				int statusCode = Util.getResponseStatusCode(thisFix.upload(context));  // Uploading fix to server
 Util.logInfo(TAG, String.valueOf(statusCode));
-			if ( statusCode > 0 && statusCode < 300 ) {
-				cr.delete(Util.getTracksUri(context), Fixes.KEY_ROWID + " = " + String.valueOf(thisId), null);
+				if ( statusCode > 0 && statusCode < 300 ) {
+					cr.delete(Util.getTracksUri(context), Fixes.KEY_ROWID + " = " + String.valueOf(thisId), null);
+				}
+				c.moveToNext();
 			}
-
-			c.moveToNext();
+			c.close();
 		}
-
-		c.close();
 
 		// now reports
 		c = cr.query(Util.getReportsUri(context), Reports.KEYS_ALL, Reports.KEY_UPLOADED + " != " + Report.UPLOADED_ALL, null, null);
@@ -233,84 +259,83 @@ Util.logInfo(TAG, String.valueOf(statusCode));
 		if ( c != null && !c.moveToFirst() ) {
 			c.close();
 		}
+		if ( c != null ) {
+			int rowIdCol = c.getColumnIndexOrThrow(Reports.KEY_ROW_ID);
+			int versionUUIDCol = c.getColumnIndexOrThrow(Reports.KEY_VERSION_UUID);
+			int userIdCol = c.getColumnIndexOrThrow(Reports.KEY_USER_ID);
+			int reportIdCol = c.getColumnIndexOrThrow(Reports.KEY_REPORT_ID);
+			int reportTimeCol = c.getColumnIndexOrThrow(Reports.KEY_REPORT_TIME);
+			int creationTimeCol = c.getColumnIndexOrThrow(Reports.KEY_CREATION_TIME);
+			int reportVersionCol = c.getColumnIndexOrThrow(Reports.KEY_REPORT_VERSION);
+			int versionTimeStringCol = c.getColumnIndexOrThrow(Reports.KEY_VERSION_TIME_STRING);
+			int typeCol = c.getColumnIndexOrThrow(Reports.KEY_TYPE);
+			int confirmationCol = c.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION);
+			int confirmationCodeCol = c.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION_CODE);
+			int locationChoiceCol = c.getColumnIndexOrThrow(Reports.KEY_LOCATION_CHOICE);
+			int currentLocationLonCol = c.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LON);
+			int currentLocationLatCol = c.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LAT);
+			int selectedLocationLonCol = c.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LON);
+			int selectedLocationLatCol = c.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LAT);
+			int noteCol = c.getColumnIndexOrThrow(Reports.KEY_NOTE);
+			int photoAttachedCol = c.getColumnIndexOrThrow(Reports.KEY_PHOTO_ATTACHED);
+			int photoUrisCol = c.getColumnIndexOrThrow(Reports.KEY_PHOTO_URIS);
 
-		int rowIdCol = c.getColumnIndexOrThrow(Reports.KEY_ROW_ID);
-		int versionUUIDCol = c.getColumnIndexOrThrow(Reports.KEY_VERSION_UUID);
-		int userIdCol = c.getColumnIndexOrThrow(Reports.KEY_USER_ID);
-		int reportIdCol = c.getColumnIndexOrThrow(Reports.KEY_REPORT_ID);
-		int reportTimeCol = c.getColumnIndexOrThrow(Reports.KEY_REPORT_TIME);
-		int creationTimeCol = c.getColumnIndexOrThrow(Reports.KEY_CREATION_TIME);
-		int reportVersionCol = c.getColumnIndexOrThrow(Reports.KEY_REPORT_VERSION);
-		int versionTimeStringCol = c.getColumnIndexOrThrow(Reports.KEY_VERSION_TIME_STRING);
-		int typeCol = c.getColumnIndexOrThrow(Reports.KEY_TYPE);
-		int confirmationCol = c.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION);
-		int confirmationCodeCol = c.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION_CODE);
-		int locationChoiceCol = c.getColumnIndexOrThrow(Reports.KEY_LOCATION_CHOICE);
-		int currentLocationLonCol = c.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LON);
-		int currentLocationLatCol = c.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LAT);
-		int selectedLocationLonCol = c.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LON);
-		int selectedLocationLatCol = c.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LAT);
-		int noteCol = c.getColumnIndexOrThrow(Reports.KEY_NOTE);
-		int photoAttachedCol = c.getColumnIndexOrThrow(Reports.KEY_PHOTO_ATTACHED);
-		int photoUrisCol = c.getColumnIndexOrThrow(Reports.KEY_PHOTO_URIS);
+			int uploadedCol = c.getColumnIndexOrThrow(Reports.KEY_UPLOADED);
+			int serverTimestampCol = c.getColumnIndexOrThrow(Reports.KEY_SERVER_TIMESTAMP);
+			int deleteReportCol = c.getColumnIndexOrThrow(Reports.KEY_DELETE_REPORT);
+			int latestVersionCol = c.getColumnIndexOrThrow(Reports.KEY_LATEST_VERSION);
+			int packageNameCol = c.getColumnIndexOrThrow(Reports.KEY_PACKAGE_NAME);
+			int packageVersionCol = c.getColumnIndexOrThrow(Reports.KEY_PACKAGE_VERSION);
+			int phoneManufacturerCol = c.getColumnIndexOrThrow(Reports.KEY_PHONE_MANUFACTURER);
+			int phoneModelCol = c.getColumnIndexOrThrow(Reports.KEY_PHONE_MODEL);
+			int osCol = c.getColumnIndexOrThrow(Reports.KEY_OS);
+			int osVersionCol = c.getColumnIndexOrThrow(Reports.KEY_OS_VERSION);
+			int osLanguageCol = c.getColumnIndexOrThrow(Reports.KEY_OS_LANGUAGE);
+			int appLanguageCol = c.getColumnIndexOrThrow(Reports.KEY_APP_LANGUAGE);
+			int missionIDCol = c.getColumnIndexOrThrow(Reports.KEY_MISSION_ID);
 
-		int uploadedCol = c.getColumnIndexOrThrow(Reports.KEY_UPLOADED);
-		int serverTimestampCol = c.getColumnIndexOrThrow(Reports.KEY_SERVER_TIMESTAMP);
-		int deleteReportCol = c.getColumnIndexOrThrow(Reports.KEY_DELETE_REPORT);
-		int latestVersionCol = c.getColumnIndexOrThrow(Reports.KEY_LATEST_VERSION);
-		int packageNameCol = c.getColumnIndexOrThrow(Reports.KEY_PACKAGE_NAME);
-		int packageVersionCol = c.getColumnIndexOrThrow(Reports.KEY_PACKAGE_VERSION);
-		int phoneManufacturerCol = c.getColumnIndexOrThrow(Reports.KEY_PHONE_MANUFACTURER);
-		int phoneModelCol = c.getColumnIndexOrThrow(Reports.KEY_PHONE_MODEL);
-		int osCol = c.getColumnIndexOrThrow(Reports.KEY_OS);
-		int osVersionCol = c.getColumnIndexOrThrow(Reports.KEY_OS_VERSION);
-		int osLanguageCol = c.getColumnIndexOrThrow(Reports.KEY_OS_LANGUAGE);
-		int appLanguageCol = c.getColumnIndexOrThrow(Reports.KEY_APP_LANGUAGE);
-		int missionIDCol = c.getColumnIndexOrThrow(Reports.KEY_MISSION_ID);
+			while ( !c.isAfterLast() ) {
+				Report report = new Report(context, c.getString(versionUUIDCol),
+						c.getString(userIdCol), c.getString(reportIdCol),
+						c.getInt(reportVersionCol), c.getLong(reportTimeCol),
+						c.getString(creationTimeCol),
+						c.getString(versionTimeStringCol), c.getInt(typeCol),
+						c.getString(confirmationCol),
+						c.getInt(confirmationCodeCol), c.getInt(locationChoiceCol),
+						c.getFloat(currentLocationLatCol),
+						c.getFloat(currentLocationLonCol),
+						c.getFloat(selectedLocationLatCol),
+						c.getFloat(selectedLocationLonCol),
+						c.getInt(photoAttachedCol), c.getString(photoUrisCol),
+						c.getString(noteCol), c.getInt(uploadedCol),
+						c.getLong(serverTimestampCol), c.getInt(deleteReportCol),
+						c.getInt(latestVersionCol), c.getString(packageNameCol),
+						c.getInt(packageVersionCol),
+						c.getString(phoneManufacturerCol),
+						c.getString(phoneModelCol), c.getString(osCol),
+						c.getString(osVersionCol), c.getString(osLanguageCol),
+						c.getString(appLanguageCol), c.getInt(missionIDCol));
 
-		while (!c.isAfterLast()) {
-			Report report = new Report(context, c.getString(versionUUIDCol),
-					c.getString(userIdCol), c.getString(reportIdCol),
-					c.getInt(reportVersionCol), c.getLong(reportTimeCol),
-					c.getString(creationTimeCol),
-					c.getString(versionTimeStringCol), c.getInt(typeCol),
-					c.getString(confirmationCol),
-					c.getInt(confirmationCodeCol), c.getInt(locationChoiceCol),
-					c.getFloat(currentLocationLatCol),
-					c.getFloat(currentLocationLonCol),
-					c.getFloat(selectedLocationLatCol),
-					c.getFloat(selectedLocationLonCol),
-					c.getInt(photoAttachedCol), c.getString(photoUrisCol),
-					c.getString(noteCol), c.getInt(uploadedCol),
-					c.getLong(serverTimestampCol), c.getInt(deleteReportCol),
-					c.getInt(latestVersionCol), c.getString(packageNameCol),
-					c.getInt(packageVersionCol),
-					c.getString(phoneManufacturerCol),
-					c.getString(phoneModelCol), c.getString(osCol),
-					c.getString(osVersionCol), c.getString(osLanguageCol),
-					c.getString(appLanguageCol), c.getInt(missionIDCol));
+				int uploadResult = report.upload(context);
+				if ( uploadResult > 0 ) {
+					String sc = Reports.KEY_ROW_ID + " = " + c.getInt(rowIdCol);
 
-			int uploadResult = report.upload(context);
-			if (uploadResult > 0) {
-
-				String sc = Reports.KEY_ROW_ID + " = " + c.getInt(rowIdCol);
-
-				// if not latest version or if this is a deletion, then delete
-				// from phone
-				if (report.latestVersion != 1 || report.reportVersion == -1 || report.deleteReport == 1) {
-					cr.delete(Util.getReportsUri(context), sc, null);
-				} else {
-					// else mark record as uploaded
-					ContentValues cv = new ContentValues();
-					cv.put(Reports.KEY_UPLOADED, uploadResult);
-					cr.update(Util.getReportsUri(context), cv, sc, null);
+					// if not latest version or if this is a deletion, then delete
+					// from phone
+					if (report.latestVersion != 1 || report.reportVersion == -1 || report.deleteReport == 1) {
+						cr.delete(Util.getReportsUri(context), sc, null);
+					} else {
+						// else mark record as uploaded
+						ContentValues cv = new ContentValues();
+						cv.put(Reports.KEY_UPLOADED, uploadResult);
+						cr.update(Util.getReportsUri(context), cv, sc, null);
+					}
 				}
+				c.moveToNext();
 			}
 
-			c.moveToNext();
+			c.close();
 		}
-
-		c.close();
 
 		uploading = false;
 	}

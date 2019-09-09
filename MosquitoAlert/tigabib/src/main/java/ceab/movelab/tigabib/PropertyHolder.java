@@ -73,22 +73,21 @@ import java.util.Locale;
 import java.util.UUID;
 
 /**
- * Manipulates the application's shared preferences, values that must persist
- * throughout the application's installed lifetime. These shared preferences are
- * essential for determining states, such as whether the user has completed the
- * consent and registration stage.
+ * Manipulates the application's shared preferences, values that must persist throughout the application's installed lifetime.
+ * These shared preferences are essential for determining states, such as whether the user has completed the consent and
+ * registration stage.
  * <p>
  * Dependencies: DriverMapActivity.java, TigerBroadcastReceiver.java,
  * ConsentActivity.java, Data.java, FileUploader.java, FixGet.java, Help.java,
  * Registration.java, ReviewConsent.java, SettingsActivity.java, SplashScree.java,
- * Util.java, Withdraw.java, Withdrawlock.java
+ * Util.java
  * 
  * @author Necati E. Ozgencil
  * @author John R.B. Palmer
  */
+
 public class PropertyHolder {
 	private static SharedPreferences sharedPreferences;
-	private static Editor editor;
 
 	/**
 	 * Initialize the shared preferences handle.
@@ -98,35 +97,36 @@ public class PropertyHolder {
 	 */
 	public static void init(Context context) {
 		sharedPreferences = context.getSharedPreferences("PROPERTIES", Context.MODE_PRIVATE);
-		editor = sharedPreferences.edit();
 	}
 
 	public static boolean isInit() {
 		return sharedPreferences != null;
 	}
 
-	public static void deleteAll() {
+/*	public static void deleteAll() {
 		editor.clear();
 		editor.commit();
-	}
+	}*/
 
 	private static String NEEDS_MOSQUITO_ALERT_POP = "needs_mosquito_alert_pop";
 	
 	public static void setNeedsMosquitoAlertPop(boolean tf){
+		Editor editor = sharedPreferences.edit();
 		editor.putBoolean(NEEDS_MOSQUITO_ALERT_POP, tf);
-		editor.commit();
+		editor.apply();
 	}
 
-	public static boolean needsMosquitoAlertPop(){
+/*	public static boolean needsMosquitoAlertPop(){
 		return sharedPreferences.getBoolean(NEEDS_MOSQUITO_ALERT_POP, true);
-	}
+	}*/
 
 	
 	private static String LAST_DEMO_POPUP_TIME = "last_demo_popup_time";
 	
-	public static void setLastDemoPopUpTime(long time){
+	public static void setLastDemoPopUpTime(long time) {
+		Editor editor = sharedPreferences.edit();
 		editor.putLong(LAST_DEMO_POPUP_TIME, time);
-		editor.commit();
+		editor.apply();
 	}
 
 	public static long getLastDemoPopUpTime(){
@@ -137,8 +137,9 @@ public class PropertyHolder {
 	private static String LATEST_MISSION_ID = "latest_mission_id";
 
 	public static void setLatestMissionId(int latestMissionId) {
+		Editor editor = sharedPreferences.edit();
 		editor.putInt(LATEST_MISSION_ID, latestMissionId);
-		editor.commit();
+		editor.apply();
 	}
 
 	public static int getLatestMissionId() {
@@ -148,26 +149,26 @@ public class PropertyHolder {
 	private static String SAMPLES_PER_DAY = "samples_per_day";
 
 	public static void setSamplesPerDay(int samplesPerDay) {
+		Editor editor = sharedPreferences.edit();
 		editor.putInt(SAMPLES_PER_DAY, samplesPerDay);
-		editor.commit();
+		editor.apply();
 	}
 
 	// get samples per day. Default is
 	public static int getSamplesPerDay() {
-		return sharedPreferences.getInt(SAMPLES_PER_DAY,
-				Util.DEFAULT_SAMPLES_PER_DAY);
+		return sharedPreferences.getInt(SAMPLES_PER_DAY, Util.DEFAULT_SAMPLES_PER_DAY);
 	}
 
 	public static void lastSampleScheduleMade(long time) {
+		Editor editor = sharedPreferences.edit();
 		editor.putLong("LAST_SCHEDULE", time);
-		editor.commit();
+		editor.apply();
 	}
 
 	public static long lastSampleScheduleMade() {
 		return sharedPreferences.getLong("LAST_SCHEDULE", -1);
 	}
 
-	// TESTING
 
 	public static void setCurrentFixTimes(String[] _times) {
 		String input = "Samples per day: " + PropertyHolder.getSamplesPerDay() + "\n";
@@ -176,8 +177,9 @@ public class PropertyHolder {
 				input = input + _times[i] + "\n";
 			}
 		}
+		Editor editor = sharedPreferences.edit();
 		editor.putString("CURRENT_FIX_TIMES", input);
-		editor.commit();
+		editor.apply();
 	}
 
 	public static String getCurrentFixTimes() {
@@ -191,8 +193,9 @@ public class PropertyHolder {
 	 *            True if user has consented; false otherwise.
 	 */
 	public static void setConsent(boolean _consented) {
+		Editor editor = sharedPreferences.edit();
 		editor.putBoolean("CONSENTED", _consented);
-		editor.commit();
+		editor.apply();
 	}
 
 	public static boolean hasConsented() {
@@ -206,8 +209,9 @@ public class PropertyHolder {
 	 *            True if user has consented the new consent version; false otherwise.
 	 */
 	public static void setReconsent(boolean _reconsented) {
+		Editor editor = sharedPreferences.edit();
 		editor.putBoolean("RECONSENTED_BT", _reconsented);
-		editor.commit();
+		editor.apply();
 	}
 
 	public static boolean hasReconsented() {
@@ -221,13 +225,16 @@ public class PropertyHolder {
 	 *            The time of consent.
 	 */
 	public static void setConsentTime(String _consentTime) {
+		Editor editor = sharedPreferences.edit();
 		editor.putString("CONSENT_TIME", _consentTime);
-		editor.commit();
+		editor.apply();
 	}
 
+/*
 	public static String getConsentTime() {
 		return sharedPreferences.getString("CONSENT_TIME", "");
 	}
+*/
 
 
 	/**
@@ -237,8 +244,9 @@ public class PropertyHolder {
 	 *            True if user has consented; false otherwise.
 	 */
 	public static void setTutorial(boolean _tutorial) {
+		Editor editor = sharedPreferences.edit();
 		editor.putBoolean("TUTORIAL", _tutorial);
-		editor.commit();
+		editor.apply();
 	}
 
 	public static boolean hasSeenTutorial() {
@@ -251,56 +259,60 @@ public class PropertyHolder {
 	}
 
 	public static void setLanguage(String lang) {
+		Editor editor = sharedPreferences.edit();
 		editor.putString("LANGUAGE", lang);
-		editor.commit();
+		editor.apply();
 	}
 
-	public static long tripStartTime() {
+/*	public static long tripStartTime() {
 		return sharedPreferences.getLong("TRIP_START_TIME", 0);
-	}
+	}*/
 
-	public static void tripStartTime(long start_time) {
+/*	public static void tripStartTime(long start_time) {
+		Editor editor = sharedPreferences.edit();
 		editor.putLong("TRIP_START_TIME", start_time);
-		editor.commit();
-	}
+		editor.apply();
+	}*/
 
-	public static boolean uploadsNeeded() {
+/*	public static boolean uploadsNeeded() {
 		return sharedPreferences.getBoolean("UPLOADS_NEEDED", false);
-	}
+	}*/
 
-	public static void uploadsNeeded(boolean _uploads_needed) {
+/*	public static void uploadsNeeded(boolean _uploads_needed) {
+		Editor editor = sharedPreferences.edit();
 		editor.putBoolean("UPLOADS_NEEDED", _uploads_needed);
-		editor.commit();
-	}
+		editor.apply();
+	}*/
 
-	public static void setIntro(boolean intro) {
+/*	public static void setIntro(boolean intro) {
+		Editor editor = sharedPreferences.edit();
 		editor.putBoolean("INTRO", intro);
-		editor.commit();
-	}
+		editor.apply();
+	}*/
 
-	public static boolean getIntro() {
+/*	public static boolean getIntro() {
 		return sharedPreferences.getBoolean("INTRO", true);
-	}
+	}*/
 
-	public static void setAlarmInterval(long alarmInterval) {
+/*	public static void setAlarmInterval(long alarmInterval) {
+		Editor editor = sharedPreferences.edit();
 		editor.putLong("ALARM_INTERVAL", alarmInterval);
-		editor.commit();
-	}
+		editor.apply();
+	}*/
 
-	public static long getAlarmInterval() {
+/*	public static long getAlarmInterval() {
 		long interval = sharedPreferences.getLong("ALARM_INTERVAL", -1);
 		if (interval == -1) {
 			interval = Util.ALARM_INTERVAL;
 			PropertyHolder.setAlarmInterval(interval);
 		}
 		return interval;
-	}
+	}*/
 
 	/**
 	 * Checks if alarm service is scheduled to run the FixGet service/if the
-	 * FixGet service is currently running. Returns a default value of
-	 * <code>false</code> if the SERVICE_ON flag has not been explicitly set
-	 * previously.
+	 * FixGet service is currently running. Returns a default value of <code>false</code> if the SERVICE_ON flag
+	 * has not been explicitly set previously.
 	 * 
 	 * @return <code>true</code> if the FixGet service is scheduled and running,
 	 *         <code>false</code> if the FixGet service is currently stopped.
@@ -317,19 +329,11 @@ public class PropertyHolder {
 	 *            The boolean value to which to set the SERVICE_ON flag.
 	 */
 	public static void setServiceOn(boolean _isOn) {
+		Editor editor = sharedPreferences.edit();
 		editor.putBoolean("SERVICE_ON", _isOn);
-		editor.commit();
+		editor.apply();
 	}
 
-	/**
-	 * Checks if a user is currently logged in to the DriverMapActivity
-	 * application. Returns a default value of <code>false</code> if the
-	 * IS_REGISTERED flag has not been explicitly set previously.
-	 * 
-	 * @return <code>true</code> if a user is currently logged in to the
-	 *         DriverMapActivity application, <code>false</code> if no user is
-	 *         logged in.
-	 */
 	public static boolean isRegistered() {
 		return sharedPreferences.getBoolean("IS_REGISTERED", false);
 	}
@@ -342,8 +346,9 @@ public class PropertyHolder {
 	 *            The boolean value to which to set the IS_REGISTERED flag.
 	 */
 	public static void setRegistered(boolean _isRegistered) {
+		Editor editor = sharedPreferences.edit();
 		editor.putBoolean("IS_REGISTERED", _isRegistered);
-		editor.commit();
+		editor.apply();
 	}
 
 
@@ -354,9 +359,10 @@ public class PropertyHolder {
 		return sharedPreferences.getString("USER_COVERAGE_ID", UUID.randomUUID().toString());
 	}
 
-	public static void setUserCoverageId(String _userCovId) {
+	private static void setUserCoverageId(String _userCovId) {
+		Editor editor = sharedPreferences.edit();
 		editor.putString("USER_COVERAGE_ID", _userCovId);
-		editor.commit();
+		editor.apply();
 	}
 
 
@@ -380,29 +386,33 @@ public class PropertyHolder {
 	 *            The value to which to set the USER_ID.
 	 */
 	public static void setUserId(String _userId) {
+		Editor editor = sharedPreferences.edit();
 		editor.putString("USER_ID", _userId);
-		editor.commit();
+		editor.apply();
 	}
 
-	/**
+	/*
 	 * Gets the public key stored in shared preferences.
 	 * 
 	 * @return The current phone's public key if set, na otherwise.
-	 */
+	 *
 	public static String getPublicKey() {
 		return sharedPreferences.getString("PK", "na");
 	}
+*/
 
-	/**
+	/*
 	 * Sets the public key in the shared preferences to the given value.
 	 * 
 	 * @param _pk
 	 *            The value to which to set the public key.
-	 */
+	 *
 	public static void setPublicKey(String _pk) {
+		Editor editor = sharedPreferences.edit();
 		editor.putString("PK", _pk);
-		editor.commit();
+		editor.apply();
 	}
+*/
 
 	/**
 	 * Gets the public key stored in shared preferences.
@@ -420,7 +430,8 @@ public class PropertyHolder {
 	 *            The value to which to set the public key.
 	 */
 	public static void setPybossaToken(String pybossaToken) {
+		Editor editor = sharedPreferences.edit();
 		editor.putString("PYBOSSA_TOKEN", pybossaToken);
-		editor.commit();
+		editor.apply();
 	}
 }

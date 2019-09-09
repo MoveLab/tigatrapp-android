@@ -455,9 +455,8 @@ Util.logInfo(this.getClass().getName(), "onResume Realm 2");
 				e.printStackTrace();
 Util.logInfo(this.getClass().getName(), "onResume IllegalArgumentException");
 				// throw non-fatal
-				Crashlytics.log("Realm deleting");
-				//Crashlytics.setString("Method", "updateNotificationCount");
-				Crashlytics.logException(e);
+				Crashlytics.setString("Method", "updateNotificationCount");
+				Util.logCrashlyticsException("Realm deleting", e);
 				if ( mRealm != null && !mRealm.isClosed() )
 					mRealm.close(); // Remember to close Realm when done.
 				RealmConfiguration config = new RealmConfiguration.Builder()

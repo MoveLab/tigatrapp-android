@@ -388,6 +388,7 @@
     <string name="login_no_internet_connection">Sin conexión a internet. Conecte el dispositivo a la red para iniciar sesión con una cuenta personal.</string>
 
     <string name="sending_samples_notification">Enviando muestras</string>
+    <string name="photo_validation_no_task">Cargando tarea de validación de fotos</string>
 
 </resources>
 

@@ -41,8 +41,8 @@ android {
         minSdkVersion 16
         targetSdkVersion 26
         multiDexEnabled true
-        versionCode 29  /* 26 is 1.61 current production version code */
-        versionName "1.70"
+        versionCode 30  /* 30 is w1.71 current production version; 29 is v1.70; 26 is 1.61 */
+        versionName "1.71"
     }
 
     buildTypes {
@@ -57,7 +57,7 @@ android {
             //minifyEnabled true
             //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
             signingConfig signingConfigs.config_new
-            debuggable false // !!!!$$!!!!
+            debuggable false //  !!!!$$$$ false for final release
         }
     }
 /*    configurations.all {

@@ -160,6 +160,8 @@ public class Util {
 
 	private static String TAG = "Util";
 
+	public static final int NOTIFICATION_ID_SAMPLE = 242;
+
 	public static final int MAX_MISSION_VERSION = 1;
 
 	// if we ignore fixes above 60 degrees latitude or below -60 degrees latitude, then
@@ -198,8 +200,9 @@ public class Util {
 
 	public static void logCrashlyticsException(String msg,  Exception e) {
 Util.logError(TAG, "Exception [" + msg + "]: " + e);
-		Crashlytics.log(msg);
+		Crashlytics.setString("MSG: ", msg);
 		Crashlytics.logException(e);
+		Crashlytics.log(msg);
 	}
 
 	public static void internalBroadcast(Context context, String message) {
@@ -1344,7 +1347,7 @@ Util.logInfo(">>>>>>>>", "getProfileReports >> NONE");
 		});
 
 		// sometimes when trying to display the alert dialog window, the context is not there
-		// Crashlytics #25
+		// See Crashlytics #25
 		try {
 			dialog.show();
 		}

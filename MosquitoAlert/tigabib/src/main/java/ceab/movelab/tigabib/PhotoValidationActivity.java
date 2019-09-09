@@ -43,6 +43,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
+import com.crashlytics.android.Crashlytics;
 import com.github.chrisbanes.photoview_local.PhotoView;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -71,8 +72,8 @@ public class PhotoValidationActivity extends Activity {
 
 	private UtilPybossa pybossa;
 	private Task myTask;
-	private TaskRun mTaskRun;
 	private Task nextTask = null;
+	private TaskRun mTaskRun;
 
 	private PhotoView mPhoto1View; //, mPhoto2View, mPhoto3View, mPhoto4View;
 	//private ImageViewTouch mPhoto3View, mPhoto4View;
@@ -83,8 +84,6 @@ public class PhotoValidationActivity extends Activity {
 	private ImageView mValidHelp_1, mValidHelp_2, mValidHelp_3, mValidHelp_4;
 	private ImageView mToraxImage, mAbdomenImage;
 	private boolean mIsTiger = false;
-
-	//private FirebaseAnalytics mFirebaseAnalytics;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -143,8 +142,6 @@ public class PhotoValidationActivity extends Activity {
         mAbdomenImage = (ImageView) findViewById(R.id.validAbdomenImage);
 
 		setOnClickListeners();
-
-		//mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 	}
 
 
@@ -160,10 +157,6 @@ public class PhotoValidationActivity extends Activity {
 		if ( !Util.setDisplayLanguage(getResources()).equals(lang)) {
 			finish();
 		}
-
-		// [START set_current_screen]
-		//mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_photo_validation", "Photo Validation");
-		// [END set_current_screen]
 	}
 
 	private void setOnClickListeners() {
@@ -194,46 +187,71 @@ public class PhotoValidationActivity extends Activity {
 		mYesButton_1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				showFlipperNext();
+				if ( myTask == null ) {
+					Toast.makeText(PhotoValidationActivity.this, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+				}
+				else {
+					showFlipperNext();
+				}
 			}
 		});
 		mNoButton_1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if ( mTaskRun == null ) createTaskRunObject();
-				// user_lang,  tigerAbdomen,  tigerTorax,  mosquito,  yellowTorax,  yellowAbdomen,  type
-				TaskRunInfo info = new TaskRunInfo(lang, "no", "no", "no", "no", "no", "unknown");
-				mTaskRun.setInfo(info);
-				sendValidationResults();
+				if ( myTask == null ) {
+					Toast.makeText(PhotoValidationActivity.this, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+					loadNewTask(0);
+				}
+				else {
+					if ( mTaskRun == null ) createTaskRunObject(myTask);
+					// user_lang,  tigerAbdomen,  tigerTorax,  mosquito,  yellowTorax,  yellowAbdomen,  type
+					TaskRunInfo info = new TaskRunInfo(lang, "no", "no", "no", "no", "no", "unknown");
+					mTaskRun.setInfo(info);
+					sendValidationResults();
+				}
 
 			}
 		});
 		mNotSureButton_1.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if ( mTaskRun == null ) createTaskRunObject();
-				TaskRunInfo info = new TaskRunInfo(lang, "no", "no", "unknown", "no", "no", "unknown");
-				mTaskRun.setInfo(info);
-				sendValidationResults();
+				if ( myTask == null ) {
+					Toast.makeText(PhotoValidationActivity.this, R.string.no_internet_connection, Toast.LENGTH_SHORT).show();
+					loadNewTask(0);
+				}
+				else {
+					if ( mTaskRun == null ) createTaskRunObject(myTask);
+					TaskRunInfo info = new TaskRunInfo(lang, "no", "no", "unknown", "no", "no", "unknown");
+					mTaskRun.setInfo(info);
+					sendValidationResults();
+				}
 			}
 		});
 
 		mNotSureButton_2.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if ( mTaskRun == null ) createTaskRunObject();
-				TaskRunInfo info = new TaskRunInfo(lang, "no", "no", "yes", "no", "no", "tiger-unkown");
-				mTaskRun.setInfo(info);
-				sendValidationResults();
-							}
+				if ( myTask == null )
+					loadNewTask(0);
+				else {
+					if (mTaskRun == null) createTaskRunObject(myTask);
+					TaskRunInfo info = new TaskRunInfo(lang, "no", "no", "yes", "no", "no", "tiger-unkown");
+					mTaskRun.setInfo(info);
+					sendValidationResults();
+				}
+			}
 		});
 		mNoneButton_2.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if ( mTaskRun == null ) createTaskRunObject();
-				TaskRunInfo info = new TaskRunInfo(lang, "no", "no", "yes", "no", "no", "mosquito-noneofboth");
-				mTaskRun.setInfo(info);
-				sendValidationResults();
+				if ( myTask == null )
+					loadNewTask(0);
+				else {
+					if (mTaskRun == null) createTaskRunObject(myTask);
+					TaskRunInfo info = new TaskRunInfo(lang, "no", "no", "yes", "no", "no", "mosquito-noneofboth");
+					mTaskRun.setInfo(info);
+					sendValidationResults();
+				}
 			}
 		});
 
@@ -247,12 +265,16 @@ public class PhotoValidationActivity extends Activity {
 		mNoButton_3.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if ( mTaskRun == null ) createTaskRunObject();
-				// user_lang, tigerAbdomen, tigerTorax,  mosquito, yellowTorax, yellowAbdomen, type
-				TaskRunInfo info = (mIsTiger ? new TaskRunInfo(lang, "no", "no", "yes", "no", "no", "tiger") :
-						new TaskRunInfo(lang, "no", "no", "yes", "no", "no", "yellow"));
-				mTaskRun.setInfo(info);
-				sendValidationResults();
+				if ( myTask == null )
+					loadNewTask(0);
+				else {
+					if (mTaskRun == null) createTaskRunObject(myTask);
+					// user_lang, tigerAbdomen, tigerTorax,  mosquito, yellowTorax, yellowAbdomen, type
+					TaskRunInfo info = (mIsTiger ? new TaskRunInfo(lang, "no", "no", "yes", "no", "no", "tiger") :
+							new TaskRunInfo(lang, "no", "no", "yes", "no", "no", "yellow"));
+					mTaskRun.setInfo(info);
+					sendValidationResults();
+				}
 			}
 		});
 
@@ -260,23 +282,31 @@ public class PhotoValidationActivity extends Activity {
 		mYesButton_4.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if ( mTaskRun == null ) createTaskRunObject();
-				// user_lang, tigerAbdomen, tigerTorax, mosquito, yellowTorax, yellowAbdomen, type
-				TaskRunInfo info = (mIsTiger ? new TaskRunInfo(lang, "yes", "yes", "yes", "no", "no", "tiger") :
-						new TaskRunInfo(lang, "no", "no", "yes", "yes", "yes", "yellow"));
-				mTaskRun.setInfo(info);
-				sendValidationResults();
+				if ( myTask == null )
+					loadNewTask(0);
+				else {
+					if (mTaskRun == null) createTaskRunObject(myTask);
+					// user_lang, tigerAbdomen, tigerTorax, mosquito, yellowTorax, yellowAbdomen, type
+					TaskRunInfo info = (mIsTiger ? new TaskRunInfo(lang, "yes", "yes", "yes", "no", "no", "tiger") :
+							new TaskRunInfo(lang, "no", "no", "yes", "yes", "yes", "yellow"));
+					mTaskRun.setInfo(info);
+					sendValidationResults();
+				}
 			}
 		});
 		mNoButton_4.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (mTaskRun == null) createTaskRunObject();
-				// user_lang, tigerAbdomen, tigerTorax, mosquito, yellowTorax, yellowAbdomen, type
-				TaskRunInfo info = (mIsTiger ? new TaskRunInfo(lang, "no", "yes", "yes", "no", "no", "tiger") :
-						new TaskRunInfo(lang, "no", "no", "yes", "yes", "no", "yellow"));
-				mTaskRun.setInfo(info);
-				sendValidationResults();
+				if ( myTask == null )
+					loadNewTask(0);
+				else {
+					if (mTaskRun == null) createTaskRunObject(myTask);
+					// user_lang, tigerAbdomen, tigerTorax, mosquito, yellowTorax, yellowAbdomen, type
+					TaskRunInfo info = (mIsTiger ? new TaskRunInfo(lang, "no", "yes", "yes", "no", "no", "tiger") :
+							new TaskRunInfo(lang, "no", "no", "yes", "yes", "no", "yellow"));
+					mTaskRun.setInfo(info);
+					sendValidationResults();
+				}
 			}
 		});
 
@@ -312,18 +342,13 @@ Util.logInfo("===========", "pybossaToken >> " + pybossaToken);
 			this.finish();
 		}
 		String auth = "Bearer " + pybossaToken;
-
 		String taskrunUrl = pybossa.getPybossaTaskrunUrl();
+
 		Gson gson = new Gson();
 		String jsonTaskRun = gson.toJson(mTaskRun);
 Util.logInfo("===========", "sendValidationResults >> " + mTaskRun.getTaskId());
 
 		startNewValidation();	// to speed up next validation
-
-		// Send Firebase Event
-		/*Bundle bundle = new Bundle();
-		bundle.putInt("task_id",  mTaskRun.getTaskId());
-		mFirebaseAnalytics.logEvent("ma_evt_validation_sent", bundle);*/
 
 		Ion.with(this)
 			.load(taskrunUrl)
@@ -360,7 +385,7 @@ Util.logInfo("==========++", jsonObject.toString());
 		 if ( nextTask != null ) {
 			 myTask = nextTask;
 			 loadPhoto(false);
-			 createTaskRunObject();
+			 createTaskRunObject(myTask);
 			 nextTask = null;
 		 }
 		 else {
@@ -407,35 +432,6 @@ Util.logInfo("==========++", jsonObject.toString());
 		mViewFlipper.showPrevious();
 	}
 
-	/*private void setBitmapScaleToAll() {
-		Matrix matrix = new Matrix();
-		switch ( mViewFlipper.getDisplayedChild() ) {
-			case 0: mPhoto1View.getDisplayMatrix(matrix);
-				mPhoto2View.setDisplayMatrix(matrix); //Sets the mSuppMatrix in the PhotoViewAttacher
-				//mPhoto1View.setDisplayMatrix(matrix);
-
-				mPhoto2View.setImageMatrix( matrix );
-				//mPhoto1View.setImageMatrix( matrix ); //And applies it to the PhotoView (catches out of boundaries problems)
-
-				break;
-			case 1: mPhoto2View.getDisplayMatrix(matrix);
-				mPhoto1View.setDisplayMatrix(matrix); //Sets the mSuppMatrix in the PhotoViewAttacher
-				//mPhoto2View.setDisplayMatrix(matrix);
-
-				mPhoto1View.setImageMatrix( matrix ); //And applies it to the PhotoView (catches out of boundaries problems)
-				//mPhoto2View.setImageMatrix( matrix ); //And applies it to the PhotoView (catches out of boundaries problems)
-				break;
-			case 2: matrix = mPhoto3View.getDisplayMatrix();
-				break;
-			case 3: matrix = mPhoto4View.getDisplayMatrix();
-				break;
-		}
-//		mPhoto1View.setDisplayMatrix(matrix);
-//		mPhoto2View.setDisplayMatrix(matrix);
-
-		mPhoto3View.setImageBitmap(mCurrentBitmap, matrix, -1, -1);
-		mPhoto4View.setImageBitmap(mCurrentBitmap, matrix, -1, -1);
-	}*/
 
 	private void loadNewTask(final int offset) {
 		if ( !isOnline(this) ) {
@@ -444,12 +440,15 @@ Util.logInfo("==========++", jsonObject.toString());
 		}
 
 		String pybossaToken = PropertyHolder.getPybossaToken();
-Util.logInfo("===========", "pybossaToken >> " + pybossaToken);
 		if ( TextUtils.isEmpty(pybossaToken) ) {
+			Crashlytics.log("loadNewTask >> No token found");
 			this.finish();
 		}
+		else {
+			Util.logInfo("===========", "pybossaToken >> " + pybossaToken);
+		}
 
-		String newTaskUrl = pybossa.getPybossaNewtaskUrl(offset);
+		final String newTaskUrl = pybossa.getPybossaNewtaskUrl(offset);
 Util.logInfo("===========", newTaskUrl);
 		String auth = "Bearer " + pybossaToken;
 
@@ -472,23 +471,25 @@ Util.logInfo("===========", "prefetching >> " +  resultTask.getId());
 						else {
 							myTask = resultTask;
 							loadPhoto(false);
-							createTaskRunObject();
+							createTaskRunObject(myTask);
 						}
 					}
 					else {
+						if ( e != null ) Util.logCrashlyticsException("loadNewTask >> " + newTaskUrl, e);
 						PhotoValidationActivity.this.finish();
 					}
+
 				}
 			});
 	}
 
-	private void createTaskRunObject() {
+	private void createTaskRunObject(Task task) {
 		try {
-			mTaskRun = new TaskRun(myTask.getProjectId(), myTask.getId(), PropertyHolder.getUserId(), null);
+			mTaskRun = new TaskRun(task.getProjectId(), task.getId(), PropertyHolder.getUserId(), null);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			Util.logCrashlyticsException("createTaskRunObject", e);
+Util.logCrashlyticsException("createTaskRunObject", e);
 			this.finish();
 		}
 	}
@@ -502,15 +503,9 @@ Util.logInfo("===========", "prefetching >> " +  resultTask.getId());
 			String getPhotoUrl = UtilPybossa.URL_GET_PHOTO + UtilLocal.PHOTO_TOKEN + "/" + myTask.getInfo().getUuid() + "/medium";
 Util.logInfo("===========", myTask.getId() + " >> " + getPhotoUrl);
 
-			// Send Firebase Event
-			/*Bundle bundle = new Bundle();
-			bundle.putString(FirebaseAnalytics.Param.ITEM_ID, myTask.getInfo().getUuid());
-			mFirebaseAnalytics.logEvent("ma_evt_photo_validation", bundle);*/
-
 //		Ion.with(mPhoto1View)
 //				.placeholder(R.drawable.ic_switchboard_icon_validacio_large)
 //				.load(getPhotoUrl);
-
 //			final ProgressDialog dlg = new ProgressDialog(this);
 //			dlg.setTitle("Loading...");
 //			dlg.setIndeterminate(false);
@@ -575,5 +570,35 @@ Util.logInfo("===========", myTask.getId() + " >> " + getPhotoUrl);
 		else
 			super.onBackPressed();
 	}
-	
+
+
+	/*private void setBitmapScaleToAll() {
+		Matrix matrix = new Matrix();
+		switch ( mViewFlipper.getDisplayedChild() ) {
+			case 0: mPhoto1View.getDisplayMatrix(matrix);
+				mPhoto2View.setDisplayMatrix(matrix); //Sets the mSuppMatrix in the PhotoViewAttacher
+				//mPhoto1View.setDisplayMatrix(matrix);
+
+				mPhoto2View.setImageMatrix( matrix );
+				//mPhoto1View.setImageMatrix( matrix ); //And applies it to the PhotoView (catches out of boundaries problems)
+
+				break;
+			case 1: mPhoto2View.getDisplayMatrix(matrix);
+				mPhoto1View.setDisplayMatrix(matrix); //Sets the mSuppMatrix in the PhotoViewAttacher
+				//mPhoto2View.setDisplayMatrix(matrix);
+
+				mPhoto1View.setImageMatrix( matrix ); //And applies it to the PhotoView (catches out of boundaries problems)
+				//mPhoto2View.setImageMatrix( matrix ); //And applies it to the PhotoView (catches out of boundaries problems)
+				break;
+			case 2: matrix = mPhoto3View.getDisplayMatrix();
+				break;
+			case 3: matrix = mPhoto4View.getDisplayMatrix();
+				break;
+		}
+//		mPhoto1View.setDisplayMatrix(matrix);
+//		mPhoto2View.setDisplayMatrix(matrix);
+
+		mPhoto3View.setImageBitmap(mCurrentBitmap, matrix, -1, -1);
+		mPhoto4View.setImageBitmap(mCurrentBitmap, matrix, -1, -1);
+	}*/
 }

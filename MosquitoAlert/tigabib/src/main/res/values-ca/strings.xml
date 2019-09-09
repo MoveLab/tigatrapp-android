@@ -383,5 +383,6 @@
     <string name="login_no_internet_connection">Sense connexió a internet. Connecti el dispositiu a la xarxa per iniciar sessió amb un compte personal.</string>
 
     <string name="sending_samples_notification">Enviant mostres</string>
+    <string name="photo_validation_no_task">Carregant tasca de validació de fotos</string>
 
 </resources>

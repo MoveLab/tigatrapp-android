@@ -41,8 +41,8 @@ android {
         minSdkVersion 16
         targetSdkVersion 26
         multiDexEnabled true
-        versionCode 30  /* 30 is w1.71 current production version; 29 is v1.70; 26 is 1.61 */
-        versionName "1.71"
+        versionCode 31  /* 31 is w1.72 current production version; 30 is w1.71; 29 is v1.70; 26 is 1.61 */
+        versionName "1.72"
     }
 
     buildTypes {

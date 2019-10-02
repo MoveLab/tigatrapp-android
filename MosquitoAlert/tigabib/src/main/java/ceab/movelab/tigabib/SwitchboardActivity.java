@@ -72,6 +72,7 @@ import ceab.movelab.tigabib.model.RealmHelper;
 import ceab.movelab.tigabib.model.Score;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
+import io.realm.exceptions.RealmException;
 
 import static ceab.movelab.tigabib.NotificationActivity.NOTIFICATION_ID;
 import static ceab.movelab.tigabib.Util.isOnline;
@@ -569,12 +570,12 @@ Util.logInfo(this.getClass().getName(), "loadScore >> " + result.toString());
 				((TextView) findViewById(R.id.reportNotificationsNumberText)).setText(count > 99 ? "99+" : String.valueOf(count));
 			} catch (Exception e) {
 				e.printStackTrace();
+				Util.logCrashlyticsException("updateNotificationCount: setText", new Exception());
 			}
 		} else {
-			// throw exception
-			Crashlytics.log("Realm is null");
+			// throw Crashlyticsexception
 			Crashlytics.setString("Method", "updateNotificationCount");
-			Crashlytics.logException(new Exception());
+			Util.logCrashlyticsException("updateNotificationCount: Realm is null", new RealmException(""));
 		}
 	}
 

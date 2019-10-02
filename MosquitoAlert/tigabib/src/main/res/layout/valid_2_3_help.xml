@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              tools:background="@color/switchboard_bg"
               android:orientation="vertical">
 <!--    <TextView
         android:layout_width="wrap_content"
@@ -54,6 +56,7 @@
         <TextView
             android:layout_width="@dimen/validation_box_width"
             android:layout_height="wrap_content"
+            android:layout_weight="0.5"
             android:text="@string/i18n_thorax2"
             android:drawableTop="@drawable/yellow_torax"
             android:drawablePadding="12dp"
@@ -61,6 +64,7 @@
         <TextView
             android:layout_width="@dimen/validation_box_width"
             android:layout_height="wrap_content"
+            android:layout_weight="0.5"
             android:text="@string/i18n_abdomen2"
             android:drawableTop="@drawable/yellow_abdomen"
             android:drawablePadding="12dp"

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
+              tools:background="@color/switchboard_bg"
               android:orientation="vertical">
 
    <!-- <TextView
@@ -41,20 +43,15 @@
         android:gravity="start"
         style="@style/ValidationHelpText" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/i18n_examples"
-        style="@style/ValidationHelpSubtitle" />
-
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:orientation="horizontal">
             <TextView
                 android:layout_width="@dimen/validation_box_width"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.5"
                 android:text="@string/i18n_thorax"
                 android:drawableTop="@drawable/tigre_torax"
                 android:drawablePadding="12dp"
@@ -62,6 +59,7 @@
             <TextView
                 android:layout_width="@dimen/validation_box_width"
                 android:layout_height="wrap_content"
+                android:layout_weight="0.5"
                 android:text="@string/i18n_abdomen"
                 android:drawableTop="@drawable/tigre_abdomen"
                 android:drawablePadding="12dp"

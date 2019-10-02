@@ -152,8 +152,6 @@ public class ReportToolActivity extends Activity {
 
 	private String lang;
 
-	//private FirebaseAnalytics mFirebaseAnalytics;
-
 
 	@Override
 	public void onCreate(Bundle icicle) {
@@ -165,9 +163,6 @@ Util.logInfo(TAG, "on create ReportTool");
 			PropertyHolder.init(context);
 
 		lang = Util.setDisplayLanguage(getResources());
-
-		// Obtain the FirebaseAnalytics instance.
-		//mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 
 		Bundle b = getIntent().getExtras();
 		if ( b != null ) {
@@ -315,7 +310,7 @@ Util.logInfo(TAG, "on create ReportTool");
 		OnClickListener ocl = new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (v.getId() == R.id.reportTitleRow) {
+				if ( v.getId() == R.id.reportTitleRow ) {
 					Util.showHelp(context,
 							type == Report.TYPE_ADULT ? context.getResources()
 									.getString(R.string.adult_report_help_html)
@@ -339,13 +334,17 @@ Util.logInfo(TAG, "on create ReportTool");
 					}
 					return;
 				} else if (v.getId() == R.id.reportLocationRow) {
-					if (!reportLocationCheck.isChecked())
+					if ( !reportLocationCheck.isChecked() )
 						buildLocationMenu();
 					return;
-				} else if (v.getId() == R.id.reportCurrentLocationRow) {
-					if (currentLocation == null) {
-						if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
-								|| locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
+				} else if ( v.getId() == R.id.reportCurrentLocationRow ) {
+					if ( currentLocation == null ) {
+						if ( locationManager == null ) {
+							buildLocationAlert(getResources().getString(R.string.nolocnogps_alert));
+							return;
+						}
+						if ( locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
+								|| locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER) ) {
 							buildLocationAlert(getResources().getString(R.string.nolocation_alert_report));
 						} else if (!gpsAvailable && !networkLocationAvailable) {
 							buildAlertMessageNoGpsNoNet(getResources().getString(R.string.noGPSnoNetAlert));

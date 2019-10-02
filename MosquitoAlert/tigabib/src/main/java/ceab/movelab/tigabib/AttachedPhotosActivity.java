@@ -100,7 +100,7 @@ public class AttachedPhotosActivity extends Activity {
 								dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 								dialog.setContentView(R.layout.photo_view);
 								ImageView iv = (ImageView) dialog.findViewById(R.id.photoView);
-								// TODO find better way of choosing max pixe size -- based on screen !!!
+								// TODO find better way of choosing max pixel size -- based on screen !!!
 								iv.setImageBitmap(Util.getSmallerBitmap(new File(thisPhotoUri), context, 300));
 								
 								LinearLayout button_area = (LinearLayout) dialog.findViewById(R.id.photo_button_area);
@@ -117,16 +117,14 @@ public class AttachedPhotosActivity extends Activity {
 											imageUri = FileProvider.getUriForFile(context, getPackageName() + ".provider", new File(thisPhotoUri));
 										Intent shareIntent = new Intent();
 										shareIntent.setAction(Intent.ACTION_SEND);
-										shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
 										shareIntent.setType("image/*");
-										// add a subject
-										shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, R.string.app_name);
-
-										// build the body of the message to be shared
+										//https://stackoverflow.com/questions/38200282/android-os-fileuriexposedexception-file-storage-emulated-0-test-txt-exposed
+										shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+										shareIntent.putExtra(Intent.EXTRA_STREAM, imageUri);
+										shareIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, R.string.app_name); // add a subject
+										// build the body of the message to be shared, add the message
 										String shareMessage = getResources().getString(R.string.photo_share_message);
-										// add the message
 										shareIntent.putExtra(Intent.EXTRA_TEXT, shareMessage);
-
 										// start the chooser for sharing
 										startActivity(Intent.createChooser(shareIntent, getResources().getText(R.string.share_with)));
 									}

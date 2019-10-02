@@ -129,7 +129,6 @@ Util.logInfo(TAG, "Sample onCreate");
 
 	private void setSamples() {
 Util.logInfo(TAG, "set samples");
-
 		int samplesPerDay = PropertyHolder.getSamplesPerDay();
 		AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 		int alarmType = AlarmManager.RTC_WAKEUP;

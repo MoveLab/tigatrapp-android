@@ -35,6 +35,7 @@
         <TextView
             android:layout_width="@dimen/validation_box_width"
             android:layout_height="match_parent"
+            android:layout_weight="0.5"
             android:text="@string/i18n_tigermosquito"
             android:drawableBottom="@drawable/tigre_torax"
             android:drawablePadding="12dp"
@@ -42,6 +43,7 @@
         <TextView
             android:layout_width="@dimen/validation_box_width"
             android:layout_height="match_parent"
+            android:layout_weight="0.5"
             android:text="@string/i18n_yellowfever2"
             android:drawableBottom="@drawable/yellow_torax"
             android:drawablePadding="12dp"

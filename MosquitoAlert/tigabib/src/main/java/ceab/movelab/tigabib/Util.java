@@ -1352,6 +1352,7 @@ Util.logInfo(">>>>>>>>", "getProfileReports >> NONE");
 			dialog.show();
 		}
 		catch (Exception e) {
+			logCrashlyticsException("buildCustomAlert", e);
 			e.printStackTrace();
 		}
 	}

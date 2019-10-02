@@ -67,9 +67,8 @@ android {
     //}
 }
 
-//https://stackoverflow.com/questions/44493378/whats-the-difference-between-implementation-and-compile-in-gradle
+// https://stackoverflow.com/questions/44493378/whats-the-difference-between-implementation-and-compile-in-gradle
 // https://medium.com/mindorks/avoiding-conflicts-in-android-gradle-dependencies-28e4200ca235
-//https://medium.com/@fabionegri/remember-remember-to-target-api-26-on-november-7ce4fdde2c08
 
 // https://firebase.google.com/support/release-notes/android
 dependencies {

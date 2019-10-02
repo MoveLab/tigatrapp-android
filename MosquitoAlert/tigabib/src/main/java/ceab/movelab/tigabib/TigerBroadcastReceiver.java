@@ -215,7 +215,7 @@ Util.logInfo(TAG, "create notification");
 				new NotificationCompat.Builder(context, "MosquitoAlert")
 						.setSmallIcon(R.drawable.ic_stat_mission)
 						.setContentTitle(myTitle);
-						//.setContentText("Text below title"); !!! check with John
+						//.setContentText("Text below title");
 
 		Intent intent = new Intent(context, MissionListActivity.class);
 		// Because clicking the notification opens a new ("special") activity, there's

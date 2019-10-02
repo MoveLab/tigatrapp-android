@@ -107,7 +107,7 @@ Util.logInfo(this.getClass().getName(), "getScore >> " + results.getScore());
     public RealmResults<Notification> getNotificationsRead(final Realm realm, boolean ack) {
         RealmResults<Notification> results = realm.where(Notification.class).equalTo("acknowledged", ack).findAll();
 Util.logInfo(this.getClass().getName(), "getNotificationsRead (" + ack + ") >> " + results.size());
-        return realm.where(Notification.class).equalTo("acknowledged", ack).findAll();
+        return results;
     }
 
     public int getNewNotificationsCount(final Realm realm) {

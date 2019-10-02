@@ -54,7 +54,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
             android:layout_marginLeft="@dimen/valid_photo_margin"
+            android:layout_marginStart="@dimen/valid_photo_margin"
             android:layout_marginRight="@dimen/valid_photo_margin_less"
+            android:layout_marginEnd="@dimen/valid_photo_margin_less"
             android:orientation="vertical">
             <TextView
                 android:id="@+id/validMosquitoTigerButton"

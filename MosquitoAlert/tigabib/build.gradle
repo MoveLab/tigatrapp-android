@@ -31,7 +31,7 @@ android {
     buildToolsVersion "28.0.3"  //"27.0.3" // "25.0.2" // "24.0.3"  // "23.0.2"
     defaultConfig {
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 28
         multiDexEnabled true
     }
 
@@ -45,11 +45,11 @@ android {
             ext.enableCrashlytics = false
         }
         release {
-            buildConfigField "boolean", "PYBOSSA_LIVE", "true" //  !!!!$$$$ true for final release
-            buildConfigField "boolean", "SERVER_LIVE", "true"  //  !!!!$$$$ true for final release
+            buildConfigField "boolean", "PYBOSSA_LIVE", "false" //  !!!!$$$$ true for final release
+            buildConfigField "boolean", "SERVER_LIVE", "false"  //  !!!!$$$$ true for final release
             buildConfigField "boolean", "ENABLE_CRASHLYTICS", "true" //  !!!!$$$$ true for final release
             buildConfigField "boolean", "PRIVATE_MODE", "false"
-            debuggable false     //  !!!!$$$$ false for final release
+            debuggable true     //  !!!!$$$$ false for final release
 //            minifyEnabled true
 //            shrinkResources true
 //            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
@@ -77,8 +77,6 @@ dependencies {
     implementation 'com.android.support:support-v4:27.1.0'      // 27.1.0, 25.0.1
     implementation 'com.android.support:appcompat-v7:27.1.0'    // 27.1.0, 25.0.1
     implementation 'com.android.support:design:27.1.0'          // 27.1.0, 25.0.1
-
-    //implementation 'com.android.support:customtabs:27.1.0' // 25.0.1 // chrome tabs
 
     implementation 'com.google.firebase:firebase-core:16.0.9'       // 16.0.7, 16.0.1, 12.0.1, 11.8.0, 10.0.1
     implementation 'com.google.firebase:firebase-messaging:17.6.0'  // 17.3.4, 17.1.0, 12.0.1, 11.8.0, 10.0.1

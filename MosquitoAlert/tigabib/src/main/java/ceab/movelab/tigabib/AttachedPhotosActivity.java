@@ -51,7 +51,7 @@ public class AttachedPhotosActivity extends Activity {
 	private String mCurrentPhotoPath;
 
 	private PhotoGridAdapter adapter;
-	private GridView gridview;
+	private GridView mGridview;
 
 	private JSONArray jsonPhotos;
 	private String jsonPhotosString;
@@ -86,10 +86,10 @@ public class AttachedPhotosActivity extends Activity {
 				jsonPhotos = new JSONArray(jsonPhotosString);
 				adapter = new PhotoGridAdapter(context, jsonPhotos);
 
-				gridview = (GridView) findViewById(R.id.gridview);
-				gridview.setAdapter(adapter);
-				
-				gridview.setOnItemClickListener(new OnItemClickListener() {
+				mGridview = (GridView) findViewById(R.id.gridview);
+				mGridview.setAdapter(adapter);
+
+				mGridview.setOnItemClickListener(new OnItemClickListener() {
 					public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 						final String thisPhotoUri = Report.getPhotoUri(context, jsonPhotos, position);
 						final int pos = position;
@@ -136,7 +136,7 @@ public class AttachedPhotosActivity extends Activity {
 										jsonPhotos = Report.deletePhoto(context, jsonPhotos, pos);
 										// I realize this is ugly, but it is the quickest fix right now to get the grid updated...
 										adapter = new PhotoGridAdapter(context, jsonPhotos);
-										gridview.setAdapter(adapter);
+										mGridview.setAdapter(adapter);
 
 										dialog.dismiss();
 									}
@@ -151,7 +151,7 @@ public class AttachedPhotosActivity extends Activity {
 					}
 				});
 
-				gridview.setOnItemLongClickListener(new OnItemLongClickListener() {
+				mGridview.setOnItemLongClickListener(new OnItemLongClickListener() {
 					public boolean onItemLongClick(AdapterView<?> parent, View v, int position, long id) {
 						final String item = (String) parent.getItemAtPosition(position);
 						final int pos = position;
@@ -168,7 +168,7 @@ public class AttachedPhotosActivity extends Activity {
 										//adapter.notifyDataSetChanged();
 										// I realize this is ugly, but it is the quickest fix right now to get the grid updated...
 										adapter = new PhotoGridAdapter(context, jsonPhotos);
-										gridview.setAdapter(adapter);
+										mGridview.setAdapter(adapter);
 
 										di.dismiss();
 									}
@@ -257,9 +257,9 @@ public class AttachedPhotosActivity extends Activity {
 
 	@Override
 	protected void onPause() {
-		int count = gridview.getCount();
+		int count = mGridview.getCount();
 		for ( int i = 0; i < count; i++ ) {
-			ImageView v = (ImageView) gridview.getChildAt(i);
+			ImageView v = (ImageView) mGridview.getChildAt(i);
 			if ( v != null ) {
 				if ( v.getDrawable() != null )
 					v.getDrawable().setCallback(null);

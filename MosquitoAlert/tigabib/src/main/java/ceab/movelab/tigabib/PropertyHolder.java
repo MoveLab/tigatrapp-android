@@ -116,10 +116,6 @@ public class PropertyHolder {
 		editor.apply();
 	}
 
-/*	public static boolean needsMosquitoAlertPop(){
-		return sharedPreferences.getBoolean(NEEDS_MOSQUITO_ALERT_POP, true);
-	}*/
-
 	
 	private static String LAST_DEMO_POPUP_TIME = "last_demo_popup_time";
 	
@@ -255,7 +251,12 @@ public class PropertyHolder {
 
 
 	public static String getLanguage() {
-		return sharedPreferences.getString("LANGUAGE", Locale.getDefault().getLanguage());
+		String lang = sharedPreferences.getString("LANGUAGE", Locale.getDefault().getLanguage());
+		if ( lang == null ) { // just in case no default language is set; Crashlytics
+			lang = new Locale("en").getLanguage();
+			setLanguage(lang);
+		}
+		return lang;
 	}
 
 	public static void setLanguage(String lang) {

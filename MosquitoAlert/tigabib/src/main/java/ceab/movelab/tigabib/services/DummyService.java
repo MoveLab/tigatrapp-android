@@ -4,7 +4,9 @@ import android.app.Notification;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
 
+import ceab.movelab.tigabib.R;
 import ceab.movelab.tigabib.Util;
 
 // https://www.spiria.com/en/blog/mobile-development/hiding-foreground-services-notifications-in-android/
@@ -13,8 +15,10 @@ public class DummyService extends Service {
     @Override
     public void onCreate() {
         super.onCreate();
-        Notification.Builder builder = new Notification.Builder(this);
-        this.startForeground(Util.NOTIFICATION_ID_SAMPLE, builder.getNotification());
+        Notification notif = new NotificationCompat.Builder(this, "")
+                .setSmallIcon(R.drawable.ic_stat_mission)
+                .build();
+        this.startForeground(Util.NOTIFICATION_ID_SAMPLE, notif);
         stopSelf();
     }
 

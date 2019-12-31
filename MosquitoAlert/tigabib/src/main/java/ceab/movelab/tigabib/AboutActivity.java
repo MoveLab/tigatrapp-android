@@ -57,8 +57,6 @@ public class AboutActivity extends Activity {
 
 	private String lang;
 
-	//private FirebaseAnalytics mFirebaseAnalytics;
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -69,9 +67,6 @@ public class AboutActivity extends Activity {
 		lang = Util.setDisplayLanguage(getResources());
 
 		setContentView(R.layout.webview);
-
-		// Obtain the FirebaseAnalytics instance.
-		//mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 	}
 
 	@Override
@@ -86,10 +81,6 @@ public class AboutActivity extends Activity {
 			finish();
 			startActivity(getIntent());
 		}
-
-		// [START set_current_screen]
-		//mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_about", "About");
-		// [END set_current_screen]
 
 		// https://code.google.com/p/android/issues/detail?id=32755
 		myWebView = (WebView) findViewById(R.id.webview);

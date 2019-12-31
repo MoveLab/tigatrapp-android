@@ -80,6 +80,7 @@ import android.text.TextUtils;
 import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
 import ceab.movelab.tigabib.services.FixGet;
 import ceab.movelab.tigabib.services.Sample;
+import ceab.movelab.tigabib.services.SyncData;
 
 /**
  * Triggers and stops location fixes at set intervals; also sends notification to notification bar.

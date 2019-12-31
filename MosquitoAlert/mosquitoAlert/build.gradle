@@ -41,23 +41,21 @@ android {
         minSdkVersion 16
         targetSdkVersion 26
         multiDexEnabled true
-        versionCode 31  /* 31 is w1.72 current production version; 30 is w1.71; 29 is v1.70; 26 is 1.61 */
-        versionName "1.72"
+        versionCode 32  /* 31 is w1.72 current production version; 30 is w1.71; 29 is v1.70; 26 is 1.61 */
+        versionName "1.73"
     }
 
     buildTypes {
         debug {
             debuggable true
-            //buildConfigField "boolean", "PRIVATE_MODE", "true"
             signingConfig signingConfigs.config
             ext.enableCrashlytics = false
         }
         release {
-            //buildConfigField "boolean", "PRIVATE_MODE", "false"
             //minifyEnabled true
             //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
             signingConfig signingConfigs.config_new
-            debuggable false //  !!!!$$$$ false for final release
+            debuggable true //  !!!!$$$$ false for final release
         }
     }
 /*    configurations.all {
@@ -79,6 +77,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-messaging:17.6.0'  // 17.3.4, 17.1.0, 12.0.1, 11.8.0, 10.0.1
 
     // https://github.com/firebase/FirebaseUI-Android
+    // https://firebaseopensource.com/projects/firebase/firebaseui-android/
     implementation ('com.firebaseui:firebase-ui-auth:4.2.0') {  // 4.1.0
         transitive = true
     }

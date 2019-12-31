@@ -67,6 +67,8 @@ package ceab.movelab.tigabib.services;
 
 import android.Manifest;
 import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
@@ -78,16 +80,19 @@ import android.location.LocationProvider;
 import android.os.Binder;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.os.IBinder;
 import android.os.Parcel;
 import android.os.RemoteException;
 import android.os.SystemClock;
+import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 
 import java.util.ArrayList;
 
 import ceab.movelab.tigabib.Messages;
 import ceab.movelab.tigabib.PropertyHolder;
+import ceab.movelab.tigabib.R;
 import ceab.movelab.tigabib.Util;
 
 /**
@@ -142,6 +147,9 @@ public class FixGet extends Service {
 	public void onCreate() {
 Util.logInfo(TAG, "on Create FixGet ");
 		context = getApplicationContext();
+		if ( !PropertyHolder.isInit() )
+			PropertyHolder.init(context);
+
 		locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
 
 /*		try {
@@ -160,8 +168,31 @@ Util.logInfo(TAG, "on Create FixGet ");
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 Util.logInfo(TAG, "onStartCommand FixGet ");
-		if ( !PropertyHolder.isInit() )
-			PropertyHolder.init(context);
+
+		// Imposed by Android 8 new behaviour on start services in background
+		Notification notification = new NotificationCompat.Builder(context, "")
+				.setSmallIcon(R.drawable.ic_stat_mission)
+				.setContentTitle(getString(R.string.app_name))
+				.setContentText(getString(R.string.sending_samples_notification))
+				.setAutoCancel(true)
+				.setPriority(NotificationCompat.PRIORITY_MIN)
+				.setChannelId("MA")
+				.build();
+		startForeground(Util.NOTIFICATION_ID_SAMPLE, notification);
+
+		Handler mHandler = new Handler();
+		mHandler.postDelayed(new Runnable () {
+			public void run() {
+				NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+				if ( mNotificationManager != null ) {
+					mNotificationManager.cancel("MA", Util.NOTIFICATION_ID_SAMPLE);
+					mNotificationManager.cancel(Util.NOTIFICATION_ID_SAMPLE);
+					mNotificationManager.cancelAll();
+				}
+				//https://www.spiria.com/en/blog/mobile-development/hiding-foreground-services-notifications-in-android/
+				startService(new Intent(FixGet.this, DummyService.class));
+			}
+		}, 2000);
 
 		if ( !PropertyHolder.hasConsented() || Util.privateMode() || getDeniedPermissions().size() > 0 ) {
 			stopSelf();
@@ -219,8 +250,6 @@ Util.logInfo(TAG, "set alarm to stop self at " + Util.iso8601(System.currentTime
 							}
 						} catch (SecurityException se) {
 							Util.logCrashlyticsException("FixGet: onStartCommand", new SecurityException());
-//							Crashlytics.log("FixGet: onStartCommand");
-//							Crashlytics.logException(new SecurityException());
 						}
 
 						if ( locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)
@@ -243,8 +272,6 @@ Util.logInfo(TAG, "set alarm to stop self at " + Util.iso8601(System.currentTime
 			}
 			else {
 				Util.logCrashlyticsException("FixGet: intent is null", new SecurityException());
-//				Crashlytics.log("FixGet: intent is null");
-//				Crashlytics.logException(new Exception());
 			}
 		}
 		return START_STICKY_COMPATIBILITY;
@@ -364,8 +391,6 @@ Util.logInfo(TAG, "set alarm to stop self at " + Util.iso8601(System.currentTime
 			}
 		} catch (SecurityException se) {
 			Util.logCrashlyticsException("FixGet: removeLocationUpdates", new SecurityException());
-//			Crashlytics.log("FixGet: removeLocationUpdates");
-//			Crashlytics.logException(new SecurityException());
 		}
 		gpsListener = null;
 		networkListener = null;
@@ -403,8 +428,6 @@ Util.logInfo(TAG, "set alarm to stop self at " + Util.iso8601(System.currentTime
 			}
 		} catch (SecurityException se) {
 			Util.logCrashlyticsException("ReportToolActivity: removeLocationUpdate", new SecurityException());
-//			Crashlytics.log("ReportToolActivity: removeLocationUpdate");
-//			Crashlytics.logException(new SecurityException());
 		}
 	}
 

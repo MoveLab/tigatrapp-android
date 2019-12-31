@@ -284,6 +284,14 @@ public class Report {
 		return reportId;
 	}
 
+	public int getLatestVersion(){
+		return latestVersion;
+	}
+
+	public int getDeleteReport() {
+		return deleteReport;
+	}
+
 	public boolean setPhotoUris(Context context, String photoUris) {
 		boolean result = false;
 		if ( photoUris == null ) {

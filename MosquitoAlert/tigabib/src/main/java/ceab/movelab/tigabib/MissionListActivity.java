@@ -40,6 +40,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 
+import javax.annotation.Nonnull;
+
 import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
 
 public class MissionListActivity extends FragmentActivity implements LoaderManager.LoaderCallbacks<Cursor> {
@@ -54,7 +56,7 @@ public class MissionListActivity extends FragmentActivity implements LoaderManag
 	private static final String queryAll = Tasks.KEY_ACTIVE + " = 1";
 	private static final String queryPending = Tasks.KEY_ACTIVE + " = 1 AND " + Tasks.KEY_DONE + " = 0";
 
-	String lang;
+	private static String lang;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -153,17 +155,19 @@ public class MissionListActivity extends FragmentActivity implements LoaderManag
 		super.onResume();
 	}
 
+
+	@Nonnull
 	public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
 		return new CursorLoader(this, Util.getMissionsUri(this),
 				Tasks.KEYS_TASKS_LIST, all ? queryAll : queryPending, null,
 				Tasks.KEY_CREATION_TIME + " DESC");
 	}
 
-	public void onLoadFinished(Loader<Cursor> cursorLoader, Cursor cursor) {
+	public void onLoadFinished(@Nonnull Loader<Cursor> cursorLoader, Cursor cursor) {
 		adapter.swapCursor(cursor);
 	}
 
-	public void onLoaderReset(Loader<Cursor> cursorLoader) {
+	public void onLoaderReset(@Nonnull Loader<Cursor> cursorLoader) {
 		adapter.swapCursor(null);
 	}
 
@@ -175,7 +179,6 @@ public class MissionListActivity extends FragmentActivity implements LoaderManag
 		Util.setMenuTextColor(menu);
 
 		MenuItem miAll = menu.findItem(R.id.all);
-		//MenuItem miPending = menu.findItem(R.id.pending);
 		miAll.setChecked(all);
 
 		return true;

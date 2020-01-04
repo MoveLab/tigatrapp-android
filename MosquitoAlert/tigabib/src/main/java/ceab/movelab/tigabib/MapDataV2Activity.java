@@ -107,8 +107,9 @@ import ceab.movelab.tigabib.model.NearbyReport;
  */
 public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCallback,
 		GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener  {
+	private static final String TAG = "MapDataV2Activity";
 
-	private static String TAG = "MapDataV2Activity";
+	private static String lang;
 
 	private static final int REQUEST_GOOGLE_PLAY_SERVICES = 999;
 
@@ -119,8 +120,6 @@ public class MapDataV2Activity extends FragmentActivity implements OnMapReadyCal
 //	int SITE_COLOR_V1 = 0xff7570b3;	// 117, 112, 179 // 244.0f
 
 	private static final int NEARBY_RADIUS = 5000;
-
-	private String lang;
 
 	private RelativeLayout legendLayout;
 	private ProgressBar progressbar;

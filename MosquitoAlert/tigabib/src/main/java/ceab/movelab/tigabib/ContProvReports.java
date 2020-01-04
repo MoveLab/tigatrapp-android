@@ -45,6 +45,7 @@ import ceab.movelab.tigabib.ContProvContractReports.Reports;
  */
 
 public abstract class ContProvReports extends ContentProvider {
+	private static final String TAG = "ContentProviderReports";
 
 	protected abstract String getAuthority();
 
@@ -53,7 +54,6 @@ public abstract class ContProvReports extends ContentProvider {
 	 */
 	public Uri CONTENT_URI = Uri.parse("content://" + getAuthority() + "/" + DATABASE_TABLE);
 
-	private static final String TAG = "ContentProviderReports";
 
 	/** The SQLite database name */
 	private static final String DATABASE_NAME = "reportsDB";
@@ -73,9 +73,10 @@ public abstract class ContProvReports extends ContentProvider {
 	private static final String DATABASE_CREATE = "create table reportsTable ("
 			+ Reports.KEY_ROW_ID + " integer primary key autoincrement" + COMMA
 			+ Reports.KEY_VERSION_UUID + TYPE_TEXT + COMMA
-			+ Reports.KEY_USER_ID + TYPE_TEXT + COMMA + Reports.KEY_REPORT_ID
-			+ TYPE_TEXT + COMMA + Reports.KEY_REPORT_VERSION + TYPE_INTEGER
-			+ COMMA + Reports.KEY_REPORT_TIME + TYPE_INTEGER + COMMA
+			+ Reports.KEY_USER_ID + TYPE_TEXT + COMMA
+			+ Reports.KEY_REPORT_ID + TYPE_TEXT + COMMA
+			+ Reports.KEY_REPORT_VERSION + TYPE_INTEGER + COMMA
+			+ Reports.KEY_REPORT_TIME + TYPE_INTEGER + COMMA
 			+ Reports.KEY_CREATION_TIME + TYPE_TEXT + COMMA
 			+ Reports.KEY_VERSION_TIME + TYPE_INTEGER + COMMA
 			+ Reports.KEY_VERSION_TIME_STRING + TYPE_TEXT + COMMA
@@ -88,8 +89,9 @@ public abstract class ContProvReports extends ContentProvider {
 			+ Reports.KEY_SELECTED_LOCATION_LON + TYPE_REAL + COMMA
 			+ Reports.KEY_SELECTED_LOCATION_LAT + TYPE_REAL + COMMA
 			+ Reports.KEY_PHOTO_ATTACHED + TYPE_INTEGER + COMMA
-			+ Reports.KEY_PHOTO_URIS + TYPE_TEXT + COMMA + Reports.KEY_NOTE
-			+ TYPE_TEXT + COMMA + Reports.KEY_UPLOADED + TYPE_INTEGER + COMMA
+			+ Reports.KEY_PHOTO_URIS + TYPE_TEXT + COMMA
+			+ Reports.KEY_NOTE + TYPE_TEXT + COMMA
+			+ Reports.KEY_UPLOADED + TYPE_INTEGER + COMMA
 			+ Reports.KEY_SERVER_TIMESTAMP + TYPE_INTEGER + COMMA
 			+ Reports.KEY_DELETE_REPORT + TYPE_INTEGER + COMMA
 			+ Reports.KEY_LATEST_VERSION + TYPE_INTEGER + COMMA
@@ -99,8 +101,9 @@ public abstract class ContProvReports extends ContentProvider {
 			+ Reports.KEY_MISSION_ID + TYPE_INTEGER + COMMA
 			+ Reports.KEY_OS_LANGUAGE + TYPE_TEXT + COMMA
 			+ Reports.KEY_APP_LANGUAGE + TYPE_TEXT + COMMA
-			+ Reports.KEY_PHONE_MODEL + TYPE_TEXT + COMMA + Reports.KEY_OS
-			+ TYPE_TEXT + COMMA + Reports.KEY_OS_VERSION + TYPE_TEXT + ");";
+			+ Reports.KEY_PHONE_MODEL + TYPE_TEXT + COMMA
+			+ Reports.KEY_OS + TYPE_TEXT + COMMA
+			+ Reports.KEY_OS_VERSION + TYPE_TEXT + ");";
 
 	private DatabaseHelper mDbHelper;
 

@@ -18,8 +18,7 @@ import ceab.movelab.tigabib.ContProvContractReports.Reports;
 import ceab.movelab.tigabib.adapters.ViewResponsesAdapter;
 
 public class ViewReportsChecklistTab extends Activity {
-
-	private static String TAG = "ViewReportsCheckListTab";
+	private static final String TAG = "ViewReportsCheckListTab";
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

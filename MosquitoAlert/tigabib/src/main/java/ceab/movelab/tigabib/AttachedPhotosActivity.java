@@ -41,11 +41,10 @@ import java.util.Locale;
 import ceab.movelab.tigabib.ContProvContractReports.Reports;
 
 public class AttachedPhotosActivity extends Activity {
-
-	private static String TAG = "AttachedPhotos";
+	private static final String TAG = "AttachedPhotos";
 
 	private Context context = this;
-	private String lang;
+	private static String lang;
 
 	private File directory;
 	private String mCurrentPhotoPath;

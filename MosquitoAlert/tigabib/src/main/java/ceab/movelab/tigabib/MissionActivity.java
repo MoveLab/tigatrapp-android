@@ -33,8 +33,9 @@ import ceab.movelab.tigabib.adapters.MissionAdapter;
 import ceab.movelab.tigabib.services.SyncData;
 
 public class MissionActivity extends Activity {
-	private static String TAG = "MissionActivity";
-	String lang;
+	private static final String TAG = "MissionActivity";
+
+	private static String lang;
 	ListView lv;
 	int missionId;
 	TextView taskTitle;
@@ -334,13 +335,12 @@ public class MissionActivity extends Activity {
 		super.onResume();
 	}
 
-	public OnClickListener makeOnClickListener(int action, Bundle taskInfoBundle, String url) {
-		final int thisAction = action;
+	public OnClickListener makeOnClickListener(int thisAction, Bundle taskInfoBundle, String url) {
 		final Bundle thisBundle = taskInfoBundle;
 		final String thisUrl = url;
 		OnClickListener result = null;
 		switch (thisAction) {
-		case (MissionModel.BUTTONACTIONS_DO_TASK): {
+		case MissionModel.BUTTONACTIONS_DO_TASK: {
 			result = new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -355,10 +355,10 @@ public class MissionActivity extends Activity {
 					cv.put(Tasks.KEY_DONE, 1);
 					cr.update(Util.getMissionsUri(MissionActivity.this), cv, sc, null);
 					// CHECK IF NOTIFICATIONS SHOULD BE REMOVED
-					sc = Tasks.KEY_ACTIVE + " = 1 AND " + Tasks.KEY_DONE
-							+ " = 0 AND " + Tasks.KEY_EXPIRATION_TIME
-							+ " <= " + System.currentTimeMillis();
-					Cursor c = cr.query(Util.getMissionsUri(MissionActivity.this), Tasks.KEYS_DONE, sc, null, null);
+					sc = Tasks.KEY_ACTIVE + " = 1 AND " + Tasks.KEY_DONE + " = 0 AND " +
+							Tasks.KEY_EXPIRATION_TIME + " <= " + System.currentTimeMillis();
+					Cursor c = cr.query(Util.getMissionsUri(MissionActivity.this),
+							Tasks.KEYS_DONE, sc, null, null);
 Util.logInfo(TAG, "remaining tasks: " + c.getCount());
 					if (c.getCount() == 0) {
 						Util.internalBroadcast(MissionActivity.this, Messages.REMOVE_TASK_NOTIFICATION);
@@ -422,7 +422,7 @@ Util.logInfo(TAG, "just broadcast: " + Messages.REMOVE_TASK_NOTIFICATION);
 			};
 			break;
 		}
-		case (MissionModel.BUTTONACTIONS_DO_TASK_LATER): {
+		case MissionModel.BUTTONACTIONS_DO_TASK_LATER: {
 			result = new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -431,7 +431,7 @@ Util.logInfo(TAG, "just broadcast: " + Messages.REMOVE_TASK_NOTIFICATION);
 			};
 			break;
 		}
-		case (MissionModel.BUTTONACTIONS_DELETE_TASK): {
+		case MissionModel.BUTTONACTIONS_DELETE_TASK: {
 			result = new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -441,11 +441,14 @@ Util.logInfo(TAG, "just broadcast: " + Messages.REMOVE_TASK_NOTIFICATION);
 					String sc = Tasks.KEY_ROW_ID + " = " + rowId;
 					cr.delete(Util.getMissionsUri(MissionActivity.this), sc, null);
 					// CHECK IF NOTIFICATIONS SHOULD BE REMOVED
-					sc = Tasks.KEY_DONE + " = 0 AND "
-							+ Tasks.KEY_EXPIRATION_TIME + " <= " + System.currentTimeMillis();
-					Cursor c = cr.query(Util.getMissionsUri(MissionActivity.this), Tasks.KEYS_DONE, sc, null, null);
-					if (c.getCount() == 0) {
+					sc = Tasks.KEY_DONE + " = 0 AND " +
+							Tasks.KEY_EXPIRATION_TIME + " <= " + System.currentTimeMillis();
+					Cursor c = cr.query(Util.getMissionsUri(MissionActivity.this),
+							Tasks.KEYS_DONE, sc, null, null);
+Util.logInfo(TAG, "remaining tasks: " + c.getCount());
+					if ( c.getCount() == 0 ) {
 						Util.internalBroadcast(MissionActivity.this, Messages.REMOVE_TASK_NOTIFICATION);
+Util.logInfo(TAG, "just broadcast: " + Messages.REMOVE_TASK_NOTIFICATION);
 					}
 					c.close();
 					finish();
@@ -453,7 +456,7 @@ Util.logInfo(TAG, "just broadcast: " + Messages.REMOVE_TASK_NOTIFICATION);
 			};
 			break;
 		}
-		case (MissionModel.BUTTONACTIONS_GO_TO_URL): {
+		case MissionModel.BUTTONACTIONS_GO_TO_URL: {
 			result = new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -466,11 +469,11 @@ Util.logInfo(TAG, "just broadcast: " + Messages.REMOVE_TASK_NOTIFICATION);
 			};
 			break;
 		}
-		case (MissionModel.BUTTONACTIONS_MARK_COMPLETE): {
+		case MissionModel.BUTTONACTIONS_MARK_COMPLETE: {
 			result = new OnClickListener() {
 				@Override
 				public void onClick(View v) {
-					Util.logInfo(TAG, "do task clicked");
+Util.logInfo(TAG, "do task clicked");
 					ContentResolver cr = getContentResolver();
 					ContentValues cv = new ContentValues();
 					int rowId = thisBundle.getInt(Tasks.KEY_ROW_ID);
@@ -481,15 +484,14 @@ Util.logInfo(TAG, "just broadcast: " + Messages.REMOVE_TASK_NOTIFICATION);
 					cv.put(Tasks.KEY_DONE, 1);
 					cr.update(Util.getMissionsUri(MissionActivity.this), cv, sc, null);
 					// CHECK IF NOTIFICATIONS SHOULD BE REMOVED
-					sc = Tasks.KEY_ACTIVE + " = 1 AND " + Tasks.KEY_DONE
-							+ " = " + "0 AND " + Tasks.KEY_EXPIRATION_TIME
-							+ " <=" + System.currentTimeMillis();
+					sc = Tasks.KEY_ACTIVE + " = 1 AND " + Tasks.KEY_DONE + " = " + "0 AND " +
+							Tasks.KEY_EXPIRATION_TIME + " <=" + System.currentTimeMillis();
 					Cursor c = cr.query(Util.getMissionsUri(MissionActivity.this),
 							Tasks.KEYS_DONE, sc, null, null);
-					Util.logInfo(TAG, "remaining tasks: " + c.getCount());
-					if (c.getCount() == 0) {
+Util.logInfo(TAG, "remaining tasks: " + c.getCount());
+					if ( c.getCount() == 0 ) {
 						Util.internalBroadcast(MissionActivity.this, Messages.REMOVE_TASK_NOTIFICATION);
-						Util.logInfo(TAG, "just broadcast: " + Messages.REMOVE_TASK_NOTIFICATION);
+Util.logInfo(TAG, "just broadcast: " + Messages.REMOVE_TASK_NOTIFICATION);
 					}
 
 					c.close();
@@ -504,6 +506,7 @@ Util.logInfo(TAG, "just broadcast: " + Messages.REMOVE_TASK_NOTIFICATION);
 						packageName = pInfo.packageName;
 						packageVersion = pInfo.versionCode;
 					} catch (NameNotFoundException e) {
+						e.printStackTrace();
 					}
 
 					String phoneManufacturer = Build.MANUFACTURER;

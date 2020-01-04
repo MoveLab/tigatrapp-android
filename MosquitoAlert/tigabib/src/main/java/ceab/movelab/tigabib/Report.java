@@ -43,8 +43,7 @@ import java.util.UUID;
  * 
  */
 public class Report {
-
-	private static String TAG = "Report";
+	private static final String TAG = "Report";
 
 	public static int MISSING = -1;
 	public static int NO = 0;

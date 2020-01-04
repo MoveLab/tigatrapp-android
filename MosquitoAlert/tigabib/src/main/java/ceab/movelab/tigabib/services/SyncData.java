@@ -177,6 +177,8 @@ Util.logInfo(TAG, "set property holder");
 			Util.logError(TAG, "error: " + e);
 		}
 
+		ContentResolver cr = getContentResolver();
+
 		// try to get missions from server check last id on phone
 		int latest_id = PropertyHolder.getLatestMissionId();
 		String missionUrl = Util.API_MISSION + "?" + (latest_id > 0 ? ("id_gt=" + latest_id) : "")
@@ -191,7 +193,6 @@ Util.logInfo(TAG, "missions: " + missions.toString());
 				for (int i = 0; i < missions.length(); i++) {
 					JSONObject mission = missions.getJSONObject(i);
 
-					ContentResolver cr = context.getContentResolver();
 					cr.insert(Util.getMissionsUri(context), ContProvValuesMissions.createTask(mission));
 
 					if ( mission.has(Tasks.KEY_TRIGGERS) ) {
@@ -221,8 +222,6 @@ Util.logInfo(TAG, "missions: " + missions.toString());
 		} catch (JSONException e) {
 			Util.logError(TAG, "error: " + e);
 		}
-
-		ContentResolver cr = getContentResolver();
 
 		// start with Tracks
 		Cursor c = cr.query(Util.getTracksUri(context), Fixes.KEYS_ALL, null, null, null);

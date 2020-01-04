@@ -36,7 +36,7 @@ import static ceab.movelab.tigabib.Util.getReportsUri;
 
 
 public class ReportsDownloadTask extends AsyncTask<Void, Integer, Boolean> {
-    private static String TAG = "ReportsDownloadTask";
+    private static final String TAG = "ReportsDownloadTask";
 
     private WeakReference<Context> mWeakContext;
     private ContentResolver mCR;
@@ -44,7 +44,6 @@ public class ReportsDownloadTask extends AsyncTask<Void, Integer, Boolean> {
 
     private ProgressDialog mProgDialog;
     private int myProgress;
-
 
     public ReportsDownloadTask(WeakReference<Context> reference, List<ProfileDevice> profileDeviceList)  {
         this.mWeakContext = reference;

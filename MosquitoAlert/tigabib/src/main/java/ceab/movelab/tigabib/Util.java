@@ -158,12 +158,10 @@ import ceab.movelab.tigabib.utils.ReportsDownloadTask;
  */
 public class Util {
 
-	private static String TAG = "Util";
+	private static final String TAG = "Util";
 
 	public static final int NOTIFICATION_ID_SAMPLE = 242;
-
 	public static final int MAX_MISSION_VERSION = 1;
-
 	// if we ignore fixes above 60 degrees latitude or below -60 degrees latitude, then
 	// the size of the .05x.05 degree areas should all be larger than 15.5 km. See
 	// http://msi.nga.mil/MSISiteContent/StaticFiles/Calculators/degree.html
@@ -807,6 +805,7 @@ Util.logInfo(TAG, "battery prop: " + powerProportion);
 		String lang = PropertyHolder.getLanguage();
 		DisplayMetrics dm = res.getDisplayMetrics();
 		Configuration conf = res.getConfiguration();
+
 		String oldLang = conf.locale.getLanguage();
 		if ( !oldLang.equals(lang) ) {
 			//Locale myLocale = new Locale(lang);
@@ -1112,7 +1111,7 @@ Util.logInfo(TAG, "register on server OLD");
 	}*/
 
 	public static void registerFCMToken(Context ctx, String token, String userId) {
-Util.logInfo("==============", "TEST registerFCMToken");
+Util.logInfo("==============", " registerFCMToken");
 		if ( token != null ) {
 Util.logInfo("===========", "BuildConfig.DEBUG >> " + BuildConfig.DEBUG);
 			String tokenUrl = Util.URL_TIGASERVER_API_ROOT + Util.API_FCM_TOKEN + "?token=" + token + "&user_id=" + userId;

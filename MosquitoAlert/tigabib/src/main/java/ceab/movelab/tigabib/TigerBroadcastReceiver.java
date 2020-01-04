@@ -88,15 +88,13 @@ import ceab.movelab.tigabib.services.SyncData;
  * @author John R.B. Palmer
  */
 public class TigerBroadcastReceiver extends BroadcastReceiver {
-
-	private static String TAG = "TigerBroadCastReceiver";
+	private static final String TAG = "TigerBroadCastReceiver";
 
 	private static final int ALARM_ID_SAMPLING = 0;
 	private static final int ALARM_ID_SYNC = 1;
 	//private static final int ALARM_ID_FIX = 2;
 
 	private static final int NOTIFICATION_ID_MISSION = 1;
-
 	private static final long DAILY_INTERVAL = 1000 * 60 * 60 * 24;
 
 	@Override
@@ -219,8 +217,7 @@ Util.logInfo(TAG, "create notification");
 						//.setContentText("Text below title");
 
 		Intent intent = new Intent(context, MissionListActivity.class);
-		// Because clicking the notification opens a new ("special") activity, there's
-		// no need to create an artificial back stack.
+		// Because clicking the notification opens a new ("special") activity, there's no need to create an artificial back stack.
 		PendingIntent resultPendingIntent = PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 		mBuilder.setContentIntent(resultPendingIntent);
 

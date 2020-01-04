@@ -197,7 +197,6 @@ Util.logInfo(TAG, "onStartCommand FixGet ");
 		if ( !PropertyHolder.hasConsented() || Util.privateMode() || getDeniedPermissions().size() > 0 ) {
 			stopSelf();
 		} else {
-
 			if ( intent != null  ) {
 				String action = intent.getAction();
 				if ( action != null && action.contains(Messages.stopFixAction(context)) ) {
@@ -384,9 +383,9 @@ Util.logInfo(TAG, "set alarm to stop self at " + Util.iso8601(System.currentTime
 					locationManager.removeUpdates(networkListener);
 			} else {
 				locationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
-				if (gpsListener != null)
+				if (locationManager != null && gpsListener != null)
 					locationManager.removeUpdates(gpsListener);
-				if (networkListener != null)
+				if (locationManager != null && networkListener != null)
 					locationManager.removeUpdates(networkListener);
 			}
 		} catch (SecurityException se) {

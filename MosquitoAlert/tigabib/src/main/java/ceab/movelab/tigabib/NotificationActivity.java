@@ -14,12 +14,11 @@ import ceab.movelab.tigabib.model.RealmHelper;
 import io.realm.Realm;
 
 public class NotificationActivity extends Activity {
-
 	public static String TAG = "NotificationActivity";
 
-	public static String NOTIFICATION_ID = "notification_id";
+	private static String lang;
 
-	private String lang;
+	public static String NOTIFICATION_ID = "notification_id";
 
 	private Realm mRealm;
 	private int notificationId;

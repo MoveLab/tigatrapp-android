@@ -26,7 +26,7 @@ android {
 
     useLibrary 'org.apache.http.legacy'
 
-    compileSdkVersion 27
+    compileSdkVersion 28
     //compileSdkVersion 23
     buildToolsVersion "28.0.3"  //"27.0.3" // "25.0.2" // "24.0.3"  // "23.0.2"
     defaultConfig {
@@ -42,7 +42,7 @@ android {
             buildConfigField "boolean", "ENABLE_CRASHLYTICS", "false"
             buildConfigField "boolean", "PRIVATE_MODE", "true"
             debuggable true
-            ext.enableCrashlytics = false
+            //ext.enableCrashlytics = false
         }
         release {
             buildConfigField "boolean", "PYBOSSA_LIVE", "false" //  !!!!$$$$ true for final release
@@ -87,7 +87,7 @@ dependencies {
       transitive = true
     }
     // Required only if Facebook login support is required
-    // Find the latest Facebook SDK releases here: https://goo.gl/Ce5L94
+    // Find the latest Facebook SDK releases here: https://goo.gl/Ce5L94 -> 4.41.0 i després 5.13.0
     implementation('com.facebook.android:facebook-android-sdk:4.33.0') // 4.27.0
     // Required only if Twitter login support is required
     // Find the latest Twitter SDK releases here: https://goo.gl/E5wZvQ

@@ -72,30 +72,49 @@
     <option name="TOOL_WINDOW_REGEXP_FILTER" value="false" />
   </component>
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ReportToolActivity.java" line="183" mnemonic="1" />
-    <bookmark url="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ReportToolActivity.java" line="964" mnemonic="2" />
+    <bookmark url="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ReportToolActivity.java" line="181" mnemonic="1" />
+    <bookmark url="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ReportToolActivity.java" line="962" mnemonic="2" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fd4c6398-fd5a-4321-ba38-0a3db62a4707" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_apache_http_legacy_android_27.xml" afterPath="" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change beforePath="$PROJECT_DIR$/mosquitoAlert/build.gradle" afterPath="$PROJECT_DIR$/mosquitoAlert/build.gradle" />
       <change beforePath="$PROJECT_DIR$/mosquitoAlert/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/mosquitoAlert/src/main/AndroidManifest.xml" />
-      <change beforePath="$PROJECT_DIR$/mosquitoAlertDemo/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/mosquitoAlertDemo/src/main/AndroidManifest.xml" />
       <change beforePath="$PROJECT_DIR$/tigabib/build.gradle" afterPath="$PROJECT_DIR$/tigabib/build.gradle" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/AndroidManifest.xml" afterPath="$PROJECT_DIR$/tigabib/src/main/AndroidManifest.xml" />
       <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/AboutActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/AboutActivity.java" />
       <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/AttachedPhotosActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/AttachedPhotosActivity.java" />
+      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ContProvMissions.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ContProvMissions.java" />
+      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ContProvReports.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ContProvReports.java" />
+      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ContProvTracks.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ContProvTracks.java" />
+      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MapDataV2Activity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MapDataV2Activity.java" />
+      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MapSelectorV2Activity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MapSelectorV2Activity.java" />
+      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/Messages.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/Messages.java" />
       <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MissionActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MissionActivity.java" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PhotoValidationHelpActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PhotoValidationHelpActivity.java" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PropertyHolder.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PropertyHolder.java" />
+      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MissionItemModel.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MissionItemModel.java" />
+      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MissionListActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MissionListActivity.java" />
+      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MissionListCursorAdapter.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MissionListCursorAdapter.java" />
+      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MissionModel.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MissionModel.java" />
+      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/NotificationActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/NotificationActivity.java" />
+      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/NotificationListActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/NotificationListActivity.java" />
+      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PhotoGridAdapter.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PhotoGridAdapter.java" />
+      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PhotoValidationWebViewActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PhotoValidationWebViewActivity.java" />
+      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/RSSActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/RSSActivity.java" />
       <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/Report.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/Report.java" />
       <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ReportToolActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ReportToolActivity.java" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SyncData.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/SyncData.java" />
+      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SettingsActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SettingsActivity.java" />
+      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SwitchboardActivity.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SwitchboardActivity.java" />
       <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/TigerBroadcastReceiver.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/TigerBroadcastReceiver.java" />
+      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/Util.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/Util.java" />
+      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ViewReportsChecklistTab.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ViewReportsChecklistTab.java" />
+      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ViewReportsPhotosTab.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ViewReportsPhotosTab.java" />
       <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ViewReportsTab.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ViewReportsTab.java" />
-      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/DummyService.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/DummyService.java" />
+      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/fcm/MyFirebaseMessagingService2.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/fcm/MyFirebaseMessagingService2.java" />
       <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/FixGet.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/FixGet.java" />
+      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/FixUse.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/FixUse.java" />
       <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/Sample.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/Sample.java" />
+      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/SyncData.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/SyncData.java" />
+      <change beforePath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/utils/ReportsDownloadTask.java" afterPath="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/utils/ReportsDownloadTask.java" />
     </list>
     <ignored path="MosquitoAlert.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -165,20 +184,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="SwitchboardActivity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SwitchboardActivity.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8364">
-              <caret line="567" column="74" lean-forward="false" selection-start-line="567" selection-start-column="50" selection-end-line="567" selection-end-column="74" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="Sample.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/Sample.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="527">
+            <state relative-caret-position="-549">
               <caret line="89" column="52" lean-forward="false" selection-start-line="89" selection-start-column="36" selection-end-line="89" selection-end-column="52" />
               <folding />
             </state>
@@ -188,48 +197,63 @@
       <file leaf-file-name="SyncData.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/SyncData.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="80" column="25" lean-forward="false" selection-start-line="80" selection-start-column="25" selection-end-line="80" selection-end-column="25" />
+            <state relative-caret-position="289">
+              <caret line="175" column="35" lean-forward="true" selection-start-line="175" selection-start-column="35" selection-end-line="175" selection-end-column="35" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FixGet.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="TigerBroadcastReceiver.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/TigerBroadcastReceiver.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="169">
+              <caret line="115" column="21" lean-forward="false" selection-start-line="115" selection-start-column="21" selection-end-line="115" selection-end-column="21" />
+              <folding>
+                <element signature="e#8847#8882#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FixGet.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/FixGet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2529">
-              <caret line="251" column="108" lean-forward="false" selection-start-line="251" selection-start-column="108" selection-end-line="251" selection-end-column="108" />
+            <state relative-caret-position="-511">
+              <caret line="250" column="81" lean-forward="false" selection-start-line="250" selection-start-column="81" selection-end-line="250" selection-end-column="81" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/tigabib/build.gradle">
+      <file leaf-file-name="SettingsActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SettingsActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="856">
-              <caret line="73" column="14" lean-forward="false" selection-start-line="73" selection-start-column="14" selection-end-line="73" selection-end-column="14" />
+            <state relative-caret-position="383">
+              <caret line="273" column="77" lean-forward="false" selection-start-line="273" selection-start-column="77" selection-end-line="273" selection-end-column="77" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/mosquitoAlert/build.gradle">
+      <file leaf-file-name="SwitchboardActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SwitchboardActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="930">
-              <caret line="81" column="25" lean-forward="false" selection-start-line="81" selection-start-column="25" selection-end-line="81" selection-end-column="25" />
-              <folding />
+            <state relative-caret-position="135">
+              <caret line="469" column="9" lean-forward="true" selection-start-line="469" selection-start-column="9" selection-end-line="469" selection-end-column="9" />
+              <folding>
+                <element signature="e#4297#4718#0" expanded="true" />
+                <element signature="e#4717#4718#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="build.gradle" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/build.gradle">
+      <file leaf-file-name="FixUse.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/FixUse.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="17" column="36" lean-forward="true" selection-start-line="17" selection-start-column="36" selection-end-line="17" selection-end-column="36" />
+            <state relative-caret-position="1037">
+              <caret line="96" column="39" lean-forward="false" selection-start-line="96" selection-start-column="27" selection-end-line="96" selection-end-column="39" />
               <folding />
             </state>
           </provider>
@@ -252,36 +276,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>isprovi</find>
-      <find>locationman</find>
-      <find>buildcul</find>
-      <find>realm.where(Notification.class).equalTo(&quot;acknowledged&quot;, ack).findAll()</find>
-      <find>!!!</find>
-      <find>FirebaseAnalytics.getInstance</find>
-      <find>firebase_analyti</find>
-      <find>fireb</find>
-      <find>firebase</find>
-      <find>getLanguag</find>
-      <find>private Context</find>
-      <find>startForegroundService()</find>
-      <find>context</find>
-      <find>tryuplo</find>
-      <find>reportversion</find>
-      <find>get</find>
-      <find>reportVersion</find>
-      <find>getr</find>
-      <find>report.</find>
-      <find>startForegroundService</find>
-      <find>startforegroundser</find>
-      <find>oncreate</find>
-      <find>new Notification</find>
-      <find>.setSmallIcon</find>
-      <find>DummyService</find>
       <find>facebook_application_id</find>
       <find>com.google.android.gms:play-services-</find>
       <find>startforeg</find>
       <find>static</find>
       <find>KEY_LAT</find>
+      <find>build.</find>
+      <find>ENABLE_CRASHLYTIC</find>
+      <find>crash</find>
+      <find>fireba</find>
+      <find>fire</find>
+      <find>TAG =</find>
+      <find>lang</find>
+      <find>getAuthority</find>
+      <find>sdk_int</find>
+      <find>thisAction</find>
+      <find>mission</find>
+      <find>cr =</find>
+      <find>internal</find>
+      <find>missionlist</find>
+      <find>mMissionsBroadcastReceiver</find>
+      <find>\/ try to get missions from server check last id on phone\n\	\	int latest_id \= PropertyHolder\.ge</find>
+      <find>locationManager</find>
+      <find>gpsListener</find>
+      <find>usefix</find>
+      <find>usefix(</find>
+      <find>sample</find>
+      <find>post</find>
+      <find>extra</find>
+      <find>getTracksUri</find>
+      <find>Messages.SHOW_TASK_NOTIFICATION</find>
     </findStrings>
     <dirStrings>
       <dir>D:\Projectes\MosquitoAlert\ws-studio\MosquitoAlert\tigabib\src\main\res\values-v21</dir>
@@ -1729,6 +1753,11 @@
                 <option name="name" value="mergeReleaseShaders" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Injects the build id used by the Fabric SDK." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/mosquitoAlert" />
+                <option name="name" value="fabricGenerateResourcesDebug" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="description" value="Displays the Android dependencies of the project." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/mosquitoAlert" />
                 <option name="name" value="androidDependencies" />
@@ -1797,6 +1826,11 @@
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/mosquitoAlert" />
                 <option name="name" value="mergeDebugAndroidTestResources" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
+                <option name="description" value="Uploads an APK to Crashlytics for distribution." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/mosquitoAlert" />
+                <option name="name" value="crashlyticsUploadDistributionDebug" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/mosquitoAlert" />
@@ -3229,6 +3263,11 @@
                 <option name="name" value="mergeReleaseShaders" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
+                <option name="description" value="Injects the build id used by the Fabric SDK." />
+                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/tigabib" />
+                <option name="name" value="fabricGenerateResourcesDebug" />
+              </ExternalTaskPojo>
+              <ExternalTaskPojo>
                 <option name="description" value="Displays the Android dependencies of the project." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/tigabib" />
                 <option name="name" value="androidDependencies" />
@@ -4456,32 +4495,19 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PhotoValidationWebViewActivity.java" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PhotoGalleryActivity.java" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MapDataV2Activity.java" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/RSSActivity.java" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MissionListActivity.java" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/res/values/colors.xml" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/res/xml/provider_paths.xml" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PhotoGridAdapter.java" />
         <option value="$PROJECT_DIR$/tigabib/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/tigabib/src/main/res/layout/settings.xml" />
         <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/Messages.java" />
         <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/fcm/MyFirebaseInstanceIDService.java" />
         <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/Fix.java" />
         <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MyApp.java" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SettingsActivity.java" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/FixUse.java" />
         <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ViewReportsTab.java" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MissionActivity.java" />
-        <option value="$PROJECT_DIR$/mosquitoAlert/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/mosquitoAlertDemo/build.gradle" />
         <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/utils/UtilPybossa.java" />
         <option value="$PROJECT_DIR$/tigabib/src/main/res/values-ca/strings.xml" />
         <option value="$PROJECT_DIR$/tigabib/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/tigabib/src/main/res/values-zh/strings.xml" />
         <option value="$PROJECT_DIR$/tigabib/src/main/res/values-es/strings.xml" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/TigerBroadcastReceiver.java" />
         <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PhotoValidationActivity.java" />
         <option value="$PROJECT_DIR$/tigabib/src/main/res/layout/valid_2_layout.xml" />
         <option value="$PROJECT_DIR$/tigabib/src/main/res/layout/valid_3_help_layout.xml" />
@@ -4491,9 +4517,7 @@
         <option value="$PROJECT_DIR$/tigabib/src/main/res/layout/valid_2_3_help.xml" />
         <option value="$PROJECT_DIR$/tigabib/src/main/res/layout/valid_4_help_layout.xml" />
         <option value="$PROJECT_DIR$/tigabib/src/main/AndroidManifest.xml" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/Util.java" />
         <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ReportToolActivity.java" />
-        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SwitchboardActivity.java" />
         <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/model/RealmHelper.java" />
         <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/AboutActivity.java" />
         <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PropertyHolder.java" />
@@ -4503,8 +4527,23 @@
         <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/Report.java" />
         <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/Sample.java" />
         <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/DummyService.java" />
-        <option value="$PROJECT_DIR$/tigabib/build.gradle" />
+        <option value="$PROJECT_DIR$/mosquitoAlert/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/mosquitoAlert/build.gradle" />
+        <option value="$PROJECT_DIR$/tigabib/build.gradle" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/NotificationListActivity.java" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PhotoGridAdapter.java" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ContProvReports.java" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/RSSActivity.java" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MissionModel.java" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MapDataV2Activity.java" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MissionActivity.java" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/TigerBroadcastReceiver.java" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MissionListActivity.java" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MissionListCursorAdapter.java" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/FixUse.java" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/Util.java" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SwitchboardActivity.java" />
+        <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SettingsActivity.java" />
         <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/SyncData.java" />
         <option value="$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/FixGet.java" />
       </list>
@@ -4560,11 +4599,41 @@
     </navigator>
     <panes>
       <pane id="Scratches" />
-      <pane id="Scope" />
-      <pane id="ProjectPane" />
+      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
+            <path>
+              <item name="MosquitoAlert" type="1abcf292:AndroidViewProjectNode" />
+              <item name="mosquitoAlert" type="feadf853:AndroidModuleNode" />
+            </path>
+            <path>
+              <item name="MosquitoAlert" type="1abcf292:AndroidViewProjectNode" />
+              <item name="mosquitoAlert" type="feadf853:AndroidModuleNode" />
+              <item name="manifests" type="f94875db:AndroidManifestsGroupNode" />
+            </path>
+            <path>
+              <item name="MosquitoAlert" type="1abcf292:AndroidViewProjectNode" />
+              <item name="tigabib" type="feadf853:AndroidModuleNode" />
+            </path>
+            <path>
+              <item name="MosquitoAlert" type="1abcf292:AndroidViewProjectNode" />
+              <item name="tigabib" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+            </path>
+            <path>
+              <item name="MosquitoAlert" type="1abcf292:AndroidViewProjectNode" />
+              <item name="tigabib" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="tigabib" type="cbb59c9e:AndroidPsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="MosquitoAlert" type="1abcf292:AndroidViewProjectNode" />
+              <item name="tigabib" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="tigabib" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="services" type="462c0819:PsiDirectoryNode" />
+            </path>
             <path>
               <item name="MosquitoAlert" type="1abcf292:AndroidViewProjectNode" />
               <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
@@ -4573,7 +4642,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="ProjectPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -4608,7 +4678,7 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeOrder3" value="3" />
     <property name="ExportApk.SignV1" value="true" />
     <property name="android.profiler.active" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1577787892489" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1578144462624" />
     <property name="sync.plugin.last.upgrade.timestamp" value="1523387436413" />
   </component>
   <component name="RecentsManager">
@@ -5235,7 +5305,7 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
-      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.32935154" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Profiler" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="FindBugs-IDEA" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32764506" sideWeight="0.49129447" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.14988644" sideWeight="0.56440675" order="6" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.42542374" sideWeight="0.5124905" order="14" side_tool="true" content_ui="tabs" />
@@ -5244,17 +5314,19 @@
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32881355" sideWeight="0.5" order="15" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28084785" sideWeight="0.49317408" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44208932" sideWeight="0.5067797" order="11" side_tool="true" content_ui="tabs" />
+      <window_info id="Device File Explorer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44208932" sideWeight="0.5067797" order="14" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4118644" sideWeight="0.48296744" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.5079485" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" x="92" y="92" width="1182" height="544" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.42240727" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" x="790" y="67" width="538" height="576" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3677966" sideWeight="0.48599547" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32711864" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.19830509" sideWeight="0.5" order="17" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24981076" sideWeight="0.49118388" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17638153" sideWeight="0.43559322" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16199848" sideWeight="0.43559322" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Android WiFi ADB" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44208932" sideWeight="0.5067797" order="15" side_tool="true" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37966102" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27100682" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -5271,12 +5343,10 @@
       <window_info id="Find Sample Code" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32935154" sideWeight="0.5" order="16" side_tool="false" content_ui="tabs" />
       <window_info id="Assistant" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2604088" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32873562" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32873562" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.28474575" sideWeight="0.47766843" order="12" side_tool="false" content_ui="tabs" />
-      <window_info id="StringPreview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="14" side_tool="false" content_ui="tabs" />
-      <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" show_stripe_button="true" weight="0.5079485" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" x="92" y="92" width="1182" height="544" />
+      <window_info id="StringPreview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.42240727" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" x="790" y="67" width="538" height="576" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39298245" sideWeight="0.52530676" order="13" side_tool="true" content_ui="tabs" />
     </layout>
   </component>
@@ -5322,13 +5392,13 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MissionItemModel.java</url>
-          <line>137</line>
+          <line>136</line>
           <properties />
           <option name="timeStamp" value="40" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MissionItemModel.java</url>
-          <line>123</line>
+          <line>122</line>
           <properties />
           <option name="timeStamp" value="41" />
         </line-breakpoint>
@@ -5340,7 +5410,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/fcm/MyFirebaseMessagingService2.java</url>
-          <line>79</line>
+          <line>78</line>
           <properties />
           <option name="timeStamp" value="360" />
         </line-breakpoint>
@@ -5410,19 +5480,19 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MapDataV2Activity.java</url>
-          <line>181</line>
+          <line>180</line>
           <properties />
           <option name="timeStamp" value="576" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SwitchboardActivity.java</url>
-          <line>372</line>
+          <line>371</line>
           <properties />
           <option name="timeStamp" value="589" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MapDataV2Activity.java</url>
-          <line>919</line>
+          <line>918</line>
           <properties />
           <option name="timeStamp" value="590" />
         </line-breakpoint>
@@ -5433,25 +5503,25 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MapDataV2Activity.java</url>
-          <line>595</line>
+          <line>594</line>
           <properties />
           <option name="timeStamp" value="641" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MissionActivity.java</url>
-          <line>250</line>
+          <line>251</line>
           <properties />
           <option name="timeStamp" value="661" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MissionActivity.java</url>
-          <line>302</line>
+          <line>303</line>
           <properties />
           <option name="timeStamp" value="663" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MissionActivity.java</url>
-          <line>304</line>
+          <line>305</line>
           <properties />
           <option name="timeStamp" value="664" />
         </line-breakpoint>
@@ -5463,33 +5533,21 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MissionActivity.java</url>
-          <line>469</line>
+          <line>472</line>
           <properties />
           <option name="timeStamp" value="670" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SwitchboardActivity.java</url>
-          <line>887</line>
+          <line>886</line>
           <properties />
           <option name="timeStamp" value="734" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SettingsActivity.java</url>
-          <line>81</line>
-          <properties />
-          <option name="timeStamp" value="781" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SettingsActivity.java</url>
           <line>269</line>
           <properties />
           <option name="timeStamp" value="870" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SettingsActivity.java</url>
-          <line>315</line>
-          <properties />
-          <option name="timeStamp" value="880" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/Fix.java</url>
@@ -5499,25 +5557,25 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/FixUse.java</url>
-          <line>65</line>
+          <line>64</line>
           <properties />
           <option name="timeStamp" value="894" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/FixUse.java</url>
-          <line>45</line>
+          <line>44</line>
           <properties />
           <option name="timeStamp" value="899" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/Report.java</url>
-          <line>487</line>
+          <line>486</line>
           <properties />
           <option name="timeStamp" value="934" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/Util.java</url>
-          <line>1057</line>
+          <line>1056</line>
           <properties />
           <option name="timeStamp" value="935" />
         </line-breakpoint>
@@ -5556,6 +5614,54 @@
           <properties />
           <option name="timeStamp" value="960" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ReportToolActivity.java</url>
+          <line>320</line>
+          <properties />
+          <option name="timeStamp" value="961" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/TigerBroadcastReceiver.java</url>
+          <line>218</line>
+          <properties />
+          <option name="timeStamp" value="962" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/TigerBroadcastReceiver.java</url>
+          <line>179</line>
+          <properties />
+          <option name="timeStamp" value="963" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SettingsActivity.java</url>
+          <line>259</line>
+          <properties />
+          <option name="timeStamp" value="964" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/SyncData.java</url>
+          <line>202</line>
+          <properties />
+          <option name="timeStamp" value="966" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SettingsActivity.java</url>
+          <line>203</line>
+          <properties />
+          <option name="timeStamp" value="967" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SettingsActivity.java</url>
+          <line>238</line>
+          <properties />
+          <option name="timeStamp" value="968" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/FixUse.java</url>
+          <line>84</line>
+          <properties />
+          <option name="timeStamp" value="970" />
+        </line-breakpoint>
         <line-breakpoint enabled="true" type="java-field">
           <url>file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/UtilLocal.java</url>
           <line>74</line>
@@ -5563,7 +5669,7 @@
           <option name="timeStamp" value="931" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="961" />
+      <option name="time" value="971" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -5617,175 +5723,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/layout/valid_1_help_layout.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/layout/valid_1_layout.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="50" lean-forward="false" selection-start-line="4" selection-start-column="50" selection-end-line="5" selection-end-column="54" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/layout/valid_2_1_help.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="10" column="35" lean-forward="false" selection-start-line="10" selection-start-column="35" selection-end-line="10" selection-end-column="35" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/layout/valid_2_help_layout.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="12" lean-forward="false" selection-start-line="3" selection-start-column="12" selection-end-line="3" selection-end-column="12" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/layout/valid_2_layout.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="499">
-          <caret line="63" column="20" lean-forward="false" selection-start-line="63" selection-start-column="20" selection-end-line="63" selection-end-column="20" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/layout/valid_3_help_layout.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="32" column="29" lean-forward="false" selection-start-line="32" selection-start-column="29" selection-end-line="32" selection-end-column="29" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/layout/valid_4_layout.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/layout/valid_4_help_layout.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="28" column="43" lean-forward="false" selection-start-line="28" selection-start-column="43" selection-end-line="28" selection-end-column="43" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/layout/valid_3_layout.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="27" column="34" lean-forward="false" selection-start-line="27" selection-start-column="34" selection-end-line="27" selection-end-column="34" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/layout/valid_2_3_help.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="58" column="39" lean-forward="false" selection-start-line="57" selection-start-column="48" selection-end-line="58" selection-end-column="39" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/layout/valid_2_2_help.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="5" column="54" lean-forward="false" selection-start-line="5" selection-start-column="54" selection-end-line="5" selection-end-column="54" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/xml/provider_paths.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/mosquitoAlert/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="194">
-          <caret line="171" column="46" lean-forward="false" selection-start-line="171" selection-start-column="46" selection-end-line="171" selection-end-column="46" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/AndroidManifest.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="33" column="95" lean-forward="true" selection-start-line="33" selection-start-column="95" selection-end-line="33" selection-end-column="95" />
-          <folding />
-        </state>
-      </provider>
-      <provider editor-type-id="android-manifest">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/fragments/FragmentList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="87" column="17" lean-forward="false" selection-start-line="87" selection-start-column="8" selection-end-line="87" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/local.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/settings.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/gradle.properties">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -5863,14 +5800,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ReportToolActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="20">
-          <caret line="896" column="32" lean-forward="false" selection-start-line="896" selection-start-column="24" selection-end-line="896" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/AttachedPhotosActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="122">
@@ -5942,14 +5871,6 @@
         <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/TigerBroadcastReceiver.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="118" column="35" lean-forward="false" selection-start-line="118" selection-start-column="26" selection-end-line="118" selection-end-column="35" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/drawable-hdpi/ic_switchboard_icon_adult.png">
       <provider selected="true" editor-type-id="images">
         <state />
@@ -5977,50 +5898,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/Util.java">
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/AndroidManifest.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="806" column="44" lean-forward="false" selection-start-line="806" selection-start-column="44" selection-end-line="806" selection-end-column="44" />
+        <state relative-caret-position="160">
+          <caret line="55" column="22" lean-forward="false" selection-start-line="55" selection-start-column="22" selection-end-line="55" selection-end-column="22" />
           <folding />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SwitchboardActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8364">
-          <caret line="567" column="74" lean-forward="false" selection-start-line="567" selection-start-column="50" selection-end-line="567" selection-end-column="74" />
-          <folding />
-        </state>
+      <provider editor-type-id="android-manifest">
+        <state />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/Sample.java">
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MyApp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="89" column="52" lean-forward="false" selection-start-line="89" selection-start-column="36" selection-end-line="89" selection-end-column="52" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/SyncData.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="80" column="25" lean-forward="false" selection-start-line="80" selection-start-column="25" selection-end-line="80" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/FixGet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2529">
-          <caret line="251" column="108" lean-forward="false" selection-start-line="251" selection-start-column="108" selection-end-line="251" selection-end-column="108" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tigabib/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="856">
-          <caret line="73" column="14" lean-forward="false" selection-start-line="73" selection-start-column="14" selection-end-line="73" selection-end-column="14" />
+        <state relative-caret-position="306">
+          <caret line="107" column="64" lean-forward="false" selection-start-line="107" selection-start-column="64" selection-end-line="107" selection-end-column="64" />
           <folding />
         </state>
       </provider>
@@ -6028,15 +5920,221 @@
     <entry file="file://$PROJECT_DIR$/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="289">
-          <caret line="17" column="36" lean-forward="true" selection-start-line="17" selection-start-column="36" selection-end-line="17" selection-end-column="36" />
+          <caret line="17" column="36" lean-forward="false" selection-start-line="17" selection-start-column="36" selection-end-line="17" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/mosquitoAlert/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="930">
-          <caret line="81" column="25" lean-forward="false" selection-start-line="81" selection-start-column="25" selection-end-line="81" selection-end-column="25" />
+        <state relative-caret-position="986">
+          <caret line="58" column="0" lean-forward="false" selection-start-line="58" selection-start-column="0" selection-end-line="58" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/build.gradle">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="748">
+          <caret line="44" column="14" lean-forward="false" selection-start-line="44" selection-start-column="14" selection-end-line="44" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ContProvReports.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="267">
+          <caret line="105" column="12" lean-forward="false" selection-start-line="105" selection-start-column="12" selection-end-line="105" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/RSSActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="36" column="4" lean-forward="false" selection-start-line="36" selection-start-column="4" selection-end-line="36" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/PhotoGridAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="20" column="4" lean-forward="false" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/NotificationListActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="36" column="4" lean-forward="false" selection-start-line="36" selection-start-column="4" selection-end-line="36" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MapDataV2Activity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="105" column="3" lean-forward="true" selection-start-line="105" selection-start-column="3" selection-end-line="105" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="89" column="71" lean-forward="true" selection-start-line="89" selection-start-column="71" selection-end-line="89" selection-end-column="71" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/layout/tasks_list.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MissionListCursorAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="40" column="10" lean-forward="false" selection-start-line="40" selection-start-column="10" selection-end-line="40" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/res/layout/report.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="194">
+          <caret line="76" column="28" lean-forward="false" selection-start-line="76" selection-start-column="28" selection-end-line="76" selection-end-column="28" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/mosquitoAlert/src/main/AndroidManifest.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="125" column="69" lean-forward="false" selection-start-line="125" selection-start-column="61" selection-end-line="125" selection-end-column="69" />
+          <folding />
+        </state>
+      </provider>
+      <provider editor-type-id="android-manifest">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/Messages.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-68">
+          <caret line="12" column="25" lean-forward="false" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MissionListActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="46" column="25" lean-forward="false" selection-start-line="46" selection-start-column="25" selection-end-line="46" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/ReportToolActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="214">
+          <caret line="323" column="86" lean-forward="false" selection-start-line="323" selection-start-column="71" selection-end-line="323" selection-end-column="86" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SwitchboardActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="469" column="9" lean-forward="true" selection-start-line="469" selection-start-column="9" selection-end-line="469" selection-end-column="9" />
+          <folding>
+            <element signature="e#4297#4718#0" expanded="true" />
+            <element signature="e#4717#4718#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MissionActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="33">
+          <caret line="91" column="13" lean-forward="true" selection-start-line="91" selection-start-column="13" selection-end-line="91" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/SettingsActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="383">
+          <caret line="273" column="77" lean-forward="false" selection-start-line="273" selection-start-column="77" selection-end-line="273" selection-end-column="77" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/SyncData.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="175" column="35" lean-forward="true" selection-start-line="175" selection-start-column="35" selection-end-line="175" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/MissionModel.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="22" column="63" lean-forward="true" selection-start-line="22" selection-start-column="63" selection-end-line="22" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/TigerBroadcastReceiver.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="169">
+          <caret line="115" column="21" lean-forward="false" selection-start-line="115" selection-start-column="21" selection-end-line="115" selection-end-column="21" />
+          <folding>
+            <element signature="e#8847#8882#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/Sample.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-549">
+          <caret line="89" column="52" lean-forward="false" selection-start-line="89" selection-start-column="36" selection-end-line="89" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/Util.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="1321" column="22" lean-forward="false" selection-start-line="1321" selection-start-column="22" selection-end-line="1321" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/FixUse.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1037">
+          <caret line="96" column="39" lean-forward="false" selection-start-line="96" selection-start-column="27" selection-end-line="96" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tigabib/src/main/java/ceab/movelab/tigabib/services/FixGet.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-511">
+          <caret line="250" column="81" lean-forward="false" selection-start-line="250" selection-start-column="81" selection-end-line="250" selection-end-column="81" />
           <folding />
         </state>
       </provider>

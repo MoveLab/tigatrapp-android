@@ -3,7 +3,7 @@ package ceab.movelab.tigabib;
 import android.content.Context;
 
 public class Messages {
-	private static String TAG = "Messages";
+	private static final String TAG = "Messages";
 
 	public static String makeIntentExtraKey(Context context, String simpleKey){
 		return context.getResources().getString(R.string.package_prefix) + simpleKey;

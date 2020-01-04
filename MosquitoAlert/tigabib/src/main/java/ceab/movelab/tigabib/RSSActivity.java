@@ -31,7 +31,10 @@ import java.util.Locale;
 import ceab.movelab.tigabib.adapters.RSSAdapter;
 
 public class RSSActivity extends Activity {
-	private static String TAG = "RSSActivity";
+	private static final String TAG = "RSSActivity";
+
+	private static String lang;
+
 	private ArrayList<RSSPost> listData;
 	private final int IGNORETAG = 0;
 	private final int TITLE = 1;
@@ -51,7 +54,6 @@ public class RSSActivity extends Activity {
 	private String thisTitle;
 	private int thisDefaultThumb;
 
-	private String lang;
 
 	//private FirebaseAnalytics mFirebaseAnalytics;
 

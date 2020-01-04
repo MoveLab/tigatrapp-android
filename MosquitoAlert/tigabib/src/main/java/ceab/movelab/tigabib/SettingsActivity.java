@@ -33,12 +33,12 @@ import ceab.movelab.tigabib.services.Fix;
 
 public class SettingsActivity extends Activity {
 
-	private static String TAG = "SettingsActivity";
+	private static final String TAG = "SettingsActivity";
 
-	private String lang;
+	private static String lang;
 
 	private ToggleButton tb;
-	private Boolean isServiceOn;
+	private Boolean isSamplingServiceOn;
 	private TextView tv;
 
 	private LinearLayout debugView;
@@ -47,9 +47,6 @@ public class SettingsActivity extends Activity {
 
 	private Button syncButton;
 	private Button languageButton;
-
-	private ContentResolver cr;
-	private Cursor c;
 
 	private NewSamplesReceiver newSamplesReceiver;
 
@@ -64,7 +61,7 @@ public class SettingsActivity extends Activity {
 
 		setContentView(R.layout.settings);
 
-		isServiceOn = PropertyHolder.isServiceOn();
+		isSamplingServiceOn = PropertyHolder.isServiceOn();
 
 		languageButton = (Button) findViewById(R.id.languageButton);
 		languageButton.setOnClickListener(new OnClickListener() {
@@ -86,15 +83,15 @@ Util.logInfo(TAG, "sync button clicked");
 		});
 
 		tv = (TextView) findViewById(R.id.service_message);
-		tv.setText(isServiceOn ? getResources().getString(R.string.sampling_is_on) : getResources().getString(R.string.sampling_is_off));
+		tv.setText(isSamplingServiceOn ? getResources().getString(R.string.sampling_is_on) : getResources().getString(R.string.sampling_is_off));
 
 		tb = (ToggleButton) findViewById(R.id.service_button);
-		tb.setChecked(isServiceOn);
+		tb.setChecked(isSamplingServiceOn);
 		tb.setOnClickListener(new ToggleButton.OnClickListener() {
 			public void onClick(View view) {
-				isServiceOn = !isServiceOn;
-				tb.setChecked(isServiceOn);
-				if ( isServiceOn ) {
+				isSamplingServiceOn = !isSamplingServiceOn;
+				tb.setChecked(isSamplingServiceOn);
+				if ( isSamplingServiceOn ) {
 					long lastScheduleTime = PropertyHolder.lastSampleScheduleMade();
 					if (System.currentTimeMillis() - lastScheduleTime > 1000 * 60 * 60 * 24) {
 						Util.internalBroadcast(SettingsActivity.this, Messages.START_DAILY_SAMPLING);
@@ -186,10 +183,11 @@ Util.logInfo(TAG, "sync button clicked");
 		}
 
 		protected Boolean doInBackground(Context... context) {
-			myProgress = 2;
-			publishProgress(myProgress);
 
-			myProgress = 4;
+			ContentResolver cr = getContentResolver();
+			Cursor c;
+
+			myProgress = 2;
 			publishProgress(myProgress);
 
 			if ( !Util.privateMode() ) {
@@ -200,11 +198,14 @@ Util.logInfo(TAG, "sync button clicked");
 					return false;
 				}
 
+				myProgress = 4;
+				publishProgress(myProgress);
+
 				if ( !PropertyHolder.isRegistered() ) {
 					Util.registerOnServer(context[0]);
 					try {
 						// Get FCM token and register on server
-						String token = FirebaseInstanceId.getInstance().getToken();
+						String token = FirebaseInstanceId.getInstance().getToken(); // ?? revisar mètode deprecat
 						Util.registerFCMToken(context[0], token, PropertyHolder.getUserId());
 					} catch (Exception e) {
 						e.printStackTrace();
@@ -219,7 +220,7 @@ Util.logInfo(TAG, "sync button clicked");
 					JSONObject configJson = new JSONObject(Util.getJSON(Util.API_CONFIGURATION, context[0]));
 					if ( configJson.has("samples_per_day") ) {
 						int samplesPerDay = configJson.getInt("samples_per_day");
-Util.logInfo(TAG, "samples per day:" + samplesPerDay);
+Util.logInfo(TAG, "samples per day: " + samplesPerDay);
 
 						if ( samplesPerDay != PropertyHolder.getSamplesPerDay() ) {
 							Util.internalBroadcast(context[0], Messages.START_DAILY_SAMPLING);
@@ -228,7 +229,7 @@ Util.logInfo(TAG, "set property holder");
 						}
 					}
 				} catch (JSONException e) {
-Util.logError(TAG, "error: " + e);
+Util.logError(TAG, "error JSON: " + e);
 					resultFlag = UPLOAD_ERROR;
 				}
 
@@ -251,7 +252,6 @@ Util.logInfo(TAG, "missions: " + missions.toString());
 						for (int i = 0; i < missions.length(); i++) {
 							JSONObject mission = missions.getJSONObject(i);
 
-							cr = context[0].getContentResolver();
 							cr.insert(Util.getMissionsUri(context[0]), ContProvValuesMissions.createTask(mission));
 
 							if ( mission.has(Tasks.KEY_TRIGGERS) ) {
@@ -283,145 +283,145 @@ Util.logError(TAG, "error: " + e);
 				myProgress = 15;
 				publishProgress(myProgress);
 
-				cr = getContentResolver();
-
 				//////////////////////////////////////////
 				// start with Tracks
 				c = cr.query(Util.getTracksUri(context[0]), Fixes.KEYS_ALL, Fixes.KEY_UPLOADED + " = 0", null, null);
-				if ( !c.moveToFirst() ) {
+				if ( c != null ) {
+					c.moveToFirst();
+
+					int idIndex = c.getColumnIndexOrThrow(Fixes.KEY_ROWID);
+					int latIndex = c.getColumnIndexOrThrow(Fixes.KEY_LATITUDE);
+					int lngIndex = c.getColumnIndexOrThrow(Fixes.KEY_LONGITUDE);
+					int powIndex = c.getColumnIndexOrThrow(Fixes.KEY_POWER_LEVEL);
+					int timeIndex = c.getColumnIndexOrThrow(Fixes.KEY_TIME);
+					int taskFixIndex = c.getColumnIndexOrThrow(Fixes.KEY_TASK_FIX);
+
+					int fixtotal = c.getCount();
+					int fixcounter = 1;
+
+					while (!c.isAfterLast()) {
+						myProgress = myProgress + 40 * fixcounter / fixtotal;
+						publishProgress(myProgress);
+						fixcounter++;
+
+						int thisId = c.getInt(idIndex);
+						Fix thisFix = new Fix(c.getDouble(latIndex), c.getDouble(lngIndex), c.getLong(timeIndex),
+								c.getFloat(powIndex), (c.getInt(taskFixIndex) == 1));
+						int statusCode = Util.getResponseStatusCode(thisFix.upload(context[0]));  // Uploading fix to server
+Util.logInfo(TAG, String.valueOf(statusCode));
+						if ( statusCode < 300 && statusCode > 0 ) {
+							ContentValues cv = new ContentValues();
+							String sc = Fixes.KEY_ROWID + " = " + String.valueOf(thisId);
+							cv.put(Fixes.KEY_UPLOADED, 1);
+							cr.update(Util.getTracksUri(context[0]), cv, sc, null);
+						} else {
+							resultFlag = UPLOAD_ERROR;
+						}
+						c.moveToNext();
+					}
 					c.close();
 				}
 
-				int idIndex = c.getColumnIndexOrThrow(Fixes.KEY_ROWID);
-				int latIndex = c.getColumnIndexOrThrow(Fixes.KEY_LATITUDE);
-				int lngIndex = c.getColumnIndexOrThrow(Fixes.KEY_LONGITUDE);
-				int powIndex = c.getColumnIndexOrThrow(Fixes.KEY_POWER_LEVEL);
-				int timeIndex = c.getColumnIndexOrThrow(Fixes.KEY_TIME);
-				int taskFixIndex = c.getColumnIndexOrThrow(Fixes.KEY_TASK_FIX);
-
-				int fixtotal = c.getCount();
-				int fixcounter = 1;
-
-				while ( !c.isAfterLast() ) {
-					myProgress = myProgress + 40 * fixcounter / fixtotal;
-					publishProgress(myProgress);
-					fixcounter++;
-
-					int thisId = c.getInt(idIndex);
-					Fix thisFix = new Fix(c.getDouble(latIndex), c.getDouble(lngIndex), c.getLong(timeIndex),
-							c.getFloat(powIndex), (c.getInt(taskFixIndex)==1));
-					//thisFix.exportJSON(context[0]);
-					int statusCode = Util.getResponseStatusCode(thisFix.upload(context[0]));  // Uploading fix to server
-Util.logInfo(TAG, String.valueOf(statusCode));
-					if ( statusCode < 300 && statusCode > 0 ) {
-						ContentValues cv = new ContentValues();
-						String sc = Fixes.KEY_ROWID + " = " + String.valueOf(thisId);
-						cv.put(Fixes.KEY_UPLOADED, 1);
-						cr.update(Util.getTracksUri(context[0]), cv, sc, null);
-					} else {
-						resultFlag = UPLOAD_ERROR;
-					}
-					c.moveToNext();
-				}
-				c.close();
+				myProgress = 30;
+				publishProgress(myProgress);
 
 				//////////////////////////////////////////
 				// now reports
 				c = cr.query(Util.getReportsUri(context[0]), Reports.KEYS_ALL,
 						Reports.KEY_UPLOADED + " != " + Report.UPLOADED_ALL,
 						null, null);
-				if ( !c.moveToFirst() ) {
+				if ( c != null ) {
+					c.moveToFirst();
+
+					int rowIdCol = c.getColumnIndexOrThrow(Reports.KEY_ROW_ID);
+					int versionUUIDCol = c.getColumnIndexOrThrow(Reports.KEY_VERSION_UUID);
+					int userIdCol = c.getColumnIndexOrThrow(Reports.KEY_USER_ID);
+					int reportIdCol = c.getColumnIndexOrThrow(Reports.KEY_REPORT_ID);
+					int reportTimeCol = c.getColumnIndexOrThrow(Reports.KEY_REPORT_TIME);
+					int creationTimeCol = c.getColumnIndexOrThrow(Reports.KEY_CREATION_TIME);
+					int reportVersionCol = c.getColumnIndexOrThrow(Reports.KEY_REPORT_VERSION);
+					int versionTimeStringCol = c.getColumnIndexOrThrow(Reports.KEY_VERSION_TIME_STRING);
+					int typeCol = c.getColumnIndexOrThrow(Reports.KEY_TYPE);
+					int confirmationCol = c.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION);
+					int confirmationCodeCol = c.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION_CODE);
+					int locationChoiceCol = c.getColumnIndexOrThrow(Reports.KEY_LOCATION_CHOICE);
+					int currentLocationLonCol = c.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LON);
+					int currentLocationLatCol = c.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LAT);
+					int selectedLocationLonCol = c.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LON);
+					int selectedLocationLatCol = c.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LAT);
+					int noteCol = c.getColumnIndexOrThrow(Reports.KEY_NOTE);
+					int photoAttachedCol = c.getColumnIndexOrThrow(Reports.KEY_PHOTO_ATTACHED);
+					int photoUrisCol = c.getColumnIndexOrThrow(Reports.KEY_PHOTO_URIS);
+
+					int uploadedCol = c.getColumnIndexOrThrow(Reports.KEY_UPLOADED);
+					int serverTimestampCol = c.getColumnIndexOrThrow(Reports.KEY_SERVER_TIMESTAMP);
+					int deleteReportCol = c.getColumnIndexOrThrow(Reports.KEY_DELETE_REPORT);
+					int latestVersionCol = c.getColumnIndexOrThrow(Reports.KEY_LATEST_VERSION);
+					int packageNameCol = c.getColumnIndexOrThrow(Reports.KEY_PACKAGE_NAME);
+					int packageVersionCol = c.getColumnIndexOrThrow(Reports.KEY_PACKAGE_VERSION);
+					int phoneManufacturerCol = c.getColumnIndexOrThrow(Reports.KEY_PHONE_MANUFACTURER);
+					int phoneModelCol = c.getColumnIndexOrThrow(Reports.KEY_PHONE_MODEL);
+					int osCol = c.getColumnIndexOrThrow(Reports.KEY_OS);
+					int osVersionCol = c.getColumnIndexOrThrow(Reports.KEY_OS_VERSION);
+					int osLanguageCol = c.getColumnIndexOrThrow(Reports.KEY_OS_LANGUAGE);
+					int appLanguageCol = c.getColumnIndexOrThrow(Reports.KEY_APP_LANGUAGE);
+					int missionIDCol = c.getColumnIndexOrThrow(Reports.KEY_MISSION_ID);
+
+					int reporttotal = c.getCount();
+					int reportcounter = 1;
+
+					while (!c.isAfterLast()) {
+						myProgress = myProgress + 40 * reportcounter / reporttotal;
+						publishProgress(myProgress);
+						reportcounter++;
+
+						Report report = new Report(context[0],
+								c.getString(versionUUIDCol),
+								c.getString(userIdCol),
+								c.getString(reportIdCol),
+								c.getInt(reportVersionCol),
+								c.getLong(reportTimeCol),
+								c.getString(creationTimeCol),
+								c.getString(versionTimeStringCol),
+								c.getInt(typeCol),
+								c.getString(confirmationCol),
+								c.getInt(confirmationCodeCol),
+								c.getInt(locationChoiceCol),
+								c.getFloat(currentLocationLatCol),
+								c.getFloat(currentLocationLonCol),
+								c.getFloat(selectedLocationLatCol),
+								c.getFloat(selectedLocationLonCol),
+								c.getInt(photoAttachedCol),
+								c.getString(photoUrisCol),
+								c.getString(noteCol),
+								c.getInt(uploadedCol),
+								c.getLong(serverTimestampCol),
+								c.getInt(deleteReportCol),
+								c.getInt(latestVersionCol),
+								c.getString(packageNameCol),
+								c.getInt(packageVersionCol),
+								c.getString(phoneManufacturerCol),
+								c.getString(phoneModelCol),
+								c.getString(osCol),
+								c.getString(osVersionCol),
+								c.getString(osLanguageCol),
+								c.getString(appLanguageCol),
+								c.getInt(missionIDCol));
+
+						int uploadResult = report.upload(context[0]);
+						if (uploadResult > 0) {
+							// mark record as uploaded
+							ContentValues cv = new ContentValues();
+							cv.put(Reports.KEY_UPLOADED, uploadResult);
+							String sc = Reports.KEY_ROW_ID + " = " + c.getInt(rowIdCol);
+							cr.update(Util.getReportsUri(context[0]), cv, sc, null);
+						} else {
+							resultFlag = UPLOAD_ERROR;
+						}
+						c.moveToNext();
+					}
 					c.close();
 				}
-
-				int rowIdCol = c.getColumnIndexOrThrow(Reports.KEY_ROW_ID);
-				int versionUUIDCol = c.getColumnIndexOrThrow(Reports.KEY_VERSION_UUID);
-				int userIdCol = c.getColumnIndexOrThrow(Reports.KEY_USER_ID);
-				int reportIdCol = c.getColumnIndexOrThrow(Reports.KEY_REPORT_ID);
-				int reportTimeCol = c.getColumnIndexOrThrow(Reports.KEY_REPORT_TIME);
-				int creationTimeCol = c.getColumnIndexOrThrow(Reports.KEY_CREATION_TIME);
-				int reportVersionCol = c.getColumnIndexOrThrow(Reports.KEY_REPORT_VERSION);
-				int versionTimeStringCol = c.getColumnIndexOrThrow(Reports.KEY_VERSION_TIME_STRING);
-				int typeCol = c.getColumnIndexOrThrow(Reports.KEY_TYPE);
-				int confirmationCol = c.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION);
-				int confirmationCodeCol = c.getColumnIndexOrThrow(Reports.KEY_CONFIRMATION_CODE);
-				int locationChoiceCol = c.getColumnIndexOrThrow(Reports.KEY_LOCATION_CHOICE);
-				int currentLocationLonCol = c.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LON);
-				int currentLocationLatCol = c.getColumnIndexOrThrow(Reports.KEY_CURRENT_LOCATION_LAT);
-				int selectedLocationLonCol = c.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LON);
-				int selectedLocationLatCol = c.getColumnIndexOrThrow(Reports.KEY_SELECTED_LOCATION_LAT);
-				int noteCol = c.getColumnIndexOrThrow(Reports.KEY_NOTE);
-				int photoAttachedCol = c.getColumnIndexOrThrow(Reports.KEY_PHOTO_ATTACHED);
-				int photoUrisCol = c.getColumnIndexOrThrow(Reports.KEY_PHOTO_URIS);
-
-				int uploadedCol = c.getColumnIndexOrThrow(Reports.KEY_UPLOADED);
-				int serverTimestampCol = c.getColumnIndexOrThrow(Reports.KEY_SERVER_TIMESTAMP);
-				int deleteReportCol = c.getColumnIndexOrThrow(Reports.KEY_DELETE_REPORT);
-				int latestVersionCol = c.getColumnIndexOrThrow(Reports.KEY_LATEST_VERSION);
-				int packageNameCol = c.getColumnIndexOrThrow(Reports.KEY_PACKAGE_NAME);
-				int packageVersionCol = c.getColumnIndexOrThrow(Reports.KEY_PACKAGE_VERSION);
-				int phoneManufacturerCol = c.getColumnIndexOrThrow(Reports.KEY_PHONE_MANUFACTURER);
-				int phoneModelCol = c.getColumnIndexOrThrow(Reports.KEY_PHONE_MODEL);
-				int osCol = c.getColumnIndexOrThrow(Reports.KEY_OS);
-				int osVersionCol = c.getColumnIndexOrThrow(Reports.KEY_OS_VERSION);
-				int osLanguageCol = c.getColumnIndexOrThrow(Reports.KEY_OS_LANGUAGE);
-				int appLanguageCol = c.getColumnIndexOrThrow(Reports.KEY_APP_LANGUAGE);
-				int missionIDCol = c.getColumnIndexOrThrow(Reports.KEY_MISSION_ID);
-
-				int reporttotal = c.getCount();
-				int reportcounter = 1;
-
-				while ( !c.isAfterLast() ) {
-					myProgress = myProgress + 40 * reportcounter / reporttotal;
-					publishProgress(myProgress);
-					reportcounter++;
-
-					Report report = new Report(context[0],
-							c.getString(versionUUIDCol),
-							c.getString(userIdCol),
-							c.getString(reportIdCol),
-							c.getInt(reportVersionCol),
-							c.getLong(reportTimeCol),
-							c.getString(creationTimeCol),
-							c.getString(versionTimeStringCol),
-							c.getInt(typeCol),
-							c.getString(confirmationCol),
-							c.getInt(confirmationCodeCol),
-							c.getInt(locationChoiceCol),
-							c.getFloat(currentLocationLatCol),
-							c.getFloat(currentLocationLonCol),
-							c.getFloat(selectedLocationLatCol),
-							c.getFloat(selectedLocationLonCol),
-							c.getInt(photoAttachedCol),
-							c.getString(photoUrisCol),
-							c.getString(noteCol),
-							c.getInt(uploadedCol),
-							c.getLong(serverTimestampCol),
-							c.getInt(deleteReportCol),
-							c.getInt(latestVersionCol),
-							c.getString(packageNameCol),
-							c.getInt(packageVersionCol),
-							c.getString(phoneManufacturerCol),
-							c.getString(phoneModelCol),
-							c.getString(osCol),
-							c.getString(osVersionCol),
-							c.getString(osLanguageCol),
-							c.getString(appLanguageCol),
-							c.getInt(missionIDCol));
-
-					int uploadResult = report.upload(context[0]);
-					if ( uploadResult > 0 ) {
-						// mark record as uploaded
-						ContentValues cv = new ContentValues();
-						cv.put(Reports.KEY_UPLOADED, uploadResult);
-						String sc = Reports.KEY_ROW_ID + " = " + c.getInt(rowIdCol);
-						cr.update(Util.getReportsUri(context[0]), cv, sc, null);
-					} else {
-						resultFlag = UPLOAD_ERROR;
-					}
-					c.moveToNext();
-				}
-				c.close();
 
 				if ( resultFlag == SUCCESS ) {
 					myProgress = 100;

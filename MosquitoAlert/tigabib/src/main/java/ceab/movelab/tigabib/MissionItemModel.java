@@ -9,8 +9,7 @@ import org.json.JSONObject;
 import java.util.Arrays;
 
 public class MissionItemModel {
-
-	private static String TAG = "TaskItemModel";
+	private static final String TAG = "TaskItemModel";
 
 	private String itemId;
 	private String itemText;

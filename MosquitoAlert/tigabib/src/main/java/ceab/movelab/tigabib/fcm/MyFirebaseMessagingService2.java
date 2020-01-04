@@ -37,7 +37,6 @@ import ceab.movelab.tigabib.model.RealmHelper;
 import io.realm.Realm;
 
 public class MyFirebaseMessagingService2 extends FirebaseMessagingService {
-
     private static final String TAG = "MyFirebaseMsgService";
 
     /**

@@ -82,10 +82,10 @@ import static ceab.movelab.tigabib.Util.buildCustomAlert;
  */
 
 public class ReportToolActivity extends Activity {
+	private static final String TAG = "ReportToolActivity";
 
-	private static String TAG = "ReportToolActivity";
-
-	final Context context = this;
+	private final Context context = this;
+	private static String lang;
 
 	private MyCountDownTimer countDownTimer;
 
@@ -150,8 +150,6 @@ public class ReportToolActivity extends Activity {
 	public static final String PREVIOUS_LON = "previous_lon";
 
 	private boolean has_edited_location = false;
-
-	private String lang;
 
 
 	@Override

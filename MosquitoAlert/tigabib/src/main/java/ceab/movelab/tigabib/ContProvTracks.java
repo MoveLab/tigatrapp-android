@@ -45,8 +45,7 @@ import ceab.movelab.tigabib.ContProvContractTracks.Fixes;
  */
 
 public abstract class ContProvTracks extends ContentProvider {
-
-	private static final String TAG = "ContentProviderTracks";
+	//private static final String TAG = "ContentProviderTracks";
 
 	protected abstract String getAuthority();
 

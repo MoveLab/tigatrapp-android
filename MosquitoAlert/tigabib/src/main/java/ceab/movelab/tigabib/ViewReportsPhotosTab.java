@@ -30,10 +30,9 @@ import java.io.IOException;
 import ceab.movelab.tigabib.ContProvContractReports.Reports;
 
 public class ViewReportsPhotosTab extends Activity {
+	private static final String TAG = "ViewReportsPhotosTab";
 
-	private static String TAG = "ViewReportsPhotosTab";
-
-    private String lang;
+    private static String lang;
     private Context context = this;
 
 	public void onCreate(Bundle savedInstanceState) {

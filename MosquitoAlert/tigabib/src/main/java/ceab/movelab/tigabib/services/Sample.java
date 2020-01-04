@@ -69,7 +69,7 @@ import ceab.movelab.tigabib.Util;
  * 
  */
 public class Sample extends Service {
-	private static String TAG = "Sample";
+	private static final String TAG = "Sample";
 
 	private Context context;
 	private static final int ALARM_ID_START_FIX = 1;

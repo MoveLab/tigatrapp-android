@@ -143,7 +143,6 @@ Util.logInfo(this.getClass().getName(), "extra: " + extra);
 				//updateMissionCount();
 			}
 		};
-		//LocalBroadcastManager.getInstance(this).registerReceiver(mMissionsBroadcastReceiver, new IntentFilter("aaa"));
 
 		/// Android 6.0 check for permissions first of all
 		mPermissionsDenied = getDeniedPermissions();

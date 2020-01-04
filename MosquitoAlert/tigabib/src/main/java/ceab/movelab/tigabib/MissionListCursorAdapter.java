@@ -36,16 +36,10 @@ import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
 
 public class MissionListCursorAdapter extends SimpleCursorAdapter {
 
-	//private Context context;
-	//private int layout;
-
-	private String lang;
+	private static String lang;
 
 	public MissionListCursorAdapter(Context context, int layout, Cursor c, String[] from, int[] to, int flag) {
 		super(context, layout, c, from, to, flag);
-
-		//this.context = context;
-		//this.layout = layout;
 
 		lang = Util.setDisplayLanguage(context.getResources());
 	}

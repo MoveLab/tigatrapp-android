@@ -43,7 +43,6 @@ import ceab.movelab.tigabib.utils.UtilPybossa;
  * 
  */
 public class PhotoValidationWebViewActivity extends Activity {
-
 	//private static String TAG = "PhotoValidation";
 
 	public static final String PYBOSSA_URL_PARAM = "pybossa_url";
@@ -52,7 +51,7 @@ public class PhotoValidationWebViewActivity extends Activity {
 
 	private String myUrl;
 
-	String lang;
+	private static String lang;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

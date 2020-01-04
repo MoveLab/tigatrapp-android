@@ -34,28 +34,29 @@ android {
         }
     }
 
-    compileSdkVersion 27
+    compileSdkVersion 28
     buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "ceab.movelab.tigatrapp"
         minSdkVersion 16
-        targetSdkVersion 26
+        targetSdkVersion 28
         multiDexEnabled true
-        versionCode 32  /* 31 is w1.72 current production version; 30 is w1.71; 29 is v1.70; 26 is 1.61 */
-        versionName "1.73"
+        versionCode 33  /* 32: v.73; 31: w1.72 current production version; 30: w1.71; 29: v1.70; 26: 1.61 */
+        versionName "1.80"
     }
 
     buildTypes {
         debug {
             debuggable true
             signingConfig signingConfigs.config
-            ext.enableCrashlytics = false
+            //ext.enableCrashlytics = false
         }
         release {
+            debuggable true //  !!!!$$$$ false for final release
+            signingConfig signingConfigs.config_new
             //minifyEnabled true
             //proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.txt'
-            signingConfig signingConfigs.config_new
-            debuggable true //  !!!!$$$$ false for final release
+
         }
     }
 /*    configurations.all {

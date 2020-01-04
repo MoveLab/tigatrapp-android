@@ -67,11 +67,10 @@ import ceab.movelab.tigabib.ContProvContractReports.Reports;
 import ceab.movelab.tigabib.services.SyncData;
 
 public class ViewReportsTab extends TabActivity {
-
-	private static String TAG = "View Reports Tab";
+	private static final String TAG = "View Reports Tab";
 
 	private Context context = this;
-	private String lang;
+	private static String lang;
 
 	private String reportId;
 	private int type;

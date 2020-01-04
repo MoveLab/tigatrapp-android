@@ -74,14 +74,13 @@ import com.google.android.gms.maps.model.LatLng;
  * 
  */
 public class MapSelectorV2Activity extends FragmentActivity implements OnMapReadyCallback {
+	private static final String TAG = "Map Selector";
 
-	String TAG = "Map Selector";
+	private static String lang;
 
 	private static final int REQUEST_GOOGLE_PLAY_SERVICES = 999;
 	public static final String LAT = "lat";
 	public static final String LON = "lon";
-
-	private String lang;
 
 	private GoogleMap mGoogleMap;
 	private SupportMapFragment mMapFragment;

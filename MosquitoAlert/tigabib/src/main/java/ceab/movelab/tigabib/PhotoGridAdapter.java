@@ -17,7 +17,8 @@ import org.json.JSONException;
 import java.io.File;
 
 public class PhotoGridAdapter extends BaseAdapter {
-	private static String TAG = "PhotoGridAdapter";
+	private static final String TAG = "PhotoGridAdapter";
+
 	private Context mContext;
 	private JSONArray jsonPhotos;
 	//private Bitmap mPlaceHolderBitmap;

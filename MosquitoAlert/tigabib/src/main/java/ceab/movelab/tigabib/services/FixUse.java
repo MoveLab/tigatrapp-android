@@ -20,8 +20,7 @@ import ceab.movelab.tigabib.PropertyHolder;
 import ceab.movelab.tigabib.Util;
 
 public class FixUse extends Service {
-
-	private static String TAG = "FixUse";
+	private static final String TAG = "FixUse";
 
 	private Context context;
 	private boolean inUse = false;

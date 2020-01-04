@@ -45,7 +45,6 @@ import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
  */
 
 public abstract class ContProvMissions extends ContentProvider {
-
 	//private static final String TAG = "ContentProviderTasks";
 
 	protected abstract String getAuthority();

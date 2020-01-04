@@ -55,7 +55,7 @@ public class AboutActivity extends Activity {
 	private WebView myWebView;
 	private boolean isLoaded = false;
 
-	private String lang;
+	private static String lang;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

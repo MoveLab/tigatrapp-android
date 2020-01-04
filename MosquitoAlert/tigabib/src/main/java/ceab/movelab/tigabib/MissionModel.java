@@ -10,8 +10,8 @@ import org.json.JSONObject;
 import ceab.movelab.tigabib.ContProvContractMissions.Tasks;
 
 public class MissionModel {
+	private static final String TAG = "TaskModel";
 
-	private static String TAG = "TaskModel";
 	public static final String KEY_TITLE = "title";
 	public static final String KEY_TITLE_CATALAN = "title_catalan";
 	public static final String KEY_TITLE_SPANISH = "title_spanish";

@@ -32,16 +32,14 @@ import io.realm.Realm;
 
 // code based on http://android.codeandmagic.org/android-tabs-with-fragments/
 public class NotificationListActivity extends FragmentActivity implements TabHost.OnTabChangeListener {
-
 	private static final String TAG = "FragmentTabs";
+
+	private static String lang;
+
 	private static final String TAB_NEW = "new";
 	private static final String TAB_OLD = "old";
-
-	private String lang;
 	private Realm mRealm;
 	//private TabHost mTabHost;
-
-	//private FirebaseAnalytics mFirebaseAnalytics;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -78,8 +76,6 @@ public class NotificationListActivity extends FragmentActivity implements TabHos
 
 		mTabHost.setOnTabChangedListener(this);
 		mTabHost.setCurrentTab(0);
-
-		//mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
 	}
 
 	@Override
@@ -113,9 +109,6 @@ Util.logInfo("UPDATE TAB", "isDone = " + done);
 			finish();
 			startActivity(getIntent());
 		}
-		// [START set_current_screen]
-		//mFirebaseAnalytics.setCurrentScreen(this, "ma_scr_notification_list", "Notification List");
-		// [END set_current_screen]
 
 		updateTab(TAB_NEW, R.id.tab_1, false);
 		updateTab(TAB_OLD, R.id.tab_2, true);

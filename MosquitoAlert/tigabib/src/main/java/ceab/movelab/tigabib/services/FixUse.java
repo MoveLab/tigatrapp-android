@@ -93,9 +93,9 @@ Util.logInfo(TAG, "on start FixUse ");
 
 			//Fix thisFix = new Fix(maskedLat, maskedLon, time, power, taskFix); original version
 			Fix thisFix = new Fix(maskedLat, maskedLon, thisHour, power, taskFix);
-Util.logInfo(TAG, "this fix: " + thisFix.lat + ';' + thisFix.lng + ';' + thisFix.time + ';' + thisFix.pow);
+Util.logInfo(TAG, "this fix: " + thisFix.getLat() + ';' + thisFix.getLng() + ';' + thisFix.getTime() + ';' + thisFix.getPow());
 			cr.insert(Util.getTracksUri(context),
-					ContProvValuesTracks.createFix(thisFix.lat, thisFix.lng, thisFix.time, thisFix.pow, taskFix));
+					ContProvValuesTracks.createFix(thisFix.getLat(), thisFix.getLng(), thisFix.getTime(), thisFix.getPow(), taskFix));
 
 			// Check for location-based tasks
 			String sc1 = Tasks.KEY_TRIGGERS + " IS NOT NULL AND "

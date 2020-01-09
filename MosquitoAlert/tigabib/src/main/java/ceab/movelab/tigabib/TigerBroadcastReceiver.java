@@ -120,10 +120,6 @@ Util.logInfo(TAG, "extra: " + extra);
 			i2sync.setPackage(context.getPackageName());
 			PendingIntent pi2sync = PendingIntent.getService(context, ALARM_ID_SYNC, i2sync, 0);
 
-			Intent i2stopfix = new Intent(context, FixGet.class);
-			i2stopfix.setAction(Messages.stopFixAction(context));
-			//PendingIntent pi2stopfix = PendingIntent.getService(context, ALARM_ID_FIX, i2stopfix, 0);
-
 			if ( extra.contains(Messages.START_DAILY_SAMPLING) ) {
 Util.logInfo(TAG, "start daily sampling");
 				Intent sdsi = new Intent(context, Sample.class);
@@ -143,10 +139,14 @@ Util.logInfo(TAG, "daily sampling service started");
 			} else if (extra.contains(Messages.STOP_DAILY_SAMPLING)) {
 				alarmManager.cancel(pi2sample);
 				PropertyHolder.setServiceOn(false);
+
+				Intent i2stopfix = new Intent(context, FixGet.class);
+				i2stopfix.setAction(Messages.stopFixAction(context));
+				//PendingIntent pi2stopfix = PendingIntent.getService(context, ALARM_ID_FIX, i2stopfix, 0);
 				context.stopService(i2stopfix);
 Util.logInfo(TAG, "stopped sampling");
 			} else if (extra.contains(Messages.START_DAILY_SYNC)) {
-				// first sync now
+				// Start first sync now
 				Intent sdsi = new Intent(context, SyncData.class);
 				sdsi.setPackage(context.getPackageName());
 				if ( Build.VERSION.SDK_INT >= Build.VERSION_CODES.O ) { // >= 26

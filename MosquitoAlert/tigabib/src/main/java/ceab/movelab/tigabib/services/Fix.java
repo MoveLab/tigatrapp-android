@@ -37,11 +37,10 @@ import ceab.movelab.tigabib.Util;
  * 
  */
 public class Fix {
-
-	double lat;
-	double lng;
-	long time;
-	float pow;
+	private double lat;
+	private double lng;
+	private long time;
+	private float pow;
 	private boolean taskFix;
 
 	public Fix(double _lat, double _lng, long _time, float _pow, boolean _task_fix) {
@@ -52,7 +51,7 @@ public class Fix {
 		taskFix = _task_fix;
 	}
 
-	public JSONObject exportJSON(Context context) {
+	private JSONObject exportJSON(Context context) {
 		PropertyHolder.init(context);
 
 		JSONObject result = new JSONObject();
@@ -78,4 +77,23 @@ public class Fix {
 		return Util.postJSON(this.exportJSON(context), Util.API_FIXES, context);
 	}
 
+	public double getLat() {
+		return lat;
+	}
+
+	public double getLng() {
+		return lng;
+	}
+
+	public long getTime() {
+		return time;
+	}
+
+	public float getPow() {
+		return pow;
+	}
+
+	public boolean isTaskFix() {
+		return taskFix;
+	}
 }

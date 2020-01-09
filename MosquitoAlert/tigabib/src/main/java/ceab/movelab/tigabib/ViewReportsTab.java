@@ -266,7 +266,7 @@ Util.logInfo(TAG, "n updated: " + nUpdated);
 					Util.registerOnServer(context[0]);
 					try {
 						// Get FCM token and register on server
-						String token = FirebaseInstanceId.getInstance().getToken();
+						String token = FirebaseInstanceId.getInstance().getToken(); //?? Revisar totes les crides a gettoken
 						Util.registerFCMToken(context[0], token, PropertyHolder.getUserId());
 					} catch (Exception e) {
 						e.printStackTrace();

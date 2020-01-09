@@ -57,7 +57,6 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Random;
 
-import ceab.movelab.tigabib.Messages;
 import ceab.movelab.tigabib.PropertyHolder;
 import ceab.movelab.tigabib.R;
 import ceab.movelab.tigabib.Util;
@@ -132,12 +131,11 @@ Util.logInfo(TAG, "set samples");
 		int samplesPerDay = PropertyHolder.getSamplesPerDay();
 		AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 		int alarmType = AlarmManager.RTC_WAKEUP;
-		Calendar cal;
 
 		Random mRandom = new Random();
+		int thisRandomMinuteIndex;
 		int thisRandomMinute;
 		int thisRandomHour;
-		int thisRandomMinuteIndex;
 		long thisTriggerTime;
 
 		String[] currentSamplingTimes = new String[samplesPerDay];
@@ -158,7 +156,7 @@ Util.logInfo(TAG, "set samples");
 			// push the hour forward so it starts at 07:00 am
 			thisRandomHour += 7;
 
-			cal = Calendar.getInstance();
+			Calendar cal = Calendar.getInstance();
 			cal.set(Calendar.HOUR_OF_DAY, thisRandomHour);
 			cal.set(Calendar.MINUTE, thisRandomMinute);
 
@@ -175,9 +173,10 @@ Util.logInfo(TAG, "set samples");
 		Arrays.sort(currentSamplingTimes);
 		PropertyHolder.setCurrentFixTimes(currentSamplingTimes);
 
-		Intent intent = new Intent(Messages.newSamplesReadyAction(context));
-		intent.setPackage(context.getPackageName());
-		sendBroadcast(intent);
+		// No one attending to this broadcast message
+//		Intent intent = new Intent(Messages.newSamplesReadyAction(context));
+//		intent.setPackage(context.getPackageName());
+//		sendBroadcast(intent);
 	}
 
 	@Override

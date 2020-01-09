@@ -487,7 +487,7 @@ Util.logInfo(this.getClass().getName(), "onResume IllegalArgumentException");
 	}
 
 	private void loadRemoteNotifications() {
-		//  !!(recordeu que a la crida de notificacions se li pot passar un paràmetre locale=[es|ca|en] per controlar l'idioma de les notificacions).
+		//  AE: a la crida de notificacions se li pot passar un paràmetre locale=[es|ca|en] per controlar l'idioma de les notificacions.
 		String notificationUrl = Util.URL_TIGASERVER_API_ROOT + Util.API_NOTIFICATION + "?user_id=" + PropertyHolder.getUserId();
 Util.logInfo("===========", "Authorization >> " + UtilLocal.TIGASERVER_AUTHORIZATION);
 Util.logInfo("===========", notificationUrl);

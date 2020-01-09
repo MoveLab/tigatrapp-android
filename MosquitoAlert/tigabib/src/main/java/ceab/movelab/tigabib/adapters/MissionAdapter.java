@@ -149,7 +149,7 @@ public class MissionAdapter extends BaseAdapter implements OnClickListener {
 							MissionActivity ta = (MissionActivity) activity;
 							ta.responses.put(holder.itemId, thisResponse);
 						} catch (JSONException e) {
-							// TODO
+							e.printStackTrace();
 						}
 					}
 

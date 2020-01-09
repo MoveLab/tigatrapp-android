@@ -239,9 +239,6 @@ Util.logInfo(TAG, "set alarm to stop self at " + Util.iso8601(System.currentTime
 							if (locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 								gpsListener = new mLocationListener();
 								locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, gpsListener);
-
-								// mGpsStatusListener= new GpsStatusListener();
-								// locationManager.addGpsStatusListener(mGpsStatusListener);
 							}
 							if (locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER)) {
 								networkListener = new mLocationListener();

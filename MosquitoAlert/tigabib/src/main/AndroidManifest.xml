@@ -25,7 +25,8 @@
     package="ceab.movelab.tigabib"
     android:versionName="1.72" >
 
-    <uses-sdk android:minSdkVersion="16" tools:overrideLibrary="android.support.customtabs" /> <!-- !!! override needed ? -->
+    <!-- <uses-sdk android:minSdkVersion="16" tools:overrideLibrary="android.support.customtabs" /> <- !!! override needed ? -->
+    <!-- <uses-sdk android:minSdkVersion="16"  /> <- !!! override needed ? -->
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />  <!-- normal -->
     <uses-permission android:name="android.permission.BATTERY_STATS" />
